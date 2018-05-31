@@ -5,7 +5,7 @@
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageId>Capgemini.Cauldron.Localization</PackageId>
-    <Version>3.0.22</Version>
+    <Version>3.0.23</Version>
     <Authors>Alexander Schunk, Capgemini Deutschland GmbH</Authors>
     <Company>Capgemini Deutschland GmbH</Company>
     <Product>Cauldron.Consoles</Product>
@@ -16,8 +16,8 @@
     <Description>A simple localization implementation that can work with different sources.</Description>
     <PackageReleaseNotes></PackageReleaseNotes>
     <PackageTags>Toolkit Capgemini Cauldron Multisource Localization Language</PackageTags>
-    <AssemblyVersion>3.0.0.22</AssemblyVersion>
-    <FileVersion>3.0.0.22</FileVersion>
+    <AssemblyVersion>3.0.0.23</AssemblyVersion>
+    <FileVersion>3.0.0.23</FileVersion>
     <Configurations>Debug;Release;Release.Net45;Release.451</Configurations>
   </PropertyGroup>
 

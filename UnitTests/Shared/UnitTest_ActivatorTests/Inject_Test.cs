@@ -88,6 +88,13 @@ namespace Activator_Tests
         }
 
         [TestMethod]
+        public void Singleton_Injection()
+        {
+            var stuff = Factory.Create("Hello");
+            Assert.AreNotEqual(null, stuff);
+        }
+
+        [TestMethod]
         public void Dictionary_Injection()
         {
             var ttt = typeof(Dictionary<string, float>);

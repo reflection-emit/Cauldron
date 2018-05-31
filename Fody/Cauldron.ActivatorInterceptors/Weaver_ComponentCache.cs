@@ -134,7 +134,7 @@ public static class Weaver_ComponentCache
                             .EndTry()
                             .Return()
                             .Replace();
-                        cauldron.CreateStaticConstructor().NewCoder().SetValue(instanceFieldSyncObject, BuilderTypes.Object.GetMethod_ctor()).Insert(InsertionPosition.Beginning);
+                        cauldron.CreateStaticConstructor().NewCoder().SetValue(instanceFieldSyncObject, y => y.NewObj(BuilderTypes.Object.GetMethod_ctor())).Insert(InsertionPosition.Beginning);
 
                         x.If(@if => @if.Load(instanceField).IsNotNull(), then => then.Load(instanceField).Return());
                         x.SetValue(instanceField, m => m.Call(instancedCreator, CodeBlocks.GetParameters()));

@@ -192,10 +192,10 @@ namespace Cauldron.Interception.Fody
 		}
 
 		/// <exclude />
-		public static implicit operator BuilderType(BuilderType<#=type.Name.Replace("`", "")#> value) => value.builderType;
+		public static implicit operator BuilderType(BuilderType<#=type.Name.Replace("`", "")#> value) => value.builderType.Import();
 		
 		/// <exclude />
-		public static implicit operator TypeReference(BuilderType<#=type.Name.Replace("`", "")#> value) => (TypeReference)value.builderType;
+		public static implicit operator TypeReference(BuilderType<#=type.Name.Replace("`", "")#> value) => Builder.Current.Import((TypeReference)value.builderType);
 
 		/// <exclude />
 		public BuilderType BuilderType => this.builderType;
@@ -241,9 +241,9 @@ namespace Cauldron.Interception.Fody
 public Method GetMethod_<#=group[0].Name#>()
 		{
 			if(this.var_<#= $"{group[0].Name.ToLower()}_{0}_{group[0].Parameters.Length}"#> == null)
-				this.var_<#= $"{group[0].Name.ToLower()}_{0}_{group[0].Parameters.Length}"#> = this.builderType.GetMethod("<#=group[0].RealName#>", <#=group[0].Parameters.Length#>, true).Import();
+				this.var_<#= $"{group[0].Name.ToLower()}_{0}_{group[0].Parameters.Length}"#> = this.builderType.GetMethod("<#=group[0].RealName#>", <#=group[0].Parameters.Length#>, true);
 
-			return this.var_<#= $"{group[0].Name.ToLower()}_{0}_{group[0].Parameters.Length}"#>;
+			return this.var_<#= $"{group[0].Name.ToLower()}_{0}_{group[0].Parameters.Length}"#>.Import();
 		}
 		<#}else{#>
 public Method GetMethod_<#=group[0].Name#>(<#=string.Join(", ", group[0].Parameters.Select(x => "TypeReference p" + x.Name).ToArray()) #>)
@@ -251,16 +251,16 @@ public Method GetMethod_<#=group[0].Name#>(<#=string.Join(", ", group[0].Paramet
 			<# if(group.Length == 1 && group[0].Parameters.Length == 0) { #>
 			
 			if(this.var_<#= $"{group[0].Name.ToLower()}_{0}_{group[0].Parameters.Length}"#> == null)
-				this.var_<#= $"{group[0].Name.ToLower()}_{0}_{group[0].Parameters.Length}"#> = this.builderType.GetMethod("<#=group[0].RealName#>", true).Import();
+				this.var_<#= $"{group[0].Name.ToLower()}_{0}_{group[0].Parameters.Length}"#> = this.builderType.GetMethod("<#=group[0].RealName#>", true);
 
-			return this.var_<#= $"{group[0].Name.ToLower()}_{0}_{group[0].Parameters.Length}"#>;
+			return this.var_<#= $"{group[0].Name.ToLower()}_{0}_{group[0].Parameters.Length}"#>.Import();
 			<#}#>			
 			<# if(group.Length == 1 && group[0].Parameters.Length > 0) { #>
 			
 			if(this.var_<#= $"{group[0].Name.ToLower()}_{0}_{group[0].Parameters.Length}"#> == null)
-				this.var_<#= $"{group[0].Name.ToLower()}_{0}_{group[0].Parameters.Length}"#> = this.builderType.GetMethod("<#=group[0].RealName#>", true, <#=string.Join(", ", group[0].Parameters.Select(x => "p" + x.Name).ToArray()) #>).Import();
+				this.var_<#= $"{group[0].Name.ToLower()}_{0}_{group[0].Parameters.Length}"#> = this.builderType.GetMethod("<#=group[0].RealName#>", true, <#=string.Join(", ", group[0].Parameters.Select(x => "p" + x.Name).ToArray()) #>);
 			
-			return this.var_<#= $"{group[0].Name.ToLower()}_{0}_{group[0].Parameters.Length}"#>;
+			return this.var_<#= $"{group[0].Name.ToLower()}_{0}_{group[0].Parameters.Length}"#>.Import();
 			<#}#>
 			<# 
 				if(group.Length > 1) 
@@ -273,9 +273,9 @@ public Method GetMethod_<#=group[0].Name#>(<#=string.Join(", ", group[0].Paramet
 			if(<#=string.Join(" && ", itemParameters.Select(x => $"typeof({StringRepresentationToCSharp(x.ParameterType.FullName)}).AreEqual(p{group[0].Parameters[x.Position].Name})")) #>)
 			{
 				if(this.var_<#= $"{group[i].Name.ToLower()}_{i}_{itemParameters.Length}"#> == null)
-					this.var_<#= $"{group[i].Name.ToLower()}_{i}_{itemParameters.Length}"#> = this.builderType.GetMethod("<#=group[i].RealName#>", true, <#=string.Join(", ", group[0].Parameters.Select(x => "p" + x.Name).ToArray()) #>).Import();
+					this.var_<#= $"{group[i].Name.ToLower()}_{i}_{itemParameters.Length}"#> = this.builderType.GetMethod("<#=group[i].RealName#>", true, <#=string.Join(", ", group[0].Parameters.Select(x => "p" + x.Name).ToArray()) #>);
 			
-				return this.var_<#= $"{group[i].Name.ToLower()}_{i}_{itemParameters.Length}"#>;
+				return this.var_<#= $"{group[i].Name.ToLower()}_{i}_{itemParameters.Length}"#>.Import();
 			}
 			<#
 				}

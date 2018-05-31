@@ -868,10 +868,10 @@ namespace Cauldron.Interception.Cecilator
 		}
 
 		/// <exclude />
-		public static implicit operator BuilderType(BuilderTypeArray value) => value.builderType;
+		public static implicit operator BuilderType(BuilderTypeArray value) => value.builderType.Import();
 		
 		/// <exclude />
-		public static implicit operator TypeReference(BuilderTypeArray value) => value.builderType.typeReference;
+		public static implicit operator TypeReference(BuilderTypeArray value) => Builder.Current.Import((TypeReference)value.builderType);
 			
 				
 		private Method var_createinstance_0_2;
@@ -894,25 +894,25 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Type).AreEqual(pelementType) && typeof(System.Int32).AreEqual(plength))
 			{
 				if(this.var_createinstance_0_2 == null)
-					this.var_createinstance_0_2 = this.builderType.GetMethod("CreateInstance", true, pelementType, plength).Import();
+					this.var_createinstance_0_2 = this.builderType.GetMethod("CreateInstance", true, pelementType, plength);
 			
-				return this.var_createinstance_0_2;
+				return this.var_createinstance_0_2.Import();
 			}
 			
 			if(typeof(System.Type).AreEqual(pelementType) && typeof(System.Int32[]).AreEqual(plength))
 			{
 				if(this.var_createinstance_1_2 == null)
-					this.var_createinstance_1_2 = this.builderType.GetMethod("CreateInstance", true, pelementType, plength).Import();
+					this.var_createinstance_1_2 = this.builderType.GetMethod("CreateInstance", true, pelementType, plength);
 			
-				return this.var_createinstance_1_2;
+				return this.var_createinstance_1_2.Import();
 			}
 			
 			if(typeof(System.Type).AreEqual(pelementType) && typeof(System.Int64[]).AreEqual(plength))
 			{
 				if(this.var_createinstance_2_2 == null)
-					this.var_createinstance_2_2 = this.builderType.GetMethod("CreateInstance", true, pelementType, plength).Import();
+					this.var_createinstance_2_2 = this.builderType.GetMethod("CreateInstance", true, pelementType, plength);
 			
-				return this.var_createinstance_2_2;
+				return this.var_createinstance_2_2.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -936,17 +936,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Type).AreEqual(pelementType) && typeof(System.Int32).AreEqual(plength1) && typeof(System.Int32).AreEqual(plength2))
 			{
 				if(this.var_createinstance_0_3 == null)
-					this.var_createinstance_0_3 = this.builderType.GetMethod("CreateInstance", true, pelementType, plength1, plength2).Import();
+					this.var_createinstance_0_3 = this.builderType.GetMethod("CreateInstance", true, pelementType, plength1, plength2);
 			
-				return this.var_createinstance_0_3;
+				return this.var_createinstance_0_3.Import();
 			}
 			
 			if(typeof(System.Type).AreEqual(pelementType) && typeof(System.Int32[]).AreEqual(plength1) && typeof(System.Int32[]).AreEqual(plength2))
 			{
 				if(this.var_createinstance_1_3 == null)
-					this.var_createinstance_1_3 = this.builderType.GetMethod("CreateInstance", true, pelementType, plength1, plength2).Import();
+					this.var_createinstance_1_3 = this.builderType.GetMethod("CreateInstance", true, pelementType, plength1, plength2);
 			
-				return this.var_createinstance_1_3;
+				return this.var_createinstance_1_3.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -965,9 +965,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_createinstance_0_4 == null)
-				this.var_createinstance_0_4 = this.builderType.GetMethod("CreateInstance", true, pelementType, plength1, plength2, plength3).Import();
+				this.var_createinstance_0_4 = this.builderType.GetMethod("CreateInstance", true, pelementType, plength1, plength2, plength3);
 			
-			return this.var_createinstance_0_4;
+			return this.var_createinstance_0_4.Import();
 						
 		}
 						
@@ -988,17 +988,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Array).AreEqual(psourceArray) && typeof(System.Array).AreEqual(pdestinationArray) && typeof(System.Int32).AreEqual(plength))
 			{
 				if(this.var_copy_0_3 == null)
-					this.var_copy_0_3 = this.builderType.GetMethod("Copy", true, psourceArray, pdestinationArray, plength).Import();
+					this.var_copy_0_3 = this.builderType.GetMethod("Copy", true, psourceArray, pdestinationArray, plength);
 			
-				return this.var_copy_0_3;
+				return this.var_copy_0_3.Import();
 			}
 			
 			if(typeof(System.Array).AreEqual(psourceArray) && typeof(System.Array).AreEqual(pdestinationArray) && typeof(System.Int64).AreEqual(plength))
 			{
 				if(this.var_copy_1_3 == null)
-					this.var_copy_1_3 = this.builderType.GetMethod("Copy", true, psourceArray, pdestinationArray, plength).Import();
+					this.var_copy_1_3 = this.builderType.GetMethod("Copy", true, psourceArray, pdestinationArray, plength);
 			
-				return this.var_copy_1_3;
+				return this.var_copy_1_3.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -1022,17 +1022,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Array).AreEqual(psourceArray) && typeof(System.Int32).AreEqual(psourceIndex) && typeof(System.Array).AreEqual(pdestinationArray) && typeof(System.Int32).AreEqual(pdestinationIndex) && typeof(System.Int32).AreEqual(plength))
 			{
 				if(this.var_copy_0_5 == null)
-					this.var_copy_0_5 = this.builderType.GetMethod("Copy", true, psourceArray, psourceIndex, pdestinationArray, pdestinationIndex, plength).Import();
+					this.var_copy_0_5 = this.builderType.GetMethod("Copy", true, psourceArray, psourceIndex, pdestinationArray, pdestinationIndex, plength);
 			
-				return this.var_copy_0_5;
+				return this.var_copy_0_5.Import();
 			}
 			
 			if(typeof(System.Array).AreEqual(psourceArray) && typeof(System.Int64).AreEqual(psourceIndex) && typeof(System.Array).AreEqual(pdestinationArray) && typeof(System.Int64).AreEqual(pdestinationIndex) && typeof(System.Int64).AreEqual(plength))
 			{
 				if(this.var_copy_1_5 == null)
-					this.var_copy_1_5 = this.builderType.GetMethod("Copy", true, psourceArray, psourceIndex, pdestinationArray, pdestinationIndex, plength).Import();
+					this.var_copy_1_5 = this.builderType.GetMethod("Copy", true, psourceArray, psourceIndex, pdestinationArray, pdestinationIndex, plength);
 			
-				return this.var_copy_1_5;
+				return this.var_copy_1_5.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -1049,9 +1049,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_ConstrainedCopy()
 		{
 			if(this.var_constrainedcopy_0_5 == null)
-				this.var_constrainedcopy_0_5 = this.builderType.GetMethod("ConstrainedCopy", 5, true).Import();
+				this.var_constrainedcopy_0_5 = this.builderType.GetMethod("ConstrainedCopy", 5, true);
 
-			return this.var_constrainedcopy_0_5;
+			return this.var_constrainedcopy_0_5.Import();
 		}
 						
 		private Method var_clear_0_3;
@@ -1064,9 +1064,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_Clear()
 		{
 			if(this.var_clear_0_3 == null)
-				this.var_clear_0_3 = this.builderType.GetMethod("Clear", 3, true).Import();
+				this.var_clear_0_3 = this.builderType.GetMethod("Clear", 3, true);
 
-			return this.var_clear_0_3;
+			return this.var_clear_0_3.Import();
 		}
 						
 		private Method var_getvalue_0_1;
@@ -1092,33 +1092,33 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Int32[]).AreEqual(pindices))
 			{
 				if(this.var_getvalue_0_1 == null)
-					this.var_getvalue_0_1 = this.builderType.GetMethod("GetValue", true, pindices).Import();
+					this.var_getvalue_0_1 = this.builderType.GetMethod("GetValue", true, pindices);
 			
-				return this.var_getvalue_0_1;
+				return this.var_getvalue_0_1.Import();
 			}
 			
 			if(typeof(System.Int32).AreEqual(pindices))
 			{
 				if(this.var_getvalue_1_1 == null)
-					this.var_getvalue_1_1 = this.builderType.GetMethod("GetValue", true, pindices).Import();
+					this.var_getvalue_1_1 = this.builderType.GetMethod("GetValue", true, pindices);
 			
-				return this.var_getvalue_1_1;
+				return this.var_getvalue_1_1.Import();
 			}
 			
 			if(typeof(System.Int64).AreEqual(pindices))
 			{
 				if(this.var_getvalue_2_1 == null)
-					this.var_getvalue_2_1 = this.builderType.GetMethod("GetValue", true, pindices).Import();
+					this.var_getvalue_2_1 = this.builderType.GetMethod("GetValue", true, pindices);
 			
-				return this.var_getvalue_2_1;
+				return this.var_getvalue_2_1.Import();
 			}
 			
 			if(typeof(System.Int64[]).AreEqual(pindices))
 			{
 				if(this.var_getvalue_3_1 == null)
-					this.var_getvalue_3_1 = this.builderType.GetMethod("GetValue", true, pindices).Import();
+					this.var_getvalue_3_1 = this.builderType.GetMethod("GetValue", true, pindices);
 			
-				return this.var_getvalue_3_1;
+				return this.var_getvalue_3_1.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -1142,17 +1142,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Int32).AreEqual(pindex1) && typeof(System.Int32).AreEqual(pindex2))
 			{
 				if(this.var_getvalue_0_2 == null)
-					this.var_getvalue_0_2 = this.builderType.GetMethod("GetValue", true, pindex1, pindex2).Import();
+					this.var_getvalue_0_2 = this.builderType.GetMethod("GetValue", true, pindex1, pindex2);
 			
-				return this.var_getvalue_0_2;
+				return this.var_getvalue_0_2.Import();
 			}
 			
 			if(typeof(System.Int64).AreEqual(pindex1) && typeof(System.Int64).AreEqual(pindex2))
 			{
 				if(this.var_getvalue_1_2 == null)
-					this.var_getvalue_1_2 = this.builderType.GetMethod("GetValue", true, pindex1, pindex2).Import();
+					this.var_getvalue_1_2 = this.builderType.GetMethod("GetValue", true, pindex1, pindex2);
 			
-				return this.var_getvalue_1_2;
+				return this.var_getvalue_1_2.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -1176,17 +1176,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Int32).AreEqual(pindex1) && typeof(System.Int32).AreEqual(pindex2) && typeof(System.Int32).AreEqual(pindex3))
 			{
 				if(this.var_getvalue_0_3 == null)
-					this.var_getvalue_0_3 = this.builderType.GetMethod("GetValue", true, pindex1, pindex2, pindex3).Import();
+					this.var_getvalue_0_3 = this.builderType.GetMethod("GetValue", true, pindex1, pindex2, pindex3);
 			
-				return this.var_getvalue_0_3;
+				return this.var_getvalue_0_3.Import();
 			}
 			
 			if(typeof(System.Int64).AreEqual(pindex1) && typeof(System.Int64).AreEqual(pindex2) && typeof(System.Int64).AreEqual(pindex3))
 			{
 				if(this.var_getvalue_1_3 == null)
-					this.var_getvalue_1_3 = this.builderType.GetMethod("GetValue", true, pindex1, pindex2, pindex3).Import();
+					this.var_getvalue_1_3 = this.builderType.GetMethod("GetValue", true, pindex1, pindex2, pindex3);
 			
-				return this.var_getvalue_1_3;
+				return this.var_getvalue_1_3.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -1216,33 +1216,33 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Object).AreEqual(pvalue) && typeof(System.Int32).AreEqual(pindex))
 			{
 				if(this.var_setvalue_0_2 == null)
-					this.var_setvalue_0_2 = this.builderType.GetMethod("SetValue", true, pvalue, pindex).Import();
+					this.var_setvalue_0_2 = this.builderType.GetMethod("SetValue", true, pvalue, pindex);
 			
-				return this.var_setvalue_0_2;
+				return this.var_setvalue_0_2.Import();
 			}
 			
 			if(typeof(System.Object).AreEqual(pvalue) && typeof(System.Int32[]).AreEqual(pindex))
 			{
 				if(this.var_setvalue_1_2 == null)
-					this.var_setvalue_1_2 = this.builderType.GetMethod("SetValue", true, pvalue, pindex).Import();
+					this.var_setvalue_1_2 = this.builderType.GetMethod("SetValue", true, pvalue, pindex);
 			
-				return this.var_setvalue_1_2;
+				return this.var_setvalue_1_2.Import();
 			}
 			
 			if(typeof(System.Object).AreEqual(pvalue) && typeof(System.Int64).AreEqual(pindex))
 			{
 				if(this.var_setvalue_2_2 == null)
-					this.var_setvalue_2_2 = this.builderType.GetMethod("SetValue", true, pvalue, pindex).Import();
+					this.var_setvalue_2_2 = this.builderType.GetMethod("SetValue", true, pvalue, pindex);
 			
-				return this.var_setvalue_2_2;
+				return this.var_setvalue_2_2.Import();
 			}
 			
 			if(typeof(System.Object).AreEqual(pvalue) && typeof(System.Int64[]).AreEqual(pindex))
 			{
 				if(this.var_setvalue_3_2 == null)
-					this.var_setvalue_3_2 = this.builderType.GetMethod("SetValue", true, pvalue, pindex).Import();
+					this.var_setvalue_3_2 = this.builderType.GetMethod("SetValue", true, pvalue, pindex);
 			
-				return this.var_setvalue_3_2;
+				return this.var_setvalue_3_2.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -1266,17 +1266,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Object).AreEqual(pvalue) && typeof(System.Int32).AreEqual(pindex1) && typeof(System.Int32).AreEqual(pindex2))
 			{
 				if(this.var_setvalue_0_3 == null)
-					this.var_setvalue_0_3 = this.builderType.GetMethod("SetValue", true, pvalue, pindex1, pindex2).Import();
+					this.var_setvalue_0_3 = this.builderType.GetMethod("SetValue", true, pvalue, pindex1, pindex2);
 			
-				return this.var_setvalue_0_3;
+				return this.var_setvalue_0_3.Import();
 			}
 			
 			if(typeof(System.Object).AreEqual(pvalue) && typeof(System.Int64).AreEqual(pindex1) && typeof(System.Int64).AreEqual(pindex2))
 			{
 				if(this.var_setvalue_1_3 == null)
-					this.var_setvalue_1_3 = this.builderType.GetMethod("SetValue", true, pvalue, pindex1, pindex2).Import();
+					this.var_setvalue_1_3 = this.builderType.GetMethod("SetValue", true, pvalue, pindex1, pindex2);
 			
-				return this.var_setvalue_1_3;
+				return this.var_setvalue_1_3.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -1300,17 +1300,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Object).AreEqual(pvalue) && typeof(System.Int32).AreEqual(pindex1) && typeof(System.Int32).AreEqual(pindex2) && typeof(System.Int32).AreEqual(pindex3))
 			{
 				if(this.var_setvalue_0_4 == null)
-					this.var_setvalue_0_4 = this.builderType.GetMethod("SetValue", true, pvalue, pindex1, pindex2, pindex3).Import();
+					this.var_setvalue_0_4 = this.builderType.GetMethod("SetValue", true, pvalue, pindex1, pindex2, pindex3);
 			
-				return this.var_setvalue_0_4;
+				return this.var_setvalue_0_4.Import();
 			}
 			
 			if(typeof(System.Object).AreEqual(pvalue) && typeof(System.Int64).AreEqual(pindex1) && typeof(System.Int64).AreEqual(pindex2) && typeof(System.Int64).AreEqual(pindex3))
 			{
 				if(this.var_setvalue_1_4 == null)
-					this.var_setvalue_1_4 = this.builderType.GetMethod("SetValue", true, pvalue, pindex1, pindex2, pindex3).Import();
+					this.var_setvalue_1_4 = this.builderType.GetMethod("SetValue", true, pvalue, pindex1, pindex2, pindex3);
 			
-				return this.var_setvalue_1_4;
+				return this.var_setvalue_1_4.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -1327,9 +1327,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_Length()
 		{
 			if(this.var_get_length_0_0 == null)
-				this.var_get_length_0_0 = this.builderType.GetMethod("get_Length", 0, true).Import();
+				this.var_get_length_0_0 = this.builderType.GetMethod("get_Length", 0, true);
 
-			return this.var_get_length_0_0;
+			return this.var_get_length_0_0.Import();
 		}
 						
 		private Method var_get_longlength_0_0;
@@ -1342,9 +1342,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_LongLength()
 		{
 			if(this.var_get_longlength_0_0 == null)
-				this.var_get_longlength_0_0 = this.builderType.GetMethod("get_LongLength", 0, true).Import();
+				this.var_get_longlength_0_0 = this.builderType.GetMethod("get_LongLength", 0, true);
 
-			return this.var_get_longlength_0_0;
+			return this.var_get_longlength_0_0.Import();
 		}
 						
 		private Method var_getlength_0_1;
@@ -1357,9 +1357,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetLength()
 		{
 			if(this.var_getlength_0_1 == null)
-				this.var_getlength_0_1 = this.builderType.GetMethod("GetLength", 1, true).Import();
+				this.var_getlength_0_1 = this.builderType.GetMethod("GetLength", 1, true);
 
-			return this.var_getlength_0_1;
+			return this.var_getlength_0_1.Import();
 		}
 						
 		private Method var_getlonglength_0_1;
@@ -1372,9 +1372,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetLongLength()
 		{
 			if(this.var_getlonglength_0_1 == null)
-				this.var_getlonglength_0_1 = this.builderType.GetMethod("GetLongLength", 1, true).Import();
+				this.var_getlonglength_0_1 = this.builderType.GetMethod("GetLongLength", 1, true);
 
-			return this.var_getlonglength_0_1;
+			return this.var_getlonglength_0_1.Import();
 		}
 						
 		private Method var_get_rank_0_0;
@@ -1387,9 +1387,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_Rank()
 		{
 			if(this.var_get_rank_0_0 == null)
-				this.var_get_rank_0_0 = this.builderType.GetMethod("get_Rank", 0, true).Import();
+				this.var_get_rank_0_0 = this.builderType.GetMethod("get_Rank", 0, true);
 
-			return this.var_get_rank_0_0;
+			return this.var_get_rank_0_0.Import();
 		}
 						
 		private Method var_getupperbound_0_1;
@@ -1402,9 +1402,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetUpperBound()
 		{
 			if(this.var_getupperbound_0_1 == null)
-				this.var_getupperbound_0_1 = this.builderType.GetMethod("GetUpperBound", 1, true).Import();
+				this.var_getupperbound_0_1 = this.builderType.GetMethod("GetUpperBound", 1, true);
 
-			return this.var_getupperbound_0_1;
+			return this.var_getupperbound_0_1.Import();
 		}
 						
 		private Method var_getlowerbound_0_1;
@@ -1417,9 +1417,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetLowerBound()
 		{
 			if(this.var_getlowerbound_0_1 == null)
-				this.var_getlowerbound_0_1 = this.builderType.GetMethod("GetLowerBound", 1, true).Import();
+				this.var_getlowerbound_0_1 = this.builderType.GetMethod("GetLowerBound", 1, true);
 
-			return this.var_getlowerbound_0_1;
+			return this.var_getlowerbound_0_1.Import();
 		}
 						
 		private Method var_get_syncroot_0_0;
@@ -1432,9 +1432,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_SyncRoot()
 		{
 			if(this.var_get_syncroot_0_0 == null)
-				this.var_get_syncroot_0_0 = this.builderType.GetMethod("get_SyncRoot", 0, true).Import();
+				this.var_get_syncroot_0_0 = this.builderType.GetMethod("get_SyncRoot", 0, true);
 
-			return this.var_get_syncroot_0_0;
+			return this.var_get_syncroot_0_0.Import();
 		}
 						
 		private Method var_get_isreadonly_0_0;
@@ -1447,9 +1447,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_IsReadOnly()
 		{
 			if(this.var_get_isreadonly_0_0 == null)
-				this.var_get_isreadonly_0_0 = this.builderType.GetMethod("get_IsReadOnly", 0, true).Import();
+				this.var_get_isreadonly_0_0 = this.builderType.GetMethod("get_IsReadOnly", 0, true);
 
-			return this.var_get_isreadonly_0_0;
+			return this.var_get_isreadonly_0_0.Import();
 		}
 						
 		private Method var_get_isfixedsize_0_0;
@@ -1462,9 +1462,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_IsFixedSize()
 		{
 			if(this.var_get_isfixedsize_0_0 == null)
-				this.var_get_isfixedsize_0_0 = this.builderType.GetMethod("get_IsFixedSize", 0, true).Import();
+				this.var_get_isfixedsize_0_0 = this.builderType.GetMethod("get_IsFixedSize", 0, true);
 
-			return this.var_get_isfixedsize_0_0;
+			return this.var_get_isfixedsize_0_0.Import();
 		}
 						
 		private Method var_get_issynchronized_0_0;
@@ -1477,9 +1477,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_IsSynchronized()
 		{
 			if(this.var_get_issynchronized_0_0 == null)
-				this.var_get_issynchronized_0_0 = this.builderType.GetMethod("get_IsSynchronized", 0, true).Import();
+				this.var_get_issynchronized_0_0 = this.builderType.GetMethod("get_IsSynchronized", 0, true);
 
-			return this.var_get_issynchronized_0_0;
+			return this.var_get_issynchronized_0_0.Import();
 		}
 						
 		private Method var_clone_0_0;
@@ -1492,9 +1492,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_Clone()
 		{
 			if(this.var_clone_0_0 == null)
-				this.var_clone_0_0 = this.builderType.GetMethod("Clone", 0, true).Import();
+				this.var_clone_0_0 = this.builderType.GetMethod("Clone", 0, true);
 
-			return this.var_clone_0_0;
+			return this.var_clone_0_0.Import();
 		}
 						
 		private Method var_binarysearch_0_2;
@@ -1509,9 +1509,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_binarysearch_0_2 == null)
-				this.var_binarysearch_0_2 = this.builderType.GetMethod("BinarySearch", true, parray, pvalue).Import();
+				this.var_binarysearch_0_2 = this.builderType.GetMethod("BinarySearch", true, parray, pvalue);
 			
-			return this.var_binarysearch_0_2;
+			return this.var_binarysearch_0_2.Import();
 						
 		}
 						
@@ -1527,9 +1527,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_binarysearch_0_4 == null)
-				this.var_binarysearch_0_4 = this.builderType.GetMethod("BinarySearch", true, parray, pindex, plength, pvalue).Import();
+				this.var_binarysearch_0_4 = this.builderType.GetMethod("BinarySearch", true, parray, pindex, plength, pvalue);
 			
-			return this.var_binarysearch_0_4;
+			return this.var_binarysearch_0_4.Import();
 						
 		}
 						
@@ -1545,9 +1545,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_binarysearch_0_3 == null)
-				this.var_binarysearch_0_3 = this.builderType.GetMethod("BinarySearch", true, parray, pvalue, pcomparer).Import();
+				this.var_binarysearch_0_3 = this.builderType.GetMethod("BinarySearch", true, parray, pvalue, pcomparer);
 			
-			return this.var_binarysearch_0_3;
+			return this.var_binarysearch_0_3.Import();
 						
 		}
 						
@@ -1563,9 +1563,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_binarysearch_0_5 == null)
-				this.var_binarysearch_0_5 = this.builderType.GetMethod("BinarySearch", true, parray, pindex, plength, pvalue, pcomparer).Import();
+				this.var_binarysearch_0_5 = this.builderType.GetMethod("BinarySearch", true, parray, pindex, plength, pvalue, pcomparer);
 			
-			return this.var_binarysearch_0_5;
+			return this.var_binarysearch_0_5.Import();
 						
 		}
 						
@@ -1586,17 +1586,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Array).AreEqual(parray) && typeof(System.Int32).AreEqual(pindex))
 			{
 				if(this.var_copyto_0_2 == null)
-					this.var_copyto_0_2 = this.builderType.GetMethod("CopyTo", true, parray, pindex).Import();
+					this.var_copyto_0_2 = this.builderType.GetMethod("CopyTo", true, parray, pindex);
 			
-				return this.var_copyto_0_2;
+				return this.var_copyto_0_2.Import();
 			}
 			
 			if(typeof(System.Array).AreEqual(parray) && typeof(System.Int64).AreEqual(pindex))
 			{
 				if(this.var_copyto_1_2 == null)
-					this.var_copyto_1_2 = this.builderType.GetMethod("CopyTo", true, parray, pindex).Import();
+					this.var_copyto_1_2 = this.builderType.GetMethod("CopyTo", true, parray, pindex);
 			
-				return this.var_copyto_1_2;
+				return this.var_copyto_1_2.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -1613,9 +1613,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetEnumerator()
 		{
 			if(this.var_getenumerator_0_0 == null)
-				this.var_getenumerator_0_0 = this.builderType.GetMethod("GetEnumerator", 0, true).Import();
+				this.var_getenumerator_0_0 = this.builderType.GetMethod("GetEnumerator", 0, true);
 
-			return this.var_getenumerator_0_0;
+			return this.var_getenumerator_0_0.Import();
 		}
 						
 		private Method var_indexof_0_2;
@@ -1630,9 +1630,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_indexof_0_2 == null)
-				this.var_indexof_0_2 = this.builderType.GetMethod("IndexOf", true, parray, pvalue).Import();
+				this.var_indexof_0_2 = this.builderType.GetMethod("IndexOf", true, parray, pvalue);
 			
-			return this.var_indexof_0_2;
+			return this.var_indexof_0_2.Import();
 						
 		}
 						
@@ -1648,9 +1648,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_indexof_0_3 == null)
-				this.var_indexof_0_3 = this.builderType.GetMethod("IndexOf", true, parray, pvalue, pstartIndex).Import();
+				this.var_indexof_0_3 = this.builderType.GetMethod("IndexOf", true, parray, pvalue, pstartIndex);
 			
-			return this.var_indexof_0_3;
+			return this.var_indexof_0_3.Import();
 						
 		}
 						
@@ -1666,9 +1666,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_indexof_0_4 == null)
-				this.var_indexof_0_4 = this.builderType.GetMethod("IndexOf", true, parray, pvalue, pstartIndex, pcount).Import();
+				this.var_indexof_0_4 = this.builderType.GetMethod("IndexOf", true, parray, pvalue, pstartIndex, pcount);
 			
-			return this.var_indexof_0_4;
+			return this.var_indexof_0_4.Import();
 						
 		}
 						
@@ -1684,9 +1684,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_lastindexof_0_2 == null)
-				this.var_lastindexof_0_2 = this.builderType.GetMethod("LastIndexOf", true, parray, pvalue).Import();
+				this.var_lastindexof_0_2 = this.builderType.GetMethod("LastIndexOf", true, parray, pvalue);
 			
-			return this.var_lastindexof_0_2;
+			return this.var_lastindexof_0_2.Import();
 						
 		}
 						
@@ -1702,9 +1702,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_lastindexof_0_3 == null)
-				this.var_lastindexof_0_3 = this.builderType.GetMethod("LastIndexOf", true, parray, pvalue, pstartIndex).Import();
+				this.var_lastindexof_0_3 = this.builderType.GetMethod("LastIndexOf", true, parray, pvalue, pstartIndex);
 			
-			return this.var_lastindexof_0_3;
+			return this.var_lastindexof_0_3.Import();
 						
 		}
 						
@@ -1720,9 +1720,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_lastindexof_0_4 == null)
-				this.var_lastindexof_0_4 = this.builderType.GetMethod("LastIndexOf", true, parray, pvalue, pstartIndex, pcount).Import();
+				this.var_lastindexof_0_4 = this.builderType.GetMethod("LastIndexOf", true, parray, pvalue, pstartIndex, pcount);
 			
-			return this.var_lastindexof_0_4;
+			return this.var_lastindexof_0_4.Import();
 						
 		}
 						
@@ -1738,9 +1738,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_reverse_0_1 == null)
-				this.var_reverse_0_1 = this.builderType.GetMethod("Reverse", true, parray).Import();
+				this.var_reverse_0_1 = this.builderType.GetMethod("Reverse", true, parray);
 			
-			return this.var_reverse_0_1;
+			return this.var_reverse_0_1.Import();
 						
 		}
 						
@@ -1756,9 +1756,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_reverse_0_3 == null)
-				this.var_reverse_0_3 = this.builderType.GetMethod("Reverse", true, parray, pindex, plength).Import();
+				this.var_reverse_0_3 = this.builderType.GetMethod("Reverse", true, parray, pindex, plength);
 			
-			return this.var_reverse_0_3;
+			return this.var_reverse_0_3.Import();
 						
 		}
 						
@@ -1774,9 +1774,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_sort_0_1 == null)
-				this.var_sort_0_1 = this.builderType.GetMethod("Sort", true, parray).Import();
+				this.var_sort_0_1 = this.builderType.GetMethod("Sort", true, parray);
 			
-			return this.var_sort_0_1;
+			return this.var_sort_0_1.Import();
 						
 		}
 						
@@ -1797,17 +1797,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Array).AreEqual(pkeys) && typeof(System.Array).AreEqual(pitems))
 			{
 				if(this.var_sort_0_2 == null)
-					this.var_sort_0_2 = this.builderType.GetMethod("Sort", true, pkeys, pitems).Import();
+					this.var_sort_0_2 = this.builderType.GetMethod("Sort", true, pkeys, pitems);
 			
-				return this.var_sort_0_2;
+				return this.var_sort_0_2.Import();
 			}
 			
 			if(typeof(System.Array).AreEqual(pkeys) && typeof(System.Collections.IComparer).AreEqual(pitems))
 			{
 				if(this.var_sort_1_2 == null)
-					this.var_sort_1_2 = this.builderType.GetMethod("Sort", true, pkeys, pitems).Import();
+					this.var_sort_1_2 = this.builderType.GetMethod("Sort", true, pkeys, pitems);
 			
-				return this.var_sort_1_2;
+				return this.var_sort_1_2.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -1831,17 +1831,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Array).AreEqual(parray) && typeof(System.Int32).AreEqual(pindex) && typeof(System.Int32).AreEqual(plength))
 			{
 				if(this.var_sort_0_3 == null)
-					this.var_sort_0_3 = this.builderType.GetMethod("Sort", true, parray, pindex, plength).Import();
+					this.var_sort_0_3 = this.builderType.GetMethod("Sort", true, parray, pindex, plength);
 			
-				return this.var_sort_0_3;
+				return this.var_sort_0_3.Import();
 			}
 			
 			if(typeof(System.Array).AreEqual(parray) && typeof(System.Array).AreEqual(pindex) && typeof(System.Collections.IComparer).AreEqual(plength))
 			{
 				if(this.var_sort_1_3 == null)
-					this.var_sort_1_3 = this.builderType.GetMethod("Sort", true, parray, pindex, plength).Import();
+					this.var_sort_1_3 = this.builderType.GetMethod("Sort", true, parray, pindex, plength);
 			
-				return this.var_sort_1_3;
+				return this.var_sort_1_3.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -1865,17 +1865,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Array).AreEqual(pkeys) && typeof(System.Array).AreEqual(pitems) && typeof(System.Int32).AreEqual(pindex) && typeof(System.Int32).AreEqual(plength))
 			{
 				if(this.var_sort_0_4 == null)
-					this.var_sort_0_4 = this.builderType.GetMethod("Sort", true, pkeys, pitems, pindex, plength).Import();
+					this.var_sort_0_4 = this.builderType.GetMethod("Sort", true, pkeys, pitems, pindex, plength);
 			
-				return this.var_sort_0_4;
+				return this.var_sort_0_4.Import();
 			}
 			
 			if(typeof(System.Array).AreEqual(pkeys) && typeof(System.Int32).AreEqual(pitems) && typeof(System.Int32).AreEqual(pindex) && typeof(System.Collections.IComparer).AreEqual(plength))
 			{
 				if(this.var_sort_1_4 == null)
-					this.var_sort_1_4 = this.builderType.GetMethod("Sort", true, pkeys, pitems, pindex, plength).Import();
+					this.var_sort_1_4 = this.builderType.GetMethod("Sort", true, pkeys, pitems, pindex, plength);
 			
-				return this.var_sort_1_4;
+				return this.var_sort_1_4.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -1894,9 +1894,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_sort_0_5 == null)
-				this.var_sort_0_5 = this.builderType.GetMethod("Sort", true, pkeys, pitems, pindex, plength, pcomparer).Import();
+				this.var_sort_0_5 = this.builderType.GetMethod("Sort", true, pkeys, pitems, pindex, plength, pcomparer);
 			
-			return this.var_sort_0_5;
+			return this.var_sort_0_5.Import();
 						
 		}
 						
@@ -1910,9 +1910,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_Initialize()
 		{
 			if(this.var_initialize_0_0 == null)
-				this.var_initialize_0_0 = this.builderType.GetMethod("Initialize", 0, true).Import();
+				this.var_initialize_0_0 = this.builderType.GetMethod("Initialize", 0, true);
 
-			return this.var_initialize_0_0;
+			return this.var_initialize_0_0.Import();
 		}
 						
 		private Method var_tostring_0_0;
@@ -1925,9 +1925,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_ToString()
 		{
 			if(this.var_tostring_0_0 == null)
-				this.var_tostring_0_0 = this.builderType.GetMethod("ToString", 0, true).Import();
+				this.var_tostring_0_0 = this.builderType.GetMethod("ToString", 0, true);
 
-			return this.var_tostring_0_0;
+			return this.var_tostring_0_0.Import();
 		}
 						
 		private Method var_equals_0_1;
@@ -1940,9 +1940,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_Equals()
 		{
 			if(this.var_equals_0_1 == null)
-				this.var_equals_0_1 = this.builderType.GetMethod("Equals", 1, true).Import();
+				this.var_equals_0_1 = this.builderType.GetMethod("Equals", 1, true);
 
-			return this.var_equals_0_1;
+			return this.var_equals_0_1.Import();
 		}
 						
 		private Method var_gethashcode_0_0;
@@ -1955,9 +1955,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetHashCode()
 		{
 			if(this.var_gethashcode_0_0 == null)
-				this.var_gethashcode_0_0 = this.builderType.GetMethod("GetHashCode", 0, true).Import();
+				this.var_gethashcode_0_0 = this.builderType.GetMethod("GetHashCode", 0, true);
 
-			return this.var_gethashcode_0_0;
+			return this.var_gethashcode_0_0.Import();
 		}
 						
 		private Method var_gettype_0_0;
@@ -1970,9 +1970,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetType()
 		{
 			if(this.var_gettype_0_0 == null)
-				this.var_gettype_0_0 = this.builderType.GetMethod("GetType", 0, true).Import();
+				this.var_gettype_0_0 = this.builderType.GetMethod("GetType", 0, true);
 
-			return this.var_gettype_0_0;
+			return this.var_gettype_0_0.Import();
 		}
 					}
 
@@ -1987,10 +1987,10 @@ namespace Cauldron.Interception.Cecilator
 		}
 
 		/// <exclude />
-		public static implicit operator BuilderType(BuilderTypeAsyncTaskMethodBuilder value) => value.builderType;
+		public static implicit operator BuilderType(BuilderTypeAsyncTaskMethodBuilder value) => value.builderType.Import();
 		
 		/// <exclude />
-		public static implicit operator TypeReference(BuilderTypeAsyncTaskMethodBuilder value) => value.builderType.typeReference;
+		public static implicit operator TypeReference(BuilderTypeAsyncTaskMethodBuilder value) => Builder.Current.Import((TypeReference)value.builderType);
 			
 				
 		private Method var_create_0_0;
@@ -2003,9 +2003,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_Create()
 		{
 			if(this.var_create_0_0 == null)
-				this.var_create_0_0 = this.builderType.GetMethod("Create", 0, true).Import();
+				this.var_create_0_0 = this.builderType.GetMethod("Create", 0, true);
 
-			return this.var_create_0_0;
+			return this.var_create_0_0.Import();
 		}
 						
 		private Method var_setstatemachine_0_1;
@@ -2018,9 +2018,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_SetStateMachine()
 		{
 			if(this.var_setstatemachine_0_1 == null)
-				this.var_setstatemachine_0_1 = this.builderType.GetMethod("SetStateMachine", 1, true).Import();
+				this.var_setstatemachine_0_1 = this.builderType.GetMethod("SetStateMachine", 1, true);
 
-			return this.var_setstatemachine_0_1;
+			return this.var_setstatemachine_0_1.Import();
 		}
 						
 		private Method var_get_task_0_0;
@@ -2033,9 +2033,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_Task()
 		{
 			if(this.var_get_task_0_0 == null)
-				this.var_get_task_0_0 = this.builderType.GetMethod("get_Task", 0, true).Import();
+				this.var_get_task_0_0 = this.builderType.GetMethod("get_Task", 0, true);
 
-			return this.var_get_task_0_0;
+			return this.var_get_task_0_0.Import();
 		}
 						
 		private Method var_setresult_0_0;
@@ -2048,9 +2048,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_SetResult()
 		{
 			if(this.var_setresult_0_0 == null)
-				this.var_setresult_0_0 = this.builderType.GetMethod("SetResult", 0, true).Import();
+				this.var_setresult_0_0 = this.builderType.GetMethod("SetResult", 0, true);
 
-			return this.var_setresult_0_0;
+			return this.var_setresult_0_0.Import();
 		}
 						
 		private Method var_setexception_0_1;
@@ -2063,9 +2063,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_SetException()
 		{
 			if(this.var_setexception_0_1 == null)
-				this.var_setexception_0_1 = this.builderType.GetMethod("SetException", 1, true).Import();
+				this.var_setexception_0_1 = this.builderType.GetMethod("SetException", 1, true);
 
-			return this.var_setexception_0_1;
+			return this.var_setexception_0_1.Import();
 		}
 						
 		private Method var_equals_0_1;
@@ -2078,9 +2078,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_Equals()
 		{
 			if(this.var_equals_0_1 == null)
-				this.var_equals_0_1 = this.builderType.GetMethod("Equals", 1, true).Import();
+				this.var_equals_0_1 = this.builderType.GetMethod("Equals", 1, true);
 
-			return this.var_equals_0_1;
+			return this.var_equals_0_1.Import();
 		}
 						
 		private Method var_gethashcode_0_0;
@@ -2093,9 +2093,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetHashCode()
 		{
 			if(this.var_gethashcode_0_0 == null)
-				this.var_gethashcode_0_0 = this.builderType.GetMethod("GetHashCode", 0, true).Import();
+				this.var_gethashcode_0_0 = this.builderType.GetMethod("GetHashCode", 0, true);
 
-			return this.var_gethashcode_0_0;
+			return this.var_gethashcode_0_0.Import();
 		}
 						
 		private Method var_tostring_0_0;
@@ -2108,9 +2108,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_ToString()
 		{
 			if(this.var_tostring_0_0 == null)
-				this.var_tostring_0_0 = this.builderType.GetMethod("ToString", 0, true).Import();
+				this.var_tostring_0_0 = this.builderType.GetMethod("ToString", 0, true);
 
-			return this.var_tostring_0_0;
+			return this.var_tostring_0_0.Import();
 		}
 						
 		private Method var_gettype_0_0;
@@ -2123,9 +2123,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetType()
 		{
 			if(this.var_gettype_0_0 == null)
-				this.var_gettype_0_0 = this.builderType.GetMethod("GetType", 0, true).Import();
+				this.var_gettype_0_0 = this.builderType.GetMethod("GetType", 0, true);
 
-			return this.var_gettype_0_0;
+			return this.var_gettype_0_0.Import();
 		}
 					}
 
@@ -2140,10 +2140,10 @@ namespace Cauldron.Interception.Cecilator
 		}
 
 		/// <exclude />
-		public static implicit operator BuilderType(BuilderTypeAsyncTaskMethodBuilder1 value) => value.builderType;
+		public static implicit operator BuilderType(BuilderTypeAsyncTaskMethodBuilder1 value) => value.builderType.Import();
 		
 		/// <exclude />
-		public static implicit operator TypeReference(BuilderTypeAsyncTaskMethodBuilder1 value) => value.builderType.typeReference;
+		public static implicit operator TypeReference(BuilderTypeAsyncTaskMethodBuilder1 value) => Builder.Current.Import((TypeReference)value.builderType);
 			
 				
 		private Method var_equals_0_1;
@@ -2156,9 +2156,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_Equals()
 		{
 			if(this.var_equals_0_1 == null)
-				this.var_equals_0_1 = this.builderType.GetMethod("Equals", 1, true).Import();
+				this.var_equals_0_1 = this.builderType.GetMethod("Equals", 1, true);
 
-			return this.var_equals_0_1;
+			return this.var_equals_0_1.Import();
 		}
 						
 		private Method var_gethashcode_0_0;
@@ -2171,9 +2171,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetHashCode()
 		{
 			if(this.var_gethashcode_0_0 == null)
-				this.var_gethashcode_0_0 = this.builderType.GetMethod("GetHashCode", 0, true).Import();
+				this.var_gethashcode_0_0 = this.builderType.GetMethod("GetHashCode", 0, true);
 
-			return this.var_gethashcode_0_0;
+			return this.var_gethashcode_0_0.Import();
 		}
 						
 		private Method var_tostring_0_0;
@@ -2186,9 +2186,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_ToString()
 		{
 			if(this.var_tostring_0_0 == null)
-				this.var_tostring_0_0 = this.builderType.GetMethod("ToString", 0, true).Import();
+				this.var_tostring_0_0 = this.builderType.GetMethod("ToString", 0, true);
 
-			return this.var_tostring_0_0;
+			return this.var_tostring_0_0.Import();
 		}
 						
 		private Method var_gettype_0_0;
@@ -2201,9 +2201,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetType()
 		{
 			if(this.var_gettype_0_0 == null)
-				this.var_gettype_0_0 = this.builderType.GetMethod("GetType", 0, true).Import();
+				this.var_gettype_0_0 = this.builderType.GetMethod("GetType", 0, true);
 
-			return this.var_gettype_0_0;
+			return this.var_gettype_0_0.Import();
 		}
 					}
 
@@ -2218,10 +2218,10 @@ namespace Cauldron.Interception.Cecilator
 		}
 
 		/// <exclude />
-		public static implicit operator BuilderType(BuilderTypeBoolean value) => value.builderType;
+		public static implicit operator BuilderType(BuilderTypeBoolean value) => value.builderType.Import();
 		
 		/// <exclude />
-		public static implicit operator TypeReference(BuilderTypeBoolean value) => value.builderType.typeReference;
+		public static implicit operator TypeReference(BuilderTypeBoolean value) => Builder.Current.Import((TypeReference)value.builderType);
 			
 				
 		private Method var_gethashcode_0_0;
@@ -2234,9 +2234,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetHashCode()
 		{
 			if(this.var_gethashcode_0_0 == null)
-				this.var_gethashcode_0_0 = this.builderType.GetMethod("GetHashCode", 0, true).Import();
+				this.var_gethashcode_0_0 = this.builderType.GetMethod("GetHashCode", 0, true);
 
-			return this.var_gethashcode_0_0;
+			return this.var_gethashcode_0_0.Import();
 		}
 						
 		private Method var_tostring_0_0;
@@ -2250,9 +2250,9 @@ namespace Cauldron.Interception.Cecilator
 		{
 						
 			if(this.var_tostring_0_0 == null)
-				this.var_tostring_0_0 = this.builderType.GetMethod("ToString", true).Import();
+				this.var_tostring_0_0 = this.builderType.GetMethod("ToString", true);
 
-			return this.var_tostring_0_0;
+			return this.var_tostring_0_0.Import();
 						
 						
 		}
@@ -2269,9 +2269,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_tostring_0_1 == null)
-				this.var_tostring_0_1 = this.builderType.GetMethod("ToString", true, pprovider).Import();
+				this.var_tostring_0_1 = this.builderType.GetMethod("ToString", true, pprovider);
 			
-			return this.var_tostring_0_1;
+			return this.var_tostring_0_1.Import();
 						
 		}
 						
@@ -2292,17 +2292,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Object).AreEqual(pobj))
 			{
 				if(this.var_equals_0_1 == null)
-					this.var_equals_0_1 = this.builderType.GetMethod("Equals", true, pobj).Import();
+					this.var_equals_0_1 = this.builderType.GetMethod("Equals", true, pobj);
 			
-				return this.var_equals_0_1;
+				return this.var_equals_0_1.Import();
 			}
 			
 			if(typeof(System.Boolean).AreEqual(pobj))
 			{
 				if(this.var_equals_1_1 == null)
-					this.var_equals_1_1 = this.builderType.GetMethod("Equals", true, pobj).Import();
+					this.var_equals_1_1 = this.builderType.GetMethod("Equals", true, pobj);
 			
-				return this.var_equals_1_1;
+				return this.var_equals_1_1.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -2326,17 +2326,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Object).AreEqual(pobj))
 			{
 				if(this.var_compareto_0_1 == null)
-					this.var_compareto_0_1 = this.builderType.GetMethod("CompareTo", true, pobj).Import();
+					this.var_compareto_0_1 = this.builderType.GetMethod("CompareTo", true, pobj);
 			
-				return this.var_compareto_0_1;
+				return this.var_compareto_0_1.Import();
 			}
 			
 			if(typeof(System.Boolean).AreEqual(pobj))
 			{
 				if(this.var_compareto_1_1 == null)
-					this.var_compareto_1_1 = this.builderType.GetMethod("CompareTo", true, pobj).Import();
+					this.var_compareto_1_1 = this.builderType.GetMethod("CompareTo", true, pobj);
 			
-				return this.var_compareto_1_1;
+				return this.var_compareto_1_1.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -2353,9 +2353,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_Parse()
 		{
 			if(this.var_parse_0_1 == null)
-				this.var_parse_0_1 = this.builderType.GetMethod("Parse", 1, true).Import();
+				this.var_parse_0_1 = this.builderType.GetMethod("Parse", 1, true);
 
-			return this.var_parse_0_1;
+			return this.var_parse_0_1.Import();
 		}
 						
 		private Method var_gettypecode_0_0;
@@ -2368,9 +2368,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetTypeCode()
 		{
 			if(this.var_gettypecode_0_0 == null)
-				this.var_gettypecode_0_0 = this.builderType.GetMethod("GetTypeCode", 0, true).Import();
+				this.var_gettypecode_0_0 = this.builderType.GetMethod("GetTypeCode", 0, true);
 
-			return this.var_gettypecode_0_0;
+			return this.var_gettypecode_0_0.Import();
 		}
 						
 		private Method var_gettype_0_0;
@@ -2383,9 +2383,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetType()
 		{
 			if(this.var_gettype_0_0 == null)
-				this.var_gettype_0_0 = this.builderType.GetMethod("GetType", 0, true).Import();
+				this.var_gettype_0_0 = this.builderType.GetMethod("GetType", 0, true);
 
-			return this.var_gettype_0_0;
+			return this.var_gettype_0_0.Import();
 		}
 					}
 
@@ -2400,10 +2400,10 @@ namespace Cauldron.Interception.Cecilator
 		}
 
 		/// <exclude />
-		public static implicit operator BuilderType(BuilderTypeByte value) => value.builderType;
+		public static implicit operator BuilderType(BuilderTypeByte value) => value.builderType.Import();
 		
 		/// <exclude />
-		public static implicit operator TypeReference(BuilderTypeByte value) => value.builderType.typeReference;
+		public static implicit operator TypeReference(BuilderTypeByte value) => Builder.Current.Import((TypeReference)value.builderType);
 			
 				
 		private Method var_compareto_0_1;
@@ -2423,17 +2423,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Object).AreEqual(pvalue))
 			{
 				if(this.var_compareto_0_1 == null)
-					this.var_compareto_0_1 = this.builderType.GetMethod("CompareTo", true, pvalue).Import();
+					this.var_compareto_0_1 = this.builderType.GetMethod("CompareTo", true, pvalue);
 			
-				return this.var_compareto_0_1;
+				return this.var_compareto_0_1.Import();
 			}
 			
 			if(typeof(System.Byte).AreEqual(pvalue))
 			{
 				if(this.var_compareto_1_1 == null)
-					this.var_compareto_1_1 = this.builderType.GetMethod("CompareTo", true, pvalue).Import();
+					this.var_compareto_1_1 = this.builderType.GetMethod("CompareTo", true, pvalue);
 			
-				return this.var_compareto_1_1;
+				return this.var_compareto_1_1.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -2457,17 +2457,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Object).AreEqual(pobj))
 			{
 				if(this.var_equals_0_1 == null)
-					this.var_equals_0_1 = this.builderType.GetMethod("Equals", true, pobj).Import();
+					this.var_equals_0_1 = this.builderType.GetMethod("Equals", true, pobj);
 			
-				return this.var_equals_0_1;
+				return this.var_equals_0_1.Import();
 			}
 			
 			if(typeof(System.Byte).AreEqual(pobj))
 			{
 				if(this.var_equals_1_1 == null)
-					this.var_equals_1_1 = this.builderType.GetMethod("Equals", true, pobj).Import();
+					this.var_equals_1_1 = this.builderType.GetMethod("Equals", true, pobj);
 			
-				return this.var_equals_1_1;
+				return this.var_equals_1_1.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -2484,9 +2484,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetHashCode()
 		{
 			if(this.var_gethashcode_0_0 == null)
-				this.var_gethashcode_0_0 = this.builderType.GetMethod("GetHashCode", 0, true).Import();
+				this.var_gethashcode_0_0 = this.builderType.GetMethod("GetHashCode", 0, true);
 
-			return this.var_gethashcode_0_0;
+			return this.var_gethashcode_0_0.Import();
 		}
 						
 		private Method var_parse_0_1;
@@ -2501,9 +2501,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_parse_0_1 == null)
-				this.var_parse_0_1 = this.builderType.GetMethod("Parse", true, ps).Import();
+				this.var_parse_0_1 = this.builderType.GetMethod("Parse", true, ps);
 			
-			return this.var_parse_0_1;
+			return this.var_parse_0_1.Import();
 						
 		}
 						
@@ -2524,17 +2524,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.String).AreEqual(ps) && typeof(System.Globalization.NumberStyles).AreEqual(pstyle))
 			{
 				if(this.var_parse_0_2 == null)
-					this.var_parse_0_2 = this.builderType.GetMethod("Parse", true, ps, pstyle).Import();
+					this.var_parse_0_2 = this.builderType.GetMethod("Parse", true, ps, pstyle);
 			
-				return this.var_parse_0_2;
+				return this.var_parse_0_2.Import();
 			}
 			
 			if(typeof(System.String).AreEqual(ps) && typeof(System.IFormatProvider).AreEqual(pstyle))
 			{
 				if(this.var_parse_1_2 == null)
-					this.var_parse_1_2 = this.builderType.GetMethod("Parse", true, ps, pstyle).Import();
+					this.var_parse_1_2 = this.builderType.GetMethod("Parse", true, ps, pstyle);
 			
-				return this.var_parse_1_2;
+				return this.var_parse_1_2.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -2553,9 +2553,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_parse_0_3 == null)
-				this.var_parse_0_3 = this.builderType.GetMethod("Parse", true, ps, pstyle, pprovider).Import();
+				this.var_parse_0_3 = this.builderType.GetMethod("Parse", true, ps, pstyle, pprovider);
 			
-			return this.var_parse_0_3;
+			return this.var_parse_0_3.Import();
 						
 		}
 						
@@ -2570,9 +2570,9 @@ namespace Cauldron.Interception.Cecilator
 		{
 						
 			if(this.var_tostring_0_0 == null)
-				this.var_tostring_0_0 = this.builderType.GetMethod("ToString", true).Import();
+				this.var_tostring_0_0 = this.builderType.GetMethod("ToString", true);
 
-			return this.var_tostring_0_0;
+			return this.var_tostring_0_0.Import();
 						
 						
 		}
@@ -2594,17 +2594,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.String).AreEqual(pformat))
 			{
 				if(this.var_tostring_0_1 == null)
-					this.var_tostring_0_1 = this.builderType.GetMethod("ToString", true, pformat).Import();
+					this.var_tostring_0_1 = this.builderType.GetMethod("ToString", true, pformat);
 			
-				return this.var_tostring_0_1;
+				return this.var_tostring_0_1.Import();
 			}
 			
 			if(typeof(System.IFormatProvider).AreEqual(pformat))
 			{
 				if(this.var_tostring_1_1 == null)
-					this.var_tostring_1_1 = this.builderType.GetMethod("ToString", true, pformat).Import();
+					this.var_tostring_1_1 = this.builderType.GetMethod("ToString", true, pformat);
 			
-				return this.var_tostring_1_1;
+				return this.var_tostring_1_1.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -2623,9 +2623,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_tostring_0_2 == null)
-				this.var_tostring_0_2 = this.builderType.GetMethod("ToString", true, pformat, pprovider).Import();
+				this.var_tostring_0_2 = this.builderType.GetMethod("ToString", true, pformat, pprovider);
 			
-			return this.var_tostring_0_2;
+			return this.var_tostring_0_2.Import();
 						
 		}
 						
@@ -2639,9 +2639,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetTypeCode()
 		{
 			if(this.var_gettypecode_0_0 == null)
-				this.var_gettypecode_0_0 = this.builderType.GetMethod("GetTypeCode", 0, true).Import();
+				this.var_gettypecode_0_0 = this.builderType.GetMethod("GetTypeCode", 0, true);
 
-			return this.var_gettypecode_0_0;
+			return this.var_gettypecode_0_0.Import();
 		}
 						
 		private Method var_gettype_0_0;
@@ -2654,9 +2654,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetType()
 		{
 			if(this.var_gettype_0_0 == null)
-				this.var_gettype_0_0 = this.builderType.GetMethod("GetType", 0, true).Import();
+				this.var_gettype_0_0 = this.builderType.GetMethod("GetType", 0, true);
 
-			return this.var_gettype_0_0;
+			return this.var_gettype_0_0.Import();
 		}
 					}
 
@@ -2671,10 +2671,10 @@ namespace Cauldron.Interception.Cecilator
 		}
 
 		/// <exclude />
-		public static implicit operator BuilderType(BuilderTypeChar value) => value.builderType;
+		public static implicit operator BuilderType(BuilderTypeChar value) => value.builderType.Import();
 		
 		/// <exclude />
-		public static implicit operator TypeReference(BuilderTypeChar value) => value.builderType.typeReference;
+		public static implicit operator TypeReference(BuilderTypeChar value) => Builder.Current.Import((TypeReference)value.builderType);
 			
 				
 		private Method var_tolower_0_2;
@@ -2689,9 +2689,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_tolower_0_2 == null)
-				this.var_tolower_0_2 = this.builderType.GetMethod("ToLower", true, pc, pculture).Import();
+				this.var_tolower_0_2 = this.builderType.GetMethod("ToLower", true, pc, pculture);
 			
-			return this.var_tolower_0_2;
+			return this.var_tolower_0_2.Import();
 						
 		}
 						
@@ -2707,9 +2707,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_tolower_0_1 == null)
-				this.var_tolower_0_1 = this.builderType.GetMethod("ToLower", true, pc).Import();
+				this.var_tolower_0_1 = this.builderType.GetMethod("ToLower", true, pc);
 			
-			return this.var_tolower_0_1;
+			return this.var_tolower_0_1.Import();
 						
 		}
 						
@@ -2723,9 +2723,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetHashCode()
 		{
 			if(this.var_gethashcode_0_0 == null)
-				this.var_gethashcode_0_0 = this.builderType.GetMethod("GetHashCode", 0, true).Import();
+				this.var_gethashcode_0_0 = this.builderType.GetMethod("GetHashCode", 0, true);
 
-			return this.var_gethashcode_0_0;
+			return this.var_gethashcode_0_0.Import();
 		}
 						
 		private Method var_equals_0_1;
@@ -2745,17 +2745,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Object).AreEqual(pobj))
 			{
 				if(this.var_equals_0_1 == null)
-					this.var_equals_0_1 = this.builderType.GetMethod("Equals", true, pobj).Import();
+					this.var_equals_0_1 = this.builderType.GetMethod("Equals", true, pobj);
 			
-				return this.var_equals_0_1;
+				return this.var_equals_0_1.Import();
 			}
 			
 			if(typeof(System.Char).AreEqual(pobj))
 			{
 				if(this.var_equals_1_1 == null)
-					this.var_equals_1_1 = this.builderType.GetMethod("Equals", true, pobj).Import();
+					this.var_equals_1_1 = this.builderType.GetMethod("Equals", true, pobj);
 			
-				return this.var_equals_1_1;
+				return this.var_equals_1_1.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -2779,17 +2779,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Object).AreEqual(pvalue))
 			{
 				if(this.var_compareto_0_1 == null)
-					this.var_compareto_0_1 = this.builderType.GetMethod("CompareTo", true, pvalue).Import();
+					this.var_compareto_0_1 = this.builderType.GetMethod("CompareTo", true, pvalue);
 			
-				return this.var_compareto_0_1;
+				return this.var_compareto_0_1.Import();
 			}
 			
 			if(typeof(System.Char).AreEqual(pvalue))
 			{
 				if(this.var_compareto_1_1 == null)
-					this.var_compareto_1_1 = this.builderType.GetMethod("CompareTo", true, pvalue).Import();
+					this.var_compareto_1_1 = this.builderType.GetMethod("CompareTo", true, pvalue);
 			
-				return this.var_compareto_1_1;
+				return this.var_compareto_1_1.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -2807,9 +2807,9 @@ namespace Cauldron.Interception.Cecilator
 		{
 						
 			if(this.var_tostring_0_0 == null)
-				this.var_tostring_0_0 = this.builderType.GetMethod("ToString", true).Import();
+				this.var_tostring_0_0 = this.builderType.GetMethod("ToString", true);
 
-			return this.var_tostring_0_0;
+			return this.var_tostring_0_0.Import();
 						
 						
 		}
@@ -2831,17 +2831,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.IFormatProvider).AreEqual(pprovider))
 			{
 				if(this.var_tostring_0_1 == null)
-					this.var_tostring_0_1 = this.builderType.GetMethod("ToString", true, pprovider).Import();
+					this.var_tostring_0_1 = this.builderType.GetMethod("ToString", true, pprovider);
 			
-				return this.var_tostring_0_1;
+				return this.var_tostring_0_1.Import();
 			}
 			
 			if(typeof(System.Char).AreEqual(pprovider))
 			{
 				if(this.var_tostring_1_1 == null)
-					this.var_tostring_1_1 = this.builderType.GetMethod("ToString", true, pprovider).Import();
+					this.var_tostring_1_1 = this.builderType.GetMethod("ToString", true, pprovider);
 			
-				return this.var_tostring_1_1;
+				return this.var_tostring_1_1.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -2858,9 +2858,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_Parse()
 		{
 			if(this.var_parse_0_1 == null)
-				this.var_parse_0_1 = this.builderType.GetMethod("Parse", 1, true).Import();
+				this.var_parse_0_1 = this.builderType.GetMethod("Parse", 1, true);
 
-			return this.var_parse_0_1;
+			return this.var_parse_0_1.Import();
 		}
 						
 		private Method var_isdigit_0_1;
@@ -2875,9 +2875,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_isdigit_0_1 == null)
-				this.var_isdigit_0_1 = this.builderType.GetMethod("IsDigit", true, pc).Import();
+				this.var_isdigit_0_1 = this.builderType.GetMethod("IsDigit", true, pc);
 			
-			return this.var_isdigit_0_1;
+			return this.var_isdigit_0_1.Import();
 						
 		}
 						
@@ -2893,9 +2893,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_isdigit_0_2 == null)
-				this.var_isdigit_0_2 = this.builderType.GetMethod("IsDigit", true, ps, pindex).Import();
+				this.var_isdigit_0_2 = this.builderType.GetMethod("IsDigit", true, ps, pindex);
 			
-			return this.var_isdigit_0_2;
+			return this.var_isdigit_0_2.Import();
 						
 		}
 						
@@ -2911,9 +2911,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_isletter_0_1 == null)
-				this.var_isletter_0_1 = this.builderType.GetMethod("IsLetter", true, pc).Import();
+				this.var_isletter_0_1 = this.builderType.GetMethod("IsLetter", true, pc);
 			
-			return this.var_isletter_0_1;
+			return this.var_isletter_0_1.Import();
 						
 		}
 						
@@ -2929,9 +2929,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_isletter_0_2 == null)
-				this.var_isletter_0_2 = this.builderType.GetMethod("IsLetter", true, ps, pindex).Import();
+				this.var_isletter_0_2 = this.builderType.GetMethod("IsLetter", true, ps, pindex);
 			
-			return this.var_isletter_0_2;
+			return this.var_isletter_0_2.Import();
 						
 		}
 						
@@ -2947,9 +2947,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_iswhitespace_0_1 == null)
-				this.var_iswhitespace_0_1 = this.builderType.GetMethod("IsWhiteSpace", true, pc).Import();
+				this.var_iswhitespace_0_1 = this.builderType.GetMethod("IsWhiteSpace", true, pc);
 			
-			return this.var_iswhitespace_0_1;
+			return this.var_iswhitespace_0_1.Import();
 						
 		}
 						
@@ -2965,9 +2965,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_iswhitespace_0_2 == null)
-				this.var_iswhitespace_0_2 = this.builderType.GetMethod("IsWhiteSpace", true, ps, pindex).Import();
+				this.var_iswhitespace_0_2 = this.builderType.GetMethod("IsWhiteSpace", true, ps, pindex);
 			
-			return this.var_iswhitespace_0_2;
+			return this.var_iswhitespace_0_2.Import();
 						
 		}
 						
@@ -2983,9 +2983,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_isupper_0_1 == null)
-				this.var_isupper_0_1 = this.builderType.GetMethod("IsUpper", true, pc).Import();
+				this.var_isupper_0_1 = this.builderType.GetMethod("IsUpper", true, pc);
 			
-			return this.var_isupper_0_1;
+			return this.var_isupper_0_1.Import();
 						
 		}
 						
@@ -3001,9 +3001,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_isupper_0_2 == null)
-				this.var_isupper_0_2 = this.builderType.GetMethod("IsUpper", true, ps, pindex).Import();
+				this.var_isupper_0_2 = this.builderType.GetMethod("IsUpper", true, ps, pindex);
 			
-			return this.var_isupper_0_2;
+			return this.var_isupper_0_2.Import();
 						
 		}
 						
@@ -3019,9 +3019,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_islower_0_1 == null)
-				this.var_islower_0_1 = this.builderType.GetMethod("IsLower", true, pc).Import();
+				this.var_islower_0_1 = this.builderType.GetMethod("IsLower", true, pc);
 			
-			return this.var_islower_0_1;
+			return this.var_islower_0_1.Import();
 						
 		}
 						
@@ -3037,9 +3037,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_islower_0_2 == null)
-				this.var_islower_0_2 = this.builderType.GetMethod("IsLower", true, ps, pindex).Import();
+				this.var_islower_0_2 = this.builderType.GetMethod("IsLower", true, ps, pindex);
 			
-			return this.var_islower_0_2;
+			return this.var_islower_0_2.Import();
 						
 		}
 						
@@ -3055,9 +3055,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_ispunctuation_0_1 == null)
-				this.var_ispunctuation_0_1 = this.builderType.GetMethod("IsPunctuation", true, pc).Import();
+				this.var_ispunctuation_0_1 = this.builderType.GetMethod("IsPunctuation", true, pc);
 			
-			return this.var_ispunctuation_0_1;
+			return this.var_ispunctuation_0_1.Import();
 						
 		}
 						
@@ -3073,9 +3073,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_ispunctuation_0_2 == null)
-				this.var_ispunctuation_0_2 = this.builderType.GetMethod("IsPunctuation", true, ps, pindex).Import();
+				this.var_ispunctuation_0_2 = this.builderType.GetMethod("IsPunctuation", true, ps, pindex);
 			
-			return this.var_ispunctuation_0_2;
+			return this.var_ispunctuation_0_2.Import();
 						
 		}
 						
@@ -3091,9 +3091,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_isletterordigit_0_1 == null)
-				this.var_isletterordigit_0_1 = this.builderType.GetMethod("IsLetterOrDigit", true, pc).Import();
+				this.var_isletterordigit_0_1 = this.builderType.GetMethod("IsLetterOrDigit", true, pc);
 			
-			return this.var_isletterordigit_0_1;
+			return this.var_isletterordigit_0_1.Import();
 						
 		}
 						
@@ -3109,9 +3109,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_isletterordigit_0_2 == null)
-				this.var_isletterordigit_0_2 = this.builderType.GetMethod("IsLetterOrDigit", true, ps, pindex).Import();
+				this.var_isletterordigit_0_2 = this.builderType.GetMethod("IsLetterOrDigit", true, ps, pindex);
 			
-			return this.var_isletterordigit_0_2;
+			return this.var_isletterordigit_0_2.Import();
 						
 		}
 						
@@ -3127,9 +3127,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_toupper_0_2 == null)
-				this.var_toupper_0_2 = this.builderType.GetMethod("ToUpper", true, pc, pculture).Import();
+				this.var_toupper_0_2 = this.builderType.GetMethod("ToUpper", true, pc, pculture);
 			
-			return this.var_toupper_0_2;
+			return this.var_toupper_0_2.Import();
 						
 		}
 						
@@ -3145,9 +3145,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_toupper_0_1 == null)
-				this.var_toupper_0_1 = this.builderType.GetMethod("ToUpper", true, pc).Import();
+				this.var_toupper_0_1 = this.builderType.GetMethod("ToUpper", true, pc);
 			
-			return this.var_toupper_0_1;
+			return this.var_toupper_0_1.Import();
 						
 		}
 						
@@ -3161,9 +3161,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_ToUpperInvariant()
 		{
 			if(this.var_toupperinvariant_0_1 == null)
-				this.var_toupperinvariant_0_1 = this.builderType.GetMethod("ToUpperInvariant", 1, true).Import();
+				this.var_toupperinvariant_0_1 = this.builderType.GetMethod("ToUpperInvariant", 1, true);
 
-			return this.var_toupperinvariant_0_1;
+			return this.var_toupperinvariant_0_1.Import();
 		}
 						
 		private Method var_tolowerinvariant_0_1;
@@ -3176,9 +3176,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_ToLowerInvariant()
 		{
 			if(this.var_tolowerinvariant_0_1 == null)
-				this.var_tolowerinvariant_0_1 = this.builderType.GetMethod("ToLowerInvariant", 1, true).Import();
+				this.var_tolowerinvariant_0_1 = this.builderType.GetMethod("ToLowerInvariant", 1, true);
 
-			return this.var_tolowerinvariant_0_1;
+			return this.var_tolowerinvariant_0_1.Import();
 		}
 						
 		private Method var_gettypecode_0_0;
@@ -3191,9 +3191,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetTypeCode()
 		{
 			if(this.var_gettypecode_0_0 == null)
-				this.var_gettypecode_0_0 = this.builderType.GetMethod("GetTypeCode", 0, true).Import();
+				this.var_gettypecode_0_0 = this.builderType.GetMethod("GetTypeCode", 0, true);
 
-			return this.var_gettypecode_0_0;
+			return this.var_gettypecode_0_0.Import();
 		}
 						
 		private Method var_iscontrol_0_1;
@@ -3208,9 +3208,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_iscontrol_0_1 == null)
-				this.var_iscontrol_0_1 = this.builderType.GetMethod("IsControl", true, pc).Import();
+				this.var_iscontrol_0_1 = this.builderType.GetMethod("IsControl", true, pc);
 			
-			return this.var_iscontrol_0_1;
+			return this.var_iscontrol_0_1.Import();
 						
 		}
 						
@@ -3226,9 +3226,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_iscontrol_0_2 == null)
-				this.var_iscontrol_0_2 = this.builderType.GetMethod("IsControl", true, ps, pindex).Import();
+				this.var_iscontrol_0_2 = this.builderType.GetMethod("IsControl", true, ps, pindex);
 			
-			return this.var_iscontrol_0_2;
+			return this.var_iscontrol_0_2.Import();
 						
 		}
 						
@@ -3244,9 +3244,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_isnumber_0_1 == null)
-				this.var_isnumber_0_1 = this.builderType.GetMethod("IsNumber", true, pc).Import();
+				this.var_isnumber_0_1 = this.builderType.GetMethod("IsNumber", true, pc);
 			
-			return this.var_isnumber_0_1;
+			return this.var_isnumber_0_1.Import();
 						
 		}
 						
@@ -3262,9 +3262,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_isnumber_0_2 == null)
-				this.var_isnumber_0_2 = this.builderType.GetMethod("IsNumber", true, ps, pindex).Import();
+				this.var_isnumber_0_2 = this.builderType.GetMethod("IsNumber", true, ps, pindex);
 			
-			return this.var_isnumber_0_2;
+			return this.var_isnumber_0_2.Import();
 						
 		}
 						
@@ -3280,9 +3280,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_isseparator_0_1 == null)
-				this.var_isseparator_0_1 = this.builderType.GetMethod("IsSeparator", true, pc).Import();
+				this.var_isseparator_0_1 = this.builderType.GetMethod("IsSeparator", true, pc);
 			
-			return this.var_isseparator_0_1;
+			return this.var_isseparator_0_1.Import();
 						
 		}
 						
@@ -3298,9 +3298,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_isseparator_0_2 == null)
-				this.var_isseparator_0_2 = this.builderType.GetMethod("IsSeparator", true, ps, pindex).Import();
+				this.var_isseparator_0_2 = this.builderType.GetMethod("IsSeparator", true, ps, pindex);
 			
-			return this.var_isseparator_0_2;
+			return this.var_isseparator_0_2.Import();
 						
 		}
 						
@@ -3316,9 +3316,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_issurrogate_0_1 == null)
-				this.var_issurrogate_0_1 = this.builderType.GetMethod("IsSurrogate", true, pc).Import();
+				this.var_issurrogate_0_1 = this.builderType.GetMethod("IsSurrogate", true, pc);
 			
-			return this.var_issurrogate_0_1;
+			return this.var_issurrogate_0_1.Import();
 						
 		}
 						
@@ -3334,9 +3334,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_issurrogate_0_2 == null)
-				this.var_issurrogate_0_2 = this.builderType.GetMethod("IsSurrogate", true, ps, pindex).Import();
+				this.var_issurrogate_0_2 = this.builderType.GetMethod("IsSurrogate", true, ps, pindex);
 			
-			return this.var_issurrogate_0_2;
+			return this.var_issurrogate_0_2.Import();
 						
 		}
 						
@@ -3352,9 +3352,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_issymbol_0_1 == null)
-				this.var_issymbol_0_1 = this.builderType.GetMethod("IsSymbol", true, pc).Import();
+				this.var_issymbol_0_1 = this.builderType.GetMethod("IsSymbol", true, pc);
 			
-			return this.var_issymbol_0_1;
+			return this.var_issymbol_0_1.Import();
 						
 		}
 						
@@ -3370,9 +3370,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_issymbol_0_2 == null)
-				this.var_issymbol_0_2 = this.builderType.GetMethod("IsSymbol", true, ps, pindex).Import();
+				this.var_issymbol_0_2 = this.builderType.GetMethod("IsSymbol", true, ps, pindex);
 			
-			return this.var_issymbol_0_2;
+			return this.var_issymbol_0_2.Import();
 						
 		}
 						
@@ -3388,9 +3388,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_getunicodecategory_0_1 == null)
-				this.var_getunicodecategory_0_1 = this.builderType.GetMethod("GetUnicodeCategory", true, pc).Import();
+				this.var_getunicodecategory_0_1 = this.builderType.GetMethod("GetUnicodeCategory", true, pc);
 			
-			return this.var_getunicodecategory_0_1;
+			return this.var_getunicodecategory_0_1.Import();
 						
 		}
 						
@@ -3406,9 +3406,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_getunicodecategory_0_2 == null)
-				this.var_getunicodecategory_0_2 = this.builderType.GetMethod("GetUnicodeCategory", true, ps, pindex).Import();
+				this.var_getunicodecategory_0_2 = this.builderType.GetMethod("GetUnicodeCategory", true, ps, pindex);
 			
-			return this.var_getunicodecategory_0_2;
+			return this.var_getunicodecategory_0_2.Import();
 						
 		}
 						
@@ -3424,9 +3424,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_getnumericvalue_0_1 == null)
-				this.var_getnumericvalue_0_1 = this.builderType.GetMethod("GetNumericValue", true, pc).Import();
+				this.var_getnumericvalue_0_1 = this.builderType.GetMethod("GetNumericValue", true, pc);
 			
-			return this.var_getnumericvalue_0_1;
+			return this.var_getnumericvalue_0_1.Import();
 						
 		}
 						
@@ -3442,9 +3442,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_getnumericvalue_0_2 == null)
-				this.var_getnumericvalue_0_2 = this.builderType.GetMethod("GetNumericValue", true, ps, pindex).Import();
+				this.var_getnumericvalue_0_2 = this.builderType.GetMethod("GetNumericValue", true, ps, pindex);
 			
-			return this.var_getnumericvalue_0_2;
+			return this.var_getnumericvalue_0_2.Import();
 						
 		}
 						
@@ -3460,9 +3460,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_ishighsurrogate_0_1 == null)
-				this.var_ishighsurrogate_0_1 = this.builderType.GetMethod("IsHighSurrogate", true, pc).Import();
+				this.var_ishighsurrogate_0_1 = this.builderType.GetMethod("IsHighSurrogate", true, pc);
 			
-			return this.var_ishighsurrogate_0_1;
+			return this.var_ishighsurrogate_0_1.Import();
 						
 		}
 						
@@ -3478,9 +3478,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_ishighsurrogate_0_2 == null)
-				this.var_ishighsurrogate_0_2 = this.builderType.GetMethod("IsHighSurrogate", true, ps, pindex).Import();
+				this.var_ishighsurrogate_0_2 = this.builderType.GetMethod("IsHighSurrogate", true, ps, pindex);
 			
-			return this.var_ishighsurrogate_0_2;
+			return this.var_ishighsurrogate_0_2.Import();
 						
 		}
 						
@@ -3496,9 +3496,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_islowsurrogate_0_1 == null)
-				this.var_islowsurrogate_0_1 = this.builderType.GetMethod("IsLowSurrogate", true, pc).Import();
+				this.var_islowsurrogate_0_1 = this.builderType.GetMethod("IsLowSurrogate", true, pc);
 			
-			return this.var_islowsurrogate_0_1;
+			return this.var_islowsurrogate_0_1.Import();
 						
 		}
 						
@@ -3514,9 +3514,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_islowsurrogate_0_2 == null)
-				this.var_islowsurrogate_0_2 = this.builderType.GetMethod("IsLowSurrogate", true, ps, pindex).Import();
+				this.var_islowsurrogate_0_2 = this.builderType.GetMethod("IsLowSurrogate", true, ps, pindex);
 			
-			return this.var_islowsurrogate_0_2;
+			return this.var_islowsurrogate_0_2.Import();
 						
 		}
 						
@@ -3537,17 +3537,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.String).AreEqual(ps) && typeof(System.Int32).AreEqual(pindex))
 			{
 				if(this.var_issurrogatepair_0_2 == null)
-					this.var_issurrogatepair_0_2 = this.builderType.GetMethod("IsSurrogatePair", true, ps, pindex).Import();
+					this.var_issurrogatepair_0_2 = this.builderType.GetMethod("IsSurrogatePair", true, ps, pindex);
 			
-				return this.var_issurrogatepair_0_2;
+				return this.var_issurrogatepair_0_2.Import();
 			}
 			
 			if(typeof(System.Char).AreEqual(ps) && typeof(System.Char).AreEqual(pindex))
 			{
 				if(this.var_issurrogatepair_1_2 == null)
-					this.var_issurrogatepair_1_2 = this.builderType.GetMethod("IsSurrogatePair", true, ps, pindex).Import();
+					this.var_issurrogatepair_1_2 = this.builderType.GetMethod("IsSurrogatePair", true, ps, pindex);
 			
-				return this.var_issurrogatepair_1_2;
+				return this.var_issurrogatepair_1_2.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -3564,9 +3564,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_ConvertFromUtf32()
 		{
 			if(this.var_convertfromutf32_0_1 == null)
-				this.var_convertfromutf32_0_1 = this.builderType.GetMethod("ConvertFromUtf32", 1, true).Import();
+				this.var_convertfromutf32_0_1 = this.builderType.GetMethod("ConvertFromUtf32", 1, true);
 
-			return this.var_convertfromutf32_0_1;
+			return this.var_convertfromutf32_0_1.Import();
 		}
 						
 		private Method var_converttoutf32_0_2;
@@ -3586,17 +3586,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Char).AreEqual(phighSurrogate) && typeof(System.Char).AreEqual(plowSurrogate))
 			{
 				if(this.var_converttoutf32_0_2 == null)
-					this.var_converttoutf32_0_2 = this.builderType.GetMethod("ConvertToUtf32", true, phighSurrogate, plowSurrogate).Import();
+					this.var_converttoutf32_0_2 = this.builderType.GetMethod("ConvertToUtf32", true, phighSurrogate, plowSurrogate);
 			
-				return this.var_converttoutf32_0_2;
+				return this.var_converttoutf32_0_2.Import();
 			}
 			
 			if(typeof(System.String).AreEqual(phighSurrogate) && typeof(System.Int32).AreEqual(plowSurrogate))
 			{
 				if(this.var_converttoutf32_1_2 == null)
-					this.var_converttoutf32_1_2 = this.builderType.GetMethod("ConvertToUtf32", true, phighSurrogate, plowSurrogate).Import();
+					this.var_converttoutf32_1_2 = this.builderType.GetMethod("ConvertToUtf32", true, phighSurrogate, plowSurrogate);
 			
-				return this.var_converttoutf32_1_2;
+				return this.var_converttoutf32_1_2.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -3613,9 +3613,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetType()
 		{
 			if(this.var_gettype_0_0 == null)
-				this.var_gettype_0_0 = this.builderType.GetMethod("GetType", 0, true).Import();
+				this.var_gettype_0_0 = this.builderType.GetMethod("GetType", 0, true);
 
-			return this.var_gettype_0_0;
+			return this.var_gettype_0_0.Import();
 		}
 					}
 
@@ -3630,10 +3630,10 @@ namespace Cauldron.Interception.Cecilator
 		}
 
 		/// <exclude />
-		public static implicit operator BuilderType(BuilderTypeConvert value) => value.builderType;
+		public static implicit operator BuilderType(BuilderTypeConvert value) => value.builderType.Import();
 		
 		/// <exclude />
-		public static implicit operator TypeReference(BuilderTypeConvert value) => value.builderType.typeReference;
+		public static implicit operator TypeReference(BuilderTypeConvert value) => Builder.Current.Import((TypeReference)value.builderType);
 			
 				
 		private Method var_gettypecode_0_1;
@@ -3646,9 +3646,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetTypeCode()
 		{
 			if(this.var_gettypecode_0_1 == null)
-				this.var_gettypecode_0_1 = this.builderType.GetMethod("GetTypeCode", 1, true).Import();
+				this.var_gettypecode_0_1 = this.builderType.GetMethod("GetTypeCode", 1, true);
 
-			return this.var_gettypecode_0_1;
+			return this.var_gettypecode_0_1.Import();
 		}
 						
 		private Method var_isdbnull_0_1;
@@ -3661,9 +3661,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_IsDBNull()
 		{
 			if(this.var_isdbnull_0_1 == null)
-				this.var_isdbnull_0_1 = this.builderType.GetMethod("IsDBNull", 1, true).Import();
+				this.var_isdbnull_0_1 = this.builderType.GetMethod("IsDBNull", 1, true);
 
-			return this.var_isdbnull_0_1;
+			return this.var_isdbnull_0_1.Import();
 		}
 						
 		private Method var_changetype_0_2;
@@ -3683,17 +3683,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Object).AreEqual(pvalue) && typeof(System.TypeCode).AreEqual(ptypeCode))
 			{
 				if(this.var_changetype_0_2 == null)
-					this.var_changetype_0_2 = this.builderType.GetMethod("ChangeType", true, pvalue, ptypeCode).Import();
+					this.var_changetype_0_2 = this.builderType.GetMethod("ChangeType", true, pvalue, ptypeCode);
 			
-				return this.var_changetype_0_2;
+				return this.var_changetype_0_2.Import();
 			}
 			
 			if(typeof(System.Object).AreEqual(pvalue) && typeof(System.Type).AreEqual(ptypeCode))
 			{
 				if(this.var_changetype_1_2 == null)
-					this.var_changetype_1_2 = this.builderType.GetMethod("ChangeType", true, pvalue, ptypeCode).Import();
+					this.var_changetype_1_2 = this.builderType.GetMethod("ChangeType", true, pvalue, ptypeCode);
 			
-				return this.var_changetype_1_2;
+				return this.var_changetype_1_2.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -3717,17 +3717,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Object).AreEqual(pvalue) && typeof(System.TypeCode).AreEqual(ptypeCode) && typeof(System.IFormatProvider).AreEqual(pprovider))
 			{
 				if(this.var_changetype_0_3 == null)
-					this.var_changetype_0_3 = this.builderType.GetMethod("ChangeType", true, pvalue, ptypeCode, pprovider).Import();
+					this.var_changetype_0_3 = this.builderType.GetMethod("ChangeType", true, pvalue, ptypeCode, pprovider);
 			
-				return this.var_changetype_0_3;
+				return this.var_changetype_0_3.Import();
 			}
 			
 			if(typeof(System.Object).AreEqual(pvalue) && typeof(System.Type).AreEqual(ptypeCode) && typeof(System.IFormatProvider).AreEqual(pprovider))
 			{
 				if(this.var_changetype_1_3 == null)
-					this.var_changetype_1_3 = this.builderType.GetMethod("ChangeType", true, pvalue, ptypeCode, pprovider).Import();
+					this.var_changetype_1_3 = this.builderType.GetMethod("ChangeType", true, pvalue, ptypeCode, pprovider);
 			
-				return this.var_changetype_1_3;
+				return this.var_changetype_1_3.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -3793,129 +3793,129 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Object).AreEqual(pvalue))
 			{
 				if(this.var_toboolean_0_1 == null)
-					this.var_toboolean_0_1 = this.builderType.GetMethod("ToBoolean", true, pvalue).Import();
+					this.var_toboolean_0_1 = this.builderType.GetMethod("ToBoolean", true, pvalue);
 			
-				return this.var_toboolean_0_1;
+				return this.var_toboolean_0_1.Import();
 			}
 			
 			if(typeof(System.Boolean).AreEqual(pvalue))
 			{
 				if(this.var_toboolean_1_1 == null)
-					this.var_toboolean_1_1 = this.builderType.GetMethod("ToBoolean", true, pvalue).Import();
+					this.var_toboolean_1_1 = this.builderType.GetMethod("ToBoolean", true, pvalue);
 			
-				return this.var_toboolean_1_1;
+				return this.var_toboolean_1_1.Import();
 			}
 			
 			if(typeof(System.SByte).AreEqual(pvalue))
 			{
 				if(this.var_toboolean_2_1 == null)
-					this.var_toboolean_2_1 = this.builderType.GetMethod("ToBoolean", true, pvalue).Import();
+					this.var_toboolean_2_1 = this.builderType.GetMethod("ToBoolean", true, pvalue);
 			
-				return this.var_toboolean_2_1;
+				return this.var_toboolean_2_1.Import();
 			}
 			
 			if(typeof(System.Char).AreEqual(pvalue))
 			{
 				if(this.var_toboolean_3_1 == null)
-					this.var_toboolean_3_1 = this.builderType.GetMethod("ToBoolean", true, pvalue).Import();
+					this.var_toboolean_3_1 = this.builderType.GetMethod("ToBoolean", true, pvalue);
 			
-				return this.var_toboolean_3_1;
+				return this.var_toboolean_3_1.Import();
 			}
 			
 			if(typeof(System.Byte).AreEqual(pvalue))
 			{
 				if(this.var_toboolean_4_1 == null)
-					this.var_toboolean_4_1 = this.builderType.GetMethod("ToBoolean", true, pvalue).Import();
+					this.var_toboolean_4_1 = this.builderType.GetMethod("ToBoolean", true, pvalue);
 			
-				return this.var_toboolean_4_1;
+				return this.var_toboolean_4_1.Import();
 			}
 			
 			if(typeof(System.Int16).AreEqual(pvalue))
 			{
 				if(this.var_toboolean_5_1 == null)
-					this.var_toboolean_5_1 = this.builderType.GetMethod("ToBoolean", true, pvalue).Import();
+					this.var_toboolean_5_1 = this.builderType.GetMethod("ToBoolean", true, pvalue);
 			
-				return this.var_toboolean_5_1;
+				return this.var_toboolean_5_1.Import();
 			}
 			
 			if(typeof(System.UInt16).AreEqual(pvalue))
 			{
 				if(this.var_toboolean_6_1 == null)
-					this.var_toboolean_6_1 = this.builderType.GetMethod("ToBoolean", true, pvalue).Import();
+					this.var_toboolean_6_1 = this.builderType.GetMethod("ToBoolean", true, pvalue);
 			
-				return this.var_toboolean_6_1;
+				return this.var_toboolean_6_1.Import();
 			}
 			
 			if(typeof(System.Int32).AreEqual(pvalue))
 			{
 				if(this.var_toboolean_7_1 == null)
-					this.var_toboolean_7_1 = this.builderType.GetMethod("ToBoolean", true, pvalue).Import();
+					this.var_toboolean_7_1 = this.builderType.GetMethod("ToBoolean", true, pvalue);
 			
-				return this.var_toboolean_7_1;
+				return this.var_toboolean_7_1.Import();
 			}
 			
 			if(typeof(System.UInt32).AreEqual(pvalue))
 			{
 				if(this.var_toboolean_8_1 == null)
-					this.var_toboolean_8_1 = this.builderType.GetMethod("ToBoolean", true, pvalue).Import();
+					this.var_toboolean_8_1 = this.builderType.GetMethod("ToBoolean", true, pvalue);
 			
-				return this.var_toboolean_8_1;
+				return this.var_toboolean_8_1.Import();
 			}
 			
 			if(typeof(System.Int64).AreEqual(pvalue))
 			{
 				if(this.var_toboolean_9_1 == null)
-					this.var_toboolean_9_1 = this.builderType.GetMethod("ToBoolean", true, pvalue).Import();
+					this.var_toboolean_9_1 = this.builderType.GetMethod("ToBoolean", true, pvalue);
 			
-				return this.var_toboolean_9_1;
+				return this.var_toboolean_9_1.Import();
 			}
 			
 			if(typeof(System.UInt64).AreEqual(pvalue))
 			{
 				if(this.var_toboolean_10_1 == null)
-					this.var_toboolean_10_1 = this.builderType.GetMethod("ToBoolean", true, pvalue).Import();
+					this.var_toboolean_10_1 = this.builderType.GetMethod("ToBoolean", true, pvalue);
 			
-				return this.var_toboolean_10_1;
+				return this.var_toboolean_10_1.Import();
 			}
 			
 			if(typeof(System.String).AreEqual(pvalue))
 			{
 				if(this.var_toboolean_11_1 == null)
-					this.var_toboolean_11_1 = this.builderType.GetMethod("ToBoolean", true, pvalue).Import();
+					this.var_toboolean_11_1 = this.builderType.GetMethod("ToBoolean", true, pvalue);
 			
-				return this.var_toboolean_11_1;
+				return this.var_toboolean_11_1.Import();
 			}
 			
 			if(typeof(System.Single).AreEqual(pvalue))
 			{
 				if(this.var_toboolean_12_1 == null)
-					this.var_toboolean_12_1 = this.builderType.GetMethod("ToBoolean", true, pvalue).Import();
+					this.var_toboolean_12_1 = this.builderType.GetMethod("ToBoolean", true, pvalue);
 			
-				return this.var_toboolean_12_1;
+				return this.var_toboolean_12_1.Import();
 			}
 			
 			if(typeof(System.Double).AreEqual(pvalue))
 			{
 				if(this.var_toboolean_13_1 == null)
-					this.var_toboolean_13_1 = this.builderType.GetMethod("ToBoolean", true, pvalue).Import();
+					this.var_toboolean_13_1 = this.builderType.GetMethod("ToBoolean", true, pvalue);
 			
-				return this.var_toboolean_13_1;
+				return this.var_toboolean_13_1.Import();
 			}
 			
 			if(typeof(System.Decimal).AreEqual(pvalue))
 			{
 				if(this.var_toboolean_14_1 == null)
-					this.var_toboolean_14_1 = this.builderType.GetMethod("ToBoolean", true, pvalue).Import();
+					this.var_toboolean_14_1 = this.builderType.GetMethod("ToBoolean", true, pvalue);
 			
-				return this.var_toboolean_14_1;
+				return this.var_toboolean_14_1.Import();
 			}
 			
 			if(typeof(System.DateTime).AreEqual(pvalue))
 			{
 				if(this.var_toboolean_15_1 == null)
-					this.var_toboolean_15_1 = this.builderType.GetMethod("ToBoolean", true, pvalue).Import();
+					this.var_toboolean_15_1 = this.builderType.GetMethod("ToBoolean", true, pvalue);
 			
-				return this.var_toboolean_15_1;
+				return this.var_toboolean_15_1.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -3939,17 +3939,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Object).AreEqual(pvalue) && typeof(System.IFormatProvider).AreEqual(pprovider))
 			{
 				if(this.var_toboolean_0_2 == null)
-					this.var_toboolean_0_2 = this.builderType.GetMethod("ToBoolean", true, pvalue, pprovider).Import();
+					this.var_toboolean_0_2 = this.builderType.GetMethod("ToBoolean", true, pvalue, pprovider);
 			
-				return this.var_toboolean_0_2;
+				return this.var_toboolean_0_2.Import();
 			}
 			
 			if(typeof(System.String).AreEqual(pvalue) && typeof(System.IFormatProvider).AreEqual(pprovider))
 			{
 				if(this.var_toboolean_1_2 == null)
-					this.var_toboolean_1_2 = this.builderType.GetMethod("ToBoolean", true, pvalue, pprovider).Import();
+					this.var_toboolean_1_2 = this.builderType.GetMethod("ToBoolean", true, pvalue, pprovider);
 			
-				return this.var_toboolean_1_2;
+				return this.var_toboolean_1_2.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -4015,129 +4015,129 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Object).AreEqual(pvalue))
 			{
 				if(this.var_tochar_0_1 == null)
-					this.var_tochar_0_1 = this.builderType.GetMethod("ToChar", true, pvalue).Import();
+					this.var_tochar_0_1 = this.builderType.GetMethod("ToChar", true, pvalue);
 			
-				return this.var_tochar_0_1;
+				return this.var_tochar_0_1.Import();
 			}
 			
 			if(typeof(System.Boolean).AreEqual(pvalue))
 			{
 				if(this.var_tochar_1_1 == null)
-					this.var_tochar_1_1 = this.builderType.GetMethod("ToChar", true, pvalue).Import();
+					this.var_tochar_1_1 = this.builderType.GetMethod("ToChar", true, pvalue);
 			
-				return this.var_tochar_1_1;
+				return this.var_tochar_1_1.Import();
 			}
 			
 			if(typeof(System.Char).AreEqual(pvalue))
 			{
 				if(this.var_tochar_2_1 == null)
-					this.var_tochar_2_1 = this.builderType.GetMethod("ToChar", true, pvalue).Import();
+					this.var_tochar_2_1 = this.builderType.GetMethod("ToChar", true, pvalue);
 			
-				return this.var_tochar_2_1;
+				return this.var_tochar_2_1.Import();
 			}
 			
 			if(typeof(System.SByte).AreEqual(pvalue))
 			{
 				if(this.var_tochar_3_1 == null)
-					this.var_tochar_3_1 = this.builderType.GetMethod("ToChar", true, pvalue).Import();
+					this.var_tochar_3_1 = this.builderType.GetMethod("ToChar", true, pvalue);
 			
-				return this.var_tochar_3_1;
+				return this.var_tochar_3_1.Import();
 			}
 			
 			if(typeof(System.Byte).AreEqual(pvalue))
 			{
 				if(this.var_tochar_4_1 == null)
-					this.var_tochar_4_1 = this.builderType.GetMethod("ToChar", true, pvalue).Import();
+					this.var_tochar_4_1 = this.builderType.GetMethod("ToChar", true, pvalue);
 			
-				return this.var_tochar_4_1;
+				return this.var_tochar_4_1.Import();
 			}
 			
 			if(typeof(System.Int16).AreEqual(pvalue))
 			{
 				if(this.var_tochar_5_1 == null)
-					this.var_tochar_5_1 = this.builderType.GetMethod("ToChar", true, pvalue).Import();
+					this.var_tochar_5_1 = this.builderType.GetMethod("ToChar", true, pvalue);
 			
-				return this.var_tochar_5_1;
+				return this.var_tochar_5_1.Import();
 			}
 			
 			if(typeof(System.UInt16).AreEqual(pvalue))
 			{
 				if(this.var_tochar_6_1 == null)
-					this.var_tochar_6_1 = this.builderType.GetMethod("ToChar", true, pvalue).Import();
+					this.var_tochar_6_1 = this.builderType.GetMethod("ToChar", true, pvalue);
 			
-				return this.var_tochar_6_1;
+				return this.var_tochar_6_1.Import();
 			}
 			
 			if(typeof(System.Int32).AreEqual(pvalue))
 			{
 				if(this.var_tochar_7_1 == null)
-					this.var_tochar_7_1 = this.builderType.GetMethod("ToChar", true, pvalue).Import();
+					this.var_tochar_7_1 = this.builderType.GetMethod("ToChar", true, pvalue);
 			
-				return this.var_tochar_7_1;
+				return this.var_tochar_7_1.Import();
 			}
 			
 			if(typeof(System.UInt32).AreEqual(pvalue))
 			{
 				if(this.var_tochar_8_1 == null)
-					this.var_tochar_8_1 = this.builderType.GetMethod("ToChar", true, pvalue).Import();
+					this.var_tochar_8_1 = this.builderType.GetMethod("ToChar", true, pvalue);
 			
-				return this.var_tochar_8_1;
+				return this.var_tochar_8_1.Import();
 			}
 			
 			if(typeof(System.Int64).AreEqual(pvalue))
 			{
 				if(this.var_tochar_9_1 == null)
-					this.var_tochar_9_1 = this.builderType.GetMethod("ToChar", true, pvalue).Import();
+					this.var_tochar_9_1 = this.builderType.GetMethod("ToChar", true, pvalue);
 			
-				return this.var_tochar_9_1;
+				return this.var_tochar_9_1.Import();
 			}
 			
 			if(typeof(System.UInt64).AreEqual(pvalue))
 			{
 				if(this.var_tochar_10_1 == null)
-					this.var_tochar_10_1 = this.builderType.GetMethod("ToChar", true, pvalue).Import();
+					this.var_tochar_10_1 = this.builderType.GetMethod("ToChar", true, pvalue);
 			
-				return this.var_tochar_10_1;
+				return this.var_tochar_10_1.Import();
 			}
 			
 			if(typeof(System.String).AreEqual(pvalue))
 			{
 				if(this.var_tochar_11_1 == null)
-					this.var_tochar_11_1 = this.builderType.GetMethod("ToChar", true, pvalue).Import();
+					this.var_tochar_11_1 = this.builderType.GetMethod("ToChar", true, pvalue);
 			
-				return this.var_tochar_11_1;
+				return this.var_tochar_11_1.Import();
 			}
 			
 			if(typeof(System.Single).AreEqual(pvalue))
 			{
 				if(this.var_tochar_12_1 == null)
-					this.var_tochar_12_1 = this.builderType.GetMethod("ToChar", true, pvalue).Import();
+					this.var_tochar_12_1 = this.builderType.GetMethod("ToChar", true, pvalue);
 			
-				return this.var_tochar_12_1;
+				return this.var_tochar_12_1.Import();
 			}
 			
 			if(typeof(System.Double).AreEqual(pvalue))
 			{
 				if(this.var_tochar_13_1 == null)
-					this.var_tochar_13_1 = this.builderType.GetMethod("ToChar", true, pvalue).Import();
+					this.var_tochar_13_1 = this.builderType.GetMethod("ToChar", true, pvalue);
 			
-				return this.var_tochar_13_1;
+				return this.var_tochar_13_1.Import();
 			}
 			
 			if(typeof(System.Decimal).AreEqual(pvalue))
 			{
 				if(this.var_tochar_14_1 == null)
-					this.var_tochar_14_1 = this.builderType.GetMethod("ToChar", true, pvalue).Import();
+					this.var_tochar_14_1 = this.builderType.GetMethod("ToChar", true, pvalue);
 			
-				return this.var_tochar_14_1;
+				return this.var_tochar_14_1.Import();
 			}
 			
 			if(typeof(System.DateTime).AreEqual(pvalue))
 			{
 				if(this.var_tochar_15_1 == null)
-					this.var_tochar_15_1 = this.builderType.GetMethod("ToChar", true, pvalue).Import();
+					this.var_tochar_15_1 = this.builderType.GetMethod("ToChar", true, pvalue);
 			
-				return this.var_tochar_15_1;
+				return this.var_tochar_15_1.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -4161,17 +4161,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Object).AreEqual(pvalue) && typeof(System.IFormatProvider).AreEqual(pprovider))
 			{
 				if(this.var_tochar_0_2 == null)
-					this.var_tochar_0_2 = this.builderType.GetMethod("ToChar", true, pvalue, pprovider).Import();
+					this.var_tochar_0_2 = this.builderType.GetMethod("ToChar", true, pvalue, pprovider);
 			
-				return this.var_tochar_0_2;
+				return this.var_tochar_0_2.Import();
 			}
 			
 			if(typeof(System.String).AreEqual(pvalue) && typeof(System.IFormatProvider).AreEqual(pprovider))
 			{
 				if(this.var_tochar_1_2 == null)
-					this.var_tochar_1_2 = this.builderType.GetMethod("ToChar", true, pvalue, pprovider).Import();
+					this.var_tochar_1_2 = this.builderType.GetMethod("ToChar", true, pvalue, pprovider);
 			
-				return this.var_tochar_1_2;
+				return this.var_tochar_1_2.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -4237,129 +4237,129 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Object).AreEqual(pvalue))
 			{
 				if(this.var_tosbyte_0_1 == null)
-					this.var_tosbyte_0_1 = this.builderType.GetMethod("ToSByte", true, pvalue).Import();
+					this.var_tosbyte_0_1 = this.builderType.GetMethod("ToSByte", true, pvalue);
 			
-				return this.var_tosbyte_0_1;
+				return this.var_tosbyte_0_1.Import();
 			}
 			
 			if(typeof(System.Boolean).AreEqual(pvalue))
 			{
 				if(this.var_tosbyte_1_1 == null)
-					this.var_tosbyte_1_1 = this.builderType.GetMethod("ToSByte", true, pvalue).Import();
+					this.var_tosbyte_1_1 = this.builderType.GetMethod("ToSByte", true, pvalue);
 			
-				return this.var_tosbyte_1_1;
+				return this.var_tosbyte_1_1.Import();
 			}
 			
 			if(typeof(System.SByte).AreEqual(pvalue))
 			{
 				if(this.var_tosbyte_2_1 == null)
-					this.var_tosbyte_2_1 = this.builderType.GetMethod("ToSByte", true, pvalue).Import();
+					this.var_tosbyte_2_1 = this.builderType.GetMethod("ToSByte", true, pvalue);
 			
-				return this.var_tosbyte_2_1;
+				return this.var_tosbyte_2_1.Import();
 			}
 			
 			if(typeof(System.Char).AreEqual(pvalue))
 			{
 				if(this.var_tosbyte_3_1 == null)
-					this.var_tosbyte_3_1 = this.builderType.GetMethod("ToSByte", true, pvalue).Import();
+					this.var_tosbyte_3_1 = this.builderType.GetMethod("ToSByte", true, pvalue);
 			
-				return this.var_tosbyte_3_1;
+				return this.var_tosbyte_3_1.Import();
 			}
 			
 			if(typeof(System.Byte).AreEqual(pvalue))
 			{
 				if(this.var_tosbyte_4_1 == null)
-					this.var_tosbyte_4_1 = this.builderType.GetMethod("ToSByte", true, pvalue).Import();
+					this.var_tosbyte_4_1 = this.builderType.GetMethod("ToSByte", true, pvalue);
 			
-				return this.var_tosbyte_4_1;
+				return this.var_tosbyte_4_1.Import();
 			}
 			
 			if(typeof(System.Int16).AreEqual(pvalue))
 			{
 				if(this.var_tosbyte_5_1 == null)
-					this.var_tosbyte_5_1 = this.builderType.GetMethod("ToSByte", true, pvalue).Import();
+					this.var_tosbyte_5_1 = this.builderType.GetMethod("ToSByte", true, pvalue);
 			
-				return this.var_tosbyte_5_1;
+				return this.var_tosbyte_5_1.Import();
 			}
 			
 			if(typeof(System.UInt16).AreEqual(pvalue))
 			{
 				if(this.var_tosbyte_6_1 == null)
-					this.var_tosbyte_6_1 = this.builderType.GetMethod("ToSByte", true, pvalue).Import();
+					this.var_tosbyte_6_1 = this.builderType.GetMethod("ToSByte", true, pvalue);
 			
-				return this.var_tosbyte_6_1;
+				return this.var_tosbyte_6_1.Import();
 			}
 			
 			if(typeof(System.Int32).AreEqual(pvalue))
 			{
 				if(this.var_tosbyte_7_1 == null)
-					this.var_tosbyte_7_1 = this.builderType.GetMethod("ToSByte", true, pvalue).Import();
+					this.var_tosbyte_7_1 = this.builderType.GetMethod("ToSByte", true, pvalue);
 			
-				return this.var_tosbyte_7_1;
+				return this.var_tosbyte_7_1.Import();
 			}
 			
 			if(typeof(System.UInt32).AreEqual(pvalue))
 			{
 				if(this.var_tosbyte_8_1 == null)
-					this.var_tosbyte_8_1 = this.builderType.GetMethod("ToSByte", true, pvalue).Import();
+					this.var_tosbyte_8_1 = this.builderType.GetMethod("ToSByte", true, pvalue);
 			
-				return this.var_tosbyte_8_1;
+				return this.var_tosbyte_8_1.Import();
 			}
 			
 			if(typeof(System.Int64).AreEqual(pvalue))
 			{
 				if(this.var_tosbyte_9_1 == null)
-					this.var_tosbyte_9_1 = this.builderType.GetMethod("ToSByte", true, pvalue).Import();
+					this.var_tosbyte_9_1 = this.builderType.GetMethod("ToSByte", true, pvalue);
 			
-				return this.var_tosbyte_9_1;
+				return this.var_tosbyte_9_1.Import();
 			}
 			
 			if(typeof(System.UInt64).AreEqual(pvalue))
 			{
 				if(this.var_tosbyte_10_1 == null)
-					this.var_tosbyte_10_1 = this.builderType.GetMethod("ToSByte", true, pvalue).Import();
+					this.var_tosbyte_10_1 = this.builderType.GetMethod("ToSByte", true, pvalue);
 			
-				return this.var_tosbyte_10_1;
+				return this.var_tosbyte_10_1.Import();
 			}
 			
 			if(typeof(System.Single).AreEqual(pvalue))
 			{
 				if(this.var_tosbyte_11_1 == null)
-					this.var_tosbyte_11_1 = this.builderType.GetMethod("ToSByte", true, pvalue).Import();
+					this.var_tosbyte_11_1 = this.builderType.GetMethod("ToSByte", true, pvalue);
 			
-				return this.var_tosbyte_11_1;
+				return this.var_tosbyte_11_1.Import();
 			}
 			
 			if(typeof(System.Double).AreEqual(pvalue))
 			{
 				if(this.var_tosbyte_12_1 == null)
-					this.var_tosbyte_12_1 = this.builderType.GetMethod("ToSByte", true, pvalue).Import();
+					this.var_tosbyte_12_1 = this.builderType.GetMethod("ToSByte", true, pvalue);
 			
-				return this.var_tosbyte_12_1;
+				return this.var_tosbyte_12_1.Import();
 			}
 			
 			if(typeof(System.Decimal).AreEqual(pvalue))
 			{
 				if(this.var_tosbyte_13_1 == null)
-					this.var_tosbyte_13_1 = this.builderType.GetMethod("ToSByte", true, pvalue).Import();
+					this.var_tosbyte_13_1 = this.builderType.GetMethod("ToSByte", true, pvalue);
 			
-				return this.var_tosbyte_13_1;
+				return this.var_tosbyte_13_1.Import();
 			}
 			
 			if(typeof(System.String).AreEqual(pvalue))
 			{
 				if(this.var_tosbyte_14_1 == null)
-					this.var_tosbyte_14_1 = this.builderType.GetMethod("ToSByte", true, pvalue).Import();
+					this.var_tosbyte_14_1 = this.builderType.GetMethod("ToSByte", true, pvalue);
 			
-				return this.var_tosbyte_14_1;
+				return this.var_tosbyte_14_1.Import();
 			}
 			
 			if(typeof(System.DateTime).AreEqual(pvalue))
 			{
 				if(this.var_tosbyte_15_1 == null)
-					this.var_tosbyte_15_1 = this.builderType.GetMethod("ToSByte", true, pvalue).Import();
+					this.var_tosbyte_15_1 = this.builderType.GetMethod("ToSByte", true, pvalue);
 			
-				return this.var_tosbyte_15_1;
+				return this.var_tosbyte_15_1.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -4386,25 +4386,25 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Object).AreEqual(pvalue) && typeof(System.IFormatProvider).AreEqual(pprovider))
 			{
 				if(this.var_tosbyte_0_2 == null)
-					this.var_tosbyte_0_2 = this.builderType.GetMethod("ToSByte", true, pvalue, pprovider).Import();
+					this.var_tosbyte_0_2 = this.builderType.GetMethod("ToSByte", true, pvalue, pprovider);
 			
-				return this.var_tosbyte_0_2;
+				return this.var_tosbyte_0_2.Import();
 			}
 			
 			if(typeof(System.String).AreEqual(pvalue) && typeof(System.IFormatProvider).AreEqual(pprovider))
 			{
 				if(this.var_tosbyte_1_2 == null)
-					this.var_tosbyte_1_2 = this.builderType.GetMethod("ToSByte", true, pvalue, pprovider).Import();
+					this.var_tosbyte_1_2 = this.builderType.GetMethod("ToSByte", true, pvalue, pprovider);
 			
-				return this.var_tosbyte_1_2;
+				return this.var_tosbyte_1_2.Import();
 			}
 			
 			if(typeof(System.String).AreEqual(pvalue) && typeof(System.Int32).AreEqual(pprovider))
 			{
 				if(this.var_tosbyte_2_2 == null)
-					this.var_tosbyte_2_2 = this.builderType.GetMethod("ToSByte", true, pvalue, pprovider).Import();
+					this.var_tosbyte_2_2 = this.builderType.GetMethod("ToSByte", true, pvalue, pprovider);
 			
-				return this.var_tosbyte_2_2;
+				return this.var_tosbyte_2_2.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -4470,129 +4470,129 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Object).AreEqual(pvalue))
 			{
 				if(this.var_tobyte_0_1 == null)
-					this.var_tobyte_0_1 = this.builderType.GetMethod("ToByte", true, pvalue).Import();
+					this.var_tobyte_0_1 = this.builderType.GetMethod("ToByte", true, pvalue);
 			
-				return this.var_tobyte_0_1;
+				return this.var_tobyte_0_1.Import();
 			}
 			
 			if(typeof(System.Boolean).AreEqual(pvalue))
 			{
 				if(this.var_tobyte_1_1 == null)
-					this.var_tobyte_1_1 = this.builderType.GetMethod("ToByte", true, pvalue).Import();
+					this.var_tobyte_1_1 = this.builderType.GetMethod("ToByte", true, pvalue);
 			
-				return this.var_tobyte_1_1;
+				return this.var_tobyte_1_1.Import();
 			}
 			
 			if(typeof(System.Byte).AreEqual(pvalue))
 			{
 				if(this.var_tobyte_2_1 == null)
-					this.var_tobyte_2_1 = this.builderType.GetMethod("ToByte", true, pvalue).Import();
+					this.var_tobyte_2_1 = this.builderType.GetMethod("ToByte", true, pvalue);
 			
-				return this.var_tobyte_2_1;
+				return this.var_tobyte_2_1.Import();
 			}
 			
 			if(typeof(System.Char).AreEqual(pvalue))
 			{
 				if(this.var_tobyte_3_1 == null)
-					this.var_tobyte_3_1 = this.builderType.GetMethod("ToByte", true, pvalue).Import();
+					this.var_tobyte_3_1 = this.builderType.GetMethod("ToByte", true, pvalue);
 			
-				return this.var_tobyte_3_1;
+				return this.var_tobyte_3_1.Import();
 			}
 			
 			if(typeof(System.SByte).AreEqual(pvalue))
 			{
 				if(this.var_tobyte_4_1 == null)
-					this.var_tobyte_4_1 = this.builderType.GetMethod("ToByte", true, pvalue).Import();
+					this.var_tobyte_4_1 = this.builderType.GetMethod("ToByte", true, pvalue);
 			
-				return this.var_tobyte_4_1;
+				return this.var_tobyte_4_1.Import();
 			}
 			
 			if(typeof(System.Int16).AreEqual(pvalue))
 			{
 				if(this.var_tobyte_5_1 == null)
-					this.var_tobyte_5_1 = this.builderType.GetMethod("ToByte", true, pvalue).Import();
+					this.var_tobyte_5_1 = this.builderType.GetMethod("ToByte", true, pvalue);
 			
-				return this.var_tobyte_5_1;
+				return this.var_tobyte_5_1.Import();
 			}
 			
 			if(typeof(System.UInt16).AreEqual(pvalue))
 			{
 				if(this.var_tobyte_6_1 == null)
-					this.var_tobyte_6_1 = this.builderType.GetMethod("ToByte", true, pvalue).Import();
+					this.var_tobyte_6_1 = this.builderType.GetMethod("ToByte", true, pvalue);
 			
-				return this.var_tobyte_6_1;
+				return this.var_tobyte_6_1.Import();
 			}
 			
 			if(typeof(System.Int32).AreEqual(pvalue))
 			{
 				if(this.var_tobyte_7_1 == null)
-					this.var_tobyte_7_1 = this.builderType.GetMethod("ToByte", true, pvalue).Import();
+					this.var_tobyte_7_1 = this.builderType.GetMethod("ToByte", true, pvalue);
 			
-				return this.var_tobyte_7_1;
+				return this.var_tobyte_7_1.Import();
 			}
 			
 			if(typeof(System.UInt32).AreEqual(pvalue))
 			{
 				if(this.var_tobyte_8_1 == null)
-					this.var_tobyte_8_1 = this.builderType.GetMethod("ToByte", true, pvalue).Import();
+					this.var_tobyte_8_1 = this.builderType.GetMethod("ToByte", true, pvalue);
 			
-				return this.var_tobyte_8_1;
+				return this.var_tobyte_8_1.Import();
 			}
 			
 			if(typeof(System.Int64).AreEqual(pvalue))
 			{
 				if(this.var_tobyte_9_1 == null)
-					this.var_tobyte_9_1 = this.builderType.GetMethod("ToByte", true, pvalue).Import();
+					this.var_tobyte_9_1 = this.builderType.GetMethod("ToByte", true, pvalue);
 			
-				return this.var_tobyte_9_1;
+				return this.var_tobyte_9_1.Import();
 			}
 			
 			if(typeof(System.UInt64).AreEqual(pvalue))
 			{
 				if(this.var_tobyte_10_1 == null)
-					this.var_tobyte_10_1 = this.builderType.GetMethod("ToByte", true, pvalue).Import();
+					this.var_tobyte_10_1 = this.builderType.GetMethod("ToByte", true, pvalue);
 			
-				return this.var_tobyte_10_1;
+				return this.var_tobyte_10_1.Import();
 			}
 			
 			if(typeof(System.Single).AreEqual(pvalue))
 			{
 				if(this.var_tobyte_11_1 == null)
-					this.var_tobyte_11_1 = this.builderType.GetMethod("ToByte", true, pvalue).Import();
+					this.var_tobyte_11_1 = this.builderType.GetMethod("ToByte", true, pvalue);
 			
-				return this.var_tobyte_11_1;
+				return this.var_tobyte_11_1.Import();
 			}
 			
 			if(typeof(System.Double).AreEqual(pvalue))
 			{
 				if(this.var_tobyte_12_1 == null)
-					this.var_tobyte_12_1 = this.builderType.GetMethod("ToByte", true, pvalue).Import();
+					this.var_tobyte_12_1 = this.builderType.GetMethod("ToByte", true, pvalue);
 			
-				return this.var_tobyte_12_1;
+				return this.var_tobyte_12_1.Import();
 			}
 			
 			if(typeof(System.Decimal).AreEqual(pvalue))
 			{
 				if(this.var_tobyte_13_1 == null)
-					this.var_tobyte_13_1 = this.builderType.GetMethod("ToByte", true, pvalue).Import();
+					this.var_tobyte_13_1 = this.builderType.GetMethod("ToByte", true, pvalue);
 			
-				return this.var_tobyte_13_1;
+				return this.var_tobyte_13_1.Import();
 			}
 			
 			if(typeof(System.String).AreEqual(pvalue))
 			{
 				if(this.var_tobyte_14_1 == null)
-					this.var_tobyte_14_1 = this.builderType.GetMethod("ToByte", true, pvalue).Import();
+					this.var_tobyte_14_1 = this.builderType.GetMethod("ToByte", true, pvalue);
 			
-				return this.var_tobyte_14_1;
+				return this.var_tobyte_14_1.Import();
 			}
 			
 			if(typeof(System.DateTime).AreEqual(pvalue))
 			{
 				if(this.var_tobyte_15_1 == null)
-					this.var_tobyte_15_1 = this.builderType.GetMethod("ToByte", true, pvalue).Import();
+					this.var_tobyte_15_1 = this.builderType.GetMethod("ToByte", true, pvalue);
 			
-				return this.var_tobyte_15_1;
+				return this.var_tobyte_15_1.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -4619,25 +4619,25 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Object).AreEqual(pvalue) && typeof(System.IFormatProvider).AreEqual(pprovider))
 			{
 				if(this.var_tobyte_0_2 == null)
-					this.var_tobyte_0_2 = this.builderType.GetMethod("ToByte", true, pvalue, pprovider).Import();
+					this.var_tobyte_0_2 = this.builderType.GetMethod("ToByte", true, pvalue, pprovider);
 			
-				return this.var_tobyte_0_2;
+				return this.var_tobyte_0_2.Import();
 			}
 			
 			if(typeof(System.String).AreEqual(pvalue) && typeof(System.IFormatProvider).AreEqual(pprovider))
 			{
 				if(this.var_tobyte_1_2 == null)
-					this.var_tobyte_1_2 = this.builderType.GetMethod("ToByte", true, pvalue, pprovider).Import();
+					this.var_tobyte_1_2 = this.builderType.GetMethod("ToByte", true, pvalue, pprovider);
 			
-				return this.var_tobyte_1_2;
+				return this.var_tobyte_1_2.Import();
 			}
 			
 			if(typeof(System.String).AreEqual(pvalue) && typeof(System.Int32).AreEqual(pprovider))
 			{
 				if(this.var_tobyte_2_2 == null)
-					this.var_tobyte_2_2 = this.builderType.GetMethod("ToByte", true, pvalue, pprovider).Import();
+					this.var_tobyte_2_2 = this.builderType.GetMethod("ToByte", true, pvalue, pprovider);
 			
-				return this.var_tobyte_2_2;
+				return this.var_tobyte_2_2.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -4703,129 +4703,129 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Object).AreEqual(pvalue))
 			{
 				if(this.var_toint16_0_1 == null)
-					this.var_toint16_0_1 = this.builderType.GetMethod("ToInt16", true, pvalue).Import();
+					this.var_toint16_0_1 = this.builderType.GetMethod("ToInt16", true, pvalue);
 			
-				return this.var_toint16_0_1;
+				return this.var_toint16_0_1.Import();
 			}
 			
 			if(typeof(System.Boolean).AreEqual(pvalue))
 			{
 				if(this.var_toint16_1_1 == null)
-					this.var_toint16_1_1 = this.builderType.GetMethod("ToInt16", true, pvalue).Import();
+					this.var_toint16_1_1 = this.builderType.GetMethod("ToInt16", true, pvalue);
 			
-				return this.var_toint16_1_1;
+				return this.var_toint16_1_1.Import();
 			}
 			
 			if(typeof(System.Char).AreEqual(pvalue))
 			{
 				if(this.var_toint16_2_1 == null)
-					this.var_toint16_2_1 = this.builderType.GetMethod("ToInt16", true, pvalue).Import();
+					this.var_toint16_2_1 = this.builderType.GetMethod("ToInt16", true, pvalue);
 			
-				return this.var_toint16_2_1;
+				return this.var_toint16_2_1.Import();
 			}
 			
 			if(typeof(System.SByte).AreEqual(pvalue))
 			{
 				if(this.var_toint16_3_1 == null)
-					this.var_toint16_3_1 = this.builderType.GetMethod("ToInt16", true, pvalue).Import();
+					this.var_toint16_3_1 = this.builderType.GetMethod("ToInt16", true, pvalue);
 			
-				return this.var_toint16_3_1;
+				return this.var_toint16_3_1.Import();
 			}
 			
 			if(typeof(System.Byte).AreEqual(pvalue))
 			{
 				if(this.var_toint16_4_1 == null)
-					this.var_toint16_4_1 = this.builderType.GetMethod("ToInt16", true, pvalue).Import();
+					this.var_toint16_4_1 = this.builderType.GetMethod("ToInt16", true, pvalue);
 			
-				return this.var_toint16_4_1;
+				return this.var_toint16_4_1.Import();
 			}
 			
 			if(typeof(System.UInt16).AreEqual(pvalue))
 			{
 				if(this.var_toint16_5_1 == null)
-					this.var_toint16_5_1 = this.builderType.GetMethod("ToInt16", true, pvalue).Import();
+					this.var_toint16_5_1 = this.builderType.GetMethod("ToInt16", true, pvalue);
 			
-				return this.var_toint16_5_1;
+				return this.var_toint16_5_1.Import();
 			}
 			
 			if(typeof(System.Int32).AreEqual(pvalue))
 			{
 				if(this.var_toint16_6_1 == null)
-					this.var_toint16_6_1 = this.builderType.GetMethod("ToInt16", true, pvalue).Import();
+					this.var_toint16_6_1 = this.builderType.GetMethod("ToInt16", true, pvalue);
 			
-				return this.var_toint16_6_1;
+				return this.var_toint16_6_1.Import();
 			}
 			
 			if(typeof(System.UInt32).AreEqual(pvalue))
 			{
 				if(this.var_toint16_7_1 == null)
-					this.var_toint16_7_1 = this.builderType.GetMethod("ToInt16", true, pvalue).Import();
+					this.var_toint16_7_1 = this.builderType.GetMethod("ToInt16", true, pvalue);
 			
-				return this.var_toint16_7_1;
+				return this.var_toint16_7_1.Import();
 			}
 			
 			if(typeof(System.Int16).AreEqual(pvalue))
 			{
 				if(this.var_toint16_8_1 == null)
-					this.var_toint16_8_1 = this.builderType.GetMethod("ToInt16", true, pvalue).Import();
+					this.var_toint16_8_1 = this.builderType.GetMethod("ToInt16", true, pvalue);
 			
-				return this.var_toint16_8_1;
+				return this.var_toint16_8_1.Import();
 			}
 			
 			if(typeof(System.Int64).AreEqual(pvalue))
 			{
 				if(this.var_toint16_9_1 == null)
-					this.var_toint16_9_1 = this.builderType.GetMethod("ToInt16", true, pvalue).Import();
+					this.var_toint16_9_1 = this.builderType.GetMethod("ToInt16", true, pvalue);
 			
-				return this.var_toint16_9_1;
+				return this.var_toint16_9_1.Import();
 			}
 			
 			if(typeof(System.UInt64).AreEqual(pvalue))
 			{
 				if(this.var_toint16_10_1 == null)
-					this.var_toint16_10_1 = this.builderType.GetMethod("ToInt16", true, pvalue).Import();
+					this.var_toint16_10_1 = this.builderType.GetMethod("ToInt16", true, pvalue);
 			
-				return this.var_toint16_10_1;
+				return this.var_toint16_10_1.Import();
 			}
 			
 			if(typeof(System.Single).AreEqual(pvalue))
 			{
 				if(this.var_toint16_11_1 == null)
-					this.var_toint16_11_1 = this.builderType.GetMethod("ToInt16", true, pvalue).Import();
+					this.var_toint16_11_1 = this.builderType.GetMethod("ToInt16", true, pvalue);
 			
-				return this.var_toint16_11_1;
+				return this.var_toint16_11_1.Import();
 			}
 			
 			if(typeof(System.Double).AreEqual(pvalue))
 			{
 				if(this.var_toint16_12_1 == null)
-					this.var_toint16_12_1 = this.builderType.GetMethod("ToInt16", true, pvalue).Import();
+					this.var_toint16_12_1 = this.builderType.GetMethod("ToInt16", true, pvalue);
 			
-				return this.var_toint16_12_1;
+				return this.var_toint16_12_1.Import();
 			}
 			
 			if(typeof(System.Decimal).AreEqual(pvalue))
 			{
 				if(this.var_toint16_13_1 == null)
-					this.var_toint16_13_1 = this.builderType.GetMethod("ToInt16", true, pvalue).Import();
+					this.var_toint16_13_1 = this.builderType.GetMethod("ToInt16", true, pvalue);
 			
-				return this.var_toint16_13_1;
+				return this.var_toint16_13_1.Import();
 			}
 			
 			if(typeof(System.String).AreEqual(pvalue))
 			{
 				if(this.var_toint16_14_1 == null)
-					this.var_toint16_14_1 = this.builderType.GetMethod("ToInt16", true, pvalue).Import();
+					this.var_toint16_14_1 = this.builderType.GetMethod("ToInt16", true, pvalue);
 			
-				return this.var_toint16_14_1;
+				return this.var_toint16_14_1.Import();
 			}
 			
 			if(typeof(System.DateTime).AreEqual(pvalue))
 			{
 				if(this.var_toint16_15_1 == null)
-					this.var_toint16_15_1 = this.builderType.GetMethod("ToInt16", true, pvalue).Import();
+					this.var_toint16_15_1 = this.builderType.GetMethod("ToInt16", true, pvalue);
 			
-				return this.var_toint16_15_1;
+				return this.var_toint16_15_1.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -4852,25 +4852,25 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Object).AreEqual(pvalue) && typeof(System.IFormatProvider).AreEqual(pprovider))
 			{
 				if(this.var_toint16_0_2 == null)
-					this.var_toint16_0_2 = this.builderType.GetMethod("ToInt16", true, pvalue, pprovider).Import();
+					this.var_toint16_0_2 = this.builderType.GetMethod("ToInt16", true, pvalue, pprovider);
 			
-				return this.var_toint16_0_2;
+				return this.var_toint16_0_2.Import();
 			}
 			
 			if(typeof(System.String).AreEqual(pvalue) && typeof(System.IFormatProvider).AreEqual(pprovider))
 			{
 				if(this.var_toint16_1_2 == null)
-					this.var_toint16_1_2 = this.builderType.GetMethod("ToInt16", true, pvalue, pprovider).Import();
+					this.var_toint16_1_2 = this.builderType.GetMethod("ToInt16", true, pvalue, pprovider);
 			
-				return this.var_toint16_1_2;
+				return this.var_toint16_1_2.Import();
 			}
 			
 			if(typeof(System.String).AreEqual(pvalue) && typeof(System.Int32).AreEqual(pprovider))
 			{
 				if(this.var_toint16_2_2 == null)
-					this.var_toint16_2_2 = this.builderType.GetMethod("ToInt16", true, pvalue, pprovider).Import();
+					this.var_toint16_2_2 = this.builderType.GetMethod("ToInt16", true, pvalue, pprovider);
 			
-				return this.var_toint16_2_2;
+				return this.var_toint16_2_2.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -4936,129 +4936,129 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Object).AreEqual(pvalue))
 			{
 				if(this.var_touint16_0_1 == null)
-					this.var_touint16_0_1 = this.builderType.GetMethod("ToUInt16", true, pvalue).Import();
+					this.var_touint16_0_1 = this.builderType.GetMethod("ToUInt16", true, pvalue);
 			
-				return this.var_touint16_0_1;
+				return this.var_touint16_0_1.Import();
 			}
 			
 			if(typeof(System.Boolean).AreEqual(pvalue))
 			{
 				if(this.var_touint16_1_1 == null)
-					this.var_touint16_1_1 = this.builderType.GetMethod("ToUInt16", true, pvalue).Import();
+					this.var_touint16_1_1 = this.builderType.GetMethod("ToUInt16", true, pvalue);
 			
-				return this.var_touint16_1_1;
+				return this.var_touint16_1_1.Import();
 			}
 			
 			if(typeof(System.Char).AreEqual(pvalue))
 			{
 				if(this.var_touint16_2_1 == null)
-					this.var_touint16_2_1 = this.builderType.GetMethod("ToUInt16", true, pvalue).Import();
+					this.var_touint16_2_1 = this.builderType.GetMethod("ToUInt16", true, pvalue);
 			
-				return this.var_touint16_2_1;
+				return this.var_touint16_2_1.Import();
 			}
 			
 			if(typeof(System.SByte).AreEqual(pvalue))
 			{
 				if(this.var_touint16_3_1 == null)
-					this.var_touint16_3_1 = this.builderType.GetMethod("ToUInt16", true, pvalue).Import();
+					this.var_touint16_3_1 = this.builderType.GetMethod("ToUInt16", true, pvalue);
 			
-				return this.var_touint16_3_1;
+				return this.var_touint16_3_1.Import();
 			}
 			
 			if(typeof(System.Byte).AreEqual(pvalue))
 			{
 				if(this.var_touint16_4_1 == null)
-					this.var_touint16_4_1 = this.builderType.GetMethod("ToUInt16", true, pvalue).Import();
+					this.var_touint16_4_1 = this.builderType.GetMethod("ToUInt16", true, pvalue);
 			
-				return this.var_touint16_4_1;
+				return this.var_touint16_4_1.Import();
 			}
 			
 			if(typeof(System.Int16).AreEqual(pvalue))
 			{
 				if(this.var_touint16_5_1 == null)
-					this.var_touint16_5_1 = this.builderType.GetMethod("ToUInt16", true, pvalue).Import();
+					this.var_touint16_5_1 = this.builderType.GetMethod("ToUInt16", true, pvalue);
 			
-				return this.var_touint16_5_1;
+				return this.var_touint16_5_1.Import();
 			}
 			
 			if(typeof(System.Int32).AreEqual(pvalue))
 			{
 				if(this.var_touint16_6_1 == null)
-					this.var_touint16_6_1 = this.builderType.GetMethod("ToUInt16", true, pvalue).Import();
+					this.var_touint16_6_1 = this.builderType.GetMethod("ToUInt16", true, pvalue);
 			
-				return this.var_touint16_6_1;
+				return this.var_touint16_6_1.Import();
 			}
 			
 			if(typeof(System.UInt16).AreEqual(pvalue))
 			{
 				if(this.var_touint16_7_1 == null)
-					this.var_touint16_7_1 = this.builderType.GetMethod("ToUInt16", true, pvalue).Import();
+					this.var_touint16_7_1 = this.builderType.GetMethod("ToUInt16", true, pvalue);
 			
-				return this.var_touint16_7_1;
+				return this.var_touint16_7_1.Import();
 			}
 			
 			if(typeof(System.UInt32).AreEqual(pvalue))
 			{
 				if(this.var_touint16_8_1 == null)
-					this.var_touint16_8_1 = this.builderType.GetMethod("ToUInt16", true, pvalue).Import();
+					this.var_touint16_8_1 = this.builderType.GetMethod("ToUInt16", true, pvalue);
 			
-				return this.var_touint16_8_1;
+				return this.var_touint16_8_1.Import();
 			}
 			
 			if(typeof(System.Int64).AreEqual(pvalue))
 			{
 				if(this.var_touint16_9_1 == null)
-					this.var_touint16_9_1 = this.builderType.GetMethod("ToUInt16", true, pvalue).Import();
+					this.var_touint16_9_1 = this.builderType.GetMethod("ToUInt16", true, pvalue);
 			
-				return this.var_touint16_9_1;
+				return this.var_touint16_9_1.Import();
 			}
 			
 			if(typeof(System.UInt64).AreEqual(pvalue))
 			{
 				if(this.var_touint16_10_1 == null)
-					this.var_touint16_10_1 = this.builderType.GetMethod("ToUInt16", true, pvalue).Import();
+					this.var_touint16_10_1 = this.builderType.GetMethod("ToUInt16", true, pvalue);
 			
-				return this.var_touint16_10_1;
+				return this.var_touint16_10_1.Import();
 			}
 			
 			if(typeof(System.Single).AreEqual(pvalue))
 			{
 				if(this.var_touint16_11_1 == null)
-					this.var_touint16_11_1 = this.builderType.GetMethod("ToUInt16", true, pvalue).Import();
+					this.var_touint16_11_1 = this.builderType.GetMethod("ToUInt16", true, pvalue);
 			
-				return this.var_touint16_11_1;
+				return this.var_touint16_11_1.Import();
 			}
 			
 			if(typeof(System.Double).AreEqual(pvalue))
 			{
 				if(this.var_touint16_12_1 == null)
-					this.var_touint16_12_1 = this.builderType.GetMethod("ToUInt16", true, pvalue).Import();
+					this.var_touint16_12_1 = this.builderType.GetMethod("ToUInt16", true, pvalue);
 			
-				return this.var_touint16_12_1;
+				return this.var_touint16_12_1.Import();
 			}
 			
 			if(typeof(System.Decimal).AreEqual(pvalue))
 			{
 				if(this.var_touint16_13_1 == null)
-					this.var_touint16_13_1 = this.builderType.GetMethod("ToUInt16", true, pvalue).Import();
+					this.var_touint16_13_1 = this.builderType.GetMethod("ToUInt16", true, pvalue);
 			
-				return this.var_touint16_13_1;
+				return this.var_touint16_13_1.Import();
 			}
 			
 			if(typeof(System.String).AreEqual(pvalue))
 			{
 				if(this.var_touint16_14_1 == null)
-					this.var_touint16_14_1 = this.builderType.GetMethod("ToUInt16", true, pvalue).Import();
+					this.var_touint16_14_1 = this.builderType.GetMethod("ToUInt16", true, pvalue);
 			
-				return this.var_touint16_14_1;
+				return this.var_touint16_14_1.Import();
 			}
 			
 			if(typeof(System.DateTime).AreEqual(pvalue))
 			{
 				if(this.var_touint16_15_1 == null)
-					this.var_touint16_15_1 = this.builderType.GetMethod("ToUInt16", true, pvalue).Import();
+					this.var_touint16_15_1 = this.builderType.GetMethod("ToUInt16", true, pvalue);
 			
-				return this.var_touint16_15_1;
+				return this.var_touint16_15_1.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -5085,25 +5085,25 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Object).AreEqual(pvalue) && typeof(System.IFormatProvider).AreEqual(pprovider))
 			{
 				if(this.var_touint16_0_2 == null)
-					this.var_touint16_0_2 = this.builderType.GetMethod("ToUInt16", true, pvalue, pprovider).Import();
+					this.var_touint16_0_2 = this.builderType.GetMethod("ToUInt16", true, pvalue, pprovider);
 			
-				return this.var_touint16_0_2;
+				return this.var_touint16_0_2.Import();
 			}
 			
 			if(typeof(System.String).AreEqual(pvalue) && typeof(System.IFormatProvider).AreEqual(pprovider))
 			{
 				if(this.var_touint16_1_2 == null)
-					this.var_touint16_1_2 = this.builderType.GetMethod("ToUInt16", true, pvalue, pprovider).Import();
+					this.var_touint16_1_2 = this.builderType.GetMethod("ToUInt16", true, pvalue, pprovider);
 			
-				return this.var_touint16_1_2;
+				return this.var_touint16_1_2.Import();
 			}
 			
 			if(typeof(System.String).AreEqual(pvalue) && typeof(System.Int32).AreEqual(pprovider))
 			{
 				if(this.var_touint16_2_2 == null)
-					this.var_touint16_2_2 = this.builderType.GetMethod("ToUInt16", true, pvalue, pprovider).Import();
+					this.var_touint16_2_2 = this.builderType.GetMethod("ToUInt16", true, pvalue, pprovider);
 			
-				return this.var_touint16_2_2;
+				return this.var_touint16_2_2.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -5169,129 +5169,129 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Object).AreEqual(pvalue))
 			{
 				if(this.var_toint32_0_1 == null)
-					this.var_toint32_0_1 = this.builderType.GetMethod("ToInt32", true, pvalue).Import();
+					this.var_toint32_0_1 = this.builderType.GetMethod("ToInt32", true, pvalue);
 			
-				return this.var_toint32_0_1;
+				return this.var_toint32_0_1.Import();
 			}
 			
 			if(typeof(System.Boolean).AreEqual(pvalue))
 			{
 				if(this.var_toint32_1_1 == null)
-					this.var_toint32_1_1 = this.builderType.GetMethod("ToInt32", true, pvalue).Import();
+					this.var_toint32_1_1 = this.builderType.GetMethod("ToInt32", true, pvalue);
 			
-				return this.var_toint32_1_1;
+				return this.var_toint32_1_1.Import();
 			}
 			
 			if(typeof(System.Char).AreEqual(pvalue))
 			{
 				if(this.var_toint32_2_1 == null)
-					this.var_toint32_2_1 = this.builderType.GetMethod("ToInt32", true, pvalue).Import();
+					this.var_toint32_2_1 = this.builderType.GetMethod("ToInt32", true, pvalue);
 			
-				return this.var_toint32_2_1;
+				return this.var_toint32_2_1.Import();
 			}
 			
 			if(typeof(System.SByte).AreEqual(pvalue))
 			{
 				if(this.var_toint32_3_1 == null)
-					this.var_toint32_3_1 = this.builderType.GetMethod("ToInt32", true, pvalue).Import();
+					this.var_toint32_3_1 = this.builderType.GetMethod("ToInt32", true, pvalue);
 			
-				return this.var_toint32_3_1;
+				return this.var_toint32_3_1.Import();
 			}
 			
 			if(typeof(System.Byte).AreEqual(pvalue))
 			{
 				if(this.var_toint32_4_1 == null)
-					this.var_toint32_4_1 = this.builderType.GetMethod("ToInt32", true, pvalue).Import();
+					this.var_toint32_4_1 = this.builderType.GetMethod("ToInt32", true, pvalue);
 			
-				return this.var_toint32_4_1;
+				return this.var_toint32_4_1.Import();
 			}
 			
 			if(typeof(System.Int16).AreEqual(pvalue))
 			{
 				if(this.var_toint32_5_1 == null)
-					this.var_toint32_5_1 = this.builderType.GetMethod("ToInt32", true, pvalue).Import();
+					this.var_toint32_5_1 = this.builderType.GetMethod("ToInt32", true, pvalue);
 			
-				return this.var_toint32_5_1;
+				return this.var_toint32_5_1.Import();
 			}
 			
 			if(typeof(System.UInt16).AreEqual(pvalue))
 			{
 				if(this.var_toint32_6_1 == null)
-					this.var_toint32_6_1 = this.builderType.GetMethod("ToInt32", true, pvalue).Import();
+					this.var_toint32_6_1 = this.builderType.GetMethod("ToInt32", true, pvalue);
 			
-				return this.var_toint32_6_1;
+				return this.var_toint32_6_1.Import();
 			}
 			
 			if(typeof(System.UInt32).AreEqual(pvalue))
 			{
 				if(this.var_toint32_7_1 == null)
-					this.var_toint32_7_1 = this.builderType.GetMethod("ToInt32", true, pvalue).Import();
+					this.var_toint32_7_1 = this.builderType.GetMethod("ToInt32", true, pvalue);
 			
-				return this.var_toint32_7_1;
+				return this.var_toint32_7_1.Import();
 			}
 			
 			if(typeof(System.Int32).AreEqual(pvalue))
 			{
 				if(this.var_toint32_8_1 == null)
-					this.var_toint32_8_1 = this.builderType.GetMethod("ToInt32", true, pvalue).Import();
+					this.var_toint32_8_1 = this.builderType.GetMethod("ToInt32", true, pvalue);
 			
-				return this.var_toint32_8_1;
+				return this.var_toint32_8_1.Import();
 			}
 			
 			if(typeof(System.Int64).AreEqual(pvalue))
 			{
 				if(this.var_toint32_9_1 == null)
-					this.var_toint32_9_1 = this.builderType.GetMethod("ToInt32", true, pvalue).Import();
+					this.var_toint32_9_1 = this.builderType.GetMethod("ToInt32", true, pvalue);
 			
-				return this.var_toint32_9_1;
+				return this.var_toint32_9_1.Import();
 			}
 			
 			if(typeof(System.UInt64).AreEqual(pvalue))
 			{
 				if(this.var_toint32_10_1 == null)
-					this.var_toint32_10_1 = this.builderType.GetMethod("ToInt32", true, pvalue).Import();
+					this.var_toint32_10_1 = this.builderType.GetMethod("ToInt32", true, pvalue);
 			
-				return this.var_toint32_10_1;
+				return this.var_toint32_10_1.Import();
 			}
 			
 			if(typeof(System.Single).AreEqual(pvalue))
 			{
 				if(this.var_toint32_11_1 == null)
-					this.var_toint32_11_1 = this.builderType.GetMethod("ToInt32", true, pvalue).Import();
+					this.var_toint32_11_1 = this.builderType.GetMethod("ToInt32", true, pvalue);
 			
-				return this.var_toint32_11_1;
+				return this.var_toint32_11_1.Import();
 			}
 			
 			if(typeof(System.Double).AreEqual(pvalue))
 			{
 				if(this.var_toint32_12_1 == null)
-					this.var_toint32_12_1 = this.builderType.GetMethod("ToInt32", true, pvalue).Import();
+					this.var_toint32_12_1 = this.builderType.GetMethod("ToInt32", true, pvalue);
 			
-				return this.var_toint32_12_1;
+				return this.var_toint32_12_1.Import();
 			}
 			
 			if(typeof(System.Decimal).AreEqual(pvalue))
 			{
 				if(this.var_toint32_13_1 == null)
-					this.var_toint32_13_1 = this.builderType.GetMethod("ToInt32", true, pvalue).Import();
+					this.var_toint32_13_1 = this.builderType.GetMethod("ToInt32", true, pvalue);
 			
-				return this.var_toint32_13_1;
+				return this.var_toint32_13_1.Import();
 			}
 			
 			if(typeof(System.String).AreEqual(pvalue))
 			{
 				if(this.var_toint32_14_1 == null)
-					this.var_toint32_14_1 = this.builderType.GetMethod("ToInt32", true, pvalue).Import();
+					this.var_toint32_14_1 = this.builderType.GetMethod("ToInt32", true, pvalue);
 			
-				return this.var_toint32_14_1;
+				return this.var_toint32_14_1.Import();
 			}
 			
 			if(typeof(System.DateTime).AreEqual(pvalue))
 			{
 				if(this.var_toint32_15_1 == null)
-					this.var_toint32_15_1 = this.builderType.GetMethod("ToInt32", true, pvalue).Import();
+					this.var_toint32_15_1 = this.builderType.GetMethod("ToInt32", true, pvalue);
 			
-				return this.var_toint32_15_1;
+				return this.var_toint32_15_1.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -5318,25 +5318,25 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Object).AreEqual(pvalue) && typeof(System.IFormatProvider).AreEqual(pprovider))
 			{
 				if(this.var_toint32_0_2 == null)
-					this.var_toint32_0_2 = this.builderType.GetMethod("ToInt32", true, pvalue, pprovider).Import();
+					this.var_toint32_0_2 = this.builderType.GetMethod("ToInt32", true, pvalue, pprovider);
 			
-				return this.var_toint32_0_2;
+				return this.var_toint32_0_2.Import();
 			}
 			
 			if(typeof(System.String).AreEqual(pvalue) && typeof(System.IFormatProvider).AreEqual(pprovider))
 			{
 				if(this.var_toint32_1_2 == null)
-					this.var_toint32_1_2 = this.builderType.GetMethod("ToInt32", true, pvalue, pprovider).Import();
+					this.var_toint32_1_2 = this.builderType.GetMethod("ToInt32", true, pvalue, pprovider);
 			
-				return this.var_toint32_1_2;
+				return this.var_toint32_1_2.Import();
 			}
 			
 			if(typeof(System.String).AreEqual(pvalue) && typeof(System.Int32).AreEqual(pprovider))
 			{
 				if(this.var_toint32_2_2 == null)
-					this.var_toint32_2_2 = this.builderType.GetMethod("ToInt32", true, pvalue, pprovider).Import();
+					this.var_toint32_2_2 = this.builderType.GetMethod("ToInt32", true, pvalue, pprovider);
 			
-				return this.var_toint32_2_2;
+				return this.var_toint32_2_2.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -5402,129 +5402,129 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Object).AreEqual(pvalue))
 			{
 				if(this.var_touint32_0_1 == null)
-					this.var_touint32_0_1 = this.builderType.GetMethod("ToUInt32", true, pvalue).Import();
+					this.var_touint32_0_1 = this.builderType.GetMethod("ToUInt32", true, pvalue);
 			
-				return this.var_touint32_0_1;
+				return this.var_touint32_0_1.Import();
 			}
 			
 			if(typeof(System.Boolean).AreEqual(pvalue))
 			{
 				if(this.var_touint32_1_1 == null)
-					this.var_touint32_1_1 = this.builderType.GetMethod("ToUInt32", true, pvalue).Import();
+					this.var_touint32_1_1 = this.builderType.GetMethod("ToUInt32", true, pvalue);
 			
-				return this.var_touint32_1_1;
+				return this.var_touint32_1_1.Import();
 			}
 			
 			if(typeof(System.Char).AreEqual(pvalue))
 			{
 				if(this.var_touint32_2_1 == null)
-					this.var_touint32_2_1 = this.builderType.GetMethod("ToUInt32", true, pvalue).Import();
+					this.var_touint32_2_1 = this.builderType.GetMethod("ToUInt32", true, pvalue);
 			
-				return this.var_touint32_2_1;
+				return this.var_touint32_2_1.Import();
 			}
 			
 			if(typeof(System.SByte).AreEqual(pvalue))
 			{
 				if(this.var_touint32_3_1 == null)
-					this.var_touint32_3_1 = this.builderType.GetMethod("ToUInt32", true, pvalue).Import();
+					this.var_touint32_3_1 = this.builderType.GetMethod("ToUInt32", true, pvalue);
 			
-				return this.var_touint32_3_1;
+				return this.var_touint32_3_1.Import();
 			}
 			
 			if(typeof(System.Byte).AreEqual(pvalue))
 			{
 				if(this.var_touint32_4_1 == null)
-					this.var_touint32_4_1 = this.builderType.GetMethod("ToUInt32", true, pvalue).Import();
+					this.var_touint32_4_1 = this.builderType.GetMethod("ToUInt32", true, pvalue);
 			
-				return this.var_touint32_4_1;
+				return this.var_touint32_4_1.Import();
 			}
 			
 			if(typeof(System.Int16).AreEqual(pvalue))
 			{
 				if(this.var_touint32_5_1 == null)
-					this.var_touint32_5_1 = this.builderType.GetMethod("ToUInt32", true, pvalue).Import();
+					this.var_touint32_5_1 = this.builderType.GetMethod("ToUInt32", true, pvalue);
 			
-				return this.var_touint32_5_1;
+				return this.var_touint32_5_1.Import();
 			}
 			
 			if(typeof(System.UInt16).AreEqual(pvalue))
 			{
 				if(this.var_touint32_6_1 == null)
-					this.var_touint32_6_1 = this.builderType.GetMethod("ToUInt32", true, pvalue).Import();
+					this.var_touint32_6_1 = this.builderType.GetMethod("ToUInt32", true, pvalue);
 			
-				return this.var_touint32_6_1;
+				return this.var_touint32_6_1.Import();
 			}
 			
 			if(typeof(System.Int32).AreEqual(pvalue))
 			{
 				if(this.var_touint32_7_1 == null)
-					this.var_touint32_7_1 = this.builderType.GetMethod("ToUInt32", true, pvalue).Import();
+					this.var_touint32_7_1 = this.builderType.GetMethod("ToUInt32", true, pvalue);
 			
-				return this.var_touint32_7_1;
+				return this.var_touint32_7_1.Import();
 			}
 			
 			if(typeof(System.UInt32).AreEqual(pvalue))
 			{
 				if(this.var_touint32_8_1 == null)
-					this.var_touint32_8_1 = this.builderType.GetMethod("ToUInt32", true, pvalue).Import();
+					this.var_touint32_8_1 = this.builderType.GetMethod("ToUInt32", true, pvalue);
 			
-				return this.var_touint32_8_1;
+				return this.var_touint32_8_1.Import();
 			}
 			
 			if(typeof(System.Int64).AreEqual(pvalue))
 			{
 				if(this.var_touint32_9_1 == null)
-					this.var_touint32_9_1 = this.builderType.GetMethod("ToUInt32", true, pvalue).Import();
+					this.var_touint32_9_1 = this.builderType.GetMethod("ToUInt32", true, pvalue);
 			
-				return this.var_touint32_9_1;
+				return this.var_touint32_9_1.Import();
 			}
 			
 			if(typeof(System.UInt64).AreEqual(pvalue))
 			{
 				if(this.var_touint32_10_1 == null)
-					this.var_touint32_10_1 = this.builderType.GetMethod("ToUInt32", true, pvalue).Import();
+					this.var_touint32_10_1 = this.builderType.GetMethod("ToUInt32", true, pvalue);
 			
-				return this.var_touint32_10_1;
+				return this.var_touint32_10_1.Import();
 			}
 			
 			if(typeof(System.Single).AreEqual(pvalue))
 			{
 				if(this.var_touint32_11_1 == null)
-					this.var_touint32_11_1 = this.builderType.GetMethod("ToUInt32", true, pvalue).Import();
+					this.var_touint32_11_1 = this.builderType.GetMethod("ToUInt32", true, pvalue);
 			
-				return this.var_touint32_11_1;
+				return this.var_touint32_11_1.Import();
 			}
 			
 			if(typeof(System.Double).AreEqual(pvalue))
 			{
 				if(this.var_touint32_12_1 == null)
-					this.var_touint32_12_1 = this.builderType.GetMethod("ToUInt32", true, pvalue).Import();
+					this.var_touint32_12_1 = this.builderType.GetMethod("ToUInt32", true, pvalue);
 			
-				return this.var_touint32_12_1;
+				return this.var_touint32_12_1.Import();
 			}
 			
 			if(typeof(System.Decimal).AreEqual(pvalue))
 			{
 				if(this.var_touint32_13_1 == null)
-					this.var_touint32_13_1 = this.builderType.GetMethod("ToUInt32", true, pvalue).Import();
+					this.var_touint32_13_1 = this.builderType.GetMethod("ToUInt32", true, pvalue);
 			
-				return this.var_touint32_13_1;
+				return this.var_touint32_13_1.Import();
 			}
 			
 			if(typeof(System.String).AreEqual(pvalue))
 			{
 				if(this.var_touint32_14_1 == null)
-					this.var_touint32_14_1 = this.builderType.GetMethod("ToUInt32", true, pvalue).Import();
+					this.var_touint32_14_1 = this.builderType.GetMethod("ToUInt32", true, pvalue);
 			
-				return this.var_touint32_14_1;
+				return this.var_touint32_14_1.Import();
 			}
 			
 			if(typeof(System.DateTime).AreEqual(pvalue))
 			{
 				if(this.var_touint32_15_1 == null)
-					this.var_touint32_15_1 = this.builderType.GetMethod("ToUInt32", true, pvalue).Import();
+					this.var_touint32_15_1 = this.builderType.GetMethod("ToUInt32", true, pvalue);
 			
-				return this.var_touint32_15_1;
+				return this.var_touint32_15_1.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -5551,25 +5551,25 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Object).AreEqual(pvalue) && typeof(System.IFormatProvider).AreEqual(pprovider))
 			{
 				if(this.var_touint32_0_2 == null)
-					this.var_touint32_0_2 = this.builderType.GetMethod("ToUInt32", true, pvalue, pprovider).Import();
+					this.var_touint32_0_2 = this.builderType.GetMethod("ToUInt32", true, pvalue, pprovider);
 			
-				return this.var_touint32_0_2;
+				return this.var_touint32_0_2.Import();
 			}
 			
 			if(typeof(System.String).AreEqual(pvalue) && typeof(System.IFormatProvider).AreEqual(pprovider))
 			{
 				if(this.var_touint32_1_2 == null)
-					this.var_touint32_1_2 = this.builderType.GetMethod("ToUInt32", true, pvalue, pprovider).Import();
+					this.var_touint32_1_2 = this.builderType.GetMethod("ToUInt32", true, pvalue, pprovider);
 			
-				return this.var_touint32_1_2;
+				return this.var_touint32_1_2.Import();
 			}
 			
 			if(typeof(System.String).AreEqual(pvalue) && typeof(System.Int32).AreEqual(pprovider))
 			{
 				if(this.var_touint32_2_2 == null)
-					this.var_touint32_2_2 = this.builderType.GetMethod("ToUInt32", true, pvalue, pprovider).Import();
+					this.var_touint32_2_2 = this.builderType.GetMethod("ToUInt32", true, pvalue, pprovider);
 			
-				return this.var_touint32_2_2;
+				return this.var_touint32_2_2.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -5635,129 +5635,129 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Object).AreEqual(pvalue))
 			{
 				if(this.var_toint64_0_1 == null)
-					this.var_toint64_0_1 = this.builderType.GetMethod("ToInt64", true, pvalue).Import();
+					this.var_toint64_0_1 = this.builderType.GetMethod("ToInt64", true, pvalue);
 			
-				return this.var_toint64_0_1;
+				return this.var_toint64_0_1.Import();
 			}
 			
 			if(typeof(System.Boolean).AreEqual(pvalue))
 			{
 				if(this.var_toint64_1_1 == null)
-					this.var_toint64_1_1 = this.builderType.GetMethod("ToInt64", true, pvalue).Import();
+					this.var_toint64_1_1 = this.builderType.GetMethod("ToInt64", true, pvalue);
 			
-				return this.var_toint64_1_1;
+				return this.var_toint64_1_1.Import();
 			}
 			
 			if(typeof(System.Char).AreEqual(pvalue))
 			{
 				if(this.var_toint64_2_1 == null)
-					this.var_toint64_2_1 = this.builderType.GetMethod("ToInt64", true, pvalue).Import();
+					this.var_toint64_2_1 = this.builderType.GetMethod("ToInt64", true, pvalue);
 			
-				return this.var_toint64_2_1;
+				return this.var_toint64_2_1.Import();
 			}
 			
 			if(typeof(System.SByte).AreEqual(pvalue))
 			{
 				if(this.var_toint64_3_1 == null)
-					this.var_toint64_3_1 = this.builderType.GetMethod("ToInt64", true, pvalue).Import();
+					this.var_toint64_3_1 = this.builderType.GetMethod("ToInt64", true, pvalue);
 			
-				return this.var_toint64_3_1;
+				return this.var_toint64_3_1.Import();
 			}
 			
 			if(typeof(System.Byte).AreEqual(pvalue))
 			{
 				if(this.var_toint64_4_1 == null)
-					this.var_toint64_4_1 = this.builderType.GetMethod("ToInt64", true, pvalue).Import();
+					this.var_toint64_4_1 = this.builderType.GetMethod("ToInt64", true, pvalue);
 			
-				return this.var_toint64_4_1;
+				return this.var_toint64_4_1.Import();
 			}
 			
 			if(typeof(System.Int16).AreEqual(pvalue))
 			{
 				if(this.var_toint64_5_1 == null)
-					this.var_toint64_5_1 = this.builderType.GetMethod("ToInt64", true, pvalue).Import();
+					this.var_toint64_5_1 = this.builderType.GetMethod("ToInt64", true, pvalue);
 			
-				return this.var_toint64_5_1;
+				return this.var_toint64_5_1.Import();
 			}
 			
 			if(typeof(System.UInt16).AreEqual(pvalue))
 			{
 				if(this.var_toint64_6_1 == null)
-					this.var_toint64_6_1 = this.builderType.GetMethod("ToInt64", true, pvalue).Import();
+					this.var_toint64_6_1 = this.builderType.GetMethod("ToInt64", true, pvalue);
 			
-				return this.var_toint64_6_1;
+				return this.var_toint64_6_1.Import();
 			}
 			
 			if(typeof(System.Int32).AreEqual(pvalue))
 			{
 				if(this.var_toint64_7_1 == null)
-					this.var_toint64_7_1 = this.builderType.GetMethod("ToInt64", true, pvalue).Import();
+					this.var_toint64_7_1 = this.builderType.GetMethod("ToInt64", true, pvalue);
 			
-				return this.var_toint64_7_1;
+				return this.var_toint64_7_1.Import();
 			}
 			
 			if(typeof(System.UInt32).AreEqual(pvalue))
 			{
 				if(this.var_toint64_8_1 == null)
-					this.var_toint64_8_1 = this.builderType.GetMethod("ToInt64", true, pvalue).Import();
+					this.var_toint64_8_1 = this.builderType.GetMethod("ToInt64", true, pvalue);
 			
-				return this.var_toint64_8_1;
+				return this.var_toint64_8_1.Import();
 			}
 			
 			if(typeof(System.UInt64).AreEqual(pvalue))
 			{
 				if(this.var_toint64_9_1 == null)
-					this.var_toint64_9_1 = this.builderType.GetMethod("ToInt64", true, pvalue).Import();
+					this.var_toint64_9_1 = this.builderType.GetMethod("ToInt64", true, pvalue);
 			
-				return this.var_toint64_9_1;
+				return this.var_toint64_9_1.Import();
 			}
 			
 			if(typeof(System.Int64).AreEqual(pvalue))
 			{
 				if(this.var_toint64_10_1 == null)
-					this.var_toint64_10_1 = this.builderType.GetMethod("ToInt64", true, pvalue).Import();
+					this.var_toint64_10_1 = this.builderType.GetMethod("ToInt64", true, pvalue);
 			
-				return this.var_toint64_10_1;
+				return this.var_toint64_10_1.Import();
 			}
 			
 			if(typeof(System.Single).AreEqual(pvalue))
 			{
 				if(this.var_toint64_11_1 == null)
-					this.var_toint64_11_1 = this.builderType.GetMethod("ToInt64", true, pvalue).Import();
+					this.var_toint64_11_1 = this.builderType.GetMethod("ToInt64", true, pvalue);
 			
-				return this.var_toint64_11_1;
+				return this.var_toint64_11_1.Import();
 			}
 			
 			if(typeof(System.Double).AreEqual(pvalue))
 			{
 				if(this.var_toint64_12_1 == null)
-					this.var_toint64_12_1 = this.builderType.GetMethod("ToInt64", true, pvalue).Import();
+					this.var_toint64_12_1 = this.builderType.GetMethod("ToInt64", true, pvalue);
 			
-				return this.var_toint64_12_1;
+				return this.var_toint64_12_1.Import();
 			}
 			
 			if(typeof(System.Decimal).AreEqual(pvalue))
 			{
 				if(this.var_toint64_13_1 == null)
-					this.var_toint64_13_1 = this.builderType.GetMethod("ToInt64", true, pvalue).Import();
+					this.var_toint64_13_1 = this.builderType.GetMethod("ToInt64", true, pvalue);
 			
-				return this.var_toint64_13_1;
+				return this.var_toint64_13_1.Import();
 			}
 			
 			if(typeof(System.String).AreEqual(pvalue))
 			{
 				if(this.var_toint64_14_1 == null)
-					this.var_toint64_14_1 = this.builderType.GetMethod("ToInt64", true, pvalue).Import();
+					this.var_toint64_14_1 = this.builderType.GetMethod("ToInt64", true, pvalue);
 			
-				return this.var_toint64_14_1;
+				return this.var_toint64_14_1.Import();
 			}
 			
 			if(typeof(System.DateTime).AreEqual(pvalue))
 			{
 				if(this.var_toint64_15_1 == null)
-					this.var_toint64_15_1 = this.builderType.GetMethod("ToInt64", true, pvalue).Import();
+					this.var_toint64_15_1 = this.builderType.GetMethod("ToInt64", true, pvalue);
 			
-				return this.var_toint64_15_1;
+				return this.var_toint64_15_1.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -5784,25 +5784,25 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Object).AreEqual(pvalue) && typeof(System.IFormatProvider).AreEqual(pprovider))
 			{
 				if(this.var_toint64_0_2 == null)
-					this.var_toint64_0_2 = this.builderType.GetMethod("ToInt64", true, pvalue, pprovider).Import();
+					this.var_toint64_0_2 = this.builderType.GetMethod("ToInt64", true, pvalue, pprovider);
 			
-				return this.var_toint64_0_2;
+				return this.var_toint64_0_2.Import();
 			}
 			
 			if(typeof(System.String).AreEqual(pvalue) && typeof(System.IFormatProvider).AreEqual(pprovider))
 			{
 				if(this.var_toint64_1_2 == null)
-					this.var_toint64_1_2 = this.builderType.GetMethod("ToInt64", true, pvalue, pprovider).Import();
+					this.var_toint64_1_2 = this.builderType.GetMethod("ToInt64", true, pvalue, pprovider);
 			
-				return this.var_toint64_1_2;
+				return this.var_toint64_1_2.Import();
 			}
 			
 			if(typeof(System.String).AreEqual(pvalue) && typeof(System.Int32).AreEqual(pprovider))
 			{
 				if(this.var_toint64_2_2 == null)
-					this.var_toint64_2_2 = this.builderType.GetMethod("ToInt64", true, pvalue, pprovider).Import();
+					this.var_toint64_2_2 = this.builderType.GetMethod("ToInt64", true, pvalue, pprovider);
 			
-				return this.var_toint64_2_2;
+				return this.var_toint64_2_2.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -5868,129 +5868,129 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Object).AreEqual(pvalue))
 			{
 				if(this.var_touint64_0_1 == null)
-					this.var_touint64_0_1 = this.builderType.GetMethod("ToUInt64", true, pvalue).Import();
+					this.var_touint64_0_1 = this.builderType.GetMethod("ToUInt64", true, pvalue);
 			
-				return this.var_touint64_0_1;
+				return this.var_touint64_0_1.Import();
 			}
 			
 			if(typeof(System.Boolean).AreEqual(pvalue))
 			{
 				if(this.var_touint64_1_1 == null)
-					this.var_touint64_1_1 = this.builderType.GetMethod("ToUInt64", true, pvalue).Import();
+					this.var_touint64_1_1 = this.builderType.GetMethod("ToUInt64", true, pvalue);
 			
-				return this.var_touint64_1_1;
+				return this.var_touint64_1_1.Import();
 			}
 			
 			if(typeof(System.Char).AreEqual(pvalue))
 			{
 				if(this.var_touint64_2_1 == null)
-					this.var_touint64_2_1 = this.builderType.GetMethod("ToUInt64", true, pvalue).Import();
+					this.var_touint64_2_1 = this.builderType.GetMethod("ToUInt64", true, pvalue);
 			
-				return this.var_touint64_2_1;
+				return this.var_touint64_2_1.Import();
 			}
 			
 			if(typeof(System.SByte).AreEqual(pvalue))
 			{
 				if(this.var_touint64_3_1 == null)
-					this.var_touint64_3_1 = this.builderType.GetMethod("ToUInt64", true, pvalue).Import();
+					this.var_touint64_3_1 = this.builderType.GetMethod("ToUInt64", true, pvalue);
 			
-				return this.var_touint64_3_1;
+				return this.var_touint64_3_1.Import();
 			}
 			
 			if(typeof(System.Byte).AreEqual(pvalue))
 			{
 				if(this.var_touint64_4_1 == null)
-					this.var_touint64_4_1 = this.builderType.GetMethod("ToUInt64", true, pvalue).Import();
+					this.var_touint64_4_1 = this.builderType.GetMethod("ToUInt64", true, pvalue);
 			
-				return this.var_touint64_4_1;
+				return this.var_touint64_4_1.Import();
 			}
 			
 			if(typeof(System.Int16).AreEqual(pvalue))
 			{
 				if(this.var_touint64_5_1 == null)
-					this.var_touint64_5_1 = this.builderType.GetMethod("ToUInt64", true, pvalue).Import();
+					this.var_touint64_5_1 = this.builderType.GetMethod("ToUInt64", true, pvalue);
 			
-				return this.var_touint64_5_1;
+				return this.var_touint64_5_1.Import();
 			}
 			
 			if(typeof(System.UInt16).AreEqual(pvalue))
 			{
 				if(this.var_touint64_6_1 == null)
-					this.var_touint64_6_1 = this.builderType.GetMethod("ToUInt64", true, pvalue).Import();
+					this.var_touint64_6_1 = this.builderType.GetMethod("ToUInt64", true, pvalue);
 			
-				return this.var_touint64_6_1;
+				return this.var_touint64_6_1.Import();
 			}
 			
 			if(typeof(System.Int32).AreEqual(pvalue))
 			{
 				if(this.var_touint64_7_1 == null)
-					this.var_touint64_7_1 = this.builderType.GetMethod("ToUInt64", true, pvalue).Import();
+					this.var_touint64_7_1 = this.builderType.GetMethod("ToUInt64", true, pvalue);
 			
-				return this.var_touint64_7_1;
+				return this.var_touint64_7_1.Import();
 			}
 			
 			if(typeof(System.UInt32).AreEqual(pvalue))
 			{
 				if(this.var_touint64_8_1 == null)
-					this.var_touint64_8_1 = this.builderType.GetMethod("ToUInt64", true, pvalue).Import();
+					this.var_touint64_8_1 = this.builderType.GetMethod("ToUInt64", true, pvalue);
 			
-				return this.var_touint64_8_1;
+				return this.var_touint64_8_1.Import();
 			}
 			
 			if(typeof(System.Int64).AreEqual(pvalue))
 			{
 				if(this.var_touint64_9_1 == null)
-					this.var_touint64_9_1 = this.builderType.GetMethod("ToUInt64", true, pvalue).Import();
+					this.var_touint64_9_1 = this.builderType.GetMethod("ToUInt64", true, pvalue);
 			
-				return this.var_touint64_9_1;
+				return this.var_touint64_9_1.Import();
 			}
 			
 			if(typeof(System.UInt64).AreEqual(pvalue))
 			{
 				if(this.var_touint64_10_1 == null)
-					this.var_touint64_10_1 = this.builderType.GetMethod("ToUInt64", true, pvalue).Import();
+					this.var_touint64_10_1 = this.builderType.GetMethod("ToUInt64", true, pvalue);
 			
-				return this.var_touint64_10_1;
+				return this.var_touint64_10_1.Import();
 			}
 			
 			if(typeof(System.Single).AreEqual(pvalue))
 			{
 				if(this.var_touint64_11_1 == null)
-					this.var_touint64_11_1 = this.builderType.GetMethod("ToUInt64", true, pvalue).Import();
+					this.var_touint64_11_1 = this.builderType.GetMethod("ToUInt64", true, pvalue);
 			
-				return this.var_touint64_11_1;
+				return this.var_touint64_11_1.Import();
 			}
 			
 			if(typeof(System.Double).AreEqual(pvalue))
 			{
 				if(this.var_touint64_12_1 == null)
-					this.var_touint64_12_1 = this.builderType.GetMethod("ToUInt64", true, pvalue).Import();
+					this.var_touint64_12_1 = this.builderType.GetMethod("ToUInt64", true, pvalue);
 			
-				return this.var_touint64_12_1;
+				return this.var_touint64_12_1.Import();
 			}
 			
 			if(typeof(System.Decimal).AreEqual(pvalue))
 			{
 				if(this.var_touint64_13_1 == null)
-					this.var_touint64_13_1 = this.builderType.GetMethod("ToUInt64", true, pvalue).Import();
+					this.var_touint64_13_1 = this.builderType.GetMethod("ToUInt64", true, pvalue);
 			
-				return this.var_touint64_13_1;
+				return this.var_touint64_13_1.Import();
 			}
 			
 			if(typeof(System.String).AreEqual(pvalue))
 			{
 				if(this.var_touint64_14_1 == null)
-					this.var_touint64_14_1 = this.builderType.GetMethod("ToUInt64", true, pvalue).Import();
+					this.var_touint64_14_1 = this.builderType.GetMethod("ToUInt64", true, pvalue);
 			
-				return this.var_touint64_14_1;
+				return this.var_touint64_14_1.Import();
 			}
 			
 			if(typeof(System.DateTime).AreEqual(pvalue))
 			{
 				if(this.var_touint64_15_1 == null)
-					this.var_touint64_15_1 = this.builderType.GetMethod("ToUInt64", true, pvalue).Import();
+					this.var_touint64_15_1 = this.builderType.GetMethod("ToUInt64", true, pvalue);
 			
-				return this.var_touint64_15_1;
+				return this.var_touint64_15_1.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -6017,25 +6017,25 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Object).AreEqual(pvalue) && typeof(System.IFormatProvider).AreEqual(pprovider))
 			{
 				if(this.var_touint64_0_2 == null)
-					this.var_touint64_0_2 = this.builderType.GetMethod("ToUInt64", true, pvalue, pprovider).Import();
+					this.var_touint64_0_2 = this.builderType.GetMethod("ToUInt64", true, pvalue, pprovider);
 			
-				return this.var_touint64_0_2;
+				return this.var_touint64_0_2.Import();
 			}
 			
 			if(typeof(System.String).AreEqual(pvalue) && typeof(System.IFormatProvider).AreEqual(pprovider))
 			{
 				if(this.var_touint64_1_2 == null)
-					this.var_touint64_1_2 = this.builderType.GetMethod("ToUInt64", true, pvalue, pprovider).Import();
+					this.var_touint64_1_2 = this.builderType.GetMethod("ToUInt64", true, pvalue, pprovider);
 			
-				return this.var_touint64_1_2;
+				return this.var_touint64_1_2.Import();
 			}
 			
 			if(typeof(System.String).AreEqual(pvalue) && typeof(System.Int32).AreEqual(pprovider))
 			{
 				if(this.var_touint64_2_2 == null)
-					this.var_touint64_2_2 = this.builderType.GetMethod("ToUInt64", true, pvalue, pprovider).Import();
+					this.var_touint64_2_2 = this.builderType.GetMethod("ToUInt64", true, pvalue, pprovider);
 			
-				return this.var_touint64_2_2;
+				return this.var_touint64_2_2.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -6101,129 +6101,129 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Object).AreEqual(pvalue))
 			{
 				if(this.var_tosingle_0_1 == null)
-					this.var_tosingle_0_1 = this.builderType.GetMethod("ToSingle", true, pvalue).Import();
+					this.var_tosingle_0_1 = this.builderType.GetMethod("ToSingle", true, pvalue);
 			
-				return this.var_tosingle_0_1;
+				return this.var_tosingle_0_1.Import();
 			}
 			
 			if(typeof(System.SByte).AreEqual(pvalue))
 			{
 				if(this.var_tosingle_1_1 == null)
-					this.var_tosingle_1_1 = this.builderType.GetMethod("ToSingle", true, pvalue).Import();
+					this.var_tosingle_1_1 = this.builderType.GetMethod("ToSingle", true, pvalue);
 			
-				return this.var_tosingle_1_1;
+				return this.var_tosingle_1_1.Import();
 			}
 			
 			if(typeof(System.Byte).AreEqual(pvalue))
 			{
 				if(this.var_tosingle_2_1 == null)
-					this.var_tosingle_2_1 = this.builderType.GetMethod("ToSingle", true, pvalue).Import();
+					this.var_tosingle_2_1 = this.builderType.GetMethod("ToSingle", true, pvalue);
 			
-				return this.var_tosingle_2_1;
+				return this.var_tosingle_2_1.Import();
 			}
 			
 			if(typeof(System.Char).AreEqual(pvalue))
 			{
 				if(this.var_tosingle_3_1 == null)
-					this.var_tosingle_3_1 = this.builderType.GetMethod("ToSingle", true, pvalue).Import();
+					this.var_tosingle_3_1 = this.builderType.GetMethod("ToSingle", true, pvalue);
 			
-				return this.var_tosingle_3_1;
+				return this.var_tosingle_3_1.Import();
 			}
 			
 			if(typeof(System.Int16).AreEqual(pvalue))
 			{
 				if(this.var_tosingle_4_1 == null)
-					this.var_tosingle_4_1 = this.builderType.GetMethod("ToSingle", true, pvalue).Import();
+					this.var_tosingle_4_1 = this.builderType.GetMethod("ToSingle", true, pvalue);
 			
-				return this.var_tosingle_4_1;
+				return this.var_tosingle_4_1.Import();
 			}
 			
 			if(typeof(System.UInt16).AreEqual(pvalue))
 			{
 				if(this.var_tosingle_5_1 == null)
-					this.var_tosingle_5_1 = this.builderType.GetMethod("ToSingle", true, pvalue).Import();
+					this.var_tosingle_5_1 = this.builderType.GetMethod("ToSingle", true, pvalue);
 			
-				return this.var_tosingle_5_1;
+				return this.var_tosingle_5_1.Import();
 			}
 			
 			if(typeof(System.Int32).AreEqual(pvalue))
 			{
 				if(this.var_tosingle_6_1 == null)
-					this.var_tosingle_6_1 = this.builderType.GetMethod("ToSingle", true, pvalue).Import();
+					this.var_tosingle_6_1 = this.builderType.GetMethod("ToSingle", true, pvalue);
 			
-				return this.var_tosingle_6_1;
+				return this.var_tosingle_6_1.Import();
 			}
 			
 			if(typeof(System.UInt32).AreEqual(pvalue))
 			{
 				if(this.var_tosingle_7_1 == null)
-					this.var_tosingle_7_1 = this.builderType.GetMethod("ToSingle", true, pvalue).Import();
+					this.var_tosingle_7_1 = this.builderType.GetMethod("ToSingle", true, pvalue);
 			
-				return this.var_tosingle_7_1;
+				return this.var_tosingle_7_1.Import();
 			}
 			
 			if(typeof(System.Int64).AreEqual(pvalue))
 			{
 				if(this.var_tosingle_8_1 == null)
-					this.var_tosingle_8_1 = this.builderType.GetMethod("ToSingle", true, pvalue).Import();
+					this.var_tosingle_8_1 = this.builderType.GetMethod("ToSingle", true, pvalue);
 			
-				return this.var_tosingle_8_1;
+				return this.var_tosingle_8_1.Import();
 			}
 			
 			if(typeof(System.UInt64).AreEqual(pvalue))
 			{
 				if(this.var_tosingle_9_1 == null)
-					this.var_tosingle_9_1 = this.builderType.GetMethod("ToSingle", true, pvalue).Import();
+					this.var_tosingle_9_1 = this.builderType.GetMethod("ToSingle", true, pvalue);
 			
-				return this.var_tosingle_9_1;
+				return this.var_tosingle_9_1.Import();
 			}
 			
 			if(typeof(System.Single).AreEqual(pvalue))
 			{
 				if(this.var_tosingle_10_1 == null)
-					this.var_tosingle_10_1 = this.builderType.GetMethod("ToSingle", true, pvalue).Import();
+					this.var_tosingle_10_1 = this.builderType.GetMethod("ToSingle", true, pvalue);
 			
-				return this.var_tosingle_10_1;
+				return this.var_tosingle_10_1.Import();
 			}
 			
 			if(typeof(System.Double).AreEqual(pvalue))
 			{
 				if(this.var_tosingle_11_1 == null)
-					this.var_tosingle_11_1 = this.builderType.GetMethod("ToSingle", true, pvalue).Import();
+					this.var_tosingle_11_1 = this.builderType.GetMethod("ToSingle", true, pvalue);
 			
-				return this.var_tosingle_11_1;
+				return this.var_tosingle_11_1.Import();
 			}
 			
 			if(typeof(System.Decimal).AreEqual(pvalue))
 			{
 				if(this.var_tosingle_12_1 == null)
-					this.var_tosingle_12_1 = this.builderType.GetMethod("ToSingle", true, pvalue).Import();
+					this.var_tosingle_12_1 = this.builderType.GetMethod("ToSingle", true, pvalue);
 			
-				return this.var_tosingle_12_1;
+				return this.var_tosingle_12_1.Import();
 			}
 			
 			if(typeof(System.String).AreEqual(pvalue))
 			{
 				if(this.var_tosingle_13_1 == null)
-					this.var_tosingle_13_1 = this.builderType.GetMethod("ToSingle", true, pvalue).Import();
+					this.var_tosingle_13_1 = this.builderType.GetMethod("ToSingle", true, pvalue);
 			
-				return this.var_tosingle_13_1;
+				return this.var_tosingle_13_1.Import();
 			}
 			
 			if(typeof(System.Boolean).AreEqual(pvalue))
 			{
 				if(this.var_tosingle_14_1 == null)
-					this.var_tosingle_14_1 = this.builderType.GetMethod("ToSingle", true, pvalue).Import();
+					this.var_tosingle_14_1 = this.builderType.GetMethod("ToSingle", true, pvalue);
 			
-				return this.var_tosingle_14_1;
+				return this.var_tosingle_14_1.Import();
 			}
 			
 			if(typeof(System.DateTime).AreEqual(pvalue))
 			{
 				if(this.var_tosingle_15_1 == null)
-					this.var_tosingle_15_1 = this.builderType.GetMethod("ToSingle", true, pvalue).Import();
+					this.var_tosingle_15_1 = this.builderType.GetMethod("ToSingle", true, pvalue);
 			
-				return this.var_tosingle_15_1;
+				return this.var_tosingle_15_1.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -6247,17 +6247,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Object).AreEqual(pvalue) && typeof(System.IFormatProvider).AreEqual(pprovider))
 			{
 				if(this.var_tosingle_0_2 == null)
-					this.var_tosingle_0_2 = this.builderType.GetMethod("ToSingle", true, pvalue, pprovider).Import();
+					this.var_tosingle_0_2 = this.builderType.GetMethod("ToSingle", true, pvalue, pprovider);
 			
-				return this.var_tosingle_0_2;
+				return this.var_tosingle_0_2.Import();
 			}
 			
 			if(typeof(System.String).AreEqual(pvalue) && typeof(System.IFormatProvider).AreEqual(pprovider))
 			{
 				if(this.var_tosingle_1_2 == null)
-					this.var_tosingle_1_2 = this.builderType.GetMethod("ToSingle", true, pvalue, pprovider).Import();
+					this.var_tosingle_1_2 = this.builderType.GetMethod("ToSingle", true, pvalue, pprovider);
 			
-				return this.var_tosingle_1_2;
+				return this.var_tosingle_1_2.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -6323,129 +6323,129 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Object).AreEqual(pvalue))
 			{
 				if(this.var_todouble_0_1 == null)
-					this.var_todouble_0_1 = this.builderType.GetMethod("ToDouble", true, pvalue).Import();
+					this.var_todouble_0_1 = this.builderType.GetMethod("ToDouble", true, pvalue);
 			
-				return this.var_todouble_0_1;
+				return this.var_todouble_0_1.Import();
 			}
 			
 			if(typeof(System.SByte).AreEqual(pvalue))
 			{
 				if(this.var_todouble_1_1 == null)
-					this.var_todouble_1_1 = this.builderType.GetMethod("ToDouble", true, pvalue).Import();
+					this.var_todouble_1_1 = this.builderType.GetMethod("ToDouble", true, pvalue);
 			
-				return this.var_todouble_1_1;
+				return this.var_todouble_1_1.Import();
 			}
 			
 			if(typeof(System.Byte).AreEqual(pvalue))
 			{
 				if(this.var_todouble_2_1 == null)
-					this.var_todouble_2_1 = this.builderType.GetMethod("ToDouble", true, pvalue).Import();
+					this.var_todouble_2_1 = this.builderType.GetMethod("ToDouble", true, pvalue);
 			
-				return this.var_todouble_2_1;
+				return this.var_todouble_2_1.Import();
 			}
 			
 			if(typeof(System.Int16).AreEqual(pvalue))
 			{
 				if(this.var_todouble_3_1 == null)
-					this.var_todouble_3_1 = this.builderType.GetMethod("ToDouble", true, pvalue).Import();
+					this.var_todouble_3_1 = this.builderType.GetMethod("ToDouble", true, pvalue);
 			
-				return this.var_todouble_3_1;
+				return this.var_todouble_3_1.Import();
 			}
 			
 			if(typeof(System.Char).AreEqual(pvalue))
 			{
 				if(this.var_todouble_4_1 == null)
-					this.var_todouble_4_1 = this.builderType.GetMethod("ToDouble", true, pvalue).Import();
+					this.var_todouble_4_1 = this.builderType.GetMethod("ToDouble", true, pvalue);
 			
-				return this.var_todouble_4_1;
+				return this.var_todouble_4_1.Import();
 			}
 			
 			if(typeof(System.UInt16).AreEqual(pvalue))
 			{
 				if(this.var_todouble_5_1 == null)
-					this.var_todouble_5_1 = this.builderType.GetMethod("ToDouble", true, pvalue).Import();
+					this.var_todouble_5_1 = this.builderType.GetMethod("ToDouble", true, pvalue);
 			
-				return this.var_todouble_5_1;
+				return this.var_todouble_5_1.Import();
 			}
 			
 			if(typeof(System.Int32).AreEqual(pvalue))
 			{
 				if(this.var_todouble_6_1 == null)
-					this.var_todouble_6_1 = this.builderType.GetMethod("ToDouble", true, pvalue).Import();
+					this.var_todouble_6_1 = this.builderType.GetMethod("ToDouble", true, pvalue);
 			
-				return this.var_todouble_6_1;
+				return this.var_todouble_6_1.Import();
 			}
 			
 			if(typeof(System.UInt32).AreEqual(pvalue))
 			{
 				if(this.var_todouble_7_1 == null)
-					this.var_todouble_7_1 = this.builderType.GetMethod("ToDouble", true, pvalue).Import();
+					this.var_todouble_7_1 = this.builderType.GetMethod("ToDouble", true, pvalue);
 			
-				return this.var_todouble_7_1;
+				return this.var_todouble_7_1.Import();
 			}
 			
 			if(typeof(System.Int64).AreEqual(pvalue))
 			{
 				if(this.var_todouble_8_1 == null)
-					this.var_todouble_8_1 = this.builderType.GetMethod("ToDouble", true, pvalue).Import();
+					this.var_todouble_8_1 = this.builderType.GetMethod("ToDouble", true, pvalue);
 			
-				return this.var_todouble_8_1;
+				return this.var_todouble_8_1.Import();
 			}
 			
 			if(typeof(System.UInt64).AreEqual(pvalue))
 			{
 				if(this.var_todouble_9_1 == null)
-					this.var_todouble_9_1 = this.builderType.GetMethod("ToDouble", true, pvalue).Import();
+					this.var_todouble_9_1 = this.builderType.GetMethod("ToDouble", true, pvalue);
 			
-				return this.var_todouble_9_1;
+				return this.var_todouble_9_1.Import();
 			}
 			
 			if(typeof(System.Single).AreEqual(pvalue))
 			{
 				if(this.var_todouble_10_1 == null)
-					this.var_todouble_10_1 = this.builderType.GetMethod("ToDouble", true, pvalue).Import();
+					this.var_todouble_10_1 = this.builderType.GetMethod("ToDouble", true, pvalue);
 			
-				return this.var_todouble_10_1;
+				return this.var_todouble_10_1.Import();
 			}
 			
 			if(typeof(System.Double).AreEqual(pvalue))
 			{
 				if(this.var_todouble_11_1 == null)
-					this.var_todouble_11_1 = this.builderType.GetMethod("ToDouble", true, pvalue).Import();
+					this.var_todouble_11_1 = this.builderType.GetMethod("ToDouble", true, pvalue);
 			
-				return this.var_todouble_11_1;
+				return this.var_todouble_11_1.Import();
 			}
 			
 			if(typeof(System.Decimal).AreEqual(pvalue))
 			{
 				if(this.var_todouble_12_1 == null)
-					this.var_todouble_12_1 = this.builderType.GetMethod("ToDouble", true, pvalue).Import();
+					this.var_todouble_12_1 = this.builderType.GetMethod("ToDouble", true, pvalue);
 			
-				return this.var_todouble_12_1;
+				return this.var_todouble_12_1.Import();
 			}
 			
 			if(typeof(System.String).AreEqual(pvalue))
 			{
 				if(this.var_todouble_13_1 == null)
-					this.var_todouble_13_1 = this.builderType.GetMethod("ToDouble", true, pvalue).Import();
+					this.var_todouble_13_1 = this.builderType.GetMethod("ToDouble", true, pvalue);
 			
-				return this.var_todouble_13_1;
+				return this.var_todouble_13_1.Import();
 			}
 			
 			if(typeof(System.Boolean).AreEqual(pvalue))
 			{
 				if(this.var_todouble_14_1 == null)
-					this.var_todouble_14_1 = this.builderType.GetMethod("ToDouble", true, pvalue).Import();
+					this.var_todouble_14_1 = this.builderType.GetMethod("ToDouble", true, pvalue);
 			
-				return this.var_todouble_14_1;
+				return this.var_todouble_14_1.Import();
 			}
 			
 			if(typeof(System.DateTime).AreEqual(pvalue))
 			{
 				if(this.var_todouble_15_1 == null)
-					this.var_todouble_15_1 = this.builderType.GetMethod("ToDouble", true, pvalue).Import();
+					this.var_todouble_15_1 = this.builderType.GetMethod("ToDouble", true, pvalue);
 			
-				return this.var_todouble_15_1;
+				return this.var_todouble_15_1.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -6469,17 +6469,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Object).AreEqual(pvalue) && typeof(System.IFormatProvider).AreEqual(pprovider))
 			{
 				if(this.var_todouble_0_2 == null)
-					this.var_todouble_0_2 = this.builderType.GetMethod("ToDouble", true, pvalue, pprovider).Import();
+					this.var_todouble_0_2 = this.builderType.GetMethod("ToDouble", true, pvalue, pprovider);
 			
-				return this.var_todouble_0_2;
+				return this.var_todouble_0_2.Import();
 			}
 			
 			if(typeof(System.String).AreEqual(pvalue) && typeof(System.IFormatProvider).AreEqual(pprovider))
 			{
 				if(this.var_todouble_1_2 == null)
-					this.var_todouble_1_2 = this.builderType.GetMethod("ToDouble", true, pvalue, pprovider).Import();
+					this.var_todouble_1_2 = this.builderType.GetMethod("ToDouble", true, pvalue, pprovider);
 			
-				return this.var_todouble_1_2;
+				return this.var_todouble_1_2.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -6545,129 +6545,129 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Object).AreEqual(pvalue))
 			{
 				if(this.var_todecimal_0_1 == null)
-					this.var_todecimal_0_1 = this.builderType.GetMethod("ToDecimal", true, pvalue).Import();
+					this.var_todecimal_0_1 = this.builderType.GetMethod("ToDecimal", true, pvalue);
 			
-				return this.var_todecimal_0_1;
+				return this.var_todecimal_0_1.Import();
 			}
 			
 			if(typeof(System.SByte).AreEqual(pvalue))
 			{
 				if(this.var_todecimal_1_1 == null)
-					this.var_todecimal_1_1 = this.builderType.GetMethod("ToDecimal", true, pvalue).Import();
+					this.var_todecimal_1_1 = this.builderType.GetMethod("ToDecimal", true, pvalue);
 			
-				return this.var_todecimal_1_1;
+				return this.var_todecimal_1_1.Import();
 			}
 			
 			if(typeof(System.Byte).AreEqual(pvalue))
 			{
 				if(this.var_todecimal_2_1 == null)
-					this.var_todecimal_2_1 = this.builderType.GetMethod("ToDecimal", true, pvalue).Import();
+					this.var_todecimal_2_1 = this.builderType.GetMethod("ToDecimal", true, pvalue);
 			
-				return this.var_todecimal_2_1;
+				return this.var_todecimal_2_1.Import();
 			}
 			
 			if(typeof(System.Char).AreEqual(pvalue))
 			{
 				if(this.var_todecimal_3_1 == null)
-					this.var_todecimal_3_1 = this.builderType.GetMethod("ToDecimal", true, pvalue).Import();
+					this.var_todecimal_3_1 = this.builderType.GetMethod("ToDecimal", true, pvalue);
 			
-				return this.var_todecimal_3_1;
+				return this.var_todecimal_3_1.Import();
 			}
 			
 			if(typeof(System.Int16).AreEqual(pvalue))
 			{
 				if(this.var_todecimal_4_1 == null)
-					this.var_todecimal_4_1 = this.builderType.GetMethod("ToDecimal", true, pvalue).Import();
+					this.var_todecimal_4_1 = this.builderType.GetMethod("ToDecimal", true, pvalue);
 			
-				return this.var_todecimal_4_1;
+				return this.var_todecimal_4_1.Import();
 			}
 			
 			if(typeof(System.UInt16).AreEqual(pvalue))
 			{
 				if(this.var_todecimal_5_1 == null)
-					this.var_todecimal_5_1 = this.builderType.GetMethod("ToDecimal", true, pvalue).Import();
+					this.var_todecimal_5_1 = this.builderType.GetMethod("ToDecimal", true, pvalue);
 			
-				return this.var_todecimal_5_1;
+				return this.var_todecimal_5_1.Import();
 			}
 			
 			if(typeof(System.Int32).AreEqual(pvalue))
 			{
 				if(this.var_todecimal_6_1 == null)
-					this.var_todecimal_6_1 = this.builderType.GetMethod("ToDecimal", true, pvalue).Import();
+					this.var_todecimal_6_1 = this.builderType.GetMethod("ToDecimal", true, pvalue);
 			
-				return this.var_todecimal_6_1;
+				return this.var_todecimal_6_1.Import();
 			}
 			
 			if(typeof(System.UInt32).AreEqual(pvalue))
 			{
 				if(this.var_todecimal_7_1 == null)
-					this.var_todecimal_7_1 = this.builderType.GetMethod("ToDecimal", true, pvalue).Import();
+					this.var_todecimal_7_1 = this.builderType.GetMethod("ToDecimal", true, pvalue);
 			
-				return this.var_todecimal_7_1;
+				return this.var_todecimal_7_1.Import();
 			}
 			
 			if(typeof(System.Int64).AreEqual(pvalue))
 			{
 				if(this.var_todecimal_8_1 == null)
-					this.var_todecimal_8_1 = this.builderType.GetMethod("ToDecimal", true, pvalue).Import();
+					this.var_todecimal_8_1 = this.builderType.GetMethod("ToDecimal", true, pvalue);
 			
-				return this.var_todecimal_8_1;
+				return this.var_todecimal_8_1.Import();
 			}
 			
 			if(typeof(System.UInt64).AreEqual(pvalue))
 			{
 				if(this.var_todecimal_9_1 == null)
-					this.var_todecimal_9_1 = this.builderType.GetMethod("ToDecimal", true, pvalue).Import();
+					this.var_todecimal_9_1 = this.builderType.GetMethod("ToDecimal", true, pvalue);
 			
-				return this.var_todecimal_9_1;
+				return this.var_todecimal_9_1.Import();
 			}
 			
 			if(typeof(System.Single).AreEqual(pvalue))
 			{
 				if(this.var_todecimal_10_1 == null)
-					this.var_todecimal_10_1 = this.builderType.GetMethod("ToDecimal", true, pvalue).Import();
+					this.var_todecimal_10_1 = this.builderType.GetMethod("ToDecimal", true, pvalue);
 			
-				return this.var_todecimal_10_1;
+				return this.var_todecimal_10_1.Import();
 			}
 			
 			if(typeof(System.Double).AreEqual(pvalue))
 			{
 				if(this.var_todecimal_11_1 == null)
-					this.var_todecimal_11_1 = this.builderType.GetMethod("ToDecimal", true, pvalue).Import();
+					this.var_todecimal_11_1 = this.builderType.GetMethod("ToDecimal", true, pvalue);
 			
-				return this.var_todecimal_11_1;
+				return this.var_todecimal_11_1.Import();
 			}
 			
 			if(typeof(System.String).AreEqual(pvalue))
 			{
 				if(this.var_todecimal_12_1 == null)
-					this.var_todecimal_12_1 = this.builderType.GetMethod("ToDecimal", true, pvalue).Import();
+					this.var_todecimal_12_1 = this.builderType.GetMethod("ToDecimal", true, pvalue);
 			
-				return this.var_todecimal_12_1;
+				return this.var_todecimal_12_1.Import();
 			}
 			
 			if(typeof(System.Decimal).AreEqual(pvalue))
 			{
 				if(this.var_todecimal_13_1 == null)
-					this.var_todecimal_13_1 = this.builderType.GetMethod("ToDecimal", true, pvalue).Import();
+					this.var_todecimal_13_1 = this.builderType.GetMethod("ToDecimal", true, pvalue);
 			
-				return this.var_todecimal_13_1;
+				return this.var_todecimal_13_1.Import();
 			}
 			
 			if(typeof(System.Boolean).AreEqual(pvalue))
 			{
 				if(this.var_todecimal_14_1 == null)
-					this.var_todecimal_14_1 = this.builderType.GetMethod("ToDecimal", true, pvalue).Import();
+					this.var_todecimal_14_1 = this.builderType.GetMethod("ToDecimal", true, pvalue);
 			
-				return this.var_todecimal_14_1;
+				return this.var_todecimal_14_1.Import();
 			}
 			
 			if(typeof(System.DateTime).AreEqual(pvalue))
 			{
 				if(this.var_todecimal_15_1 == null)
-					this.var_todecimal_15_1 = this.builderType.GetMethod("ToDecimal", true, pvalue).Import();
+					this.var_todecimal_15_1 = this.builderType.GetMethod("ToDecimal", true, pvalue);
 			
-				return this.var_todecimal_15_1;
+				return this.var_todecimal_15_1.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -6691,17 +6691,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Object).AreEqual(pvalue) && typeof(System.IFormatProvider).AreEqual(pprovider))
 			{
 				if(this.var_todecimal_0_2 == null)
-					this.var_todecimal_0_2 = this.builderType.GetMethod("ToDecimal", true, pvalue, pprovider).Import();
+					this.var_todecimal_0_2 = this.builderType.GetMethod("ToDecimal", true, pvalue, pprovider);
 			
-				return this.var_todecimal_0_2;
+				return this.var_todecimal_0_2.Import();
 			}
 			
 			if(typeof(System.String).AreEqual(pvalue) && typeof(System.IFormatProvider).AreEqual(pprovider))
 			{
 				if(this.var_todecimal_1_2 == null)
-					this.var_todecimal_1_2 = this.builderType.GetMethod("ToDecimal", true, pvalue, pprovider).Import();
+					this.var_todecimal_1_2 = this.builderType.GetMethod("ToDecimal", true, pvalue, pprovider);
 			
-				return this.var_todecimal_1_2;
+				return this.var_todecimal_1_2.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -6767,129 +6767,129 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.DateTime).AreEqual(pvalue))
 			{
 				if(this.var_todatetime_0_1 == null)
-					this.var_todatetime_0_1 = this.builderType.GetMethod("ToDateTime", true, pvalue).Import();
+					this.var_todatetime_0_1 = this.builderType.GetMethod("ToDateTime", true, pvalue);
 			
-				return this.var_todatetime_0_1;
+				return this.var_todatetime_0_1.Import();
 			}
 			
 			if(typeof(System.Object).AreEqual(pvalue))
 			{
 				if(this.var_todatetime_1_1 == null)
-					this.var_todatetime_1_1 = this.builderType.GetMethod("ToDateTime", true, pvalue).Import();
+					this.var_todatetime_1_1 = this.builderType.GetMethod("ToDateTime", true, pvalue);
 			
-				return this.var_todatetime_1_1;
+				return this.var_todatetime_1_1.Import();
 			}
 			
 			if(typeof(System.String).AreEqual(pvalue))
 			{
 				if(this.var_todatetime_2_1 == null)
-					this.var_todatetime_2_1 = this.builderType.GetMethod("ToDateTime", true, pvalue).Import();
+					this.var_todatetime_2_1 = this.builderType.GetMethod("ToDateTime", true, pvalue);
 			
-				return this.var_todatetime_2_1;
+				return this.var_todatetime_2_1.Import();
 			}
 			
 			if(typeof(System.SByte).AreEqual(pvalue))
 			{
 				if(this.var_todatetime_3_1 == null)
-					this.var_todatetime_3_1 = this.builderType.GetMethod("ToDateTime", true, pvalue).Import();
+					this.var_todatetime_3_1 = this.builderType.GetMethod("ToDateTime", true, pvalue);
 			
-				return this.var_todatetime_3_1;
+				return this.var_todatetime_3_1.Import();
 			}
 			
 			if(typeof(System.Byte).AreEqual(pvalue))
 			{
 				if(this.var_todatetime_4_1 == null)
-					this.var_todatetime_4_1 = this.builderType.GetMethod("ToDateTime", true, pvalue).Import();
+					this.var_todatetime_4_1 = this.builderType.GetMethod("ToDateTime", true, pvalue);
 			
-				return this.var_todatetime_4_1;
+				return this.var_todatetime_4_1.Import();
 			}
 			
 			if(typeof(System.Int16).AreEqual(pvalue))
 			{
 				if(this.var_todatetime_5_1 == null)
-					this.var_todatetime_5_1 = this.builderType.GetMethod("ToDateTime", true, pvalue).Import();
+					this.var_todatetime_5_1 = this.builderType.GetMethod("ToDateTime", true, pvalue);
 			
-				return this.var_todatetime_5_1;
+				return this.var_todatetime_5_1.Import();
 			}
 			
 			if(typeof(System.UInt16).AreEqual(pvalue))
 			{
 				if(this.var_todatetime_6_1 == null)
-					this.var_todatetime_6_1 = this.builderType.GetMethod("ToDateTime", true, pvalue).Import();
+					this.var_todatetime_6_1 = this.builderType.GetMethod("ToDateTime", true, pvalue);
 			
-				return this.var_todatetime_6_1;
+				return this.var_todatetime_6_1.Import();
 			}
 			
 			if(typeof(System.Int32).AreEqual(pvalue))
 			{
 				if(this.var_todatetime_7_1 == null)
-					this.var_todatetime_7_1 = this.builderType.GetMethod("ToDateTime", true, pvalue).Import();
+					this.var_todatetime_7_1 = this.builderType.GetMethod("ToDateTime", true, pvalue);
 			
-				return this.var_todatetime_7_1;
+				return this.var_todatetime_7_1.Import();
 			}
 			
 			if(typeof(System.UInt32).AreEqual(pvalue))
 			{
 				if(this.var_todatetime_8_1 == null)
-					this.var_todatetime_8_1 = this.builderType.GetMethod("ToDateTime", true, pvalue).Import();
+					this.var_todatetime_8_1 = this.builderType.GetMethod("ToDateTime", true, pvalue);
 			
-				return this.var_todatetime_8_1;
+				return this.var_todatetime_8_1.Import();
 			}
 			
 			if(typeof(System.Int64).AreEqual(pvalue))
 			{
 				if(this.var_todatetime_9_1 == null)
-					this.var_todatetime_9_1 = this.builderType.GetMethod("ToDateTime", true, pvalue).Import();
+					this.var_todatetime_9_1 = this.builderType.GetMethod("ToDateTime", true, pvalue);
 			
-				return this.var_todatetime_9_1;
+				return this.var_todatetime_9_1.Import();
 			}
 			
 			if(typeof(System.UInt64).AreEqual(pvalue))
 			{
 				if(this.var_todatetime_10_1 == null)
-					this.var_todatetime_10_1 = this.builderType.GetMethod("ToDateTime", true, pvalue).Import();
+					this.var_todatetime_10_1 = this.builderType.GetMethod("ToDateTime", true, pvalue);
 			
-				return this.var_todatetime_10_1;
+				return this.var_todatetime_10_1.Import();
 			}
 			
 			if(typeof(System.Boolean).AreEqual(pvalue))
 			{
 				if(this.var_todatetime_11_1 == null)
-					this.var_todatetime_11_1 = this.builderType.GetMethod("ToDateTime", true, pvalue).Import();
+					this.var_todatetime_11_1 = this.builderType.GetMethod("ToDateTime", true, pvalue);
 			
-				return this.var_todatetime_11_1;
+				return this.var_todatetime_11_1.Import();
 			}
 			
 			if(typeof(System.Char).AreEqual(pvalue))
 			{
 				if(this.var_todatetime_12_1 == null)
-					this.var_todatetime_12_1 = this.builderType.GetMethod("ToDateTime", true, pvalue).Import();
+					this.var_todatetime_12_1 = this.builderType.GetMethod("ToDateTime", true, pvalue);
 			
-				return this.var_todatetime_12_1;
+				return this.var_todatetime_12_1.Import();
 			}
 			
 			if(typeof(System.Single).AreEqual(pvalue))
 			{
 				if(this.var_todatetime_13_1 == null)
-					this.var_todatetime_13_1 = this.builderType.GetMethod("ToDateTime", true, pvalue).Import();
+					this.var_todatetime_13_1 = this.builderType.GetMethod("ToDateTime", true, pvalue);
 			
-				return this.var_todatetime_13_1;
+				return this.var_todatetime_13_1.Import();
 			}
 			
 			if(typeof(System.Double).AreEqual(pvalue))
 			{
 				if(this.var_todatetime_14_1 == null)
-					this.var_todatetime_14_1 = this.builderType.GetMethod("ToDateTime", true, pvalue).Import();
+					this.var_todatetime_14_1 = this.builderType.GetMethod("ToDateTime", true, pvalue);
 			
-				return this.var_todatetime_14_1;
+				return this.var_todatetime_14_1.Import();
 			}
 			
 			if(typeof(System.Decimal).AreEqual(pvalue))
 			{
 				if(this.var_todatetime_15_1 == null)
-					this.var_todatetime_15_1 = this.builderType.GetMethod("ToDateTime", true, pvalue).Import();
+					this.var_todatetime_15_1 = this.builderType.GetMethod("ToDateTime", true, pvalue);
 			
-				return this.var_todatetime_15_1;
+				return this.var_todatetime_15_1.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -6913,17 +6913,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Object).AreEqual(pvalue) && typeof(System.IFormatProvider).AreEqual(pprovider))
 			{
 				if(this.var_todatetime_0_2 == null)
-					this.var_todatetime_0_2 = this.builderType.GetMethod("ToDateTime", true, pvalue, pprovider).Import();
+					this.var_todatetime_0_2 = this.builderType.GetMethod("ToDateTime", true, pvalue, pprovider);
 			
-				return this.var_todatetime_0_2;
+				return this.var_todatetime_0_2.Import();
 			}
 			
 			if(typeof(System.String).AreEqual(pvalue) && typeof(System.IFormatProvider).AreEqual(pprovider))
 			{
 				if(this.var_todatetime_1_2 == null)
-					this.var_todatetime_1_2 = this.builderType.GetMethod("ToDateTime", true, pvalue, pprovider).Import();
+					this.var_todatetime_1_2 = this.builderType.GetMethod("ToDateTime", true, pvalue, pprovider);
 			
-				return this.var_todatetime_1_2;
+				return this.var_todatetime_1_2.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -6989,129 +6989,129 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Object).AreEqual(pvalue))
 			{
 				if(this.var_tostring_0_1 == null)
-					this.var_tostring_0_1 = this.builderType.GetMethod("ToString", true, pvalue).Import();
+					this.var_tostring_0_1 = this.builderType.GetMethod("ToString", true, pvalue);
 			
-				return this.var_tostring_0_1;
+				return this.var_tostring_0_1.Import();
 			}
 			
 			if(typeof(System.Boolean).AreEqual(pvalue))
 			{
 				if(this.var_tostring_1_1 == null)
-					this.var_tostring_1_1 = this.builderType.GetMethod("ToString", true, pvalue).Import();
+					this.var_tostring_1_1 = this.builderType.GetMethod("ToString", true, pvalue);
 			
-				return this.var_tostring_1_1;
+				return this.var_tostring_1_1.Import();
 			}
 			
 			if(typeof(System.Char).AreEqual(pvalue))
 			{
 				if(this.var_tostring_2_1 == null)
-					this.var_tostring_2_1 = this.builderType.GetMethod("ToString", true, pvalue).Import();
+					this.var_tostring_2_1 = this.builderType.GetMethod("ToString", true, pvalue);
 			
-				return this.var_tostring_2_1;
+				return this.var_tostring_2_1.Import();
 			}
 			
 			if(typeof(System.SByte).AreEqual(pvalue))
 			{
 				if(this.var_tostring_3_1 == null)
-					this.var_tostring_3_1 = this.builderType.GetMethod("ToString", true, pvalue).Import();
+					this.var_tostring_3_1 = this.builderType.GetMethod("ToString", true, pvalue);
 			
-				return this.var_tostring_3_1;
+				return this.var_tostring_3_1.Import();
 			}
 			
 			if(typeof(System.Byte).AreEqual(pvalue))
 			{
 				if(this.var_tostring_4_1 == null)
-					this.var_tostring_4_1 = this.builderType.GetMethod("ToString", true, pvalue).Import();
+					this.var_tostring_4_1 = this.builderType.GetMethod("ToString", true, pvalue);
 			
-				return this.var_tostring_4_1;
+				return this.var_tostring_4_1.Import();
 			}
 			
 			if(typeof(System.Int16).AreEqual(pvalue))
 			{
 				if(this.var_tostring_5_1 == null)
-					this.var_tostring_5_1 = this.builderType.GetMethod("ToString", true, pvalue).Import();
+					this.var_tostring_5_1 = this.builderType.GetMethod("ToString", true, pvalue);
 			
-				return this.var_tostring_5_1;
+				return this.var_tostring_5_1.Import();
 			}
 			
 			if(typeof(System.UInt16).AreEqual(pvalue))
 			{
 				if(this.var_tostring_6_1 == null)
-					this.var_tostring_6_1 = this.builderType.GetMethod("ToString", true, pvalue).Import();
+					this.var_tostring_6_1 = this.builderType.GetMethod("ToString", true, pvalue);
 			
-				return this.var_tostring_6_1;
+				return this.var_tostring_6_1.Import();
 			}
 			
 			if(typeof(System.Int32).AreEqual(pvalue))
 			{
 				if(this.var_tostring_7_1 == null)
-					this.var_tostring_7_1 = this.builderType.GetMethod("ToString", true, pvalue).Import();
+					this.var_tostring_7_1 = this.builderType.GetMethod("ToString", true, pvalue);
 			
-				return this.var_tostring_7_1;
+				return this.var_tostring_7_1.Import();
 			}
 			
 			if(typeof(System.UInt32).AreEqual(pvalue))
 			{
 				if(this.var_tostring_8_1 == null)
-					this.var_tostring_8_1 = this.builderType.GetMethod("ToString", true, pvalue).Import();
+					this.var_tostring_8_1 = this.builderType.GetMethod("ToString", true, pvalue);
 			
-				return this.var_tostring_8_1;
+				return this.var_tostring_8_1.Import();
 			}
 			
 			if(typeof(System.Int64).AreEqual(pvalue))
 			{
 				if(this.var_tostring_9_1 == null)
-					this.var_tostring_9_1 = this.builderType.GetMethod("ToString", true, pvalue).Import();
+					this.var_tostring_9_1 = this.builderType.GetMethod("ToString", true, pvalue);
 			
-				return this.var_tostring_9_1;
+				return this.var_tostring_9_1.Import();
 			}
 			
 			if(typeof(System.UInt64).AreEqual(pvalue))
 			{
 				if(this.var_tostring_10_1 == null)
-					this.var_tostring_10_1 = this.builderType.GetMethod("ToString", true, pvalue).Import();
+					this.var_tostring_10_1 = this.builderType.GetMethod("ToString", true, pvalue);
 			
-				return this.var_tostring_10_1;
+				return this.var_tostring_10_1.Import();
 			}
 			
 			if(typeof(System.Single).AreEqual(pvalue))
 			{
 				if(this.var_tostring_11_1 == null)
-					this.var_tostring_11_1 = this.builderType.GetMethod("ToString", true, pvalue).Import();
+					this.var_tostring_11_1 = this.builderType.GetMethod("ToString", true, pvalue);
 			
-				return this.var_tostring_11_1;
+				return this.var_tostring_11_1.Import();
 			}
 			
 			if(typeof(System.Double).AreEqual(pvalue))
 			{
 				if(this.var_tostring_12_1 == null)
-					this.var_tostring_12_1 = this.builderType.GetMethod("ToString", true, pvalue).Import();
+					this.var_tostring_12_1 = this.builderType.GetMethod("ToString", true, pvalue);
 			
-				return this.var_tostring_12_1;
+				return this.var_tostring_12_1.Import();
 			}
 			
 			if(typeof(System.Decimal).AreEqual(pvalue))
 			{
 				if(this.var_tostring_13_1 == null)
-					this.var_tostring_13_1 = this.builderType.GetMethod("ToString", true, pvalue).Import();
+					this.var_tostring_13_1 = this.builderType.GetMethod("ToString", true, pvalue);
 			
-				return this.var_tostring_13_1;
+				return this.var_tostring_13_1.Import();
 			}
 			
 			if(typeof(System.DateTime).AreEqual(pvalue))
 			{
 				if(this.var_tostring_14_1 == null)
-					this.var_tostring_14_1 = this.builderType.GetMethod("ToString", true, pvalue).Import();
+					this.var_tostring_14_1 = this.builderType.GetMethod("ToString", true, pvalue);
 			
-				return this.var_tostring_14_1;
+				return this.var_tostring_14_1.Import();
 			}
 			
 			if(typeof(System.String).AreEqual(pvalue))
 			{
 				if(this.var_tostring_15_1 == null)
-					this.var_tostring_15_1 = this.builderType.GetMethod("ToString", true, pvalue).Import();
+					this.var_tostring_15_1 = this.builderType.GetMethod("ToString", true, pvalue);
 			
-				return this.var_tostring_15_1;
+				return this.var_tostring_15_1.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -7189,161 +7189,161 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Object).AreEqual(pvalue) && typeof(System.IFormatProvider).AreEqual(pprovider))
 			{
 				if(this.var_tostring_0_2 == null)
-					this.var_tostring_0_2 = this.builderType.GetMethod("ToString", true, pvalue, pprovider).Import();
+					this.var_tostring_0_2 = this.builderType.GetMethod("ToString", true, pvalue, pprovider);
 			
-				return this.var_tostring_0_2;
+				return this.var_tostring_0_2.Import();
 			}
 			
 			if(typeof(System.Boolean).AreEqual(pvalue) && typeof(System.IFormatProvider).AreEqual(pprovider))
 			{
 				if(this.var_tostring_1_2 == null)
-					this.var_tostring_1_2 = this.builderType.GetMethod("ToString", true, pvalue, pprovider).Import();
+					this.var_tostring_1_2 = this.builderType.GetMethod("ToString", true, pvalue, pprovider);
 			
-				return this.var_tostring_1_2;
+				return this.var_tostring_1_2.Import();
 			}
 			
 			if(typeof(System.Char).AreEqual(pvalue) && typeof(System.IFormatProvider).AreEqual(pprovider))
 			{
 				if(this.var_tostring_2_2 == null)
-					this.var_tostring_2_2 = this.builderType.GetMethod("ToString", true, pvalue, pprovider).Import();
+					this.var_tostring_2_2 = this.builderType.GetMethod("ToString", true, pvalue, pprovider);
 			
-				return this.var_tostring_2_2;
+				return this.var_tostring_2_2.Import();
 			}
 			
 			if(typeof(System.SByte).AreEqual(pvalue) && typeof(System.IFormatProvider).AreEqual(pprovider))
 			{
 				if(this.var_tostring_3_2 == null)
-					this.var_tostring_3_2 = this.builderType.GetMethod("ToString", true, pvalue, pprovider).Import();
+					this.var_tostring_3_2 = this.builderType.GetMethod("ToString", true, pvalue, pprovider);
 			
-				return this.var_tostring_3_2;
+				return this.var_tostring_3_2.Import();
 			}
 			
 			if(typeof(System.Byte).AreEqual(pvalue) && typeof(System.IFormatProvider).AreEqual(pprovider))
 			{
 				if(this.var_tostring_4_2 == null)
-					this.var_tostring_4_2 = this.builderType.GetMethod("ToString", true, pvalue, pprovider).Import();
+					this.var_tostring_4_2 = this.builderType.GetMethod("ToString", true, pvalue, pprovider);
 			
-				return this.var_tostring_4_2;
+				return this.var_tostring_4_2.Import();
 			}
 			
 			if(typeof(System.Int16).AreEqual(pvalue) && typeof(System.IFormatProvider).AreEqual(pprovider))
 			{
 				if(this.var_tostring_5_2 == null)
-					this.var_tostring_5_2 = this.builderType.GetMethod("ToString", true, pvalue, pprovider).Import();
+					this.var_tostring_5_2 = this.builderType.GetMethod("ToString", true, pvalue, pprovider);
 			
-				return this.var_tostring_5_2;
+				return this.var_tostring_5_2.Import();
 			}
 			
 			if(typeof(System.UInt16).AreEqual(pvalue) && typeof(System.IFormatProvider).AreEqual(pprovider))
 			{
 				if(this.var_tostring_6_2 == null)
-					this.var_tostring_6_2 = this.builderType.GetMethod("ToString", true, pvalue, pprovider).Import();
+					this.var_tostring_6_2 = this.builderType.GetMethod("ToString", true, pvalue, pprovider);
 			
-				return this.var_tostring_6_2;
+				return this.var_tostring_6_2.Import();
 			}
 			
 			if(typeof(System.Int32).AreEqual(pvalue) && typeof(System.IFormatProvider).AreEqual(pprovider))
 			{
 				if(this.var_tostring_7_2 == null)
-					this.var_tostring_7_2 = this.builderType.GetMethod("ToString", true, pvalue, pprovider).Import();
+					this.var_tostring_7_2 = this.builderType.GetMethod("ToString", true, pvalue, pprovider);
 			
-				return this.var_tostring_7_2;
+				return this.var_tostring_7_2.Import();
 			}
 			
 			if(typeof(System.UInt32).AreEqual(pvalue) && typeof(System.IFormatProvider).AreEqual(pprovider))
 			{
 				if(this.var_tostring_8_2 == null)
-					this.var_tostring_8_2 = this.builderType.GetMethod("ToString", true, pvalue, pprovider).Import();
+					this.var_tostring_8_2 = this.builderType.GetMethod("ToString", true, pvalue, pprovider);
 			
-				return this.var_tostring_8_2;
+				return this.var_tostring_8_2.Import();
 			}
 			
 			if(typeof(System.Int64).AreEqual(pvalue) && typeof(System.IFormatProvider).AreEqual(pprovider))
 			{
 				if(this.var_tostring_9_2 == null)
-					this.var_tostring_9_2 = this.builderType.GetMethod("ToString", true, pvalue, pprovider).Import();
+					this.var_tostring_9_2 = this.builderType.GetMethod("ToString", true, pvalue, pprovider);
 			
-				return this.var_tostring_9_2;
+				return this.var_tostring_9_2.Import();
 			}
 			
 			if(typeof(System.UInt64).AreEqual(pvalue) && typeof(System.IFormatProvider).AreEqual(pprovider))
 			{
 				if(this.var_tostring_10_2 == null)
-					this.var_tostring_10_2 = this.builderType.GetMethod("ToString", true, pvalue, pprovider).Import();
+					this.var_tostring_10_2 = this.builderType.GetMethod("ToString", true, pvalue, pprovider);
 			
-				return this.var_tostring_10_2;
+				return this.var_tostring_10_2.Import();
 			}
 			
 			if(typeof(System.Single).AreEqual(pvalue) && typeof(System.IFormatProvider).AreEqual(pprovider))
 			{
 				if(this.var_tostring_11_2 == null)
-					this.var_tostring_11_2 = this.builderType.GetMethod("ToString", true, pvalue, pprovider).Import();
+					this.var_tostring_11_2 = this.builderType.GetMethod("ToString", true, pvalue, pprovider);
 			
-				return this.var_tostring_11_2;
+				return this.var_tostring_11_2.Import();
 			}
 			
 			if(typeof(System.Double).AreEqual(pvalue) && typeof(System.IFormatProvider).AreEqual(pprovider))
 			{
 				if(this.var_tostring_12_2 == null)
-					this.var_tostring_12_2 = this.builderType.GetMethod("ToString", true, pvalue, pprovider).Import();
+					this.var_tostring_12_2 = this.builderType.GetMethod("ToString", true, pvalue, pprovider);
 			
-				return this.var_tostring_12_2;
+				return this.var_tostring_12_2.Import();
 			}
 			
 			if(typeof(System.Decimal).AreEqual(pvalue) && typeof(System.IFormatProvider).AreEqual(pprovider))
 			{
 				if(this.var_tostring_13_2 == null)
-					this.var_tostring_13_2 = this.builderType.GetMethod("ToString", true, pvalue, pprovider).Import();
+					this.var_tostring_13_2 = this.builderType.GetMethod("ToString", true, pvalue, pprovider);
 			
-				return this.var_tostring_13_2;
+				return this.var_tostring_13_2.Import();
 			}
 			
 			if(typeof(System.DateTime).AreEqual(pvalue) && typeof(System.IFormatProvider).AreEqual(pprovider))
 			{
 				if(this.var_tostring_14_2 == null)
-					this.var_tostring_14_2 = this.builderType.GetMethod("ToString", true, pvalue, pprovider).Import();
+					this.var_tostring_14_2 = this.builderType.GetMethod("ToString", true, pvalue, pprovider);
 			
-				return this.var_tostring_14_2;
+				return this.var_tostring_14_2.Import();
 			}
 			
 			if(typeof(System.String).AreEqual(pvalue) && typeof(System.IFormatProvider).AreEqual(pprovider))
 			{
 				if(this.var_tostring_15_2 == null)
-					this.var_tostring_15_2 = this.builderType.GetMethod("ToString", true, pvalue, pprovider).Import();
+					this.var_tostring_15_2 = this.builderType.GetMethod("ToString", true, pvalue, pprovider);
 			
-				return this.var_tostring_15_2;
+				return this.var_tostring_15_2.Import();
 			}
 			
 			if(typeof(System.Byte).AreEqual(pvalue) && typeof(System.Int32).AreEqual(pprovider))
 			{
 				if(this.var_tostring_16_2 == null)
-					this.var_tostring_16_2 = this.builderType.GetMethod("ToString", true, pvalue, pprovider).Import();
+					this.var_tostring_16_2 = this.builderType.GetMethod("ToString", true, pvalue, pprovider);
 			
-				return this.var_tostring_16_2;
+				return this.var_tostring_16_2.Import();
 			}
 			
 			if(typeof(System.Int16).AreEqual(pvalue) && typeof(System.Int32).AreEqual(pprovider))
 			{
 				if(this.var_tostring_17_2 == null)
-					this.var_tostring_17_2 = this.builderType.GetMethod("ToString", true, pvalue, pprovider).Import();
+					this.var_tostring_17_2 = this.builderType.GetMethod("ToString", true, pvalue, pprovider);
 			
-				return this.var_tostring_17_2;
+				return this.var_tostring_17_2.Import();
 			}
 			
 			if(typeof(System.Int32).AreEqual(pvalue) && typeof(System.Int32).AreEqual(pprovider))
 			{
 				if(this.var_tostring_18_2 == null)
-					this.var_tostring_18_2 = this.builderType.GetMethod("ToString", true, pvalue, pprovider).Import();
+					this.var_tostring_18_2 = this.builderType.GetMethod("ToString", true, pvalue, pprovider);
 			
-				return this.var_tostring_18_2;
+				return this.var_tostring_18_2.Import();
 			}
 			
 			if(typeof(System.Int64).AreEqual(pvalue) && typeof(System.Int32).AreEqual(pprovider))
 			{
 				if(this.var_tostring_19_2 == null)
-					this.var_tostring_19_2 = this.builderType.GetMethod("ToString", true, pvalue, pprovider).Import();
+					this.var_tostring_19_2 = this.builderType.GetMethod("ToString", true, pvalue, pprovider);
 			
-				return this.var_tostring_19_2;
+				return this.var_tostring_19_2.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -7361,9 +7361,9 @@ namespace Cauldron.Interception.Cecilator
 		{
 						
 			if(this.var_tostring_0_0 == null)
-				this.var_tostring_0_0 = this.builderType.GetMethod("ToString", true).Import();
+				this.var_tostring_0_0 = this.builderType.GetMethod("ToString", true);
 
-			return this.var_tostring_0_0;
+			return this.var_tostring_0_0.Import();
 						
 						
 		}
@@ -7380,9 +7380,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_tobase64string_0_1 == null)
-				this.var_tobase64string_0_1 = this.builderType.GetMethod("ToBase64String", true, pinArray).Import();
+				this.var_tobase64string_0_1 = this.builderType.GetMethod("ToBase64String", true, pinArray);
 			
-			return this.var_tobase64string_0_1;
+			return this.var_tobase64string_0_1.Import();
 						
 		}
 						
@@ -7398,9 +7398,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_tobase64string_0_2 == null)
-				this.var_tobase64string_0_2 = this.builderType.GetMethod("ToBase64String", true, pinArray, poptions).Import();
+				this.var_tobase64string_0_2 = this.builderType.GetMethod("ToBase64String", true, pinArray, poptions);
 			
-			return this.var_tobase64string_0_2;
+			return this.var_tobase64string_0_2.Import();
 						
 		}
 						
@@ -7416,9 +7416,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_tobase64string_0_3 == null)
-				this.var_tobase64string_0_3 = this.builderType.GetMethod("ToBase64String", true, pinArray, poffset, plength).Import();
+				this.var_tobase64string_0_3 = this.builderType.GetMethod("ToBase64String", true, pinArray, poffset, plength);
 			
-			return this.var_tobase64string_0_3;
+			return this.var_tobase64string_0_3.Import();
 						
 		}
 						
@@ -7434,9 +7434,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_tobase64string_0_4 == null)
-				this.var_tobase64string_0_4 = this.builderType.GetMethod("ToBase64String", true, pinArray, poffset, plength, poptions).Import();
+				this.var_tobase64string_0_4 = this.builderType.GetMethod("ToBase64String", true, pinArray, poffset, plength, poptions);
 			
-			return this.var_tobase64string_0_4;
+			return this.var_tobase64string_0_4.Import();
 						
 		}
 						
@@ -7452,9 +7452,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_tobase64chararray_0_5 == null)
-				this.var_tobase64chararray_0_5 = this.builderType.GetMethod("ToBase64CharArray", true, pinArray, poffsetIn, plength, poutArray, poffsetOut).Import();
+				this.var_tobase64chararray_0_5 = this.builderType.GetMethod("ToBase64CharArray", true, pinArray, poffsetIn, plength, poutArray, poffsetOut);
 			
-			return this.var_tobase64chararray_0_5;
+			return this.var_tobase64chararray_0_5.Import();
 						
 		}
 						
@@ -7470,9 +7470,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_tobase64chararray_0_6 == null)
-				this.var_tobase64chararray_0_6 = this.builderType.GetMethod("ToBase64CharArray", true, pinArray, poffsetIn, plength, poutArray, poffsetOut, poptions).Import();
+				this.var_tobase64chararray_0_6 = this.builderType.GetMethod("ToBase64CharArray", true, pinArray, poffsetIn, plength, poutArray, poffsetOut, poptions);
 			
-			return this.var_tobase64chararray_0_6;
+			return this.var_tobase64chararray_0_6.Import();
 						
 		}
 						
@@ -7486,9 +7486,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_FromBase64String()
 		{
 			if(this.var_frombase64string_0_1 == null)
-				this.var_frombase64string_0_1 = this.builderType.GetMethod("FromBase64String", 1, true).Import();
+				this.var_frombase64string_0_1 = this.builderType.GetMethod("FromBase64String", 1, true);
 
-			return this.var_frombase64string_0_1;
+			return this.var_frombase64string_0_1.Import();
 		}
 						
 		private Method var_frombase64chararray_0_3;
@@ -7501,9 +7501,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_FromBase64CharArray()
 		{
 			if(this.var_frombase64chararray_0_3 == null)
-				this.var_frombase64chararray_0_3 = this.builderType.GetMethod("FromBase64CharArray", 3, true).Import();
+				this.var_frombase64chararray_0_3 = this.builderType.GetMethod("FromBase64CharArray", 3, true);
 
-			return this.var_frombase64chararray_0_3;
+			return this.var_frombase64chararray_0_3.Import();
 		}
 						
 		private Method var_equals_0_1;
@@ -7516,9 +7516,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_Equals()
 		{
 			if(this.var_equals_0_1 == null)
-				this.var_equals_0_1 = this.builderType.GetMethod("Equals", 1, true).Import();
+				this.var_equals_0_1 = this.builderType.GetMethod("Equals", 1, true);
 
-			return this.var_equals_0_1;
+			return this.var_equals_0_1.Import();
 		}
 						
 		private Method var_gethashcode_0_0;
@@ -7531,9 +7531,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetHashCode()
 		{
 			if(this.var_gethashcode_0_0 == null)
-				this.var_gethashcode_0_0 = this.builderType.GetMethod("GetHashCode", 0, true).Import();
+				this.var_gethashcode_0_0 = this.builderType.GetMethod("GetHashCode", 0, true);
 
-			return this.var_gethashcode_0_0;
+			return this.var_gethashcode_0_0.Import();
 		}
 						
 		private Method var_gettype_0_0;
@@ -7546,9 +7546,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetType()
 		{
 			if(this.var_gettype_0_0 == null)
-				this.var_gettype_0_0 = this.builderType.GetMethod("GetType", 0, true).Import();
+				this.var_gettype_0_0 = this.builderType.GetMethod("GetType", 0, true);
 
-			return this.var_gettype_0_0;
+			return this.var_gettype_0_0.Import();
 		}
 					}
 
@@ -7563,10 +7563,10 @@ namespace Cauldron.Interception.Cecilator
 		}
 
 		/// <exclude />
-		public static implicit operator BuilderType(BuilderTypeDateTime value) => value.builderType;
+		public static implicit operator BuilderType(BuilderTypeDateTime value) => value.builderType.Import();
 		
 		/// <exclude />
-		public static implicit operator TypeReference(BuilderTypeDateTime value) => value.builderType.typeReference;
+		public static implicit operator TypeReference(BuilderTypeDateTime value) => Builder.Current.Import((TypeReference)value.builderType);
 			
 				
 		private Method var_add_0_1;
@@ -7579,9 +7579,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_Add()
 		{
 			if(this.var_add_0_1 == null)
-				this.var_add_0_1 = this.builderType.GetMethod("Add", 1, true).Import();
+				this.var_add_0_1 = this.builderType.GetMethod("Add", 1, true);
 
-			return this.var_add_0_1;
+			return this.var_add_0_1.Import();
 		}
 						
 		private Method var_adddays_0_1;
@@ -7594,9 +7594,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_AddDays()
 		{
 			if(this.var_adddays_0_1 == null)
-				this.var_adddays_0_1 = this.builderType.GetMethod("AddDays", 1, true).Import();
+				this.var_adddays_0_1 = this.builderType.GetMethod("AddDays", 1, true);
 
-			return this.var_adddays_0_1;
+			return this.var_adddays_0_1.Import();
 		}
 						
 		private Method var_addhours_0_1;
@@ -7609,9 +7609,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_AddHours()
 		{
 			if(this.var_addhours_0_1 == null)
-				this.var_addhours_0_1 = this.builderType.GetMethod("AddHours", 1, true).Import();
+				this.var_addhours_0_1 = this.builderType.GetMethod("AddHours", 1, true);
 
-			return this.var_addhours_0_1;
+			return this.var_addhours_0_1.Import();
 		}
 						
 		private Method var_addmilliseconds_0_1;
@@ -7624,9 +7624,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_AddMilliseconds()
 		{
 			if(this.var_addmilliseconds_0_1 == null)
-				this.var_addmilliseconds_0_1 = this.builderType.GetMethod("AddMilliseconds", 1, true).Import();
+				this.var_addmilliseconds_0_1 = this.builderType.GetMethod("AddMilliseconds", 1, true);
 
-			return this.var_addmilliseconds_0_1;
+			return this.var_addmilliseconds_0_1.Import();
 		}
 						
 		private Method var_addminutes_0_1;
@@ -7639,9 +7639,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_AddMinutes()
 		{
 			if(this.var_addminutes_0_1 == null)
-				this.var_addminutes_0_1 = this.builderType.GetMethod("AddMinutes", 1, true).Import();
+				this.var_addminutes_0_1 = this.builderType.GetMethod("AddMinutes", 1, true);
 
-			return this.var_addminutes_0_1;
+			return this.var_addminutes_0_1.Import();
 		}
 						
 		private Method var_addmonths_0_1;
@@ -7654,9 +7654,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_AddMonths()
 		{
 			if(this.var_addmonths_0_1 == null)
-				this.var_addmonths_0_1 = this.builderType.GetMethod("AddMonths", 1, true).Import();
+				this.var_addmonths_0_1 = this.builderType.GetMethod("AddMonths", 1, true);
 
-			return this.var_addmonths_0_1;
+			return this.var_addmonths_0_1.Import();
 		}
 						
 		private Method var_addseconds_0_1;
@@ -7669,9 +7669,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_AddSeconds()
 		{
 			if(this.var_addseconds_0_1 == null)
-				this.var_addseconds_0_1 = this.builderType.GetMethod("AddSeconds", 1, true).Import();
+				this.var_addseconds_0_1 = this.builderType.GetMethod("AddSeconds", 1, true);
 
-			return this.var_addseconds_0_1;
+			return this.var_addseconds_0_1.Import();
 		}
 						
 		private Method var_addticks_0_1;
@@ -7684,9 +7684,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_AddTicks()
 		{
 			if(this.var_addticks_0_1 == null)
-				this.var_addticks_0_1 = this.builderType.GetMethod("AddTicks", 1, true).Import();
+				this.var_addticks_0_1 = this.builderType.GetMethod("AddTicks", 1, true);
 
-			return this.var_addticks_0_1;
+			return this.var_addticks_0_1.Import();
 		}
 						
 		private Method var_addyears_0_1;
@@ -7699,9 +7699,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_AddYears()
 		{
 			if(this.var_addyears_0_1 == null)
-				this.var_addyears_0_1 = this.builderType.GetMethod("AddYears", 1, true).Import();
+				this.var_addyears_0_1 = this.builderType.GetMethod("AddYears", 1, true);
 
-			return this.var_addyears_0_1;
+			return this.var_addyears_0_1.Import();
 		}
 						
 		private Method var_compare_0_2;
@@ -7714,9 +7714,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_Compare()
 		{
 			if(this.var_compare_0_2 == null)
-				this.var_compare_0_2 = this.builderType.GetMethod("Compare", 2, true).Import();
+				this.var_compare_0_2 = this.builderType.GetMethod("Compare", 2, true);
 
-			return this.var_compare_0_2;
+			return this.var_compare_0_2.Import();
 		}
 						
 		private Method var_compareto_0_1;
@@ -7736,17 +7736,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Object).AreEqual(pvalue))
 			{
 				if(this.var_compareto_0_1 == null)
-					this.var_compareto_0_1 = this.builderType.GetMethod("CompareTo", true, pvalue).Import();
+					this.var_compareto_0_1 = this.builderType.GetMethod("CompareTo", true, pvalue);
 			
-				return this.var_compareto_0_1;
+				return this.var_compareto_0_1.Import();
 			}
 			
 			if(typeof(System.DateTime).AreEqual(pvalue))
 			{
 				if(this.var_compareto_1_1 == null)
-					this.var_compareto_1_1 = this.builderType.GetMethod("CompareTo", true, pvalue).Import();
+					this.var_compareto_1_1 = this.builderType.GetMethod("CompareTo", true, pvalue);
 			
-				return this.var_compareto_1_1;
+				return this.var_compareto_1_1.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -7763,9 +7763,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_DaysInMonth()
 		{
 			if(this.var_daysinmonth_0_2 == null)
-				this.var_daysinmonth_0_2 = this.builderType.GetMethod("DaysInMonth", 2, true).Import();
+				this.var_daysinmonth_0_2 = this.builderType.GetMethod("DaysInMonth", 2, true);
 
-			return this.var_daysinmonth_0_2;
+			return this.var_daysinmonth_0_2.Import();
 		}
 						
 		private Method var_equals_0_1;
@@ -7785,17 +7785,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Object).AreEqual(pvalue))
 			{
 				if(this.var_equals_0_1 == null)
-					this.var_equals_0_1 = this.builderType.GetMethod("Equals", true, pvalue).Import();
+					this.var_equals_0_1 = this.builderType.GetMethod("Equals", true, pvalue);
 			
-				return this.var_equals_0_1;
+				return this.var_equals_0_1.Import();
 			}
 			
 			if(typeof(System.DateTime).AreEqual(pvalue))
 			{
 				if(this.var_equals_1_1 == null)
-					this.var_equals_1_1 = this.builderType.GetMethod("Equals", true, pvalue).Import();
+					this.var_equals_1_1 = this.builderType.GetMethod("Equals", true, pvalue);
 			
-				return this.var_equals_1_1;
+				return this.var_equals_1_1.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -7814,9 +7814,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_equals_0_2 == null)
-				this.var_equals_0_2 = this.builderType.GetMethod("Equals", true, pt1, pt2).Import();
+				this.var_equals_0_2 = this.builderType.GetMethod("Equals", true, pt1, pt2);
 			
-			return this.var_equals_0_2;
+			return this.var_equals_0_2.Import();
 						
 		}
 						
@@ -7830,9 +7830,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_FromBinary()
 		{
 			if(this.var_frombinary_0_1 == null)
-				this.var_frombinary_0_1 = this.builderType.GetMethod("FromBinary", 1, true).Import();
+				this.var_frombinary_0_1 = this.builderType.GetMethod("FromBinary", 1, true);
 
-			return this.var_frombinary_0_1;
+			return this.var_frombinary_0_1.Import();
 		}
 						
 		private Method var_fromfiletime_0_1;
@@ -7845,9 +7845,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_FromFileTime()
 		{
 			if(this.var_fromfiletime_0_1 == null)
-				this.var_fromfiletime_0_1 = this.builderType.GetMethod("FromFileTime", 1, true).Import();
+				this.var_fromfiletime_0_1 = this.builderType.GetMethod("FromFileTime", 1, true);
 
-			return this.var_fromfiletime_0_1;
+			return this.var_fromfiletime_0_1.Import();
 		}
 						
 		private Method var_fromfiletimeutc_0_1;
@@ -7860,9 +7860,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_FromFileTimeUtc()
 		{
 			if(this.var_fromfiletimeutc_0_1 == null)
-				this.var_fromfiletimeutc_0_1 = this.builderType.GetMethod("FromFileTimeUtc", 1, true).Import();
+				this.var_fromfiletimeutc_0_1 = this.builderType.GetMethod("FromFileTimeUtc", 1, true);
 
-			return this.var_fromfiletimeutc_0_1;
+			return this.var_fromfiletimeutc_0_1.Import();
 		}
 						
 		private Method var_fromoadate_0_1;
@@ -7875,9 +7875,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_FromOADate()
 		{
 			if(this.var_fromoadate_0_1 == null)
-				this.var_fromoadate_0_1 = this.builderType.GetMethod("FromOADate", 1, true).Import();
+				this.var_fromoadate_0_1 = this.builderType.GetMethod("FromOADate", 1, true);
 
-			return this.var_fromoadate_0_1;
+			return this.var_fromoadate_0_1.Import();
 		}
 						
 		private Method var_isdaylightsavingtime_0_0;
@@ -7890,9 +7890,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_IsDaylightSavingTime()
 		{
 			if(this.var_isdaylightsavingtime_0_0 == null)
-				this.var_isdaylightsavingtime_0_0 = this.builderType.GetMethod("IsDaylightSavingTime", 0, true).Import();
+				this.var_isdaylightsavingtime_0_0 = this.builderType.GetMethod("IsDaylightSavingTime", 0, true);
 
-			return this.var_isdaylightsavingtime_0_0;
+			return this.var_isdaylightsavingtime_0_0.Import();
 		}
 						
 		private Method var_specifykind_0_2;
@@ -7905,9 +7905,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_SpecifyKind()
 		{
 			if(this.var_specifykind_0_2 == null)
-				this.var_specifykind_0_2 = this.builderType.GetMethod("SpecifyKind", 2, true).Import();
+				this.var_specifykind_0_2 = this.builderType.GetMethod("SpecifyKind", 2, true);
 
-			return this.var_specifykind_0_2;
+			return this.var_specifykind_0_2.Import();
 		}
 						
 		private Method var_tobinary_0_0;
@@ -7920,9 +7920,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_ToBinary()
 		{
 			if(this.var_tobinary_0_0 == null)
-				this.var_tobinary_0_0 = this.builderType.GetMethod("ToBinary", 0, true).Import();
+				this.var_tobinary_0_0 = this.builderType.GetMethod("ToBinary", 0, true);
 
-			return this.var_tobinary_0_0;
+			return this.var_tobinary_0_0.Import();
 		}
 						
 		private Method var_get_date_0_0;
@@ -7935,9 +7935,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_Date()
 		{
 			if(this.var_get_date_0_0 == null)
-				this.var_get_date_0_0 = this.builderType.GetMethod("get_Date", 0, true).Import();
+				this.var_get_date_0_0 = this.builderType.GetMethod("get_Date", 0, true);
 
-			return this.var_get_date_0_0;
+			return this.var_get_date_0_0.Import();
 		}
 						
 		private Method var_get_day_0_0;
@@ -7950,9 +7950,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_Day()
 		{
 			if(this.var_get_day_0_0 == null)
-				this.var_get_day_0_0 = this.builderType.GetMethod("get_Day", 0, true).Import();
+				this.var_get_day_0_0 = this.builderType.GetMethod("get_Day", 0, true);
 
-			return this.var_get_day_0_0;
+			return this.var_get_day_0_0.Import();
 		}
 						
 		private Method var_get_dayofweek_0_0;
@@ -7965,9 +7965,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_DayOfWeek()
 		{
 			if(this.var_get_dayofweek_0_0 == null)
-				this.var_get_dayofweek_0_0 = this.builderType.GetMethod("get_DayOfWeek", 0, true).Import();
+				this.var_get_dayofweek_0_0 = this.builderType.GetMethod("get_DayOfWeek", 0, true);
 
-			return this.var_get_dayofweek_0_0;
+			return this.var_get_dayofweek_0_0.Import();
 		}
 						
 		private Method var_get_dayofyear_0_0;
@@ -7980,9 +7980,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_DayOfYear()
 		{
 			if(this.var_get_dayofyear_0_0 == null)
-				this.var_get_dayofyear_0_0 = this.builderType.GetMethod("get_DayOfYear", 0, true).Import();
+				this.var_get_dayofyear_0_0 = this.builderType.GetMethod("get_DayOfYear", 0, true);
 
-			return this.var_get_dayofyear_0_0;
+			return this.var_get_dayofyear_0_0.Import();
 		}
 						
 		private Method var_gethashcode_0_0;
@@ -7995,9 +7995,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetHashCode()
 		{
 			if(this.var_gethashcode_0_0 == null)
-				this.var_gethashcode_0_0 = this.builderType.GetMethod("GetHashCode", 0, true).Import();
+				this.var_gethashcode_0_0 = this.builderType.GetMethod("GetHashCode", 0, true);
 
-			return this.var_gethashcode_0_0;
+			return this.var_gethashcode_0_0.Import();
 		}
 						
 		private Method var_get_hour_0_0;
@@ -8010,9 +8010,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_Hour()
 		{
 			if(this.var_get_hour_0_0 == null)
-				this.var_get_hour_0_0 = this.builderType.GetMethod("get_Hour", 0, true).Import();
+				this.var_get_hour_0_0 = this.builderType.GetMethod("get_Hour", 0, true);
 
-			return this.var_get_hour_0_0;
+			return this.var_get_hour_0_0.Import();
 		}
 						
 		private Method var_get_kind_0_0;
@@ -8025,9 +8025,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_Kind()
 		{
 			if(this.var_get_kind_0_0 == null)
-				this.var_get_kind_0_0 = this.builderType.GetMethod("get_Kind", 0, true).Import();
+				this.var_get_kind_0_0 = this.builderType.GetMethod("get_Kind", 0, true);
 
-			return this.var_get_kind_0_0;
+			return this.var_get_kind_0_0.Import();
 		}
 						
 		private Method var_get_millisecond_0_0;
@@ -8040,9 +8040,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_Millisecond()
 		{
 			if(this.var_get_millisecond_0_0 == null)
-				this.var_get_millisecond_0_0 = this.builderType.GetMethod("get_Millisecond", 0, true).Import();
+				this.var_get_millisecond_0_0 = this.builderType.GetMethod("get_Millisecond", 0, true);
 
-			return this.var_get_millisecond_0_0;
+			return this.var_get_millisecond_0_0.Import();
 		}
 						
 		private Method var_get_minute_0_0;
@@ -8055,9 +8055,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_Minute()
 		{
 			if(this.var_get_minute_0_0 == null)
-				this.var_get_minute_0_0 = this.builderType.GetMethod("get_Minute", 0, true).Import();
+				this.var_get_minute_0_0 = this.builderType.GetMethod("get_Minute", 0, true);
 
-			return this.var_get_minute_0_0;
+			return this.var_get_minute_0_0.Import();
 		}
 						
 		private Method var_get_month_0_0;
@@ -8070,9 +8070,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_Month()
 		{
 			if(this.var_get_month_0_0 == null)
-				this.var_get_month_0_0 = this.builderType.GetMethod("get_Month", 0, true).Import();
+				this.var_get_month_0_0 = this.builderType.GetMethod("get_Month", 0, true);
 
-			return this.var_get_month_0_0;
+			return this.var_get_month_0_0.Import();
 		}
 						
 		private Method var_get_now_0_0;
@@ -8085,9 +8085,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_Now()
 		{
 			if(this.var_get_now_0_0 == null)
-				this.var_get_now_0_0 = this.builderType.GetMethod("get_Now", 0, true).Import();
+				this.var_get_now_0_0 = this.builderType.GetMethod("get_Now", 0, true);
 
-			return this.var_get_now_0_0;
+			return this.var_get_now_0_0.Import();
 		}
 						
 		private Method var_get_utcnow_0_0;
@@ -8100,9 +8100,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_UtcNow()
 		{
 			if(this.var_get_utcnow_0_0 == null)
-				this.var_get_utcnow_0_0 = this.builderType.GetMethod("get_UtcNow", 0, true).Import();
+				this.var_get_utcnow_0_0 = this.builderType.GetMethod("get_UtcNow", 0, true);
 
-			return this.var_get_utcnow_0_0;
+			return this.var_get_utcnow_0_0.Import();
 		}
 						
 		private Method var_get_second_0_0;
@@ -8115,9 +8115,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_Second()
 		{
 			if(this.var_get_second_0_0 == null)
-				this.var_get_second_0_0 = this.builderType.GetMethod("get_Second", 0, true).Import();
+				this.var_get_second_0_0 = this.builderType.GetMethod("get_Second", 0, true);
 
-			return this.var_get_second_0_0;
+			return this.var_get_second_0_0.Import();
 		}
 						
 		private Method var_get_ticks_0_0;
@@ -8130,9 +8130,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_Ticks()
 		{
 			if(this.var_get_ticks_0_0 == null)
-				this.var_get_ticks_0_0 = this.builderType.GetMethod("get_Ticks", 0, true).Import();
+				this.var_get_ticks_0_0 = this.builderType.GetMethod("get_Ticks", 0, true);
 
-			return this.var_get_ticks_0_0;
+			return this.var_get_ticks_0_0.Import();
 		}
 						
 		private Method var_get_timeofday_0_0;
@@ -8145,9 +8145,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_TimeOfDay()
 		{
 			if(this.var_get_timeofday_0_0 == null)
-				this.var_get_timeofday_0_0 = this.builderType.GetMethod("get_TimeOfDay", 0, true).Import();
+				this.var_get_timeofday_0_0 = this.builderType.GetMethod("get_TimeOfDay", 0, true);
 
-			return this.var_get_timeofday_0_0;
+			return this.var_get_timeofday_0_0.Import();
 		}
 						
 		private Method var_get_today_0_0;
@@ -8160,9 +8160,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_Today()
 		{
 			if(this.var_get_today_0_0 == null)
-				this.var_get_today_0_0 = this.builderType.GetMethod("get_Today", 0, true).Import();
+				this.var_get_today_0_0 = this.builderType.GetMethod("get_Today", 0, true);
 
-			return this.var_get_today_0_0;
+			return this.var_get_today_0_0.Import();
 		}
 						
 		private Method var_get_year_0_0;
@@ -8175,9 +8175,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_Year()
 		{
 			if(this.var_get_year_0_0 == null)
-				this.var_get_year_0_0 = this.builderType.GetMethod("get_Year", 0, true).Import();
+				this.var_get_year_0_0 = this.builderType.GetMethod("get_Year", 0, true);
 
-			return this.var_get_year_0_0;
+			return this.var_get_year_0_0.Import();
 		}
 						
 		private Method var_isleapyear_0_1;
@@ -8190,9 +8190,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_IsLeapYear()
 		{
 			if(this.var_isleapyear_0_1 == null)
-				this.var_isleapyear_0_1 = this.builderType.GetMethod("IsLeapYear", 1, true).Import();
+				this.var_isleapyear_0_1 = this.builderType.GetMethod("IsLeapYear", 1, true);
 
-			return this.var_isleapyear_0_1;
+			return this.var_isleapyear_0_1.Import();
 		}
 						
 		private Method var_parse_0_1;
@@ -8207,9 +8207,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_parse_0_1 == null)
-				this.var_parse_0_1 = this.builderType.GetMethod("Parse", true, ps).Import();
+				this.var_parse_0_1 = this.builderType.GetMethod("Parse", true, ps);
 			
-			return this.var_parse_0_1;
+			return this.var_parse_0_1.Import();
 						
 		}
 						
@@ -8225,9 +8225,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_parse_0_2 == null)
-				this.var_parse_0_2 = this.builderType.GetMethod("Parse", true, ps, pprovider).Import();
+				this.var_parse_0_2 = this.builderType.GetMethod("Parse", true, ps, pprovider);
 			
-			return this.var_parse_0_2;
+			return this.var_parse_0_2.Import();
 						
 		}
 						
@@ -8243,9 +8243,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_parse_0_3 == null)
-				this.var_parse_0_3 = this.builderType.GetMethod("Parse", true, ps, pprovider, pstyles).Import();
+				this.var_parse_0_3 = this.builderType.GetMethod("Parse", true, ps, pprovider, pstyles);
 			
-			return this.var_parse_0_3;
+			return this.var_parse_0_3.Import();
 						
 		}
 						
@@ -8261,9 +8261,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_parseexact_0_3 == null)
-				this.var_parseexact_0_3 = this.builderType.GetMethod("ParseExact", true, ps, pformat, pprovider).Import();
+				this.var_parseexact_0_3 = this.builderType.GetMethod("ParseExact", true, ps, pformat, pprovider);
 			
-			return this.var_parseexact_0_3;
+			return this.var_parseexact_0_3.Import();
 						
 		}
 						
@@ -8284,17 +8284,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.String).AreEqual(ps) && typeof(System.String).AreEqual(pformat) && typeof(System.IFormatProvider).AreEqual(pprovider) && typeof(System.Globalization.DateTimeStyles).AreEqual(pstyle))
 			{
 				if(this.var_parseexact_0_4 == null)
-					this.var_parseexact_0_4 = this.builderType.GetMethod("ParseExact", true, ps, pformat, pprovider, pstyle).Import();
+					this.var_parseexact_0_4 = this.builderType.GetMethod("ParseExact", true, ps, pformat, pprovider, pstyle);
 			
-				return this.var_parseexact_0_4;
+				return this.var_parseexact_0_4.Import();
 			}
 			
 			if(typeof(System.String).AreEqual(ps) && typeof(System.String[]).AreEqual(pformat) && typeof(System.IFormatProvider).AreEqual(pprovider) && typeof(System.Globalization.DateTimeStyles).AreEqual(pstyle))
 			{
 				if(this.var_parseexact_1_4 == null)
-					this.var_parseexact_1_4 = this.builderType.GetMethod("ParseExact", true, ps, pformat, pprovider, pstyle).Import();
+					this.var_parseexact_1_4 = this.builderType.GetMethod("ParseExact", true, ps, pformat, pprovider, pstyle);
 			
-				return this.var_parseexact_1_4;
+				return this.var_parseexact_1_4.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -8318,17 +8318,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.DateTime).AreEqual(pvalue))
 			{
 				if(this.var_subtract_0_1 == null)
-					this.var_subtract_0_1 = this.builderType.GetMethod("Subtract", true, pvalue).Import();
+					this.var_subtract_0_1 = this.builderType.GetMethod("Subtract", true, pvalue);
 			
-				return this.var_subtract_0_1;
+				return this.var_subtract_0_1.Import();
 			}
 			
 			if(typeof(System.TimeSpan).AreEqual(pvalue))
 			{
 				if(this.var_subtract_1_1 == null)
-					this.var_subtract_1_1 = this.builderType.GetMethod("Subtract", true, pvalue).Import();
+					this.var_subtract_1_1 = this.builderType.GetMethod("Subtract", true, pvalue);
 			
-				return this.var_subtract_1_1;
+				return this.var_subtract_1_1.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -8345,9 +8345,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_ToOADate()
 		{
 			if(this.var_tooadate_0_0 == null)
-				this.var_tooadate_0_0 = this.builderType.GetMethod("ToOADate", 0, true).Import();
+				this.var_tooadate_0_0 = this.builderType.GetMethod("ToOADate", 0, true);
 
-			return this.var_tooadate_0_0;
+			return this.var_tooadate_0_0.Import();
 		}
 						
 		private Method var_tofiletime_0_0;
@@ -8360,9 +8360,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_ToFileTime()
 		{
 			if(this.var_tofiletime_0_0 == null)
-				this.var_tofiletime_0_0 = this.builderType.GetMethod("ToFileTime", 0, true).Import();
+				this.var_tofiletime_0_0 = this.builderType.GetMethod("ToFileTime", 0, true);
 
-			return this.var_tofiletime_0_0;
+			return this.var_tofiletime_0_0.Import();
 		}
 						
 		private Method var_tofiletimeutc_0_0;
@@ -8375,9 +8375,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_ToFileTimeUtc()
 		{
 			if(this.var_tofiletimeutc_0_0 == null)
-				this.var_tofiletimeutc_0_0 = this.builderType.GetMethod("ToFileTimeUtc", 0, true).Import();
+				this.var_tofiletimeutc_0_0 = this.builderType.GetMethod("ToFileTimeUtc", 0, true);
 
-			return this.var_tofiletimeutc_0_0;
+			return this.var_tofiletimeutc_0_0.Import();
 		}
 						
 		private Method var_tolocaltime_0_0;
@@ -8390,9 +8390,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_ToLocalTime()
 		{
 			if(this.var_tolocaltime_0_0 == null)
-				this.var_tolocaltime_0_0 = this.builderType.GetMethod("ToLocalTime", 0, true).Import();
+				this.var_tolocaltime_0_0 = this.builderType.GetMethod("ToLocalTime", 0, true);
 
-			return this.var_tolocaltime_0_0;
+			return this.var_tolocaltime_0_0.Import();
 		}
 						
 		private Method var_tolongdatestring_0_0;
@@ -8405,9 +8405,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_ToLongDateString()
 		{
 			if(this.var_tolongdatestring_0_0 == null)
-				this.var_tolongdatestring_0_0 = this.builderType.GetMethod("ToLongDateString", 0, true).Import();
+				this.var_tolongdatestring_0_0 = this.builderType.GetMethod("ToLongDateString", 0, true);
 
-			return this.var_tolongdatestring_0_0;
+			return this.var_tolongdatestring_0_0.Import();
 		}
 						
 		private Method var_tolongtimestring_0_0;
@@ -8420,9 +8420,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_ToLongTimeString()
 		{
 			if(this.var_tolongtimestring_0_0 == null)
-				this.var_tolongtimestring_0_0 = this.builderType.GetMethod("ToLongTimeString", 0, true).Import();
+				this.var_tolongtimestring_0_0 = this.builderType.GetMethod("ToLongTimeString", 0, true);
 
-			return this.var_tolongtimestring_0_0;
+			return this.var_tolongtimestring_0_0.Import();
 		}
 						
 		private Method var_toshortdatestring_0_0;
@@ -8435,9 +8435,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_ToShortDateString()
 		{
 			if(this.var_toshortdatestring_0_0 == null)
-				this.var_toshortdatestring_0_0 = this.builderType.GetMethod("ToShortDateString", 0, true).Import();
+				this.var_toshortdatestring_0_0 = this.builderType.GetMethod("ToShortDateString", 0, true);
 
-			return this.var_toshortdatestring_0_0;
+			return this.var_toshortdatestring_0_0.Import();
 		}
 						
 		private Method var_toshorttimestring_0_0;
@@ -8450,9 +8450,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_ToShortTimeString()
 		{
 			if(this.var_toshorttimestring_0_0 == null)
-				this.var_toshorttimestring_0_0 = this.builderType.GetMethod("ToShortTimeString", 0, true).Import();
+				this.var_toshorttimestring_0_0 = this.builderType.GetMethod("ToShortTimeString", 0, true);
 
-			return this.var_toshorttimestring_0_0;
+			return this.var_toshorttimestring_0_0.Import();
 		}
 						
 		private Method var_tostring_0_0;
@@ -8466,9 +8466,9 @@ namespace Cauldron.Interception.Cecilator
 		{
 						
 			if(this.var_tostring_0_0 == null)
-				this.var_tostring_0_0 = this.builderType.GetMethod("ToString", true).Import();
+				this.var_tostring_0_0 = this.builderType.GetMethod("ToString", true);
 
-			return this.var_tostring_0_0;
+			return this.var_tostring_0_0.Import();
 						
 						
 		}
@@ -8490,17 +8490,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.String).AreEqual(pformat))
 			{
 				if(this.var_tostring_0_1 == null)
-					this.var_tostring_0_1 = this.builderType.GetMethod("ToString", true, pformat).Import();
+					this.var_tostring_0_1 = this.builderType.GetMethod("ToString", true, pformat);
 			
-				return this.var_tostring_0_1;
+				return this.var_tostring_0_1.Import();
 			}
 			
 			if(typeof(System.IFormatProvider).AreEqual(pformat))
 			{
 				if(this.var_tostring_1_1 == null)
-					this.var_tostring_1_1 = this.builderType.GetMethod("ToString", true, pformat).Import();
+					this.var_tostring_1_1 = this.builderType.GetMethod("ToString", true, pformat);
 			
-				return this.var_tostring_1_1;
+				return this.var_tostring_1_1.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -8519,9 +8519,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_tostring_0_2 == null)
-				this.var_tostring_0_2 = this.builderType.GetMethod("ToString", true, pformat, pprovider).Import();
+				this.var_tostring_0_2 = this.builderType.GetMethod("ToString", true, pformat, pprovider);
 			
-			return this.var_tostring_0_2;
+			return this.var_tostring_0_2.Import();
 						
 		}
 						
@@ -8535,9 +8535,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_ToUniversalTime()
 		{
 			if(this.var_touniversaltime_0_0 == null)
-				this.var_touniversaltime_0_0 = this.builderType.GetMethod("ToUniversalTime", 0, true).Import();
+				this.var_touniversaltime_0_0 = this.builderType.GetMethod("ToUniversalTime", 0, true);
 
-			return this.var_touniversaltime_0_0;
+			return this.var_touniversaltime_0_0.Import();
 		}
 						
 		private Method var_op_addition_0_2;
@@ -8550,9 +8550,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_op_Addition()
 		{
 			if(this.var_op_addition_0_2 == null)
-				this.var_op_addition_0_2 = this.builderType.GetMethod("op_Addition", 2, true).Import();
+				this.var_op_addition_0_2 = this.builderType.GetMethod("op_Addition", 2, true);
 
-			return this.var_op_addition_0_2;
+			return this.var_op_addition_0_2.Import();
 		}
 						
 		private Method var_op_subtraction_0_2;
@@ -8572,17 +8572,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.DateTime).AreEqual(pd) && typeof(System.TimeSpan).AreEqual(pt))
 			{
 				if(this.var_op_subtraction_0_2 == null)
-					this.var_op_subtraction_0_2 = this.builderType.GetMethod("op_Subtraction", true, pd, pt).Import();
+					this.var_op_subtraction_0_2 = this.builderType.GetMethod("op_Subtraction", true, pd, pt);
 			
-				return this.var_op_subtraction_0_2;
+				return this.var_op_subtraction_0_2.Import();
 			}
 			
 			if(typeof(System.DateTime).AreEqual(pd) && typeof(System.DateTime).AreEqual(pt))
 			{
 				if(this.var_op_subtraction_1_2 == null)
-					this.var_op_subtraction_1_2 = this.builderType.GetMethod("op_Subtraction", true, pd, pt).Import();
+					this.var_op_subtraction_1_2 = this.builderType.GetMethod("op_Subtraction", true, pd, pt);
 			
-				return this.var_op_subtraction_1_2;
+				return this.var_op_subtraction_1_2.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -8599,9 +8599,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_op_Equality()
 		{
 			if(this.var_op_equality_0_2 == null)
-				this.var_op_equality_0_2 = this.builderType.GetMethod("op_Equality", 2, true).Import();
+				this.var_op_equality_0_2 = this.builderType.GetMethod("op_Equality", 2, true);
 
-			return this.var_op_equality_0_2;
+			return this.var_op_equality_0_2.Import();
 		}
 						
 		private Method var_op_inequality_0_2;
@@ -8614,9 +8614,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_op_Inequality()
 		{
 			if(this.var_op_inequality_0_2 == null)
-				this.var_op_inequality_0_2 = this.builderType.GetMethod("op_Inequality", 2, true).Import();
+				this.var_op_inequality_0_2 = this.builderType.GetMethod("op_Inequality", 2, true);
 
-			return this.var_op_inequality_0_2;
+			return this.var_op_inequality_0_2.Import();
 		}
 						
 		private Method var_op_lessthan_0_2;
@@ -8629,9 +8629,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_op_LessThan()
 		{
 			if(this.var_op_lessthan_0_2 == null)
-				this.var_op_lessthan_0_2 = this.builderType.GetMethod("op_LessThan", 2, true).Import();
+				this.var_op_lessthan_0_2 = this.builderType.GetMethod("op_LessThan", 2, true);
 
-			return this.var_op_lessthan_0_2;
+			return this.var_op_lessthan_0_2.Import();
 		}
 						
 		private Method var_op_lessthanorequal_0_2;
@@ -8644,9 +8644,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_op_LessThanOrEqual()
 		{
 			if(this.var_op_lessthanorequal_0_2 == null)
-				this.var_op_lessthanorequal_0_2 = this.builderType.GetMethod("op_LessThanOrEqual", 2, true).Import();
+				this.var_op_lessthanorequal_0_2 = this.builderType.GetMethod("op_LessThanOrEqual", 2, true);
 
-			return this.var_op_lessthanorequal_0_2;
+			return this.var_op_lessthanorequal_0_2.Import();
 		}
 						
 		private Method var_op_greaterthan_0_2;
@@ -8659,9 +8659,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_op_GreaterThan()
 		{
 			if(this.var_op_greaterthan_0_2 == null)
-				this.var_op_greaterthan_0_2 = this.builderType.GetMethod("op_GreaterThan", 2, true).Import();
+				this.var_op_greaterthan_0_2 = this.builderType.GetMethod("op_GreaterThan", 2, true);
 
-			return this.var_op_greaterthan_0_2;
+			return this.var_op_greaterthan_0_2.Import();
 		}
 						
 		private Method var_op_greaterthanorequal_0_2;
@@ -8674,9 +8674,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_op_GreaterThanOrEqual()
 		{
 			if(this.var_op_greaterthanorequal_0_2 == null)
-				this.var_op_greaterthanorequal_0_2 = this.builderType.GetMethod("op_GreaterThanOrEqual", 2, true).Import();
+				this.var_op_greaterthanorequal_0_2 = this.builderType.GetMethod("op_GreaterThanOrEqual", 2, true);
 
-			return this.var_op_greaterthanorequal_0_2;
+			return this.var_op_greaterthanorequal_0_2.Import();
 		}
 						
 		private Method var_getdatetimeformats_0_0;
@@ -8690,9 +8690,9 @@ namespace Cauldron.Interception.Cecilator
 		{
 						
 			if(this.var_getdatetimeformats_0_0 == null)
-				this.var_getdatetimeformats_0_0 = this.builderType.GetMethod("GetDateTimeFormats", true).Import();
+				this.var_getdatetimeformats_0_0 = this.builderType.GetMethod("GetDateTimeFormats", true);
 
-			return this.var_getdatetimeformats_0_0;
+			return this.var_getdatetimeformats_0_0.Import();
 						
 						
 		}
@@ -8714,17 +8714,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.IFormatProvider).AreEqual(pprovider))
 			{
 				if(this.var_getdatetimeformats_0_1 == null)
-					this.var_getdatetimeformats_0_1 = this.builderType.GetMethod("GetDateTimeFormats", true, pprovider).Import();
+					this.var_getdatetimeformats_0_1 = this.builderType.GetMethod("GetDateTimeFormats", true, pprovider);
 			
-				return this.var_getdatetimeformats_0_1;
+				return this.var_getdatetimeformats_0_1.Import();
 			}
 			
 			if(typeof(System.Char).AreEqual(pprovider))
 			{
 				if(this.var_getdatetimeformats_1_1 == null)
-					this.var_getdatetimeformats_1_1 = this.builderType.GetMethod("GetDateTimeFormats", true, pprovider).Import();
+					this.var_getdatetimeformats_1_1 = this.builderType.GetMethod("GetDateTimeFormats", true, pprovider);
 			
-				return this.var_getdatetimeformats_1_1;
+				return this.var_getdatetimeformats_1_1.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -8743,9 +8743,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_getdatetimeformats_0_2 == null)
-				this.var_getdatetimeformats_0_2 = this.builderType.GetMethod("GetDateTimeFormats", true, pformat, pprovider).Import();
+				this.var_getdatetimeformats_0_2 = this.builderType.GetMethod("GetDateTimeFormats", true, pformat, pprovider);
 			
-			return this.var_getdatetimeformats_0_2;
+			return this.var_getdatetimeformats_0_2.Import();
 						
 		}
 						
@@ -8759,9 +8759,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetTypeCode()
 		{
 			if(this.var_gettypecode_0_0 == null)
-				this.var_gettypecode_0_0 = this.builderType.GetMethod("GetTypeCode", 0, true).Import();
+				this.var_gettypecode_0_0 = this.builderType.GetMethod("GetTypeCode", 0, true);
 
-			return this.var_gettypecode_0_0;
+			return this.var_gettypecode_0_0.Import();
 		}
 						
 		private Method var_gettype_0_0;
@@ -8774,9 +8774,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetType()
 		{
 			if(this.var_gettype_0_0 == null)
-				this.var_gettype_0_0 = this.builderType.GetMethod("GetType", 0, true).Import();
+				this.var_gettype_0_0 = this.builderType.GetMethod("GetType", 0, true);
 
-			return this.var_gettype_0_0;
+			return this.var_gettype_0_0.Import();
 		}
 						
 		private Method var_ctor_0_1;
@@ -8791,9 +8791,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_ctor_0_1 == null)
-				this.var_ctor_0_1 = this.builderType.GetMethod(".ctor", true, pticks).Import();
+				this.var_ctor_0_1 = this.builderType.GetMethod(".ctor", true, pticks);
 			
-			return this.var_ctor_0_1;
+			return this.var_ctor_0_1.Import();
 						
 		}
 						
@@ -8809,9 +8809,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_ctor_0_2 == null)
-				this.var_ctor_0_2 = this.builderType.GetMethod(".ctor", true, pticks, pkind).Import();
+				this.var_ctor_0_2 = this.builderType.GetMethod(".ctor", true, pticks, pkind);
 			
-			return this.var_ctor_0_2;
+			return this.var_ctor_0_2.Import();
 						
 		}
 						
@@ -8827,9 +8827,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_ctor_0_3 == null)
-				this.var_ctor_0_3 = this.builderType.GetMethod(".ctor", true, pyear, pmonth, pday).Import();
+				this.var_ctor_0_3 = this.builderType.GetMethod(".ctor", true, pyear, pmonth, pday);
 			
-			return this.var_ctor_0_3;
+			return this.var_ctor_0_3.Import();
 						
 		}
 						
@@ -8845,9 +8845,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_ctor_0_4 == null)
-				this.var_ctor_0_4 = this.builderType.GetMethod(".ctor", true, pyear, pmonth, pday, pcalendar).Import();
+				this.var_ctor_0_4 = this.builderType.GetMethod(".ctor", true, pyear, pmonth, pday, pcalendar);
 			
-			return this.var_ctor_0_4;
+			return this.var_ctor_0_4.Import();
 						
 		}
 						
@@ -8863,9 +8863,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_ctor_0_6 == null)
-				this.var_ctor_0_6 = this.builderType.GetMethod(".ctor", true, pyear, pmonth, pday, phour, pminute, psecond).Import();
+				this.var_ctor_0_6 = this.builderType.GetMethod(".ctor", true, pyear, pmonth, pday, phour, pminute, psecond);
 			
-			return this.var_ctor_0_6;
+			return this.var_ctor_0_6.Import();
 						
 		}
 						
@@ -8889,25 +8889,25 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Int32).AreEqual(pyear) && typeof(System.Int32).AreEqual(pmonth) && typeof(System.Int32).AreEqual(pday) && typeof(System.Int32).AreEqual(phour) && typeof(System.Int32).AreEqual(pminute) && typeof(System.Int32).AreEqual(psecond) && typeof(System.DateTimeKind).AreEqual(pkind))
 			{
 				if(this.var_ctor_0_7 == null)
-					this.var_ctor_0_7 = this.builderType.GetMethod(".ctor", true, pyear, pmonth, pday, phour, pminute, psecond, pkind).Import();
+					this.var_ctor_0_7 = this.builderType.GetMethod(".ctor", true, pyear, pmonth, pday, phour, pminute, psecond, pkind);
 			
-				return this.var_ctor_0_7;
+				return this.var_ctor_0_7.Import();
 			}
 			
 			if(typeof(System.Int32).AreEqual(pyear) && typeof(System.Int32).AreEqual(pmonth) && typeof(System.Int32).AreEqual(pday) && typeof(System.Int32).AreEqual(phour) && typeof(System.Int32).AreEqual(pminute) && typeof(System.Int32).AreEqual(psecond) && typeof(System.Globalization.Calendar).AreEqual(pkind))
 			{
 				if(this.var_ctor_1_7 == null)
-					this.var_ctor_1_7 = this.builderType.GetMethod(".ctor", true, pyear, pmonth, pday, phour, pminute, psecond, pkind).Import();
+					this.var_ctor_1_7 = this.builderType.GetMethod(".ctor", true, pyear, pmonth, pday, phour, pminute, psecond, pkind);
 			
-				return this.var_ctor_1_7;
+				return this.var_ctor_1_7.Import();
 			}
 			
 			if(typeof(System.Int32).AreEqual(pyear) && typeof(System.Int32).AreEqual(pmonth) && typeof(System.Int32).AreEqual(pday) && typeof(System.Int32).AreEqual(phour) && typeof(System.Int32).AreEqual(pminute) && typeof(System.Int32).AreEqual(psecond) && typeof(System.Int32).AreEqual(pkind))
 			{
 				if(this.var_ctor_2_7 == null)
-					this.var_ctor_2_7 = this.builderType.GetMethod(".ctor", true, pyear, pmonth, pday, phour, pminute, psecond, pkind).Import();
+					this.var_ctor_2_7 = this.builderType.GetMethod(".ctor", true, pyear, pmonth, pday, phour, pminute, psecond, pkind);
 			
-				return this.var_ctor_2_7;
+				return this.var_ctor_2_7.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -8931,17 +8931,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Int32).AreEqual(pyear) && typeof(System.Int32).AreEqual(pmonth) && typeof(System.Int32).AreEqual(pday) && typeof(System.Int32).AreEqual(phour) && typeof(System.Int32).AreEqual(pminute) && typeof(System.Int32).AreEqual(psecond) && typeof(System.Int32).AreEqual(pmillisecond) && typeof(System.DateTimeKind).AreEqual(pkind))
 			{
 				if(this.var_ctor_0_8 == null)
-					this.var_ctor_0_8 = this.builderType.GetMethod(".ctor", true, pyear, pmonth, pday, phour, pminute, psecond, pmillisecond, pkind).Import();
+					this.var_ctor_0_8 = this.builderType.GetMethod(".ctor", true, pyear, pmonth, pday, phour, pminute, psecond, pmillisecond, pkind);
 			
-				return this.var_ctor_0_8;
+				return this.var_ctor_0_8.Import();
 			}
 			
 			if(typeof(System.Int32).AreEqual(pyear) && typeof(System.Int32).AreEqual(pmonth) && typeof(System.Int32).AreEqual(pday) && typeof(System.Int32).AreEqual(phour) && typeof(System.Int32).AreEqual(pminute) && typeof(System.Int32).AreEqual(psecond) && typeof(System.Int32).AreEqual(pmillisecond) && typeof(System.Globalization.Calendar).AreEqual(pkind))
 			{
 				if(this.var_ctor_1_8 == null)
-					this.var_ctor_1_8 = this.builderType.GetMethod(".ctor", true, pyear, pmonth, pday, phour, pminute, psecond, pmillisecond, pkind).Import();
+					this.var_ctor_1_8 = this.builderType.GetMethod(".ctor", true, pyear, pmonth, pday, phour, pminute, psecond, pmillisecond, pkind);
 			
-				return this.var_ctor_1_8;
+				return this.var_ctor_1_8.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -8960,9 +8960,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_ctor_0_9 == null)
-				this.var_ctor_0_9 = this.builderType.GetMethod(".ctor", true, pyear, pmonth, pday, phour, pminute, psecond, pmillisecond, pcalendar, pkind).Import();
+				this.var_ctor_0_9 = this.builderType.GetMethod(".ctor", true, pyear, pmonth, pday, phour, pminute, psecond, pmillisecond, pcalendar, pkind);
 			
-			return this.var_ctor_0_9;
+			return this.var_ctor_0_9.Import();
 						
 		}
 					}
@@ -8978,10 +8978,10 @@ namespace Cauldron.Interception.Cecilator
 		}
 
 		/// <exclude />
-		public static implicit operator BuilderType(BuilderTypeDecimal value) => value.builderType;
+		public static implicit operator BuilderType(BuilderTypeDecimal value) => value.builderType.Import();
 		
 		/// <exclude />
-		public static implicit operator TypeReference(BuilderTypeDecimal value) => value.builderType.typeReference;
+		public static implicit operator TypeReference(BuilderTypeDecimal value) => Builder.Current.Import((TypeReference)value.builderType);
 			
 				
 		private Method var_tooacurrency_0_1;
@@ -8994,9 +8994,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_ToOACurrency()
 		{
 			if(this.var_tooacurrency_0_1 == null)
-				this.var_tooacurrency_0_1 = this.builderType.GetMethod("ToOACurrency", 1, true).Import();
+				this.var_tooacurrency_0_1 = this.builderType.GetMethod("ToOACurrency", 1, true);
 
-			return this.var_tooacurrency_0_1;
+			return this.var_tooacurrency_0_1.Import();
 		}
 						
 		private Method var_fromoacurrency_0_1;
@@ -9009,9 +9009,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_FromOACurrency()
 		{
 			if(this.var_fromoacurrency_0_1 == null)
-				this.var_fromoacurrency_0_1 = this.builderType.GetMethod("FromOACurrency", 1, true).Import();
+				this.var_fromoacurrency_0_1 = this.builderType.GetMethod("FromOACurrency", 1, true);
 
-			return this.var_fromoacurrency_0_1;
+			return this.var_fromoacurrency_0_1.Import();
 		}
 						
 		private Method var_add_0_2;
@@ -9024,9 +9024,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_Add()
 		{
 			if(this.var_add_0_2 == null)
-				this.var_add_0_2 = this.builderType.GetMethod("Add", 2, true).Import();
+				this.var_add_0_2 = this.builderType.GetMethod("Add", 2, true);
 
-			return this.var_add_0_2;
+			return this.var_add_0_2.Import();
 		}
 						
 		private Method var_ceiling_0_1;
@@ -9039,9 +9039,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_Ceiling()
 		{
 			if(this.var_ceiling_0_1 == null)
-				this.var_ceiling_0_1 = this.builderType.GetMethod("Ceiling", 1, true).Import();
+				this.var_ceiling_0_1 = this.builderType.GetMethod("Ceiling", 1, true);
 
-			return this.var_ceiling_0_1;
+			return this.var_ceiling_0_1.Import();
 		}
 						
 		private Method var_compare_0_2;
@@ -9054,9 +9054,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_Compare()
 		{
 			if(this.var_compare_0_2 == null)
-				this.var_compare_0_2 = this.builderType.GetMethod("Compare", 2, true).Import();
+				this.var_compare_0_2 = this.builderType.GetMethod("Compare", 2, true);
 
-			return this.var_compare_0_2;
+			return this.var_compare_0_2.Import();
 		}
 						
 		private Method var_compareto_0_1;
@@ -9076,17 +9076,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Object).AreEqual(pvalue))
 			{
 				if(this.var_compareto_0_1 == null)
-					this.var_compareto_0_1 = this.builderType.GetMethod("CompareTo", true, pvalue).Import();
+					this.var_compareto_0_1 = this.builderType.GetMethod("CompareTo", true, pvalue);
 			
-				return this.var_compareto_0_1;
+				return this.var_compareto_0_1.Import();
 			}
 			
 			if(typeof(System.Decimal).AreEqual(pvalue))
 			{
 				if(this.var_compareto_1_1 == null)
-					this.var_compareto_1_1 = this.builderType.GetMethod("CompareTo", true, pvalue).Import();
+					this.var_compareto_1_1 = this.builderType.GetMethod("CompareTo", true, pvalue);
 			
-				return this.var_compareto_1_1;
+				return this.var_compareto_1_1.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -9103,9 +9103,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_Divide()
 		{
 			if(this.var_divide_0_2 == null)
-				this.var_divide_0_2 = this.builderType.GetMethod("Divide", 2, true).Import();
+				this.var_divide_0_2 = this.builderType.GetMethod("Divide", 2, true);
 
-			return this.var_divide_0_2;
+			return this.var_divide_0_2.Import();
 		}
 						
 		private Method var_equals_0_1;
@@ -9125,17 +9125,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Object).AreEqual(pvalue))
 			{
 				if(this.var_equals_0_1 == null)
-					this.var_equals_0_1 = this.builderType.GetMethod("Equals", true, pvalue).Import();
+					this.var_equals_0_1 = this.builderType.GetMethod("Equals", true, pvalue);
 			
-				return this.var_equals_0_1;
+				return this.var_equals_0_1.Import();
 			}
 			
 			if(typeof(System.Decimal).AreEqual(pvalue))
 			{
 				if(this.var_equals_1_1 == null)
-					this.var_equals_1_1 = this.builderType.GetMethod("Equals", true, pvalue).Import();
+					this.var_equals_1_1 = this.builderType.GetMethod("Equals", true, pvalue);
 			
-				return this.var_equals_1_1;
+				return this.var_equals_1_1.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -9154,9 +9154,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_equals_0_2 == null)
-				this.var_equals_0_2 = this.builderType.GetMethod("Equals", true, pd1, pd2).Import();
+				this.var_equals_0_2 = this.builderType.GetMethod("Equals", true, pd1, pd2);
 			
-			return this.var_equals_0_2;
+			return this.var_equals_0_2.Import();
 						
 		}
 						
@@ -9170,9 +9170,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetHashCode()
 		{
 			if(this.var_gethashcode_0_0 == null)
-				this.var_gethashcode_0_0 = this.builderType.GetMethod("GetHashCode", 0, true).Import();
+				this.var_gethashcode_0_0 = this.builderType.GetMethod("GetHashCode", 0, true);
 
-			return this.var_gethashcode_0_0;
+			return this.var_gethashcode_0_0.Import();
 		}
 						
 		private Method var_floor_0_1;
@@ -9185,9 +9185,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_Floor()
 		{
 			if(this.var_floor_0_1 == null)
-				this.var_floor_0_1 = this.builderType.GetMethod("Floor", 1, true).Import();
+				this.var_floor_0_1 = this.builderType.GetMethod("Floor", 1, true);
 
-			return this.var_floor_0_1;
+			return this.var_floor_0_1.Import();
 		}
 						
 		private Method var_tostring_0_0;
@@ -9201,9 +9201,9 @@ namespace Cauldron.Interception.Cecilator
 		{
 						
 			if(this.var_tostring_0_0 == null)
-				this.var_tostring_0_0 = this.builderType.GetMethod("ToString", true).Import();
+				this.var_tostring_0_0 = this.builderType.GetMethod("ToString", true);
 
-			return this.var_tostring_0_0;
+			return this.var_tostring_0_0.Import();
 						
 						
 		}
@@ -9225,17 +9225,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.String).AreEqual(pformat))
 			{
 				if(this.var_tostring_0_1 == null)
-					this.var_tostring_0_1 = this.builderType.GetMethod("ToString", true, pformat).Import();
+					this.var_tostring_0_1 = this.builderType.GetMethod("ToString", true, pformat);
 			
-				return this.var_tostring_0_1;
+				return this.var_tostring_0_1.Import();
 			}
 			
 			if(typeof(System.IFormatProvider).AreEqual(pformat))
 			{
 				if(this.var_tostring_1_1 == null)
-					this.var_tostring_1_1 = this.builderType.GetMethod("ToString", true, pformat).Import();
+					this.var_tostring_1_1 = this.builderType.GetMethod("ToString", true, pformat);
 			
-				return this.var_tostring_1_1;
+				return this.var_tostring_1_1.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -9254,9 +9254,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_tostring_0_2 == null)
-				this.var_tostring_0_2 = this.builderType.GetMethod("ToString", true, pformat, pprovider).Import();
+				this.var_tostring_0_2 = this.builderType.GetMethod("ToString", true, pformat, pprovider);
 			
-			return this.var_tostring_0_2;
+			return this.var_tostring_0_2.Import();
 						
 		}
 						
@@ -9272,9 +9272,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_parse_0_1 == null)
-				this.var_parse_0_1 = this.builderType.GetMethod("Parse", true, ps).Import();
+				this.var_parse_0_1 = this.builderType.GetMethod("Parse", true, ps);
 			
-			return this.var_parse_0_1;
+			return this.var_parse_0_1.Import();
 						
 		}
 						
@@ -9295,17 +9295,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.String).AreEqual(ps) && typeof(System.Globalization.NumberStyles).AreEqual(pstyle))
 			{
 				if(this.var_parse_0_2 == null)
-					this.var_parse_0_2 = this.builderType.GetMethod("Parse", true, ps, pstyle).Import();
+					this.var_parse_0_2 = this.builderType.GetMethod("Parse", true, ps, pstyle);
 			
-				return this.var_parse_0_2;
+				return this.var_parse_0_2.Import();
 			}
 			
 			if(typeof(System.String).AreEqual(ps) && typeof(System.IFormatProvider).AreEqual(pstyle))
 			{
 				if(this.var_parse_1_2 == null)
-					this.var_parse_1_2 = this.builderType.GetMethod("Parse", true, ps, pstyle).Import();
+					this.var_parse_1_2 = this.builderType.GetMethod("Parse", true, ps, pstyle);
 			
-				return this.var_parse_1_2;
+				return this.var_parse_1_2.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -9324,9 +9324,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_parse_0_3 == null)
-				this.var_parse_0_3 = this.builderType.GetMethod("Parse", true, ps, pstyle, pprovider).Import();
+				this.var_parse_0_3 = this.builderType.GetMethod("Parse", true, ps, pstyle, pprovider);
 			
-			return this.var_parse_0_3;
+			return this.var_parse_0_3.Import();
 						
 		}
 						
@@ -9340,9 +9340,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetBits()
 		{
 			if(this.var_getbits_0_1 == null)
-				this.var_getbits_0_1 = this.builderType.GetMethod("GetBits", 1, true).Import();
+				this.var_getbits_0_1 = this.builderType.GetMethod("GetBits", 1, true);
 
-			return this.var_getbits_0_1;
+			return this.var_getbits_0_1.Import();
 		}
 						
 		private Method var_remainder_0_2;
@@ -9355,9 +9355,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_Remainder()
 		{
 			if(this.var_remainder_0_2 == null)
-				this.var_remainder_0_2 = this.builderType.GetMethod("Remainder", 2, true).Import();
+				this.var_remainder_0_2 = this.builderType.GetMethod("Remainder", 2, true);
 
-			return this.var_remainder_0_2;
+			return this.var_remainder_0_2.Import();
 		}
 						
 		private Method var_multiply_0_2;
@@ -9370,9 +9370,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_Multiply()
 		{
 			if(this.var_multiply_0_2 == null)
-				this.var_multiply_0_2 = this.builderType.GetMethod("Multiply", 2, true).Import();
+				this.var_multiply_0_2 = this.builderType.GetMethod("Multiply", 2, true);
 
-			return this.var_multiply_0_2;
+			return this.var_multiply_0_2.Import();
 		}
 						
 		private Method var_negate_0_1;
@@ -9385,9 +9385,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_Negate()
 		{
 			if(this.var_negate_0_1 == null)
-				this.var_negate_0_1 = this.builderType.GetMethod("Negate", 1, true).Import();
+				this.var_negate_0_1 = this.builderType.GetMethod("Negate", 1, true);
 
-			return this.var_negate_0_1;
+			return this.var_negate_0_1.Import();
 		}
 						
 		private Method var_round_0_1;
@@ -9402,9 +9402,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_round_0_1 == null)
-				this.var_round_0_1 = this.builderType.GetMethod("Round", true, pd).Import();
+				this.var_round_0_1 = this.builderType.GetMethod("Round", true, pd);
 			
-			return this.var_round_0_1;
+			return this.var_round_0_1.Import();
 						
 		}
 						
@@ -9425,17 +9425,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Decimal).AreEqual(pd) && typeof(System.Int32).AreEqual(pdecimals))
 			{
 				if(this.var_round_0_2 == null)
-					this.var_round_0_2 = this.builderType.GetMethod("Round", true, pd, pdecimals).Import();
+					this.var_round_0_2 = this.builderType.GetMethod("Round", true, pd, pdecimals);
 			
-				return this.var_round_0_2;
+				return this.var_round_0_2.Import();
 			}
 			
 			if(typeof(System.Decimal).AreEqual(pd) && typeof(System.MidpointRounding).AreEqual(pdecimals))
 			{
 				if(this.var_round_1_2 == null)
-					this.var_round_1_2 = this.builderType.GetMethod("Round", true, pd, pdecimals).Import();
+					this.var_round_1_2 = this.builderType.GetMethod("Round", true, pd, pdecimals);
 			
-				return this.var_round_1_2;
+				return this.var_round_1_2.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -9454,9 +9454,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_round_0_3 == null)
-				this.var_round_0_3 = this.builderType.GetMethod("Round", true, pd, pdecimals, pmode).Import();
+				this.var_round_0_3 = this.builderType.GetMethod("Round", true, pd, pdecimals, pmode);
 			
-			return this.var_round_0_3;
+			return this.var_round_0_3.Import();
 						
 		}
 						
@@ -9470,9 +9470,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_Subtract()
 		{
 			if(this.var_subtract_0_2 == null)
-				this.var_subtract_0_2 = this.builderType.GetMethod("Subtract", 2, true).Import();
+				this.var_subtract_0_2 = this.builderType.GetMethod("Subtract", 2, true);
 
-			return this.var_subtract_0_2;
+			return this.var_subtract_0_2.Import();
 		}
 						
 		private Method var_tobyte_0_1;
@@ -9485,9 +9485,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_ToByte()
 		{
 			if(this.var_tobyte_0_1 == null)
-				this.var_tobyte_0_1 = this.builderType.GetMethod("ToByte", 1, true).Import();
+				this.var_tobyte_0_1 = this.builderType.GetMethod("ToByte", 1, true);
 
-			return this.var_tobyte_0_1;
+			return this.var_tobyte_0_1.Import();
 		}
 						
 		private Method var_tosbyte_0_1;
@@ -9500,9 +9500,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_ToSByte()
 		{
 			if(this.var_tosbyte_0_1 == null)
-				this.var_tosbyte_0_1 = this.builderType.GetMethod("ToSByte", 1, true).Import();
+				this.var_tosbyte_0_1 = this.builderType.GetMethod("ToSByte", 1, true);
 
-			return this.var_tosbyte_0_1;
+			return this.var_tosbyte_0_1.Import();
 		}
 						
 		private Method var_toint16_0_1;
@@ -9515,9 +9515,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_ToInt16()
 		{
 			if(this.var_toint16_0_1 == null)
-				this.var_toint16_0_1 = this.builderType.GetMethod("ToInt16", 1, true).Import();
+				this.var_toint16_0_1 = this.builderType.GetMethod("ToInt16", 1, true);
 
-			return this.var_toint16_0_1;
+			return this.var_toint16_0_1.Import();
 		}
 						
 		private Method var_todouble_0_1;
@@ -9530,9 +9530,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_ToDouble()
 		{
 			if(this.var_todouble_0_1 == null)
-				this.var_todouble_0_1 = this.builderType.GetMethod("ToDouble", 1, true).Import();
+				this.var_todouble_0_1 = this.builderType.GetMethod("ToDouble", 1, true);
 
-			return this.var_todouble_0_1;
+			return this.var_todouble_0_1.Import();
 		}
 						
 		private Method var_toint32_0_1;
@@ -9545,9 +9545,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_ToInt32()
 		{
 			if(this.var_toint32_0_1 == null)
-				this.var_toint32_0_1 = this.builderType.GetMethod("ToInt32", 1, true).Import();
+				this.var_toint32_0_1 = this.builderType.GetMethod("ToInt32", 1, true);
 
-			return this.var_toint32_0_1;
+			return this.var_toint32_0_1.Import();
 		}
 						
 		private Method var_toint64_0_1;
@@ -9560,9 +9560,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_ToInt64()
 		{
 			if(this.var_toint64_0_1 == null)
-				this.var_toint64_0_1 = this.builderType.GetMethod("ToInt64", 1, true).Import();
+				this.var_toint64_0_1 = this.builderType.GetMethod("ToInt64", 1, true);
 
-			return this.var_toint64_0_1;
+			return this.var_toint64_0_1.Import();
 		}
 						
 		private Method var_touint16_0_1;
@@ -9575,9 +9575,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_ToUInt16()
 		{
 			if(this.var_touint16_0_1 == null)
-				this.var_touint16_0_1 = this.builderType.GetMethod("ToUInt16", 1, true).Import();
+				this.var_touint16_0_1 = this.builderType.GetMethod("ToUInt16", 1, true);
 
-			return this.var_touint16_0_1;
+			return this.var_touint16_0_1.Import();
 		}
 						
 		private Method var_touint32_0_1;
@@ -9590,9 +9590,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_ToUInt32()
 		{
 			if(this.var_touint32_0_1 == null)
-				this.var_touint32_0_1 = this.builderType.GetMethod("ToUInt32", 1, true).Import();
+				this.var_touint32_0_1 = this.builderType.GetMethod("ToUInt32", 1, true);
 
-			return this.var_touint32_0_1;
+			return this.var_touint32_0_1.Import();
 		}
 						
 		private Method var_touint64_0_1;
@@ -9605,9 +9605,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_ToUInt64()
 		{
 			if(this.var_touint64_0_1 == null)
-				this.var_touint64_0_1 = this.builderType.GetMethod("ToUInt64", 1, true).Import();
+				this.var_touint64_0_1 = this.builderType.GetMethod("ToUInt64", 1, true);
 
-			return this.var_touint64_0_1;
+			return this.var_touint64_0_1.Import();
 		}
 						
 		private Method var_tosingle_0_1;
@@ -9620,9 +9620,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_ToSingle()
 		{
 			if(this.var_tosingle_0_1 == null)
-				this.var_tosingle_0_1 = this.builderType.GetMethod("ToSingle", 1, true).Import();
+				this.var_tosingle_0_1 = this.builderType.GetMethod("ToSingle", 1, true);
 
-			return this.var_tosingle_0_1;
+			return this.var_tosingle_0_1.Import();
 		}
 						
 		private Method var_truncate_0_1;
@@ -9635,9 +9635,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_Truncate()
 		{
 			if(this.var_truncate_0_1 == null)
-				this.var_truncate_0_1 = this.builderType.GetMethod("Truncate", 1, true).Import();
+				this.var_truncate_0_1 = this.builderType.GetMethod("Truncate", 1, true);
 
-			return this.var_truncate_0_1;
+			return this.var_truncate_0_1.Import();
 		}
 						
 		private Method var_op_implicit_0_1;
@@ -9678,73 +9678,73 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Byte).AreEqual(pvalue))
 			{
 				if(this.var_op_implicit_0_1 == null)
-					this.var_op_implicit_0_1 = this.builderType.GetMethod("op_Implicit", true, pvalue).Import();
+					this.var_op_implicit_0_1 = this.builderType.GetMethod("op_Implicit", true, pvalue);
 			
-				return this.var_op_implicit_0_1;
+				return this.var_op_implicit_0_1.Import();
 			}
 			
 			if(typeof(System.SByte).AreEqual(pvalue))
 			{
 				if(this.var_op_implicit_1_1 == null)
-					this.var_op_implicit_1_1 = this.builderType.GetMethod("op_Implicit", true, pvalue).Import();
+					this.var_op_implicit_1_1 = this.builderType.GetMethod("op_Implicit", true, pvalue);
 			
-				return this.var_op_implicit_1_1;
+				return this.var_op_implicit_1_1.Import();
 			}
 			
 			if(typeof(System.Int16).AreEqual(pvalue))
 			{
 				if(this.var_op_implicit_2_1 == null)
-					this.var_op_implicit_2_1 = this.builderType.GetMethod("op_Implicit", true, pvalue).Import();
+					this.var_op_implicit_2_1 = this.builderType.GetMethod("op_Implicit", true, pvalue);
 			
-				return this.var_op_implicit_2_1;
+				return this.var_op_implicit_2_1.Import();
 			}
 			
 			if(typeof(System.UInt16).AreEqual(pvalue))
 			{
 				if(this.var_op_implicit_3_1 == null)
-					this.var_op_implicit_3_1 = this.builderType.GetMethod("op_Implicit", true, pvalue).Import();
+					this.var_op_implicit_3_1 = this.builderType.GetMethod("op_Implicit", true, pvalue);
 			
-				return this.var_op_implicit_3_1;
+				return this.var_op_implicit_3_1.Import();
 			}
 			
 			if(typeof(System.Char).AreEqual(pvalue))
 			{
 				if(this.var_op_implicit_4_1 == null)
-					this.var_op_implicit_4_1 = this.builderType.GetMethod("op_Implicit", true, pvalue).Import();
+					this.var_op_implicit_4_1 = this.builderType.GetMethod("op_Implicit", true, pvalue);
 			
-				return this.var_op_implicit_4_1;
+				return this.var_op_implicit_4_1.Import();
 			}
 			
 			if(typeof(System.Int32).AreEqual(pvalue))
 			{
 				if(this.var_op_implicit_5_1 == null)
-					this.var_op_implicit_5_1 = this.builderType.GetMethod("op_Implicit", true, pvalue).Import();
+					this.var_op_implicit_5_1 = this.builderType.GetMethod("op_Implicit", true, pvalue);
 			
-				return this.var_op_implicit_5_1;
+				return this.var_op_implicit_5_1.Import();
 			}
 			
 			if(typeof(System.UInt32).AreEqual(pvalue))
 			{
 				if(this.var_op_implicit_6_1 == null)
-					this.var_op_implicit_6_1 = this.builderType.GetMethod("op_Implicit", true, pvalue).Import();
+					this.var_op_implicit_6_1 = this.builderType.GetMethod("op_Implicit", true, pvalue);
 			
-				return this.var_op_implicit_6_1;
+				return this.var_op_implicit_6_1.Import();
 			}
 			
 			if(typeof(System.Int64).AreEqual(pvalue))
 			{
 				if(this.var_op_implicit_7_1 == null)
-					this.var_op_implicit_7_1 = this.builderType.GetMethod("op_Implicit", true, pvalue).Import();
+					this.var_op_implicit_7_1 = this.builderType.GetMethod("op_Implicit", true, pvalue);
 			
-				return this.var_op_implicit_7_1;
+				return this.var_op_implicit_7_1.Import();
 			}
 			
 			if(typeof(System.UInt64).AreEqual(pvalue))
 			{
 				if(this.var_op_implicit_8_1 == null)
-					this.var_op_implicit_8_1 = this.builderType.GetMethod("op_Implicit", true, pvalue).Import();
+					this.var_op_implicit_8_1 = this.builderType.GetMethod("op_Implicit", true, pvalue);
 			
-				return this.var_op_implicit_8_1;
+				return this.var_op_implicit_8_1.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -9801,105 +9801,105 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Single).AreEqual(pvalue))
 			{
 				if(this.var_op_explicit_0_1 == null)
-					this.var_op_explicit_0_1 = this.builderType.GetMethod("op_Explicit", true, pvalue).Import();
+					this.var_op_explicit_0_1 = this.builderType.GetMethod("op_Explicit", true, pvalue);
 			
-				return this.var_op_explicit_0_1;
+				return this.var_op_explicit_0_1.Import();
 			}
 			
 			if(typeof(System.Double).AreEqual(pvalue))
 			{
 				if(this.var_op_explicit_1_1 == null)
-					this.var_op_explicit_1_1 = this.builderType.GetMethod("op_Explicit", true, pvalue).Import();
+					this.var_op_explicit_1_1 = this.builderType.GetMethod("op_Explicit", true, pvalue);
 			
-				return this.var_op_explicit_1_1;
+				return this.var_op_explicit_1_1.Import();
 			}
 			
 			if(typeof(System.Decimal).AreEqual(pvalue))
 			{
 				if(this.var_op_explicit_2_1 == null)
-					this.var_op_explicit_2_1 = this.builderType.GetMethod("op_Explicit", true, pvalue).Import();
+					this.var_op_explicit_2_1 = this.builderType.GetMethod("op_Explicit", true, pvalue);
 			
-				return this.var_op_explicit_2_1;
+				return this.var_op_explicit_2_1.Import();
 			}
 			
 			if(typeof(System.Decimal).AreEqual(pvalue))
 			{
 				if(this.var_op_explicit_3_1 == null)
-					this.var_op_explicit_3_1 = this.builderType.GetMethod("op_Explicit", true, pvalue).Import();
+					this.var_op_explicit_3_1 = this.builderType.GetMethod("op_Explicit", true, pvalue);
 			
-				return this.var_op_explicit_3_1;
+				return this.var_op_explicit_3_1.Import();
 			}
 			
 			if(typeof(System.Decimal).AreEqual(pvalue))
 			{
 				if(this.var_op_explicit_4_1 == null)
-					this.var_op_explicit_4_1 = this.builderType.GetMethod("op_Explicit", true, pvalue).Import();
+					this.var_op_explicit_4_1 = this.builderType.GetMethod("op_Explicit", true, pvalue);
 			
-				return this.var_op_explicit_4_1;
+				return this.var_op_explicit_4_1.Import();
 			}
 			
 			if(typeof(System.Decimal).AreEqual(pvalue))
 			{
 				if(this.var_op_explicit_5_1 == null)
-					this.var_op_explicit_5_1 = this.builderType.GetMethod("op_Explicit", true, pvalue).Import();
+					this.var_op_explicit_5_1 = this.builderType.GetMethod("op_Explicit", true, pvalue);
 			
-				return this.var_op_explicit_5_1;
+				return this.var_op_explicit_5_1.Import();
 			}
 			
 			if(typeof(System.Decimal).AreEqual(pvalue))
 			{
 				if(this.var_op_explicit_6_1 == null)
-					this.var_op_explicit_6_1 = this.builderType.GetMethod("op_Explicit", true, pvalue).Import();
+					this.var_op_explicit_6_1 = this.builderType.GetMethod("op_Explicit", true, pvalue);
 			
-				return this.var_op_explicit_6_1;
+				return this.var_op_explicit_6_1.Import();
 			}
 			
 			if(typeof(System.Decimal).AreEqual(pvalue))
 			{
 				if(this.var_op_explicit_7_1 == null)
-					this.var_op_explicit_7_1 = this.builderType.GetMethod("op_Explicit", true, pvalue).Import();
+					this.var_op_explicit_7_1 = this.builderType.GetMethod("op_Explicit", true, pvalue);
 			
-				return this.var_op_explicit_7_1;
+				return this.var_op_explicit_7_1.Import();
 			}
 			
 			if(typeof(System.Decimal).AreEqual(pvalue))
 			{
 				if(this.var_op_explicit_8_1 == null)
-					this.var_op_explicit_8_1 = this.builderType.GetMethod("op_Explicit", true, pvalue).Import();
+					this.var_op_explicit_8_1 = this.builderType.GetMethod("op_Explicit", true, pvalue);
 			
-				return this.var_op_explicit_8_1;
+				return this.var_op_explicit_8_1.Import();
 			}
 			
 			if(typeof(System.Decimal).AreEqual(pvalue))
 			{
 				if(this.var_op_explicit_9_1 == null)
-					this.var_op_explicit_9_1 = this.builderType.GetMethod("op_Explicit", true, pvalue).Import();
+					this.var_op_explicit_9_1 = this.builderType.GetMethod("op_Explicit", true, pvalue);
 			
-				return this.var_op_explicit_9_1;
+				return this.var_op_explicit_9_1.Import();
 			}
 			
 			if(typeof(System.Decimal).AreEqual(pvalue))
 			{
 				if(this.var_op_explicit_10_1 == null)
-					this.var_op_explicit_10_1 = this.builderType.GetMethod("op_Explicit", true, pvalue).Import();
+					this.var_op_explicit_10_1 = this.builderType.GetMethod("op_Explicit", true, pvalue);
 			
-				return this.var_op_explicit_10_1;
+				return this.var_op_explicit_10_1.Import();
 			}
 			
 			if(typeof(System.Decimal).AreEqual(pvalue))
 			{
 				if(this.var_op_explicit_11_1 == null)
-					this.var_op_explicit_11_1 = this.builderType.GetMethod("op_Explicit", true, pvalue).Import();
+					this.var_op_explicit_11_1 = this.builderType.GetMethod("op_Explicit", true, pvalue);
 			
-				return this.var_op_explicit_11_1;
+				return this.var_op_explicit_11_1.Import();
 			}
 			
 			if(typeof(System.Decimal).AreEqual(pvalue))
 			{
 				if(this.var_op_explicit_12_1 == null)
-					this.var_op_explicit_12_1 = this.builderType.GetMethod("op_Explicit", true, pvalue).Import();
+					this.var_op_explicit_12_1 = this.builderType.GetMethod("op_Explicit", true, pvalue);
 			
-				return this.var_op_explicit_12_1;
+				return this.var_op_explicit_12_1.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -9916,9 +9916,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_op_UnaryPlus()
 		{
 			if(this.var_op_unaryplus_0_1 == null)
-				this.var_op_unaryplus_0_1 = this.builderType.GetMethod("op_UnaryPlus", 1, true).Import();
+				this.var_op_unaryplus_0_1 = this.builderType.GetMethod("op_UnaryPlus", 1, true);
 
-			return this.var_op_unaryplus_0_1;
+			return this.var_op_unaryplus_0_1.Import();
 		}
 						
 		private Method var_op_unarynegation_0_1;
@@ -9931,9 +9931,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_op_UnaryNegation()
 		{
 			if(this.var_op_unarynegation_0_1 == null)
-				this.var_op_unarynegation_0_1 = this.builderType.GetMethod("op_UnaryNegation", 1, true).Import();
+				this.var_op_unarynegation_0_1 = this.builderType.GetMethod("op_UnaryNegation", 1, true);
 
-			return this.var_op_unarynegation_0_1;
+			return this.var_op_unarynegation_0_1.Import();
 		}
 						
 		private Method var_op_increment_0_1;
@@ -9946,9 +9946,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_op_Increment()
 		{
 			if(this.var_op_increment_0_1 == null)
-				this.var_op_increment_0_1 = this.builderType.GetMethod("op_Increment", 1, true).Import();
+				this.var_op_increment_0_1 = this.builderType.GetMethod("op_Increment", 1, true);
 
-			return this.var_op_increment_0_1;
+			return this.var_op_increment_0_1.Import();
 		}
 						
 		private Method var_op_decrement_0_1;
@@ -9961,9 +9961,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_op_Decrement()
 		{
 			if(this.var_op_decrement_0_1 == null)
-				this.var_op_decrement_0_1 = this.builderType.GetMethod("op_Decrement", 1, true).Import();
+				this.var_op_decrement_0_1 = this.builderType.GetMethod("op_Decrement", 1, true);
 
-			return this.var_op_decrement_0_1;
+			return this.var_op_decrement_0_1.Import();
 		}
 						
 		private Method var_op_addition_0_2;
@@ -9976,9 +9976,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_op_Addition()
 		{
 			if(this.var_op_addition_0_2 == null)
-				this.var_op_addition_0_2 = this.builderType.GetMethod("op_Addition", 2, true).Import();
+				this.var_op_addition_0_2 = this.builderType.GetMethod("op_Addition", 2, true);
 
-			return this.var_op_addition_0_2;
+			return this.var_op_addition_0_2.Import();
 		}
 						
 		private Method var_op_subtraction_0_2;
@@ -9991,9 +9991,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_op_Subtraction()
 		{
 			if(this.var_op_subtraction_0_2 == null)
-				this.var_op_subtraction_0_2 = this.builderType.GetMethod("op_Subtraction", 2, true).Import();
+				this.var_op_subtraction_0_2 = this.builderType.GetMethod("op_Subtraction", 2, true);
 
-			return this.var_op_subtraction_0_2;
+			return this.var_op_subtraction_0_2.Import();
 		}
 						
 		private Method var_op_multiply_0_2;
@@ -10006,9 +10006,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_op_Multiply()
 		{
 			if(this.var_op_multiply_0_2 == null)
-				this.var_op_multiply_0_2 = this.builderType.GetMethod("op_Multiply", 2, true).Import();
+				this.var_op_multiply_0_2 = this.builderType.GetMethod("op_Multiply", 2, true);
 
-			return this.var_op_multiply_0_2;
+			return this.var_op_multiply_0_2.Import();
 		}
 						
 		private Method var_op_division_0_2;
@@ -10021,9 +10021,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_op_Division()
 		{
 			if(this.var_op_division_0_2 == null)
-				this.var_op_division_0_2 = this.builderType.GetMethod("op_Division", 2, true).Import();
+				this.var_op_division_0_2 = this.builderType.GetMethod("op_Division", 2, true);
 
-			return this.var_op_division_0_2;
+			return this.var_op_division_0_2.Import();
 		}
 						
 		private Method var_op_modulus_0_2;
@@ -10036,9 +10036,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_op_Modulus()
 		{
 			if(this.var_op_modulus_0_2 == null)
-				this.var_op_modulus_0_2 = this.builderType.GetMethod("op_Modulus", 2, true).Import();
+				this.var_op_modulus_0_2 = this.builderType.GetMethod("op_Modulus", 2, true);
 
-			return this.var_op_modulus_0_2;
+			return this.var_op_modulus_0_2.Import();
 		}
 						
 		private Method var_op_equality_0_2;
@@ -10051,9 +10051,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_op_Equality()
 		{
 			if(this.var_op_equality_0_2 == null)
-				this.var_op_equality_0_2 = this.builderType.GetMethod("op_Equality", 2, true).Import();
+				this.var_op_equality_0_2 = this.builderType.GetMethod("op_Equality", 2, true);
 
-			return this.var_op_equality_0_2;
+			return this.var_op_equality_0_2.Import();
 		}
 						
 		private Method var_op_inequality_0_2;
@@ -10066,9 +10066,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_op_Inequality()
 		{
 			if(this.var_op_inequality_0_2 == null)
-				this.var_op_inequality_0_2 = this.builderType.GetMethod("op_Inequality", 2, true).Import();
+				this.var_op_inequality_0_2 = this.builderType.GetMethod("op_Inequality", 2, true);
 
-			return this.var_op_inequality_0_2;
+			return this.var_op_inequality_0_2.Import();
 		}
 						
 		private Method var_op_lessthan_0_2;
@@ -10081,9 +10081,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_op_LessThan()
 		{
 			if(this.var_op_lessthan_0_2 == null)
-				this.var_op_lessthan_0_2 = this.builderType.GetMethod("op_LessThan", 2, true).Import();
+				this.var_op_lessthan_0_2 = this.builderType.GetMethod("op_LessThan", 2, true);
 
-			return this.var_op_lessthan_0_2;
+			return this.var_op_lessthan_0_2.Import();
 		}
 						
 		private Method var_op_lessthanorequal_0_2;
@@ -10096,9 +10096,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_op_LessThanOrEqual()
 		{
 			if(this.var_op_lessthanorequal_0_2 == null)
-				this.var_op_lessthanorequal_0_2 = this.builderType.GetMethod("op_LessThanOrEqual", 2, true).Import();
+				this.var_op_lessthanorequal_0_2 = this.builderType.GetMethod("op_LessThanOrEqual", 2, true);
 
-			return this.var_op_lessthanorequal_0_2;
+			return this.var_op_lessthanorequal_0_2.Import();
 		}
 						
 		private Method var_op_greaterthan_0_2;
@@ -10111,9 +10111,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_op_GreaterThan()
 		{
 			if(this.var_op_greaterthan_0_2 == null)
-				this.var_op_greaterthan_0_2 = this.builderType.GetMethod("op_GreaterThan", 2, true).Import();
+				this.var_op_greaterthan_0_2 = this.builderType.GetMethod("op_GreaterThan", 2, true);
 
-			return this.var_op_greaterthan_0_2;
+			return this.var_op_greaterthan_0_2.Import();
 		}
 						
 		private Method var_op_greaterthanorequal_0_2;
@@ -10126,9 +10126,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_op_GreaterThanOrEqual()
 		{
 			if(this.var_op_greaterthanorequal_0_2 == null)
-				this.var_op_greaterthanorequal_0_2 = this.builderType.GetMethod("op_GreaterThanOrEqual", 2, true).Import();
+				this.var_op_greaterthanorequal_0_2 = this.builderType.GetMethod("op_GreaterThanOrEqual", 2, true);
 
-			return this.var_op_greaterthanorequal_0_2;
+			return this.var_op_greaterthanorequal_0_2.Import();
 		}
 						
 		private Method var_gettypecode_0_0;
@@ -10141,9 +10141,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetTypeCode()
 		{
 			if(this.var_gettypecode_0_0 == null)
-				this.var_gettypecode_0_0 = this.builderType.GetMethod("GetTypeCode", 0, true).Import();
+				this.var_gettypecode_0_0 = this.builderType.GetMethod("GetTypeCode", 0, true);
 
-			return this.var_gettypecode_0_0;
+			return this.var_gettypecode_0_0.Import();
 		}
 						
 		private Method var_gettype_0_0;
@@ -10156,9 +10156,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetType()
 		{
 			if(this.var_gettype_0_0 == null)
-				this.var_gettype_0_0 = this.builderType.GetMethod("GetType", 0, true).Import();
+				this.var_gettype_0_0 = this.builderType.GetMethod("GetType", 0, true);
 
-			return this.var_gettype_0_0;
+			return this.var_gettype_0_0.Import();
 		}
 						
 		private Method var_ctor_0_1;
@@ -10193,57 +10193,57 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Int32).AreEqual(pvalue))
 			{
 				if(this.var_ctor_0_1 == null)
-					this.var_ctor_0_1 = this.builderType.GetMethod(".ctor", true, pvalue).Import();
+					this.var_ctor_0_1 = this.builderType.GetMethod(".ctor", true, pvalue);
 			
-				return this.var_ctor_0_1;
+				return this.var_ctor_0_1.Import();
 			}
 			
 			if(typeof(System.UInt32).AreEqual(pvalue))
 			{
 				if(this.var_ctor_1_1 == null)
-					this.var_ctor_1_1 = this.builderType.GetMethod(".ctor", true, pvalue).Import();
+					this.var_ctor_1_1 = this.builderType.GetMethod(".ctor", true, pvalue);
 			
-				return this.var_ctor_1_1;
+				return this.var_ctor_1_1.Import();
 			}
 			
 			if(typeof(System.Int64).AreEqual(pvalue))
 			{
 				if(this.var_ctor_2_1 == null)
-					this.var_ctor_2_1 = this.builderType.GetMethod(".ctor", true, pvalue).Import();
+					this.var_ctor_2_1 = this.builderType.GetMethod(".ctor", true, pvalue);
 			
-				return this.var_ctor_2_1;
+				return this.var_ctor_2_1.Import();
 			}
 			
 			if(typeof(System.UInt64).AreEqual(pvalue))
 			{
 				if(this.var_ctor_3_1 == null)
-					this.var_ctor_3_1 = this.builderType.GetMethod(".ctor", true, pvalue).Import();
+					this.var_ctor_3_1 = this.builderType.GetMethod(".ctor", true, pvalue);
 			
-				return this.var_ctor_3_1;
+				return this.var_ctor_3_1.Import();
 			}
 			
 			if(typeof(System.Single).AreEqual(pvalue))
 			{
 				if(this.var_ctor_4_1 == null)
-					this.var_ctor_4_1 = this.builderType.GetMethod(".ctor", true, pvalue).Import();
+					this.var_ctor_4_1 = this.builderType.GetMethod(".ctor", true, pvalue);
 			
-				return this.var_ctor_4_1;
+				return this.var_ctor_4_1.Import();
 			}
 			
 			if(typeof(System.Double).AreEqual(pvalue))
 			{
 				if(this.var_ctor_5_1 == null)
-					this.var_ctor_5_1 = this.builderType.GetMethod(".ctor", true, pvalue).Import();
+					this.var_ctor_5_1 = this.builderType.GetMethod(".ctor", true, pvalue);
 			
-				return this.var_ctor_5_1;
+				return this.var_ctor_5_1.Import();
 			}
 			
 			if(typeof(System.Int32[]).AreEqual(pvalue))
 			{
 				if(this.var_ctor_6_1 == null)
-					this.var_ctor_6_1 = this.builderType.GetMethod(".ctor", true, pvalue).Import();
+					this.var_ctor_6_1 = this.builderType.GetMethod(".ctor", true, pvalue);
 			
-				return this.var_ctor_6_1;
+				return this.var_ctor_6_1.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -10262,9 +10262,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_ctor_0_5 == null)
-				this.var_ctor_0_5 = this.builderType.GetMethod(".ctor", true, plo, pmid, phi, pisNegative, pscale).Import();
+				this.var_ctor_0_5 = this.builderType.GetMethod(".ctor", true, plo, pmid, phi, pisNegative, pscale);
 			
-			return this.var_ctor_0_5;
+			return this.var_ctor_0_5.Import();
 						
 		}
 					}
@@ -10280,10 +10280,10 @@ namespace Cauldron.Interception.Cecilator
 		}
 
 		/// <exclude />
-		public static implicit operator BuilderType(BuilderTypeDictionary2 value) => value.builderType;
+		public static implicit operator BuilderType(BuilderTypeDictionary2 value) => value.builderType.Import();
 		
 		/// <exclude />
-		public static implicit operator TypeReference(BuilderTypeDictionary2 value) => value.builderType.typeReference;
+		public static implicit operator TypeReference(BuilderTypeDictionary2 value) => Builder.Current.Import((TypeReference)value.builderType);
 			
 				
 		private Method var_tostring_0_0;
@@ -10296,9 +10296,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_ToString()
 		{
 			if(this.var_tostring_0_0 == null)
-				this.var_tostring_0_0 = this.builderType.GetMethod("ToString", 0, true).Import();
+				this.var_tostring_0_0 = this.builderType.GetMethod("ToString", 0, true);
 
-			return this.var_tostring_0_0;
+			return this.var_tostring_0_0.Import();
 		}
 						
 		private Method var_equals_0_1;
@@ -10311,9 +10311,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_Equals()
 		{
 			if(this.var_equals_0_1 == null)
-				this.var_equals_0_1 = this.builderType.GetMethod("Equals", 1, true).Import();
+				this.var_equals_0_1 = this.builderType.GetMethod("Equals", 1, true);
 
-			return this.var_equals_0_1;
+			return this.var_equals_0_1.Import();
 		}
 						
 		private Method var_gethashcode_0_0;
@@ -10326,9 +10326,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetHashCode()
 		{
 			if(this.var_gethashcode_0_0 == null)
-				this.var_gethashcode_0_0 = this.builderType.GetMethod("GetHashCode", 0, true).Import();
+				this.var_gethashcode_0_0 = this.builderType.GetMethod("GetHashCode", 0, true);
 
-			return this.var_gethashcode_0_0;
+			return this.var_gethashcode_0_0.Import();
 		}
 						
 		private Method var_gettype_0_0;
@@ -10341,9 +10341,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetType()
 		{
 			if(this.var_gettype_0_0 == null)
-				this.var_gettype_0_0 = this.builderType.GetMethod("GetType", 0, true).Import();
+				this.var_gettype_0_0 = this.builderType.GetMethod("GetType", 0, true);
 
-			return this.var_gettype_0_0;
+			return this.var_gettype_0_0.Import();
 		}
 					}
 
@@ -10358,10 +10358,10 @@ namespace Cauldron.Interception.Cecilator
 		}
 
 		/// <exclude />
-		public static implicit operator BuilderType(BuilderTypeDouble value) => value.builderType;
+		public static implicit operator BuilderType(BuilderTypeDouble value) => value.builderType.Import();
 		
 		/// <exclude />
-		public static implicit operator TypeReference(BuilderTypeDouble value) => value.builderType.typeReference;
+		public static implicit operator TypeReference(BuilderTypeDouble value) => Builder.Current.Import((TypeReference)value.builderType);
 			
 				
 		private Method var_isinfinity_0_1;
@@ -10374,9 +10374,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_IsInfinity()
 		{
 			if(this.var_isinfinity_0_1 == null)
-				this.var_isinfinity_0_1 = this.builderType.GetMethod("IsInfinity", 1, true).Import();
+				this.var_isinfinity_0_1 = this.builderType.GetMethod("IsInfinity", 1, true);
 
-			return this.var_isinfinity_0_1;
+			return this.var_isinfinity_0_1.Import();
 		}
 						
 		private Method var_ispositiveinfinity_0_1;
@@ -10389,9 +10389,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_IsPositiveInfinity()
 		{
 			if(this.var_ispositiveinfinity_0_1 == null)
-				this.var_ispositiveinfinity_0_1 = this.builderType.GetMethod("IsPositiveInfinity", 1, true).Import();
+				this.var_ispositiveinfinity_0_1 = this.builderType.GetMethod("IsPositiveInfinity", 1, true);
 
-			return this.var_ispositiveinfinity_0_1;
+			return this.var_ispositiveinfinity_0_1.Import();
 		}
 						
 		private Method var_isnegativeinfinity_0_1;
@@ -10404,9 +10404,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_IsNegativeInfinity()
 		{
 			if(this.var_isnegativeinfinity_0_1 == null)
-				this.var_isnegativeinfinity_0_1 = this.builderType.GetMethod("IsNegativeInfinity", 1, true).Import();
+				this.var_isnegativeinfinity_0_1 = this.builderType.GetMethod("IsNegativeInfinity", 1, true);
 
-			return this.var_isnegativeinfinity_0_1;
+			return this.var_isnegativeinfinity_0_1.Import();
 		}
 						
 		private Method var_isnan_0_1;
@@ -10419,9 +10419,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_IsNaN()
 		{
 			if(this.var_isnan_0_1 == null)
-				this.var_isnan_0_1 = this.builderType.GetMethod("IsNaN", 1, true).Import();
+				this.var_isnan_0_1 = this.builderType.GetMethod("IsNaN", 1, true);
 
-			return this.var_isnan_0_1;
+			return this.var_isnan_0_1.Import();
 		}
 						
 		private Method var_compareto_0_1;
@@ -10441,17 +10441,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Object).AreEqual(pvalue))
 			{
 				if(this.var_compareto_0_1 == null)
-					this.var_compareto_0_1 = this.builderType.GetMethod("CompareTo", true, pvalue).Import();
+					this.var_compareto_0_1 = this.builderType.GetMethod("CompareTo", true, pvalue);
 			
-				return this.var_compareto_0_1;
+				return this.var_compareto_0_1.Import();
 			}
 			
 			if(typeof(System.Double).AreEqual(pvalue))
 			{
 				if(this.var_compareto_1_1 == null)
-					this.var_compareto_1_1 = this.builderType.GetMethod("CompareTo", true, pvalue).Import();
+					this.var_compareto_1_1 = this.builderType.GetMethod("CompareTo", true, pvalue);
 			
-				return this.var_compareto_1_1;
+				return this.var_compareto_1_1.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -10475,17 +10475,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Object).AreEqual(pobj))
 			{
 				if(this.var_equals_0_1 == null)
-					this.var_equals_0_1 = this.builderType.GetMethod("Equals", true, pobj).Import();
+					this.var_equals_0_1 = this.builderType.GetMethod("Equals", true, pobj);
 			
-				return this.var_equals_0_1;
+				return this.var_equals_0_1.Import();
 			}
 			
 			if(typeof(System.Double).AreEqual(pobj))
 			{
 				if(this.var_equals_1_1 == null)
-					this.var_equals_1_1 = this.builderType.GetMethod("Equals", true, pobj).Import();
+					this.var_equals_1_1 = this.builderType.GetMethod("Equals", true, pobj);
 			
-				return this.var_equals_1_1;
+				return this.var_equals_1_1.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -10502,9 +10502,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_op_Equality()
 		{
 			if(this.var_op_equality_0_2 == null)
-				this.var_op_equality_0_2 = this.builderType.GetMethod("op_Equality", 2, true).Import();
+				this.var_op_equality_0_2 = this.builderType.GetMethod("op_Equality", 2, true);
 
-			return this.var_op_equality_0_2;
+			return this.var_op_equality_0_2.Import();
 		}
 						
 		private Method var_op_inequality_0_2;
@@ -10517,9 +10517,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_op_Inequality()
 		{
 			if(this.var_op_inequality_0_2 == null)
-				this.var_op_inequality_0_2 = this.builderType.GetMethod("op_Inequality", 2, true).Import();
+				this.var_op_inequality_0_2 = this.builderType.GetMethod("op_Inequality", 2, true);
 
-			return this.var_op_inequality_0_2;
+			return this.var_op_inequality_0_2.Import();
 		}
 						
 		private Method var_op_lessthan_0_2;
@@ -10532,9 +10532,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_op_LessThan()
 		{
 			if(this.var_op_lessthan_0_2 == null)
-				this.var_op_lessthan_0_2 = this.builderType.GetMethod("op_LessThan", 2, true).Import();
+				this.var_op_lessthan_0_2 = this.builderType.GetMethod("op_LessThan", 2, true);
 
-			return this.var_op_lessthan_0_2;
+			return this.var_op_lessthan_0_2.Import();
 		}
 						
 		private Method var_op_greaterthan_0_2;
@@ -10547,9 +10547,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_op_GreaterThan()
 		{
 			if(this.var_op_greaterthan_0_2 == null)
-				this.var_op_greaterthan_0_2 = this.builderType.GetMethod("op_GreaterThan", 2, true).Import();
+				this.var_op_greaterthan_0_2 = this.builderType.GetMethod("op_GreaterThan", 2, true);
 
-			return this.var_op_greaterthan_0_2;
+			return this.var_op_greaterthan_0_2.Import();
 		}
 						
 		private Method var_op_lessthanorequal_0_2;
@@ -10562,9 +10562,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_op_LessThanOrEqual()
 		{
 			if(this.var_op_lessthanorequal_0_2 == null)
-				this.var_op_lessthanorequal_0_2 = this.builderType.GetMethod("op_LessThanOrEqual", 2, true).Import();
+				this.var_op_lessthanorequal_0_2 = this.builderType.GetMethod("op_LessThanOrEqual", 2, true);
 
-			return this.var_op_lessthanorequal_0_2;
+			return this.var_op_lessthanorequal_0_2.Import();
 		}
 						
 		private Method var_op_greaterthanorequal_0_2;
@@ -10577,9 +10577,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_op_GreaterThanOrEqual()
 		{
 			if(this.var_op_greaterthanorequal_0_2 == null)
-				this.var_op_greaterthanorequal_0_2 = this.builderType.GetMethod("op_GreaterThanOrEqual", 2, true).Import();
+				this.var_op_greaterthanorequal_0_2 = this.builderType.GetMethod("op_GreaterThanOrEqual", 2, true);
 
-			return this.var_op_greaterthanorequal_0_2;
+			return this.var_op_greaterthanorequal_0_2.Import();
 		}
 						
 		private Method var_gethashcode_0_0;
@@ -10592,9 +10592,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetHashCode()
 		{
 			if(this.var_gethashcode_0_0 == null)
-				this.var_gethashcode_0_0 = this.builderType.GetMethod("GetHashCode", 0, true).Import();
+				this.var_gethashcode_0_0 = this.builderType.GetMethod("GetHashCode", 0, true);
 
-			return this.var_gethashcode_0_0;
+			return this.var_gethashcode_0_0.Import();
 		}
 						
 		private Method var_tostring_0_0;
@@ -10608,9 +10608,9 @@ namespace Cauldron.Interception.Cecilator
 		{
 						
 			if(this.var_tostring_0_0 == null)
-				this.var_tostring_0_0 = this.builderType.GetMethod("ToString", true).Import();
+				this.var_tostring_0_0 = this.builderType.GetMethod("ToString", true);
 
-			return this.var_tostring_0_0;
+			return this.var_tostring_0_0.Import();
 						
 						
 		}
@@ -10632,17 +10632,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.String).AreEqual(pformat))
 			{
 				if(this.var_tostring_0_1 == null)
-					this.var_tostring_0_1 = this.builderType.GetMethod("ToString", true, pformat).Import();
+					this.var_tostring_0_1 = this.builderType.GetMethod("ToString", true, pformat);
 			
-				return this.var_tostring_0_1;
+				return this.var_tostring_0_1.Import();
 			}
 			
 			if(typeof(System.IFormatProvider).AreEqual(pformat))
 			{
 				if(this.var_tostring_1_1 == null)
-					this.var_tostring_1_1 = this.builderType.GetMethod("ToString", true, pformat).Import();
+					this.var_tostring_1_1 = this.builderType.GetMethod("ToString", true, pformat);
 			
-				return this.var_tostring_1_1;
+				return this.var_tostring_1_1.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -10661,9 +10661,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_tostring_0_2 == null)
-				this.var_tostring_0_2 = this.builderType.GetMethod("ToString", true, pformat, pprovider).Import();
+				this.var_tostring_0_2 = this.builderType.GetMethod("ToString", true, pformat, pprovider);
 			
-			return this.var_tostring_0_2;
+			return this.var_tostring_0_2.Import();
 						
 		}
 						
@@ -10679,9 +10679,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_parse_0_1 == null)
-				this.var_parse_0_1 = this.builderType.GetMethod("Parse", true, ps).Import();
+				this.var_parse_0_1 = this.builderType.GetMethod("Parse", true, ps);
 			
-			return this.var_parse_0_1;
+			return this.var_parse_0_1.Import();
 						
 		}
 						
@@ -10702,17 +10702,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.String).AreEqual(ps) && typeof(System.Globalization.NumberStyles).AreEqual(pstyle))
 			{
 				if(this.var_parse_0_2 == null)
-					this.var_parse_0_2 = this.builderType.GetMethod("Parse", true, ps, pstyle).Import();
+					this.var_parse_0_2 = this.builderType.GetMethod("Parse", true, ps, pstyle);
 			
-				return this.var_parse_0_2;
+				return this.var_parse_0_2.Import();
 			}
 			
 			if(typeof(System.String).AreEqual(ps) && typeof(System.IFormatProvider).AreEqual(pstyle))
 			{
 				if(this.var_parse_1_2 == null)
-					this.var_parse_1_2 = this.builderType.GetMethod("Parse", true, ps, pstyle).Import();
+					this.var_parse_1_2 = this.builderType.GetMethod("Parse", true, ps, pstyle);
 			
-				return this.var_parse_1_2;
+				return this.var_parse_1_2.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -10731,9 +10731,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_parse_0_3 == null)
-				this.var_parse_0_3 = this.builderType.GetMethod("Parse", true, ps, pstyle, pprovider).Import();
+				this.var_parse_0_3 = this.builderType.GetMethod("Parse", true, ps, pstyle, pprovider);
 			
-			return this.var_parse_0_3;
+			return this.var_parse_0_3.Import();
 						
 		}
 						
@@ -10747,9 +10747,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetTypeCode()
 		{
 			if(this.var_gettypecode_0_0 == null)
-				this.var_gettypecode_0_0 = this.builderType.GetMethod("GetTypeCode", 0, true).Import();
+				this.var_gettypecode_0_0 = this.builderType.GetMethod("GetTypeCode", 0, true);
 
-			return this.var_gettypecode_0_0;
+			return this.var_gettypecode_0_0.Import();
 		}
 						
 		private Method var_gettype_0_0;
@@ -10762,9 +10762,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetType()
 		{
 			if(this.var_gettype_0_0 == null)
-				this.var_gettype_0_0 = this.builderType.GetMethod("GetType", 0, true).Import();
+				this.var_gettype_0_0 = this.builderType.GetMethod("GetType", 0, true);
 
-			return this.var_gettype_0_0;
+			return this.var_gettype_0_0.Import();
 		}
 					}
 
@@ -10779,10 +10779,10 @@ namespace Cauldron.Interception.Cecilator
 		}
 
 		/// <exclude />
-		public static implicit operator BuilderType(BuilderTypeEnum value) => value.builderType;
+		public static implicit operator BuilderType(BuilderTypeEnum value) => value.builderType.Import();
 		
 		/// <exclude />
-		public static implicit operator TypeReference(BuilderTypeEnum value) => value.builderType.typeReference;
+		public static implicit operator TypeReference(BuilderTypeEnum value) => Builder.Current.Import((TypeReference)value.builderType);
 			
 				
 		private Method var_parse_0_2;
@@ -10797,9 +10797,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_parse_0_2 == null)
-				this.var_parse_0_2 = this.builderType.GetMethod("Parse", true, penumType, pvalue).Import();
+				this.var_parse_0_2 = this.builderType.GetMethod("Parse", true, penumType, pvalue);
 			
-			return this.var_parse_0_2;
+			return this.var_parse_0_2.Import();
 						
 		}
 						
@@ -10815,9 +10815,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_parse_0_3 == null)
-				this.var_parse_0_3 = this.builderType.GetMethod("Parse", true, penumType, pvalue, pignoreCase).Import();
+				this.var_parse_0_3 = this.builderType.GetMethod("Parse", true, penumType, pvalue, pignoreCase);
 			
-			return this.var_parse_0_3;
+			return this.var_parse_0_3.Import();
 						
 		}
 						
@@ -10831,9 +10831,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetUnderlyingType()
 		{
 			if(this.var_getunderlyingtype_0_1 == null)
-				this.var_getunderlyingtype_0_1 = this.builderType.GetMethod("GetUnderlyingType", 1, true).Import();
+				this.var_getunderlyingtype_0_1 = this.builderType.GetMethod("GetUnderlyingType", 1, true);
 
-			return this.var_getunderlyingtype_0_1;
+			return this.var_getunderlyingtype_0_1.Import();
 		}
 						
 		private Method var_getvalues_0_1;
@@ -10846,9 +10846,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetValues()
 		{
 			if(this.var_getvalues_0_1 == null)
-				this.var_getvalues_0_1 = this.builderType.GetMethod("GetValues", 1, true).Import();
+				this.var_getvalues_0_1 = this.builderType.GetMethod("GetValues", 1, true);
 
-			return this.var_getvalues_0_1;
+			return this.var_getvalues_0_1.Import();
 		}
 						
 		private Method var_getname_0_2;
@@ -10861,9 +10861,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetName()
 		{
 			if(this.var_getname_0_2 == null)
-				this.var_getname_0_2 = this.builderType.GetMethod("GetName", 2, true).Import();
+				this.var_getname_0_2 = this.builderType.GetMethod("GetName", 2, true);
 
-			return this.var_getname_0_2;
+			return this.var_getname_0_2.Import();
 		}
 						
 		private Method var_getnames_0_1;
@@ -10876,9 +10876,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetNames()
 		{
 			if(this.var_getnames_0_1 == null)
-				this.var_getnames_0_1 = this.builderType.GetMethod("GetNames", 1, true).Import();
+				this.var_getnames_0_1 = this.builderType.GetMethod("GetNames", 1, true);
 
-			return this.var_getnames_0_1;
+			return this.var_getnames_0_1.Import();
 		}
 						
 		private Method var_toobject_0_2;
@@ -10919,73 +10919,73 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Type).AreEqual(penumType) && typeof(System.Object).AreEqual(pvalue))
 			{
 				if(this.var_toobject_0_2 == null)
-					this.var_toobject_0_2 = this.builderType.GetMethod("ToObject", true, penumType, pvalue).Import();
+					this.var_toobject_0_2 = this.builderType.GetMethod("ToObject", true, penumType, pvalue);
 			
-				return this.var_toobject_0_2;
+				return this.var_toobject_0_2.Import();
 			}
 			
 			if(typeof(System.Type).AreEqual(penumType) && typeof(System.SByte).AreEqual(pvalue))
 			{
 				if(this.var_toobject_1_2 == null)
-					this.var_toobject_1_2 = this.builderType.GetMethod("ToObject", true, penumType, pvalue).Import();
+					this.var_toobject_1_2 = this.builderType.GetMethod("ToObject", true, penumType, pvalue);
 			
-				return this.var_toobject_1_2;
+				return this.var_toobject_1_2.Import();
 			}
 			
 			if(typeof(System.Type).AreEqual(penumType) && typeof(System.Int16).AreEqual(pvalue))
 			{
 				if(this.var_toobject_2_2 == null)
-					this.var_toobject_2_2 = this.builderType.GetMethod("ToObject", true, penumType, pvalue).Import();
+					this.var_toobject_2_2 = this.builderType.GetMethod("ToObject", true, penumType, pvalue);
 			
-				return this.var_toobject_2_2;
+				return this.var_toobject_2_2.Import();
 			}
 			
 			if(typeof(System.Type).AreEqual(penumType) && typeof(System.Int32).AreEqual(pvalue))
 			{
 				if(this.var_toobject_3_2 == null)
-					this.var_toobject_3_2 = this.builderType.GetMethod("ToObject", true, penumType, pvalue).Import();
+					this.var_toobject_3_2 = this.builderType.GetMethod("ToObject", true, penumType, pvalue);
 			
-				return this.var_toobject_3_2;
+				return this.var_toobject_3_2.Import();
 			}
 			
 			if(typeof(System.Type).AreEqual(penumType) && typeof(System.Byte).AreEqual(pvalue))
 			{
 				if(this.var_toobject_4_2 == null)
-					this.var_toobject_4_2 = this.builderType.GetMethod("ToObject", true, penumType, pvalue).Import();
+					this.var_toobject_4_2 = this.builderType.GetMethod("ToObject", true, penumType, pvalue);
 			
-				return this.var_toobject_4_2;
+				return this.var_toobject_4_2.Import();
 			}
 			
 			if(typeof(System.Type).AreEqual(penumType) && typeof(System.UInt16).AreEqual(pvalue))
 			{
 				if(this.var_toobject_5_2 == null)
-					this.var_toobject_5_2 = this.builderType.GetMethod("ToObject", true, penumType, pvalue).Import();
+					this.var_toobject_5_2 = this.builderType.GetMethod("ToObject", true, penumType, pvalue);
 			
-				return this.var_toobject_5_2;
+				return this.var_toobject_5_2.Import();
 			}
 			
 			if(typeof(System.Type).AreEqual(penumType) && typeof(System.UInt32).AreEqual(pvalue))
 			{
 				if(this.var_toobject_6_2 == null)
-					this.var_toobject_6_2 = this.builderType.GetMethod("ToObject", true, penumType, pvalue).Import();
+					this.var_toobject_6_2 = this.builderType.GetMethod("ToObject", true, penumType, pvalue);
 			
-				return this.var_toobject_6_2;
+				return this.var_toobject_6_2.Import();
 			}
 			
 			if(typeof(System.Type).AreEqual(penumType) && typeof(System.Int64).AreEqual(pvalue))
 			{
 				if(this.var_toobject_7_2 == null)
-					this.var_toobject_7_2 = this.builderType.GetMethod("ToObject", true, penumType, pvalue).Import();
+					this.var_toobject_7_2 = this.builderType.GetMethod("ToObject", true, penumType, pvalue);
 			
-				return this.var_toobject_7_2;
+				return this.var_toobject_7_2.Import();
 			}
 			
 			if(typeof(System.Type).AreEqual(penumType) && typeof(System.UInt64).AreEqual(pvalue))
 			{
 				if(this.var_toobject_8_2 == null)
-					this.var_toobject_8_2 = this.builderType.GetMethod("ToObject", true, penumType, pvalue).Import();
+					this.var_toobject_8_2 = this.builderType.GetMethod("ToObject", true, penumType, pvalue);
 			
-				return this.var_toobject_8_2;
+				return this.var_toobject_8_2.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -11002,9 +11002,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_IsDefined()
 		{
 			if(this.var_isdefined_0_2 == null)
-				this.var_isdefined_0_2 = this.builderType.GetMethod("IsDefined", 2, true).Import();
+				this.var_isdefined_0_2 = this.builderType.GetMethod("IsDefined", 2, true);
 
-			return this.var_isdefined_0_2;
+			return this.var_isdefined_0_2.Import();
 		}
 						
 		private Method var_format_0_3;
@@ -11017,9 +11017,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_Format()
 		{
 			if(this.var_format_0_3 == null)
-				this.var_format_0_3 = this.builderType.GetMethod("Format", 3, true).Import();
+				this.var_format_0_3 = this.builderType.GetMethod("Format", 3, true);
 
-			return this.var_format_0_3;
+			return this.var_format_0_3.Import();
 		}
 						
 		private Method var_equals_0_1;
@@ -11032,9 +11032,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_Equals()
 		{
 			if(this.var_equals_0_1 == null)
-				this.var_equals_0_1 = this.builderType.GetMethod("Equals", 1, true).Import();
+				this.var_equals_0_1 = this.builderType.GetMethod("Equals", 1, true);
 
-			return this.var_equals_0_1;
+			return this.var_equals_0_1.Import();
 		}
 						
 		private Method var_gethashcode_0_0;
@@ -11047,9 +11047,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetHashCode()
 		{
 			if(this.var_gethashcode_0_0 == null)
-				this.var_gethashcode_0_0 = this.builderType.GetMethod("GetHashCode", 0, true).Import();
+				this.var_gethashcode_0_0 = this.builderType.GetMethod("GetHashCode", 0, true);
 
-			return this.var_gethashcode_0_0;
+			return this.var_gethashcode_0_0.Import();
 		}
 						
 		private Method var_tostring_0_0;
@@ -11063,9 +11063,9 @@ namespace Cauldron.Interception.Cecilator
 		{
 						
 			if(this.var_tostring_0_0 == null)
-				this.var_tostring_0_0 = this.builderType.GetMethod("ToString", true).Import();
+				this.var_tostring_0_0 = this.builderType.GetMethod("ToString", true);
 
-			return this.var_tostring_0_0;
+			return this.var_tostring_0_0.Import();
 						
 						
 		}
@@ -11082,9 +11082,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_tostring_0_2 == null)
-				this.var_tostring_0_2 = this.builderType.GetMethod("ToString", true, pformat, pprovider).Import();
+				this.var_tostring_0_2 = this.builderType.GetMethod("ToString", true, pformat, pprovider);
 			
-			return this.var_tostring_0_2;
+			return this.var_tostring_0_2.Import();
 						
 		}
 						
@@ -11105,17 +11105,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.String).AreEqual(pformat))
 			{
 				if(this.var_tostring_0_1 == null)
-					this.var_tostring_0_1 = this.builderType.GetMethod("ToString", true, pformat).Import();
+					this.var_tostring_0_1 = this.builderType.GetMethod("ToString", true, pformat);
 			
-				return this.var_tostring_0_1;
+				return this.var_tostring_0_1.Import();
 			}
 			
 			if(typeof(System.IFormatProvider).AreEqual(pformat))
 			{
 				if(this.var_tostring_1_1 == null)
-					this.var_tostring_1_1 = this.builderType.GetMethod("ToString", true, pformat).Import();
+					this.var_tostring_1_1 = this.builderType.GetMethod("ToString", true, pformat);
 			
-				return this.var_tostring_1_1;
+				return this.var_tostring_1_1.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -11132,9 +11132,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_CompareTo()
 		{
 			if(this.var_compareto_0_1 == null)
-				this.var_compareto_0_1 = this.builderType.GetMethod("CompareTo", 1, true).Import();
+				this.var_compareto_0_1 = this.builderType.GetMethod("CompareTo", 1, true);
 
-			return this.var_compareto_0_1;
+			return this.var_compareto_0_1.Import();
 		}
 						
 		private Method var_hasflag_0_1;
@@ -11147,9 +11147,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_HasFlag()
 		{
 			if(this.var_hasflag_0_1 == null)
-				this.var_hasflag_0_1 = this.builderType.GetMethod("HasFlag", 1, true).Import();
+				this.var_hasflag_0_1 = this.builderType.GetMethod("HasFlag", 1, true);
 
-			return this.var_hasflag_0_1;
+			return this.var_hasflag_0_1.Import();
 		}
 						
 		private Method var_gettypecode_0_0;
@@ -11162,9 +11162,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetTypeCode()
 		{
 			if(this.var_gettypecode_0_0 == null)
-				this.var_gettypecode_0_0 = this.builderType.GetMethod("GetTypeCode", 0, true).Import();
+				this.var_gettypecode_0_0 = this.builderType.GetMethod("GetTypeCode", 0, true);
 
-			return this.var_gettypecode_0_0;
+			return this.var_gettypecode_0_0.Import();
 		}
 						
 		private Method var_gettype_0_0;
@@ -11177,9 +11177,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetType()
 		{
 			if(this.var_gettype_0_0 == null)
-				this.var_gettype_0_0 = this.builderType.GetMethod("GetType", 0, true).Import();
+				this.var_gettype_0_0 = this.builderType.GetMethod("GetType", 0, true);
 
-			return this.var_gettype_0_0;
+			return this.var_gettype_0_0.Import();
 		}
 					}
 
@@ -11194,10 +11194,10 @@ namespace Cauldron.Interception.Cecilator
 		}
 
 		/// <exclude />
-		public static implicit operator BuilderType(BuilderTypeEnumerable value) => value.builderType;
+		public static implicit operator BuilderType(BuilderTypeEnumerable value) => value.builderType.Import();
 		
 		/// <exclude />
-		public static implicit operator TypeReference(BuilderTypeEnumerable value) => value.builderType.typeReference;
+		public static implicit operator TypeReference(BuilderTypeEnumerable value) => Builder.Current.Import((TypeReference)value.builderType);
 			
 				
 		private Method var_min_0_1;
@@ -11241,81 +11241,81 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Collections.Generic.IEnumerable<>).AreEqual(psource))
 			{
 				if(this.var_min_0_1 == null)
-					this.var_min_0_1 = this.builderType.GetMethod("Min", true, psource).Import();
+					this.var_min_0_1 = this.builderType.GetMethod("Min", true, psource);
 			
-				return this.var_min_0_1;
+				return this.var_min_0_1.Import();
 			}
 			
 			if(typeof(System.Collections.Generic.IEnumerable<>).AreEqual(psource))
 			{
 				if(this.var_min_1_1 == null)
-					this.var_min_1_1 = this.builderType.GetMethod("Min", true, psource).Import();
+					this.var_min_1_1 = this.builderType.GetMethod("Min", true, psource);
 			
-				return this.var_min_1_1;
+				return this.var_min_1_1.Import();
 			}
 			
 			if(typeof(System.Collections.Generic.IEnumerable<>).AreEqual(psource))
 			{
 				if(this.var_min_2_1 == null)
-					this.var_min_2_1 = this.builderType.GetMethod("Min", true, psource).Import();
+					this.var_min_2_1 = this.builderType.GetMethod("Min", true, psource);
 			
-				return this.var_min_2_1;
+				return this.var_min_2_1.Import();
 			}
 			
 			if(typeof(System.Collections.Generic.IEnumerable<>).AreEqual(psource))
 			{
 				if(this.var_min_3_1 == null)
-					this.var_min_3_1 = this.builderType.GetMethod("Min", true, psource).Import();
+					this.var_min_3_1 = this.builderType.GetMethod("Min", true, psource);
 			
-				return this.var_min_3_1;
+				return this.var_min_3_1.Import();
 			}
 			
 			if(typeof(System.Collections.Generic.IEnumerable<>).AreEqual(psource))
 			{
 				if(this.var_min_4_1 == null)
-					this.var_min_4_1 = this.builderType.GetMethod("Min", true, psource).Import();
+					this.var_min_4_1 = this.builderType.GetMethod("Min", true, psource);
 			
-				return this.var_min_4_1;
+				return this.var_min_4_1.Import();
 			}
 			
 			if(typeof(System.Collections.Generic.IEnumerable<>).AreEqual(psource))
 			{
 				if(this.var_min_5_1 == null)
-					this.var_min_5_1 = this.builderType.GetMethod("Min", true, psource).Import();
+					this.var_min_5_1 = this.builderType.GetMethod("Min", true, psource);
 			
-				return this.var_min_5_1;
+				return this.var_min_5_1.Import();
 			}
 			
 			if(typeof(System.Collections.Generic.IEnumerable<>).AreEqual(psource))
 			{
 				if(this.var_min_6_1 == null)
-					this.var_min_6_1 = this.builderType.GetMethod("Min", true, psource).Import();
+					this.var_min_6_1 = this.builderType.GetMethod("Min", true, psource);
 			
-				return this.var_min_6_1;
+				return this.var_min_6_1.Import();
 			}
 			
 			if(typeof(System.Collections.Generic.IEnumerable<>).AreEqual(psource))
 			{
 				if(this.var_min_7_1 == null)
-					this.var_min_7_1 = this.builderType.GetMethod("Min", true, psource).Import();
+					this.var_min_7_1 = this.builderType.GetMethod("Min", true, psource);
 			
-				return this.var_min_7_1;
+				return this.var_min_7_1.Import();
 			}
 			
 			if(typeof(System.Collections.Generic.IEnumerable<>).AreEqual(psource))
 			{
 				if(this.var_min_8_1 == null)
-					this.var_min_8_1 = this.builderType.GetMethod("Min", true, psource).Import();
+					this.var_min_8_1 = this.builderType.GetMethod("Min", true, psource);
 			
-				return this.var_min_8_1;
+				return this.var_min_8_1.Import();
 			}
 			
 			if(typeof(System.Collections.Generic.IEnumerable<>).AreEqual(psource))
 			{
 				if(this.var_min_9_1 == null)
-					this.var_min_9_1 = this.builderType.GetMethod("Min", true, psource).Import();
+					this.var_min_9_1 = this.builderType.GetMethod("Min", true, psource);
 			
-				return this.var_min_9_1;
+				return this.var_min_9_1.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -11363,81 +11363,81 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Collections.Generic.IEnumerable<>).AreEqual(psource))
 			{
 				if(this.var_max_0_1 == null)
-					this.var_max_0_1 = this.builderType.GetMethod("Max", true, psource).Import();
+					this.var_max_0_1 = this.builderType.GetMethod("Max", true, psource);
 			
-				return this.var_max_0_1;
+				return this.var_max_0_1.Import();
 			}
 			
 			if(typeof(System.Collections.Generic.IEnumerable<>).AreEqual(psource))
 			{
 				if(this.var_max_1_1 == null)
-					this.var_max_1_1 = this.builderType.GetMethod("Max", true, psource).Import();
+					this.var_max_1_1 = this.builderType.GetMethod("Max", true, psource);
 			
-				return this.var_max_1_1;
+				return this.var_max_1_1.Import();
 			}
 			
 			if(typeof(System.Collections.Generic.IEnumerable<>).AreEqual(psource))
 			{
 				if(this.var_max_2_1 == null)
-					this.var_max_2_1 = this.builderType.GetMethod("Max", true, psource).Import();
+					this.var_max_2_1 = this.builderType.GetMethod("Max", true, psource);
 			
-				return this.var_max_2_1;
+				return this.var_max_2_1.Import();
 			}
 			
 			if(typeof(System.Collections.Generic.IEnumerable<>).AreEqual(psource))
 			{
 				if(this.var_max_3_1 == null)
-					this.var_max_3_1 = this.builderType.GetMethod("Max", true, psource).Import();
+					this.var_max_3_1 = this.builderType.GetMethod("Max", true, psource);
 			
-				return this.var_max_3_1;
+				return this.var_max_3_1.Import();
 			}
 			
 			if(typeof(System.Collections.Generic.IEnumerable<>).AreEqual(psource))
 			{
 				if(this.var_max_4_1 == null)
-					this.var_max_4_1 = this.builderType.GetMethod("Max", true, psource).Import();
+					this.var_max_4_1 = this.builderType.GetMethod("Max", true, psource);
 			
-				return this.var_max_4_1;
+				return this.var_max_4_1.Import();
 			}
 			
 			if(typeof(System.Collections.Generic.IEnumerable<>).AreEqual(psource))
 			{
 				if(this.var_max_5_1 == null)
-					this.var_max_5_1 = this.builderType.GetMethod("Max", true, psource).Import();
+					this.var_max_5_1 = this.builderType.GetMethod("Max", true, psource);
 			
-				return this.var_max_5_1;
+				return this.var_max_5_1.Import();
 			}
 			
 			if(typeof(System.Collections.Generic.IEnumerable<>).AreEqual(psource))
 			{
 				if(this.var_max_6_1 == null)
-					this.var_max_6_1 = this.builderType.GetMethod("Max", true, psource).Import();
+					this.var_max_6_1 = this.builderType.GetMethod("Max", true, psource);
 			
-				return this.var_max_6_1;
+				return this.var_max_6_1.Import();
 			}
 			
 			if(typeof(System.Collections.Generic.IEnumerable<>).AreEqual(psource))
 			{
 				if(this.var_max_7_1 == null)
-					this.var_max_7_1 = this.builderType.GetMethod("Max", true, psource).Import();
+					this.var_max_7_1 = this.builderType.GetMethod("Max", true, psource);
 			
-				return this.var_max_7_1;
+				return this.var_max_7_1.Import();
 			}
 			
 			if(typeof(System.Collections.Generic.IEnumerable<>).AreEqual(psource))
 			{
 				if(this.var_max_8_1 == null)
-					this.var_max_8_1 = this.builderType.GetMethod("Max", true, psource).Import();
+					this.var_max_8_1 = this.builderType.GetMethod("Max", true, psource);
 			
-				return this.var_max_8_1;
+				return this.var_max_8_1.Import();
 			}
 			
 			if(typeof(System.Collections.Generic.IEnumerable<>).AreEqual(psource))
 			{
 				if(this.var_max_9_1 == null)
-					this.var_max_9_1 = this.builderType.GetMethod("Max", true, psource).Import();
+					this.var_max_9_1 = this.builderType.GetMethod("Max", true, psource);
 			
-				return this.var_max_9_1;
+				return this.var_max_9_1.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -11485,81 +11485,81 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Collections.Generic.IEnumerable<>).AreEqual(psource))
 			{
 				if(this.var_average_0_1 == null)
-					this.var_average_0_1 = this.builderType.GetMethod("Average", true, psource).Import();
+					this.var_average_0_1 = this.builderType.GetMethod("Average", true, psource);
 			
-				return this.var_average_0_1;
+				return this.var_average_0_1.Import();
 			}
 			
 			if(typeof(System.Collections.Generic.IEnumerable<>).AreEqual(psource))
 			{
 				if(this.var_average_1_1 == null)
-					this.var_average_1_1 = this.builderType.GetMethod("Average", true, psource).Import();
+					this.var_average_1_1 = this.builderType.GetMethod("Average", true, psource);
 			
-				return this.var_average_1_1;
+				return this.var_average_1_1.Import();
 			}
 			
 			if(typeof(System.Collections.Generic.IEnumerable<>).AreEqual(psource))
 			{
 				if(this.var_average_2_1 == null)
-					this.var_average_2_1 = this.builderType.GetMethod("Average", true, psource).Import();
+					this.var_average_2_1 = this.builderType.GetMethod("Average", true, psource);
 			
-				return this.var_average_2_1;
+				return this.var_average_2_1.Import();
 			}
 			
 			if(typeof(System.Collections.Generic.IEnumerable<>).AreEqual(psource))
 			{
 				if(this.var_average_3_1 == null)
-					this.var_average_3_1 = this.builderType.GetMethod("Average", true, psource).Import();
+					this.var_average_3_1 = this.builderType.GetMethod("Average", true, psource);
 			
-				return this.var_average_3_1;
+				return this.var_average_3_1.Import();
 			}
 			
 			if(typeof(System.Collections.Generic.IEnumerable<>).AreEqual(psource))
 			{
 				if(this.var_average_4_1 == null)
-					this.var_average_4_1 = this.builderType.GetMethod("Average", true, psource).Import();
+					this.var_average_4_1 = this.builderType.GetMethod("Average", true, psource);
 			
-				return this.var_average_4_1;
+				return this.var_average_4_1.Import();
 			}
 			
 			if(typeof(System.Collections.Generic.IEnumerable<>).AreEqual(psource))
 			{
 				if(this.var_average_5_1 == null)
-					this.var_average_5_1 = this.builderType.GetMethod("Average", true, psource).Import();
+					this.var_average_5_1 = this.builderType.GetMethod("Average", true, psource);
 			
-				return this.var_average_5_1;
+				return this.var_average_5_1.Import();
 			}
 			
 			if(typeof(System.Collections.Generic.IEnumerable<>).AreEqual(psource))
 			{
 				if(this.var_average_6_1 == null)
-					this.var_average_6_1 = this.builderType.GetMethod("Average", true, psource).Import();
+					this.var_average_6_1 = this.builderType.GetMethod("Average", true, psource);
 			
-				return this.var_average_6_1;
+				return this.var_average_6_1.Import();
 			}
 			
 			if(typeof(System.Collections.Generic.IEnumerable<>).AreEqual(psource))
 			{
 				if(this.var_average_7_1 == null)
-					this.var_average_7_1 = this.builderType.GetMethod("Average", true, psource).Import();
+					this.var_average_7_1 = this.builderType.GetMethod("Average", true, psource);
 			
-				return this.var_average_7_1;
+				return this.var_average_7_1.Import();
 			}
 			
 			if(typeof(System.Collections.Generic.IEnumerable<>).AreEqual(psource))
 			{
 				if(this.var_average_8_1 == null)
-					this.var_average_8_1 = this.builderType.GetMethod("Average", true, psource).Import();
+					this.var_average_8_1 = this.builderType.GetMethod("Average", true, psource);
 			
-				return this.var_average_8_1;
+				return this.var_average_8_1.Import();
 			}
 			
 			if(typeof(System.Collections.Generic.IEnumerable<>).AreEqual(psource))
 			{
 				if(this.var_average_9_1 == null)
-					this.var_average_9_1 = this.builderType.GetMethod("Average", true, psource).Import();
+					this.var_average_9_1 = this.builderType.GetMethod("Average", true, psource);
 			
-				return this.var_average_9_1;
+				return this.var_average_9_1.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -11576,9 +11576,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_Range()
 		{
 			if(this.var_range_0_2 == null)
-				this.var_range_0_2 = this.builderType.GetMethod("Range", 2, true).Import();
+				this.var_range_0_2 = this.builderType.GetMethod("Range", 2, true);
 
-			return this.var_range_0_2;
+			return this.var_range_0_2.Import();
 		}
 						
 		private Method var_sum_0_1;
@@ -11622,81 +11622,81 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Collections.Generic.IEnumerable<>).AreEqual(psource))
 			{
 				if(this.var_sum_0_1 == null)
-					this.var_sum_0_1 = this.builderType.GetMethod("Sum", true, psource).Import();
+					this.var_sum_0_1 = this.builderType.GetMethod("Sum", true, psource);
 			
-				return this.var_sum_0_1;
+				return this.var_sum_0_1.Import();
 			}
 			
 			if(typeof(System.Collections.Generic.IEnumerable<>).AreEqual(psource))
 			{
 				if(this.var_sum_1_1 == null)
-					this.var_sum_1_1 = this.builderType.GetMethod("Sum", true, psource).Import();
+					this.var_sum_1_1 = this.builderType.GetMethod("Sum", true, psource);
 			
-				return this.var_sum_1_1;
+				return this.var_sum_1_1.Import();
 			}
 			
 			if(typeof(System.Collections.Generic.IEnumerable<>).AreEqual(psource))
 			{
 				if(this.var_sum_2_1 == null)
-					this.var_sum_2_1 = this.builderType.GetMethod("Sum", true, psource).Import();
+					this.var_sum_2_1 = this.builderType.GetMethod("Sum", true, psource);
 			
-				return this.var_sum_2_1;
+				return this.var_sum_2_1.Import();
 			}
 			
 			if(typeof(System.Collections.Generic.IEnumerable<>).AreEqual(psource))
 			{
 				if(this.var_sum_3_1 == null)
-					this.var_sum_3_1 = this.builderType.GetMethod("Sum", true, psource).Import();
+					this.var_sum_3_1 = this.builderType.GetMethod("Sum", true, psource);
 			
-				return this.var_sum_3_1;
+				return this.var_sum_3_1.Import();
 			}
 			
 			if(typeof(System.Collections.Generic.IEnumerable<>).AreEqual(psource))
 			{
 				if(this.var_sum_4_1 == null)
-					this.var_sum_4_1 = this.builderType.GetMethod("Sum", true, psource).Import();
+					this.var_sum_4_1 = this.builderType.GetMethod("Sum", true, psource);
 			
-				return this.var_sum_4_1;
+				return this.var_sum_4_1.Import();
 			}
 			
 			if(typeof(System.Collections.Generic.IEnumerable<>).AreEqual(psource))
 			{
 				if(this.var_sum_5_1 == null)
-					this.var_sum_5_1 = this.builderType.GetMethod("Sum", true, psource).Import();
+					this.var_sum_5_1 = this.builderType.GetMethod("Sum", true, psource);
 			
-				return this.var_sum_5_1;
+				return this.var_sum_5_1.Import();
 			}
 			
 			if(typeof(System.Collections.Generic.IEnumerable<>).AreEqual(psource))
 			{
 				if(this.var_sum_6_1 == null)
-					this.var_sum_6_1 = this.builderType.GetMethod("Sum", true, psource).Import();
+					this.var_sum_6_1 = this.builderType.GetMethod("Sum", true, psource);
 			
-				return this.var_sum_6_1;
+				return this.var_sum_6_1.Import();
 			}
 			
 			if(typeof(System.Collections.Generic.IEnumerable<>).AreEqual(psource))
 			{
 				if(this.var_sum_7_1 == null)
-					this.var_sum_7_1 = this.builderType.GetMethod("Sum", true, psource).Import();
+					this.var_sum_7_1 = this.builderType.GetMethod("Sum", true, psource);
 			
-				return this.var_sum_7_1;
+				return this.var_sum_7_1.Import();
 			}
 			
 			if(typeof(System.Collections.Generic.IEnumerable<>).AreEqual(psource))
 			{
 				if(this.var_sum_8_1 == null)
-					this.var_sum_8_1 = this.builderType.GetMethod("Sum", true, psource).Import();
+					this.var_sum_8_1 = this.builderType.GetMethod("Sum", true, psource);
 			
-				return this.var_sum_8_1;
+				return this.var_sum_8_1.Import();
 			}
 			
 			if(typeof(System.Collections.Generic.IEnumerable<>).AreEqual(psource))
 			{
 				if(this.var_sum_9_1 == null)
-					this.var_sum_9_1 = this.builderType.GetMethod("Sum", true, psource).Import();
+					this.var_sum_9_1 = this.builderType.GetMethod("Sum", true, psource);
 			
-				return this.var_sum_9_1;
+				return this.var_sum_9_1.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -11713,9 +11713,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_ToString()
 		{
 			if(this.var_tostring_0_0 == null)
-				this.var_tostring_0_0 = this.builderType.GetMethod("ToString", 0, true).Import();
+				this.var_tostring_0_0 = this.builderType.GetMethod("ToString", 0, true);
 
-			return this.var_tostring_0_0;
+			return this.var_tostring_0_0.Import();
 		}
 						
 		private Method var_equals_0_1;
@@ -11728,9 +11728,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_Equals()
 		{
 			if(this.var_equals_0_1 == null)
-				this.var_equals_0_1 = this.builderType.GetMethod("Equals", 1, true).Import();
+				this.var_equals_0_1 = this.builderType.GetMethod("Equals", 1, true);
 
-			return this.var_equals_0_1;
+			return this.var_equals_0_1.Import();
 		}
 						
 		private Method var_gethashcode_0_0;
@@ -11743,9 +11743,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetHashCode()
 		{
 			if(this.var_gethashcode_0_0 == null)
-				this.var_gethashcode_0_0 = this.builderType.GetMethod("GetHashCode", 0, true).Import();
+				this.var_gethashcode_0_0 = this.builderType.GetMethod("GetHashCode", 0, true);
 
-			return this.var_gethashcode_0_0;
+			return this.var_gethashcode_0_0.Import();
 		}
 						
 		private Method var_gettype_0_0;
@@ -11758,9 +11758,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetType()
 		{
 			if(this.var_gettype_0_0 == null)
-				this.var_gettype_0_0 = this.builderType.GetMethod("GetType", 0, true).Import();
+				this.var_gettype_0_0 = this.builderType.GetMethod("GetType", 0, true);
 
-			return this.var_gettype_0_0;
+			return this.var_gettype_0_0.Import();
 		}
 					}
 
@@ -11775,10 +11775,10 @@ namespace Cauldron.Interception.Cecilator
 		}
 
 		/// <exclude />
-		public static implicit operator BuilderType(BuilderTypeEventArgs value) => value.builderType;
+		public static implicit operator BuilderType(BuilderTypeEventArgs value) => value.builderType.Import();
 		
 		/// <exclude />
-		public static implicit operator TypeReference(BuilderTypeEventArgs value) => value.builderType.typeReference;
+		public static implicit operator TypeReference(BuilderTypeEventArgs value) => Builder.Current.Import((TypeReference)value.builderType);
 			
 				
 		private Method var_tostring_0_0;
@@ -11791,9 +11791,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_ToString()
 		{
 			if(this.var_tostring_0_0 == null)
-				this.var_tostring_0_0 = this.builderType.GetMethod("ToString", 0, true).Import();
+				this.var_tostring_0_0 = this.builderType.GetMethod("ToString", 0, true);
 
-			return this.var_tostring_0_0;
+			return this.var_tostring_0_0.Import();
 		}
 						
 		private Method var_equals_0_1;
@@ -11806,9 +11806,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_Equals()
 		{
 			if(this.var_equals_0_1 == null)
-				this.var_equals_0_1 = this.builderType.GetMethod("Equals", 1, true).Import();
+				this.var_equals_0_1 = this.builderType.GetMethod("Equals", 1, true);
 
-			return this.var_equals_0_1;
+			return this.var_equals_0_1.Import();
 		}
 						
 		private Method var_gethashcode_0_0;
@@ -11821,9 +11821,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetHashCode()
 		{
 			if(this.var_gethashcode_0_0 == null)
-				this.var_gethashcode_0_0 = this.builderType.GetMethod("GetHashCode", 0, true).Import();
+				this.var_gethashcode_0_0 = this.builderType.GetMethod("GetHashCode", 0, true);
 
-			return this.var_gethashcode_0_0;
+			return this.var_gethashcode_0_0.Import();
 		}
 						
 		private Method var_gettype_0_0;
@@ -11836,9 +11836,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetType()
 		{
 			if(this.var_gettype_0_0 == null)
-				this.var_gettype_0_0 = this.builderType.GetMethod("GetType", 0, true).Import();
+				this.var_gettype_0_0 = this.builderType.GetMethod("GetType", 0, true);
 
-			return this.var_gettype_0_0;
+			return this.var_gettype_0_0.Import();
 		}
 						
 		private Method var_ctor_0_0;
@@ -11851,9 +11851,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_ctor()
 		{
 			if(this.var_ctor_0_0 == null)
-				this.var_ctor_0_0 = this.builderType.GetMethod(".ctor", 0, true).Import();
+				this.var_ctor_0_0 = this.builderType.GetMethod(".ctor", 0, true);
 
-			return this.var_ctor_0_0;
+			return this.var_ctor_0_0.Import();
 		}
 					}
 
@@ -11868,10 +11868,10 @@ namespace Cauldron.Interception.Cecilator
 		}
 
 		/// <exclude />
-		public static implicit operator BuilderType(BuilderTypeEventHandler value) => value.builderType;
+		public static implicit operator BuilderType(BuilderTypeEventHandler value) => value.builderType.Import();
 		
 		/// <exclude />
-		public static implicit operator TypeReference(BuilderTypeEventHandler value) => value.builderType.typeReference;
+		public static implicit operator TypeReference(BuilderTypeEventHandler value) => Builder.Current.Import((TypeReference)value.builderType);
 			
 				
 		private Method var_invoke_0_2;
@@ -11884,9 +11884,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_Invoke()
 		{
 			if(this.var_invoke_0_2 == null)
-				this.var_invoke_0_2 = this.builderType.GetMethod("Invoke", 2, true).Import();
+				this.var_invoke_0_2 = this.builderType.GetMethod("Invoke", 2, true);
 
-			return this.var_invoke_0_2;
+			return this.var_invoke_0_2.Import();
 		}
 						
 		private Method var_begininvoke_0_4;
@@ -11899,9 +11899,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_BeginInvoke()
 		{
 			if(this.var_begininvoke_0_4 == null)
-				this.var_begininvoke_0_4 = this.builderType.GetMethod("BeginInvoke", 4, true).Import();
+				this.var_begininvoke_0_4 = this.builderType.GetMethod("BeginInvoke", 4, true);
 
-			return this.var_begininvoke_0_4;
+			return this.var_begininvoke_0_4.Import();
 		}
 						
 		private Method var_endinvoke_0_1;
@@ -11914,9 +11914,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_EndInvoke()
 		{
 			if(this.var_endinvoke_0_1 == null)
-				this.var_endinvoke_0_1 = this.builderType.GetMethod("EndInvoke", 1, true).Import();
+				this.var_endinvoke_0_1 = this.builderType.GetMethod("EndInvoke", 1, true);
 
-			return this.var_endinvoke_0_1;
+			return this.var_endinvoke_0_1.Import();
 		}
 						
 		private Method var_getobjectdata_0_2;
@@ -11929,9 +11929,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetObjectData()
 		{
 			if(this.var_getobjectdata_0_2 == null)
-				this.var_getobjectdata_0_2 = this.builderType.GetMethod("GetObjectData", 2, true).Import();
+				this.var_getobjectdata_0_2 = this.builderType.GetMethod("GetObjectData", 2, true);
 
-			return this.var_getobjectdata_0_2;
+			return this.var_getobjectdata_0_2.Import();
 		}
 						
 		private Method var_equals_0_1;
@@ -11944,9 +11944,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_Equals()
 		{
 			if(this.var_equals_0_1 == null)
-				this.var_equals_0_1 = this.builderType.GetMethod("Equals", 1, true).Import();
+				this.var_equals_0_1 = this.builderType.GetMethod("Equals", 1, true);
 
-			return this.var_equals_0_1;
+			return this.var_equals_0_1.Import();
 		}
 						
 		private Method var_getinvocationlist_0_0;
@@ -11959,9 +11959,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetInvocationList()
 		{
 			if(this.var_getinvocationlist_0_0 == null)
-				this.var_getinvocationlist_0_0 = this.builderType.GetMethod("GetInvocationList", 0, true).Import();
+				this.var_getinvocationlist_0_0 = this.builderType.GetMethod("GetInvocationList", 0, true);
 
-			return this.var_getinvocationlist_0_0;
+			return this.var_getinvocationlist_0_0.Import();
 		}
 						
 		private Method var_gethashcode_0_0;
@@ -11974,9 +11974,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetHashCode()
 		{
 			if(this.var_gethashcode_0_0 == null)
-				this.var_gethashcode_0_0 = this.builderType.GetMethod("GetHashCode", 0, true).Import();
+				this.var_gethashcode_0_0 = this.builderType.GetMethod("GetHashCode", 0, true);
 
-			return this.var_gethashcode_0_0;
+			return this.var_gethashcode_0_0.Import();
 		}
 						
 		private Method var_dynamicinvoke_0_1;
@@ -11989,9 +11989,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_DynamicInvoke()
 		{
 			if(this.var_dynamicinvoke_0_1 == null)
-				this.var_dynamicinvoke_0_1 = this.builderType.GetMethod("DynamicInvoke", 1, true).Import();
+				this.var_dynamicinvoke_0_1 = this.builderType.GetMethod("DynamicInvoke", 1, true);
 
-			return this.var_dynamicinvoke_0_1;
+			return this.var_dynamicinvoke_0_1.Import();
 		}
 						
 		private Method var_get_method_0_0;
@@ -12004,9 +12004,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_Method()
 		{
 			if(this.var_get_method_0_0 == null)
-				this.var_get_method_0_0 = this.builderType.GetMethod("get_Method", 0, true).Import();
+				this.var_get_method_0_0 = this.builderType.GetMethod("get_Method", 0, true);
 
-			return this.var_get_method_0_0;
+			return this.var_get_method_0_0.Import();
 		}
 						
 		private Method var_get_target_0_0;
@@ -12019,9 +12019,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_Target()
 		{
 			if(this.var_get_target_0_0 == null)
-				this.var_get_target_0_0 = this.builderType.GetMethod("get_Target", 0, true).Import();
+				this.var_get_target_0_0 = this.builderType.GetMethod("get_Target", 0, true);
 
-			return this.var_get_target_0_0;
+			return this.var_get_target_0_0.Import();
 		}
 						
 		private Method var_clone_0_0;
@@ -12034,9 +12034,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_Clone()
 		{
 			if(this.var_clone_0_0 == null)
-				this.var_clone_0_0 = this.builderType.GetMethod("Clone", 0, true).Import();
+				this.var_clone_0_0 = this.builderType.GetMethod("Clone", 0, true);
 
-			return this.var_clone_0_0;
+			return this.var_clone_0_0.Import();
 		}
 						
 		private Method var_tostring_0_0;
@@ -12049,9 +12049,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_ToString()
 		{
 			if(this.var_tostring_0_0 == null)
-				this.var_tostring_0_0 = this.builderType.GetMethod("ToString", 0, true).Import();
+				this.var_tostring_0_0 = this.builderType.GetMethod("ToString", 0, true);
 
-			return this.var_tostring_0_0;
+			return this.var_tostring_0_0.Import();
 		}
 						
 		private Method var_gettype_0_0;
@@ -12064,9 +12064,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetType()
 		{
 			if(this.var_gettype_0_0 == null)
-				this.var_gettype_0_0 = this.builderType.GetMethod("GetType", 0, true).Import();
+				this.var_gettype_0_0 = this.builderType.GetMethod("GetType", 0, true);
 
-			return this.var_gettype_0_0;
+			return this.var_gettype_0_0.Import();
 		}
 						
 		private Method var_ctor_0_2;
@@ -12079,9 +12079,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_ctor()
 		{
 			if(this.var_ctor_0_2 == null)
-				this.var_ctor_0_2 = this.builderType.GetMethod(".ctor", 2, true).Import();
+				this.var_ctor_0_2 = this.builderType.GetMethod(".ctor", 2, true);
 
-			return this.var_ctor_0_2;
+			return this.var_ctor_0_2.Import();
 		}
 					}
 
@@ -12096,10 +12096,10 @@ namespace Cauldron.Interception.Cecilator
 		}
 
 		/// <exclude />
-		public static implicit operator BuilderType(BuilderTypeEventHandler1 value) => value.builderType;
+		public static implicit operator BuilderType(BuilderTypeEventHandler1 value) => value.builderType.Import();
 		
 		/// <exclude />
-		public static implicit operator TypeReference(BuilderTypeEventHandler1 value) => value.builderType.typeReference;
+		public static implicit operator TypeReference(BuilderTypeEventHandler1 value) => Builder.Current.Import((TypeReference)value.builderType);
 			
 				
 		private Method var_getobjectdata_0_2;
@@ -12112,9 +12112,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetObjectData()
 		{
 			if(this.var_getobjectdata_0_2 == null)
-				this.var_getobjectdata_0_2 = this.builderType.GetMethod("GetObjectData", 2, true).Import();
+				this.var_getobjectdata_0_2 = this.builderType.GetMethod("GetObjectData", 2, true);
 
-			return this.var_getobjectdata_0_2;
+			return this.var_getobjectdata_0_2.Import();
 		}
 						
 		private Method var_equals_0_1;
@@ -12127,9 +12127,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_Equals()
 		{
 			if(this.var_equals_0_1 == null)
-				this.var_equals_0_1 = this.builderType.GetMethod("Equals", 1, true).Import();
+				this.var_equals_0_1 = this.builderType.GetMethod("Equals", 1, true);
 
-			return this.var_equals_0_1;
+			return this.var_equals_0_1.Import();
 		}
 						
 		private Method var_getinvocationlist_0_0;
@@ -12142,9 +12142,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetInvocationList()
 		{
 			if(this.var_getinvocationlist_0_0 == null)
-				this.var_getinvocationlist_0_0 = this.builderType.GetMethod("GetInvocationList", 0, true).Import();
+				this.var_getinvocationlist_0_0 = this.builderType.GetMethod("GetInvocationList", 0, true);
 
-			return this.var_getinvocationlist_0_0;
+			return this.var_getinvocationlist_0_0.Import();
 		}
 						
 		private Method var_gethashcode_0_0;
@@ -12157,9 +12157,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetHashCode()
 		{
 			if(this.var_gethashcode_0_0 == null)
-				this.var_gethashcode_0_0 = this.builderType.GetMethod("GetHashCode", 0, true).Import();
+				this.var_gethashcode_0_0 = this.builderType.GetMethod("GetHashCode", 0, true);
 
-			return this.var_gethashcode_0_0;
+			return this.var_gethashcode_0_0.Import();
 		}
 						
 		private Method var_dynamicinvoke_0_1;
@@ -12172,9 +12172,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_DynamicInvoke()
 		{
 			if(this.var_dynamicinvoke_0_1 == null)
-				this.var_dynamicinvoke_0_1 = this.builderType.GetMethod("DynamicInvoke", 1, true).Import();
+				this.var_dynamicinvoke_0_1 = this.builderType.GetMethod("DynamicInvoke", 1, true);
 
-			return this.var_dynamicinvoke_0_1;
+			return this.var_dynamicinvoke_0_1.Import();
 		}
 						
 		private Method var_get_method_0_0;
@@ -12187,9 +12187,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_Method()
 		{
 			if(this.var_get_method_0_0 == null)
-				this.var_get_method_0_0 = this.builderType.GetMethod("get_Method", 0, true).Import();
+				this.var_get_method_0_0 = this.builderType.GetMethod("get_Method", 0, true);
 
-			return this.var_get_method_0_0;
+			return this.var_get_method_0_0.Import();
 		}
 						
 		private Method var_get_target_0_0;
@@ -12202,9 +12202,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_Target()
 		{
 			if(this.var_get_target_0_0 == null)
-				this.var_get_target_0_0 = this.builderType.GetMethod("get_Target", 0, true).Import();
+				this.var_get_target_0_0 = this.builderType.GetMethod("get_Target", 0, true);
 
-			return this.var_get_target_0_0;
+			return this.var_get_target_0_0.Import();
 		}
 						
 		private Method var_clone_0_0;
@@ -12217,9 +12217,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_Clone()
 		{
 			if(this.var_clone_0_0 == null)
-				this.var_clone_0_0 = this.builderType.GetMethod("Clone", 0, true).Import();
+				this.var_clone_0_0 = this.builderType.GetMethod("Clone", 0, true);
 
-			return this.var_clone_0_0;
+			return this.var_clone_0_0.Import();
 		}
 						
 		private Method var_tostring_0_0;
@@ -12232,9 +12232,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_ToString()
 		{
 			if(this.var_tostring_0_0 == null)
-				this.var_tostring_0_0 = this.builderType.GetMethod("ToString", 0, true).Import();
+				this.var_tostring_0_0 = this.builderType.GetMethod("ToString", 0, true);
 
-			return this.var_tostring_0_0;
+			return this.var_tostring_0_0.Import();
 		}
 						
 		private Method var_gettype_0_0;
@@ -12247,9 +12247,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetType()
 		{
 			if(this.var_gettype_0_0 == null)
-				this.var_gettype_0_0 = this.builderType.GetMethod("GetType", 0, true).Import();
+				this.var_gettype_0_0 = this.builderType.GetMethod("GetType", 0, true);
 
-			return this.var_gettype_0_0;
+			return this.var_gettype_0_0.Import();
 		}
 					}
 
@@ -12264,10 +12264,10 @@ namespace Cauldron.Interception.Cecilator
 		}
 
 		/// <exclude />
-		public static implicit operator BuilderType(BuilderTypeException value) => value.builderType;
+		public static implicit operator BuilderType(BuilderTypeException value) => value.builderType.Import();
 		
 		/// <exclude />
-		public static implicit operator TypeReference(BuilderTypeException value) => value.builderType.typeReference;
+		public static implicit operator TypeReference(BuilderTypeException value) => Builder.Current.Import((TypeReference)value.builderType);
 			
 				
 		private Method var_get_data_0_0;
@@ -12280,9 +12280,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_Data()
 		{
 			if(this.var_get_data_0_0 == null)
-				this.var_get_data_0_0 = this.builderType.GetMethod("get_Data", 0, true).Import();
+				this.var_get_data_0_0 = this.builderType.GetMethod("get_Data", 0, true);
 
-			return this.var_get_data_0_0;
+			return this.var_get_data_0_0.Import();
 		}
 						
 		private Method var_get_message_0_0;
@@ -12295,9 +12295,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_Message()
 		{
 			if(this.var_get_message_0_0 == null)
-				this.var_get_message_0_0 = this.builderType.GetMethod("get_Message", 0, true).Import();
+				this.var_get_message_0_0 = this.builderType.GetMethod("get_Message", 0, true);
 
-			return this.var_get_message_0_0;
+			return this.var_get_message_0_0.Import();
 		}
 						
 		private Method var_getbaseexception_0_0;
@@ -12310,9 +12310,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetBaseException()
 		{
 			if(this.var_getbaseexception_0_0 == null)
-				this.var_getbaseexception_0_0 = this.builderType.GetMethod("GetBaseException", 0, true).Import();
+				this.var_getbaseexception_0_0 = this.builderType.GetMethod("GetBaseException", 0, true);
 
-			return this.var_getbaseexception_0_0;
+			return this.var_getbaseexception_0_0.Import();
 		}
 						
 		private Method var_get_innerexception_0_0;
@@ -12325,9 +12325,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_InnerException()
 		{
 			if(this.var_get_innerexception_0_0 == null)
-				this.var_get_innerexception_0_0 = this.builderType.GetMethod("get_InnerException", 0, true).Import();
+				this.var_get_innerexception_0_0 = this.builderType.GetMethod("get_InnerException", 0, true);
 
-			return this.var_get_innerexception_0_0;
+			return this.var_get_innerexception_0_0.Import();
 		}
 						
 		private Method var_get_targetsite_0_0;
@@ -12340,9 +12340,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_TargetSite()
 		{
 			if(this.var_get_targetsite_0_0 == null)
-				this.var_get_targetsite_0_0 = this.builderType.GetMethod("get_TargetSite", 0, true).Import();
+				this.var_get_targetsite_0_0 = this.builderType.GetMethod("get_TargetSite", 0, true);
 
-			return this.var_get_targetsite_0_0;
+			return this.var_get_targetsite_0_0.Import();
 		}
 						
 		private Method var_get_stacktrace_0_0;
@@ -12355,9 +12355,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_StackTrace()
 		{
 			if(this.var_get_stacktrace_0_0 == null)
-				this.var_get_stacktrace_0_0 = this.builderType.GetMethod("get_StackTrace", 0, true).Import();
+				this.var_get_stacktrace_0_0 = this.builderType.GetMethod("get_StackTrace", 0, true);
 
-			return this.var_get_stacktrace_0_0;
+			return this.var_get_stacktrace_0_0.Import();
 		}
 						
 		private Method var_get_helplink_0_0;
@@ -12370,9 +12370,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_HelpLink()
 		{
 			if(this.var_get_helplink_0_0 == null)
-				this.var_get_helplink_0_0 = this.builderType.GetMethod("get_HelpLink", 0, true).Import();
+				this.var_get_helplink_0_0 = this.builderType.GetMethod("get_HelpLink", 0, true);
 
-			return this.var_get_helplink_0_0;
+			return this.var_get_helplink_0_0.Import();
 		}
 						
 		private Method var_set_helplink_0_1;
@@ -12385,9 +12385,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_set_HelpLink()
 		{
 			if(this.var_set_helplink_0_1 == null)
-				this.var_set_helplink_0_1 = this.builderType.GetMethod("set_HelpLink", 1, true).Import();
+				this.var_set_helplink_0_1 = this.builderType.GetMethod("set_HelpLink", 1, true);
 
-			return this.var_set_helplink_0_1;
+			return this.var_set_helplink_0_1.Import();
 		}
 						
 		private Method var_get_source_0_0;
@@ -12400,9 +12400,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_Source()
 		{
 			if(this.var_get_source_0_0 == null)
-				this.var_get_source_0_0 = this.builderType.GetMethod("get_Source", 0, true).Import();
+				this.var_get_source_0_0 = this.builderType.GetMethod("get_Source", 0, true);
 
-			return this.var_get_source_0_0;
+			return this.var_get_source_0_0.Import();
 		}
 						
 		private Method var_set_source_0_1;
@@ -12415,9 +12415,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_set_Source()
 		{
 			if(this.var_set_source_0_1 == null)
-				this.var_set_source_0_1 = this.builderType.GetMethod("set_Source", 1, true).Import();
+				this.var_set_source_0_1 = this.builderType.GetMethod("set_Source", 1, true);
 
-			return this.var_set_source_0_1;
+			return this.var_set_source_0_1.Import();
 		}
 						
 		private Method var_tostring_0_0;
@@ -12430,9 +12430,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_ToString()
 		{
 			if(this.var_tostring_0_0 == null)
-				this.var_tostring_0_0 = this.builderType.GetMethod("ToString", 0, true).Import();
+				this.var_tostring_0_0 = this.builderType.GetMethod("ToString", 0, true);
 
-			return this.var_tostring_0_0;
+			return this.var_tostring_0_0.Import();
 		}
 						
 		private Method var_getobjectdata_0_2;
@@ -12445,9 +12445,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetObjectData()
 		{
 			if(this.var_getobjectdata_0_2 == null)
-				this.var_getobjectdata_0_2 = this.builderType.GetMethod("GetObjectData", 2, true).Import();
+				this.var_getobjectdata_0_2 = this.builderType.GetMethod("GetObjectData", 2, true);
 
-			return this.var_getobjectdata_0_2;
+			return this.var_getobjectdata_0_2.Import();
 		}
 						
 		private Method var_get_hresult_0_0;
@@ -12460,9 +12460,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_HResult()
 		{
 			if(this.var_get_hresult_0_0 == null)
-				this.var_get_hresult_0_0 = this.builderType.GetMethod("get_HResult", 0, true).Import();
+				this.var_get_hresult_0_0 = this.builderType.GetMethod("get_HResult", 0, true);
 
-			return this.var_get_hresult_0_0;
+			return this.var_get_hresult_0_0.Import();
 		}
 						
 		private Method var_gettype_0_0;
@@ -12476,9 +12476,9 @@ namespace Cauldron.Interception.Cecilator
 		{
 						
 			if(this.var_gettype_0_0 == null)
-				this.var_gettype_0_0 = this.builderType.GetMethod("GetType", true).Import();
+				this.var_gettype_0_0 = this.builderType.GetMethod("GetType", true);
 
-			return this.var_gettype_0_0;
+			return this.var_gettype_0_0.Import();
 						
 						
 		}
@@ -12493,9 +12493,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_Equals()
 		{
 			if(this.var_equals_0_1 == null)
-				this.var_equals_0_1 = this.builderType.GetMethod("Equals", 1, true).Import();
+				this.var_equals_0_1 = this.builderType.GetMethod("Equals", 1, true);
 
-			return this.var_equals_0_1;
+			return this.var_equals_0_1.Import();
 		}
 						
 		private Method var_gethashcode_0_0;
@@ -12508,9 +12508,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetHashCode()
 		{
 			if(this.var_gethashcode_0_0 == null)
-				this.var_gethashcode_0_0 = this.builderType.GetMethod("GetHashCode", 0, true).Import();
+				this.var_gethashcode_0_0 = this.builderType.GetMethod("GetHashCode", 0, true);
 
-			return this.var_gethashcode_0_0;
+			return this.var_gethashcode_0_0.Import();
 		}
 						
 		private Method var_ctor_0_0;
@@ -12524,9 +12524,9 @@ namespace Cauldron.Interception.Cecilator
 		{
 						
 			if(this.var_ctor_0_0 == null)
-				this.var_ctor_0_0 = this.builderType.GetMethod(".ctor", true).Import();
+				this.var_ctor_0_0 = this.builderType.GetMethod(".ctor", true);
 
-			return this.var_ctor_0_0;
+			return this.var_ctor_0_0.Import();
 						
 						
 		}
@@ -12543,9 +12543,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_ctor_0_1 == null)
-				this.var_ctor_0_1 = this.builderType.GetMethod(".ctor", true, pmessage).Import();
+				this.var_ctor_0_1 = this.builderType.GetMethod(".ctor", true, pmessage);
 			
-			return this.var_ctor_0_1;
+			return this.var_ctor_0_1.Import();
 						
 		}
 						
@@ -12561,9 +12561,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_ctor_0_2 == null)
-				this.var_ctor_0_2 = this.builderType.GetMethod(".ctor", true, pmessage, pinnerException).Import();
+				this.var_ctor_0_2 = this.builderType.GetMethod(".ctor", true, pmessage, pinnerException);
 			
-			return this.var_ctor_0_2;
+			return this.var_ctor_0_2.Import();
 						
 		}
 					}
@@ -12579,10 +12579,10 @@ namespace Cauldron.Interception.Cecilator
 		}
 
 		/// <exclude />
-		public static implicit operator BuilderType(BuilderTypeICollection1 value) => value.builderType;
+		public static implicit operator BuilderType(BuilderTypeICollection1 value) => value.builderType.Import();
 		
 		/// <exclude />
-		public static implicit operator TypeReference(BuilderTypeICollection1 value) => value.builderType.typeReference;
+		public static implicit operator TypeReference(BuilderTypeICollection1 value) => Builder.Current.Import((TypeReference)value.builderType);
 			
 			}
 
@@ -12597,10 +12597,10 @@ namespace Cauldron.Interception.Cecilator
 		}
 
 		/// <exclude />
-		public static implicit operator BuilderType(BuilderTypeIDictionary value) => value.builderType;
+		public static implicit operator BuilderType(BuilderTypeIDictionary value) => value.builderType.Import();
 		
 		/// <exclude />
-		public static implicit operator TypeReference(BuilderTypeIDictionary value) => value.builderType.typeReference;
+		public static implicit operator TypeReference(BuilderTypeIDictionary value) => Builder.Current.Import((TypeReference)value.builderType);
 			
 				
 		private Method var_add_0_2;
@@ -12613,9 +12613,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_Add()
 		{
 			if(this.var_add_0_2 == null)
-				this.var_add_0_2 = this.builderType.GetMethod("Add", 2, true).Import();
+				this.var_add_0_2 = this.builderType.GetMethod("Add", 2, true);
 
-			return this.var_add_0_2;
+			return this.var_add_0_2.Import();
 		}
 						
 		private Method var_get_item_0_1;
@@ -12628,9 +12628,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_Item()
 		{
 			if(this.var_get_item_0_1 == null)
-				this.var_get_item_0_1 = this.builderType.GetMethod("get_Item", 1, true).Import();
+				this.var_get_item_0_1 = this.builderType.GetMethod("get_Item", 1, true);
 
-			return this.var_get_item_0_1;
+			return this.var_get_item_0_1.Import();
 		}
 						
 		private Method var_set_item_0_2;
@@ -12643,9 +12643,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_set_Item()
 		{
 			if(this.var_set_item_0_2 == null)
-				this.var_set_item_0_2 = this.builderType.GetMethod("set_Item", 2, true).Import();
+				this.var_set_item_0_2 = this.builderType.GetMethod("set_Item", 2, true);
 
-			return this.var_set_item_0_2;
+			return this.var_set_item_0_2.Import();
 		}
 						
 		private Method var_get_keys_0_0;
@@ -12658,9 +12658,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_Keys()
 		{
 			if(this.var_get_keys_0_0 == null)
-				this.var_get_keys_0_0 = this.builderType.GetMethod("get_Keys", 0, true).Import();
+				this.var_get_keys_0_0 = this.builderType.GetMethod("get_Keys", 0, true);
 
-			return this.var_get_keys_0_0;
+			return this.var_get_keys_0_0.Import();
 		}
 						
 		private Method var_get_values_0_0;
@@ -12673,9 +12673,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_Values()
 		{
 			if(this.var_get_values_0_0 == null)
-				this.var_get_values_0_0 = this.builderType.GetMethod("get_Values", 0, true).Import();
+				this.var_get_values_0_0 = this.builderType.GetMethod("get_Values", 0, true);
 
-			return this.var_get_values_0_0;
+			return this.var_get_values_0_0.Import();
 		}
 						
 		private Method var_contains_0_1;
@@ -12688,9 +12688,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_Contains()
 		{
 			if(this.var_contains_0_1 == null)
-				this.var_contains_0_1 = this.builderType.GetMethod("Contains", 1, true).Import();
+				this.var_contains_0_1 = this.builderType.GetMethod("Contains", 1, true);
 
-			return this.var_contains_0_1;
+			return this.var_contains_0_1.Import();
 		}
 						
 		private Method var_clear_0_0;
@@ -12703,9 +12703,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_Clear()
 		{
 			if(this.var_clear_0_0 == null)
-				this.var_clear_0_0 = this.builderType.GetMethod("Clear", 0, true).Import();
+				this.var_clear_0_0 = this.builderType.GetMethod("Clear", 0, true);
 
-			return this.var_clear_0_0;
+			return this.var_clear_0_0.Import();
 		}
 						
 		private Method var_get_isreadonly_0_0;
@@ -12718,9 +12718,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_IsReadOnly()
 		{
 			if(this.var_get_isreadonly_0_0 == null)
-				this.var_get_isreadonly_0_0 = this.builderType.GetMethod("get_IsReadOnly", 0, true).Import();
+				this.var_get_isreadonly_0_0 = this.builderType.GetMethod("get_IsReadOnly", 0, true);
 
-			return this.var_get_isreadonly_0_0;
+			return this.var_get_isreadonly_0_0.Import();
 		}
 						
 		private Method var_get_isfixedsize_0_0;
@@ -12733,9 +12733,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_IsFixedSize()
 		{
 			if(this.var_get_isfixedsize_0_0 == null)
-				this.var_get_isfixedsize_0_0 = this.builderType.GetMethod("get_IsFixedSize", 0, true).Import();
+				this.var_get_isfixedsize_0_0 = this.builderType.GetMethod("get_IsFixedSize", 0, true);
 
-			return this.var_get_isfixedsize_0_0;
+			return this.var_get_isfixedsize_0_0.Import();
 		}
 						
 		private Method var_getenumerator_0_0;
@@ -12748,9 +12748,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetEnumerator()
 		{
 			if(this.var_getenumerator_0_0 == null)
-				this.var_getenumerator_0_0 = this.builderType.GetMethod("GetEnumerator", 0, true).Import();
+				this.var_getenumerator_0_0 = this.builderType.GetMethod("GetEnumerator", 0, true);
 
-			return this.var_getenumerator_0_0;
+			return this.var_getenumerator_0_0.Import();
 		}
 						
 		private Method var_remove_0_1;
@@ -12763,9 +12763,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_Remove()
 		{
 			if(this.var_remove_0_1 == null)
-				this.var_remove_0_1 = this.builderType.GetMethod("Remove", 1, true).Import();
+				this.var_remove_0_1 = this.builderType.GetMethod("Remove", 1, true);
 
-			return this.var_remove_0_1;
+			return this.var_remove_0_1.Import();
 		}
 					}
 
@@ -12780,10 +12780,10 @@ namespace Cauldron.Interception.Cecilator
 		}
 
 		/// <exclude />
-		public static implicit operator BuilderType(BuilderTypeIDictionary2 value) => value.builderType;
+		public static implicit operator BuilderType(BuilderTypeIDictionary2 value) => value.builderType.Import();
 		
 		/// <exclude />
-		public static implicit operator TypeReference(BuilderTypeIDictionary2 value) => value.builderType.typeReference;
+		public static implicit operator TypeReference(BuilderTypeIDictionary2 value) => Builder.Current.Import((TypeReference)value.builderType);
 			
 			}
 
@@ -12798,10 +12798,10 @@ namespace Cauldron.Interception.Cecilator
 		}
 
 		/// <exclude />
-		public static implicit operator BuilderType(BuilderTypeIDisposable value) => value.builderType;
+		public static implicit operator BuilderType(BuilderTypeIDisposable value) => value.builderType.Import();
 		
 		/// <exclude />
-		public static implicit operator TypeReference(BuilderTypeIDisposable value) => value.builderType.typeReference;
+		public static implicit operator TypeReference(BuilderTypeIDisposable value) => Builder.Current.Import((TypeReference)value.builderType);
 			
 				
 		private Method var_dispose_0_0;
@@ -12814,9 +12814,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_Dispose()
 		{
 			if(this.var_dispose_0_0 == null)
-				this.var_dispose_0_0 = this.builderType.GetMethod("Dispose", 0, true).Import();
+				this.var_dispose_0_0 = this.builderType.GetMethod("Dispose", 0, true);
 
-			return this.var_dispose_0_0;
+			return this.var_dispose_0_0.Import();
 		}
 					}
 
@@ -12831,10 +12831,10 @@ namespace Cauldron.Interception.Cecilator
 		}
 
 		/// <exclude />
-		public static implicit operator BuilderType(BuilderTypeIEnumerable value) => value.builderType;
+		public static implicit operator BuilderType(BuilderTypeIEnumerable value) => value.builderType.Import();
 		
 		/// <exclude />
-		public static implicit operator TypeReference(BuilderTypeIEnumerable value) => value.builderType.typeReference;
+		public static implicit operator TypeReference(BuilderTypeIEnumerable value) => Builder.Current.Import((TypeReference)value.builderType);
 			
 				
 		private Method var_getenumerator_0_0;
@@ -12847,9 +12847,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetEnumerator()
 		{
 			if(this.var_getenumerator_0_0 == null)
-				this.var_getenumerator_0_0 = this.builderType.GetMethod("GetEnumerator", 0, true).Import();
+				this.var_getenumerator_0_0 = this.builderType.GetMethod("GetEnumerator", 0, true);
 
-			return this.var_getenumerator_0_0;
+			return this.var_getenumerator_0_0.Import();
 		}
 					}
 
@@ -12864,10 +12864,10 @@ namespace Cauldron.Interception.Cecilator
 		}
 
 		/// <exclude />
-		public static implicit operator BuilderType(BuilderTypeIEnumerable1 value) => value.builderType;
+		public static implicit operator BuilderType(BuilderTypeIEnumerable1 value) => value.builderType.Import();
 		
 		/// <exclude />
-		public static implicit operator TypeReference(BuilderTypeIEnumerable1 value) => value.builderType.typeReference;
+		public static implicit operator TypeReference(BuilderTypeIEnumerable1 value) => Builder.Current.Import((TypeReference)value.builderType);
 			
 			}
 
@@ -12882,10 +12882,10 @@ namespace Cauldron.Interception.Cecilator
 		}
 
 		/// <exclude />
-		public static implicit operator BuilderType(BuilderTypeIList value) => value.builderType;
+		public static implicit operator BuilderType(BuilderTypeIList value) => value.builderType.Import();
 		
 		/// <exclude />
-		public static implicit operator TypeReference(BuilderTypeIList value) => value.builderType.typeReference;
+		public static implicit operator TypeReference(BuilderTypeIList value) => Builder.Current.Import((TypeReference)value.builderType);
 			
 				
 		private Method var_get_item_0_1;
@@ -12898,9 +12898,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_Item()
 		{
 			if(this.var_get_item_0_1 == null)
-				this.var_get_item_0_1 = this.builderType.GetMethod("get_Item", 1, true).Import();
+				this.var_get_item_0_1 = this.builderType.GetMethod("get_Item", 1, true);
 
-			return this.var_get_item_0_1;
+			return this.var_get_item_0_1.Import();
 		}
 						
 		private Method var_set_item_0_2;
@@ -12913,9 +12913,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_set_Item()
 		{
 			if(this.var_set_item_0_2 == null)
-				this.var_set_item_0_2 = this.builderType.GetMethod("set_Item", 2, true).Import();
+				this.var_set_item_0_2 = this.builderType.GetMethod("set_Item", 2, true);
 
-			return this.var_set_item_0_2;
+			return this.var_set_item_0_2.Import();
 		}
 						
 		private Method var_add_0_1;
@@ -12928,9 +12928,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_Add()
 		{
 			if(this.var_add_0_1 == null)
-				this.var_add_0_1 = this.builderType.GetMethod("Add", 1, true).Import();
+				this.var_add_0_1 = this.builderType.GetMethod("Add", 1, true);
 
-			return this.var_add_0_1;
+			return this.var_add_0_1.Import();
 		}
 						
 		private Method var_contains_0_1;
@@ -12943,9 +12943,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_Contains()
 		{
 			if(this.var_contains_0_1 == null)
-				this.var_contains_0_1 = this.builderType.GetMethod("Contains", 1, true).Import();
+				this.var_contains_0_1 = this.builderType.GetMethod("Contains", 1, true);
 
-			return this.var_contains_0_1;
+			return this.var_contains_0_1.Import();
 		}
 						
 		private Method var_clear_0_0;
@@ -12958,9 +12958,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_Clear()
 		{
 			if(this.var_clear_0_0 == null)
-				this.var_clear_0_0 = this.builderType.GetMethod("Clear", 0, true).Import();
+				this.var_clear_0_0 = this.builderType.GetMethod("Clear", 0, true);
 
-			return this.var_clear_0_0;
+			return this.var_clear_0_0.Import();
 		}
 						
 		private Method var_get_isreadonly_0_0;
@@ -12973,9 +12973,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_IsReadOnly()
 		{
 			if(this.var_get_isreadonly_0_0 == null)
-				this.var_get_isreadonly_0_0 = this.builderType.GetMethod("get_IsReadOnly", 0, true).Import();
+				this.var_get_isreadonly_0_0 = this.builderType.GetMethod("get_IsReadOnly", 0, true);
 
-			return this.var_get_isreadonly_0_0;
+			return this.var_get_isreadonly_0_0.Import();
 		}
 						
 		private Method var_get_isfixedsize_0_0;
@@ -12988,9 +12988,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_IsFixedSize()
 		{
 			if(this.var_get_isfixedsize_0_0 == null)
-				this.var_get_isfixedsize_0_0 = this.builderType.GetMethod("get_IsFixedSize", 0, true).Import();
+				this.var_get_isfixedsize_0_0 = this.builderType.GetMethod("get_IsFixedSize", 0, true);
 
-			return this.var_get_isfixedsize_0_0;
+			return this.var_get_isfixedsize_0_0.Import();
 		}
 						
 		private Method var_indexof_0_1;
@@ -13003,9 +13003,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_IndexOf()
 		{
 			if(this.var_indexof_0_1 == null)
-				this.var_indexof_0_1 = this.builderType.GetMethod("IndexOf", 1, true).Import();
+				this.var_indexof_0_1 = this.builderType.GetMethod("IndexOf", 1, true);
 
-			return this.var_indexof_0_1;
+			return this.var_indexof_0_1.Import();
 		}
 						
 		private Method var_insert_0_2;
@@ -13018,9 +13018,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_Insert()
 		{
 			if(this.var_insert_0_2 == null)
-				this.var_insert_0_2 = this.builderType.GetMethod("Insert", 2, true).Import();
+				this.var_insert_0_2 = this.builderType.GetMethod("Insert", 2, true);
 
-			return this.var_insert_0_2;
+			return this.var_insert_0_2.Import();
 		}
 						
 		private Method var_remove_0_1;
@@ -13033,9 +13033,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_Remove()
 		{
 			if(this.var_remove_0_1 == null)
-				this.var_remove_0_1 = this.builderType.GetMethod("Remove", 1, true).Import();
+				this.var_remove_0_1 = this.builderType.GetMethod("Remove", 1, true);
 
-			return this.var_remove_0_1;
+			return this.var_remove_0_1.Import();
 		}
 						
 		private Method var_removeat_0_1;
@@ -13048,9 +13048,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_RemoveAt()
 		{
 			if(this.var_removeat_0_1 == null)
-				this.var_removeat_0_1 = this.builderType.GetMethod("RemoveAt", 1, true).Import();
+				this.var_removeat_0_1 = this.builderType.GetMethod("RemoveAt", 1, true);
 
-			return this.var_removeat_0_1;
+			return this.var_removeat_0_1.Import();
 		}
 					}
 
@@ -13065,10 +13065,10 @@ namespace Cauldron.Interception.Cecilator
 		}
 
 		/// <exclude />
-		public static implicit operator BuilderType(BuilderTypeIList1 value) => value.builderType;
+		public static implicit operator BuilderType(BuilderTypeIList1 value) => value.builderType.Import();
 		
 		/// <exclude />
-		public static implicit operator TypeReference(BuilderTypeIList1 value) => value.builderType.typeReference;
+		public static implicit operator TypeReference(BuilderTypeIList1 value) => Builder.Current.Import((TypeReference)value.builderType);
 			
 			}
 
@@ -13083,10 +13083,10 @@ namespace Cauldron.Interception.Cecilator
 		}
 
 		/// <exclude />
-		public static implicit operator BuilderType(BuilderTypeInt16 value) => value.builderType;
+		public static implicit operator BuilderType(BuilderTypeInt16 value) => value.builderType.Import();
 		
 		/// <exclude />
-		public static implicit operator TypeReference(BuilderTypeInt16 value) => value.builderType.typeReference;
+		public static implicit operator TypeReference(BuilderTypeInt16 value) => Builder.Current.Import((TypeReference)value.builderType);
 			
 				
 		private Method var_compareto_0_1;
@@ -13106,17 +13106,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Object).AreEqual(pvalue))
 			{
 				if(this.var_compareto_0_1 == null)
-					this.var_compareto_0_1 = this.builderType.GetMethod("CompareTo", true, pvalue).Import();
+					this.var_compareto_0_1 = this.builderType.GetMethod("CompareTo", true, pvalue);
 			
-				return this.var_compareto_0_1;
+				return this.var_compareto_0_1.Import();
 			}
 			
 			if(typeof(System.Int16).AreEqual(pvalue))
 			{
 				if(this.var_compareto_1_1 == null)
-					this.var_compareto_1_1 = this.builderType.GetMethod("CompareTo", true, pvalue).Import();
+					this.var_compareto_1_1 = this.builderType.GetMethod("CompareTo", true, pvalue);
 			
-				return this.var_compareto_1_1;
+				return this.var_compareto_1_1.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -13140,17 +13140,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Object).AreEqual(pobj))
 			{
 				if(this.var_equals_0_1 == null)
-					this.var_equals_0_1 = this.builderType.GetMethod("Equals", true, pobj).Import();
+					this.var_equals_0_1 = this.builderType.GetMethod("Equals", true, pobj);
 			
-				return this.var_equals_0_1;
+				return this.var_equals_0_1.Import();
 			}
 			
 			if(typeof(System.Int16).AreEqual(pobj))
 			{
 				if(this.var_equals_1_1 == null)
-					this.var_equals_1_1 = this.builderType.GetMethod("Equals", true, pobj).Import();
+					this.var_equals_1_1 = this.builderType.GetMethod("Equals", true, pobj);
 			
-				return this.var_equals_1_1;
+				return this.var_equals_1_1.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -13167,9 +13167,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetHashCode()
 		{
 			if(this.var_gethashcode_0_0 == null)
-				this.var_gethashcode_0_0 = this.builderType.GetMethod("GetHashCode", 0, true).Import();
+				this.var_gethashcode_0_0 = this.builderType.GetMethod("GetHashCode", 0, true);
 
-			return this.var_gethashcode_0_0;
+			return this.var_gethashcode_0_0.Import();
 		}
 						
 		private Method var_tostring_0_0;
@@ -13183,9 +13183,9 @@ namespace Cauldron.Interception.Cecilator
 		{
 						
 			if(this.var_tostring_0_0 == null)
-				this.var_tostring_0_0 = this.builderType.GetMethod("ToString", true).Import();
+				this.var_tostring_0_0 = this.builderType.GetMethod("ToString", true);
 
-			return this.var_tostring_0_0;
+			return this.var_tostring_0_0.Import();
 						
 						
 		}
@@ -13207,17 +13207,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.IFormatProvider).AreEqual(pprovider))
 			{
 				if(this.var_tostring_0_1 == null)
-					this.var_tostring_0_1 = this.builderType.GetMethod("ToString", true, pprovider).Import();
+					this.var_tostring_0_1 = this.builderType.GetMethod("ToString", true, pprovider);
 			
-				return this.var_tostring_0_1;
+				return this.var_tostring_0_1.Import();
 			}
 			
 			if(typeof(System.String).AreEqual(pprovider))
 			{
 				if(this.var_tostring_1_1 == null)
-					this.var_tostring_1_1 = this.builderType.GetMethod("ToString", true, pprovider).Import();
+					this.var_tostring_1_1 = this.builderType.GetMethod("ToString", true, pprovider);
 			
-				return this.var_tostring_1_1;
+				return this.var_tostring_1_1.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -13236,9 +13236,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_tostring_0_2 == null)
-				this.var_tostring_0_2 = this.builderType.GetMethod("ToString", true, pformat, pprovider).Import();
+				this.var_tostring_0_2 = this.builderType.GetMethod("ToString", true, pformat, pprovider);
 			
-			return this.var_tostring_0_2;
+			return this.var_tostring_0_2.Import();
 						
 		}
 						
@@ -13254,9 +13254,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_parse_0_1 == null)
-				this.var_parse_0_1 = this.builderType.GetMethod("Parse", true, ps).Import();
+				this.var_parse_0_1 = this.builderType.GetMethod("Parse", true, ps);
 			
-			return this.var_parse_0_1;
+			return this.var_parse_0_1.Import();
 						
 		}
 						
@@ -13277,17 +13277,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.String).AreEqual(ps) && typeof(System.Globalization.NumberStyles).AreEqual(pstyle))
 			{
 				if(this.var_parse_0_2 == null)
-					this.var_parse_0_2 = this.builderType.GetMethod("Parse", true, ps, pstyle).Import();
+					this.var_parse_0_2 = this.builderType.GetMethod("Parse", true, ps, pstyle);
 			
-				return this.var_parse_0_2;
+				return this.var_parse_0_2.Import();
 			}
 			
 			if(typeof(System.String).AreEqual(ps) && typeof(System.IFormatProvider).AreEqual(pstyle))
 			{
 				if(this.var_parse_1_2 == null)
-					this.var_parse_1_2 = this.builderType.GetMethod("Parse", true, ps, pstyle).Import();
+					this.var_parse_1_2 = this.builderType.GetMethod("Parse", true, ps, pstyle);
 			
-				return this.var_parse_1_2;
+				return this.var_parse_1_2.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -13306,9 +13306,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_parse_0_3 == null)
-				this.var_parse_0_3 = this.builderType.GetMethod("Parse", true, ps, pstyle, pprovider).Import();
+				this.var_parse_0_3 = this.builderType.GetMethod("Parse", true, ps, pstyle, pprovider);
 			
-			return this.var_parse_0_3;
+			return this.var_parse_0_3.Import();
 						
 		}
 						
@@ -13322,9 +13322,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetTypeCode()
 		{
 			if(this.var_gettypecode_0_0 == null)
-				this.var_gettypecode_0_0 = this.builderType.GetMethod("GetTypeCode", 0, true).Import();
+				this.var_gettypecode_0_0 = this.builderType.GetMethod("GetTypeCode", 0, true);
 
-			return this.var_gettypecode_0_0;
+			return this.var_gettypecode_0_0.Import();
 		}
 						
 		private Method var_gettype_0_0;
@@ -13337,9 +13337,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetType()
 		{
 			if(this.var_gettype_0_0 == null)
-				this.var_gettype_0_0 = this.builderType.GetMethod("GetType", 0, true).Import();
+				this.var_gettype_0_0 = this.builderType.GetMethod("GetType", 0, true);
 
-			return this.var_gettype_0_0;
+			return this.var_gettype_0_0.Import();
 		}
 					}
 
@@ -13354,10 +13354,10 @@ namespace Cauldron.Interception.Cecilator
 		}
 
 		/// <exclude />
-		public static implicit operator BuilderType(BuilderTypeInt32 value) => value.builderType;
+		public static implicit operator BuilderType(BuilderTypeInt32 value) => value.builderType.Import();
 		
 		/// <exclude />
-		public static implicit operator TypeReference(BuilderTypeInt32 value) => value.builderType.typeReference;
+		public static implicit operator TypeReference(BuilderTypeInt32 value) => Builder.Current.Import((TypeReference)value.builderType);
 			
 				
 		private Method var_compareto_0_1;
@@ -13377,17 +13377,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Object).AreEqual(pvalue))
 			{
 				if(this.var_compareto_0_1 == null)
-					this.var_compareto_0_1 = this.builderType.GetMethod("CompareTo", true, pvalue).Import();
+					this.var_compareto_0_1 = this.builderType.GetMethod("CompareTo", true, pvalue);
 			
-				return this.var_compareto_0_1;
+				return this.var_compareto_0_1.Import();
 			}
 			
 			if(typeof(System.Int32).AreEqual(pvalue))
 			{
 				if(this.var_compareto_1_1 == null)
-					this.var_compareto_1_1 = this.builderType.GetMethod("CompareTo", true, pvalue).Import();
+					this.var_compareto_1_1 = this.builderType.GetMethod("CompareTo", true, pvalue);
 			
-				return this.var_compareto_1_1;
+				return this.var_compareto_1_1.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -13411,17 +13411,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Object).AreEqual(pobj))
 			{
 				if(this.var_equals_0_1 == null)
-					this.var_equals_0_1 = this.builderType.GetMethod("Equals", true, pobj).Import();
+					this.var_equals_0_1 = this.builderType.GetMethod("Equals", true, pobj);
 			
-				return this.var_equals_0_1;
+				return this.var_equals_0_1.Import();
 			}
 			
 			if(typeof(System.Int32).AreEqual(pobj))
 			{
 				if(this.var_equals_1_1 == null)
-					this.var_equals_1_1 = this.builderType.GetMethod("Equals", true, pobj).Import();
+					this.var_equals_1_1 = this.builderType.GetMethod("Equals", true, pobj);
 			
-				return this.var_equals_1_1;
+				return this.var_equals_1_1.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -13438,9 +13438,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetHashCode()
 		{
 			if(this.var_gethashcode_0_0 == null)
-				this.var_gethashcode_0_0 = this.builderType.GetMethod("GetHashCode", 0, true).Import();
+				this.var_gethashcode_0_0 = this.builderType.GetMethod("GetHashCode", 0, true);
 
-			return this.var_gethashcode_0_0;
+			return this.var_gethashcode_0_0.Import();
 		}
 						
 		private Method var_tostring_0_0;
@@ -13454,9 +13454,9 @@ namespace Cauldron.Interception.Cecilator
 		{
 						
 			if(this.var_tostring_0_0 == null)
-				this.var_tostring_0_0 = this.builderType.GetMethod("ToString", true).Import();
+				this.var_tostring_0_0 = this.builderType.GetMethod("ToString", true);
 
-			return this.var_tostring_0_0;
+			return this.var_tostring_0_0.Import();
 						
 						
 		}
@@ -13478,17 +13478,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.String).AreEqual(pformat))
 			{
 				if(this.var_tostring_0_1 == null)
-					this.var_tostring_0_1 = this.builderType.GetMethod("ToString", true, pformat).Import();
+					this.var_tostring_0_1 = this.builderType.GetMethod("ToString", true, pformat);
 			
-				return this.var_tostring_0_1;
+				return this.var_tostring_0_1.Import();
 			}
 			
 			if(typeof(System.IFormatProvider).AreEqual(pformat))
 			{
 				if(this.var_tostring_1_1 == null)
-					this.var_tostring_1_1 = this.builderType.GetMethod("ToString", true, pformat).Import();
+					this.var_tostring_1_1 = this.builderType.GetMethod("ToString", true, pformat);
 			
-				return this.var_tostring_1_1;
+				return this.var_tostring_1_1.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -13507,9 +13507,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_tostring_0_2 == null)
-				this.var_tostring_0_2 = this.builderType.GetMethod("ToString", true, pformat, pprovider).Import();
+				this.var_tostring_0_2 = this.builderType.GetMethod("ToString", true, pformat, pprovider);
 			
-			return this.var_tostring_0_2;
+			return this.var_tostring_0_2.Import();
 						
 		}
 						
@@ -13525,9 +13525,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_parse_0_1 == null)
-				this.var_parse_0_1 = this.builderType.GetMethod("Parse", true, ps).Import();
+				this.var_parse_0_1 = this.builderType.GetMethod("Parse", true, ps);
 			
-			return this.var_parse_0_1;
+			return this.var_parse_0_1.Import();
 						
 		}
 						
@@ -13548,17 +13548,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.String).AreEqual(ps) && typeof(System.Globalization.NumberStyles).AreEqual(pstyle))
 			{
 				if(this.var_parse_0_2 == null)
-					this.var_parse_0_2 = this.builderType.GetMethod("Parse", true, ps, pstyle).Import();
+					this.var_parse_0_2 = this.builderType.GetMethod("Parse", true, ps, pstyle);
 			
-				return this.var_parse_0_2;
+				return this.var_parse_0_2.Import();
 			}
 			
 			if(typeof(System.String).AreEqual(ps) && typeof(System.IFormatProvider).AreEqual(pstyle))
 			{
 				if(this.var_parse_1_2 == null)
-					this.var_parse_1_2 = this.builderType.GetMethod("Parse", true, ps, pstyle).Import();
+					this.var_parse_1_2 = this.builderType.GetMethod("Parse", true, ps, pstyle);
 			
-				return this.var_parse_1_2;
+				return this.var_parse_1_2.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -13577,9 +13577,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_parse_0_3 == null)
-				this.var_parse_0_3 = this.builderType.GetMethod("Parse", true, ps, pstyle, pprovider).Import();
+				this.var_parse_0_3 = this.builderType.GetMethod("Parse", true, ps, pstyle, pprovider);
 			
-			return this.var_parse_0_3;
+			return this.var_parse_0_3.Import();
 						
 		}
 						
@@ -13593,9 +13593,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetTypeCode()
 		{
 			if(this.var_gettypecode_0_0 == null)
-				this.var_gettypecode_0_0 = this.builderType.GetMethod("GetTypeCode", 0, true).Import();
+				this.var_gettypecode_0_0 = this.builderType.GetMethod("GetTypeCode", 0, true);
 
-			return this.var_gettypecode_0_0;
+			return this.var_gettypecode_0_0.Import();
 		}
 						
 		private Method var_gettype_0_0;
@@ -13608,9 +13608,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetType()
 		{
 			if(this.var_gettype_0_0 == null)
-				this.var_gettype_0_0 = this.builderType.GetMethod("GetType", 0, true).Import();
+				this.var_gettype_0_0 = this.builderType.GetMethod("GetType", 0, true);
 
-			return this.var_gettype_0_0;
+			return this.var_gettype_0_0.Import();
 		}
 					}
 
@@ -13625,10 +13625,10 @@ namespace Cauldron.Interception.Cecilator
 		}
 
 		/// <exclude />
-		public static implicit operator BuilderType(BuilderTypeInt64 value) => value.builderType;
+		public static implicit operator BuilderType(BuilderTypeInt64 value) => value.builderType.Import();
 		
 		/// <exclude />
-		public static implicit operator TypeReference(BuilderTypeInt64 value) => value.builderType.typeReference;
+		public static implicit operator TypeReference(BuilderTypeInt64 value) => Builder.Current.Import((TypeReference)value.builderType);
 			
 				
 		private Method var_compareto_0_1;
@@ -13648,17 +13648,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Object).AreEqual(pvalue))
 			{
 				if(this.var_compareto_0_1 == null)
-					this.var_compareto_0_1 = this.builderType.GetMethod("CompareTo", true, pvalue).Import();
+					this.var_compareto_0_1 = this.builderType.GetMethod("CompareTo", true, pvalue);
 			
-				return this.var_compareto_0_1;
+				return this.var_compareto_0_1.Import();
 			}
 			
 			if(typeof(System.Int64).AreEqual(pvalue))
 			{
 				if(this.var_compareto_1_1 == null)
-					this.var_compareto_1_1 = this.builderType.GetMethod("CompareTo", true, pvalue).Import();
+					this.var_compareto_1_1 = this.builderType.GetMethod("CompareTo", true, pvalue);
 			
-				return this.var_compareto_1_1;
+				return this.var_compareto_1_1.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -13682,17 +13682,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Object).AreEqual(pobj))
 			{
 				if(this.var_equals_0_1 == null)
-					this.var_equals_0_1 = this.builderType.GetMethod("Equals", true, pobj).Import();
+					this.var_equals_0_1 = this.builderType.GetMethod("Equals", true, pobj);
 			
-				return this.var_equals_0_1;
+				return this.var_equals_0_1.Import();
 			}
 			
 			if(typeof(System.Int64).AreEqual(pobj))
 			{
 				if(this.var_equals_1_1 == null)
-					this.var_equals_1_1 = this.builderType.GetMethod("Equals", true, pobj).Import();
+					this.var_equals_1_1 = this.builderType.GetMethod("Equals", true, pobj);
 			
-				return this.var_equals_1_1;
+				return this.var_equals_1_1.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -13709,9 +13709,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetHashCode()
 		{
 			if(this.var_gethashcode_0_0 == null)
-				this.var_gethashcode_0_0 = this.builderType.GetMethod("GetHashCode", 0, true).Import();
+				this.var_gethashcode_0_0 = this.builderType.GetMethod("GetHashCode", 0, true);
 
-			return this.var_gethashcode_0_0;
+			return this.var_gethashcode_0_0.Import();
 		}
 						
 		private Method var_tostring_0_0;
@@ -13725,9 +13725,9 @@ namespace Cauldron.Interception.Cecilator
 		{
 						
 			if(this.var_tostring_0_0 == null)
-				this.var_tostring_0_0 = this.builderType.GetMethod("ToString", true).Import();
+				this.var_tostring_0_0 = this.builderType.GetMethod("ToString", true);
 
-			return this.var_tostring_0_0;
+			return this.var_tostring_0_0.Import();
 						
 						
 		}
@@ -13749,17 +13749,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.IFormatProvider).AreEqual(pprovider))
 			{
 				if(this.var_tostring_0_1 == null)
-					this.var_tostring_0_1 = this.builderType.GetMethod("ToString", true, pprovider).Import();
+					this.var_tostring_0_1 = this.builderType.GetMethod("ToString", true, pprovider);
 			
-				return this.var_tostring_0_1;
+				return this.var_tostring_0_1.Import();
 			}
 			
 			if(typeof(System.String).AreEqual(pprovider))
 			{
 				if(this.var_tostring_1_1 == null)
-					this.var_tostring_1_1 = this.builderType.GetMethod("ToString", true, pprovider).Import();
+					this.var_tostring_1_1 = this.builderType.GetMethod("ToString", true, pprovider);
 			
-				return this.var_tostring_1_1;
+				return this.var_tostring_1_1.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -13778,9 +13778,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_tostring_0_2 == null)
-				this.var_tostring_0_2 = this.builderType.GetMethod("ToString", true, pformat, pprovider).Import();
+				this.var_tostring_0_2 = this.builderType.GetMethod("ToString", true, pformat, pprovider);
 			
-			return this.var_tostring_0_2;
+			return this.var_tostring_0_2.Import();
 						
 		}
 						
@@ -13796,9 +13796,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_parse_0_1 == null)
-				this.var_parse_0_1 = this.builderType.GetMethod("Parse", true, ps).Import();
+				this.var_parse_0_1 = this.builderType.GetMethod("Parse", true, ps);
 			
-			return this.var_parse_0_1;
+			return this.var_parse_0_1.Import();
 						
 		}
 						
@@ -13819,17 +13819,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.String).AreEqual(ps) && typeof(System.Globalization.NumberStyles).AreEqual(pstyle))
 			{
 				if(this.var_parse_0_2 == null)
-					this.var_parse_0_2 = this.builderType.GetMethod("Parse", true, ps, pstyle).Import();
+					this.var_parse_0_2 = this.builderType.GetMethod("Parse", true, ps, pstyle);
 			
-				return this.var_parse_0_2;
+				return this.var_parse_0_2.Import();
 			}
 			
 			if(typeof(System.String).AreEqual(ps) && typeof(System.IFormatProvider).AreEqual(pstyle))
 			{
 				if(this.var_parse_1_2 == null)
-					this.var_parse_1_2 = this.builderType.GetMethod("Parse", true, ps, pstyle).Import();
+					this.var_parse_1_2 = this.builderType.GetMethod("Parse", true, ps, pstyle);
 			
-				return this.var_parse_1_2;
+				return this.var_parse_1_2.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -13848,9 +13848,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_parse_0_3 == null)
-				this.var_parse_0_3 = this.builderType.GetMethod("Parse", true, ps, pstyle, pprovider).Import();
+				this.var_parse_0_3 = this.builderType.GetMethod("Parse", true, ps, pstyle, pprovider);
 			
-			return this.var_parse_0_3;
+			return this.var_parse_0_3.Import();
 						
 		}
 						
@@ -13864,9 +13864,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetTypeCode()
 		{
 			if(this.var_gettypecode_0_0 == null)
-				this.var_gettypecode_0_0 = this.builderType.GetMethod("GetTypeCode", 0, true).Import();
+				this.var_gettypecode_0_0 = this.builderType.GetMethod("GetTypeCode", 0, true);
 
-			return this.var_gettypecode_0_0;
+			return this.var_gettypecode_0_0.Import();
 		}
 						
 		private Method var_gettype_0_0;
@@ -13879,9 +13879,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetType()
 		{
 			if(this.var_gettype_0_0 == null)
-				this.var_gettype_0_0 = this.builderType.GetMethod("GetType", 0, true).Import();
+				this.var_gettype_0_0 = this.builderType.GetMethod("GetType", 0, true);
 
-			return this.var_gettype_0_0;
+			return this.var_gettype_0_0.Import();
 		}
 					}
 
@@ -13896,10 +13896,10 @@ namespace Cauldron.Interception.Cecilator
 		}
 
 		/// <exclude />
-		public static implicit operator BuilderType(BuilderTypeIntPtr value) => value.builderType;
+		public static implicit operator BuilderType(BuilderTypeIntPtr value) => value.builderType.Import();
 		
 		/// <exclude />
-		public static implicit operator TypeReference(BuilderTypeIntPtr value) => value.builderType.typeReference;
+		public static implicit operator TypeReference(BuilderTypeIntPtr value) => Builder.Current.Import((TypeReference)value.builderType);
 			
 				
 		private Method var_equals_0_1;
@@ -13912,9 +13912,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_Equals()
 		{
 			if(this.var_equals_0_1 == null)
-				this.var_equals_0_1 = this.builderType.GetMethod("Equals", 1, true).Import();
+				this.var_equals_0_1 = this.builderType.GetMethod("Equals", 1, true);
 
-			return this.var_equals_0_1;
+			return this.var_equals_0_1.Import();
 		}
 						
 		private Method var_gethashcode_0_0;
@@ -13927,9 +13927,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetHashCode()
 		{
 			if(this.var_gethashcode_0_0 == null)
-				this.var_gethashcode_0_0 = this.builderType.GetMethod("GetHashCode", 0, true).Import();
+				this.var_gethashcode_0_0 = this.builderType.GetMethod("GetHashCode", 0, true);
 
-			return this.var_gethashcode_0_0;
+			return this.var_gethashcode_0_0.Import();
 		}
 						
 		private Method var_toint32_0_0;
@@ -13942,9 +13942,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_ToInt32()
 		{
 			if(this.var_toint32_0_0 == null)
-				this.var_toint32_0_0 = this.builderType.GetMethod("ToInt32", 0, true).Import();
+				this.var_toint32_0_0 = this.builderType.GetMethod("ToInt32", 0, true);
 
-			return this.var_toint32_0_0;
+			return this.var_toint32_0_0.Import();
 		}
 						
 		private Method var_toint64_0_0;
@@ -13957,9 +13957,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_ToInt64()
 		{
 			if(this.var_toint64_0_0 == null)
-				this.var_toint64_0_0 = this.builderType.GetMethod("ToInt64", 0, true).Import();
+				this.var_toint64_0_0 = this.builderType.GetMethod("ToInt64", 0, true);
 
-			return this.var_toint64_0_0;
+			return this.var_toint64_0_0.Import();
 		}
 						
 		private Method var_tostring_0_0;
@@ -13973,9 +13973,9 @@ namespace Cauldron.Interception.Cecilator
 		{
 						
 			if(this.var_tostring_0_0 == null)
-				this.var_tostring_0_0 = this.builderType.GetMethod("ToString", true).Import();
+				this.var_tostring_0_0 = this.builderType.GetMethod("ToString", true);
 
-			return this.var_tostring_0_0;
+			return this.var_tostring_0_0.Import();
 						
 						
 		}
@@ -13992,9 +13992,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_tostring_0_1 == null)
-				this.var_tostring_0_1 = this.builderType.GetMethod("ToString", true, pformat).Import();
+				this.var_tostring_0_1 = this.builderType.GetMethod("ToString", true, pformat);
 			
-			return this.var_tostring_0_1;
+			return this.var_tostring_0_1.Import();
 						
 		}
 						
@@ -14024,41 +14024,41 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Int32).AreEqual(pvalue))
 			{
 				if(this.var_op_explicit_0_1 == null)
-					this.var_op_explicit_0_1 = this.builderType.GetMethod("op_Explicit", true, pvalue).Import();
+					this.var_op_explicit_0_1 = this.builderType.GetMethod("op_Explicit", true, pvalue);
 			
-				return this.var_op_explicit_0_1;
+				return this.var_op_explicit_0_1.Import();
 			}
 			
 			if(typeof(System.Int64).AreEqual(pvalue))
 			{
 				if(this.var_op_explicit_1_1 == null)
-					this.var_op_explicit_1_1 = this.builderType.GetMethod("op_Explicit", true, pvalue).Import();
+					this.var_op_explicit_1_1 = this.builderType.GetMethod("op_Explicit", true, pvalue);
 			
-				return this.var_op_explicit_1_1;
+				return this.var_op_explicit_1_1.Import();
 			}
 			
 			if(typeof(System.IntPtr).AreEqual(pvalue))
 			{
 				if(this.var_op_explicit_2_1 == null)
-					this.var_op_explicit_2_1 = this.builderType.GetMethod("op_Explicit", true, pvalue).Import();
+					this.var_op_explicit_2_1 = this.builderType.GetMethod("op_Explicit", true, pvalue);
 			
-				return this.var_op_explicit_2_1;
+				return this.var_op_explicit_2_1.Import();
 			}
 			
 			if(typeof(System.IntPtr).AreEqual(pvalue))
 			{
 				if(this.var_op_explicit_3_1 == null)
-					this.var_op_explicit_3_1 = this.builderType.GetMethod("op_Explicit", true, pvalue).Import();
+					this.var_op_explicit_3_1 = this.builderType.GetMethod("op_Explicit", true, pvalue);
 			
-				return this.var_op_explicit_3_1;
+				return this.var_op_explicit_3_1.Import();
 			}
 			
 			if(typeof(System.IntPtr).AreEqual(pvalue))
 			{
 				if(this.var_op_explicit_4_1 == null)
-					this.var_op_explicit_4_1 = this.builderType.GetMethod("op_Explicit", true, pvalue).Import();
+					this.var_op_explicit_4_1 = this.builderType.GetMethod("op_Explicit", true, pvalue);
 			
-				return this.var_op_explicit_4_1;
+				return this.var_op_explicit_4_1.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -14075,9 +14075,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_op_Equality()
 		{
 			if(this.var_op_equality_0_2 == null)
-				this.var_op_equality_0_2 = this.builderType.GetMethod("op_Equality", 2, true).Import();
+				this.var_op_equality_0_2 = this.builderType.GetMethod("op_Equality", 2, true);
 
-			return this.var_op_equality_0_2;
+			return this.var_op_equality_0_2.Import();
 		}
 						
 		private Method var_op_inequality_0_2;
@@ -14090,9 +14090,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_op_Inequality()
 		{
 			if(this.var_op_inequality_0_2 == null)
-				this.var_op_inequality_0_2 = this.builderType.GetMethod("op_Inequality", 2, true).Import();
+				this.var_op_inequality_0_2 = this.builderType.GetMethod("op_Inequality", 2, true);
 
-			return this.var_op_inequality_0_2;
+			return this.var_op_inequality_0_2.Import();
 		}
 						
 		private Method var_add_0_2;
@@ -14105,9 +14105,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_Add()
 		{
 			if(this.var_add_0_2 == null)
-				this.var_add_0_2 = this.builderType.GetMethod("Add", 2, true).Import();
+				this.var_add_0_2 = this.builderType.GetMethod("Add", 2, true);
 
-			return this.var_add_0_2;
+			return this.var_add_0_2.Import();
 		}
 						
 		private Method var_op_addition_0_2;
@@ -14120,9 +14120,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_op_Addition()
 		{
 			if(this.var_op_addition_0_2 == null)
-				this.var_op_addition_0_2 = this.builderType.GetMethod("op_Addition", 2, true).Import();
+				this.var_op_addition_0_2 = this.builderType.GetMethod("op_Addition", 2, true);
 
-			return this.var_op_addition_0_2;
+			return this.var_op_addition_0_2.Import();
 		}
 						
 		private Method var_subtract_0_2;
@@ -14135,9 +14135,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_Subtract()
 		{
 			if(this.var_subtract_0_2 == null)
-				this.var_subtract_0_2 = this.builderType.GetMethod("Subtract", 2, true).Import();
+				this.var_subtract_0_2 = this.builderType.GetMethod("Subtract", 2, true);
 
-			return this.var_subtract_0_2;
+			return this.var_subtract_0_2.Import();
 		}
 						
 		private Method var_op_subtraction_0_2;
@@ -14150,9 +14150,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_op_Subtraction()
 		{
 			if(this.var_op_subtraction_0_2 == null)
-				this.var_op_subtraction_0_2 = this.builderType.GetMethod("op_Subtraction", 2, true).Import();
+				this.var_op_subtraction_0_2 = this.builderType.GetMethod("op_Subtraction", 2, true);
 
-			return this.var_op_subtraction_0_2;
+			return this.var_op_subtraction_0_2.Import();
 		}
 						
 		private Method var_get_size_0_0;
@@ -14165,9 +14165,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_Size()
 		{
 			if(this.var_get_size_0_0 == null)
-				this.var_get_size_0_0 = this.builderType.GetMethod("get_Size", 0, true).Import();
+				this.var_get_size_0_0 = this.builderType.GetMethod("get_Size", 0, true);
 
-			return this.var_get_size_0_0;
+			return this.var_get_size_0_0.Import();
 		}
 						
 		private Method var_topointer_0_0;
@@ -14180,9 +14180,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_ToPointer()
 		{
 			if(this.var_topointer_0_0 == null)
-				this.var_topointer_0_0 = this.builderType.GetMethod("ToPointer", 0, true).Import();
+				this.var_topointer_0_0 = this.builderType.GetMethod("ToPointer", 0, true);
 
-			return this.var_topointer_0_0;
+			return this.var_topointer_0_0.Import();
 		}
 						
 		private Method var_gettype_0_0;
@@ -14195,9 +14195,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetType()
 		{
 			if(this.var_gettype_0_0 == null)
-				this.var_gettype_0_0 = this.builderType.GetMethod("GetType", 0, true).Import();
+				this.var_gettype_0_0 = this.builderType.GetMethod("GetType", 0, true);
 
-			return this.var_gettype_0_0;
+			return this.var_gettype_0_0.Import();
 		}
 						
 		private Method var_ctor_0_1;
@@ -14217,17 +14217,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Int32).AreEqual(pvalue))
 			{
 				if(this.var_ctor_0_1 == null)
-					this.var_ctor_0_1 = this.builderType.GetMethod(".ctor", true, pvalue).Import();
+					this.var_ctor_0_1 = this.builderType.GetMethod(".ctor", true, pvalue);
 			
-				return this.var_ctor_0_1;
+				return this.var_ctor_0_1.Import();
 			}
 			
 			if(typeof(System.Int64).AreEqual(pvalue))
 			{
 				if(this.var_ctor_1_1 == null)
-					this.var_ctor_1_1 = this.builderType.GetMethod(".ctor", true, pvalue).Import();
+					this.var_ctor_1_1 = this.builderType.GetMethod(".ctor", true, pvalue);
 			
-				return this.var_ctor_1_1;
+				return this.var_ctor_1_1.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -14246,10 +14246,10 @@ namespace Cauldron.Interception.Cecilator
 		}
 
 		/// <exclude />
-		public static implicit operator BuilderType(BuilderTypeList1 value) => value.builderType;
+		public static implicit operator BuilderType(BuilderTypeList1 value) => value.builderType.Import();
 		
 		/// <exclude />
-		public static implicit operator TypeReference(BuilderTypeList1 value) => value.builderType.typeReference;
+		public static implicit operator TypeReference(BuilderTypeList1 value) => Builder.Current.Import((TypeReference)value.builderType);
 			
 				
 		private Method var_tostring_0_0;
@@ -14262,9 +14262,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_ToString()
 		{
 			if(this.var_tostring_0_0 == null)
-				this.var_tostring_0_0 = this.builderType.GetMethod("ToString", 0, true).Import();
+				this.var_tostring_0_0 = this.builderType.GetMethod("ToString", 0, true);
 
-			return this.var_tostring_0_0;
+			return this.var_tostring_0_0.Import();
 		}
 						
 		private Method var_equals_0_1;
@@ -14277,9 +14277,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_Equals()
 		{
 			if(this.var_equals_0_1 == null)
-				this.var_equals_0_1 = this.builderType.GetMethod("Equals", 1, true).Import();
+				this.var_equals_0_1 = this.builderType.GetMethod("Equals", 1, true);
 
-			return this.var_equals_0_1;
+			return this.var_equals_0_1.Import();
 		}
 						
 		private Method var_gethashcode_0_0;
@@ -14292,9 +14292,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetHashCode()
 		{
 			if(this.var_gethashcode_0_0 == null)
-				this.var_gethashcode_0_0 = this.builderType.GetMethod("GetHashCode", 0, true).Import();
+				this.var_gethashcode_0_0 = this.builderType.GetMethod("GetHashCode", 0, true);
 
-			return this.var_gethashcode_0_0;
+			return this.var_gethashcode_0_0.Import();
 		}
 						
 		private Method var_gettype_0_0;
@@ -14307,9 +14307,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetType()
 		{
 			if(this.var_gettype_0_0 == null)
-				this.var_gettype_0_0 = this.builderType.GetMethod("GetType", 0, true).Import();
+				this.var_gettype_0_0 = this.builderType.GetMethod("GetType", 0, true);
 
-			return this.var_gettype_0_0;
+			return this.var_gettype_0_0.Import();
 		}
 					}
 
@@ -14324,10 +14324,10 @@ namespace Cauldron.Interception.Cecilator
 		}
 
 		/// <exclude />
-		public static implicit operator BuilderType(BuilderTypeMethodBase value) => value.builderType;
+		public static implicit operator BuilderType(BuilderTypeMethodBase value) => value.builderType.Import();
 		
 		/// <exclude />
-		public static implicit operator TypeReference(BuilderTypeMethodBase value) => value.builderType.typeReference;
+		public static implicit operator TypeReference(BuilderTypeMethodBase value) => Builder.Current.Import((TypeReference)value.builderType);
 			
 				
 		private Method var_getmethodfromhandle_0_1;
@@ -14342,9 +14342,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_getmethodfromhandle_0_1 == null)
-				this.var_getmethodfromhandle_0_1 = this.builderType.GetMethod("GetMethodFromHandle", true, phandle).Import();
+				this.var_getmethodfromhandle_0_1 = this.builderType.GetMethod("GetMethodFromHandle", true, phandle);
 			
-			return this.var_getmethodfromhandle_0_1;
+			return this.var_getmethodfromhandle_0_1.Import();
 						
 		}
 						
@@ -14360,9 +14360,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_getmethodfromhandle_0_2 == null)
-				this.var_getmethodfromhandle_0_2 = this.builderType.GetMethod("GetMethodFromHandle", true, phandle, pdeclaringType).Import();
+				this.var_getmethodfromhandle_0_2 = this.builderType.GetMethod("GetMethodFromHandle", true, phandle, pdeclaringType);
 			
-			return this.var_getmethodfromhandle_0_2;
+			return this.var_getmethodfromhandle_0_2.Import();
 						
 		}
 						
@@ -14376,9 +14376,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetCurrentMethod()
 		{
 			if(this.var_getcurrentmethod_0_0 == null)
-				this.var_getcurrentmethod_0_0 = this.builderType.GetMethod("GetCurrentMethod", 0, true).Import();
+				this.var_getcurrentmethod_0_0 = this.builderType.GetMethod("GetCurrentMethod", 0, true);
 
-			return this.var_getcurrentmethod_0_0;
+			return this.var_getcurrentmethod_0_0.Import();
 		}
 						
 		private Method var_op_equality_0_2;
@@ -14391,9 +14391,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_op_Equality()
 		{
 			if(this.var_op_equality_0_2 == null)
-				this.var_op_equality_0_2 = this.builderType.GetMethod("op_Equality", 2, true).Import();
+				this.var_op_equality_0_2 = this.builderType.GetMethod("op_Equality", 2, true);
 
-			return this.var_op_equality_0_2;
+			return this.var_op_equality_0_2.Import();
 		}
 						
 		private Method var_op_inequality_0_2;
@@ -14406,9 +14406,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_op_Inequality()
 		{
 			if(this.var_op_inequality_0_2 == null)
-				this.var_op_inequality_0_2 = this.builderType.GetMethod("op_Inequality", 2, true).Import();
+				this.var_op_inequality_0_2 = this.builderType.GetMethod("op_Inequality", 2, true);
 
-			return this.var_op_inequality_0_2;
+			return this.var_op_inequality_0_2.Import();
 		}
 						
 		private Method var_equals_0_1;
@@ -14421,9 +14421,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_Equals()
 		{
 			if(this.var_equals_0_1 == null)
-				this.var_equals_0_1 = this.builderType.GetMethod("Equals", 1, true).Import();
+				this.var_equals_0_1 = this.builderType.GetMethod("Equals", 1, true);
 
-			return this.var_equals_0_1;
+			return this.var_equals_0_1.Import();
 		}
 						
 		private Method var_gethashcode_0_0;
@@ -14436,9 +14436,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetHashCode()
 		{
 			if(this.var_gethashcode_0_0 == null)
-				this.var_gethashcode_0_0 = this.builderType.GetMethod("GetHashCode", 0, true).Import();
+				this.var_gethashcode_0_0 = this.builderType.GetMethod("GetHashCode", 0, true);
 
-			return this.var_gethashcode_0_0;
+			return this.var_gethashcode_0_0.Import();
 		}
 						
 		private Method var_getparameters_0_0;
@@ -14451,9 +14451,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetParameters()
 		{
 			if(this.var_getparameters_0_0 == null)
-				this.var_getparameters_0_0 = this.builderType.GetMethod("GetParameters", 0, true).Import();
+				this.var_getparameters_0_0 = this.builderType.GetMethod("GetParameters", 0, true);
 
-			return this.var_getparameters_0_0;
+			return this.var_getparameters_0_0.Import();
 		}
 						
 		private Method var_get_methodimplementationflags_0_0;
@@ -14466,9 +14466,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_MethodImplementationFlags()
 		{
 			if(this.var_get_methodimplementationflags_0_0 == null)
-				this.var_get_methodimplementationflags_0_0 = this.builderType.GetMethod("get_MethodImplementationFlags", 0, true).Import();
+				this.var_get_methodimplementationflags_0_0 = this.builderType.GetMethod("get_MethodImplementationFlags", 0, true);
 
-			return this.var_get_methodimplementationflags_0_0;
+			return this.var_get_methodimplementationflags_0_0.Import();
 		}
 						
 		private Method var_getmethodimplementationflags_0_0;
@@ -14481,9 +14481,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetMethodImplementationFlags()
 		{
 			if(this.var_getmethodimplementationflags_0_0 == null)
-				this.var_getmethodimplementationflags_0_0 = this.builderType.GetMethod("GetMethodImplementationFlags", 0, true).Import();
+				this.var_getmethodimplementationflags_0_0 = this.builderType.GetMethod("GetMethodImplementationFlags", 0, true);
 
-			return this.var_getmethodimplementationflags_0_0;
+			return this.var_getmethodimplementationflags_0_0.Import();
 		}
 						
 		private Method var_get_methodhandle_0_0;
@@ -14496,9 +14496,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_MethodHandle()
 		{
 			if(this.var_get_methodhandle_0_0 == null)
-				this.var_get_methodhandle_0_0 = this.builderType.GetMethod("get_MethodHandle", 0, true).Import();
+				this.var_get_methodhandle_0_0 = this.builderType.GetMethod("get_MethodHandle", 0, true);
 
-			return this.var_get_methodhandle_0_0;
+			return this.var_get_methodhandle_0_0.Import();
 		}
 						
 		private Method var_get_attributes_0_0;
@@ -14511,9 +14511,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_Attributes()
 		{
 			if(this.var_get_attributes_0_0 == null)
-				this.var_get_attributes_0_0 = this.builderType.GetMethod("get_Attributes", 0, true).Import();
+				this.var_get_attributes_0_0 = this.builderType.GetMethod("get_Attributes", 0, true);
 
-			return this.var_get_attributes_0_0;
+			return this.var_get_attributes_0_0.Import();
 		}
 						
 		private Method var_invoke_0_5;
@@ -14528,9 +14528,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_invoke_0_5 == null)
-				this.var_invoke_0_5 = this.builderType.GetMethod("Invoke", true, pobj, pinvokeAttr, pbinder, pparameters, pculture).Import();
+				this.var_invoke_0_5 = this.builderType.GetMethod("Invoke", true, pobj, pinvokeAttr, pbinder, pparameters, pculture);
 			
-			return this.var_invoke_0_5;
+			return this.var_invoke_0_5.Import();
 						
 		}
 						
@@ -14546,9 +14546,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_invoke_0_2 == null)
-				this.var_invoke_0_2 = this.builderType.GetMethod("Invoke", true, pobj, pparameters).Import();
+				this.var_invoke_0_2 = this.builderType.GetMethod("Invoke", true, pobj, pparameters);
 			
-			return this.var_invoke_0_2;
+			return this.var_invoke_0_2.Import();
 						
 		}
 						
@@ -14562,9 +14562,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_CallingConvention()
 		{
 			if(this.var_get_callingconvention_0_0 == null)
-				this.var_get_callingconvention_0_0 = this.builderType.GetMethod("get_CallingConvention", 0, true).Import();
+				this.var_get_callingconvention_0_0 = this.builderType.GetMethod("get_CallingConvention", 0, true);
 
-			return this.var_get_callingconvention_0_0;
+			return this.var_get_callingconvention_0_0.Import();
 		}
 						
 		private Method var_getgenericarguments_0_0;
@@ -14577,9 +14577,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetGenericArguments()
 		{
 			if(this.var_getgenericarguments_0_0 == null)
-				this.var_getgenericarguments_0_0 = this.builderType.GetMethod("GetGenericArguments", 0, true).Import();
+				this.var_getgenericarguments_0_0 = this.builderType.GetMethod("GetGenericArguments", 0, true);
 
-			return this.var_getgenericarguments_0_0;
+			return this.var_getgenericarguments_0_0.Import();
 		}
 						
 		private Method var_get_isgenericmethoddefinition_0_0;
@@ -14592,9 +14592,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_IsGenericMethodDefinition()
 		{
 			if(this.var_get_isgenericmethoddefinition_0_0 == null)
-				this.var_get_isgenericmethoddefinition_0_0 = this.builderType.GetMethod("get_IsGenericMethodDefinition", 0, true).Import();
+				this.var_get_isgenericmethoddefinition_0_0 = this.builderType.GetMethod("get_IsGenericMethodDefinition", 0, true);
 
-			return this.var_get_isgenericmethoddefinition_0_0;
+			return this.var_get_isgenericmethoddefinition_0_0.Import();
 		}
 						
 		private Method var_get_containsgenericparameters_0_0;
@@ -14607,9 +14607,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_ContainsGenericParameters()
 		{
 			if(this.var_get_containsgenericparameters_0_0 == null)
-				this.var_get_containsgenericparameters_0_0 = this.builderType.GetMethod("get_ContainsGenericParameters", 0, true).Import();
+				this.var_get_containsgenericparameters_0_0 = this.builderType.GetMethod("get_ContainsGenericParameters", 0, true);
 
-			return this.var_get_containsgenericparameters_0_0;
+			return this.var_get_containsgenericparameters_0_0.Import();
 		}
 						
 		private Method var_get_isgenericmethod_0_0;
@@ -14622,9 +14622,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_IsGenericMethod()
 		{
 			if(this.var_get_isgenericmethod_0_0 == null)
-				this.var_get_isgenericmethod_0_0 = this.builderType.GetMethod("get_IsGenericMethod", 0, true).Import();
+				this.var_get_isgenericmethod_0_0 = this.builderType.GetMethod("get_IsGenericMethod", 0, true);
 
-			return this.var_get_isgenericmethod_0_0;
+			return this.var_get_isgenericmethod_0_0.Import();
 		}
 						
 		private Method var_get_issecuritycritical_0_0;
@@ -14637,9 +14637,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_IsSecurityCritical()
 		{
 			if(this.var_get_issecuritycritical_0_0 == null)
-				this.var_get_issecuritycritical_0_0 = this.builderType.GetMethod("get_IsSecurityCritical", 0, true).Import();
+				this.var_get_issecuritycritical_0_0 = this.builderType.GetMethod("get_IsSecurityCritical", 0, true);
 
-			return this.var_get_issecuritycritical_0_0;
+			return this.var_get_issecuritycritical_0_0.Import();
 		}
 						
 		private Method var_get_issecuritysafecritical_0_0;
@@ -14652,9 +14652,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_IsSecuritySafeCritical()
 		{
 			if(this.var_get_issecuritysafecritical_0_0 == null)
-				this.var_get_issecuritysafecritical_0_0 = this.builderType.GetMethod("get_IsSecuritySafeCritical", 0, true).Import();
+				this.var_get_issecuritysafecritical_0_0 = this.builderType.GetMethod("get_IsSecuritySafeCritical", 0, true);
 
-			return this.var_get_issecuritysafecritical_0_0;
+			return this.var_get_issecuritysafecritical_0_0.Import();
 		}
 						
 		private Method var_get_issecuritytransparent_0_0;
@@ -14667,9 +14667,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_IsSecurityTransparent()
 		{
 			if(this.var_get_issecuritytransparent_0_0 == null)
-				this.var_get_issecuritytransparent_0_0 = this.builderType.GetMethod("get_IsSecurityTransparent", 0, true).Import();
+				this.var_get_issecuritytransparent_0_0 = this.builderType.GetMethod("get_IsSecurityTransparent", 0, true);
 
-			return this.var_get_issecuritytransparent_0_0;
+			return this.var_get_issecuritytransparent_0_0.Import();
 		}
 						
 		private Method var_get_ispublic_0_0;
@@ -14682,9 +14682,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_IsPublic()
 		{
 			if(this.var_get_ispublic_0_0 == null)
-				this.var_get_ispublic_0_0 = this.builderType.GetMethod("get_IsPublic", 0, true).Import();
+				this.var_get_ispublic_0_0 = this.builderType.GetMethod("get_IsPublic", 0, true);
 
-			return this.var_get_ispublic_0_0;
+			return this.var_get_ispublic_0_0.Import();
 		}
 						
 		private Method var_get_isprivate_0_0;
@@ -14697,9 +14697,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_IsPrivate()
 		{
 			if(this.var_get_isprivate_0_0 == null)
-				this.var_get_isprivate_0_0 = this.builderType.GetMethod("get_IsPrivate", 0, true).Import();
+				this.var_get_isprivate_0_0 = this.builderType.GetMethod("get_IsPrivate", 0, true);
 
-			return this.var_get_isprivate_0_0;
+			return this.var_get_isprivate_0_0.Import();
 		}
 						
 		private Method var_get_isfamily_0_0;
@@ -14712,9 +14712,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_IsFamily()
 		{
 			if(this.var_get_isfamily_0_0 == null)
-				this.var_get_isfamily_0_0 = this.builderType.GetMethod("get_IsFamily", 0, true).Import();
+				this.var_get_isfamily_0_0 = this.builderType.GetMethod("get_IsFamily", 0, true);
 
-			return this.var_get_isfamily_0_0;
+			return this.var_get_isfamily_0_0.Import();
 		}
 						
 		private Method var_get_isassembly_0_0;
@@ -14727,9 +14727,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_IsAssembly()
 		{
 			if(this.var_get_isassembly_0_0 == null)
-				this.var_get_isassembly_0_0 = this.builderType.GetMethod("get_IsAssembly", 0, true).Import();
+				this.var_get_isassembly_0_0 = this.builderType.GetMethod("get_IsAssembly", 0, true);
 
-			return this.var_get_isassembly_0_0;
+			return this.var_get_isassembly_0_0.Import();
 		}
 						
 		private Method var_get_isfamilyandassembly_0_0;
@@ -14742,9 +14742,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_IsFamilyAndAssembly()
 		{
 			if(this.var_get_isfamilyandassembly_0_0 == null)
-				this.var_get_isfamilyandassembly_0_0 = this.builderType.GetMethod("get_IsFamilyAndAssembly", 0, true).Import();
+				this.var_get_isfamilyandassembly_0_0 = this.builderType.GetMethod("get_IsFamilyAndAssembly", 0, true);
 
-			return this.var_get_isfamilyandassembly_0_0;
+			return this.var_get_isfamilyandassembly_0_0.Import();
 		}
 						
 		private Method var_get_isfamilyorassembly_0_0;
@@ -14757,9 +14757,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_IsFamilyOrAssembly()
 		{
 			if(this.var_get_isfamilyorassembly_0_0 == null)
-				this.var_get_isfamilyorassembly_0_0 = this.builderType.GetMethod("get_IsFamilyOrAssembly", 0, true).Import();
+				this.var_get_isfamilyorassembly_0_0 = this.builderType.GetMethod("get_IsFamilyOrAssembly", 0, true);
 
-			return this.var_get_isfamilyorassembly_0_0;
+			return this.var_get_isfamilyorassembly_0_0.Import();
 		}
 						
 		private Method var_get_isstatic_0_0;
@@ -14772,9 +14772,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_IsStatic()
 		{
 			if(this.var_get_isstatic_0_0 == null)
-				this.var_get_isstatic_0_0 = this.builderType.GetMethod("get_IsStatic", 0, true).Import();
+				this.var_get_isstatic_0_0 = this.builderType.GetMethod("get_IsStatic", 0, true);
 
-			return this.var_get_isstatic_0_0;
+			return this.var_get_isstatic_0_0.Import();
 		}
 						
 		private Method var_get_isfinal_0_0;
@@ -14787,9 +14787,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_IsFinal()
 		{
 			if(this.var_get_isfinal_0_0 == null)
-				this.var_get_isfinal_0_0 = this.builderType.GetMethod("get_IsFinal", 0, true).Import();
+				this.var_get_isfinal_0_0 = this.builderType.GetMethod("get_IsFinal", 0, true);
 
-			return this.var_get_isfinal_0_0;
+			return this.var_get_isfinal_0_0.Import();
 		}
 						
 		private Method var_get_isvirtual_0_0;
@@ -14802,9 +14802,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_IsVirtual()
 		{
 			if(this.var_get_isvirtual_0_0 == null)
-				this.var_get_isvirtual_0_0 = this.builderType.GetMethod("get_IsVirtual", 0, true).Import();
+				this.var_get_isvirtual_0_0 = this.builderType.GetMethod("get_IsVirtual", 0, true);
 
-			return this.var_get_isvirtual_0_0;
+			return this.var_get_isvirtual_0_0.Import();
 		}
 						
 		private Method var_get_ishidebysig_0_0;
@@ -14817,9 +14817,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_IsHideBySig()
 		{
 			if(this.var_get_ishidebysig_0_0 == null)
-				this.var_get_ishidebysig_0_0 = this.builderType.GetMethod("get_IsHideBySig", 0, true).Import();
+				this.var_get_ishidebysig_0_0 = this.builderType.GetMethod("get_IsHideBySig", 0, true);
 
-			return this.var_get_ishidebysig_0_0;
+			return this.var_get_ishidebysig_0_0.Import();
 		}
 						
 		private Method var_get_isabstract_0_0;
@@ -14832,9 +14832,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_IsAbstract()
 		{
 			if(this.var_get_isabstract_0_0 == null)
-				this.var_get_isabstract_0_0 = this.builderType.GetMethod("get_IsAbstract", 0, true).Import();
+				this.var_get_isabstract_0_0 = this.builderType.GetMethod("get_IsAbstract", 0, true);
 
-			return this.var_get_isabstract_0_0;
+			return this.var_get_isabstract_0_0.Import();
 		}
 						
 		private Method var_get_isspecialname_0_0;
@@ -14847,9 +14847,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_IsSpecialName()
 		{
 			if(this.var_get_isspecialname_0_0 == null)
-				this.var_get_isspecialname_0_0 = this.builderType.GetMethod("get_IsSpecialName", 0, true).Import();
+				this.var_get_isspecialname_0_0 = this.builderType.GetMethod("get_IsSpecialName", 0, true);
 
-			return this.var_get_isspecialname_0_0;
+			return this.var_get_isspecialname_0_0.Import();
 		}
 						
 		private Method var_get_isconstructor_0_0;
@@ -14862,9 +14862,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_IsConstructor()
 		{
 			if(this.var_get_isconstructor_0_0 == null)
-				this.var_get_isconstructor_0_0 = this.builderType.GetMethod("get_IsConstructor", 0, true).Import();
+				this.var_get_isconstructor_0_0 = this.builderType.GetMethod("get_IsConstructor", 0, true);
 
-			return this.var_get_isconstructor_0_0;
+			return this.var_get_isconstructor_0_0.Import();
 		}
 						
 		private Method var_getmethodbody_0_0;
@@ -14877,9 +14877,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetMethodBody()
 		{
 			if(this.var_getmethodbody_0_0 == null)
-				this.var_getmethodbody_0_0 = this.builderType.GetMethod("GetMethodBody", 0, true).Import();
+				this.var_getmethodbody_0_0 = this.builderType.GetMethod("GetMethodBody", 0, true);
 
-			return this.var_getmethodbody_0_0;
+			return this.var_getmethodbody_0_0.Import();
 		}
 						
 		private Method var_get_membertype_0_0;
@@ -14892,9 +14892,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_MemberType()
 		{
 			if(this.var_get_membertype_0_0 == null)
-				this.var_get_membertype_0_0 = this.builderType.GetMethod("get_MemberType", 0, true).Import();
+				this.var_get_membertype_0_0 = this.builderType.GetMethod("get_MemberType", 0, true);
 
-			return this.var_get_membertype_0_0;
+			return this.var_get_membertype_0_0.Import();
 		}
 						
 		private Method var_get_name_0_0;
@@ -14907,9 +14907,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_Name()
 		{
 			if(this.var_get_name_0_0 == null)
-				this.var_get_name_0_0 = this.builderType.GetMethod("get_Name", 0, true).Import();
+				this.var_get_name_0_0 = this.builderType.GetMethod("get_Name", 0, true);
 
-			return this.var_get_name_0_0;
+			return this.var_get_name_0_0.Import();
 		}
 						
 		private Method var_get_declaringtype_0_0;
@@ -14922,9 +14922,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_DeclaringType()
 		{
 			if(this.var_get_declaringtype_0_0 == null)
-				this.var_get_declaringtype_0_0 = this.builderType.GetMethod("get_DeclaringType", 0, true).Import();
+				this.var_get_declaringtype_0_0 = this.builderType.GetMethod("get_DeclaringType", 0, true);
 
-			return this.var_get_declaringtype_0_0;
+			return this.var_get_declaringtype_0_0.Import();
 		}
 						
 		private Method var_get_reflectedtype_0_0;
@@ -14937,9 +14937,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_ReflectedType()
 		{
 			if(this.var_get_reflectedtype_0_0 == null)
-				this.var_get_reflectedtype_0_0 = this.builderType.GetMethod("get_ReflectedType", 0, true).Import();
+				this.var_get_reflectedtype_0_0 = this.builderType.GetMethod("get_ReflectedType", 0, true);
 
-			return this.var_get_reflectedtype_0_0;
+			return this.var_get_reflectedtype_0_0.Import();
 		}
 						
 		private Method var_get_customattributes_0_0;
@@ -14952,9 +14952,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_CustomAttributes()
 		{
 			if(this.var_get_customattributes_0_0 == null)
-				this.var_get_customattributes_0_0 = this.builderType.GetMethod("get_CustomAttributes", 0, true).Import();
+				this.var_get_customattributes_0_0 = this.builderType.GetMethod("get_CustomAttributes", 0, true);
 
-			return this.var_get_customattributes_0_0;
+			return this.var_get_customattributes_0_0.Import();
 		}
 						
 		private Method var_getcustomattributes_0_1;
@@ -14969,9 +14969,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_getcustomattributes_0_1 == null)
-				this.var_getcustomattributes_0_1 = this.builderType.GetMethod("GetCustomAttributes", true, pinherit).Import();
+				this.var_getcustomattributes_0_1 = this.builderType.GetMethod("GetCustomAttributes", true, pinherit);
 			
-			return this.var_getcustomattributes_0_1;
+			return this.var_getcustomattributes_0_1.Import();
 						
 		}
 						
@@ -14987,9 +14987,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_getcustomattributes_0_2 == null)
-				this.var_getcustomattributes_0_2 = this.builderType.GetMethod("GetCustomAttributes", true, pattributeType, pinherit).Import();
+				this.var_getcustomattributes_0_2 = this.builderType.GetMethod("GetCustomAttributes", true, pattributeType, pinherit);
 			
-			return this.var_getcustomattributes_0_2;
+			return this.var_getcustomattributes_0_2.Import();
 						
 		}
 						
@@ -15003,9 +15003,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_IsDefined()
 		{
 			if(this.var_isdefined_0_2 == null)
-				this.var_isdefined_0_2 = this.builderType.GetMethod("IsDefined", 2, true).Import();
+				this.var_isdefined_0_2 = this.builderType.GetMethod("IsDefined", 2, true);
 
-			return this.var_isdefined_0_2;
+			return this.var_isdefined_0_2.Import();
 		}
 						
 		private Method var_getcustomattributesdata_0_0;
@@ -15018,9 +15018,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetCustomAttributesData()
 		{
 			if(this.var_getcustomattributesdata_0_0 == null)
-				this.var_getcustomattributesdata_0_0 = this.builderType.GetMethod("GetCustomAttributesData", 0, true).Import();
+				this.var_getcustomattributesdata_0_0 = this.builderType.GetMethod("GetCustomAttributesData", 0, true);
 
-			return this.var_getcustomattributesdata_0_0;
+			return this.var_getcustomattributesdata_0_0.Import();
 		}
 						
 		private Method var_get_metadatatoken_0_0;
@@ -15033,9 +15033,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_MetadataToken()
 		{
 			if(this.var_get_metadatatoken_0_0 == null)
-				this.var_get_metadatatoken_0_0 = this.builderType.GetMethod("get_MetadataToken", 0, true).Import();
+				this.var_get_metadatatoken_0_0 = this.builderType.GetMethod("get_MetadataToken", 0, true);
 
-			return this.var_get_metadatatoken_0_0;
+			return this.var_get_metadatatoken_0_0.Import();
 		}
 						
 		private Method var_get_module_0_0;
@@ -15048,9 +15048,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_Module()
 		{
 			if(this.var_get_module_0_0 == null)
-				this.var_get_module_0_0 = this.builderType.GetMethod("get_Module", 0, true).Import();
+				this.var_get_module_0_0 = this.builderType.GetMethod("get_Module", 0, true);
 
-			return this.var_get_module_0_0;
+			return this.var_get_module_0_0.Import();
 		}
 						
 		private Method var_tostring_0_0;
@@ -15063,9 +15063,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_ToString()
 		{
 			if(this.var_tostring_0_0 == null)
-				this.var_tostring_0_0 = this.builderType.GetMethod("ToString", 0, true).Import();
+				this.var_tostring_0_0 = this.builderType.GetMethod("ToString", 0, true);
 
-			return this.var_tostring_0_0;
+			return this.var_tostring_0_0.Import();
 		}
 						
 		private Method var_gettype_0_0;
@@ -15078,9 +15078,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetType()
 		{
 			if(this.var_gettype_0_0 == null)
-				this.var_gettype_0_0 = this.builderType.GetMethod("GetType", 0, true).Import();
+				this.var_gettype_0_0 = this.builderType.GetMethod("GetType", 0, true);
 
-			return this.var_gettype_0_0;
+			return this.var_gettype_0_0.Import();
 		}
 					}
 
@@ -15095,10 +15095,10 @@ namespace Cauldron.Interception.Cecilator
 		}
 
 		/// <exclude />
-		public static implicit operator BuilderType(BuilderTypeMonitor value) => value.builderType;
+		public static implicit operator BuilderType(BuilderTypeMonitor value) => value.builderType.Import();
 		
 		/// <exclude />
-		public static implicit operator TypeReference(BuilderTypeMonitor value) => value.builderType.typeReference;
+		public static implicit operator TypeReference(BuilderTypeMonitor value) => Builder.Current.Import((TypeReference)value.builderType);
 			
 				
 		private Method var_enter_0_1;
@@ -15113,9 +15113,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_enter_0_1 == null)
-				this.var_enter_0_1 = this.builderType.GetMethod("Enter", true, pobj).Import();
+				this.var_enter_0_1 = this.builderType.GetMethod("Enter", true, pobj);
 			
-			return this.var_enter_0_1;
+			return this.var_enter_0_1.Import();
 						
 		}
 						
@@ -15129,9 +15129,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_Exit()
 		{
 			if(this.var_exit_0_1 == null)
-				this.var_exit_0_1 = this.builderType.GetMethod("Exit", 1, true).Import();
+				this.var_exit_0_1 = this.builderType.GetMethod("Exit", 1, true);
 
-			return this.var_exit_0_1;
+			return this.var_exit_0_1.Import();
 		}
 						
 		private Method var_tryenter_0_1;
@@ -15146,9 +15146,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_tryenter_0_1 == null)
-				this.var_tryenter_0_1 = this.builderType.GetMethod("TryEnter", true, pobj).Import();
+				this.var_tryenter_0_1 = this.builderType.GetMethod("TryEnter", true, pobj);
 			
-			return this.var_tryenter_0_1;
+			return this.var_tryenter_0_1.Import();
 						
 		}
 						
@@ -15169,17 +15169,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Object).AreEqual(pobj) && typeof(System.Int32).AreEqual(pmillisecondsTimeout))
 			{
 				if(this.var_tryenter_0_2 == null)
-					this.var_tryenter_0_2 = this.builderType.GetMethod("TryEnter", true, pobj, pmillisecondsTimeout).Import();
+					this.var_tryenter_0_2 = this.builderType.GetMethod("TryEnter", true, pobj, pmillisecondsTimeout);
 			
-				return this.var_tryenter_0_2;
+				return this.var_tryenter_0_2.Import();
 			}
 			
 			if(typeof(System.Object).AreEqual(pobj) && typeof(System.TimeSpan).AreEqual(pmillisecondsTimeout))
 			{
 				if(this.var_tryenter_1_2 == null)
-					this.var_tryenter_1_2 = this.builderType.GetMethod("TryEnter", true, pobj, pmillisecondsTimeout).Import();
+					this.var_tryenter_1_2 = this.builderType.GetMethod("TryEnter", true, pobj, pmillisecondsTimeout);
 			
-				return this.var_tryenter_1_2;
+				return this.var_tryenter_1_2.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -15196,9 +15196,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_IsEntered()
 		{
 			if(this.var_isentered_0_1 == null)
-				this.var_isentered_0_1 = this.builderType.GetMethod("IsEntered", 1, true).Import();
+				this.var_isentered_0_1 = this.builderType.GetMethod("IsEntered", 1, true);
 
-			return this.var_isentered_0_1;
+			return this.var_isentered_0_1.Import();
 		}
 						
 		private Method var_wait_0_3;
@@ -15218,17 +15218,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Object).AreEqual(pobj) && typeof(System.Int32).AreEqual(pmillisecondsTimeout) && typeof(System.Boolean).AreEqual(pexitContext))
 			{
 				if(this.var_wait_0_3 == null)
-					this.var_wait_0_3 = this.builderType.GetMethod("Wait", true, pobj, pmillisecondsTimeout, pexitContext).Import();
+					this.var_wait_0_3 = this.builderType.GetMethod("Wait", true, pobj, pmillisecondsTimeout, pexitContext);
 			
-				return this.var_wait_0_3;
+				return this.var_wait_0_3.Import();
 			}
 			
 			if(typeof(System.Object).AreEqual(pobj) && typeof(System.TimeSpan).AreEqual(pmillisecondsTimeout) && typeof(System.Boolean).AreEqual(pexitContext))
 			{
 				if(this.var_wait_1_3 == null)
-					this.var_wait_1_3 = this.builderType.GetMethod("Wait", true, pobj, pmillisecondsTimeout, pexitContext).Import();
+					this.var_wait_1_3 = this.builderType.GetMethod("Wait", true, pobj, pmillisecondsTimeout, pexitContext);
 			
-				return this.var_wait_1_3;
+				return this.var_wait_1_3.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -15252,17 +15252,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Object).AreEqual(pobj) && typeof(System.Int32).AreEqual(pmillisecondsTimeout))
 			{
 				if(this.var_wait_0_2 == null)
-					this.var_wait_0_2 = this.builderType.GetMethod("Wait", true, pobj, pmillisecondsTimeout).Import();
+					this.var_wait_0_2 = this.builderType.GetMethod("Wait", true, pobj, pmillisecondsTimeout);
 			
-				return this.var_wait_0_2;
+				return this.var_wait_0_2.Import();
 			}
 			
 			if(typeof(System.Object).AreEqual(pobj) && typeof(System.TimeSpan).AreEqual(pmillisecondsTimeout))
 			{
 				if(this.var_wait_1_2 == null)
-					this.var_wait_1_2 = this.builderType.GetMethod("Wait", true, pobj, pmillisecondsTimeout).Import();
+					this.var_wait_1_2 = this.builderType.GetMethod("Wait", true, pobj, pmillisecondsTimeout);
 			
-				return this.var_wait_1_2;
+				return this.var_wait_1_2.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -15281,9 +15281,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_wait_0_1 == null)
-				this.var_wait_0_1 = this.builderType.GetMethod("Wait", true, pobj).Import();
+				this.var_wait_0_1 = this.builderType.GetMethod("Wait", true, pobj);
 			
-			return this.var_wait_0_1;
+			return this.var_wait_0_1.Import();
 						
 		}
 						
@@ -15297,9 +15297,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_Pulse()
 		{
 			if(this.var_pulse_0_1 == null)
-				this.var_pulse_0_1 = this.builderType.GetMethod("Pulse", 1, true).Import();
+				this.var_pulse_0_1 = this.builderType.GetMethod("Pulse", 1, true);
 
-			return this.var_pulse_0_1;
+			return this.var_pulse_0_1.Import();
 		}
 						
 		private Method var_pulseall_0_1;
@@ -15312,9 +15312,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_PulseAll()
 		{
 			if(this.var_pulseall_0_1 == null)
-				this.var_pulseall_0_1 = this.builderType.GetMethod("PulseAll", 1, true).Import();
+				this.var_pulseall_0_1 = this.builderType.GetMethod("PulseAll", 1, true);
 
-			return this.var_pulseall_0_1;
+			return this.var_pulseall_0_1.Import();
 		}
 						
 		private Method var_tostring_0_0;
@@ -15327,9 +15327,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_ToString()
 		{
 			if(this.var_tostring_0_0 == null)
-				this.var_tostring_0_0 = this.builderType.GetMethod("ToString", 0, true).Import();
+				this.var_tostring_0_0 = this.builderType.GetMethod("ToString", 0, true);
 
-			return this.var_tostring_0_0;
+			return this.var_tostring_0_0.Import();
 		}
 						
 		private Method var_equals_0_1;
@@ -15342,9 +15342,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_Equals()
 		{
 			if(this.var_equals_0_1 == null)
-				this.var_equals_0_1 = this.builderType.GetMethod("Equals", 1, true).Import();
+				this.var_equals_0_1 = this.builderType.GetMethod("Equals", 1, true);
 
-			return this.var_equals_0_1;
+			return this.var_equals_0_1.Import();
 		}
 						
 		private Method var_gethashcode_0_0;
@@ -15357,9 +15357,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetHashCode()
 		{
 			if(this.var_gethashcode_0_0 == null)
-				this.var_gethashcode_0_0 = this.builderType.GetMethod("GetHashCode", 0, true).Import();
+				this.var_gethashcode_0_0 = this.builderType.GetMethod("GetHashCode", 0, true);
 
-			return this.var_gethashcode_0_0;
+			return this.var_gethashcode_0_0.Import();
 		}
 						
 		private Method var_gettype_0_0;
@@ -15372,9 +15372,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetType()
 		{
 			if(this.var_gettype_0_0 == null)
-				this.var_gettype_0_0 = this.builderType.GetMethod("GetType", 0, true).Import();
+				this.var_gettype_0_0 = this.builderType.GetMethod("GetType", 0, true);
 
-			return this.var_gettype_0_0;
+			return this.var_gettype_0_0.Import();
 		}
 					}
 
@@ -15389,10 +15389,10 @@ namespace Cauldron.Interception.Cecilator
 		}
 
 		/// <exclude />
-		public static implicit operator BuilderType(BuilderTypeNotSupportedException value) => value.builderType;
+		public static implicit operator BuilderType(BuilderTypeNotSupportedException value) => value.builderType.Import();
 		
 		/// <exclude />
-		public static implicit operator TypeReference(BuilderTypeNotSupportedException value) => value.builderType.typeReference;
+		public static implicit operator TypeReference(BuilderTypeNotSupportedException value) => Builder.Current.Import((TypeReference)value.builderType);
 			
 				
 		private Method var_get_message_0_0;
@@ -15405,9 +15405,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_Message()
 		{
 			if(this.var_get_message_0_0 == null)
-				this.var_get_message_0_0 = this.builderType.GetMethod("get_Message", 0, true).Import();
+				this.var_get_message_0_0 = this.builderType.GetMethod("get_Message", 0, true);
 
-			return this.var_get_message_0_0;
+			return this.var_get_message_0_0.Import();
 		}
 						
 		private Method var_get_data_0_0;
@@ -15420,9 +15420,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_Data()
 		{
 			if(this.var_get_data_0_0 == null)
-				this.var_get_data_0_0 = this.builderType.GetMethod("get_Data", 0, true).Import();
+				this.var_get_data_0_0 = this.builderType.GetMethod("get_Data", 0, true);
 
-			return this.var_get_data_0_0;
+			return this.var_get_data_0_0.Import();
 		}
 						
 		private Method var_getbaseexception_0_0;
@@ -15435,9 +15435,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetBaseException()
 		{
 			if(this.var_getbaseexception_0_0 == null)
-				this.var_getbaseexception_0_0 = this.builderType.GetMethod("GetBaseException", 0, true).Import();
+				this.var_getbaseexception_0_0 = this.builderType.GetMethod("GetBaseException", 0, true);
 
-			return this.var_getbaseexception_0_0;
+			return this.var_getbaseexception_0_0.Import();
 		}
 						
 		private Method var_get_innerexception_0_0;
@@ -15450,9 +15450,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_InnerException()
 		{
 			if(this.var_get_innerexception_0_0 == null)
-				this.var_get_innerexception_0_0 = this.builderType.GetMethod("get_InnerException", 0, true).Import();
+				this.var_get_innerexception_0_0 = this.builderType.GetMethod("get_InnerException", 0, true);
 
-			return this.var_get_innerexception_0_0;
+			return this.var_get_innerexception_0_0.Import();
 		}
 						
 		private Method var_get_targetsite_0_0;
@@ -15465,9 +15465,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_TargetSite()
 		{
 			if(this.var_get_targetsite_0_0 == null)
-				this.var_get_targetsite_0_0 = this.builderType.GetMethod("get_TargetSite", 0, true).Import();
+				this.var_get_targetsite_0_0 = this.builderType.GetMethod("get_TargetSite", 0, true);
 
-			return this.var_get_targetsite_0_0;
+			return this.var_get_targetsite_0_0.Import();
 		}
 						
 		private Method var_get_stacktrace_0_0;
@@ -15480,9 +15480,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_StackTrace()
 		{
 			if(this.var_get_stacktrace_0_0 == null)
-				this.var_get_stacktrace_0_0 = this.builderType.GetMethod("get_StackTrace", 0, true).Import();
+				this.var_get_stacktrace_0_0 = this.builderType.GetMethod("get_StackTrace", 0, true);
 
-			return this.var_get_stacktrace_0_0;
+			return this.var_get_stacktrace_0_0.Import();
 		}
 						
 		private Method var_get_helplink_0_0;
@@ -15495,9 +15495,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_HelpLink()
 		{
 			if(this.var_get_helplink_0_0 == null)
-				this.var_get_helplink_0_0 = this.builderType.GetMethod("get_HelpLink", 0, true).Import();
+				this.var_get_helplink_0_0 = this.builderType.GetMethod("get_HelpLink", 0, true);
 
-			return this.var_get_helplink_0_0;
+			return this.var_get_helplink_0_0.Import();
 		}
 						
 		private Method var_set_helplink_0_1;
@@ -15510,9 +15510,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_set_HelpLink()
 		{
 			if(this.var_set_helplink_0_1 == null)
-				this.var_set_helplink_0_1 = this.builderType.GetMethod("set_HelpLink", 1, true).Import();
+				this.var_set_helplink_0_1 = this.builderType.GetMethod("set_HelpLink", 1, true);
 
-			return this.var_set_helplink_0_1;
+			return this.var_set_helplink_0_1.Import();
 		}
 						
 		private Method var_get_source_0_0;
@@ -15525,9 +15525,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_Source()
 		{
 			if(this.var_get_source_0_0 == null)
-				this.var_get_source_0_0 = this.builderType.GetMethod("get_Source", 0, true).Import();
+				this.var_get_source_0_0 = this.builderType.GetMethod("get_Source", 0, true);
 
-			return this.var_get_source_0_0;
+			return this.var_get_source_0_0.Import();
 		}
 						
 		private Method var_set_source_0_1;
@@ -15540,9 +15540,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_set_Source()
 		{
 			if(this.var_set_source_0_1 == null)
-				this.var_set_source_0_1 = this.builderType.GetMethod("set_Source", 1, true).Import();
+				this.var_set_source_0_1 = this.builderType.GetMethod("set_Source", 1, true);
 
-			return this.var_set_source_0_1;
+			return this.var_set_source_0_1.Import();
 		}
 						
 		private Method var_tostring_0_0;
@@ -15555,9 +15555,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_ToString()
 		{
 			if(this.var_tostring_0_0 == null)
-				this.var_tostring_0_0 = this.builderType.GetMethod("ToString", 0, true).Import();
+				this.var_tostring_0_0 = this.builderType.GetMethod("ToString", 0, true);
 
-			return this.var_tostring_0_0;
+			return this.var_tostring_0_0.Import();
 		}
 						
 		private Method var_getobjectdata_0_2;
@@ -15570,9 +15570,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetObjectData()
 		{
 			if(this.var_getobjectdata_0_2 == null)
-				this.var_getobjectdata_0_2 = this.builderType.GetMethod("GetObjectData", 2, true).Import();
+				this.var_getobjectdata_0_2 = this.builderType.GetMethod("GetObjectData", 2, true);
 
-			return this.var_getobjectdata_0_2;
+			return this.var_getobjectdata_0_2.Import();
 		}
 						
 		private Method var_get_hresult_0_0;
@@ -15585,9 +15585,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_HResult()
 		{
 			if(this.var_get_hresult_0_0 == null)
-				this.var_get_hresult_0_0 = this.builderType.GetMethod("get_HResult", 0, true).Import();
+				this.var_get_hresult_0_0 = this.builderType.GetMethod("get_HResult", 0, true);
 
-			return this.var_get_hresult_0_0;
+			return this.var_get_hresult_0_0.Import();
 		}
 						
 		private Method var_gettype_0_0;
@@ -15601,9 +15601,9 @@ namespace Cauldron.Interception.Cecilator
 		{
 						
 			if(this.var_gettype_0_0 == null)
-				this.var_gettype_0_0 = this.builderType.GetMethod("GetType", true).Import();
+				this.var_gettype_0_0 = this.builderType.GetMethod("GetType", true);
 
-			return this.var_gettype_0_0;
+			return this.var_gettype_0_0.Import();
 						
 						
 		}
@@ -15618,9 +15618,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_Equals()
 		{
 			if(this.var_equals_0_1 == null)
-				this.var_equals_0_1 = this.builderType.GetMethod("Equals", 1, true).Import();
+				this.var_equals_0_1 = this.builderType.GetMethod("Equals", 1, true);
 
-			return this.var_equals_0_1;
+			return this.var_equals_0_1.Import();
 		}
 						
 		private Method var_gethashcode_0_0;
@@ -15633,9 +15633,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetHashCode()
 		{
 			if(this.var_gethashcode_0_0 == null)
-				this.var_gethashcode_0_0 = this.builderType.GetMethod("GetHashCode", 0, true).Import();
+				this.var_gethashcode_0_0 = this.builderType.GetMethod("GetHashCode", 0, true);
 
-			return this.var_gethashcode_0_0;
+			return this.var_gethashcode_0_0.Import();
 		}
 						
 		private Method var_ctor_0_0;
@@ -15649,9 +15649,9 @@ namespace Cauldron.Interception.Cecilator
 		{
 						
 			if(this.var_ctor_0_0 == null)
-				this.var_ctor_0_0 = this.builderType.GetMethod(".ctor", true).Import();
+				this.var_ctor_0_0 = this.builderType.GetMethod(".ctor", true);
 
-			return this.var_ctor_0_0;
+			return this.var_ctor_0_0.Import();
 						
 						
 		}
@@ -15668,9 +15668,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_ctor_0_1 == null)
-				this.var_ctor_0_1 = this.builderType.GetMethod(".ctor", true, pmessage).Import();
+				this.var_ctor_0_1 = this.builderType.GetMethod(".ctor", true, pmessage);
 			
-			return this.var_ctor_0_1;
+			return this.var_ctor_0_1.Import();
 						
 		}
 						
@@ -15686,9 +15686,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_ctor_0_2 == null)
-				this.var_ctor_0_2 = this.builderType.GetMethod(".ctor", true, pmessage, pinnerException).Import();
+				this.var_ctor_0_2 = this.builderType.GetMethod(".ctor", true, pmessage, pinnerException);
 			
-			return this.var_ctor_0_2;
+			return this.var_ctor_0_2.Import();
 						
 		}
 					}
@@ -15704,10 +15704,10 @@ namespace Cauldron.Interception.Cecilator
 		}
 
 		/// <exclude />
-		public static implicit operator BuilderType(BuilderTypeNullable value) => value.builderType;
+		public static implicit operator BuilderType(BuilderTypeNullable value) => value.builderType.Import();
 		
 		/// <exclude />
-		public static implicit operator TypeReference(BuilderTypeNullable value) => value.builderType.typeReference;
+		public static implicit operator TypeReference(BuilderTypeNullable value) => Builder.Current.Import((TypeReference)value.builderType);
 			
 				
 		private Method var_equals_0_1;
@@ -15722,9 +15722,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_equals_0_1 == null)
-				this.var_equals_0_1 = this.builderType.GetMethod("Equals", true, pobj).Import();
+				this.var_equals_0_1 = this.builderType.GetMethod("Equals", true, pobj);
 			
-			return this.var_equals_0_1;
+			return this.var_equals_0_1.Import();
 						
 		}
 						
@@ -15738,9 +15738,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetUnderlyingType()
 		{
 			if(this.var_getunderlyingtype_0_1 == null)
-				this.var_getunderlyingtype_0_1 = this.builderType.GetMethod("GetUnderlyingType", 1, true).Import();
+				this.var_getunderlyingtype_0_1 = this.builderType.GetMethod("GetUnderlyingType", 1, true);
 
-			return this.var_getunderlyingtype_0_1;
+			return this.var_getunderlyingtype_0_1.Import();
 		}
 						
 		private Method var_tostring_0_0;
@@ -15753,9 +15753,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_ToString()
 		{
 			if(this.var_tostring_0_0 == null)
-				this.var_tostring_0_0 = this.builderType.GetMethod("ToString", 0, true).Import();
+				this.var_tostring_0_0 = this.builderType.GetMethod("ToString", 0, true);
 
-			return this.var_tostring_0_0;
+			return this.var_tostring_0_0.Import();
 		}
 						
 		private Method var_gethashcode_0_0;
@@ -15768,9 +15768,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetHashCode()
 		{
 			if(this.var_gethashcode_0_0 == null)
-				this.var_gethashcode_0_0 = this.builderType.GetMethod("GetHashCode", 0, true).Import();
+				this.var_gethashcode_0_0 = this.builderType.GetMethod("GetHashCode", 0, true);
 
-			return this.var_gethashcode_0_0;
+			return this.var_gethashcode_0_0.Import();
 		}
 						
 		private Method var_gettype_0_0;
@@ -15783,9 +15783,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetType()
 		{
 			if(this.var_gettype_0_0 == null)
-				this.var_gettype_0_0 = this.builderType.GetMethod("GetType", 0, true).Import();
+				this.var_gettype_0_0 = this.builderType.GetMethod("GetType", 0, true);
 
-			return this.var_gettype_0_0;
+			return this.var_gettype_0_0.Import();
 		}
 					}
 
@@ -15800,10 +15800,10 @@ namespace Cauldron.Interception.Cecilator
 		}
 
 		/// <exclude />
-		public static implicit operator BuilderType(BuilderTypeNullable1 value) => value.builderType;
+		public static implicit operator BuilderType(BuilderTypeNullable1 value) => value.builderType.Import();
 		
 		/// <exclude />
-		public static implicit operator TypeReference(BuilderTypeNullable1 value) => value.builderType.typeReference;
+		public static implicit operator TypeReference(BuilderTypeNullable1 value) => Builder.Current.Import((TypeReference)value.builderType);
 			
 				
 		private Method var_gettype_0_0;
@@ -15816,9 +15816,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetType()
 		{
 			if(this.var_gettype_0_0 == null)
-				this.var_gettype_0_0 = this.builderType.GetMethod("GetType", 0, true).Import();
+				this.var_gettype_0_0 = this.builderType.GetMethod("GetType", 0, true);
 
-			return this.var_gettype_0_0;
+			return this.var_gettype_0_0.Import();
 		}
 					}
 
@@ -15833,10 +15833,10 @@ namespace Cauldron.Interception.Cecilator
 		}
 
 		/// <exclude />
-		public static implicit operator BuilderType(BuilderTypeObject value) => value.builderType;
+		public static implicit operator BuilderType(BuilderTypeObject value) => value.builderType.Import();
 		
 		/// <exclude />
-		public static implicit operator TypeReference(BuilderTypeObject value) => value.builderType.typeReference;
+		public static implicit operator TypeReference(BuilderTypeObject value) => Builder.Current.Import((TypeReference)value.builderType);
 			
 				
 		private Method var_tostring_0_0;
@@ -15849,9 +15849,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_ToString()
 		{
 			if(this.var_tostring_0_0 == null)
-				this.var_tostring_0_0 = this.builderType.GetMethod("ToString", 0, true).Import();
+				this.var_tostring_0_0 = this.builderType.GetMethod("ToString", 0, true);
 
-			return this.var_tostring_0_0;
+			return this.var_tostring_0_0.Import();
 		}
 						
 		private Method var_equals_0_1;
@@ -15866,9 +15866,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_equals_0_1 == null)
-				this.var_equals_0_1 = this.builderType.GetMethod("Equals", true, pobj).Import();
+				this.var_equals_0_1 = this.builderType.GetMethod("Equals", true, pobj);
 			
-			return this.var_equals_0_1;
+			return this.var_equals_0_1.Import();
 						
 		}
 						
@@ -15884,9 +15884,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_equals_0_2 == null)
-				this.var_equals_0_2 = this.builderType.GetMethod("Equals", true, pobjA, pobjB).Import();
+				this.var_equals_0_2 = this.builderType.GetMethod("Equals", true, pobjA, pobjB);
 			
-			return this.var_equals_0_2;
+			return this.var_equals_0_2.Import();
 						
 		}
 						
@@ -15900,9 +15900,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_ReferenceEquals()
 		{
 			if(this.var_referenceequals_0_2 == null)
-				this.var_referenceequals_0_2 = this.builderType.GetMethod("ReferenceEquals", 2, true).Import();
+				this.var_referenceequals_0_2 = this.builderType.GetMethod("ReferenceEquals", 2, true);
 
-			return this.var_referenceequals_0_2;
+			return this.var_referenceequals_0_2.Import();
 		}
 						
 		private Method var_gethashcode_0_0;
@@ -15915,9 +15915,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetHashCode()
 		{
 			if(this.var_gethashcode_0_0 == null)
-				this.var_gethashcode_0_0 = this.builderType.GetMethod("GetHashCode", 0, true).Import();
+				this.var_gethashcode_0_0 = this.builderType.GetMethod("GetHashCode", 0, true);
 
-			return this.var_gethashcode_0_0;
+			return this.var_gethashcode_0_0.Import();
 		}
 						
 		private Method var_gettype_0_0;
@@ -15930,9 +15930,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetType()
 		{
 			if(this.var_gettype_0_0 == null)
-				this.var_gettype_0_0 = this.builderType.GetMethod("GetType", 0, true).Import();
+				this.var_gettype_0_0 = this.builderType.GetMethod("GetType", 0, true);
 
-			return this.var_gettype_0_0;
+			return this.var_gettype_0_0.Import();
 		}
 						
 		private Method var_ctor_0_0;
@@ -15945,9 +15945,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_ctor()
 		{
 			if(this.var_ctor_0_0 == null)
-				this.var_ctor_0_0 = this.builderType.GetMethod(".ctor", 0, true).Import();
+				this.var_ctor_0_0 = this.builderType.GetMethod(".ctor", 0, true);
 
-			return this.var_ctor_0_0;
+			return this.var_ctor_0_0.Import();
 		}
 					}
 
@@ -15962,10 +15962,10 @@ namespace Cauldron.Interception.Cecilator
 		}
 
 		/// <exclude />
-		public static implicit operator BuilderType(BuilderTypeSByte value) => value.builderType;
+		public static implicit operator BuilderType(BuilderTypeSByte value) => value.builderType.Import();
 		
 		/// <exclude />
-		public static implicit operator TypeReference(BuilderTypeSByte value) => value.builderType.typeReference;
+		public static implicit operator TypeReference(BuilderTypeSByte value) => Builder.Current.Import((TypeReference)value.builderType);
 			
 				
 		private Method var_tostring_0_0;
@@ -15979,9 +15979,9 @@ namespace Cauldron.Interception.Cecilator
 		{
 						
 			if(this.var_tostring_0_0 == null)
-				this.var_tostring_0_0 = this.builderType.GetMethod("ToString", true).Import();
+				this.var_tostring_0_0 = this.builderType.GetMethod("ToString", true);
 
-			return this.var_tostring_0_0;
+			return this.var_tostring_0_0.Import();
 						
 						
 		}
@@ -16003,17 +16003,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.IFormatProvider).AreEqual(pprovider))
 			{
 				if(this.var_tostring_0_1 == null)
-					this.var_tostring_0_1 = this.builderType.GetMethod("ToString", true, pprovider).Import();
+					this.var_tostring_0_1 = this.builderType.GetMethod("ToString", true, pprovider);
 			
-				return this.var_tostring_0_1;
+				return this.var_tostring_0_1.Import();
 			}
 			
 			if(typeof(System.String).AreEqual(pprovider))
 			{
 				if(this.var_tostring_1_1 == null)
-					this.var_tostring_1_1 = this.builderType.GetMethod("ToString", true, pprovider).Import();
+					this.var_tostring_1_1 = this.builderType.GetMethod("ToString", true, pprovider);
 			
-				return this.var_tostring_1_1;
+				return this.var_tostring_1_1.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -16032,9 +16032,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_tostring_0_2 == null)
-				this.var_tostring_0_2 = this.builderType.GetMethod("ToString", true, pformat, pprovider).Import();
+				this.var_tostring_0_2 = this.builderType.GetMethod("ToString", true, pformat, pprovider);
 			
-			return this.var_tostring_0_2;
+			return this.var_tostring_0_2.Import();
 						
 		}
 						
@@ -16055,17 +16055,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Object).AreEqual(pobj))
 			{
 				if(this.var_compareto_0_1 == null)
-					this.var_compareto_0_1 = this.builderType.GetMethod("CompareTo", true, pobj).Import();
+					this.var_compareto_0_1 = this.builderType.GetMethod("CompareTo", true, pobj);
 			
-				return this.var_compareto_0_1;
+				return this.var_compareto_0_1.Import();
 			}
 			
 			if(typeof(System.SByte).AreEqual(pobj))
 			{
 				if(this.var_compareto_1_1 == null)
-					this.var_compareto_1_1 = this.builderType.GetMethod("CompareTo", true, pobj).Import();
+					this.var_compareto_1_1 = this.builderType.GetMethod("CompareTo", true, pobj);
 			
-				return this.var_compareto_1_1;
+				return this.var_compareto_1_1.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -16089,17 +16089,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Object).AreEqual(pobj))
 			{
 				if(this.var_equals_0_1 == null)
-					this.var_equals_0_1 = this.builderType.GetMethod("Equals", true, pobj).Import();
+					this.var_equals_0_1 = this.builderType.GetMethod("Equals", true, pobj);
 			
-				return this.var_equals_0_1;
+				return this.var_equals_0_1.Import();
 			}
 			
 			if(typeof(System.SByte).AreEqual(pobj))
 			{
 				if(this.var_equals_1_1 == null)
-					this.var_equals_1_1 = this.builderType.GetMethod("Equals", true, pobj).Import();
+					this.var_equals_1_1 = this.builderType.GetMethod("Equals", true, pobj);
 			
-				return this.var_equals_1_1;
+				return this.var_equals_1_1.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -16116,9 +16116,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetHashCode()
 		{
 			if(this.var_gethashcode_0_0 == null)
-				this.var_gethashcode_0_0 = this.builderType.GetMethod("GetHashCode", 0, true).Import();
+				this.var_gethashcode_0_0 = this.builderType.GetMethod("GetHashCode", 0, true);
 
-			return this.var_gethashcode_0_0;
+			return this.var_gethashcode_0_0.Import();
 		}
 						
 		private Method var_parse_0_1;
@@ -16133,9 +16133,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_parse_0_1 == null)
-				this.var_parse_0_1 = this.builderType.GetMethod("Parse", true, ps).Import();
+				this.var_parse_0_1 = this.builderType.GetMethod("Parse", true, ps);
 			
-			return this.var_parse_0_1;
+			return this.var_parse_0_1.Import();
 						
 		}
 						
@@ -16156,17 +16156,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.String).AreEqual(ps) && typeof(System.Globalization.NumberStyles).AreEqual(pstyle))
 			{
 				if(this.var_parse_0_2 == null)
-					this.var_parse_0_2 = this.builderType.GetMethod("Parse", true, ps, pstyle).Import();
+					this.var_parse_0_2 = this.builderType.GetMethod("Parse", true, ps, pstyle);
 			
-				return this.var_parse_0_2;
+				return this.var_parse_0_2.Import();
 			}
 			
 			if(typeof(System.String).AreEqual(ps) && typeof(System.IFormatProvider).AreEqual(pstyle))
 			{
 				if(this.var_parse_1_2 == null)
-					this.var_parse_1_2 = this.builderType.GetMethod("Parse", true, ps, pstyle).Import();
+					this.var_parse_1_2 = this.builderType.GetMethod("Parse", true, ps, pstyle);
 			
-				return this.var_parse_1_2;
+				return this.var_parse_1_2.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -16185,9 +16185,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_parse_0_3 == null)
-				this.var_parse_0_3 = this.builderType.GetMethod("Parse", true, ps, pstyle, pprovider).Import();
+				this.var_parse_0_3 = this.builderType.GetMethod("Parse", true, ps, pstyle, pprovider);
 			
-			return this.var_parse_0_3;
+			return this.var_parse_0_3.Import();
 						
 		}
 						
@@ -16201,9 +16201,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetTypeCode()
 		{
 			if(this.var_gettypecode_0_0 == null)
-				this.var_gettypecode_0_0 = this.builderType.GetMethod("GetTypeCode", 0, true).Import();
+				this.var_gettypecode_0_0 = this.builderType.GetMethod("GetTypeCode", 0, true);
 
-			return this.var_gettypecode_0_0;
+			return this.var_gettypecode_0_0.Import();
 		}
 						
 		private Method var_gettype_0_0;
@@ -16216,9 +16216,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetType()
 		{
 			if(this.var_gettype_0_0 == null)
-				this.var_gettype_0_0 = this.builderType.GetMethod("GetType", 0, true).Import();
+				this.var_gettype_0_0 = this.builderType.GetMethod("GetType", 0, true);
 
-			return this.var_gettype_0_0;
+			return this.var_gettype_0_0.Import();
 		}
 					}
 
@@ -16233,10 +16233,10 @@ namespace Cauldron.Interception.Cecilator
 		}
 
 		/// <exclude />
-		public static implicit operator BuilderType(BuilderTypeSingle value) => value.builderType;
+		public static implicit operator BuilderType(BuilderTypeSingle value) => value.builderType.Import();
 		
 		/// <exclude />
-		public static implicit operator TypeReference(BuilderTypeSingle value) => value.builderType.typeReference;
+		public static implicit operator TypeReference(BuilderTypeSingle value) => Builder.Current.Import((TypeReference)value.builderType);
 			
 				
 		private Method var_isinfinity_0_1;
@@ -16249,9 +16249,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_IsInfinity()
 		{
 			if(this.var_isinfinity_0_1 == null)
-				this.var_isinfinity_0_1 = this.builderType.GetMethod("IsInfinity", 1, true).Import();
+				this.var_isinfinity_0_1 = this.builderType.GetMethod("IsInfinity", 1, true);
 
-			return this.var_isinfinity_0_1;
+			return this.var_isinfinity_0_1.Import();
 		}
 						
 		private Method var_ispositiveinfinity_0_1;
@@ -16264,9 +16264,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_IsPositiveInfinity()
 		{
 			if(this.var_ispositiveinfinity_0_1 == null)
-				this.var_ispositiveinfinity_0_1 = this.builderType.GetMethod("IsPositiveInfinity", 1, true).Import();
+				this.var_ispositiveinfinity_0_1 = this.builderType.GetMethod("IsPositiveInfinity", 1, true);
 
-			return this.var_ispositiveinfinity_0_1;
+			return this.var_ispositiveinfinity_0_1.Import();
 		}
 						
 		private Method var_isnegativeinfinity_0_1;
@@ -16279,9 +16279,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_IsNegativeInfinity()
 		{
 			if(this.var_isnegativeinfinity_0_1 == null)
-				this.var_isnegativeinfinity_0_1 = this.builderType.GetMethod("IsNegativeInfinity", 1, true).Import();
+				this.var_isnegativeinfinity_0_1 = this.builderType.GetMethod("IsNegativeInfinity", 1, true);
 
-			return this.var_isnegativeinfinity_0_1;
+			return this.var_isnegativeinfinity_0_1.Import();
 		}
 						
 		private Method var_isnan_0_1;
@@ -16294,9 +16294,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_IsNaN()
 		{
 			if(this.var_isnan_0_1 == null)
-				this.var_isnan_0_1 = this.builderType.GetMethod("IsNaN", 1, true).Import();
+				this.var_isnan_0_1 = this.builderType.GetMethod("IsNaN", 1, true);
 
-			return this.var_isnan_0_1;
+			return this.var_isnan_0_1.Import();
 		}
 						
 		private Method var_compareto_0_1;
@@ -16316,17 +16316,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Object).AreEqual(pvalue))
 			{
 				if(this.var_compareto_0_1 == null)
-					this.var_compareto_0_1 = this.builderType.GetMethod("CompareTo", true, pvalue).Import();
+					this.var_compareto_0_1 = this.builderType.GetMethod("CompareTo", true, pvalue);
 			
-				return this.var_compareto_0_1;
+				return this.var_compareto_0_1.Import();
 			}
 			
 			if(typeof(System.Single).AreEqual(pvalue))
 			{
 				if(this.var_compareto_1_1 == null)
-					this.var_compareto_1_1 = this.builderType.GetMethod("CompareTo", true, pvalue).Import();
+					this.var_compareto_1_1 = this.builderType.GetMethod("CompareTo", true, pvalue);
 			
-				return this.var_compareto_1_1;
+				return this.var_compareto_1_1.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -16343,9 +16343,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_op_Equality()
 		{
 			if(this.var_op_equality_0_2 == null)
-				this.var_op_equality_0_2 = this.builderType.GetMethod("op_Equality", 2, true).Import();
+				this.var_op_equality_0_2 = this.builderType.GetMethod("op_Equality", 2, true);
 
-			return this.var_op_equality_0_2;
+			return this.var_op_equality_0_2.Import();
 		}
 						
 		private Method var_op_inequality_0_2;
@@ -16358,9 +16358,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_op_Inequality()
 		{
 			if(this.var_op_inequality_0_2 == null)
-				this.var_op_inequality_0_2 = this.builderType.GetMethod("op_Inequality", 2, true).Import();
+				this.var_op_inequality_0_2 = this.builderType.GetMethod("op_Inequality", 2, true);
 
-			return this.var_op_inequality_0_2;
+			return this.var_op_inequality_0_2.Import();
 		}
 						
 		private Method var_op_lessthan_0_2;
@@ -16373,9 +16373,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_op_LessThan()
 		{
 			if(this.var_op_lessthan_0_2 == null)
-				this.var_op_lessthan_0_2 = this.builderType.GetMethod("op_LessThan", 2, true).Import();
+				this.var_op_lessthan_0_2 = this.builderType.GetMethod("op_LessThan", 2, true);
 
-			return this.var_op_lessthan_0_2;
+			return this.var_op_lessthan_0_2.Import();
 		}
 						
 		private Method var_op_greaterthan_0_2;
@@ -16388,9 +16388,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_op_GreaterThan()
 		{
 			if(this.var_op_greaterthan_0_2 == null)
-				this.var_op_greaterthan_0_2 = this.builderType.GetMethod("op_GreaterThan", 2, true).Import();
+				this.var_op_greaterthan_0_2 = this.builderType.GetMethod("op_GreaterThan", 2, true);
 
-			return this.var_op_greaterthan_0_2;
+			return this.var_op_greaterthan_0_2.Import();
 		}
 						
 		private Method var_op_lessthanorequal_0_2;
@@ -16403,9 +16403,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_op_LessThanOrEqual()
 		{
 			if(this.var_op_lessthanorequal_0_2 == null)
-				this.var_op_lessthanorequal_0_2 = this.builderType.GetMethod("op_LessThanOrEqual", 2, true).Import();
+				this.var_op_lessthanorequal_0_2 = this.builderType.GetMethod("op_LessThanOrEqual", 2, true);
 
-			return this.var_op_lessthanorequal_0_2;
+			return this.var_op_lessthanorequal_0_2.Import();
 		}
 						
 		private Method var_op_greaterthanorequal_0_2;
@@ -16418,9 +16418,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_op_GreaterThanOrEqual()
 		{
 			if(this.var_op_greaterthanorequal_0_2 == null)
-				this.var_op_greaterthanorequal_0_2 = this.builderType.GetMethod("op_GreaterThanOrEqual", 2, true).Import();
+				this.var_op_greaterthanorequal_0_2 = this.builderType.GetMethod("op_GreaterThanOrEqual", 2, true);
 
-			return this.var_op_greaterthanorequal_0_2;
+			return this.var_op_greaterthanorequal_0_2.Import();
 		}
 						
 		private Method var_equals_0_1;
@@ -16440,17 +16440,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Object).AreEqual(pobj))
 			{
 				if(this.var_equals_0_1 == null)
-					this.var_equals_0_1 = this.builderType.GetMethod("Equals", true, pobj).Import();
+					this.var_equals_0_1 = this.builderType.GetMethod("Equals", true, pobj);
 			
-				return this.var_equals_0_1;
+				return this.var_equals_0_1.Import();
 			}
 			
 			if(typeof(System.Single).AreEqual(pobj))
 			{
 				if(this.var_equals_1_1 == null)
-					this.var_equals_1_1 = this.builderType.GetMethod("Equals", true, pobj).Import();
+					this.var_equals_1_1 = this.builderType.GetMethod("Equals", true, pobj);
 			
-				return this.var_equals_1_1;
+				return this.var_equals_1_1.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -16467,9 +16467,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetHashCode()
 		{
 			if(this.var_gethashcode_0_0 == null)
-				this.var_gethashcode_0_0 = this.builderType.GetMethod("GetHashCode", 0, true).Import();
+				this.var_gethashcode_0_0 = this.builderType.GetMethod("GetHashCode", 0, true);
 
-			return this.var_gethashcode_0_0;
+			return this.var_gethashcode_0_0.Import();
 		}
 						
 		private Method var_tostring_0_0;
@@ -16483,9 +16483,9 @@ namespace Cauldron.Interception.Cecilator
 		{
 						
 			if(this.var_tostring_0_0 == null)
-				this.var_tostring_0_0 = this.builderType.GetMethod("ToString", true).Import();
+				this.var_tostring_0_0 = this.builderType.GetMethod("ToString", true);
 
-			return this.var_tostring_0_0;
+			return this.var_tostring_0_0.Import();
 						
 						
 		}
@@ -16507,17 +16507,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.IFormatProvider).AreEqual(pprovider))
 			{
 				if(this.var_tostring_0_1 == null)
-					this.var_tostring_0_1 = this.builderType.GetMethod("ToString", true, pprovider).Import();
+					this.var_tostring_0_1 = this.builderType.GetMethod("ToString", true, pprovider);
 			
-				return this.var_tostring_0_1;
+				return this.var_tostring_0_1.Import();
 			}
 			
 			if(typeof(System.String).AreEqual(pprovider))
 			{
 				if(this.var_tostring_1_1 == null)
-					this.var_tostring_1_1 = this.builderType.GetMethod("ToString", true, pprovider).Import();
+					this.var_tostring_1_1 = this.builderType.GetMethod("ToString", true, pprovider);
 			
-				return this.var_tostring_1_1;
+				return this.var_tostring_1_1.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -16536,9 +16536,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_tostring_0_2 == null)
-				this.var_tostring_0_2 = this.builderType.GetMethod("ToString", true, pformat, pprovider).Import();
+				this.var_tostring_0_2 = this.builderType.GetMethod("ToString", true, pformat, pprovider);
 			
-			return this.var_tostring_0_2;
+			return this.var_tostring_0_2.Import();
 						
 		}
 						
@@ -16554,9 +16554,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_parse_0_1 == null)
-				this.var_parse_0_1 = this.builderType.GetMethod("Parse", true, ps).Import();
+				this.var_parse_0_1 = this.builderType.GetMethod("Parse", true, ps);
 			
-			return this.var_parse_0_1;
+			return this.var_parse_0_1.Import();
 						
 		}
 						
@@ -16577,17 +16577,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.String).AreEqual(ps) && typeof(System.Globalization.NumberStyles).AreEqual(pstyle))
 			{
 				if(this.var_parse_0_2 == null)
-					this.var_parse_0_2 = this.builderType.GetMethod("Parse", true, ps, pstyle).Import();
+					this.var_parse_0_2 = this.builderType.GetMethod("Parse", true, ps, pstyle);
 			
-				return this.var_parse_0_2;
+				return this.var_parse_0_2.Import();
 			}
 			
 			if(typeof(System.String).AreEqual(ps) && typeof(System.IFormatProvider).AreEqual(pstyle))
 			{
 				if(this.var_parse_1_2 == null)
-					this.var_parse_1_2 = this.builderType.GetMethod("Parse", true, ps, pstyle).Import();
+					this.var_parse_1_2 = this.builderType.GetMethod("Parse", true, ps, pstyle);
 			
-				return this.var_parse_1_2;
+				return this.var_parse_1_2.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -16606,9 +16606,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_parse_0_3 == null)
-				this.var_parse_0_3 = this.builderType.GetMethod("Parse", true, ps, pstyle, pprovider).Import();
+				this.var_parse_0_3 = this.builderType.GetMethod("Parse", true, ps, pstyle, pprovider);
 			
-			return this.var_parse_0_3;
+			return this.var_parse_0_3.Import();
 						
 		}
 						
@@ -16622,9 +16622,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetTypeCode()
 		{
 			if(this.var_gettypecode_0_0 == null)
-				this.var_gettypecode_0_0 = this.builderType.GetMethod("GetTypeCode", 0, true).Import();
+				this.var_gettypecode_0_0 = this.builderType.GetMethod("GetTypeCode", 0, true);
 
-			return this.var_gettypecode_0_0;
+			return this.var_gettypecode_0_0.Import();
 		}
 						
 		private Method var_gettype_0_0;
@@ -16637,9 +16637,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetType()
 		{
 			if(this.var_gettype_0_0 == null)
-				this.var_gettype_0_0 = this.builderType.GetMethod("GetType", 0, true).Import();
+				this.var_gettype_0_0 = this.builderType.GetMethod("GetType", 0, true);
 
-			return this.var_gettype_0_0;
+			return this.var_gettype_0_0.Import();
 		}
 					}
 
@@ -16654,10 +16654,10 @@ namespace Cauldron.Interception.Cecilator
 		}
 
 		/// <exclude />
-		public static implicit operator BuilderType(BuilderTypeString value) => value.builderType;
+		public static implicit operator BuilderType(BuilderTypeString value) => value.builderType.Import();
 		
 		/// <exclude />
-		public static implicit operator TypeReference(BuilderTypeString value) => value.builderType.typeReference;
+		public static implicit operator TypeReference(BuilderTypeString value) => Builder.Current.Import((TypeReference)value.builderType);
 			
 				
 		private Method var_get_length_0_0;
@@ -16670,9 +16670,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_Length()
 		{
 			if(this.var_get_length_0_0 == null)
-				this.var_get_length_0_0 = this.builderType.GetMethod("get_Length", 0, true).Import();
+				this.var_get_length_0_0 = this.builderType.GetMethod("get_Length", 0, true);
 
-			return this.var_get_length_0_0;
+			return this.var_get_length_0_0.Import();
 		}
 						
 		private Method var_join_0_2;
@@ -16695,25 +16695,25 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.String).AreEqual(pseparator) && typeof(System.String[]).AreEqual(pvalue))
 			{
 				if(this.var_join_0_2 == null)
-					this.var_join_0_2 = this.builderType.GetMethod("Join", true, pseparator, pvalue).Import();
+					this.var_join_0_2 = this.builderType.GetMethod("Join", true, pseparator, pvalue);
 			
-				return this.var_join_0_2;
+				return this.var_join_0_2.Import();
 			}
 			
 			if(typeof(System.String).AreEqual(pseparator) && typeof(System.Object[]).AreEqual(pvalue))
 			{
 				if(this.var_join_1_2 == null)
-					this.var_join_1_2 = this.builderType.GetMethod("Join", true, pseparator, pvalue).Import();
+					this.var_join_1_2 = this.builderType.GetMethod("Join", true, pseparator, pvalue);
 			
-				return this.var_join_1_2;
+				return this.var_join_1_2.Import();
 			}
 			
 			if(typeof(System.String).AreEqual(pseparator) && typeof(System.Collections.Generic.IEnumerable<>).AreEqual(pvalue))
 			{
 				if(this.var_join_2_2 == null)
-					this.var_join_2_2 = this.builderType.GetMethod("Join", true, pseparator, pvalue).Import();
+					this.var_join_2_2 = this.builderType.GetMethod("Join", true, pseparator, pvalue);
 			
-				return this.var_join_2_2;
+				return this.var_join_2_2.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -16732,9 +16732,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_join_0_4 == null)
-				this.var_join_0_4 = this.builderType.GetMethod("Join", true, pseparator, pvalue, pstartIndex, pcount).Import();
+				this.var_join_0_4 = this.builderType.GetMethod("Join", true, pseparator, pvalue, pstartIndex, pcount);
 			
-			return this.var_join_0_4;
+			return this.var_join_0_4.Import();
 						
 		}
 						
@@ -16755,17 +16755,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Object).AreEqual(pobj))
 			{
 				if(this.var_equals_0_1 == null)
-					this.var_equals_0_1 = this.builderType.GetMethod("Equals", true, pobj).Import();
+					this.var_equals_0_1 = this.builderType.GetMethod("Equals", true, pobj);
 			
-				return this.var_equals_0_1;
+				return this.var_equals_0_1.Import();
 			}
 			
 			if(typeof(System.String).AreEqual(pobj))
 			{
 				if(this.var_equals_1_1 == null)
-					this.var_equals_1_1 = this.builderType.GetMethod("Equals", true, pobj).Import();
+					this.var_equals_1_1 = this.builderType.GetMethod("Equals", true, pobj);
 			
-				return this.var_equals_1_1;
+				return this.var_equals_1_1.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -16789,17 +16789,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.String).AreEqual(pvalue) && typeof(System.StringComparison).AreEqual(pcomparisonType))
 			{
 				if(this.var_equals_0_2 == null)
-					this.var_equals_0_2 = this.builderType.GetMethod("Equals", true, pvalue, pcomparisonType).Import();
+					this.var_equals_0_2 = this.builderType.GetMethod("Equals", true, pvalue, pcomparisonType);
 			
-				return this.var_equals_0_2;
+				return this.var_equals_0_2.Import();
 			}
 			
 			if(typeof(System.String).AreEqual(pvalue) && typeof(System.String).AreEqual(pcomparisonType))
 			{
 				if(this.var_equals_1_2 == null)
-					this.var_equals_1_2 = this.builderType.GetMethod("Equals", true, pvalue, pcomparisonType).Import();
+					this.var_equals_1_2 = this.builderType.GetMethod("Equals", true, pvalue, pcomparisonType);
 			
-				return this.var_equals_1_2;
+				return this.var_equals_1_2.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -16818,9 +16818,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_equals_0_3 == null)
-				this.var_equals_0_3 = this.builderType.GetMethod("Equals", true, pa, pb, pcomparisonType).Import();
+				this.var_equals_0_3 = this.builderType.GetMethod("Equals", true, pa, pb, pcomparisonType);
 			
-			return this.var_equals_0_3;
+			return this.var_equals_0_3.Import();
 						
 		}
 						
@@ -16834,9 +16834,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_op_Equality()
 		{
 			if(this.var_op_equality_0_2 == null)
-				this.var_op_equality_0_2 = this.builderType.GetMethod("op_Equality", 2, true).Import();
+				this.var_op_equality_0_2 = this.builderType.GetMethod("op_Equality", 2, true);
 
-			return this.var_op_equality_0_2;
+			return this.var_op_equality_0_2.Import();
 		}
 						
 		private Method var_op_inequality_0_2;
@@ -16849,9 +16849,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_op_Inequality()
 		{
 			if(this.var_op_inequality_0_2 == null)
-				this.var_op_inequality_0_2 = this.builderType.GetMethod("op_Inequality", 2, true).Import();
+				this.var_op_inequality_0_2 = this.builderType.GetMethod("op_Inequality", 2, true);
 
-			return this.var_op_inequality_0_2;
+			return this.var_op_inequality_0_2.Import();
 		}
 						
 		private Method var_get_chars_0_1;
@@ -16864,9 +16864,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_Chars()
 		{
 			if(this.var_get_chars_0_1 == null)
-				this.var_get_chars_0_1 = this.builderType.GetMethod("get_Chars", 1, true).Import();
+				this.var_get_chars_0_1 = this.builderType.GetMethod("get_Chars", 1, true);
 
-			return this.var_get_chars_0_1;
+			return this.var_get_chars_0_1.Import();
 		}
 						
 		private Method var_copyto_0_4;
@@ -16879,9 +16879,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_CopyTo()
 		{
 			if(this.var_copyto_0_4 == null)
-				this.var_copyto_0_4 = this.builderType.GetMethod("CopyTo", 4, true).Import();
+				this.var_copyto_0_4 = this.builderType.GetMethod("CopyTo", 4, true);
 
-			return this.var_copyto_0_4;
+			return this.var_copyto_0_4.Import();
 		}
 						
 		private Method var_tochararray_0_0;
@@ -16895,9 +16895,9 @@ namespace Cauldron.Interception.Cecilator
 		{
 						
 			if(this.var_tochararray_0_0 == null)
-				this.var_tochararray_0_0 = this.builderType.GetMethod("ToCharArray", true).Import();
+				this.var_tochararray_0_0 = this.builderType.GetMethod("ToCharArray", true);
 
-			return this.var_tochararray_0_0;
+			return this.var_tochararray_0_0.Import();
 						
 						
 		}
@@ -16914,9 +16914,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_tochararray_0_2 == null)
-				this.var_tochararray_0_2 = this.builderType.GetMethod("ToCharArray", true, pstartIndex, plength).Import();
+				this.var_tochararray_0_2 = this.builderType.GetMethod("ToCharArray", true, pstartIndex, plength);
 			
-			return this.var_tochararray_0_2;
+			return this.var_tochararray_0_2.Import();
 						
 		}
 						
@@ -16930,9 +16930,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_IsNullOrEmpty()
 		{
 			if(this.var_isnullorempty_0_1 == null)
-				this.var_isnullorempty_0_1 = this.builderType.GetMethod("IsNullOrEmpty", 1, true).Import();
+				this.var_isnullorempty_0_1 = this.builderType.GetMethod("IsNullOrEmpty", 1, true);
 
-			return this.var_isnullorempty_0_1;
+			return this.var_isnullorempty_0_1.Import();
 		}
 						
 		private Method var_isnullorwhitespace_0_1;
@@ -16945,9 +16945,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_IsNullOrWhiteSpace()
 		{
 			if(this.var_isnullorwhitespace_0_1 == null)
-				this.var_isnullorwhitespace_0_1 = this.builderType.GetMethod("IsNullOrWhiteSpace", 1, true).Import();
+				this.var_isnullorwhitespace_0_1 = this.builderType.GetMethod("IsNullOrWhiteSpace", 1, true);
 
-			return this.var_isnullorwhitespace_0_1;
+			return this.var_isnullorwhitespace_0_1.Import();
 		}
 						
 		private Method var_gethashcode_0_0;
@@ -16960,9 +16960,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetHashCode()
 		{
 			if(this.var_gethashcode_0_0 == null)
-				this.var_gethashcode_0_0 = this.builderType.GetMethod("GetHashCode", 0, true).Import();
+				this.var_gethashcode_0_0 = this.builderType.GetMethod("GetHashCode", 0, true);
 
-			return this.var_gethashcode_0_0;
+			return this.var_gethashcode_0_0.Import();
 		}
 						
 		private Method var_split_0_1;
@@ -16977,9 +16977,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_split_0_1 == null)
-				this.var_split_0_1 = this.builderType.GetMethod("Split", true, pseparator).Import();
+				this.var_split_0_1 = this.builderType.GetMethod("Split", true, pseparator);
 			
-			return this.var_split_0_1;
+			return this.var_split_0_1.Import();
 						
 		}
 						
@@ -17003,25 +17003,25 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Char[]).AreEqual(pseparator) && typeof(System.Int32).AreEqual(pcount))
 			{
 				if(this.var_split_0_2 == null)
-					this.var_split_0_2 = this.builderType.GetMethod("Split", true, pseparator, pcount).Import();
+					this.var_split_0_2 = this.builderType.GetMethod("Split", true, pseparator, pcount);
 			
-				return this.var_split_0_2;
+				return this.var_split_0_2.Import();
 			}
 			
 			if(typeof(System.Char[]).AreEqual(pseparator) && typeof(System.StringSplitOptions).AreEqual(pcount))
 			{
 				if(this.var_split_1_2 == null)
-					this.var_split_1_2 = this.builderType.GetMethod("Split", true, pseparator, pcount).Import();
+					this.var_split_1_2 = this.builderType.GetMethod("Split", true, pseparator, pcount);
 			
-				return this.var_split_1_2;
+				return this.var_split_1_2.Import();
 			}
 			
 			if(typeof(System.String[]).AreEqual(pseparator) && typeof(System.StringSplitOptions).AreEqual(pcount))
 			{
 				if(this.var_split_2_2 == null)
-					this.var_split_2_2 = this.builderType.GetMethod("Split", true, pseparator, pcount).Import();
+					this.var_split_2_2 = this.builderType.GetMethod("Split", true, pseparator, pcount);
 			
-				return this.var_split_2_2;
+				return this.var_split_2_2.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -17045,17 +17045,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Char[]).AreEqual(pseparator) && typeof(System.Int32).AreEqual(pcount) && typeof(System.StringSplitOptions).AreEqual(poptions))
 			{
 				if(this.var_split_0_3 == null)
-					this.var_split_0_3 = this.builderType.GetMethod("Split", true, pseparator, pcount, poptions).Import();
+					this.var_split_0_3 = this.builderType.GetMethod("Split", true, pseparator, pcount, poptions);
 			
-				return this.var_split_0_3;
+				return this.var_split_0_3.Import();
 			}
 			
 			if(typeof(System.String[]).AreEqual(pseparator) && typeof(System.Int32).AreEqual(pcount) && typeof(System.StringSplitOptions).AreEqual(poptions))
 			{
 				if(this.var_split_1_3 == null)
-					this.var_split_1_3 = this.builderType.GetMethod("Split", true, pseparator, pcount, poptions).Import();
+					this.var_split_1_3 = this.builderType.GetMethod("Split", true, pseparator, pcount, poptions);
 			
-				return this.var_split_1_3;
+				return this.var_split_1_3.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -17074,9 +17074,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_substring_0_1 == null)
-				this.var_substring_0_1 = this.builderType.GetMethod("Substring", true, pstartIndex).Import();
+				this.var_substring_0_1 = this.builderType.GetMethod("Substring", true, pstartIndex);
 			
-			return this.var_substring_0_1;
+			return this.var_substring_0_1.Import();
 						
 		}
 						
@@ -17092,9 +17092,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_substring_0_2 == null)
-				this.var_substring_0_2 = this.builderType.GetMethod("Substring", true, pstartIndex, plength).Import();
+				this.var_substring_0_2 = this.builderType.GetMethod("Substring", true, pstartIndex, plength);
 			
-			return this.var_substring_0_2;
+			return this.var_substring_0_2.Import();
 						
 		}
 						
@@ -17110,9 +17110,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_trim_0_1 == null)
-				this.var_trim_0_1 = this.builderType.GetMethod("Trim", true, ptrimChars).Import();
+				this.var_trim_0_1 = this.builderType.GetMethod("Trim", true, ptrimChars);
 			
-			return this.var_trim_0_1;
+			return this.var_trim_0_1.Import();
 						
 		}
 						
@@ -17127,9 +17127,9 @@ namespace Cauldron.Interception.Cecilator
 		{
 						
 			if(this.var_trim_0_0 == null)
-				this.var_trim_0_0 = this.builderType.GetMethod("Trim", true).Import();
+				this.var_trim_0_0 = this.builderType.GetMethod("Trim", true);
 
-			return this.var_trim_0_0;
+			return this.var_trim_0_0.Import();
 						
 						
 		}
@@ -17144,9 +17144,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_TrimStart()
 		{
 			if(this.var_trimstart_0_1 == null)
-				this.var_trimstart_0_1 = this.builderType.GetMethod("TrimStart", 1, true).Import();
+				this.var_trimstart_0_1 = this.builderType.GetMethod("TrimStart", 1, true);
 
-			return this.var_trimstart_0_1;
+			return this.var_trimstart_0_1.Import();
 		}
 						
 		private Method var_trimend_0_1;
@@ -17159,9 +17159,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_TrimEnd()
 		{
 			if(this.var_trimend_0_1 == null)
-				this.var_trimend_0_1 = this.builderType.GetMethod("TrimEnd", 1, true).Import();
+				this.var_trimend_0_1 = this.builderType.GetMethod("TrimEnd", 1, true);
 
-			return this.var_trimend_0_1;
+			return this.var_trimend_0_1.Import();
 		}
 						
 		private Method var_isnormalized_0_0;
@@ -17175,9 +17175,9 @@ namespace Cauldron.Interception.Cecilator
 		{
 						
 			if(this.var_isnormalized_0_0 == null)
-				this.var_isnormalized_0_0 = this.builderType.GetMethod("IsNormalized", true).Import();
+				this.var_isnormalized_0_0 = this.builderType.GetMethod("IsNormalized", true);
 
-			return this.var_isnormalized_0_0;
+			return this.var_isnormalized_0_0.Import();
 						
 						
 		}
@@ -17194,9 +17194,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_isnormalized_0_1 == null)
-				this.var_isnormalized_0_1 = this.builderType.GetMethod("IsNormalized", true, pnormalizationForm).Import();
+				this.var_isnormalized_0_1 = this.builderType.GetMethod("IsNormalized", true, pnormalizationForm);
 			
-			return this.var_isnormalized_0_1;
+			return this.var_isnormalized_0_1.Import();
 						
 		}
 						
@@ -17211,9 +17211,9 @@ namespace Cauldron.Interception.Cecilator
 		{
 						
 			if(this.var_normalize_0_0 == null)
-				this.var_normalize_0_0 = this.builderType.GetMethod("Normalize", true).Import();
+				this.var_normalize_0_0 = this.builderType.GetMethod("Normalize", true);
 
-			return this.var_normalize_0_0;
+			return this.var_normalize_0_0.Import();
 						
 						
 		}
@@ -17230,9 +17230,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_normalize_0_1 == null)
-				this.var_normalize_0_1 = this.builderType.GetMethod("Normalize", true, pnormalizationForm).Import();
+				this.var_normalize_0_1 = this.builderType.GetMethod("Normalize", true, pnormalizationForm);
 			
-			return this.var_normalize_0_1;
+			return this.var_normalize_0_1.Import();
 						
 		}
 						
@@ -17248,9 +17248,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_compare_0_2 == null)
-				this.var_compare_0_2 = this.builderType.GetMethod("Compare", true, pstrA, pstrB).Import();
+				this.var_compare_0_2 = this.builderType.GetMethod("Compare", true, pstrA, pstrB);
 			
-			return this.var_compare_0_2;
+			return this.var_compare_0_2.Import();
 						
 		}
 						
@@ -17271,17 +17271,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.String).AreEqual(pstrA) && typeof(System.String).AreEqual(pstrB) && typeof(System.Boolean).AreEqual(pignoreCase))
 			{
 				if(this.var_compare_0_3 == null)
-					this.var_compare_0_3 = this.builderType.GetMethod("Compare", true, pstrA, pstrB, pignoreCase).Import();
+					this.var_compare_0_3 = this.builderType.GetMethod("Compare", true, pstrA, pstrB, pignoreCase);
 			
-				return this.var_compare_0_3;
+				return this.var_compare_0_3.Import();
 			}
 			
 			if(typeof(System.String).AreEqual(pstrA) && typeof(System.String).AreEqual(pstrB) && typeof(System.StringComparison).AreEqual(pignoreCase))
 			{
 				if(this.var_compare_1_3 == null)
-					this.var_compare_1_3 = this.builderType.GetMethod("Compare", true, pstrA, pstrB, pignoreCase).Import();
+					this.var_compare_1_3 = this.builderType.GetMethod("Compare", true, pstrA, pstrB, pignoreCase);
 			
-				return this.var_compare_1_3;
+				return this.var_compare_1_3.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -17305,17 +17305,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.String).AreEqual(pstrA) && typeof(System.String).AreEqual(pstrB) && typeof(System.Globalization.CultureInfo).AreEqual(pculture) && typeof(System.Globalization.CompareOptions).AreEqual(poptions))
 			{
 				if(this.var_compare_0_4 == null)
-					this.var_compare_0_4 = this.builderType.GetMethod("Compare", true, pstrA, pstrB, pculture, poptions).Import();
+					this.var_compare_0_4 = this.builderType.GetMethod("Compare", true, pstrA, pstrB, pculture, poptions);
 			
-				return this.var_compare_0_4;
+				return this.var_compare_0_4.Import();
 			}
 			
 			if(typeof(System.String).AreEqual(pstrA) && typeof(System.String).AreEqual(pstrB) && typeof(System.Boolean).AreEqual(pculture) && typeof(System.Globalization.CultureInfo).AreEqual(poptions))
 			{
 				if(this.var_compare_1_4 == null)
-					this.var_compare_1_4 = this.builderType.GetMethod("Compare", true, pstrA, pstrB, pculture, poptions).Import();
+					this.var_compare_1_4 = this.builderType.GetMethod("Compare", true, pstrA, pstrB, pculture, poptions);
 			
-				return this.var_compare_1_4;
+				return this.var_compare_1_4.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -17334,9 +17334,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_compare_0_5 == null)
-				this.var_compare_0_5 = this.builderType.GetMethod("Compare", true, pstrA, pindexA, pstrB, pindexB, plength).Import();
+				this.var_compare_0_5 = this.builderType.GetMethod("Compare", true, pstrA, pindexA, pstrB, pindexB, plength);
 			
-			return this.var_compare_0_5;
+			return this.var_compare_0_5.Import();
 						
 		}
 						
@@ -17357,17 +17357,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.String).AreEqual(pstrA) && typeof(System.Int32).AreEqual(pindexA) && typeof(System.String).AreEqual(pstrB) && typeof(System.Int32).AreEqual(pindexB) && typeof(System.Int32).AreEqual(plength) && typeof(System.Boolean).AreEqual(pignoreCase))
 			{
 				if(this.var_compare_0_6 == null)
-					this.var_compare_0_6 = this.builderType.GetMethod("Compare", true, pstrA, pindexA, pstrB, pindexB, plength, pignoreCase).Import();
+					this.var_compare_0_6 = this.builderType.GetMethod("Compare", true, pstrA, pindexA, pstrB, pindexB, plength, pignoreCase);
 			
-				return this.var_compare_0_6;
+				return this.var_compare_0_6.Import();
 			}
 			
 			if(typeof(System.String).AreEqual(pstrA) && typeof(System.Int32).AreEqual(pindexA) && typeof(System.String).AreEqual(pstrB) && typeof(System.Int32).AreEqual(pindexB) && typeof(System.Int32).AreEqual(plength) && typeof(System.StringComparison).AreEqual(pignoreCase))
 			{
 				if(this.var_compare_1_6 == null)
-					this.var_compare_1_6 = this.builderType.GetMethod("Compare", true, pstrA, pindexA, pstrB, pindexB, plength, pignoreCase).Import();
+					this.var_compare_1_6 = this.builderType.GetMethod("Compare", true, pstrA, pindexA, pstrB, pindexB, plength, pignoreCase);
 			
-				return this.var_compare_1_6;
+				return this.var_compare_1_6.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -17391,17 +17391,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.String).AreEqual(pstrA) && typeof(System.Int32).AreEqual(pindexA) && typeof(System.String).AreEqual(pstrB) && typeof(System.Int32).AreEqual(pindexB) && typeof(System.Int32).AreEqual(plength) && typeof(System.Boolean).AreEqual(pignoreCase) && typeof(System.Globalization.CultureInfo).AreEqual(pculture))
 			{
 				if(this.var_compare_0_7 == null)
-					this.var_compare_0_7 = this.builderType.GetMethod("Compare", true, pstrA, pindexA, pstrB, pindexB, plength, pignoreCase, pculture).Import();
+					this.var_compare_0_7 = this.builderType.GetMethod("Compare", true, pstrA, pindexA, pstrB, pindexB, plength, pignoreCase, pculture);
 			
-				return this.var_compare_0_7;
+				return this.var_compare_0_7.Import();
 			}
 			
 			if(typeof(System.String).AreEqual(pstrA) && typeof(System.Int32).AreEqual(pindexA) && typeof(System.String).AreEqual(pstrB) && typeof(System.Int32).AreEqual(pindexB) && typeof(System.Int32).AreEqual(plength) && typeof(System.Globalization.CultureInfo).AreEqual(pignoreCase) && typeof(System.Globalization.CompareOptions).AreEqual(pculture))
 			{
 				if(this.var_compare_1_7 == null)
-					this.var_compare_1_7 = this.builderType.GetMethod("Compare", true, pstrA, pindexA, pstrB, pindexB, plength, pignoreCase, pculture).Import();
+					this.var_compare_1_7 = this.builderType.GetMethod("Compare", true, pstrA, pindexA, pstrB, pindexB, plength, pignoreCase, pculture);
 			
-				return this.var_compare_1_7;
+				return this.var_compare_1_7.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -17425,17 +17425,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Object).AreEqual(pvalue))
 			{
 				if(this.var_compareto_0_1 == null)
-					this.var_compareto_0_1 = this.builderType.GetMethod("CompareTo", true, pvalue).Import();
+					this.var_compareto_0_1 = this.builderType.GetMethod("CompareTo", true, pvalue);
 			
-				return this.var_compareto_0_1;
+				return this.var_compareto_0_1.Import();
 			}
 			
 			if(typeof(System.String).AreEqual(pvalue))
 			{
 				if(this.var_compareto_1_1 == null)
-					this.var_compareto_1_1 = this.builderType.GetMethod("CompareTo", true, pvalue).Import();
+					this.var_compareto_1_1 = this.builderType.GetMethod("CompareTo", true, pvalue);
 			
-				return this.var_compareto_1_1;
+				return this.var_compareto_1_1.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -17454,9 +17454,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_compareordinal_0_2 == null)
-				this.var_compareordinal_0_2 = this.builderType.GetMethod("CompareOrdinal", true, pstrA, pstrB).Import();
+				this.var_compareordinal_0_2 = this.builderType.GetMethod("CompareOrdinal", true, pstrA, pstrB);
 			
-			return this.var_compareordinal_0_2;
+			return this.var_compareordinal_0_2.Import();
 						
 		}
 						
@@ -17472,9 +17472,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_compareordinal_0_5 == null)
-				this.var_compareordinal_0_5 = this.builderType.GetMethod("CompareOrdinal", true, pstrA, pindexA, pstrB, pindexB, plength).Import();
+				this.var_compareordinal_0_5 = this.builderType.GetMethod("CompareOrdinal", true, pstrA, pindexA, pstrB, pindexB, plength);
 			
-			return this.var_compareordinal_0_5;
+			return this.var_compareordinal_0_5.Import();
 						
 		}
 						
@@ -17488,9 +17488,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_Contains()
 		{
 			if(this.var_contains_0_1 == null)
-				this.var_contains_0_1 = this.builderType.GetMethod("Contains", 1, true).Import();
+				this.var_contains_0_1 = this.builderType.GetMethod("Contains", 1, true);
 
-			return this.var_contains_0_1;
+			return this.var_contains_0_1.Import();
 		}
 						
 		private Method var_endswith_0_1;
@@ -17505,9 +17505,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_endswith_0_1 == null)
-				this.var_endswith_0_1 = this.builderType.GetMethod("EndsWith", true, pvalue).Import();
+				this.var_endswith_0_1 = this.builderType.GetMethod("EndsWith", true, pvalue);
 			
-			return this.var_endswith_0_1;
+			return this.var_endswith_0_1.Import();
 						
 		}
 						
@@ -17523,9 +17523,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_endswith_0_2 == null)
-				this.var_endswith_0_2 = this.builderType.GetMethod("EndsWith", true, pvalue, pcomparisonType).Import();
+				this.var_endswith_0_2 = this.builderType.GetMethod("EndsWith", true, pvalue, pcomparisonType);
 			
-			return this.var_endswith_0_2;
+			return this.var_endswith_0_2.Import();
 						
 		}
 						
@@ -17541,9 +17541,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_endswith_0_3 == null)
-				this.var_endswith_0_3 = this.builderType.GetMethod("EndsWith", true, pvalue, pignoreCase, pculture).Import();
+				this.var_endswith_0_3 = this.builderType.GetMethod("EndsWith", true, pvalue, pignoreCase, pculture);
 			
-			return this.var_endswith_0_3;
+			return this.var_endswith_0_3.Import();
 						
 		}
 						
@@ -17564,17 +17564,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Char).AreEqual(pvalue))
 			{
 				if(this.var_indexof_0_1 == null)
-					this.var_indexof_0_1 = this.builderType.GetMethod("IndexOf", true, pvalue).Import();
+					this.var_indexof_0_1 = this.builderType.GetMethod("IndexOf", true, pvalue);
 			
-				return this.var_indexof_0_1;
+				return this.var_indexof_0_1.Import();
 			}
 			
 			if(typeof(System.String).AreEqual(pvalue))
 			{
 				if(this.var_indexof_1_1 == null)
-					this.var_indexof_1_1 = this.builderType.GetMethod("IndexOf", true, pvalue).Import();
+					this.var_indexof_1_1 = this.builderType.GetMethod("IndexOf", true, pvalue);
 			
-				return this.var_indexof_1_1;
+				return this.var_indexof_1_1.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -17601,25 +17601,25 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Char).AreEqual(pvalue) && typeof(System.Int32).AreEqual(pstartIndex))
 			{
 				if(this.var_indexof_0_2 == null)
-					this.var_indexof_0_2 = this.builderType.GetMethod("IndexOf", true, pvalue, pstartIndex).Import();
+					this.var_indexof_0_2 = this.builderType.GetMethod("IndexOf", true, pvalue, pstartIndex);
 			
-				return this.var_indexof_0_2;
+				return this.var_indexof_0_2.Import();
 			}
 			
 			if(typeof(System.String).AreEqual(pvalue) && typeof(System.Int32).AreEqual(pstartIndex))
 			{
 				if(this.var_indexof_1_2 == null)
-					this.var_indexof_1_2 = this.builderType.GetMethod("IndexOf", true, pvalue, pstartIndex).Import();
+					this.var_indexof_1_2 = this.builderType.GetMethod("IndexOf", true, pvalue, pstartIndex);
 			
-				return this.var_indexof_1_2;
+				return this.var_indexof_1_2.Import();
 			}
 			
 			if(typeof(System.String).AreEqual(pvalue) && typeof(System.StringComparison).AreEqual(pstartIndex))
 			{
 				if(this.var_indexof_2_2 == null)
-					this.var_indexof_2_2 = this.builderType.GetMethod("IndexOf", true, pvalue, pstartIndex).Import();
+					this.var_indexof_2_2 = this.builderType.GetMethod("IndexOf", true, pvalue, pstartIndex);
 			
-				return this.var_indexof_2_2;
+				return this.var_indexof_2_2.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -17646,25 +17646,25 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Char).AreEqual(pvalue) && typeof(System.Int32).AreEqual(pstartIndex) && typeof(System.Int32).AreEqual(pcount))
 			{
 				if(this.var_indexof_0_3 == null)
-					this.var_indexof_0_3 = this.builderType.GetMethod("IndexOf", true, pvalue, pstartIndex, pcount).Import();
+					this.var_indexof_0_3 = this.builderType.GetMethod("IndexOf", true, pvalue, pstartIndex, pcount);
 			
-				return this.var_indexof_0_3;
+				return this.var_indexof_0_3.Import();
 			}
 			
 			if(typeof(System.String).AreEqual(pvalue) && typeof(System.Int32).AreEqual(pstartIndex) && typeof(System.Int32).AreEqual(pcount))
 			{
 				if(this.var_indexof_1_3 == null)
-					this.var_indexof_1_3 = this.builderType.GetMethod("IndexOf", true, pvalue, pstartIndex, pcount).Import();
+					this.var_indexof_1_3 = this.builderType.GetMethod("IndexOf", true, pvalue, pstartIndex, pcount);
 			
-				return this.var_indexof_1_3;
+				return this.var_indexof_1_3.Import();
 			}
 			
 			if(typeof(System.String).AreEqual(pvalue) && typeof(System.Int32).AreEqual(pstartIndex) && typeof(System.StringComparison).AreEqual(pcount))
 			{
 				if(this.var_indexof_2_3 == null)
-					this.var_indexof_2_3 = this.builderType.GetMethod("IndexOf", true, pvalue, pstartIndex, pcount).Import();
+					this.var_indexof_2_3 = this.builderType.GetMethod("IndexOf", true, pvalue, pstartIndex, pcount);
 			
-				return this.var_indexof_2_3;
+				return this.var_indexof_2_3.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -17683,9 +17683,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_indexof_0_4 == null)
-				this.var_indexof_0_4 = this.builderType.GetMethod("IndexOf", true, pvalue, pstartIndex, pcount, pcomparisonType).Import();
+				this.var_indexof_0_4 = this.builderType.GetMethod("IndexOf", true, pvalue, pstartIndex, pcount, pcomparisonType);
 			
-			return this.var_indexof_0_4;
+			return this.var_indexof_0_4.Import();
 						
 		}
 						
@@ -17701,9 +17701,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_indexofany_0_1 == null)
-				this.var_indexofany_0_1 = this.builderType.GetMethod("IndexOfAny", true, panyOf).Import();
+				this.var_indexofany_0_1 = this.builderType.GetMethod("IndexOfAny", true, panyOf);
 			
-			return this.var_indexofany_0_1;
+			return this.var_indexofany_0_1.Import();
 						
 		}
 						
@@ -17719,9 +17719,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_indexofany_0_2 == null)
-				this.var_indexofany_0_2 = this.builderType.GetMethod("IndexOfAny", true, panyOf, pstartIndex).Import();
+				this.var_indexofany_0_2 = this.builderType.GetMethod("IndexOfAny", true, panyOf, pstartIndex);
 			
-			return this.var_indexofany_0_2;
+			return this.var_indexofany_0_2.Import();
 						
 		}
 						
@@ -17737,9 +17737,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_indexofany_0_3 == null)
-				this.var_indexofany_0_3 = this.builderType.GetMethod("IndexOfAny", true, panyOf, pstartIndex, pcount).Import();
+				this.var_indexofany_0_3 = this.builderType.GetMethod("IndexOfAny", true, panyOf, pstartIndex, pcount);
 			
-			return this.var_indexofany_0_3;
+			return this.var_indexofany_0_3.Import();
 						
 		}
 						
@@ -17760,17 +17760,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Char).AreEqual(pvalue))
 			{
 				if(this.var_lastindexof_0_1 == null)
-					this.var_lastindexof_0_1 = this.builderType.GetMethod("LastIndexOf", true, pvalue).Import();
+					this.var_lastindexof_0_1 = this.builderType.GetMethod("LastIndexOf", true, pvalue);
 			
-				return this.var_lastindexof_0_1;
+				return this.var_lastindexof_0_1.Import();
 			}
 			
 			if(typeof(System.String).AreEqual(pvalue))
 			{
 				if(this.var_lastindexof_1_1 == null)
-					this.var_lastindexof_1_1 = this.builderType.GetMethod("LastIndexOf", true, pvalue).Import();
+					this.var_lastindexof_1_1 = this.builderType.GetMethod("LastIndexOf", true, pvalue);
 			
-				return this.var_lastindexof_1_1;
+				return this.var_lastindexof_1_1.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -17797,25 +17797,25 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Char).AreEqual(pvalue) && typeof(System.Int32).AreEqual(pstartIndex))
 			{
 				if(this.var_lastindexof_0_2 == null)
-					this.var_lastindexof_0_2 = this.builderType.GetMethod("LastIndexOf", true, pvalue, pstartIndex).Import();
+					this.var_lastindexof_0_2 = this.builderType.GetMethod("LastIndexOf", true, pvalue, pstartIndex);
 			
-				return this.var_lastindexof_0_2;
+				return this.var_lastindexof_0_2.Import();
 			}
 			
 			if(typeof(System.String).AreEqual(pvalue) && typeof(System.Int32).AreEqual(pstartIndex))
 			{
 				if(this.var_lastindexof_1_2 == null)
-					this.var_lastindexof_1_2 = this.builderType.GetMethod("LastIndexOf", true, pvalue, pstartIndex).Import();
+					this.var_lastindexof_1_2 = this.builderType.GetMethod("LastIndexOf", true, pvalue, pstartIndex);
 			
-				return this.var_lastindexof_1_2;
+				return this.var_lastindexof_1_2.Import();
 			}
 			
 			if(typeof(System.String).AreEqual(pvalue) && typeof(System.StringComparison).AreEqual(pstartIndex))
 			{
 				if(this.var_lastindexof_2_2 == null)
-					this.var_lastindexof_2_2 = this.builderType.GetMethod("LastIndexOf", true, pvalue, pstartIndex).Import();
+					this.var_lastindexof_2_2 = this.builderType.GetMethod("LastIndexOf", true, pvalue, pstartIndex);
 			
-				return this.var_lastindexof_2_2;
+				return this.var_lastindexof_2_2.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -17842,25 +17842,25 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Char).AreEqual(pvalue) && typeof(System.Int32).AreEqual(pstartIndex) && typeof(System.Int32).AreEqual(pcount))
 			{
 				if(this.var_lastindexof_0_3 == null)
-					this.var_lastindexof_0_3 = this.builderType.GetMethod("LastIndexOf", true, pvalue, pstartIndex, pcount).Import();
+					this.var_lastindexof_0_3 = this.builderType.GetMethod("LastIndexOf", true, pvalue, pstartIndex, pcount);
 			
-				return this.var_lastindexof_0_3;
+				return this.var_lastindexof_0_3.Import();
 			}
 			
 			if(typeof(System.String).AreEqual(pvalue) && typeof(System.Int32).AreEqual(pstartIndex) && typeof(System.Int32).AreEqual(pcount))
 			{
 				if(this.var_lastindexof_1_3 == null)
-					this.var_lastindexof_1_3 = this.builderType.GetMethod("LastIndexOf", true, pvalue, pstartIndex, pcount).Import();
+					this.var_lastindexof_1_3 = this.builderType.GetMethod("LastIndexOf", true, pvalue, pstartIndex, pcount);
 			
-				return this.var_lastindexof_1_3;
+				return this.var_lastindexof_1_3.Import();
 			}
 			
 			if(typeof(System.String).AreEqual(pvalue) && typeof(System.Int32).AreEqual(pstartIndex) && typeof(System.StringComparison).AreEqual(pcount))
 			{
 				if(this.var_lastindexof_2_3 == null)
-					this.var_lastindexof_2_3 = this.builderType.GetMethod("LastIndexOf", true, pvalue, pstartIndex, pcount).Import();
+					this.var_lastindexof_2_3 = this.builderType.GetMethod("LastIndexOf", true, pvalue, pstartIndex, pcount);
 			
-				return this.var_lastindexof_2_3;
+				return this.var_lastindexof_2_3.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -17879,9 +17879,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_lastindexof_0_4 == null)
-				this.var_lastindexof_0_4 = this.builderType.GetMethod("LastIndexOf", true, pvalue, pstartIndex, pcount, pcomparisonType).Import();
+				this.var_lastindexof_0_4 = this.builderType.GetMethod("LastIndexOf", true, pvalue, pstartIndex, pcount, pcomparisonType);
 			
-			return this.var_lastindexof_0_4;
+			return this.var_lastindexof_0_4.Import();
 						
 		}
 						
@@ -17897,9 +17897,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_lastindexofany_0_1 == null)
-				this.var_lastindexofany_0_1 = this.builderType.GetMethod("LastIndexOfAny", true, panyOf).Import();
+				this.var_lastindexofany_0_1 = this.builderType.GetMethod("LastIndexOfAny", true, panyOf);
 			
-			return this.var_lastindexofany_0_1;
+			return this.var_lastindexofany_0_1.Import();
 						
 		}
 						
@@ -17915,9 +17915,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_lastindexofany_0_2 == null)
-				this.var_lastindexofany_0_2 = this.builderType.GetMethod("LastIndexOfAny", true, panyOf, pstartIndex).Import();
+				this.var_lastindexofany_0_2 = this.builderType.GetMethod("LastIndexOfAny", true, panyOf, pstartIndex);
 			
-			return this.var_lastindexofany_0_2;
+			return this.var_lastindexofany_0_2.Import();
 						
 		}
 						
@@ -17933,9 +17933,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_lastindexofany_0_3 == null)
-				this.var_lastindexofany_0_3 = this.builderType.GetMethod("LastIndexOfAny", true, panyOf, pstartIndex, pcount).Import();
+				this.var_lastindexofany_0_3 = this.builderType.GetMethod("LastIndexOfAny", true, panyOf, pstartIndex, pcount);
 			
-			return this.var_lastindexofany_0_3;
+			return this.var_lastindexofany_0_3.Import();
 						
 		}
 						
@@ -17951,9 +17951,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_padleft_0_1 == null)
-				this.var_padleft_0_1 = this.builderType.GetMethod("PadLeft", true, ptotalWidth).Import();
+				this.var_padleft_0_1 = this.builderType.GetMethod("PadLeft", true, ptotalWidth);
 			
-			return this.var_padleft_0_1;
+			return this.var_padleft_0_1.Import();
 						
 		}
 						
@@ -17969,9 +17969,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_padleft_0_2 == null)
-				this.var_padleft_0_2 = this.builderType.GetMethod("PadLeft", true, ptotalWidth, ppaddingChar).Import();
+				this.var_padleft_0_2 = this.builderType.GetMethod("PadLeft", true, ptotalWidth, ppaddingChar);
 			
-			return this.var_padleft_0_2;
+			return this.var_padleft_0_2.Import();
 						
 		}
 						
@@ -17987,9 +17987,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_padright_0_1 == null)
-				this.var_padright_0_1 = this.builderType.GetMethod("PadRight", true, ptotalWidth).Import();
+				this.var_padright_0_1 = this.builderType.GetMethod("PadRight", true, ptotalWidth);
 			
-			return this.var_padright_0_1;
+			return this.var_padright_0_1.Import();
 						
 		}
 						
@@ -18005,9 +18005,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_padright_0_2 == null)
-				this.var_padright_0_2 = this.builderType.GetMethod("PadRight", true, ptotalWidth, ppaddingChar).Import();
+				this.var_padright_0_2 = this.builderType.GetMethod("PadRight", true, ptotalWidth, ppaddingChar);
 			
-			return this.var_padright_0_2;
+			return this.var_padright_0_2.Import();
 						
 		}
 						
@@ -18023,9 +18023,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_startswith_0_1 == null)
-				this.var_startswith_0_1 = this.builderType.GetMethod("StartsWith", true, pvalue).Import();
+				this.var_startswith_0_1 = this.builderType.GetMethod("StartsWith", true, pvalue);
 			
-			return this.var_startswith_0_1;
+			return this.var_startswith_0_1.Import();
 						
 		}
 						
@@ -18041,9 +18041,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_startswith_0_2 == null)
-				this.var_startswith_0_2 = this.builderType.GetMethod("StartsWith", true, pvalue, pcomparisonType).Import();
+				this.var_startswith_0_2 = this.builderType.GetMethod("StartsWith", true, pvalue, pcomparisonType);
 			
-			return this.var_startswith_0_2;
+			return this.var_startswith_0_2.Import();
 						
 		}
 						
@@ -18059,9 +18059,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_startswith_0_3 == null)
-				this.var_startswith_0_3 = this.builderType.GetMethod("StartsWith", true, pvalue, pignoreCase, pculture).Import();
+				this.var_startswith_0_3 = this.builderType.GetMethod("StartsWith", true, pvalue, pignoreCase, pculture);
 			
-			return this.var_startswith_0_3;
+			return this.var_startswith_0_3.Import();
 						
 		}
 						
@@ -18076,9 +18076,9 @@ namespace Cauldron.Interception.Cecilator
 		{
 						
 			if(this.var_tolower_0_0 == null)
-				this.var_tolower_0_0 = this.builderType.GetMethod("ToLower", true).Import();
+				this.var_tolower_0_0 = this.builderType.GetMethod("ToLower", true);
 
-			return this.var_tolower_0_0;
+			return this.var_tolower_0_0.Import();
 						
 						
 		}
@@ -18095,9 +18095,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_tolower_0_1 == null)
-				this.var_tolower_0_1 = this.builderType.GetMethod("ToLower", true, pculture).Import();
+				this.var_tolower_0_1 = this.builderType.GetMethod("ToLower", true, pculture);
 			
-			return this.var_tolower_0_1;
+			return this.var_tolower_0_1.Import();
 						
 		}
 						
@@ -18111,9 +18111,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_ToLowerInvariant()
 		{
 			if(this.var_tolowerinvariant_0_0 == null)
-				this.var_tolowerinvariant_0_0 = this.builderType.GetMethod("ToLowerInvariant", 0, true).Import();
+				this.var_tolowerinvariant_0_0 = this.builderType.GetMethod("ToLowerInvariant", 0, true);
 
-			return this.var_tolowerinvariant_0_0;
+			return this.var_tolowerinvariant_0_0.Import();
 		}
 						
 		private Method var_toupper_0_0;
@@ -18127,9 +18127,9 @@ namespace Cauldron.Interception.Cecilator
 		{
 						
 			if(this.var_toupper_0_0 == null)
-				this.var_toupper_0_0 = this.builderType.GetMethod("ToUpper", true).Import();
+				this.var_toupper_0_0 = this.builderType.GetMethod("ToUpper", true);
 
-			return this.var_toupper_0_0;
+			return this.var_toupper_0_0.Import();
 						
 						
 		}
@@ -18146,9 +18146,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_toupper_0_1 == null)
-				this.var_toupper_0_1 = this.builderType.GetMethod("ToUpper", true, pculture).Import();
+				this.var_toupper_0_1 = this.builderType.GetMethod("ToUpper", true, pculture);
 			
-			return this.var_toupper_0_1;
+			return this.var_toupper_0_1.Import();
 						
 		}
 						
@@ -18162,9 +18162,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_ToUpperInvariant()
 		{
 			if(this.var_toupperinvariant_0_0 == null)
-				this.var_toupperinvariant_0_0 = this.builderType.GetMethod("ToUpperInvariant", 0, true).Import();
+				this.var_toupperinvariant_0_0 = this.builderType.GetMethod("ToUpperInvariant", 0, true);
 
-			return this.var_toupperinvariant_0_0;
+			return this.var_toupperinvariant_0_0.Import();
 		}
 						
 		private Method var_tostring_0_0;
@@ -18178,9 +18178,9 @@ namespace Cauldron.Interception.Cecilator
 		{
 						
 			if(this.var_tostring_0_0 == null)
-				this.var_tostring_0_0 = this.builderType.GetMethod("ToString", true).Import();
+				this.var_tostring_0_0 = this.builderType.GetMethod("ToString", true);
 
-			return this.var_tostring_0_0;
+			return this.var_tostring_0_0.Import();
 						
 						
 		}
@@ -18197,9 +18197,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_tostring_0_1 == null)
-				this.var_tostring_0_1 = this.builderType.GetMethod("ToString", true, pprovider).Import();
+				this.var_tostring_0_1 = this.builderType.GetMethod("ToString", true, pprovider);
 			
-			return this.var_tostring_0_1;
+			return this.var_tostring_0_1.Import();
 						
 		}
 						
@@ -18213,9 +18213,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_Clone()
 		{
 			if(this.var_clone_0_0 == null)
-				this.var_clone_0_0 = this.builderType.GetMethod("Clone", 0, true).Import();
+				this.var_clone_0_0 = this.builderType.GetMethod("Clone", 0, true);
 
-			return this.var_clone_0_0;
+			return this.var_clone_0_0.Import();
 		}
 						
 		private Method var_insert_0_2;
@@ -18228,9 +18228,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_Insert()
 		{
 			if(this.var_insert_0_2 == null)
-				this.var_insert_0_2 = this.builderType.GetMethod("Insert", 2, true).Import();
+				this.var_insert_0_2 = this.builderType.GetMethod("Insert", 2, true);
 
-			return this.var_insert_0_2;
+			return this.var_insert_0_2.Import();
 		}
 						
 		private Method var_replace_0_2;
@@ -18250,17 +18250,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Char).AreEqual(poldChar) && typeof(System.Char).AreEqual(pnewChar))
 			{
 				if(this.var_replace_0_2 == null)
-					this.var_replace_0_2 = this.builderType.GetMethod("Replace", true, poldChar, pnewChar).Import();
+					this.var_replace_0_2 = this.builderType.GetMethod("Replace", true, poldChar, pnewChar);
 			
-				return this.var_replace_0_2;
+				return this.var_replace_0_2.Import();
 			}
 			
 			if(typeof(System.String).AreEqual(poldChar) && typeof(System.String).AreEqual(pnewChar))
 			{
 				if(this.var_replace_1_2 == null)
-					this.var_replace_1_2 = this.builderType.GetMethod("Replace", true, poldChar, pnewChar).Import();
+					this.var_replace_1_2 = this.builderType.GetMethod("Replace", true, poldChar, pnewChar);
 			
-				return this.var_replace_1_2;
+				return this.var_replace_1_2.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -18279,9 +18279,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_remove_0_2 == null)
-				this.var_remove_0_2 = this.builderType.GetMethod("Remove", true, pstartIndex, pcount).Import();
+				this.var_remove_0_2 = this.builderType.GetMethod("Remove", true, pstartIndex, pcount);
 			
-			return this.var_remove_0_2;
+			return this.var_remove_0_2.Import();
 						
 		}
 						
@@ -18297,9 +18297,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_remove_0_1 == null)
-				this.var_remove_0_1 = this.builderType.GetMethod("Remove", true, pstartIndex).Import();
+				this.var_remove_0_1 = this.builderType.GetMethod("Remove", true, pstartIndex);
 			
-			return this.var_remove_0_1;
+			return this.var_remove_0_1.Import();
 						
 		}
 						
@@ -18320,17 +18320,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.String).AreEqual(pformat) && typeof(System.Object).AreEqual(parg0))
 			{
 				if(this.var_format_0_2 == null)
-					this.var_format_0_2 = this.builderType.GetMethod("Format", true, pformat, parg0).Import();
+					this.var_format_0_2 = this.builderType.GetMethod("Format", true, pformat, parg0);
 			
-				return this.var_format_0_2;
+				return this.var_format_0_2.Import();
 			}
 			
 			if(typeof(System.String).AreEqual(pformat) && typeof(System.Object[]).AreEqual(parg0))
 			{
 				if(this.var_format_1_2 == null)
-					this.var_format_1_2 = this.builderType.GetMethod("Format", true, pformat, parg0).Import();
+					this.var_format_1_2 = this.builderType.GetMethod("Format", true, pformat, parg0);
 			
-				return this.var_format_1_2;
+				return this.var_format_1_2.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -18357,25 +18357,25 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.String).AreEqual(pformat) && typeof(System.Object).AreEqual(parg0) && typeof(System.Object).AreEqual(parg1))
 			{
 				if(this.var_format_0_3 == null)
-					this.var_format_0_3 = this.builderType.GetMethod("Format", true, pformat, parg0, parg1).Import();
+					this.var_format_0_3 = this.builderType.GetMethod("Format", true, pformat, parg0, parg1);
 			
-				return this.var_format_0_3;
+				return this.var_format_0_3.Import();
 			}
 			
 			if(typeof(System.IFormatProvider).AreEqual(pformat) && typeof(System.String).AreEqual(parg0) && typeof(System.Object).AreEqual(parg1))
 			{
 				if(this.var_format_1_3 == null)
-					this.var_format_1_3 = this.builderType.GetMethod("Format", true, pformat, parg0, parg1).Import();
+					this.var_format_1_3 = this.builderType.GetMethod("Format", true, pformat, parg0, parg1);
 			
-				return this.var_format_1_3;
+				return this.var_format_1_3.Import();
 			}
 			
 			if(typeof(System.IFormatProvider).AreEqual(pformat) && typeof(System.String).AreEqual(parg0) && typeof(System.Object[]).AreEqual(parg1))
 			{
 				if(this.var_format_2_3 == null)
-					this.var_format_2_3 = this.builderType.GetMethod("Format", true, pformat, parg0, parg1).Import();
+					this.var_format_2_3 = this.builderType.GetMethod("Format", true, pformat, parg0, parg1);
 			
-				return this.var_format_2_3;
+				return this.var_format_2_3.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -18399,17 +18399,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.String).AreEqual(pformat) && typeof(System.Object).AreEqual(parg0) && typeof(System.Object).AreEqual(parg1) && typeof(System.Object).AreEqual(parg2))
 			{
 				if(this.var_format_0_4 == null)
-					this.var_format_0_4 = this.builderType.GetMethod("Format", true, pformat, parg0, parg1, parg2).Import();
+					this.var_format_0_4 = this.builderType.GetMethod("Format", true, pformat, parg0, parg1, parg2);
 			
-				return this.var_format_0_4;
+				return this.var_format_0_4.Import();
 			}
 			
 			if(typeof(System.IFormatProvider).AreEqual(pformat) && typeof(System.String).AreEqual(parg0) && typeof(System.Object).AreEqual(parg1) && typeof(System.Object).AreEqual(parg2))
 			{
 				if(this.var_format_1_4 == null)
-					this.var_format_1_4 = this.builderType.GetMethod("Format", true, pformat, parg0, parg1, parg2).Import();
+					this.var_format_1_4 = this.builderType.GetMethod("Format", true, pformat, parg0, parg1, parg2);
 			
-				return this.var_format_1_4;
+				return this.var_format_1_4.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -18428,9 +18428,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_format_0_5 == null)
-				this.var_format_0_5 = this.builderType.GetMethod("Format", true, pprovider, pformat, parg0, parg1, parg2).Import();
+				this.var_format_0_5 = this.builderType.GetMethod("Format", true, pprovider, pformat, parg0, parg1, parg2);
 			
-			return this.var_format_0_5;
+			return this.var_format_0_5.Import();
 						
 		}
 						
@@ -18444,9 +18444,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_Copy()
 		{
 			if(this.var_copy_0_1 == null)
-				this.var_copy_0_1 = this.builderType.GetMethod("Copy", 1, true).Import();
+				this.var_copy_0_1 = this.builderType.GetMethod("Copy", 1, true);
 
-			return this.var_copy_0_1;
+			return this.var_copy_0_1.Import();
 		}
 						
 		private Method var_concat_0_1;
@@ -18472,33 +18472,33 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Object).AreEqual(parg0))
 			{
 				if(this.var_concat_0_1 == null)
-					this.var_concat_0_1 = this.builderType.GetMethod("Concat", true, parg0).Import();
+					this.var_concat_0_1 = this.builderType.GetMethod("Concat", true, parg0);
 			
-				return this.var_concat_0_1;
+				return this.var_concat_0_1.Import();
 			}
 			
 			if(typeof(System.Object[]).AreEqual(parg0))
 			{
 				if(this.var_concat_1_1 == null)
-					this.var_concat_1_1 = this.builderType.GetMethod("Concat", true, parg0).Import();
+					this.var_concat_1_1 = this.builderType.GetMethod("Concat", true, parg0);
 			
-				return this.var_concat_1_1;
+				return this.var_concat_1_1.Import();
 			}
 			
 			if(typeof(System.Collections.Generic.IEnumerable<>).AreEqual(parg0))
 			{
 				if(this.var_concat_2_1 == null)
-					this.var_concat_2_1 = this.builderType.GetMethod("Concat", true, parg0).Import();
+					this.var_concat_2_1 = this.builderType.GetMethod("Concat", true, parg0);
 			
-				return this.var_concat_2_1;
+				return this.var_concat_2_1.Import();
 			}
 			
 			if(typeof(System.String[]).AreEqual(parg0))
 			{
 				if(this.var_concat_3_1 == null)
-					this.var_concat_3_1 = this.builderType.GetMethod("Concat", true, parg0).Import();
+					this.var_concat_3_1 = this.builderType.GetMethod("Concat", true, parg0);
 			
-				return this.var_concat_3_1;
+				return this.var_concat_3_1.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -18522,17 +18522,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Object).AreEqual(parg0) && typeof(System.Object).AreEqual(parg1))
 			{
 				if(this.var_concat_0_2 == null)
-					this.var_concat_0_2 = this.builderType.GetMethod("Concat", true, parg0, parg1).Import();
+					this.var_concat_0_2 = this.builderType.GetMethod("Concat", true, parg0, parg1);
 			
-				return this.var_concat_0_2;
+				return this.var_concat_0_2.Import();
 			}
 			
 			if(typeof(System.String).AreEqual(parg0) && typeof(System.String).AreEqual(parg1))
 			{
 				if(this.var_concat_1_2 == null)
-					this.var_concat_1_2 = this.builderType.GetMethod("Concat", true, parg0, parg1).Import();
+					this.var_concat_1_2 = this.builderType.GetMethod("Concat", true, parg0, parg1);
 			
-				return this.var_concat_1_2;
+				return this.var_concat_1_2.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -18556,17 +18556,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Object).AreEqual(parg0) && typeof(System.Object).AreEqual(parg1) && typeof(System.Object).AreEqual(parg2))
 			{
 				if(this.var_concat_0_3 == null)
-					this.var_concat_0_3 = this.builderType.GetMethod("Concat", true, parg0, parg1, parg2).Import();
+					this.var_concat_0_3 = this.builderType.GetMethod("Concat", true, parg0, parg1, parg2);
 			
-				return this.var_concat_0_3;
+				return this.var_concat_0_3.Import();
 			}
 			
 			if(typeof(System.String).AreEqual(parg0) && typeof(System.String).AreEqual(parg1) && typeof(System.String).AreEqual(parg2))
 			{
 				if(this.var_concat_1_3 == null)
-					this.var_concat_1_3 = this.builderType.GetMethod("Concat", true, parg0, parg1, parg2).Import();
+					this.var_concat_1_3 = this.builderType.GetMethod("Concat", true, parg0, parg1, parg2);
 			
-				return this.var_concat_1_3;
+				return this.var_concat_1_3.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -18590,17 +18590,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Object).AreEqual(parg0) && typeof(System.Object).AreEqual(parg1) && typeof(System.Object).AreEqual(parg2) && typeof(System.Object).AreEqual(parg3))
 			{
 				if(this.var_concat_0_4 == null)
-					this.var_concat_0_4 = this.builderType.GetMethod("Concat", true, parg0, parg1, parg2, parg3).Import();
+					this.var_concat_0_4 = this.builderType.GetMethod("Concat", true, parg0, parg1, parg2, parg3);
 			
-				return this.var_concat_0_4;
+				return this.var_concat_0_4.Import();
 			}
 			
 			if(typeof(System.String).AreEqual(parg0) && typeof(System.String).AreEqual(parg1) && typeof(System.String).AreEqual(parg2) && typeof(System.String).AreEqual(parg3))
 			{
 				if(this.var_concat_1_4 == null)
-					this.var_concat_1_4 = this.builderType.GetMethod("Concat", true, parg0, parg1, parg2, parg3).Import();
+					this.var_concat_1_4 = this.builderType.GetMethod("Concat", true, parg0, parg1, parg2, parg3);
 			
-				return this.var_concat_1_4;
+				return this.var_concat_1_4.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -18617,9 +18617,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_Intern()
 		{
 			if(this.var_intern_0_1 == null)
-				this.var_intern_0_1 = this.builderType.GetMethod("Intern", 1, true).Import();
+				this.var_intern_0_1 = this.builderType.GetMethod("Intern", 1, true);
 
-			return this.var_intern_0_1;
+			return this.var_intern_0_1.Import();
 		}
 						
 		private Method var_isinterned_0_1;
@@ -18632,9 +18632,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_IsInterned()
 		{
 			if(this.var_isinterned_0_1 == null)
-				this.var_isinterned_0_1 = this.builderType.GetMethod("IsInterned", 1, true).Import();
+				this.var_isinterned_0_1 = this.builderType.GetMethod("IsInterned", 1, true);
 
-			return this.var_isinterned_0_1;
+			return this.var_isinterned_0_1.Import();
 		}
 						
 		private Method var_gettypecode_0_0;
@@ -18647,9 +18647,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetTypeCode()
 		{
 			if(this.var_gettypecode_0_0 == null)
-				this.var_gettypecode_0_0 = this.builderType.GetMethod("GetTypeCode", 0, true).Import();
+				this.var_gettypecode_0_0 = this.builderType.GetMethod("GetTypeCode", 0, true);
 
-			return this.var_gettypecode_0_0;
+			return this.var_gettypecode_0_0.Import();
 		}
 						
 		private Method var_getenumerator_0_0;
@@ -18662,9 +18662,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetEnumerator()
 		{
 			if(this.var_getenumerator_0_0 == null)
-				this.var_getenumerator_0_0 = this.builderType.GetMethod("GetEnumerator", 0, true).Import();
+				this.var_getenumerator_0_0 = this.builderType.GetMethod("GetEnumerator", 0, true);
 
-			return this.var_getenumerator_0_0;
+			return this.var_getenumerator_0_0.Import();
 		}
 						
 		private Method var_gettype_0_0;
@@ -18677,9 +18677,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetType()
 		{
 			if(this.var_gettype_0_0 == null)
-				this.var_gettype_0_0 = this.builderType.GetMethod("GetType", 0, true).Import();
+				this.var_gettype_0_0 = this.builderType.GetMethod("GetType", 0, true);
 
-			return this.var_gettype_0_0;
+			return this.var_gettype_0_0.Import();
 		}
 						
 		private Method var_ctor_0_3;
@@ -18694,9 +18694,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_ctor_0_3 == null)
-				this.var_ctor_0_3 = this.builderType.GetMethod(".ctor", true, pvalue, pstartIndex, plength).Import();
+				this.var_ctor_0_3 = this.builderType.GetMethod(".ctor", true, pvalue, pstartIndex, plength);
 			
-			return this.var_ctor_0_3;
+			return this.var_ctor_0_3.Import();
 						
 		}
 						
@@ -18712,9 +18712,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_ctor_0_1 == null)
-				this.var_ctor_0_1 = this.builderType.GetMethod(".ctor", true, pvalue).Import();
+				this.var_ctor_0_1 = this.builderType.GetMethod(".ctor", true, pvalue);
 			
-			return this.var_ctor_0_1;
+			return this.var_ctor_0_1.Import();
 						
 		}
 						
@@ -18730,9 +18730,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_ctor_0_2 == null)
-				this.var_ctor_0_2 = this.builderType.GetMethod(".ctor", true, pc, pcount).Import();
+				this.var_ctor_0_2 = this.builderType.GetMethod(".ctor", true, pc, pcount);
 			
-			return this.var_ctor_0_2;
+			return this.var_ctor_0_2.Import();
 						
 		}
 					}
@@ -18748,10 +18748,10 @@ namespace Cauldron.Interception.Cecilator
 		}
 
 		/// <exclude />
-		public static implicit operator BuilderType(BuilderTypeTask value) => value.builderType;
+		public static implicit operator BuilderType(BuilderTypeTask value) => value.builderType.Import();
 		
 		/// <exclude />
-		public static implicit operator TypeReference(BuilderTypeTask value) => value.builderType.typeReference;
+		public static implicit operator TypeReference(BuilderTypeTask value) => Builder.Current.Import((TypeReference)value.builderType);
 			
 				
 		private Method var_start_0_0;
@@ -18765,9 +18765,9 @@ namespace Cauldron.Interception.Cecilator
 		{
 						
 			if(this.var_start_0_0 == null)
-				this.var_start_0_0 = this.builderType.GetMethod("Start", true).Import();
+				this.var_start_0_0 = this.builderType.GetMethod("Start", true);
 
-			return this.var_start_0_0;
+			return this.var_start_0_0.Import();
 						
 						
 		}
@@ -18784,9 +18784,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_start_0_1 == null)
-				this.var_start_0_1 = this.builderType.GetMethod("Start", true, pscheduler).Import();
+				this.var_start_0_1 = this.builderType.GetMethod("Start", true, pscheduler);
 			
-			return this.var_start_0_1;
+			return this.var_start_0_1.Import();
 						
 		}
 						
@@ -18801,9 +18801,9 @@ namespace Cauldron.Interception.Cecilator
 		{
 						
 			if(this.var_runsynchronously_0_0 == null)
-				this.var_runsynchronously_0_0 = this.builderType.GetMethod("RunSynchronously", true).Import();
+				this.var_runsynchronously_0_0 = this.builderType.GetMethod("RunSynchronously", true);
 
-			return this.var_runsynchronously_0_0;
+			return this.var_runsynchronously_0_0.Import();
 						
 						
 		}
@@ -18820,9 +18820,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_runsynchronously_0_1 == null)
-				this.var_runsynchronously_0_1 = this.builderType.GetMethod("RunSynchronously", true, pscheduler).Import();
+				this.var_runsynchronously_0_1 = this.builderType.GetMethod("RunSynchronously", true, pscheduler);
 			
-			return this.var_runsynchronously_0_1;
+			return this.var_runsynchronously_0_1.Import();
 						
 		}
 						
@@ -18836,9 +18836,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_Id()
 		{
 			if(this.var_get_id_0_0 == null)
-				this.var_get_id_0_0 = this.builderType.GetMethod("get_Id", 0, true).Import();
+				this.var_get_id_0_0 = this.builderType.GetMethod("get_Id", 0, true);
 
-			return this.var_get_id_0_0;
+			return this.var_get_id_0_0.Import();
 		}
 						
 		private Method var_get_currentid_0_0;
@@ -18851,9 +18851,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_CurrentId()
 		{
 			if(this.var_get_currentid_0_0 == null)
-				this.var_get_currentid_0_0 = this.builderType.GetMethod("get_CurrentId", 0, true).Import();
+				this.var_get_currentid_0_0 = this.builderType.GetMethod("get_CurrentId", 0, true);
 
-			return this.var_get_currentid_0_0;
+			return this.var_get_currentid_0_0.Import();
 		}
 						
 		private Method var_get_exception_0_0;
@@ -18866,9 +18866,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_Exception()
 		{
 			if(this.var_get_exception_0_0 == null)
-				this.var_get_exception_0_0 = this.builderType.GetMethod("get_Exception", 0, true).Import();
+				this.var_get_exception_0_0 = this.builderType.GetMethod("get_Exception", 0, true);
 
-			return this.var_get_exception_0_0;
+			return this.var_get_exception_0_0.Import();
 		}
 						
 		private Method var_get_status_0_0;
@@ -18881,9 +18881,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_Status()
 		{
 			if(this.var_get_status_0_0 == null)
-				this.var_get_status_0_0 = this.builderType.GetMethod("get_Status", 0, true).Import();
+				this.var_get_status_0_0 = this.builderType.GetMethod("get_Status", 0, true);
 
-			return this.var_get_status_0_0;
+			return this.var_get_status_0_0.Import();
 		}
 						
 		private Method var_get_iscanceled_0_0;
@@ -18896,9 +18896,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_IsCanceled()
 		{
 			if(this.var_get_iscanceled_0_0 == null)
-				this.var_get_iscanceled_0_0 = this.builderType.GetMethod("get_IsCanceled", 0, true).Import();
+				this.var_get_iscanceled_0_0 = this.builderType.GetMethod("get_IsCanceled", 0, true);
 
-			return this.var_get_iscanceled_0_0;
+			return this.var_get_iscanceled_0_0.Import();
 		}
 						
 		private Method var_get_iscompleted_0_0;
@@ -18911,9 +18911,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_IsCompleted()
 		{
 			if(this.var_get_iscompleted_0_0 == null)
-				this.var_get_iscompleted_0_0 = this.builderType.GetMethod("get_IsCompleted", 0, true).Import();
+				this.var_get_iscompleted_0_0 = this.builderType.GetMethod("get_IsCompleted", 0, true);
 
-			return this.var_get_iscompleted_0_0;
+			return this.var_get_iscompleted_0_0.Import();
 		}
 						
 		private Method var_get_creationoptions_0_0;
@@ -18926,9 +18926,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_CreationOptions()
 		{
 			if(this.var_get_creationoptions_0_0 == null)
-				this.var_get_creationoptions_0_0 = this.builderType.GetMethod("get_CreationOptions", 0, true).Import();
+				this.var_get_creationoptions_0_0 = this.builderType.GetMethod("get_CreationOptions", 0, true);
 
-			return this.var_get_creationoptions_0_0;
+			return this.var_get_creationoptions_0_0.Import();
 		}
 						
 		private Method var_get_asyncstate_0_0;
@@ -18941,9 +18941,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_AsyncState()
 		{
 			if(this.var_get_asyncstate_0_0 == null)
-				this.var_get_asyncstate_0_0 = this.builderType.GetMethod("get_AsyncState", 0, true).Import();
+				this.var_get_asyncstate_0_0 = this.builderType.GetMethod("get_AsyncState", 0, true);
 
-			return this.var_get_asyncstate_0_0;
+			return this.var_get_asyncstate_0_0.Import();
 		}
 						
 		private Method var_get_factory_0_0;
@@ -18956,9 +18956,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_Factory()
 		{
 			if(this.var_get_factory_0_0 == null)
-				this.var_get_factory_0_0 = this.builderType.GetMethod("get_Factory", 0, true).Import();
+				this.var_get_factory_0_0 = this.builderType.GetMethod("get_Factory", 0, true);
 
-			return this.var_get_factory_0_0;
+			return this.var_get_factory_0_0.Import();
 		}
 						
 		private Method var_get_completedtask_0_0;
@@ -18971,9 +18971,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_CompletedTask()
 		{
 			if(this.var_get_completedtask_0_0 == null)
-				this.var_get_completedtask_0_0 = this.builderType.GetMethod("get_CompletedTask", 0, true).Import();
+				this.var_get_completedtask_0_0 = this.builderType.GetMethod("get_CompletedTask", 0, true);
 
-			return this.var_get_completedtask_0_0;
+			return this.var_get_completedtask_0_0.Import();
 		}
 						
 		private Method var_get_isfaulted_0_0;
@@ -18986,9 +18986,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_IsFaulted()
 		{
 			if(this.var_get_isfaulted_0_0 == null)
-				this.var_get_isfaulted_0_0 = this.builderType.GetMethod("get_IsFaulted", 0, true).Import();
+				this.var_get_isfaulted_0_0 = this.builderType.GetMethod("get_IsFaulted", 0, true);
 
-			return this.var_get_isfaulted_0_0;
+			return this.var_get_isfaulted_0_0.Import();
 		}
 						
 		private Method var_dispose_0_0;
@@ -19001,9 +19001,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_Dispose()
 		{
 			if(this.var_dispose_0_0 == null)
-				this.var_dispose_0_0 = this.builderType.GetMethod("Dispose", 0, true).Import();
+				this.var_dispose_0_0 = this.builderType.GetMethod("Dispose", 0, true);
 
-			return this.var_dispose_0_0;
+			return this.var_dispose_0_0.Import();
 		}
 						
 		private Method var_getawaiter_0_0;
@@ -19016,9 +19016,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetAwaiter()
 		{
 			if(this.var_getawaiter_0_0 == null)
-				this.var_getawaiter_0_0 = this.builderType.GetMethod("GetAwaiter", 0, true).Import();
+				this.var_getawaiter_0_0 = this.builderType.GetMethod("GetAwaiter", 0, true);
 
-			return this.var_getawaiter_0_0;
+			return this.var_getawaiter_0_0.Import();
 		}
 						
 		private Method var_configureawait_0_1;
@@ -19031,9 +19031,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_ConfigureAwait()
 		{
 			if(this.var_configureawait_0_1 == null)
-				this.var_configureawait_0_1 = this.builderType.GetMethod("ConfigureAwait", 1, true).Import();
+				this.var_configureawait_0_1 = this.builderType.GetMethod("ConfigureAwait", 1, true);
 
-			return this.var_configureawait_0_1;
+			return this.var_configureawait_0_1.Import();
 		}
 						
 		private Method var_yield_0_0;
@@ -19046,9 +19046,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_Yield()
 		{
 			if(this.var_yield_0_0 == null)
-				this.var_yield_0_0 = this.builderType.GetMethod("Yield", 0, true).Import();
+				this.var_yield_0_0 = this.builderType.GetMethod("Yield", 0, true);
 
-			return this.var_yield_0_0;
+			return this.var_yield_0_0.Import();
 		}
 						
 		private Method var_wait_0_0;
@@ -19062,9 +19062,9 @@ namespace Cauldron.Interception.Cecilator
 		{
 						
 			if(this.var_wait_0_0 == null)
-				this.var_wait_0_0 = this.builderType.GetMethod("Wait", true).Import();
+				this.var_wait_0_0 = this.builderType.GetMethod("Wait", true);
 
-			return this.var_wait_0_0;
+			return this.var_wait_0_0.Import();
 						
 						
 		}
@@ -19089,25 +19089,25 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.TimeSpan).AreEqual(ptimeout))
 			{
 				if(this.var_wait_0_1 == null)
-					this.var_wait_0_1 = this.builderType.GetMethod("Wait", true, ptimeout).Import();
+					this.var_wait_0_1 = this.builderType.GetMethod("Wait", true, ptimeout);
 			
-				return this.var_wait_0_1;
+				return this.var_wait_0_1.Import();
 			}
 			
 			if(typeof(System.Threading.CancellationToken).AreEqual(ptimeout))
 			{
 				if(this.var_wait_1_1 == null)
-					this.var_wait_1_1 = this.builderType.GetMethod("Wait", true, ptimeout).Import();
+					this.var_wait_1_1 = this.builderType.GetMethod("Wait", true, ptimeout);
 			
-				return this.var_wait_1_1;
+				return this.var_wait_1_1.Import();
 			}
 			
 			if(typeof(System.Int32).AreEqual(ptimeout))
 			{
 				if(this.var_wait_2_1 == null)
-					this.var_wait_2_1 = this.builderType.GetMethod("Wait", true, ptimeout).Import();
+					this.var_wait_2_1 = this.builderType.GetMethod("Wait", true, ptimeout);
 			
-				return this.var_wait_2_1;
+				return this.var_wait_2_1.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -19126,9 +19126,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_wait_0_2 == null)
-				this.var_wait_0_2 = this.builderType.GetMethod("Wait", true, pmillisecondsTimeout, pcancellationToken).Import();
+				this.var_wait_0_2 = this.builderType.GetMethod("Wait", true, pmillisecondsTimeout, pcancellationToken);
 			
-			return this.var_wait_0_2;
+			return this.var_wait_0_2.Import();
 						
 		}
 						
@@ -19144,9 +19144,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_continuewith_0_1 == null)
-				this.var_continuewith_0_1 = this.builderType.GetMethod("ContinueWith", true, pcontinuationAction).Import();
+				this.var_continuewith_0_1 = this.builderType.GetMethod("ContinueWith", true, pcontinuationAction);
 			
-			return this.var_continuewith_0_1;
+			return this.var_continuewith_0_1.Import();
 						
 		}
 						
@@ -19173,33 +19173,33 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Action<>).AreEqual(pcontinuationAction) && typeof(System.Threading.CancellationToken).AreEqual(pcancellationToken))
 			{
 				if(this.var_continuewith_0_2 == null)
-					this.var_continuewith_0_2 = this.builderType.GetMethod("ContinueWith", true, pcontinuationAction, pcancellationToken).Import();
+					this.var_continuewith_0_2 = this.builderType.GetMethod("ContinueWith", true, pcontinuationAction, pcancellationToken);
 			
-				return this.var_continuewith_0_2;
+				return this.var_continuewith_0_2.Import();
 			}
 			
 			if(typeof(System.Action<>).AreEqual(pcontinuationAction) && typeof(System.Threading.Tasks.TaskScheduler).AreEqual(pcancellationToken))
 			{
 				if(this.var_continuewith_1_2 == null)
-					this.var_continuewith_1_2 = this.builderType.GetMethod("ContinueWith", true, pcontinuationAction, pcancellationToken).Import();
+					this.var_continuewith_1_2 = this.builderType.GetMethod("ContinueWith", true, pcontinuationAction, pcancellationToken);
 			
-				return this.var_continuewith_1_2;
+				return this.var_continuewith_1_2.Import();
 			}
 			
 			if(typeof(System.Action<>).AreEqual(pcontinuationAction) && typeof(System.Threading.Tasks.TaskContinuationOptions).AreEqual(pcancellationToken))
 			{
 				if(this.var_continuewith_2_2 == null)
-					this.var_continuewith_2_2 = this.builderType.GetMethod("ContinueWith", true, pcontinuationAction, pcancellationToken).Import();
+					this.var_continuewith_2_2 = this.builderType.GetMethod("ContinueWith", true, pcontinuationAction, pcancellationToken);
 			
-				return this.var_continuewith_2_2;
+				return this.var_continuewith_2_2.Import();
 			}
 			
 			if(typeof(System.Action<>).AreEqual(pcontinuationAction) && typeof(System.Object).AreEqual(pcancellationToken))
 			{
 				if(this.var_continuewith_3_2 == null)
-					this.var_continuewith_3_2 = this.builderType.GetMethod("ContinueWith", true, pcontinuationAction, pcancellationToken).Import();
+					this.var_continuewith_3_2 = this.builderType.GetMethod("ContinueWith", true, pcontinuationAction, pcancellationToken);
 			
-				return this.var_continuewith_3_2;
+				return this.var_continuewith_3_2.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -19218,9 +19218,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_continuewith_0_4 == null)
-				this.var_continuewith_0_4 = this.builderType.GetMethod("ContinueWith", true, pcontinuationAction, pcancellationToken, pcontinuationOptions, pscheduler).Import();
+				this.var_continuewith_0_4 = this.builderType.GetMethod("ContinueWith", true, pcontinuationAction, pcancellationToken, pcontinuationOptions, pscheduler);
 			
-			return this.var_continuewith_0_4;
+			return this.var_continuewith_0_4.Import();
 						
 		}
 						
@@ -19244,25 +19244,25 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Action<>).AreEqual(pcontinuationAction) && typeof(System.Object).AreEqual(pstate) && typeof(System.Threading.CancellationToken).AreEqual(pcancellationToken))
 			{
 				if(this.var_continuewith_0_3 == null)
-					this.var_continuewith_0_3 = this.builderType.GetMethod("ContinueWith", true, pcontinuationAction, pstate, pcancellationToken).Import();
+					this.var_continuewith_0_3 = this.builderType.GetMethod("ContinueWith", true, pcontinuationAction, pstate, pcancellationToken);
 			
-				return this.var_continuewith_0_3;
+				return this.var_continuewith_0_3.Import();
 			}
 			
 			if(typeof(System.Action<>).AreEqual(pcontinuationAction) && typeof(System.Object).AreEqual(pstate) && typeof(System.Threading.Tasks.TaskScheduler).AreEqual(pcancellationToken))
 			{
 				if(this.var_continuewith_1_3 == null)
-					this.var_continuewith_1_3 = this.builderType.GetMethod("ContinueWith", true, pcontinuationAction, pstate, pcancellationToken).Import();
+					this.var_continuewith_1_3 = this.builderType.GetMethod("ContinueWith", true, pcontinuationAction, pstate, pcancellationToken);
 			
-				return this.var_continuewith_1_3;
+				return this.var_continuewith_1_3.Import();
 			}
 			
 			if(typeof(System.Action<>).AreEqual(pcontinuationAction) && typeof(System.Object).AreEqual(pstate) && typeof(System.Threading.Tasks.TaskContinuationOptions).AreEqual(pcancellationToken))
 			{
 				if(this.var_continuewith_2_3 == null)
-					this.var_continuewith_2_3 = this.builderType.GetMethod("ContinueWith", true, pcontinuationAction, pstate, pcancellationToken).Import();
+					this.var_continuewith_2_3 = this.builderType.GetMethod("ContinueWith", true, pcontinuationAction, pstate, pcancellationToken);
 			
-				return this.var_continuewith_2_3;
+				return this.var_continuewith_2_3.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -19281,9 +19281,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_continuewith_0_5 == null)
-				this.var_continuewith_0_5 = this.builderType.GetMethod("ContinueWith", true, pcontinuationAction, pstate, pcancellationToken, pcontinuationOptions, pscheduler).Import();
+				this.var_continuewith_0_5 = this.builderType.GetMethod("ContinueWith", true, pcontinuationAction, pstate, pcancellationToken, pcontinuationOptions, pscheduler);
 			
-			return this.var_continuewith_0_5;
+			return this.var_continuewith_0_5.Import();
 						
 		}
 						
@@ -19299,9 +19299,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_waitall_0_1 == null)
-				this.var_waitall_0_1 = this.builderType.GetMethod("WaitAll", true, ptasks).Import();
+				this.var_waitall_0_1 = this.builderType.GetMethod("WaitAll", true, ptasks);
 			
-			return this.var_waitall_0_1;
+			return this.var_waitall_0_1.Import();
 						
 		}
 						
@@ -19325,25 +19325,25 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Threading.Tasks.Task[]).AreEqual(ptasks) && typeof(System.TimeSpan).AreEqual(ptimeout))
 			{
 				if(this.var_waitall_0_2 == null)
-					this.var_waitall_0_2 = this.builderType.GetMethod("WaitAll", true, ptasks, ptimeout).Import();
+					this.var_waitall_0_2 = this.builderType.GetMethod("WaitAll", true, ptasks, ptimeout);
 			
-				return this.var_waitall_0_2;
+				return this.var_waitall_0_2.Import();
 			}
 			
 			if(typeof(System.Threading.Tasks.Task[]).AreEqual(ptasks) && typeof(System.Int32).AreEqual(ptimeout))
 			{
 				if(this.var_waitall_1_2 == null)
-					this.var_waitall_1_2 = this.builderType.GetMethod("WaitAll", true, ptasks, ptimeout).Import();
+					this.var_waitall_1_2 = this.builderType.GetMethod("WaitAll", true, ptasks, ptimeout);
 			
-				return this.var_waitall_1_2;
+				return this.var_waitall_1_2.Import();
 			}
 			
 			if(typeof(System.Threading.Tasks.Task[]).AreEqual(ptasks) && typeof(System.Threading.CancellationToken).AreEqual(ptimeout))
 			{
 				if(this.var_waitall_2_2 == null)
-					this.var_waitall_2_2 = this.builderType.GetMethod("WaitAll", true, ptasks, ptimeout).Import();
+					this.var_waitall_2_2 = this.builderType.GetMethod("WaitAll", true, ptasks, ptimeout);
 			
-				return this.var_waitall_2_2;
+				return this.var_waitall_2_2.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -19362,9 +19362,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_waitall_0_3 == null)
-				this.var_waitall_0_3 = this.builderType.GetMethod("WaitAll", true, ptasks, pmillisecondsTimeout, pcancellationToken).Import();
+				this.var_waitall_0_3 = this.builderType.GetMethod("WaitAll", true, ptasks, pmillisecondsTimeout, pcancellationToken);
 			
-			return this.var_waitall_0_3;
+			return this.var_waitall_0_3.Import();
 						
 		}
 						
@@ -19380,9 +19380,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_waitany_0_1 == null)
-				this.var_waitany_0_1 = this.builderType.GetMethod("WaitAny", true, ptasks).Import();
+				this.var_waitany_0_1 = this.builderType.GetMethod("WaitAny", true, ptasks);
 			
-			return this.var_waitany_0_1;
+			return this.var_waitany_0_1.Import();
 						
 		}
 						
@@ -19406,25 +19406,25 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Threading.Tasks.Task[]).AreEqual(ptasks) && typeof(System.TimeSpan).AreEqual(ptimeout))
 			{
 				if(this.var_waitany_0_2 == null)
-					this.var_waitany_0_2 = this.builderType.GetMethod("WaitAny", true, ptasks, ptimeout).Import();
+					this.var_waitany_0_2 = this.builderType.GetMethod("WaitAny", true, ptasks, ptimeout);
 			
-				return this.var_waitany_0_2;
+				return this.var_waitany_0_2.Import();
 			}
 			
 			if(typeof(System.Threading.Tasks.Task[]).AreEqual(ptasks) && typeof(System.Threading.CancellationToken).AreEqual(ptimeout))
 			{
 				if(this.var_waitany_1_2 == null)
-					this.var_waitany_1_2 = this.builderType.GetMethod("WaitAny", true, ptasks, ptimeout).Import();
+					this.var_waitany_1_2 = this.builderType.GetMethod("WaitAny", true, ptasks, ptimeout);
 			
-				return this.var_waitany_1_2;
+				return this.var_waitany_1_2.Import();
 			}
 			
 			if(typeof(System.Threading.Tasks.Task[]).AreEqual(ptasks) && typeof(System.Int32).AreEqual(ptimeout))
 			{
 				if(this.var_waitany_2_2 == null)
-					this.var_waitany_2_2 = this.builderType.GetMethod("WaitAny", true, ptasks, ptimeout).Import();
+					this.var_waitany_2_2 = this.builderType.GetMethod("WaitAny", true, ptasks, ptimeout);
 			
-				return this.var_waitany_2_2;
+				return this.var_waitany_2_2.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -19443,9 +19443,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_waitany_0_3 == null)
-				this.var_waitany_0_3 = this.builderType.GetMethod("WaitAny", true, ptasks, pmillisecondsTimeout, pcancellationToken).Import();
+				this.var_waitany_0_3 = this.builderType.GetMethod("WaitAny", true, ptasks, pmillisecondsTimeout, pcancellationToken);
 			
-			return this.var_waitany_0_3;
+			return this.var_waitany_0_3.Import();
 						
 		}
 						
@@ -19461,9 +19461,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_fromexception_0_1 == null)
-				this.var_fromexception_0_1 = this.builderType.GetMethod("FromException", true, pexception).Import();
+				this.var_fromexception_0_1 = this.builderType.GetMethod("FromException", true, pexception);
 			
-			return this.var_fromexception_0_1;
+			return this.var_fromexception_0_1.Import();
 						
 		}
 						
@@ -19479,9 +19479,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_fromcanceled_0_1 == null)
-				this.var_fromcanceled_0_1 = this.builderType.GetMethod("FromCanceled", true, pcancellationToken).Import();
+				this.var_fromcanceled_0_1 = this.builderType.GetMethod("FromCanceled", true, pcancellationToken);
 			
-			return this.var_fromcanceled_0_1;
+			return this.var_fromcanceled_0_1.Import();
 						
 		}
 						
@@ -19502,17 +19502,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Action).AreEqual(paction))
 			{
 				if(this.var_run_0_1 == null)
-					this.var_run_0_1 = this.builderType.GetMethod("Run", true, paction).Import();
+					this.var_run_0_1 = this.builderType.GetMethod("Run", true, paction);
 			
-				return this.var_run_0_1;
+				return this.var_run_0_1.Import();
 			}
 			
 			if(typeof(System.Func<>).AreEqual(paction))
 			{
 				if(this.var_run_1_1 == null)
-					this.var_run_1_1 = this.builderType.GetMethod("Run", true, paction).Import();
+					this.var_run_1_1 = this.builderType.GetMethod("Run", true, paction);
 			
-				return this.var_run_1_1;
+				return this.var_run_1_1.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -19536,17 +19536,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Action).AreEqual(paction) && typeof(System.Threading.CancellationToken).AreEqual(pcancellationToken))
 			{
 				if(this.var_run_0_2 == null)
-					this.var_run_0_2 = this.builderType.GetMethod("Run", true, paction, pcancellationToken).Import();
+					this.var_run_0_2 = this.builderType.GetMethod("Run", true, paction, pcancellationToken);
 			
-				return this.var_run_0_2;
+				return this.var_run_0_2.Import();
 			}
 			
 			if(typeof(System.Func<>).AreEqual(paction) && typeof(System.Threading.CancellationToken).AreEqual(pcancellationToken))
 			{
 				if(this.var_run_1_2 == null)
-					this.var_run_1_2 = this.builderType.GetMethod("Run", true, paction, pcancellationToken).Import();
+					this.var_run_1_2 = this.builderType.GetMethod("Run", true, paction, pcancellationToken);
 			
-				return this.var_run_1_2;
+				return this.var_run_1_2.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -19570,17 +19570,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.TimeSpan).AreEqual(pdelay))
 			{
 				if(this.var_delay_0_1 == null)
-					this.var_delay_0_1 = this.builderType.GetMethod("Delay", true, pdelay).Import();
+					this.var_delay_0_1 = this.builderType.GetMethod("Delay", true, pdelay);
 			
-				return this.var_delay_0_1;
+				return this.var_delay_0_1.Import();
 			}
 			
 			if(typeof(System.Int32).AreEqual(pdelay))
 			{
 				if(this.var_delay_1_1 == null)
-					this.var_delay_1_1 = this.builderType.GetMethod("Delay", true, pdelay).Import();
+					this.var_delay_1_1 = this.builderType.GetMethod("Delay", true, pdelay);
 			
-				return this.var_delay_1_1;
+				return this.var_delay_1_1.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -19604,17 +19604,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.TimeSpan).AreEqual(pdelay) && typeof(System.Threading.CancellationToken).AreEqual(pcancellationToken))
 			{
 				if(this.var_delay_0_2 == null)
-					this.var_delay_0_2 = this.builderType.GetMethod("Delay", true, pdelay, pcancellationToken).Import();
+					this.var_delay_0_2 = this.builderType.GetMethod("Delay", true, pdelay, pcancellationToken);
 			
-				return this.var_delay_0_2;
+				return this.var_delay_0_2.Import();
 			}
 			
 			if(typeof(System.Int32).AreEqual(pdelay) && typeof(System.Threading.CancellationToken).AreEqual(pcancellationToken))
 			{
 				if(this.var_delay_1_2 == null)
-					this.var_delay_1_2 = this.builderType.GetMethod("Delay", true, pdelay, pcancellationToken).Import();
+					this.var_delay_1_2 = this.builderType.GetMethod("Delay", true, pdelay, pcancellationToken);
 			
-				return this.var_delay_1_2;
+				return this.var_delay_1_2.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -19638,17 +19638,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Collections.Generic.IEnumerable<>).AreEqual(ptasks))
 			{
 				if(this.var_whenall_0_1 == null)
-					this.var_whenall_0_1 = this.builderType.GetMethod("WhenAll", true, ptasks).Import();
+					this.var_whenall_0_1 = this.builderType.GetMethod("WhenAll", true, ptasks);
 			
-				return this.var_whenall_0_1;
+				return this.var_whenall_0_1.Import();
 			}
 			
 			if(typeof(System.Threading.Tasks.Task[]).AreEqual(ptasks))
 			{
 				if(this.var_whenall_1_1 == null)
-					this.var_whenall_1_1 = this.builderType.GetMethod("WhenAll", true, ptasks).Import();
+					this.var_whenall_1_1 = this.builderType.GetMethod("WhenAll", true, ptasks);
 			
-				return this.var_whenall_1_1;
+				return this.var_whenall_1_1.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -19672,17 +19672,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Threading.Tasks.Task[]).AreEqual(ptasks))
 			{
 				if(this.var_whenany_0_1 == null)
-					this.var_whenany_0_1 = this.builderType.GetMethod("WhenAny", true, ptasks).Import();
+					this.var_whenany_0_1 = this.builderType.GetMethod("WhenAny", true, ptasks);
 			
-				return this.var_whenany_0_1;
+				return this.var_whenany_0_1.Import();
 			}
 			
 			if(typeof(System.Collections.Generic.IEnumerable<>).AreEqual(ptasks))
 			{
 				if(this.var_whenany_1_1 == null)
-					this.var_whenany_1_1 = this.builderType.GetMethod("WhenAny", true, ptasks).Import();
+					this.var_whenany_1_1 = this.builderType.GetMethod("WhenAny", true, ptasks);
 			
-				return this.var_whenany_1_1;
+				return this.var_whenany_1_1.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -19699,9 +19699,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_ToString()
 		{
 			if(this.var_tostring_0_0 == null)
-				this.var_tostring_0_0 = this.builderType.GetMethod("ToString", 0, true).Import();
+				this.var_tostring_0_0 = this.builderType.GetMethod("ToString", 0, true);
 
-			return this.var_tostring_0_0;
+			return this.var_tostring_0_0.Import();
 		}
 						
 		private Method var_equals_0_1;
@@ -19714,9 +19714,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_Equals()
 		{
 			if(this.var_equals_0_1 == null)
-				this.var_equals_0_1 = this.builderType.GetMethod("Equals", 1, true).Import();
+				this.var_equals_0_1 = this.builderType.GetMethod("Equals", 1, true);
 
-			return this.var_equals_0_1;
+			return this.var_equals_0_1.Import();
 		}
 						
 		private Method var_gethashcode_0_0;
@@ -19729,9 +19729,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetHashCode()
 		{
 			if(this.var_gethashcode_0_0 == null)
-				this.var_gethashcode_0_0 = this.builderType.GetMethod("GetHashCode", 0, true).Import();
+				this.var_gethashcode_0_0 = this.builderType.GetMethod("GetHashCode", 0, true);
 
-			return this.var_gethashcode_0_0;
+			return this.var_gethashcode_0_0.Import();
 		}
 						
 		private Method var_gettype_0_0;
@@ -19744,9 +19744,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetType()
 		{
 			if(this.var_gettype_0_0 == null)
-				this.var_gettype_0_0 = this.builderType.GetMethod("GetType", 0, true).Import();
+				this.var_gettype_0_0 = this.builderType.GetMethod("GetType", 0, true);
 
-			return this.var_gettype_0_0;
+			return this.var_gettype_0_0.Import();
 		}
 						
 		private Method var_ctor_0_1;
@@ -19761,9 +19761,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_ctor_0_1 == null)
-				this.var_ctor_0_1 = this.builderType.GetMethod(".ctor", true, paction).Import();
+				this.var_ctor_0_1 = this.builderType.GetMethod(".ctor", true, paction);
 			
-			return this.var_ctor_0_1;
+			return this.var_ctor_0_1.Import();
 						
 		}
 						
@@ -19787,25 +19787,25 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Action).AreEqual(paction) && typeof(System.Threading.CancellationToken).AreEqual(pcancellationToken))
 			{
 				if(this.var_ctor_0_2 == null)
-					this.var_ctor_0_2 = this.builderType.GetMethod(".ctor", true, paction, pcancellationToken).Import();
+					this.var_ctor_0_2 = this.builderType.GetMethod(".ctor", true, paction, pcancellationToken);
 			
-				return this.var_ctor_0_2;
+				return this.var_ctor_0_2.Import();
 			}
 			
 			if(typeof(System.Action).AreEqual(paction) && typeof(System.Threading.Tasks.TaskCreationOptions).AreEqual(pcancellationToken))
 			{
 				if(this.var_ctor_1_2 == null)
-					this.var_ctor_1_2 = this.builderType.GetMethod(".ctor", true, paction, pcancellationToken).Import();
+					this.var_ctor_1_2 = this.builderType.GetMethod(".ctor", true, paction, pcancellationToken);
 			
-				return this.var_ctor_1_2;
+				return this.var_ctor_1_2.Import();
 			}
 			
 			if(typeof(System.Action<>).AreEqual(paction) && typeof(System.Object).AreEqual(pcancellationToken))
 			{
 				if(this.var_ctor_2_2 == null)
-					this.var_ctor_2_2 = this.builderType.GetMethod(".ctor", true, paction, pcancellationToken).Import();
+					this.var_ctor_2_2 = this.builderType.GetMethod(".ctor", true, paction, pcancellationToken);
 			
-				return this.var_ctor_2_2;
+				return this.var_ctor_2_2.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -19832,25 +19832,25 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Action).AreEqual(paction) && typeof(System.Threading.CancellationToken).AreEqual(pcancellationToken) && typeof(System.Threading.Tasks.TaskCreationOptions).AreEqual(pcreationOptions))
 			{
 				if(this.var_ctor_0_3 == null)
-					this.var_ctor_0_3 = this.builderType.GetMethod(".ctor", true, paction, pcancellationToken, pcreationOptions).Import();
+					this.var_ctor_0_3 = this.builderType.GetMethod(".ctor", true, paction, pcancellationToken, pcreationOptions);
 			
-				return this.var_ctor_0_3;
+				return this.var_ctor_0_3.Import();
 			}
 			
 			if(typeof(System.Action<>).AreEqual(paction) && typeof(System.Object).AreEqual(pcancellationToken) && typeof(System.Threading.CancellationToken).AreEqual(pcreationOptions))
 			{
 				if(this.var_ctor_1_3 == null)
-					this.var_ctor_1_3 = this.builderType.GetMethod(".ctor", true, paction, pcancellationToken, pcreationOptions).Import();
+					this.var_ctor_1_3 = this.builderType.GetMethod(".ctor", true, paction, pcancellationToken, pcreationOptions);
 			
-				return this.var_ctor_1_3;
+				return this.var_ctor_1_3.Import();
 			}
 			
 			if(typeof(System.Action<>).AreEqual(paction) && typeof(System.Object).AreEqual(pcancellationToken) && typeof(System.Threading.Tasks.TaskCreationOptions).AreEqual(pcreationOptions))
 			{
 				if(this.var_ctor_2_3 == null)
-					this.var_ctor_2_3 = this.builderType.GetMethod(".ctor", true, paction, pcancellationToken, pcreationOptions).Import();
+					this.var_ctor_2_3 = this.builderType.GetMethod(".ctor", true, paction, pcancellationToken, pcreationOptions);
 			
-				return this.var_ctor_2_3;
+				return this.var_ctor_2_3.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -19869,9 +19869,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_ctor_0_4 == null)
-				this.var_ctor_0_4 = this.builderType.GetMethod(".ctor", true, paction, pstate, pcancellationToken, pcreationOptions).Import();
+				this.var_ctor_0_4 = this.builderType.GetMethod(".ctor", true, paction, pstate, pcancellationToken, pcreationOptions);
 			
-			return this.var_ctor_0_4;
+			return this.var_ctor_0_4.Import();
 						
 		}
 					}
@@ -19887,10 +19887,10 @@ namespace Cauldron.Interception.Cecilator
 		}
 
 		/// <exclude />
-		public static implicit operator BuilderType(BuilderTypeTask1 value) => value.builderType;
+		public static implicit operator BuilderType(BuilderTypeTask1 value) => value.builderType.Import();
 		
 		/// <exclude />
-		public static implicit operator TypeReference(BuilderTypeTask1 value) => value.builderType.typeReference;
+		public static implicit operator TypeReference(BuilderTypeTask1 value) => Builder.Current.Import((TypeReference)value.builderType);
 			
 				
 		private Method var_getawaiter_0_0;
@@ -19904,9 +19904,9 @@ namespace Cauldron.Interception.Cecilator
 		{
 						
 			if(this.var_getawaiter_0_0 == null)
-				this.var_getawaiter_0_0 = this.builderType.GetMethod("GetAwaiter", true).Import();
+				this.var_getawaiter_0_0 = this.builderType.GetMethod("GetAwaiter", true);
 
-			return this.var_getawaiter_0_0;
+			return this.var_getawaiter_0_0.Import();
 						
 						
 		}
@@ -19923,9 +19923,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_configureawait_0_1 == null)
-				this.var_configureawait_0_1 = this.builderType.GetMethod("ConfigureAwait", true, pcontinueOnCapturedContext).Import();
+				this.var_configureawait_0_1 = this.builderType.GetMethod("ConfigureAwait", true, pcontinueOnCapturedContext);
 			
-			return this.var_configureawait_0_1;
+			return this.var_configureawait_0_1.Import();
 						
 		}
 						
@@ -19941,9 +19941,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_continuewith_0_1 == null)
-				this.var_continuewith_0_1 = this.builderType.GetMethod("ContinueWith", true, pcontinuationAction).Import();
+				this.var_continuewith_0_1 = this.builderType.GetMethod("ContinueWith", true, pcontinuationAction);
 			
-			return this.var_continuewith_0_1;
+			return this.var_continuewith_0_1.Import();
 						
 		}
 						
@@ -19970,33 +19970,33 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Action<>).AreEqual(pcontinuationAction) && typeof(System.Threading.CancellationToken).AreEqual(pcancellationToken))
 			{
 				if(this.var_continuewith_0_2 == null)
-					this.var_continuewith_0_2 = this.builderType.GetMethod("ContinueWith", true, pcontinuationAction, pcancellationToken).Import();
+					this.var_continuewith_0_2 = this.builderType.GetMethod("ContinueWith", true, pcontinuationAction, pcancellationToken);
 			
-				return this.var_continuewith_0_2;
+				return this.var_continuewith_0_2.Import();
 			}
 			
 			if(typeof(System.Action<>).AreEqual(pcontinuationAction) && typeof(System.Threading.Tasks.TaskScheduler).AreEqual(pcancellationToken))
 			{
 				if(this.var_continuewith_1_2 == null)
-					this.var_continuewith_1_2 = this.builderType.GetMethod("ContinueWith", true, pcontinuationAction, pcancellationToken).Import();
+					this.var_continuewith_1_2 = this.builderType.GetMethod("ContinueWith", true, pcontinuationAction, pcancellationToken);
 			
-				return this.var_continuewith_1_2;
+				return this.var_continuewith_1_2.Import();
 			}
 			
 			if(typeof(System.Action<>).AreEqual(pcontinuationAction) && typeof(System.Threading.Tasks.TaskContinuationOptions).AreEqual(pcancellationToken))
 			{
 				if(this.var_continuewith_2_2 == null)
-					this.var_continuewith_2_2 = this.builderType.GetMethod("ContinueWith", true, pcontinuationAction, pcancellationToken).Import();
+					this.var_continuewith_2_2 = this.builderType.GetMethod("ContinueWith", true, pcontinuationAction, pcancellationToken);
 			
-				return this.var_continuewith_2_2;
+				return this.var_continuewith_2_2.Import();
 			}
 			
 			if(typeof(System.Action<>).AreEqual(pcontinuationAction) && typeof(System.Object).AreEqual(pcancellationToken))
 			{
 				if(this.var_continuewith_3_2 == null)
-					this.var_continuewith_3_2 = this.builderType.GetMethod("ContinueWith", true, pcontinuationAction, pcancellationToken).Import();
+					this.var_continuewith_3_2 = this.builderType.GetMethod("ContinueWith", true, pcontinuationAction, pcancellationToken);
 			
-				return this.var_continuewith_3_2;
+				return this.var_continuewith_3_2.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -20015,9 +20015,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_continuewith_0_4 == null)
-				this.var_continuewith_0_4 = this.builderType.GetMethod("ContinueWith", true, pcontinuationAction, pcancellationToken, pcontinuationOptions, pscheduler).Import();
+				this.var_continuewith_0_4 = this.builderType.GetMethod("ContinueWith", true, pcontinuationAction, pcancellationToken, pcontinuationOptions, pscheduler);
 			
-			return this.var_continuewith_0_4;
+			return this.var_continuewith_0_4.Import();
 						
 		}
 						
@@ -20041,25 +20041,25 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Action<>).AreEqual(pcontinuationAction) && typeof(System.Object).AreEqual(pstate) && typeof(System.Threading.CancellationToken).AreEqual(pcancellationToken))
 			{
 				if(this.var_continuewith_0_3 == null)
-					this.var_continuewith_0_3 = this.builderType.GetMethod("ContinueWith", true, pcontinuationAction, pstate, pcancellationToken).Import();
+					this.var_continuewith_0_3 = this.builderType.GetMethod("ContinueWith", true, pcontinuationAction, pstate, pcancellationToken);
 			
-				return this.var_continuewith_0_3;
+				return this.var_continuewith_0_3.Import();
 			}
 			
 			if(typeof(System.Action<>).AreEqual(pcontinuationAction) && typeof(System.Object).AreEqual(pstate) && typeof(System.Threading.Tasks.TaskScheduler).AreEqual(pcancellationToken))
 			{
 				if(this.var_continuewith_1_3 == null)
-					this.var_continuewith_1_3 = this.builderType.GetMethod("ContinueWith", true, pcontinuationAction, pstate, pcancellationToken).Import();
+					this.var_continuewith_1_3 = this.builderType.GetMethod("ContinueWith", true, pcontinuationAction, pstate, pcancellationToken);
 			
-				return this.var_continuewith_1_3;
+				return this.var_continuewith_1_3.Import();
 			}
 			
 			if(typeof(System.Action<>).AreEqual(pcontinuationAction) && typeof(System.Object).AreEqual(pstate) && typeof(System.Threading.Tasks.TaskContinuationOptions).AreEqual(pcancellationToken))
 			{
 				if(this.var_continuewith_2_3 == null)
-					this.var_continuewith_2_3 = this.builderType.GetMethod("ContinueWith", true, pcontinuationAction, pstate, pcancellationToken).Import();
+					this.var_continuewith_2_3 = this.builderType.GetMethod("ContinueWith", true, pcontinuationAction, pstate, pcancellationToken);
 			
-				return this.var_continuewith_2_3;
+				return this.var_continuewith_2_3.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -20078,9 +20078,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_continuewith_0_5 == null)
-				this.var_continuewith_0_5 = this.builderType.GetMethod("ContinueWith", true, pcontinuationAction, pstate, pcancellationToken, pcontinuationOptions, pscheduler).Import();
+				this.var_continuewith_0_5 = this.builderType.GetMethod("ContinueWith", true, pcontinuationAction, pstate, pcancellationToken, pcontinuationOptions, pscheduler);
 			
-			return this.var_continuewith_0_5;
+			return this.var_continuewith_0_5.Import();
 						
 		}
 						
@@ -20095,9 +20095,9 @@ namespace Cauldron.Interception.Cecilator
 		{
 						
 			if(this.var_start_0_0 == null)
-				this.var_start_0_0 = this.builderType.GetMethod("Start", true).Import();
+				this.var_start_0_0 = this.builderType.GetMethod("Start", true);
 
-			return this.var_start_0_0;
+			return this.var_start_0_0.Import();
 						
 						
 		}
@@ -20114,9 +20114,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_start_0_1 == null)
-				this.var_start_0_1 = this.builderType.GetMethod("Start", true, pscheduler).Import();
+				this.var_start_0_1 = this.builderType.GetMethod("Start", true, pscheduler);
 			
-			return this.var_start_0_1;
+			return this.var_start_0_1.Import();
 						
 		}
 						
@@ -20131,9 +20131,9 @@ namespace Cauldron.Interception.Cecilator
 		{
 						
 			if(this.var_runsynchronously_0_0 == null)
-				this.var_runsynchronously_0_0 = this.builderType.GetMethod("RunSynchronously", true).Import();
+				this.var_runsynchronously_0_0 = this.builderType.GetMethod("RunSynchronously", true);
 
-			return this.var_runsynchronously_0_0;
+			return this.var_runsynchronously_0_0.Import();
 						
 						
 		}
@@ -20150,9 +20150,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_runsynchronously_0_1 == null)
-				this.var_runsynchronously_0_1 = this.builderType.GetMethod("RunSynchronously", true, pscheduler).Import();
+				this.var_runsynchronously_0_1 = this.builderType.GetMethod("RunSynchronously", true, pscheduler);
 			
-			return this.var_runsynchronously_0_1;
+			return this.var_runsynchronously_0_1.Import();
 						
 		}
 						
@@ -20166,9 +20166,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_Id()
 		{
 			if(this.var_get_id_0_0 == null)
-				this.var_get_id_0_0 = this.builderType.GetMethod("get_Id", 0, true).Import();
+				this.var_get_id_0_0 = this.builderType.GetMethod("get_Id", 0, true);
 
-			return this.var_get_id_0_0;
+			return this.var_get_id_0_0.Import();
 		}
 						
 		private Method var_get_exception_0_0;
@@ -20181,9 +20181,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_Exception()
 		{
 			if(this.var_get_exception_0_0 == null)
-				this.var_get_exception_0_0 = this.builderType.GetMethod("get_Exception", 0, true).Import();
+				this.var_get_exception_0_0 = this.builderType.GetMethod("get_Exception", 0, true);
 
-			return this.var_get_exception_0_0;
+			return this.var_get_exception_0_0.Import();
 		}
 						
 		private Method var_get_status_0_0;
@@ -20196,9 +20196,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_Status()
 		{
 			if(this.var_get_status_0_0 == null)
-				this.var_get_status_0_0 = this.builderType.GetMethod("get_Status", 0, true).Import();
+				this.var_get_status_0_0 = this.builderType.GetMethod("get_Status", 0, true);
 
-			return this.var_get_status_0_0;
+			return this.var_get_status_0_0.Import();
 		}
 						
 		private Method var_get_iscanceled_0_0;
@@ -20211,9 +20211,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_IsCanceled()
 		{
 			if(this.var_get_iscanceled_0_0 == null)
-				this.var_get_iscanceled_0_0 = this.builderType.GetMethod("get_IsCanceled", 0, true).Import();
+				this.var_get_iscanceled_0_0 = this.builderType.GetMethod("get_IsCanceled", 0, true);
 
-			return this.var_get_iscanceled_0_0;
+			return this.var_get_iscanceled_0_0.Import();
 		}
 						
 		private Method var_get_iscompleted_0_0;
@@ -20226,9 +20226,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_IsCompleted()
 		{
 			if(this.var_get_iscompleted_0_0 == null)
-				this.var_get_iscompleted_0_0 = this.builderType.GetMethod("get_IsCompleted", 0, true).Import();
+				this.var_get_iscompleted_0_0 = this.builderType.GetMethod("get_IsCompleted", 0, true);
 
-			return this.var_get_iscompleted_0_0;
+			return this.var_get_iscompleted_0_0.Import();
 		}
 						
 		private Method var_get_creationoptions_0_0;
@@ -20241,9 +20241,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_CreationOptions()
 		{
 			if(this.var_get_creationoptions_0_0 == null)
-				this.var_get_creationoptions_0_0 = this.builderType.GetMethod("get_CreationOptions", 0, true).Import();
+				this.var_get_creationoptions_0_0 = this.builderType.GetMethod("get_CreationOptions", 0, true);
 
-			return this.var_get_creationoptions_0_0;
+			return this.var_get_creationoptions_0_0.Import();
 		}
 						
 		private Method var_get_asyncstate_0_0;
@@ -20256,9 +20256,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_AsyncState()
 		{
 			if(this.var_get_asyncstate_0_0 == null)
-				this.var_get_asyncstate_0_0 = this.builderType.GetMethod("get_AsyncState", 0, true).Import();
+				this.var_get_asyncstate_0_0 = this.builderType.GetMethod("get_AsyncState", 0, true);
 
-			return this.var_get_asyncstate_0_0;
+			return this.var_get_asyncstate_0_0.Import();
 		}
 						
 		private Method var_get_isfaulted_0_0;
@@ -20271,9 +20271,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_IsFaulted()
 		{
 			if(this.var_get_isfaulted_0_0 == null)
-				this.var_get_isfaulted_0_0 = this.builderType.GetMethod("get_IsFaulted", 0, true).Import();
+				this.var_get_isfaulted_0_0 = this.builderType.GetMethod("get_IsFaulted", 0, true);
 
-			return this.var_get_isfaulted_0_0;
+			return this.var_get_isfaulted_0_0.Import();
 		}
 						
 		private Method var_dispose_0_0;
@@ -20286,9 +20286,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_Dispose()
 		{
 			if(this.var_dispose_0_0 == null)
-				this.var_dispose_0_0 = this.builderType.GetMethod("Dispose", 0, true).Import();
+				this.var_dispose_0_0 = this.builderType.GetMethod("Dispose", 0, true);
 
-			return this.var_dispose_0_0;
+			return this.var_dispose_0_0.Import();
 		}
 						
 		private Method var_wait_0_0;
@@ -20302,9 +20302,9 @@ namespace Cauldron.Interception.Cecilator
 		{
 						
 			if(this.var_wait_0_0 == null)
-				this.var_wait_0_0 = this.builderType.GetMethod("Wait", true).Import();
+				this.var_wait_0_0 = this.builderType.GetMethod("Wait", true);
 
-			return this.var_wait_0_0;
+			return this.var_wait_0_0.Import();
 						
 						
 		}
@@ -20329,25 +20329,25 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.TimeSpan).AreEqual(ptimeout))
 			{
 				if(this.var_wait_0_1 == null)
-					this.var_wait_0_1 = this.builderType.GetMethod("Wait", true, ptimeout).Import();
+					this.var_wait_0_1 = this.builderType.GetMethod("Wait", true, ptimeout);
 			
-				return this.var_wait_0_1;
+				return this.var_wait_0_1.Import();
 			}
 			
 			if(typeof(System.Threading.CancellationToken).AreEqual(ptimeout))
 			{
 				if(this.var_wait_1_1 == null)
-					this.var_wait_1_1 = this.builderType.GetMethod("Wait", true, ptimeout).Import();
+					this.var_wait_1_1 = this.builderType.GetMethod("Wait", true, ptimeout);
 			
-				return this.var_wait_1_1;
+				return this.var_wait_1_1.Import();
 			}
 			
 			if(typeof(System.Int32).AreEqual(ptimeout))
 			{
 				if(this.var_wait_2_1 == null)
-					this.var_wait_2_1 = this.builderType.GetMethod("Wait", true, ptimeout).Import();
+					this.var_wait_2_1 = this.builderType.GetMethod("Wait", true, ptimeout);
 			
-				return this.var_wait_2_1;
+				return this.var_wait_2_1.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -20366,9 +20366,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_wait_0_2 == null)
-				this.var_wait_0_2 = this.builderType.GetMethod("Wait", true, pmillisecondsTimeout, pcancellationToken).Import();
+				this.var_wait_0_2 = this.builderType.GetMethod("Wait", true, pmillisecondsTimeout, pcancellationToken);
 			
-			return this.var_wait_0_2;
+			return this.var_wait_0_2.Import();
 						
 		}
 						
@@ -20382,9 +20382,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_ToString()
 		{
 			if(this.var_tostring_0_0 == null)
-				this.var_tostring_0_0 = this.builderType.GetMethod("ToString", 0, true).Import();
+				this.var_tostring_0_0 = this.builderType.GetMethod("ToString", 0, true);
 
-			return this.var_tostring_0_0;
+			return this.var_tostring_0_0.Import();
 		}
 						
 		private Method var_equals_0_1;
@@ -20397,9 +20397,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_Equals()
 		{
 			if(this.var_equals_0_1 == null)
-				this.var_equals_0_1 = this.builderType.GetMethod("Equals", 1, true).Import();
+				this.var_equals_0_1 = this.builderType.GetMethod("Equals", 1, true);
 
-			return this.var_equals_0_1;
+			return this.var_equals_0_1.Import();
 		}
 						
 		private Method var_gethashcode_0_0;
@@ -20412,9 +20412,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetHashCode()
 		{
 			if(this.var_gethashcode_0_0 == null)
-				this.var_gethashcode_0_0 = this.builderType.GetMethod("GetHashCode", 0, true).Import();
+				this.var_gethashcode_0_0 = this.builderType.GetMethod("GetHashCode", 0, true);
 
-			return this.var_gethashcode_0_0;
+			return this.var_gethashcode_0_0.Import();
 		}
 						
 		private Method var_gettype_0_0;
@@ -20427,9 +20427,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetType()
 		{
 			if(this.var_gettype_0_0 == null)
-				this.var_gettype_0_0 = this.builderType.GetMethod("GetType", 0, true).Import();
+				this.var_gettype_0_0 = this.builderType.GetMethod("GetType", 0, true);
 
-			return this.var_gettype_0_0;
+			return this.var_gettype_0_0.Import();
 		}
 					}
 
@@ -20444,10 +20444,10 @@ namespace Cauldron.Interception.Cecilator
 		}
 
 		/// <exclude />
-		public static implicit operator BuilderType(BuilderTypeType value) => value.builderType;
+		public static implicit operator BuilderType(BuilderTypeType value) => value.builderType.Import();
 		
 		/// <exclude />
-		public static implicit operator TypeReference(BuilderTypeType value) => value.builderType.typeReference;
+		public static implicit operator TypeReference(BuilderTypeType value) => Builder.Current.Import((TypeReference)value.builderType);
 			
 				
 		private Method var_gettypefromhandle_0_1;
@@ -20460,9 +20460,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetTypeFromHandle()
 		{
 			if(this.var_gettypefromhandle_0_1 == null)
-				this.var_gettypefromhandle_0_1 = this.builderType.GetMethod("GetTypeFromHandle", 1, true).Import();
+				this.var_gettypefromhandle_0_1 = this.builderType.GetMethod("GetTypeFromHandle", 1, true);
 
-			return this.var_gettypefromhandle_0_1;
+			return this.var_gettypefromhandle_0_1.Import();
 		}
 						
 		private Method var_get_membertype_0_0;
@@ -20475,9 +20475,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_MemberType()
 		{
 			if(this.var_get_membertype_0_0 == null)
-				this.var_get_membertype_0_0 = this.builderType.GetMethod("get_MemberType", 0, true).Import();
+				this.var_get_membertype_0_0 = this.builderType.GetMethod("get_MemberType", 0, true);
 
-			return this.var_get_membertype_0_0;
+			return this.var_get_membertype_0_0.Import();
 		}
 						
 		private Method var_get_declaringtype_0_0;
@@ -20490,9 +20490,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_DeclaringType()
 		{
 			if(this.var_get_declaringtype_0_0 == null)
-				this.var_get_declaringtype_0_0 = this.builderType.GetMethod("get_DeclaringType", 0, true).Import();
+				this.var_get_declaringtype_0_0 = this.builderType.GetMethod("get_DeclaringType", 0, true);
 
-			return this.var_get_declaringtype_0_0;
+			return this.var_get_declaringtype_0_0.Import();
 		}
 						
 		private Method var_get_declaringmethod_0_0;
@@ -20505,9 +20505,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_DeclaringMethod()
 		{
 			if(this.var_get_declaringmethod_0_0 == null)
-				this.var_get_declaringmethod_0_0 = this.builderType.GetMethod("get_DeclaringMethod", 0, true).Import();
+				this.var_get_declaringmethod_0_0 = this.builderType.GetMethod("get_DeclaringMethod", 0, true);
 
-			return this.var_get_declaringmethod_0_0;
+			return this.var_get_declaringmethod_0_0.Import();
 		}
 						
 		private Method var_get_reflectedtype_0_0;
@@ -20520,9 +20520,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_ReflectedType()
 		{
 			if(this.var_get_reflectedtype_0_0 == null)
-				this.var_get_reflectedtype_0_0 = this.builderType.GetMethod("get_ReflectedType", 0, true).Import();
+				this.var_get_reflectedtype_0_0 = this.builderType.GetMethod("get_ReflectedType", 0, true);
 
-			return this.var_get_reflectedtype_0_0;
+			return this.var_get_reflectedtype_0_0.Import();
 		}
 						
 		private Method var_gettype_0_3;
@@ -20542,17 +20542,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.String).AreEqual(ptypeName) && typeof(System.Boolean).AreEqual(pthrowOnError) && typeof(System.Boolean).AreEqual(pignoreCase))
 			{
 				if(this.var_gettype_0_3 == null)
-					this.var_gettype_0_3 = this.builderType.GetMethod("GetType", true, ptypeName, pthrowOnError, pignoreCase).Import();
+					this.var_gettype_0_3 = this.builderType.GetMethod("GetType", true, ptypeName, pthrowOnError, pignoreCase);
 			
-				return this.var_gettype_0_3;
+				return this.var_gettype_0_3.Import();
 			}
 			
 			if(typeof(System.String).AreEqual(ptypeName) && typeof(System.Func<>).AreEqual(pthrowOnError) && typeof(System.Func<>).AreEqual(pignoreCase))
 			{
 				if(this.var_gettype_1_3 == null)
-					this.var_gettype_1_3 = this.builderType.GetMethod("GetType", true, ptypeName, pthrowOnError, pignoreCase).Import();
+					this.var_gettype_1_3 = this.builderType.GetMethod("GetType", true, ptypeName, pthrowOnError, pignoreCase);
 			
-				return this.var_gettype_1_3;
+				return this.var_gettype_1_3.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -20571,9 +20571,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_gettype_0_2 == null)
-				this.var_gettype_0_2 = this.builderType.GetMethod("GetType", true, ptypeName, pthrowOnError).Import();
+				this.var_gettype_0_2 = this.builderType.GetMethod("GetType", true, ptypeName, pthrowOnError);
 			
-			return this.var_gettype_0_2;
+			return this.var_gettype_0_2.Import();
 						
 		}
 						
@@ -20589,9 +20589,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_gettype_0_1 == null)
-				this.var_gettype_0_1 = this.builderType.GetMethod("GetType", true, ptypeName).Import();
+				this.var_gettype_0_1 = this.builderType.GetMethod("GetType", true, ptypeName);
 			
-			return this.var_gettype_0_1;
+			return this.var_gettype_0_1.Import();
 						
 		}
 						
@@ -20607,9 +20607,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_gettype_0_4 == null)
-				this.var_gettype_0_4 = this.builderType.GetMethod("GetType", true, ptypeName, passemblyResolver, ptypeResolver, pthrowOnError).Import();
+				this.var_gettype_0_4 = this.builderType.GetMethod("GetType", true, ptypeName, passemblyResolver, ptypeResolver, pthrowOnError);
 			
-			return this.var_gettype_0_4;
+			return this.var_gettype_0_4.Import();
 						
 		}
 						
@@ -20625,9 +20625,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_gettype_0_5 == null)
-				this.var_gettype_0_5 = this.builderType.GetMethod("GetType", true, ptypeName, passemblyResolver, ptypeResolver, pthrowOnError, pignoreCase).Import();
+				this.var_gettype_0_5 = this.builderType.GetMethod("GetType", true, ptypeName, passemblyResolver, ptypeResolver, pthrowOnError, pignoreCase);
 			
-			return this.var_gettype_0_5;
+			return this.var_gettype_0_5.Import();
 						
 		}
 						
@@ -20642,9 +20642,9 @@ namespace Cauldron.Interception.Cecilator
 		{
 						
 			if(this.var_gettype_0_0 == null)
-				this.var_gettype_0_0 = this.builderType.GetMethod("GetType", true).Import();
+				this.var_gettype_0_0 = this.builderType.GetMethod("GetType", true);
 
-			return this.var_gettype_0_0;
+			return this.var_gettype_0_0.Import();
 						
 						
 		}
@@ -20659,9 +20659,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_ReflectionOnlyGetType()
 		{
 			if(this.var_reflectiononlygettype_0_3 == null)
-				this.var_reflectiononlygettype_0_3 = this.builderType.GetMethod("ReflectionOnlyGetType", 3, true).Import();
+				this.var_reflectiononlygettype_0_3 = this.builderType.GetMethod("ReflectionOnlyGetType", 3, true);
 
-			return this.var_reflectiononlygettype_0_3;
+			return this.var_reflectiononlygettype_0_3.Import();
 		}
 						
 		private Method var_makepointertype_0_0;
@@ -20674,9 +20674,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_MakePointerType()
 		{
 			if(this.var_makepointertype_0_0 == null)
-				this.var_makepointertype_0_0 = this.builderType.GetMethod("MakePointerType", 0, true).Import();
+				this.var_makepointertype_0_0 = this.builderType.GetMethod("MakePointerType", 0, true);
 
-			return this.var_makepointertype_0_0;
+			return this.var_makepointertype_0_0.Import();
 		}
 						
 		private Method var_get_structlayoutattribute_0_0;
@@ -20689,9 +20689,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_StructLayoutAttribute()
 		{
 			if(this.var_get_structlayoutattribute_0_0 == null)
-				this.var_get_structlayoutattribute_0_0 = this.builderType.GetMethod("get_StructLayoutAttribute", 0, true).Import();
+				this.var_get_structlayoutattribute_0_0 = this.builderType.GetMethod("get_StructLayoutAttribute", 0, true);
 
-			return this.var_get_structlayoutattribute_0_0;
+			return this.var_get_structlayoutattribute_0_0.Import();
 		}
 						
 		private Method var_makebyreftype_0_0;
@@ -20704,9 +20704,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_MakeByRefType()
 		{
 			if(this.var_makebyreftype_0_0 == null)
-				this.var_makebyreftype_0_0 = this.builderType.GetMethod("MakeByRefType", 0, true).Import();
+				this.var_makebyreftype_0_0 = this.builderType.GetMethod("MakeByRefType", 0, true);
 
-			return this.var_makebyreftype_0_0;
+			return this.var_makebyreftype_0_0.Import();
 		}
 						
 		private Method var_makearraytype_0_0;
@@ -20720,9 +20720,9 @@ namespace Cauldron.Interception.Cecilator
 		{
 						
 			if(this.var_makearraytype_0_0 == null)
-				this.var_makearraytype_0_0 = this.builderType.GetMethod("MakeArrayType", true).Import();
+				this.var_makearraytype_0_0 = this.builderType.GetMethod("MakeArrayType", true);
 
-			return this.var_makearraytype_0_0;
+			return this.var_makearraytype_0_0.Import();
 						
 						
 		}
@@ -20739,9 +20739,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_makearraytype_0_1 == null)
-				this.var_makearraytype_0_1 = this.builderType.GetMethod("MakeArrayType", true, prank).Import();
+				this.var_makearraytype_0_1 = this.builderType.GetMethod("MakeArrayType", true, prank);
 			
-			return this.var_makearraytype_0_1;
+			return this.var_makearraytype_0_1.Import();
 						
 		}
 						
@@ -20757,9 +20757,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_gettypefromprogid_0_1 == null)
-				this.var_gettypefromprogid_0_1 = this.builderType.GetMethod("GetTypeFromProgID", true, pprogID).Import();
+				this.var_gettypefromprogid_0_1 = this.builderType.GetMethod("GetTypeFromProgID", true, pprogID);
 			
-			return this.var_gettypefromprogid_0_1;
+			return this.var_gettypefromprogid_0_1.Import();
 						
 		}
 						
@@ -20780,17 +20780,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.String).AreEqual(pprogID) && typeof(System.Boolean).AreEqual(pthrowOnError))
 			{
 				if(this.var_gettypefromprogid_0_2 == null)
-					this.var_gettypefromprogid_0_2 = this.builderType.GetMethod("GetTypeFromProgID", true, pprogID, pthrowOnError).Import();
+					this.var_gettypefromprogid_0_2 = this.builderType.GetMethod("GetTypeFromProgID", true, pprogID, pthrowOnError);
 			
-				return this.var_gettypefromprogid_0_2;
+				return this.var_gettypefromprogid_0_2.Import();
 			}
 			
 			if(typeof(System.String).AreEqual(pprogID) && typeof(System.String).AreEqual(pthrowOnError))
 			{
 				if(this.var_gettypefromprogid_1_2 == null)
-					this.var_gettypefromprogid_1_2 = this.builderType.GetMethod("GetTypeFromProgID", true, pprogID, pthrowOnError).Import();
+					this.var_gettypefromprogid_1_2 = this.builderType.GetMethod("GetTypeFromProgID", true, pprogID, pthrowOnError);
 			
-				return this.var_gettypefromprogid_1_2;
+				return this.var_gettypefromprogid_1_2.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -20809,9 +20809,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_gettypefromprogid_0_3 == null)
-				this.var_gettypefromprogid_0_3 = this.builderType.GetMethod("GetTypeFromProgID", true, pprogID, pserver, pthrowOnError).Import();
+				this.var_gettypefromprogid_0_3 = this.builderType.GetMethod("GetTypeFromProgID", true, pprogID, pserver, pthrowOnError);
 			
-			return this.var_gettypefromprogid_0_3;
+			return this.var_gettypefromprogid_0_3.Import();
 						
 		}
 						
@@ -20827,9 +20827,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_gettypefromclsid_0_1 == null)
-				this.var_gettypefromclsid_0_1 = this.builderType.GetMethod("GetTypeFromCLSID", true, pclsid).Import();
+				this.var_gettypefromclsid_0_1 = this.builderType.GetMethod("GetTypeFromCLSID", true, pclsid);
 			
-			return this.var_gettypefromclsid_0_1;
+			return this.var_gettypefromclsid_0_1.Import();
 						
 		}
 						
@@ -20850,17 +20850,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Guid).AreEqual(pclsid) && typeof(System.Boolean).AreEqual(pthrowOnError))
 			{
 				if(this.var_gettypefromclsid_0_2 == null)
-					this.var_gettypefromclsid_0_2 = this.builderType.GetMethod("GetTypeFromCLSID", true, pclsid, pthrowOnError).Import();
+					this.var_gettypefromclsid_0_2 = this.builderType.GetMethod("GetTypeFromCLSID", true, pclsid, pthrowOnError);
 			
-				return this.var_gettypefromclsid_0_2;
+				return this.var_gettypefromclsid_0_2.Import();
 			}
 			
 			if(typeof(System.Guid).AreEqual(pclsid) && typeof(System.String).AreEqual(pthrowOnError))
 			{
 				if(this.var_gettypefromclsid_1_2 == null)
-					this.var_gettypefromclsid_1_2 = this.builderType.GetMethod("GetTypeFromCLSID", true, pclsid, pthrowOnError).Import();
+					this.var_gettypefromclsid_1_2 = this.builderType.GetMethod("GetTypeFromCLSID", true, pclsid, pthrowOnError);
 			
-				return this.var_gettypefromclsid_1_2;
+				return this.var_gettypefromclsid_1_2.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -20879,9 +20879,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_gettypefromclsid_0_3 == null)
-				this.var_gettypefromclsid_0_3 = this.builderType.GetMethod("GetTypeFromCLSID", true, pclsid, pserver, pthrowOnError).Import();
+				this.var_gettypefromclsid_0_3 = this.builderType.GetMethod("GetTypeFromCLSID", true, pclsid, pserver, pthrowOnError);
 			
-			return this.var_gettypefromclsid_0_3;
+			return this.var_gettypefromclsid_0_3.Import();
 						
 		}
 						
@@ -20895,9 +20895,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetTypeCode()
 		{
 			if(this.var_gettypecode_0_1 == null)
-				this.var_gettypecode_0_1 = this.builderType.GetMethod("GetTypeCode", 1, true).Import();
+				this.var_gettypecode_0_1 = this.builderType.GetMethod("GetTypeCode", 1, true);
 
-			return this.var_gettypecode_0_1;
+			return this.var_gettypecode_0_1.Import();
 		}
 						
 		private Method var_get_guid_0_0;
@@ -20910,9 +20910,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_GUID()
 		{
 			if(this.var_get_guid_0_0 == null)
-				this.var_get_guid_0_0 = this.builderType.GetMethod("get_GUID", 0, true).Import();
+				this.var_get_guid_0_0 = this.builderType.GetMethod("get_GUID", 0, true);
 
-			return this.var_get_guid_0_0;
+			return this.var_get_guid_0_0.Import();
 		}
 						
 		private Method var_get_defaultbinder_0_0;
@@ -20925,9 +20925,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_DefaultBinder()
 		{
 			if(this.var_get_defaultbinder_0_0 == null)
-				this.var_get_defaultbinder_0_0 = this.builderType.GetMethod("get_DefaultBinder", 0, true).Import();
+				this.var_get_defaultbinder_0_0 = this.builderType.GetMethod("get_DefaultBinder", 0, true);
 
-			return this.var_get_defaultbinder_0_0;
+			return this.var_get_defaultbinder_0_0.Import();
 		}
 						
 		private Method var_invokemember_0_8;
@@ -20942,9 +20942,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_invokemember_0_8 == null)
-				this.var_invokemember_0_8 = this.builderType.GetMethod("InvokeMember", true, pname, pinvokeAttr, pbinder, ptarget, pargs, pmodifiers, pculture, pnamedParameters).Import();
+				this.var_invokemember_0_8 = this.builderType.GetMethod("InvokeMember", true, pname, pinvokeAttr, pbinder, ptarget, pargs, pmodifiers, pculture, pnamedParameters);
 			
-			return this.var_invokemember_0_8;
+			return this.var_invokemember_0_8.Import();
 						
 		}
 						
@@ -20960,9 +20960,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_invokemember_0_6 == null)
-				this.var_invokemember_0_6 = this.builderType.GetMethod("InvokeMember", true, pname, pinvokeAttr, pbinder, ptarget, pargs, pculture).Import();
+				this.var_invokemember_0_6 = this.builderType.GetMethod("InvokeMember", true, pname, pinvokeAttr, pbinder, ptarget, pargs, pculture);
 			
-			return this.var_invokemember_0_6;
+			return this.var_invokemember_0_6.Import();
 						
 		}
 						
@@ -20978,9 +20978,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_invokemember_0_5 == null)
-				this.var_invokemember_0_5 = this.builderType.GetMethod("InvokeMember", true, pname, pinvokeAttr, pbinder, ptarget, pargs).Import();
+				this.var_invokemember_0_5 = this.builderType.GetMethod("InvokeMember", true, pname, pinvokeAttr, pbinder, ptarget, pargs);
 			
-			return this.var_invokemember_0_5;
+			return this.var_invokemember_0_5.Import();
 						
 		}
 						
@@ -20995,9 +20995,9 @@ namespace Cauldron.Interception.Cecilator
 		{
 						
 			if(this.var_get_module_0_0 == null)
-				this.var_get_module_0_0 = this.builderType.GetMethod("get_Module", true).Import();
+				this.var_get_module_0_0 = this.builderType.GetMethod("get_Module", true);
 
-			return this.var_get_module_0_0;
+			return this.var_get_module_0_0.Import();
 						
 						
 		}
@@ -21012,9 +21012,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_Assembly()
 		{
 			if(this.var_get_assembly_0_0 == null)
-				this.var_get_assembly_0_0 = this.builderType.GetMethod("get_Assembly", 0, true).Import();
+				this.var_get_assembly_0_0 = this.builderType.GetMethod("get_Assembly", 0, true);
 
-			return this.var_get_assembly_0_0;
+			return this.var_get_assembly_0_0.Import();
 		}
 						
 		private Method var_get_typehandle_0_0;
@@ -21027,9 +21027,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_TypeHandle()
 		{
 			if(this.var_get_typehandle_0_0 == null)
-				this.var_get_typehandle_0_0 = this.builderType.GetMethod("get_TypeHandle", 0, true).Import();
+				this.var_get_typehandle_0_0 = this.builderType.GetMethod("get_TypeHandle", 0, true);
 
-			return this.var_get_typehandle_0_0;
+			return this.var_get_typehandle_0_0.Import();
 		}
 						
 		private Method var_gettypehandle_0_1;
@@ -21042,9 +21042,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetTypeHandle()
 		{
 			if(this.var_gettypehandle_0_1 == null)
-				this.var_gettypehandle_0_1 = this.builderType.GetMethod("GetTypeHandle", 1, true).Import();
+				this.var_gettypehandle_0_1 = this.builderType.GetMethod("GetTypeHandle", 1, true);
 
-			return this.var_gettypehandle_0_1;
+			return this.var_gettypehandle_0_1.Import();
 		}
 						
 		private Method var_get_fullname_0_0;
@@ -21057,9 +21057,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_FullName()
 		{
 			if(this.var_get_fullname_0_0 == null)
-				this.var_get_fullname_0_0 = this.builderType.GetMethod("get_FullName", 0, true).Import();
+				this.var_get_fullname_0_0 = this.builderType.GetMethod("get_FullName", 0, true);
 
-			return this.var_get_fullname_0_0;
+			return this.var_get_fullname_0_0.Import();
 		}
 						
 		private Method var_get_namespace_0_0;
@@ -21072,9 +21072,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_Namespace()
 		{
 			if(this.var_get_namespace_0_0 == null)
-				this.var_get_namespace_0_0 = this.builderType.GetMethod("get_Namespace", 0, true).Import();
+				this.var_get_namespace_0_0 = this.builderType.GetMethod("get_Namespace", 0, true);
 
-			return this.var_get_namespace_0_0;
+			return this.var_get_namespace_0_0.Import();
 		}
 						
 		private Method var_get_assemblyqualifiedname_0_0;
@@ -21087,9 +21087,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_AssemblyQualifiedName()
 		{
 			if(this.var_get_assemblyqualifiedname_0_0 == null)
-				this.var_get_assemblyqualifiedname_0_0 = this.builderType.GetMethod("get_AssemblyQualifiedName", 0, true).Import();
+				this.var_get_assemblyqualifiedname_0_0 = this.builderType.GetMethod("get_AssemblyQualifiedName", 0, true);
 
-			return this.var_get_assemblyqualifiedname_0_0;
+			return this.var_get_assemblyqualifiedname_0_0.Import();
 		}
 						
 		private Method var_getarrayrank_0_0;
@@ -21102,9 +21102,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetArrayRank()
 		{
 			if(this.var_getarrayrank_0_0 == null)
-				this.var_getarrayrank_0_0 = this.builderType.GetMethod("GetArrayRank", 0, true).Import();
+				this.var_getarrayrank_0_0 = this.builderType.GetMethod("GetArrayRank", 0, true);
 
-			return this.var_getarrayrank_0_0;
+			return this.var_getarrayrank_0_0.Import();
 		}
 						
 		private Method var_get_basetype_0_0;
@@ -21117,9 +21117,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_BaseType()
 		{
 			if(this.var_get_basetype_0_0 == null)
-				this.var_get_basetype_0_0 = this.builderType.GetMethod("get_BaseType", 0, true).Import();
+				this.var_get_basetype_0_0 = this.builderType.GetMethod("get_BaseType", 0, true);
 
-			return this.var_get_basetype_0_0;
+			return this.var_get_basetype_0_0.Import();
 		}
 						
 		private Method var_getconstructor_0_5;
@@ -21134,9 +21134,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_getconstructor_0_5 == null)
-				this.var_getconstructor_0_5 = this.builderType.GetMethod("GetConstructor", true, pbindingAttr, pbinder, pcallConvention, ptypes, pmodifiers).Import();
+				this.var_getconstructor_0_5 = this.builderType.GetMethod("GetConstructor", true, pbindingAttr, pbinder, pcallConvention, ptypes, pmodifiers);
 			
-			return this.var_getconstructor_0_5;
+			return this.var_getconstructor_0_5.Import();
 						
 		}
 						
@@ -21152,9 +21152,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_getconstructor_0_4 == null)
-				this.var_getconstructor_0_4 = this.builderType.GetMethod("GetConstructor", true, pbindingAttr, pbinder, ptypes, pmodifiers).Import();
+				this.var_getconstructor_0_4 = this.builderType.GetMethod("GetConstructor", true, pbindingAttr, pbinder, ptypes, pmodifiers);
 			
-			return this.var_getconstructor_0_4;
+			return this.var_getconstructor_0_4.Import();
 						
 		}
 						
@@ -21170,9 +21170,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_getconstructor_0_1 == null)
-				this.var_getconstructor_0_1 = this.builderType.GetMethod("GetConstructor", true, ptypes).Import();
+				this.var_getconstructor_0_1 = this.builderType.GetMethod("GetConstructor", true, ptypes);
 			
-			return this.var_getconstructor_0_1;
+			return this.var_getconstructor_0_1.Import();
 						
 		}
 						
@@ -21187,9 +21187,9 @@ namespace Cauldron.Interception.Cecilator
 		{
 						
 			if(this.var_getconstructors_0_0 == null)
-				this.var_getconstructors_0_0 = this.builderType.GetMethod("GetConstructors", true).Import();
+				this.var_getconstructors_0_0 = this.builderType.GetMethod("GetConstructors", true);
 
-			return this.var_getconstructors_0_0;
+			return this.var_getconstructors_0_0.Import();
 						
 						
 		}
@@ -21206,9 +21206,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_getconstructors_0_1 == null)
-				this.var_getconstructors_0_1 = this.builderType.GetMethod("GetConstructors", true, pbindingAttr).Import();
+				this.var_getconstructors_0_1 = this.builderType.GetMethod("GetConstructors", true, pbindingAttr);
 			
-			return this.var_getconstructors_0_1;
+			return this.var_getconstructors_0_1.Import();
 						
 		}
 						
@@ -21222,9 +21222,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_TypeInitializer()
 		{
 			if(this.var_get_typeinitializer_0_0 == null)
-				this.var_get_typeinitializer_0_0 = this.builderType.GetMethod("get_TypeInitializer", 0, true).Import();
+				this.var_get_typeinitializer_0_0 = this.builderType.GetMethod("get_TypeInitializer", 0, true);
 
-			return this.var_get_typeinitializer_0_0;
+			return this.var_get_typeinitializer_0_0.Import();
 		}
 						
 		private Method var_getmethod_0_6;
@@ -21239,9 +21239,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_getmethod_0_6 == null)
-				this.var_getmethod_0_6 = this.builderType.GetMethod("GetMethod", true, pname, pbindingAttr, pbinder, pcallConvention, ptypes, pmodifiers).Import();
+				this.var_getmethod_0_6 = this.builderType.GetMethod("GetMethod", true, pname, pbindingAttr, pbinder, pcallConvention, ptypes, pmodifiers);
 			
-			return this.var_getmethod_0_6;
+			return this.var_getmethod_0_6.Import();
 						
 		}
 						
@@ -21257,9 +21257,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_getmethod_0_5 == null)
-				this.var_getmethod_0_5 = this.builderType.GetMethod("GetMethod", true, pname, pbindingAttr, pbinder, ptypes, pmodifiers).Import();
+				this.var_getmethod_0_5 = this.builderType.GetMethod("GetMethod", true, pname, pbindingAttr, pbinder, ptypes, pmodifiers);
 			
-			return this.var_getmethod_0_5;
+			return this.var_getmethod_0_5.Import();
 						
 		}
 						
@@ -21275,9 +21275,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_getmethod_0_3 == null)
-				this.var_getmethod_0_3 = this.builderType.GetMethod("GetMethod", true, pname, ptypes, pmodifiers).Import();
+				this.var_getmethod_0_3 = this.builderType.GetMethod("GetMethod", true, pname, ptypes, pmodifiers);
 			
-			return this.var_getmethod_0_3;
+			return this.var_getmethod_0_3.Import();
 						
 		}
 						
@@ -21298,17 +21298,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.String).AreEqual(pname) && typeof(System.Type[]).AreEqual(ptypes))
 			{
 				if(this.var_getmethod_0_2 == null)
-					this.var_getmethod_0_2 = this.builderType.GetMethod("GetMethod", true, pname, ptypes).Import();
+					this.var_getmethod_0_2 = this.builderType.GetMethod("GetMethod", true, pname, ptypes);
 			
-				return this.var_getmethod_0_2;
+				return this.var_getmethod_0_2.Import();
 			}
 			
 			if(typeof(System.String).AreEqual(pname) && typeof(System.Reflection.BindingFlags).AreEqual(ptypes))
 			{
 				if(this.var_getmethod_1_2 == null)
-					this.var_getmethod_1_2 = this.builderType.GetMethod("GetMethod", true, pname, ptypes).Import();
+					this.var_getmethod_1_2 = this.builderType.GetMethod("GetMethod", true, pname, ptypes);
 			
-				return this.var_getmethod_1_2;
+				return this.var_getmethod_1_2.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -21327,9 +21327,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_getmethod_0_1 == null)
-				this.var_getmethod_0_1 = this.builderType.GetMethod("GetMethod", true, pname).Import();
+				this.var_getmethod_0_1 = this.builderType.GetMethod("GetMethod", true, pname);
 			
-			return this.var_getmethod_0_1;
+			return this.var_getmethod_0_1.Import();
 						
 		}
 						
@@ -21344,9 +21344,9 @@ namespace Cauldron.Interception.Cecilator
 		{
 						
 			if(this.var_getmethods_0_0 == null)
-				this.var_getmethods_0_0 = this.builderType.GetMethod("GetMethods", true).Import();
+				this.var_getmethods_0_0 = this.builderType.GetMethod("GetMethods", true);
 
-			return this.var_getmethods_0_0;
+			return this.var_getmethods_0_0.Import();
 						
 						
 		}
@@ -21363,9 +21363,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_getmethods_0_1 == null)
-				this.var_getmethods_0_1 = this.builderType.GetMethod("GetMethods", true, pbindingAttr).Import();
+				this.var_getmethods_0_1 = this.builderType.GetMethod("GetMethods", true, pbindingAttr);
 			
-			return this.var_getmethods_0_1;
+			return this.var_getmethods_0_1.Import();
 						
 		}
 						
@@ -21381,9 +21381,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_getfield_0_2 == null)
-				this.var_getfield_0_2 = this.builderType.GetMethod("GetField", true, pname, pbindingAttr).Import();
+				this.var_getfield_0_2 = this.builderType.GetMethod("GetField", true, pname, pbindingAttr);
 			
-			return this.var_getfield_0_2;
+			return this.var_getfield_0_2.Import();
 						
 		}
 						
@@ -21399,9 +21399,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_getfield_0_1 == null)
-				this.var_getfield_0_1 = this.builderType.GetMethod("GetField", true, pname).Import();
+				this.var_getfield_0_1 = this.builderType.GetMethod("GetField", true, pname);
 			
-			return this.var_getfield_0_1;
+			return this.var_getfield_0_1.Import();
 						
 		}
 						
@@ -21416,9 +21416,9 @@ namespace Cauldron.Interception.Cecilator
 		{
 						
 			if(this.var_getfields_0_0 == null)
-				this.var_getfields_0_0 = this.builderType.GetMethod("GetFields", true).Import();
+				this.var_getfields_0_0 = this.builderType.GetMethod("GetFields", true);
 
-			return this.var_getfields_0_0;
+			return this.var_getfields_0_0.Import();
 						
 						
 		}
@@ -21435,9 +21435,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_getfields_0_1 == null)
-				this.var_getfields_0_1 = this.builderType.GetMethod("GetFields", true, pbindingAttr).Import();
+				this.var_getfields_0_1 = this.builderType.GetMethod("GetFields", true, pbindingAttr);
 			
-			return this.var_getfields_0_1;
+			return this.var_getfields_0_1.Import();
 						
 		}
 						
@@ -21453,9 +21453,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_getinterface_0_1 == null)
-				this.var_getinterface_0_1 = this.builderType.GetMethod("GetInterface", true, pname).Import();
+				this.var_getinterface_0_1 = this.builderType.GetMethod("GetInterface", true, pname);
 			
-			return this.var_getinterface_0_1;
+			return this.var_getinterface_0_1.Import();
 						
 		}
 						
@@ -21471,9 +21471,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_getinterface_0_2 == null)
-				this.var_getinterface_0_2 = this.builderType.GetMethod("GetInterface", true, pname, pignoreCase).Import();
+				this.var_getinterface_0_2 = this.builderType.GetMethod("GetInterface", true, pname, pignoreCase);
 			
-			return this.var_getinterface_0_2;
+			return this.var_getinterface_0_2.Import();
 						
 		}
 						
@@ -21487,9 +21487,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetInterfaces()
 		{
 			if(this.var_getinterfaces_0_0 == null)
-				this.var_getinterfaces_0_0 = this.builderType.GetMethod("GetInterfaces", 0, true).Import();
+				this.var_getinterfaces_0_0 = this.builderType.GetMethod("GetInterfaces", 0, true);
 
-			return this.var_getinterfaces_0_0;
+			return this.var_getinterfaces_0_0.Import();
 		}
 						
 		private Method var_findinterfaces_0_2;
@@ -21502,9 +21502,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_FindInterfaces()
 		{
 			if(this.var_findinterfaces_0_2 == null)
-				this.var_findinterfaces_0_2 = this.builderType.GetMethod("FindInterfaces", 2, true).Import();
+				this.var_findinterfaces_0_2 = this.builderType.GetMethod("FindInterfaces", 2, true);
 
-			return this.var_findinterfaces_0_2;
+			return this.var_findinterfaces_0_2.Import();
 		}
 						
 		private Method var_getevent_0_1;
@@ -21519,9 +21519,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_getevent_0_1 == null)
-				this.var_getevent_0_1 = this.builderType.GetMethod("GetEvent", true, pname).Import();
+				this.var_getevent_0_1 = this.builderType.GetMethod("GetEvent", true, pname);
 			
-			return this.var_getevent_0_1;
+			return this.var_getevent_0_1.Import();
 						
 		}
 						
@@ -21537,9 +21537,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_getevent_0_2 == null)
-				this.var_getevent_0_2 = this.builderType.GetMethod("GetEvent", true, pname, pbindingAttr).Import();
+				this.var_getevent_0_2 = this.builderType.GetMethod("GetEvent", true, pname, pbindingAttr);
 			
-			return this.var_getevent_0_2;
+			return this.var_getevent_0_2.Import();
 						
 		}
 						
@@ -21554,9 +21554,9 @@ namespace Cauldron.Interception.Cecilator
 		{
 						
 			if(this.var_getevents_0_0 == null)
-				this.var_getevents_0_0 = this.builderType.GetMethod("GetEvents", true).Import();
+				this.var_getevents_0_0 = this.builderType.GetMethod("GetEvents", true);
 
-			return this.var_getevents_0_0;
+			return this.var_getevents_0_0.Import();
 						
 						
 		}
@@ -21573,9 +21573,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_getevents_0_1 == null)
-				this.var_getevents_0_1 = this.builderType.GetMethod("GetEvents", true, pbindingAttr).Import();
+				this.var_getevents_0_1 = this.builderType.GetMethod("GetEvents", true, pbindingAttr);
 			
-			return this.var_getevents_0_1;
+			return this.var_getevents_0_1.Import();
 						
 		}
 						
@@ -21591,9 +21591,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_getproperty_0_6 == null)
-				this.var_getproperty_0_6 = this.builderType.GetMethod("GetProperty", true, pname, pbindingAttr, pbinder, preturnType, ptypes, pmodifiers).Import();
+				this.var_getproperty_0_6 = this.builderType.GetMethod("GetProperty", true, pname, pbindingAttr, pbinder, preturnType, ptypes, pmodifiers);
 			
-			return this.var_getproperty_0_6;
+			return this.var_getproperty_0_6.Import();
 						
 		}
 						
@@ -21609,9 +21609,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_getproperty_0_4 == null)
-				this.var_getproperty_0_4 = this.builderType.GetMethod("GetProperty", true, pname, preturnType, ptypes, pmodifiers).Import();
+				this.var_getproperty_0_4 = this.builderType.GetMethod("GetProperty", true, pname, preturnType, ptypes, pmodifiers);
 			
-			return this.var_getproperty_0_4;
+			return this.var_getproperty_0_4.Import();
 						
 		}
 						
@@ -21635,25 +21635,25 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.String).AreEqual(pname) && typeof(System.Reflection.BindingFlags).AreEqual(pbindingAttr))
 			{
 				if(this.var_getproperty_0_2 == null)
-					this.var_getproperty_0_2 = this.builderType.GetMethod("GetProperty", true, pname, pbindingAttr).Import();
+					this.var_getproperty_0_2 = this.builderType.GetMethod("GetProperty", true, pname, pbindingAttr);
 			
-				return this.var_getproperty_0_2;
+				return this.var_getproperty_0_2.Import();
 			}
 			
 			if(typeof(System.String).AreEqual(pname) && typeof(System.Type[]).AreEqual(pbindingAttr))
 			{
 				if(this.var_getproperty_1_2 == null)
-					this.var_getproperty_1_2 = this.builderType.GetMethod("GetProperty", true, pname, pbindingAttr).Import();
+					this.var_getproperty_1_2 = this.builderType.GetMethod("GetProperty", true, pname, pbindingAttr);
 			
-				return this.var_getproperty_1_2;
+				return this.var_getproperty_1_2.Import();
 			}
 			
 			if(typeof(System.String).AreEqual(pname) && typeof(System.Type).AreEqual(pbindingAttr))
 			{
 				if(this.var_getproperty_2_2 == null)
-					this.var_getproperty_2_2 = this.builderType.GetMethod("GetProperty", true, pname, pbindingAttr).Import();
+					this.var_getproperty_2_2 = this.builderType.GetMethod("GetProperty", true, pname, pbindingAttr);
 			
-				return this.var_getproperty_2_2;
+				return this.var_getproperty_2_2.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -21672,9 +21672,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_getproperty_0_3 == null)
-				this.var_getproperty_0_3 = this.builderType.GetMethod("GetProperty", true, pname, preturnType, ptypes).Import();
+				this.var_getproperty_0_3 = this.builderType.GetMethod("GetProperty", true, pname, preturnType, ptypes);
 			
-			return this.var_getproperty_0_3;
+			return this.var_getproperty_0_3.Import();
 						
 		}
 						
@@ -21690,9 +21690,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_getproperty_0_1 == null)
-				this.var_getproperty_0_1 = this.builderType.GetMethod("GetProperty", true, pname).Import();
+				this.var_getproperty_0_1 = this.builderType.GetMethod("GetProperty", true, pname);
 			
-			return this.var_getproperty_0_1;
+			return this.var_getproperty_0_1.Import();
 						
 		}
 						
@@ -21708,9 +21708,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_getproperties_0_1 == null)
-				this.var_getproperties_0_1 = this.builderType.GetMethod("GetProperties", true, pbindingAttr).Import();
+				this.var_getproperties_0_1 = this.builderType.GetMethod("GetProperties", true, pbindingAttr);
 			
-			return this.var_getproperties_0_1;
+			return this.var_getproperties_0_1.Import();
 						
 		}
 						
@@ -21725,9 +21725,9 @@ namespace Cauldron.Interception.Cecilator
 		{
 						
 			if(this.var_getproperties_0_0 == null)
-				this.var_getproperties_0_0 = this.builderType.GetMethod("GetProperties", true).Import();
+				this.var_getproperties_0_0 = this.builderType.GetMethod("GetProperties", true);
 
-			return this.var_getproperties_0_0;
+			return this.var_getproperties_0_0.Import();
 						
 						
 		}
@@ -21743,9 +21743,9 @@ namespace Cauldron.Interception.Cecilator
 		{
 						
 			if(this.var_getnestedtypes_0_0 == null)
-				this.var_getnestedtypes_0_0 = this.builderType.GetMethod("GetNestedTypes", true).Import();
+				this.var_getnestedtypes_0_0 = this.builderType.GetMethod("GetNestedTypes", true);
 
-			return this.var_getnestedtypes_0_0;
+			return this.var_getnestedtypes_0_0.Import();
 						
 						
 		}
@@ -21762,9 +21762,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_getnestedtypes_0_1 == null)
-				this.var_getnestedtypes_0_1 = this.builderType.GetMethod("GetNestedTypes", true, pbindingAttr).Import();
+				this.var_getnestedtypes_0_1 = this.builderType.GetMethod("GetNestedTypes", true, pbindingAttr);
 			
-			return this.var_getnestedtypes_0_1;
+			return this.var_getnestedtypes_0_1.Import();
 						
 		}
 						
@@ -21780,9 +21780,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_getnestedtype_0_1 == null)
-				this.var_getnestedtype_0_1 = this.builderType.GetMethod("GetNestedType", true, pname).Import();
+				this.var_getnestedtype_0_1 = this.builderType.GetMethod("GetNestedType", true, pname);
 			
-			return this.var_getnestedtype_0_1;
+			return this.var_getnestedtype_0_1.Import();
 						
 		}
 						
@@ -21798,9 +21798,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_getnestedtype_0_2 == null)
-				this.var_getnestedtype_0_2 = this.builderType.GetMethod("GetNestedType", true, pname, pbindingAttr).Import();
+				this.var_getnestedtype_0_2 = this.builderType.GetMethod("GetNestedType", true, pname, pbindingAttr);
 			
-			return this.var_getnestedtype_0_2;
+			return this.var_getnestedtype_0_2.Import();
 						
 		}
 						
@@ -21816,9 +21816,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_getmember_0_1 == null)
-				this.var_getmember_0_1 = this.builderType.GetMethod("GetMember", true, pname).Import();
+				this.var_getmember_0_1 = this.builderType.GetMethod("GetMember", true, pname);
 			
-			return this.var_getmember_0_1;
+			return this.var_getmember_0_1.Import();
 						
 		}
 						
@@ -21834,9 +21834,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_getmember_0_2 == null)
-				this.var_getmember_0_2 = this.builderType.GetMethod("GetMember", true, pname, pbindingAttr).Import();
+				this.var_getmember_0_2 = this.builderType.GetMethod("GetMember", true, pname, pbindingAttr);
 			
-			return this.var_getmember_0_2;
+			return this.var_getmember_0_2.Import();
 						
 		}
 						
@@ -21852,9 +21852,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_getmember_0_3 == null)
-				this.var_getmember_0_3 = this.builderType.GetMethod("GetMember", true, pname, ptype, pbindingAttr).Import();
+				this.var_getmember_0_3 = this.builderType.GetMethod("GetMember", true, pname, ptype, pbindingAttr);
 			
-			return this.var_getmember_0_3;
+			return this.var_getmember_0_3.Import();
 						
 		}
 						
@@ -21869,9 +21869,9 @@ namespace Cauldron.Interception.Cecilator
 		{
 						
 			if(this.var_getmembers_0_0 == null)
-				this.var_getmembers_0_0 = this.builderType.GetMethod("GetMembers", true).Import();
+				this.var_getmembers_0_0 = this.builderType.GetMethod("GetMembers", true);
 
-			return this.var_getmembers_0_0;
+			return this.var_getmembers_0_0.Import();
 						
 						
 		}
@@ -21888,9 +21888,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_getmembers_0_1 == null)
-				this.var_getmembers_0_1 = this.builderType.GetMethod("GetMembers", true, pbindingAttr).Import();
+				this.var_getmembers_0_1 = this.builderType.GetMethod("GetMembers", true, pbindingAttr);
 			
-			return this.var_getmembers_0_1;
+			return this.var_getmembers_0_1.Import();
 						
 		}
 						
@@ -21904,9 +21904,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetDefaultMembers()
 		{
 			if(this.var_getdefaultmembers_0_0 == null)
-				this.var_getdefaultmembers_0_0 = this.builderType.GetMethod("GetDefaultMembers", 0, true).Import();
+				this.var_getdefaultmembers_0_0 = this.builderType.GetMethod("GetDefaultMembers", 0, true);
 
-			return this.var_getdefaultmembers_0_0;
+			return this.var_getdefaultmembers_0_0.Import();
 		}
 						
 		private Method var_findmembers_0_4;
@@ -21919,9 +21919,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_FindMembers()
 		{
 			if(this.var_findmembers_0_4 == null)
-				this.var_findmembers_0_4 = this.builderType.GetMethod("FindMembers", 4, true).Import();
+				this.var_findmembers_0_4 = this.builderType.GetMethod("FindMembers", 4, true);
 
-			return this.var_findmembers_0_4;
+			return this.var_findmembers_0_4.Import();
 		}
 						
 		private Method var_get_isnested_0_0;
@@ -21934,9 +21934,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_IsNested()
 		{
 			if(this.var_get_isnested_0_0 == null)
-				this.var_get_isnested_0_0 = this.builderType.GetMethod("get_IsNested", 0, true).Import();
+				this.var_get_isnested_0_0 = this.builderType.GetMethod("get_IsNested", 0, true);
 
-			return this.var_get_isnested_0_0;
+			return this.var_get_isnested_0_0.Import();
 		}
 						
 		private Method var_get_attributes_0_0;
@@ -21949,9 +21949,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_Attributes()
 		{
 			if(this.var_get_attributes_0_0 == null)
-				this.var_get_attributes_0_0 = this.builderType.GetMethod("get_Attributes", 0, true).Import();
+				this.var_get_attributes_0_0 = this.builderType.GetMethod("get_Attributes", 0, true);
 
-			return this.var_get_attributes_0_0;
+			return this.var_get_attributes_0_0.Import();
 		}
 						
 		private Method var_get_genericparameterattributes_0_0;
@@ -21964,9 +21964,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_GenericParameterAttributes()
 		{
 			if(this.var_get_genericparameterattributes_0_0 == null)
-				this.var_get_genericparameterattributes_0_0 = this.builderType.GetMethod("get_GenericParameterAttributes", 0, true).Import();
+				this.var_get_genericparameterattributes_0_0 = this.builderType.GetMethod("get_GenericParameterAttributes", 0, true);
 
-			return this.var_get_genericparameterattributes_0_0;
+			return this.var_get_genericparameterattributes_0_0.Import();
 		}
 						
 		private Method var_get_isvisible_0_0;
@@ -21979,9 +21979,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_IsVisible()
 		{
 			if(this.var_get_isvisible_0_0 == null)
-				this.var_get_isvisible_0_0 = this.builderType.GetMethod("get_IsVisible", 0, true).Import();
+				this.var_get_isvisible_0_0 = this.builderType.GetMethod("get_IsVisible", 0, true);
 
-			return this.var_get_isvisible_0_0;
+			return this.var_get_isvisible_0_0.Import();
 		}
 						
 		private Method var_get_isnotpublic_0_0;
@@ -21994,9 +21994,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_IsNotPublic()
 		{
 			if(this.var_get_isnotpublic_0_0 == null)
-				this.var_get_isnotpublic_0_0 = this.builderType.GetMethod("get_IsNotPublic", 0, true).Import();
+				this.var_get_isnotpublic_0_0 = this.builderType.GetMethod("get_IsNotPublic", 0, true);
 
-			return this.var_get_isnotpublic_0_0;
+			return this.var_get_isnotpublic_0_0.Import();
 		}
 						
 		private Method var_get_ispublic_0_0;
@@ -22009,9 +22009,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_IsPublic()
 		{
 			if(this.var_get_ispublic_0_0 == null)
-				this.var_get_ispublic_0_0 = this.builderType.GetMethod("get_IsPublic", 0, true).Import();
+				this.var_get_ispublic_0_0 = this.builderType.GetMethod("get_IsPublic", 0, true);
 
-			return this.var_get_ispublic_0_0;
+			return this.var_get_ispublic_0_0.Import();
 		}
 						
 		private Method var_get_isnestedpublic_0_0;
@@ -22024,9 +22024,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_IsNestedPublic()
 		{
 			if(this.var_get_isnestedpublic_0_0 == null)
-				this.var_get_isnestedpublic_0_0 = this.builderType.GetMethod("get_IsNestedPublic", 0, true).Import();
+				this.var_get_isnestedpublic_0_0 = this.builderType.GetMethod("get_IsNestedPublic", 0, true);
 
-			return this.var_get_isnestedpublic_0_0;
+			return this.var_get_isnestedpublic_0_0.Import();
 		}
 						
 		private Method var_get_isnestedprivate_0_0;
@@ -22039,9 +22039,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_IsNestedPrivate()
 		{
 			if(this.var_get_isnestedprivate_0_0 == null)
-				this.var_get_isnestedprivate_0_0 = this.builderType.GetMethod("get_IsNestedPrivate", 0, true).Import();
+				this.var_get_isnestedprivate_0_0 = this.builderType.GetMethod("get_IsNestedPrivate", 0, true);
 
-			return this.var_get_isnestedprivate_0_0;
+			return this.var_get_isnestedprivate_0_0.Import();
 		}
 						
 		private Method var_get_isnestedfamily_0_0;
@@ -22054,9 +22054,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_IsNestedFamily()
 		{
 			if(this.var_get_isnestedfamily_0_0 == null)
-				this.var_get_isnestedfamily_0_0 = this.builderType.GetMethod("get_IsNestedFamily", 0, true).Import();
+				this.var_get_isnestedfamily_0_0 = this.builderType.GetMethod("get_IsNestedFamily", 0, true);
 
-			return this.var_get_isnestedfamily_0_0;
+			return this.var_get_isnestedfamily_0_0.Import();
 		}
 						
 		private Method var_get_isnestedassembly_0_0;
@@ -22069,9 +22069,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_IsNestedAssembly()
 		{
 			if(this.var_get_isnestedassembly_0_0 == null)
-				this.var_get_isnestedassembly_0_0 = this.builderType.GetMethod("get_IsNestedAssembly", 0, true).Import();
+				this.var_get_isnestedassembly_0_0 = this.builderType.GetMethod("get_IsNestedAssembly", 0, true);
 
-			return this.var_get_isnestedassembly_0_0;
+			return this.var_get_isnestedassembly_0_0.Import();
 		}
 						
 		private Method var_get_isnestedfamandassem_0_0;
@@ -22084,9 +22084,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_IsNestedFamANDAssem()
 		{
 			if(this.var_get_isnestedfamandassem_0_0 == null)
-				this.var_get_isnestedfamandassem_0_0 = this.builderType.GetMethod("get_IsNestedFamANDAssem", 0, true).Import();
+				this.var_get_isnestedfamandassem_0_0 = this.builderType.GetMethod("get_IsNestedFamANDAssem", 0, true);
 
-			return this.var_get_isnestedfamandassem_0_0;
+			return this.var_get_isnestedfamandassem_0_0.Import();
 		}
 						
 		private Method var_get_isnestedfamorassem_0_0;
@@ -22099,9 +22099,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_IsNestedFamORAssem()
 		{
 			if(this.var_get_isnestedfamorassem_0_0 == null)
-				this.var_get_isnestedfamorassem_0_0 = this.builderType.GetMethod("get_IsNestedFamORAssem", 0, true).Import();
+				this.var_get_isnestedfamorassem_0_0 = this.builderType.GetMethod("get_IsNestedFamORAssem", 0, true);
 
-			return this.var_get_isnestedfamorassem_0_0;
+			return this.var_get_isnestedfamorassem_0_0.Import();
 		}
 						
 		private Method var_get_isautolayout_0_0;
@@ -22114,9 +22114,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_IsAutoLayout()
 		{
 			if(this.var_get_isautolayout_0_0 == null)
-				this.var_get_isautolayout_0_0 = this.builderType.GetMethod("get_IsAutoLayout", 0, true).Import();
+				this.var_get_isautolayout_0_0 = this.builderType.GetMethod("get_IsAutoLayout", 0, true);
 
-			return this.var_get_isautolayout_0_0;
+			return this.var_get_isautolayout_0_0.Import();
 		}
 						
 		private Method var_get_islayoutsequential_0_0;
@@ -22129,9 +22129,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_IsLayoutSequential()
 		{
 			if(this.var_get_islayoutsequential_0_0 == null)
-				this.var_get_islayoutsequential_0_0 = this.builderType.GetMethod("get_IsLayoutSequential", 0, true).Import();
+				this.var_get_islayoutsequential_0_0 = this.builderType.GetMethod("get_IsLayoutSequential", 0, true);
 
-			return this.var_get_islayoutsequential_0_0;
+			return this.var_get_islayoutsequential_0_0.Import();
 		}
 						
 		private Method var_get_isexplicitlayout_0_0;
@@ -22144,9 +22144,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_IsExplicitLayout()
 		{
 			if(this.var_get_isexplicitlayout_0_0 == null)
-				this.var_get_isexplicitlayout_0_0 = this.builderType.GetMethod("get_IsExplicitLayout", 0, true).Import();
+				this.var_get_isexplicitlayout_0_0 = this.builderType.GetMethod("get_IsExplicitLayout", 0, true);
 
-			return this.var_get_isexplicitlayout_0_0;
+			return this.var_get_isexplicitlayout_0_0.Import();
 		}
 						
 		private Method var_get_isclass_0_0;
@@ -22159,9 +22159,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_IsClass()
 		{
 			if(this.var_get_isclass_0_0 == null)
-				this.var_get_isclass_0_0 = this.builderType.GetMethod("get_IsClass", 0, true).Import();
+				this.var_get_isclass_0_0 = this.builderType.GetMethod("get_IsClass", 0, true);
 
-			return this.var_get_isclass_0_0;
+			return this.var_get_isclass_0_0.Import();
 		}
 						
 		private Method var_get_isinterface_0_0;
@@ -22174,9 +22174,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_IsInterface()
 		{
 			if(this.var_get_isinterface_0_0 == null)
-				this.var_get_isinterface_0_0 = this.builderType.GetMethod("get_IsInterface", 0, true).Import();
+				this.var_get_isinterface_0_0 = this.builderType.GetMethod("get_IsInterface", 0, true);
 
-			return this.var_get_isinterface_0_0;
+			return this.var_get_isinterface_0_0.Import();
 		}
 						
 		private Method var_get_isvaluetype_0_0;
@@ -22189,9 +22189,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_IsValueType()
 		{
 			if(this.var_get_isvaluetype_0_0 == null)
-				this.var_get_isvaluetype_0_0 = this.builderType.GetMethod("get_IsValueType", 0, true).Import();
+				this.var_get_isvaluetype_0_0 = this.builderType.GetMethod("get_IsValueType", 0, true);
 
-			return this.var_get_isvaluetype_0_0;
+			return this.var_get_isvaluetype_0_0.Import();
 		}
 						
 		private Method var_get_isabstract_0_0;
@@ -22204,9 +22204,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_IsAbstract()
 		{
 			if(this.var_get_isabstract_0_0 == null)
-				this.var_get_isabstract_0_0 = this.builderType.GetMethod("get_IsAbstract", 0, true).Import();
+				this.var_get_isabstract_0_0 = this.builderType.GetMethod("get_IsAbstract", 0, true);
 
-			return this.var_get_isabstract_0_0;
+			return this.var_get_isabstract_0_0.Import();
 		}
 						
 		private Method var_get_issealed_0_0;
@@ -22219,9 +22219,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_IsSealed()
 		{
 			if(this.var_get_issealed_0_0 == null)
-				this.var_get_issealed_0_0 = this.builderType.GetMethod("get_IsSealed", 0, true).Import();
+				this.var_get_issealed_0_0 = this.builderType.GetMethod("get_IsSealed", 0, true);
 
-			return this.var_get_issealed_0_0;
+			return this.var_get_issealed_0_0.Import();
 		}
 						
 		private Method var_get_isenum_0_0;
@@ -22234,9 +22234,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_IsEnum()
 		{
 			if(this.var_get_isenum_0_0 == null)
-				this.var_get_isenum_0_0 = this.builderType.GetMethod("get_IsEnum", 0, true).Import();
+				this.var_get_isenum_0_0 = this.builderType.GetMethod("get_IsEnum", 0, true);
 
-			return this.var_get_isenum_0_0;
+			return this.var_get_isenum_0_0.Import();
 		}
 						
 		private Method var_get_isspecialname_0_0;
@@ -22249,9 +22249,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_IsSpecialName()
 		{
 			if(this.var_get_isspecialname_0_0 == null)
-				this.var_get_isspecialname_0_0 = this.builderType.GetMethod("get_IsSpecialName", 0, true).Import();
+				this.var_get_isspecialname_0_0 = this.builderType.GetMethod("get_IsSpecialName", 0, true);
 
-			return this.var_get_isspecialname_0_0;
+			return this.var_get_isspecialname_0_0.Import();
 		}
 						
 		private Method var_get_isimport_0_0;
@@ -22264,9 +22264,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_IsImport()
 		{
 			if(this.var_get_isimport_0_0 == null)
-				this.var_get_isimport_0_0 = this.builderType.GetMethod("get_IsImport", 0, true).Import();
+				this.var_get_isimport_0_0 = this.builderType.GetMethod("get_IsImport", 0, true);
 
-			return this.var_get_isimport_0_0;
+			return this.var_get_isimport_0_0.Import();
 		}
 						
 		private Method var_get_isserializable_0_0;
@@ -22279,9 +22279,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_IsSerializable()
 		{
 			if(this.var_get_isserializable_0_0 == null)
-				this.var_get_isserializable_0_0 = this.builderType.GetMethod("get_IsSerializable", 0, true).Import();
+				this.var_get_isserializable_0_0 = this.builderType.GetMethod("get_IsSerializable", 0, true);
 
-			return this.var_get_isserializable_0_0;
+			return this.var_get_isserializable_0_0.Import();
 		}
 						
 		private Method var_get_isansiclass_0_0;
@@ -22294,9 +22294,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_IsAnsiClass()
 		{
 			if(this.var_get_isansiclass_0_0 == null)
-				this.var_get_isansiclass_0_0 = this.builderType.GetMethod("get_IsAnsiClass", 0, true).Import();
+				this.var_get_isansiclass_0_0 = this.builderType.GetMethod("get_IsAnsiClass", 0, true);
 
-			return this.var_get_isansiclass_0_0;
+			return this.var_get_isansiclass_0_0.Import();
 		}
 						
 		private Method var_get_isunicodeclass_0_0;
@@ -22309,9 +22309,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_IsUnicodeClass()
 		{
 			if(this.var_get_isunicodeclass_0_0 == null)
-				this.var_get_isunicodeclass_0_0 = this.builderType.GetMethod("get_IsUnicodeClass", 0, true).Import();
+				this.var_get_isunicodeclass_0_0 = this.builderType.GetMethod("get_IsUnicodeClass", 0, true);
 
-			return this.var_get_isunicodeclass_0_0;
+			return this.var_get_isunicodeclass_0_0.Import();
 		}
 						
 		private Method var_get_isautoclass_0_0;
@@ -22324,9 +22324,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_IsAutoClass()
 		{
 			if(this.var_get_isautoclass_0_0 == null)
-				this.var_get_isautoclass_0_0 = this.builderType.GetMethod("get_IsAutoClass", 0, true).Import();
+				this.var_get_isautoclass_0_0 = this.builderType.GetMethod("get_IsAutoClass", 0, true);
 
-			return this.var_get_isautoclass_0_0;
+			return this.var_get_isautoclass_0_0.Import();
 		}
 						
 		private Method var_get_isarray_0_0;
@@ -22339,9 +22339,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_IsArray()
 		{
 			if(this.var_get_isarray_0_0 == null)
-				this.var_get_isarray_0_0 = this.builderType.GetMethod("get_IsArray", 0, true).Import();
+				this.var_get_isarray_0_0 = this.builderType.GetMethod("get_IsArray", 0, true);
 
-			return this.var_get_isarray_0_0;
+			return this.var_get_isarray_0_0.Import();
 		}
 						
 		private Method var_get_isgenerictype_0_0;
@@ -22354,9 +22354,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_IsGenericType()
 		{
 			if(this.var_get_isgenerictype_0_0 == null)
-				this.var_get_isgenerictype_0_0 = this.builderType.GetMethod("get_IsGenericType", 0, true).Import();
+				this.var_get_isgenerictype_0_0 = this.builderType.GetMethod("get_IsGenericType", 0, true);
 
-			return this.var_get_isgenerictype_0_0;
+			return this.var_get_isgenerictype_0_0.Import();
 		}
 						
 		private Method var_get_isgenerictypedefinition_0_0;
@@ -22369,9 +22369,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_IsGenericTypeDefinition()
 		{
 			if(this.var_get_isgenerictypedefinition_0_0 == null)
-				this.var_get_isgenerictypedefinition_0_0 = this.builderType.GetMethod("get_IsGenericTypeDefinition", 0, true).Import();
+				this.var_get_isgenerictypedefinition_0_0 = this.builderType.GetMethod("get_IsGenericTypeDefinition", 0, true);
 
-			return this.var_get_isgenerictypedefinition_0_0;
+			return this.var_get_isgenerictypedefinition_0_0.Import();
 		}
 						
 		private Method var_get_isconstructedgenerictype_0_0;
@@ -22384,9 +22384,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_IsConstructedGenericType()
 		{
 			if(this.var_get_isconstructedgenerictype_0_0 == null)
-				this.var_get_isconstructedgenerictype_0_0 = this.builderType.GetMethod("get_IsConstructedGenericType", 0, true).Import();
+				this.var_get_isconstructedgenerictype_0_0 = this.builderType.GetMethod("get_IsConstructedGenericType", 0, true);
 
-			return this.var_get_isconstructedgenerictype_0_0;
+			return this.var_get_isconstructedgenerictype_0_0.Import();
 		}
 						
 		private Method var_get_isgenericparameter_0_0;
@@ -22399,9 +22399,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_IsGenericParameter()
 		{
 			if(this.var_get_isgenericparameter_0_0 == null)
-				this.var_get_isgenericparameter_0_0 = this.builderType.GetMethod("get_IsGenericParameter", 0, true).Import();
+				this.var_get_isgenericparameter_0_0 = this.builderType.GetMethod("get_IsGenericParameter", 0, true);
 
-			return this.var_get_isgenericparameter_0_0;
+			return this.var_get_isgenericparameter_0_0.Import();
 		}
 						
 		private Method var_get_genericparameterposition_0_0;
@@ -22414,9 +22414,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_GenericParameterPosition()
 		{
 			if(this.var_get_genericparameterposition_0_0 == null)
-				this.var_get_genericparameterposition_0_0 = this.builderType.GetMethod("get_GenericParameterPosition", 0, true).Import();
+				this.var_get_genericparameterposition_0_0 = this.builderType.GetMethod("get_GenericParameterPosition", 0, true);
 
-			return this.var_get_genericparameterposition_0_0;
+			return this.var_get_genericparameterposition_0_0.Import();
 		}
 						
 		private Method var_get_containsgenericparameters_0_0;
@@ -22429,9 +22429,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_ContainsGenericParameters()
 		{
 			if(this.var_get_containsgenericparameters_0_0 == null)
-				this.var_get_containsgenericparameters_0_0 = this.builderType.GetMethod("get_ContainsGenericParameters", 0, true).Import();
+				this.var_get_containsgenericparameters_0_0 = this.builderType.GetMethod("get_ContainsGenericParameters", 0, true);
 
-			return this.var_get_containsgenericparameters_0_0;
+			return this.var_get_containsgenericparameters_0_0.Import();
 		}
 						
 		private Method var_getgenericparameterconstraints_0_0;
@@ -22444,9 +22444,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetGenericParameterConstraints()
 		{
 			if(this.var_getgenericparameterconstraints_0_0 == null)
-				this.var_getgenericparameterconstraints_0_0 = this.builderType.GetMethod("GetGenericParameterConstraints", 0, true).Import();
+				this.var_getgenericparameterconstraints_0_0 = this.builderType.GetMethod("GetGenericParameterConstraints", 0, true);
 
-			return this.var_getgenericparameterconstraints_0_0;
+			return this.var_getgenericparameterconstraints_0_0.Import();
 		}
 						
 		private Method var_get_isbyref_0_0;
@@ -22459,9 +22459,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_IsByRef()
 		{
 			if(this.var_get_isbyref_0_0 == null)
-				this.var_get_isbyref_0_0 = this.builderType.GetMethod("get_IsByRef", 0, true).Import();
+				this.var_get_isbyref_0_0 = this.builderType.GetMethod("get_IsByRef", 0, true);
 
-			return this.var_get_isbyref_0_0;
+			return this.var_get_isbyref_0_0.Import();
 		}
 						
 		private Method var_get_ispointer_0_0;
@@ -22474,9 +22474,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_IsPointer()
 		{
 			if(this.var_get_ispointer_0_0 == null)
-				this.var_get_ispointer_0_0 = this.builderType.GetMethod("get_IsPointer", 0, true).Import();
+				this.var_get_ispointer_0_0 = this.builderType.GetMethod("get_IsPointer", 0, true);
 
-			return this.var_get_ispointer_0_0;
+			return this.var_get_ispointer_0_0.Import();
 		}
 						
 		private Method var_get_isprimitive_0_0;
@@ -22489,9 +22489,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_IsPrimitive()
 		{
 			if(this.var_get_isprimitive_0_0 == null)
-				this.var_get_isprimitive_0_0 = this.builderType.GetMethod("get_IsPrimitive", 0, true).Import();
+				this.var_get_isprimitive_0_0 = this.builderType.GetMethod("get_IsPrimitive", 0, true);
 
-			return this.var_get_isprimitive_0_0;
+			return this.var_get_isprimitive_0_0.Import();
 		}
 						
 		private Method var_get_iscomobject_0_0;
@@ -22504,9 +22504,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_IsCOMObject()
 		{
 			if(this.var_get_iscomobject_0_0 == null)
-				this.var_get_iscomobject_0_0 = this.builderType.GetMethod("get_IsCOMObject", 0, true).Import();
+				this.var_get_iscomobject_0_0 = this.builderType.GetMethod("get_IsCOMObject", 0, true);
 
-			return this.var_get_iscomobject_0_0;
+			return this.var_get_iscomobject_0_0.Import();
 		}
 						
 		private Method var_get_haselementtype_0_0;
@@ -22519,9 +22519,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_HasElementType()
 		{
 			if(this.var_get_haselementtype_0_0 == null)
-				this.var_get_haselementtype_0_0 = this.builderType.GetMethod("get_HasElementType", 0, true).Import();
+				this.var_get_haselementtype_0_0 = this.builderType.GetMethod("get_HasElementType", 0, true);
 
-			return this.var_get_haselementtype_0_0;
+			return this.var_get_haselementtype_0_0.Import();
 		}
 						
 		private Method var_get_iscontextful_0_0;
@@ -22534,9 +22534,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_IsContextful()
 		{
 			if(this.var_get_iscontextful_0_0 == null)
-				this.var_get_iscontextful_0_0 = this.builderType.GetMethod("get_IsContextful", 0, true).Import();
+				this.var_get_iscontextful_0_0 = this.builderType.GetMethod("get_IsContextful", 0, true);
 
-			return this.var_get_iscontextful_0_0;
+			return this.var_get_iscontextful_0_0.Import();
 		}
 						
 		private Method var_get_ismarshalbyref_0_0;
@@ -22549,9 +22549,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_IsMarshalByRef()
 		{
 			if(this.var_get_ismarshalbyref_0_0 == null)
-				this.var_get_ismarshalbyref_0_0 = this.builderType.GetMethod("get_IsMarshalByRef", 0, true).Import();
+				this.var_get_ismarshalbyref_0_0 = this.builderType.GetMethod("get_IsMarshalByRef", 0, true);
 
-			return this.var_get_ismarshalbyref_0_0;
+			return this.var_get_ismarshalbyref_0_0.Import();
 		}
 						
 		private Method var_makegenerictype_0_1;
@@ -22564,9 +22564,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_MakeGenericType()
 		{
 			if(this.var_makegenerictype_0_1 == null)
-				this.var_makegenerictype_0_1 = this.builderType.GetMethod("MakeGenericType", 1, true).Import();
+				this.var_makegenerictype_0_1 = this.builderType.GetMethod("MakeGenericType", 1, true);
 
-			return this.var_makegenerictype_0_1;
+			return this.var_makegenerictype_0_1.Import();
 		}
 						
 		private Method var_getelementtype_0_0;
@@ -22579,9 +22579,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetElementType()
 		{
 			if(this.var_getelementtype_0_0 == null)
-				this.var_getelementtype_0_0 = this.builderType.GetMethod("GetElementType", 0, true).Import();
+				this.var_getelementtype_0_0 = this.builderType.GetMethod("GetElementType", 0, true);
 
-			return this.var_getelementtype_0_0;
+			return this.var_getelementtype_0_0.Import();
 		}
 						
 		private Method var_getgenericarguments_0_0;
@@ -22594,9 +22594,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetGenericArguments()
 		{
 			if(this.var_getgenericarguments_0_0 == null)
-				this.var_getgenericarguments_0_0 = this.builderType.GetMethod("GetGenericArguments", 0, true).Import();
+				this.var_getgenericarguments_0_0 = this.builderType.GetMethod("GetGenericArguments", 0, true);
 
-			return this.var_getgenericarguments_0_0;
+			return this.var_getgenericarguments_0_0.Import();
 		}
 						
 		private Method var_get_generictypearguments_0_0;
@@ -22609,9 +22609,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_GenericTypeArguments()
 		{
 			if(this.var_get_generictypearguments_0_0 == null)
-				this.var_get_generictypearguments_0_0 = this.builderType.GetMethod("get_GenericTypeArguments", 0, true).Import();
+				this.var_get_generictypearguments_0_0 = this.builderType.GetMethod("get_GenericTypeArguments", 0, true);
 
-			return this.var_get_generictypearguments_0_0;
+			return this.var_get_generictypearguments_0_0.Import();
 		}
 						
 		private Method var_getgenerictypedefinition_0_0;
@@ -22624,9 +22624,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetGenericTypeDefinition()
 		{
 			if(this.var_getgenerictypedefinition_0_0 == null)
-				this.var_getgenerictypedefinition_0_0 = this.builderType.GetMethod("GetGenericTypeDefinition", 0, true).Import();
+				this.var_getgenerictypedefinition_0_0 = this.builderType.GetMethod("GetGenericTypeDefinition", 0, true);
 
-			return this.var_getgenerictypedefinition_0_0;
+			return this.var_getgenerictypedefinition_0_0.Import();
 		}
 						
 		private Method var_getenumnames_0_0;
@@ -22639,9 +22639,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetEnumNames()
 		{
 			if(this.var_getenumnames_0_0 == null)
-				this.var_getenumnames_0_0 = this.builderType.GetMethod("GetEnumNames", 0, true).Import();
+				this.var_getenumnames_0_0 = this.builderType.GetMethod("GetEnumNames", 0, true);
 
-			return this.var_getenumnames_0_0;
+			return this.var_getenumnames_0_0.Import();
 		}
 						
 		private Method var_getenumvalues_0_0;
@@ -22654,9 +22654,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetEnumValues()
 		{
 			if(this.var_getenumvalues_0_0 == null)
-				this.var_getenumvalues_0_0 = this.builderType.GetMethod("GetEnumValues", 0, true).Import();
+				this.var_getenumvalues_0_0 = this.builderType.GetMethod("GetEnumValues", 0, true);
 
-			return this.var_getenumvalues_0_0;
+			return this.var_getenumvalues_0_0.Import();
 		}
 						
 		private Method var_getenumunderlyingtype_0_0;
@@ -22669,9 +22669,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetEnumUnderlyingType()
 		{
 			if(this.var_getenumunderlyingtype_0_0 == null)
-				this.var_getenumunderlyingtype_0_0 = this.builderType.GetMethod("GetEnumUnderlyingType", 0, true).Import();
+				this.var_getenumunderlyingtype_0_0 = this.builderType.GetMethod("GetEnumUnderlyingType", 0, true);
 
-			return this.var_getenumunderlyingtype_0_0;
+			return this.var_getenumunderlyingtype_0_0.Import();
 		}
 						
 		private Method var_isenumdefined_0_1;
@@ -22684,9 +22684,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_IsEnumDefined()
 		{
 			if(this.var_isenumdefined_0_1 == null)
-				this.var_isenumdefined_0_1 = this.builderType.GetMethod("IsEnumDefined", 1, true).Import();
+				this.var_isenumdefined_0_1 = this.builderType.GetMethod("IsEnumDefined", 1, true);
 
-			return this.var_isenumdefined_0_1;
+			return this.var_isenumdefined_0_1.Import();
 		}
 						
 		private Method var_getenumname_0_1;
@@ -22699,9 +22699,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetEnumName()
 		{
 			if(this.var_getenumname_0_1 == null)
-				this.var_getenumname_0_1 = this.builderType.GetMethod("GetEnumName", 1, true).Import();
+				this.var_getenumname_0_1 = this.builderType.GetMethod("GetEnumName", 1, true);
 
-			return this.var_getenumname_0_1;
+			return this.var_getenumname_0_1.Import();
 		}
 						
 		private Method var_get_issecuritycritical_0_0;
@@ -22714,9 +22714,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_IsSecurityCritical()
 		{
 			if(this.var_get_issecuritycritical_0_0 == null)
-				this.var_get_issecuritycritical_0_0 = this.builderType.GetMethod("get_IsSecurityCritical", 0, true).Import();
+				this.var_get_issecuritycritical_0_0 = this.builderType.GetMethod("get_IsSecurityCritical", 0, true);
 
-			return this.var_get_issecuritycritical_0_0;
+			return this.var_get_issecuritycritical_0_0.Import();
 		}
 						
 		private Method var_get_issecuritysafecritical_0_0;
@@ -22729,9 +22729,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_IsSecuritySafeCritical()
 		{
 			if(this.var_get_issecuritysafecritical_0_0 == null)
-				this.var_get_issecuritysafecritical_0_0 = this.builderType.GetMethod("get_IsSecuritySafeCritical", 0, true).Import();
+				this.var_get_issecuritysafecritical_0_0 = this.builderType.GetMethod("get_IsSecuritySafeCritical", 0, true);
 
-			return this.var_get_issecuritysafecritical_0_0;
+			return this.var_get_issecuritysafecritical_0_0.Import();
 		}
 						
 		private Method var_get_issecuritytransparent_0_0;
@@ -22744,9 +22744,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_IsSecurityTransparent()
 		{
 			if(this.var_get_issecuritytransparent_0_0 == null)
-				this.var_get_issecuritytransparent_0_0 = this.builderType.GetMethod("get_IsSecurityTransparent", 0, true).Import();
+				this.var_get_issecuritytransparent_0_0 = this.builderType.GetMethod("get_IsSecurityTransparent", 0, true);
 
-			return this.var_get_issecuritytransparent_0_0;
+			return this.var_get_issecuritytransparent_0_0.Import();
 		}
 						
 		private Method var_get_underlyingsystemtype_0_0;
@@ -22759,9 +22759,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_UnderlyingSystemType()
 		{
 			if(this.var_get_underlyingsystemtype_0_0 == null)
-				this.var_get_underlyingsystemtype_0_0 = this.builderType.GetMethod("get_UnderlyingSystemType", 0, true).Import();
+				this.var_get_underlyingsystemtype_0_0 = this.builderType.GetMethod("get_UnderlyingSystemType", 0, true);
 
-			return this.var_get_underlyingsystemtype_0_0;
+			return this.var_get_underlyingsystemtype_0_0.Import();
 		}
 						
 		private Method var_issubclassof_0_1;
@@ -22774,9 +22774,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_IsSubclassOf()
 		{
 			if(this.var_issubclassof_0_1 == null)
-				this.var_issubclassof_0_1 = this.builderType.GetMethod("IsSubclassOf", 1, true).Import();
+				this.var_issubclassof_0_1 = this.builderType.GetMethod("IsSubclassOf", 1, true);
 
-			return this.var_issubclassof_0_1;
+			return this.var_issubclassof_0_1.Import();
 		}
 						
 		private Method var_isinstanceoftype_0_1;
@@ -22789,9 +22789,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_IsInstanceOfType()
 		{
 			if(this.var_isinstanceoftype_0_1 == null)
-				this.var_isinstanceoftype_0_1 = this.builderType.GetMethod("IsInstanceOfType", 1, true).Import();
+				this.var_isinstanceoftype_0_1 = this.builderType.GetMethod("IsInstanceOfType", 1, true);
 
-			return this.var_isinstanceoftype_0_1;
+			return this.var_isinstanceoftype_0_1.Import();
 		}
 						
 		private Method var_isassignablefrom_0_1;
@@ -22804,9 +22804,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_IsAssignableFrom()
 		{
 			if(this.var_isassignablefrom_0_1 == null)
-				this.var_isassignablefrom_0_1 = this.builderType.GetMethod("IsAssignableFrom", 1, true).Import();
+				this.var_isassignablefrom_0_1 = this.builderType.GetMethod("IsAssignableFrom", 1, true);
 
-			return this.var_isassignablefrom_0_1;
+			return this.var_isassignablefrom_0_1.Import();
 		}
 						
 		private Method var_isequivalentto_0_1;
@@ -22819,9 +22819,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_IsEquivalentTo()
 		{
 			if(this.var_isequivalentto_0_1 == null)
-				this.var_isequivalentto_0_1 = this.builderType.GetMethod("IsEquivalentTo", 1, true).Import();
+				this.var_isequivalentto_0_1 = this.builderType.GetMethod("IsEquivalentTo", 1, true);
 
-			return this.var_isequivalentto_0_1;
+			return this.var_isequivalentto_0_1.Import();
 		}
 						
 		private Method var_tostring_0_0;
@@ -22834,9 +22834,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_ToString()
 		{
 			if(this.var_tostring_0_0 == null)
-				this.var_tostring_0_0 = this.builderType.GetMethod("ToString", 0, true).Import();
+				this.var_tostring_0_0 = this.builderType.GetMethod("ToString", 0, true);
 
-			return this.var_tostring_0_0;
+			return this.var_tostring_0_0.Import();
 		}
 						
 		private Method var_gettypearray_0_1;
@@ -22849,9 +22849,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetTypeArray()
 		{
 			if(this.var_gettypearray_0_1 == null)
-				this.var_gettypearray_0_1 = this.builderType.GetMethod("GetTypeArray", 1, true).Import();
+				this.var_gettypearray_0_1 = this.builderType.GetMethod("GetTypeArray", 1, true);
 
-			return this.var_gettypearray_0_1;
+			return this.var_gettypearray_0_1.Import();
 		}
 						
 		private Method var_equals_0_1;
@@ -22871,17 +22871,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Object).AreEqual(po))
 			{
 				if(this.var_equals_0_1 == null)
-					this.var_equals_0_1 = this.builderType.GetMethod("Equals", true, po).Import();
+					this.var_equals_0_1 = this.builderType.GetMethod("Equals", true, po);
 			
-				return this.var_equals_0_1;
+				return this.var_equals_0_1.Import();
 			}
 			
 			if(typeof(System.Type).AreEqual(po))
 			{
 				if(this.var_equals_1_1 == null)
-					this.var_equals_1_1 = this.builderType.GetMethod("Equals", true, po).Import();
+					this.var_equals_1_1 = this.builderType.GetMethod("Equals", true, po);
 			
-				return this.var_equals_1_1;
+				return this.var_equals_1_1.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -22898,9 +22898,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_op_Equality()
 		{
 			if(this.var_op_equality_0_2 == null)
-				this.var_op_equality_0_2 = this.builderType.GetMethod("op_Equality", 2, true).Import();
+				this.var_op_equality_0_2 = this.builderType.GetMethod("op_Equality", 2, true);
 
-			return this.var_op_equality_0_2;
+			return this.var_op_equality_0_2.Import();
 		}
 						
 		private Method var_op_inequality_0_2;
@@ -22913,9 +22913,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_op_Inequality()
 		{
 			if(this.var_op_inequality_0_2 == null)
-				this.var_op_inequality_0_2 = this.builderType.GetMethod("op_Inequality", 2, true).Import();
+				this.var_op_inequality_0_2 = this.builderType.GetMethod("op_Inequality", 2, true);
 
-			return this.var_op_inequality_0_2;
+			return this.var_op_inequality_0_2.Import();
 		}
 						
 		private Method var_gethashcode_0_0;
@@ -22928,9 +22928,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetHashCode()
 		{
 			if(this.var_gethashcode_0_0 == null)
-				this.var_gethashcode_0_0 = this.builderType.GetMethod("GetHashCode", 0, true).Import();
+				this.var_gethashcode_0_0 = this.builderType.GetMethod("GetHashCode", 0, true);
 
-			return this.var_gethashcode_0_0;
+			return this.var_gethashcode_0_0.Import();
 		}
 						
 		private Method var_getinterfacemap_0_1;
@@ -22943,9 +22943,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetInterfaceMap()
 		{
 			if(this.var_getinterfacemap_0_1 == null)
-				this.var_getinterfacemap_0_1 = this.builderType.GetMethod("GetInterfaceMap", 1, true).Import();
+				this.var_getinterfacemap_0_1 = this.builderType.GetMethod("GetInterfaceMap", 1, true);
 
-			return this.var_getinterfacemap_0_1;
+			return this.var_getinterfacemap_0_1.Import();
 		}
 						
 		private Method var_get_name_0_0;
@@ -22958,9 +22958,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_Name()
 		{
 			if(this.var_get_name_0_0 == null)
-				this.var_get_name_0_0 = this.builderType.GetMethod("get_Name", 0, true).Import();
+				this.var_get_name_0_0 = this.builderType.GetMethod("get_Name", 0, true);
 
-			return this.var_get_name_0_0;
+			return this.var_get_name_0_0.Import();
 		}
 						
 		private Method var_get_customattributes_0_0;
@@ -22973,9 +22973,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_CustomAttributes()
 		{
 			if(this.var_get_customattributes_0_0 == null)
-				this.var_get_customattributes_0_0 = this.builderType.GetMethod("get_CustomAttributes", 0, true).Import();
+				this.var_get_customattributes_0_0 = this.builderType.GetMethod("get_CustomAttributes", 0, true);
 
-			return this.var_get_customattributes_0_0;
+			return this.var_get_customattributes_0_0.Import();
 		}
 						
 		private Method var_getcustomattributes_0_1;
@@ -22990,9 +22990,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_getcustomattributes_0_1 == null)
-				this.var_getcustomattributes_0_1 = this.builderType.GetMethod("GetCustomAttributes", true, pinherit).Import();
+				this.var_getcustomattributes_0_1 = this.builderType.GetMethod("GetCustomAttributes", true, pinherit);
 			
-			return this.var_getcustomattributes_0_1;
+			return this.var_getcustomattributes_0_1.Import();
 						
 		}
 						
@@ -23008,9 +23008,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_getcustomattributes_0_2 == null)
-				this.var_getcustomattributes_0_2 = this.builderType.GetMethod("GetCustomAttributes", true, pattributeType, pinherit).Import();
+				this.var_getcustomattributes_0_2 = this.builderType.GetMethod("GetCustomAttributes", true, pattributeType, pinherit);
 			
-			return this.var_getcustomattributes_0_2;
+			return this.var_getcustomattributes_0_2.Import();
 						
 		}
 						
@@ -23024,9 +23024,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_IsDefined()
 		{
 			if(this.var_isdefined_0_2 == null)
-				this.var_isdefined_0_2 = this.builderType.GetMethod("IsDefined", 2, true).Import();
+				this.var_isdefined_0_2 = this.builderType.GetMethod("IsDefined", 2, true);
 
-			return this.var_isdefined_0_2;
+			return this.var_isdefined_0_2.Import();
 		}
 						
 		private Method var_getcustomattributesdata_0_0;
@@ -23039,9 +23039,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetCustomAttributesData()
 		{
 			if(this.var_getcustomattributesdata_0_0 == null)
-				this.var_getcustomattributesdata_0_0 = this.builderType.GetMethod("GetCustomAttributesData", 0, true).Import();
+				this.var_getcustomattributesdata_0_0 = this.builderType.GetMethod("GetCustomAttributesData", 0, true);
 
-			return this.var_getcustomattributesdata_0_0;
+			return this.var_getcustomattributesdata_0_0.Import();
 		}
 						
 		private Method var_get_metadatatoken_0_0;
@@ -23054,9 +23054,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_MetadataToken()
 		{
 			if(this.var_get_metadatatoken_0_0 == null)
-				this.var_get_metadatatoken_0_0 = this.builderType.GetMethod("get_MetadataToken", 0, true).Import();
+				this.var_get_metadatatoken_0_0 = this.builderType.GetMethod("get_MetadataToken", 0, true);
 
-			return this.var_get_metadatatoken_0_0;
+			return this.var_get_metadatatoken_0_0.Import();
 		}
 					}
 
@@ -23071,10 +23071,10 @@ namespace Cauldron.Interception.Cecilator
 		}
 
 		/// <exclude />
-		public static implicit operator BuilderType(BuilderTypeUInt16 value) => value.builderType;
+		public static implicit operator BuilderType(BuilderTypeUInt16 value) => value.builderType.Import();
 		
 		/// <exclude />
-		public static implicit operator TypeReference(BuilderTypeUInt16 value) => value.builderType.typeReference;
+		public static implicit operator TypeReference(BuilderTypeUInt16 value) => Builder.Current.Import((TypeReference)value.builderType);
 			
 				
 		private Method var_compareto_0_1;
@@ -23094,17 +23094,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Object).AreEqual(pvalue))
 			{
 				if(this.var_compareto_0_1 == null)
-					this.var_compareto_0_1 = this.builderType.GetMethod("CompareTo", true, pvalue).Import();
+					this.var_compareto_0_1 = this.builderType.GetMethod("CompareTo", true, pvalue);
 			
-				return this.var_compareto_0_1;
+				return this.var_compareto_0_1.Import();
 			}
 			
 			if(typeof(System.UInt16).AreEqual(pvalue))
 			{
 				if(this.var_compareto_1_1 == null)
-					this.var_compareto_1_1 = this.builderType.GetMethod("CompareTo", true, pvalue).Import();
+					this.var_compareto_1_1 = this.builderType.GetMethod("CompareTo", true, pvalue);
 			
-				return this.var_compareto_1_1;
+				return this.var_compareto_1_1.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -23128,17 +23128,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Object).AreEqual(pobj))
 			{
 				if(this.var_equals_0_1 == null)
-					this.var_equals_0_1 = this.builderType.GetMethod("Equals", true, pobj).Import();
+					this.var_equals_0_1 = this.builderType.GetMethod("Equals", true, pobj);
 			
-				return this.var_equals_0_1;
+				return this.var_equals_0_1.Import();
 			}
 			
 			if(typeof(System.UInt16).AreEqual(pobj))
 			{
 				if(this.var_equals_1_1 == null)
-					this.var_equals_1_1 = this.builderType.GetMethod("Equals", true, pobj).Import();
+					this.var_equals_1_1 = this.builderType.GetMethod("Equals", true, pobj);
 			
-				return this.var_equals_1_1;
+				return this.var_equals_1_1.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -23155,9 +23155,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetHashCode()
 		{
 			if(this.var_gethashcode_0_0 == null)
-				this.var_gethashcode_0_0 = this.builderType.GetMethod("GetHashCode", 0, true).Import();
+				this.var_gethashcode_0_0 = this.builderType.GetMethod("GetHashCode", 0, true);
 
-			return this.var_gethashcode_0_0;
+			return this.var_gethashcode_0_0.Import();
 		}
 						
 		private Method var_tostring_0_0;
@@ -23171,9 +23171,9 @@ namespace Cauldron.Interception.Cecilator
 		{
 						
 			if(this.var_tostring_0_0 == null)
-				this.var_tostring_0_0 = this.builderType.GetMethod("ToString", true).Import();
+				this.var_tostring_0_0 = this.builderType.GetMethod("ToString", true);
 
-			return this.var_tostring_0_0;
+			return this.var_tostring_0_0.Import();
 						
 						
 		}
@@ -23195,17 +23195,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.IFormatProvider).AreEqual(pprovider))
 			{
 				if(this.var_tostring_0_1 == null)
-					this.var_tostring_0_1 = this.builderType.GetMethod("ToString", true, pprovider).Import();
+					this.var_tostring_0_1 = this.builderType.GetMethod("ToString", true, pprovider);
 			
-				return this.var_tostring_0_1;
+				return this.var_tostring_0_1.Import();
 			}
 			
 			if(typeof(System.String).AreEqual(pprovider))
 			{
 				if(this.var_tostring_1_1 == null)
-					this.var_tostring_1_1 = this.builderType.GetMethod("ToString", true, pprovider).Import();
+					this.var_tostring_1_1 = this.builderType.GetMethod("ToString", true, pprovider);
 			
-				return this.var_tostring_1_1;
+				return this.var_tostring_1_1.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -23224,9 +23224,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_tostring_0_2 == null)
-				this.var_tostring_0_2 = this.builderType.GetMethod("ToString", true, pformat, pprovider).Import();
+				this.var_tostring_0_2 = this.builderType.GetMethod("ToString", true, pformat, pprovider);
 			
-			return this.var_tostring_0_2;
+			return this.var_tostring_0_2.Import();
 						
 		}
 						
@@ -23242,9 +23242,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_parse_0_1 == null)
-				this.var_parse_0_1 = this.builderType.GetMethod("Parse", true, ps).Import();
+				this.var_parse_0_1 = this.builderType.GetMethod("Parse", true, ps);
 			
-			return this.var_parse_0_1;
+			return this.var_parse_0_1.Import();
 						
 		}
 						
@@ -23265,17 +23265,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.String).AreEqual(ps) && typeof(System.Globalization.NumberStyles).AreEqual(pstyle))
 			{
 				if(this.var_parse_0_2 == null)
-					this.var_parse_0_2 = this.builderType.GetMethod("Parse", true, ps, pstyle).Import();
+					this.var_parse_0_2 = this.builderType.GetMethod("Parse", true, ps, pstyle);
 			
-				return this.var_parse_0_2;
+				return this.var_parse_0_2.Import();
 			}
 			
 			if(typeof(System.String).AreEqual(ps) && typeof(System.IFormatProvider).AreEqual(pstyle))
 			{
 				if(this.var_parse_1_2 == null)
-					this.var_parse_1_2 = this.builderType.GetMethod("Parse", true, ps, pstyle).Import();
+					this.var_parse_1_2 = this.builderType.GetMethod("Parse", true, ps, pstyle);
 			
-				return this.var_parse_1_2;
+				return this.var_parse_1_2.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -23294,9 +23294,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_parse_0_3 == null)
-				this.var_parse_0_3 = this.builderType.GetMethod("Parse", true, ps, pstyle, pprovider).Import();
+				this.var_parse_0_3 = this.builderType.GetMethod("Parse", true, ps, pstyle, pprovider);
 			
-			return this.var_parse_0_3;
+			return this.var_parse_0_3.Import();
 						
 		}
 						
@@ -23310,9 +23310,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetTypeCode()
 		{
 			if(this.var_gettypecode_0_0 == null)
-				this.var_gettypecode_0_0 = this.builderType.GetMethod("GetTypeCode", 0, true).Import();
+				this.var_gettypecode_0_0 = this.builderType.GetMethod("GetTypeCode", 0, true);
 
-			return this.var_gettypecode_0_0;
+			return this.var_gettypecode_0_0.Import();
 		}
 						
 		private Method var_gettype_0_0;
@@ -23325,9 +23325,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetType()
 		{
 			if(this.var_gettype_0_0 == null)
-				this.var_gettype_0_0 = this.builderType.GetMethod("GetType", 0, true).Import();
+				this.var_gettype_0_0 = this.builderType.GetMethod("GetType", 0, true);
 
-			return this.var_gettype_0_0;
+			return this.var_gettype_0_0.Import();
 		}
 					}
 
@@ -23342,10 +23342,10 @@ namespace Cauldron.Interception.Cecilator
 		}
 
 		/// <exclude />
-		public static implicit operator BuilderType(BuilderTypeUInt32 value) => value.builderType;
+		public static implicit operator BuilderType(BuilderTypeUInt32 value) => value.builderType.Import();
 		
 		/// <exclude />
-		public static implicit operator TypeReference(BuilderTypeUInt32 value) => value.builderType.typeReference;
+		public static implicit operator TypeReference(BuilderTypeUInt32 value) => Builder.Current.Import((TypeReference)value.builderType);
 			
 				
 		private Method var_compareto_0_1;
@@ -23365,17 +23365,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Object).AreEqual(pvalue))
 			{
 				if(this.var_compareto_0_1 == null)
-					this.var_compareto_0_1 = this.builderType.GetMethod("CompareTo", true, pvalue).Import();
+					this.var_compareto_0_1 = this.builderType.GetMethod("CompareTo", true, pvalue);
 			
-				return this.var_compareto_0_1;
+				return this.var_compareto_0_1.Import();
 			}
 			
 			if(typeof(System.UInt32).AreEqual(pvalue))
 			{
 				if(this.var_compareto_1_1 == null)
-					this.var_compareto_1_1 = this.builderType.GetMethod("CompareTo", true, pvalue).Import();
+					this.var_compareto_1_1 = this.builderType.GetMethod("CompareTo", true, pvalue);
 			
-				return this.var_compareto_1_1;
+				return this.var_compareto_1_1.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -23399,17 +23399,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Object).AreEqual(pobj))
 			{
 				if(this.var_equals_0_1 == null)
-					this.var_equals_0_1 = this.builderType.GetMethod("Equals", true, pobj).Import();
+					this.var_equals_0_1 = this.builderType.GetMethod("Equals", true, pobj);
 			
-				return this.var_equals_0_1;
+				return this.var_equals_0_1.Import();
 			}
 			
 			if(typeof(System.UInt32).AreEqual(pobj))
 			{
 				if(this.var_equals_1_1 == null)
-					this.var_equals_1_1 = this.builderType.GetMethod("Equals", true, pobj).Import();
+					this.var_equals_1_1 = this.builderType.GetMethod("Equals", true, pobj);
 			
-				return this.var_equals_1_1;
+				return this.var_equals_1_1.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -23426,9 +23426,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetHashCode()
 		{
 			if(this.var_gethashcode_0_0 == null)
-				this.var_gethashcode_0_0 = this.builderType.GetMethod("GetHashCode", 0, true).Import();
+				this.var_gethashcode_0_0 = this.builderType.GetMethod("GetHashCode", 0, true);
 
-			return this.var_gethashcode_0_0;
+			return this.var_gethashcode_0_0.Import();
 		}
 						
 		private Method var_tostring_0_0;
@@ -23442,9 +23442,9 @@ namespace Cauldron.Interception.Cecilator
 		{
 						
 			if(this.var_tostring_0_0 == null)
-				this.var_tostring_0_0 = this.builderType.GetMethod("ToString", true).Import();
+				this.var_tostring_0_0 = this.builderType.GetMethod("ToString", true);
 
-			return this.var_tostring_0_0;
+			return this.var_tostring_0_0.Import();
 						
 						
 		}
@@ -23466,17 +23466,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.IFormatProvider).AreEqual(pprovider))
 			{
 				if(this.var_tostring_0_1 == null)
-					this.var_tostring_0_1 = this.builderType.GetMethod("ToString", true, pprovider).Import();
+					this.var_tostring_0_1 = this.builderType.GetMethod("ToString", true, pprovider);
 			
-				return this.var_tostring_0_1;
+				return this.var_tostring_0_1.Import();
 			}
 			
 			if(typeof(System.String).AreEqual(pprovider))
 			{
 				if(this.var_tostring_1_1 == null)
-					this.var_tostring_1_1 = this.builderType.GetMethod("ToString", true, pprovider).Import();
+					this.var_tostring_1_1 = this.builderType.GetMethod("ToString", true, pprovider);
 			
-				return this.var_tostring_1_1;
+				return this.var_tostring_1_1.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -23495,9 +23495,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_tostring_0_2 == null)
-				this.var_tostring_0_2 = this.builderType.GetMethod("ToString", true, pformat, pprovider).Import();
+				this.var_tostring_0_2 = this.builderType.GetMethod("ToString", true, pformat, pprovider);
 			
-			return this.var_tostring_0_2;
+			return this.var_tostring_0_2.Import();
 						
 		}
 						
@@ -23513,9 +23513,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_parse_0_1 == null)
-				this.var_parse_0_1 = this.builderType.GetMethod("Parse", true, ps).Import();
+				this.var_parse_0_1 = this.builderType.GetMethod("Parse", true, ps);
 			
-			return this.var_parse_0_1;
+			return this.var_parse_0_1.Import();
 						
 		}
 						
@@ -23536,17 +23536,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.String).AreEqual(ps) && typeof(System.Globalization.NumberStyles).AreEqual(pstyle))
 			{
 				if(this.var_parse_0_2 == null)
-					this.var_parse_0_2 = this.builderType.GetMethod("Parse", true, ps, pstyle).Import();
+					this.var_parse_0_2 = this.builderType.GetMethod("Parse", true, ps, pstyle);
 			
-				return this.var_parse_0_2;
+				return this.var_parse_0_2.Import();
 			}
 			
 			if(typeof(System.String).AreEqual(ps) && typeof(System.IFormatProvider).AreEqual(pstyle))
 			{
 				if(this.var_parse_1_2 == null)
-					this.var_parse_1_2 = this.builderType.GetMethod("Parse", true, ps, pstyle).Import();
+					this.var_parse_1_2 = this.builderType.GetMethod("Parse", true, ps, pstyle);
 			
-				return this.var_parse_1_2;
+				return this.var_parse_1_2.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -23565,9 +23565,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_parse_0_3 == null)
-				this.var_parse_0_3 = this.builderType.GetMethod("Parse", true, ps, pstyle, pprovider).Import();
+				this.var_parse_0_3 = this.builderType.GetMethod("Parse", true, ps, pstyle, pprovider);
 			
-			return this.var_parse_0_3;
+			return this.var_parse_0_3.Import();
 						
 		}
 						
@@ -23581,9 +23581,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetTypeCode()
 		{
 			if(this.var_gettypecode_0_0 == null)
-				this.var_gettypecode_0_0 = this.builderType.GetMethod("GetTypeCode", 0, true).Import();
+				this.var_gettypecode_0_0 = this.builderType.GetMethod("GetTypeCode", 0, true);
 
-			return this.var_gettypecode_0_0;
+			return this.var_gettypecode_0_0.Import();
 		}
 						
 		private Method var_gettype_0_0;
@@ -23596,9 +23596,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetType()
 		{
 			if(this.var_gettype_0_0 == null)
-				this.var_gettype_0_0 = this.builderType.GetMethod("GetType", 0, true).Import();
+				this.var_gettype_0_0 = this.builderType.GetMethod("GetType", 0, true);
 
-			return this.var_gettype_0_0;
+			return this.var_gettype_0_0.Import();
 		}
 					}
 
@@ -23613,10 +23613,10 @@ namespace Cauldron.Interception.Cecilator
 		}
 
 		/// <exclude />
-		public static implicit operator BuilderType(BuilderTypeUInt64 value) => value.builderType;
+		public static implicit operator BuilderType(BuilderTypeUInt64 value) => value.builderType.Import();
 		
 		/// <exclude />
-		public static implicit operator TypeReference(BuilderTypeUInt64 value) => value.builderType.typeReference;
+		public static implicit operator TypeReference(BuilderTypeUInt64 value) => Builder.Current.Import((TypeReference)value.builderType);
 			
 				
 		private Method var_compareto_0_1;
@@ -23636,17 +23636,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Object).AreEqual(pvalue))
 			{
 				if(this.var_compareto_0_1 == null)
-					this.var_compareto_0_1 = this.builderType.GetMethod("CompareTo", true, pvalue).Import();
+					this.var_compareto_0_1 = this.builderType.GetMethod("CompareTo", true, pvalue);
 			
-				return this.var_compareto_0_1;
+				return this.var_compareto_0_1.Import();
 			}
 			
 			if(typeof(System.UInt64).AreEqual(pvalue))
 			{
 				if(this.var_compareto_1_1 == null)
-					this.var_compareto_1_1 = this.builderType.GetMethod("CompareTo", true, pvalue).Import();
+					this.var_compareto_1_1 = this.builderType.GetMethod("CompareTo", true, pvalue);
 			
-				return this.var_compareto_1_1;
+				return this.var_compareto_1_1.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -23670,17 +23670,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Object).AreEqual(pobj))
 			{
 				if(this.var_equals_0_1 == null)
-					this.var_equals_0_1 = this.builderType.GetMethod("Equals", true, pobj).Import();
+					this.var_equals_0_1 = this.builderType.GetMethod("Equals", true, pobj);
 			
-				return this.var_equals_0_1;
+				return this.var_equals_0_1.Import();
 			}
 			
 			if(typeof(System.UInt64).AreEqual(pobj))
 			{
 				if(this.var_equals_1_1 == null)
-					this.var_equals_1_1 = this.builderType.GetMethod("Equals", true, pobj).Import();
+					this.var_equals_1_1 = this.builderType.GetMethod("Equals", true, pobj);
 			
-				return this.var_equals_1_1;
+				return this.var_equals_1_1.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -23697,9 +23697,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetHashCode()
 		{
 			if(this.var_gethashcode_0_0 == null)
-				this.var_gethashcode_0_0 = this.builderType.GetMethod("GetHashCode", 0, true).Import();
+				this.var_gethashcode_0_0 = this.builderType.GetMethod("GetHashCode", 0, true);
 
-			return this.var_gethashcode_0_0;
+			return this.var_gethashcode_0_0.Import();
 		}
 						
 		private Method var_tostring_0_0;
@@ -23713,9 +23713,9 @@ namespace Cauldron.Interception.Cecilator
 		{
 						
 			if(this.var_tostring_0_0 == null)
-				this.var_tostring_0_0 = this.builderType.GetMethod("ToString", true).Import();
+				this.var_tostring_0_0 = this.builderType.GetMethod("ToString", true);
 
-			return this.var_tostring_0_0;
+			return this.var_tostring_0_0.Import();
 						
 						
 		}
@@ -23737,17 +23737,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.IFormatProvider).AreEqual(pprovider))
 			{
 				if(this.var_tostring_0_1 == null)
-					this.var_tostring_0_1 = this.builderType.GetMethod("ToString", true, pprovider).Import();
+					this.var_tostring_0_1 = this.builderType.GetMethod("ToString", true, pprovider);
 			
-				return this.var_tostring_0_1;
+				return this.var_tostring_0_1.Import();
 			}
 			
 			if(typeof(System.String).AreEqual(pprovider))
 			{
 				if(this.var_tostring_1_1 == null)
-					this.var_tostring_1_1 = this.builderType.GetMethod("ToString", true, pprovider).Import();
+					this.var_tostring_1_1 = this.builderType.GetMethod("ToString", true, pprovider);
 			
-				return this.var_tostring_1_1;
+				return this.var_tostring_1_1.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -23766,9 +23766,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_tostring_0_2 == null)
-				this.var_tostring_0_2 = this.builderType.GetMethod("ToString", true, pformat, pprovider).Import();
+				this.var_tostring_0_2 = this.builderType.GetMethod("ToString", true, pformat, pprovider);
 			
-			return this.var_tostring_0_2;
+			return this.var_tostring_0_2.Import();
 						
 		}
 						
@@ -23784,9 +23784,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_parse_0_1 == null)
-				this.var_parse_0_1 = this.builderType.GetMethod("Parse", true, ps).Import();
+				this.var_parse_0_1 = this.builderType.GetMethod("Parse", true, ps);
 			
-			return this.var_parse_0_1;
+			return this.var_parse_0_1.Import();
 						
 		}
 						
@@ -23807,17 +23807,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.String).AreEqual(ps) && typeof(System.Globalization.NumberStyles).AreEqual(pstyle))
 			{
 				if(this.var_parse_0_2 == null)
-					this.var_parse_0_2 = this.builderType.GetMethod("Parse", true, ps, pstyle).Import();
+					this.var_parse_0_2 = this.builderType.GetMethod("Parse", true, ps, pstyle);
 			
-				return this.var_parse_0_2;
+				return this.var_parse_0_2.Import();
 			}
 			
 			if(typeof(System.String).AreEqual(ps) && typeof(System.IFormatProvider).AreEqual(pstyle))
 			{
 				if(this.var_parse_1_2 == null)
-					this.var_parse_1_2 = this.builderType.GetMethod("Parse", true, ps, pstyle).Import();
+					this.var_parse_1_2 = this.builderType.GetMethod("Parse", true, ps, pstyle);
 			
-				return this.var_parse_1_2;
+				return this.var_parse_1_2.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -23836,9 +23836,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_parse_0_3 == null)
-				this.var_parse_0_3 = this.builderType.GetMethod("Parse", true, ps, pstyle, pprovider).Import();
+				this.var_parse_0_3 = this.builderType.GetMethod("Parse", true, ps, pstyle, pprovider);
 			
-			return this.var_parse_0_3;
+			return this.var_parse_0_3.Import();
 						
 		}
 						
@@ -23852,9 +23852,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetTypeCode()
 		{
 			if(this.var_gettypecode_0_0 == null)
-				this.var_gettypecode_0_0 = this.builderType.GetMethod("GetTypeCode", 0, true).Import();
+				this.var_gettypecode_0_0 = this.builderType.GetMethod("GetTypeCode", 0, true);
 
-			return this.var_gettypecode_0_0;
+			return this.var_gettypecode_0_0.Import();
 		}
 						
 		private Method var_gettype_0_0;
@@ -23867,9 +23867,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetType()
 		{
 			if(this.var_gettype_0_0 == null)
-				this.var_gettype_0_0 = this.builderType.GetMethod("GetType", 0, true).Import();
+				this.var_gettype_0_0 = this.builderType.GetMethod("GetType", 0, true);
 
-			return this.var_gettype_0_0;
+			return this.var_gettype_0_0.Import();
 		}
 					}
 
@@ -23884,10 +23884,10 @@ namespace Cauldron.Interception.Cecilator
 		}
 
 		/// <exclude />
-		public static implicit operator BuilderType(BuilderTypeUIntPtr value) => value.builderType;
+		public static implicit operator BuilderType(BuilderTypeUIntPtr value) => value.builderType.Import();
 		
 		/// <exclude />
-		public static implicit operator TypeReference(BuilderTypeUIntPtr value) => value.builderType.typeReference;
+		public static implicit operator TypeReference(BuilderTypeUIntPtr value) => Builder.Current.Import((TypeReference)value.builderType);
 			
 				
 		private Method var_equals_0_1;
@@ -23900,9 +23900,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_Equals()
 		{
 			if(this.var_equals_0_1 == null)
-				this.var_equals_0_1 = this.builderType.GetMethod("Equals", 1, true).Import();
+				this.var_equals_0_1 = this.builderType.GetMethod("Equals", 1, true);
 
-			return this.var_equals_0_1;
+			return this.var_equals_0_1.Import();
 		}
 						
 		private Method var_gethashcode_0_0;
@@ -23915,9 +23915,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetHashCode()
 		{
 			if(this.var_gethashcode_0_0 == null)
-				this.var_gethashcode_0_0 = this.builderType.GetMethod("GetHashCode", 0, true).Import();
+				this.var_gethashcode_0_0 = this.builderType.GetMethod("GetHashCode", 0, true);
 
-			return this.var_gethashcode_0_0;
+			return this.var_gethashcode_0_0.Import();
 		}
 						
 		private Method var_touint32_0_0;
@@ -23930,9 +23930,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_ToUInt32()
 		{
 			if(this.var_touint32_0_0 == null)
-				this.var_touint32_0_0 = this.builderType.GetMethod("ToUInt32", 0, true).Import();
+				this.var_touint32_0_0 = this.builderType.GetMethod("ToUInt32", 0, true);
 
-			return this.var_touint32_0_0;
+			return this.var_touint32_0_0.Import();
 		}
 						
 		private Method var_touint64_0_0;
@@ -23945,9 +23945,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_ToUInt64()
 		{
 			if(this.var_touint64_0_0 == null)
-				this.var_touint64_0_0 = this.builderType.GetMethod("ToUInt64", 0, true).Import();
+				this.var_touint64_0_0 = this.builderType.GetMethod("ToUInt64", 0, true);
 
-			return this.var_touint64_0_0;
+			return this.var_touint64_0_0.Import();
 		}
 						
 		private Method var_tostring_0_0;
@@ -23960,9 +23960,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_ToString()
 		{
 			if(this.var_tostring_0_0 == null)
-				this.var_tostring_0_0 = this.builderType.GetMethod("ToString", 0, true).Import();
+				this.var_tostring_0_0 = this.builderType.GetMethod("ToString", 0, true);
 
-			return this.var_tostring_0_0;
+			return this.var_tostring_0_0.Import();
 		}
 						
 		private Method var_op_explicit_0_1;
@@ -23991,41 +23991,41 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.UInt32).AreEqual(pvalue))
 			{
 				if(this.var_op_explicit_0_1 == null)
-					this.var_op_explicit_0_1 = this.builderType.GetMethod("op_Explicit", true, pvalue).Import();
+					this.var_op_explicit_0_1 = this.builderType.GetMethod("op_Explicit", true, pvalue);
 			
-				return this.var_op_explicit_0_1;
+				return this.var_op_explicit_0_1.Import();
 			}
 			
 			if(typeof(System.UInt64).AreEqual(pvalue))
 			{
 				if(this.var_op_explicit_1_1 == null)
-					this.var_op_explicit_1_1 = this.builderType.GetMethod("op_Explicit", true, pvalue).Import();
+					this.var_op_explicit_1_1 = this.builderType.GetMethod("op_Explicit", true, pvalue);
 			
-				return this.var_op_explicit_1_1;
+				return this.var_op_explicit_1_1.Import();
 			}
 			
 			if(typeof(System.UIntPtr).AreEqual(pvalue))
 			{
 				if(this.var_op_explicit_2_1 == null)
-					this.var_op_explicit_2_1 = this.builderType.GetMethod("op_Explicit", true, pvalue).Import();
+					this.var_op_explicit_2_1 = this.builderType.GetMethod("op_Explicit", true, pvalue);
 			
-				return this.var_op_explicit_2_1;
+				return this.var_op_explicit_2_1.Import();
 			}
 			
 			if(typeof(System.UIntPtr).AreEqual(pvalue))
 			{
 				if(this.var_op_explicit_3_1 == null)
-					this.var_op_explicit_3_1 = this.builderType.GetMethod("op_Explicit", true, pvalue).Import();
+					this.var_op_explicit_3_1 = this.builderType.GetMethod("op_Explicit", true, pvalue);
 			
-				return this.var_op_explicit_3_1;
+				return this.var_op_explicit_3_1.Import();
 			}
 			
 			if(typeof(System.UIntPtr).AreEqual(pvalue))
 			{
 				if(this.var_op_explicit_4_1 == null)
-					this.var_op_explicit_4_1 = this.builderType.GetMethod("op_Explicit", true, pvalue).Import();
+					this.var_op_explicit_4_1 = this.builderType.GetMethod("op_Explicit", true, pvalue);
 			
-				return this.var_op_explicit_4_1;
+				return this.var_op_explicit_4_1.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -24042,9 +24042,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_op_Equality()
 		{
 			if(this.var_op_equality_0_2 == null)
-				this.var_op_equality_0_2 = this.builderType.GetMethod("op_Equality", 2, true).Import();
+				this.var_op_equality_0_2 = this.builderType.GetMethod("op_Equality", 2, true);
 
-			return this.var_op_equality_0_2;
+			return this.var_op_equality_0_2.Import();
 		}
 						
 		private Method var_op_inequality_0_2;
@@ -24057,9 +24057,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_op_Inequality()
 		{
 			if(this.var_op_inequality_0_2 == null)
-				this.var_op_inequality_0_2 = this.builderType.GetMethod("op_Inequality", 2, true).Import();
+				this.var_op_inequality_0_2 = this.builderType.GetMethod("op_Inequality", 2, true);
 
-			return this.var_op_inequality_0_2;
+			return this.var_op_inequality_0_2.Import();
 		}
 						
 		private Method var_add_0_2;
@@ -24072,9 +24072,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_Add()
 		{
 			if(this.var_add_0_2 == null)
-				this.var_add_0_2 = this.builderType.GetMethod("Add", 2, true).Import();
+				this.var_add_0_2 = this.builderType.GetMethod("Add", 2, true);
 
-			return this.var_add_0_2;
+			return this.var_add_0_2.Import();
 		}
 						
 		private Method var_op_addition_0_2;
@@ -24087,9 +24087,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_op_Addition()
 		{
 			if(this.var_op_addition_0_2 == null)
-				this.var_op_addition_0_2 = this.builderType.GetMethod("op_Addition", 2, true).Import();
+				this.var_op_addition_0_2 = this.builderType.GetMethod("op_Addition", 2, true);
 
-			return this.var_op_addition_0_2;
+			return this.var_op_addition_0_2.Import();
 		}
 						
 		private Method var_subtract_0_2;
@@ -24102,9 +24102,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_Subtract()
 		{
 			if(this.var_subtract_0_2 == null)
-				this.var_subtract_0_2 = this.builderType.GetMethod("Subtract", 2, true).Import();
+				this.var_subtract_0_2 = this.builderType.GetMethod("Subtract", 2, true);
 
-			return this.var_subtract_0_2;
+			return this.var_subtract_0_2.Import();
 		}
 						
 		private Method var_op_subtraction_0_2;
@@ -24117,9 +24117,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_op_Subtraction()
 		{
 			if(this.var_op_subtraction_0_2 == null)
-				this.var_op_subtraction_0_2 = this.builderType.GetMethod("op_Subtraction", 2, true).Import();
+				this.var_op_subtraction_0_2 = this.builderType.GetMethod("op_Subtraction", 2, true);
 
-			return this.var_op_subtraction_0_2;
+			return this.var_op_subtraction_0_2.Import();
 		}
 						
 		private Method var_get_size_0_0;
@@ -24132,9 +24132,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_Size()
 		{
 			if(this.var_get_size_0_0 == null)
-				this.var_get_size_0_0 = this.builderType.GetMethod("get_Size", 0, true).Import();
+				this.var_get_size_0_0 = this.builderType.GetMethod("get_Size", 0, true);
 
-			return this.var_get_size_0_0;
+			return this.var_get_size_0_0.Import();
 		}
 						
 		private Method var_topointer_0_0;
@@ -24147,9 +24147,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_ToPointer()
 		{
 			if(this.var_topointer_0_0 == null)
-				this.var_topointer_0_0 = this.builderType.GetMethod("ToPointer", 0, true).Import();
+				this.var_topointer_0_0 = this.builderType.GetMethod("ToPointer", 0, true);
 
-			return this.var_topointer_0_0;
+			return this.var_topointer_0_0.Import();
 		}
 						
 		private Method var_gettype_0_0;
@@ -24162,9 +24162,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetType()
 		{
 			if(this.var_gettype_0_0 == null)
-				this.var_gettype_0_0 = this.builderType.GetMethod("GetType", 0, true).Import();
+				this.var_gettype_0_0 = this.builderType.GetMethod("GetType", 0, true);
 
-			return this.var_gettype_0_0;
+			return this.var_gettype_0_0.Import();
 		}
 						
 		private Method var_ctor_0_1;
@@ -24184,17 +24184,17 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.UInt32).AreEqual(pvalue))
 			{
 				if(this.var_ctor_0_1 == null)
-					this.var_ctor_0_1 = this.builderType.GetMethod(".ctor", true, pvalue).Import();
+					this.var_ctor_0_1 = this.builderType.GetMethod(".ctor", true, pvalue);
 			
-				return this.var_ctor_0_1;
+				return this.var_ctor_0_1.Import();
 			}
 			
 			if(typeof(System.UInt64).AreEqual(pvalue))
 			{
 				if(this.var_ctor_1_1 == null)
-					this.var_ctor_1_1 = this.builderType.GetMethod(".ctor", true, pvalue).Import();
+					this.var_ctor_1_1 = this.builderType.GetMethod(".ctor", true, pvalue);
 			
-				return this.var_ctor_1_1;
+				return this.var_ctor_1_1.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -24213,10 +24213,10 @@ namespace Cauldron.Interception.Cecilator
 		}
 
 		/// <exclude />
-		public static implicit operator BuilderType(BuilderTypeUri value) => value.builderType;
+		public static implicit operator BuilderType(BuilderTypeUri value) => value.builderType.Import();
 		
 		/// <exclude />
-		public static implicit operator TypeReference(BuilderTypeUri value) => value.builderType.typeReference;
+		public static implicit operator TypeReference(BuilderTypeUri value) => Builder.Current.Import((TypeReference)value.builderType);
 			
 				
 		private Method var_makerelative_0_1;
@@ -24229,9 +24229,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_MakeRelative()
 		{
 			if(this.var_makerelative_0_1 == null)
-				this.var_makerelative_0_1 = this.builderType.GetMethod("MakeRelative", 1, true).Import();
+				this.var_makerelative_0_1 = this.builderType.GetMethod("MakeRelative", 1, true);
 
-			return this.var_makerelative_0_1;
+			return this.var_makerelative_0_1.Import();
 		}
 						
 		private Method var_getcomponents_0_2;
@@ -24244,9 +24244,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetComponents()
 		{
 			if(this.var_getcomponents_0_2 == null)
-				this.var_getcomponents_0_2 = this.builderType.GetMethod("GetComponents", 2, true).Import();
+				this.var_getcomponents_0_2 = this.builderType.GetMethod("GetComponents", 2, true);
 
-			return this.var_getcomponents_0_2;
+			return this.var_getcomponents_0_2.Import();
 		}
 						
 		private Method var_compare_0_5;
@@ -24259,9 +24259,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_Compare()
 		{
 			if(this.var_compare_0_5 == null)
-				this.var_compare_0_5 = this.builderType.GetMethod("Compare", 5, true).Import();
+				this.var_compare_0_5 = this.builderType.GetMethod("Compare", 5, true);
 
-			return this.var_compare_0_5;
+			return this.var_compare_0_5.Import();
 		}
 						
 		private Method var_iswellformedoriginalstring_0_0;
@@ -24274,9 +24274,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_IsWellFormedOriginalString()
 		{
 			if(this.var_iswellformedoriginalstring_0_0 == null)
-				this.var_iswellformedoriginalstring_0_0 = this.builderType.GetMethod("IsWellFormedOriginalString", 0, true).Import();
+				this.var_iswellformedoriginalstring_0_0 = this.builderType.GetMethod("IsWellFormedOriginalString", 0, true);
 
-			return this.var_iswellformedoriginalstring_0_0;
+			return this.var_iswellformedoriginalstring_0_0.Import();
 		}
 						
 		private Method var_iswellformeduristring_0_2;
@@ -24289,9 +24289,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_IsWellFormedUriString()
 		{
 			if(this.var_iswellformeduristring_0_2 == null)
-				this.var_iswellformeduristring_0_2 = this.builderType.GetMethod("IsWellFormedUriString", 2, true).Import();
+				this.var_iswellformeduristring_0_2 = this.builderType.GetMethod("IsWellFormedUriString", 2, true);
 
-			return this.var_iswellformeduristring_0_2;
+			return this.var_iswellformeduristring_0_2.Import();
 		}
 						
 		private Method var_unescapedatastring_0_1;
@@ -24304,9 +24304,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_UnescapeDataString()
 		{
 			if(this.var_unescapedatastring_0_1 == null)
-				this.var_unescapedatastring_0_1 = this.builderType.GetMethod("UnescapeDataString", 1, true).Import();
+				this.var_unescapedatastring_0_1 = this.builderType.GetMethod("UnescapeDataString", 1, true);
 
-			return this.var_unescapedatastring_0_1;
+			return this.var_unescapedatastring_0_1.Import();
 		}
 						
 		private Method var_escapeuristring_0_1;
@@ -24319,9 +24319,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_EscapeUriString()
 		{
 			if(this.var_escapeuristring_0_1 == null)
-				this.var_escapeuristring_0_1 = this.builderType.GetMethod("EscapeUriString", 1, true).Import();
+				this.var_escapeuristring_0_1 = this.builderType.GetMethod("EscapeUriString", 1, true);
 
-			return this.var_escapeuristring_0_1;
+			return this.var_escapeuristring_0_1.Import();
 		}
 						
 		private Method var_escapedatastring_0_1;
@@ -24334,9 +24334,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_EscapeDataString()
 		{
 			if(this.var_escapedatastring_0_1 == null)
-				this.var_escapedatastring_0_1 = this.builderType.GetMethod("EscapeDataString", 1, true).Import();
+				this.var_escapedatastring_0_1 = this.builderType.GetMethod("EscapeDataString", 1, true);
 
-			return this.var_escapedatastring_0_1;
+			return this.var_escapedatastring_0_1.Import();
 		}
 						
 		private Method var_isbaseof_0_1;
@@ -24349,9 +24349,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_IsBaseOf()
 		{
 			if(this.var_isbaseof_0_1 == null)
-				this.var_isbaseof_0_1 = this.builderType.GetMethod("IsBaseOf", 1, true).Import();
+				this.var_isbaseof_0_1 = this.builderType.GetMethod("IsBaseOf", 1, true);
 
-			return this.var_isbaseof_0_1;
+			return this.var_isbaseof_0_1.Import();
 		}
 						
 		private Method var_get_absolutepath_0_0;
@@ -24364,9 +24364,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_AbsolutePath()
 		{
 			if(this.var_get_absolutepath_0_0 == null)
-				this.var_get_absolutepath_0_0 = this.builderType.GetMethod("get_AbsolutePath", 0, true).Import();
+				this.var_get_absolutepath_0_0 = this.builderType.GetMethod("get_AbsolutePath", 0, true);
 
-			return this.var_get_absolutepath_0_0;
+			return this.var_get_absolutepath_0_0.Import();
 		}
 						
 		private Method var_get_absoluteuri_0_0;
@@ -24379,9 +24379,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_AbsoluteUri()
 		{
 			if(this.var_get_absoluteuri_0_0 == null)
-				this.var_get_absoluteuri_0_0 = this.builderType.GetMethod("get_AbsoluteUri", 0, true).Import();
+				this.var_get_absoluteuri_0_0 = this.builderType.GetMethod("get_AbsoluteUri", 0, true);
 
-			return this.var_get_absoluteuri_0_0;
+			return this.var_get_absoluteuri_0_0.Import();
 		}
 						
 		private Method var_get_localpath_0_0;
@@ -24394,9 +24394,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_LocalPath()
 		{
 			if(this.var_get_localpath_0_0 == null)
-				this.var_get_localpath_0_0 = this.builderType.GetMethod("get_LocalPath", 0, true).Import();
+				this.var_get_localpath_0_0 = this.builderType.GetMethod("get_LocalPath", 0, true);
 
-			return this.var_get_localpath_0_0;
+			return this.var_get_localpath_0_0.Import();
 		}
 						
 		private Method var_get_authority_0_0;
@@ -24409,9 +24409,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_Authority()
 		{
 			if(this.var_get_authority_0_0 == null)
-				this.var_get_authority_0_0 = this.builderType.GetMethod("get_Authority", 0, true).Import();
+				this.var_get_authority_0_0 = this.builderType.GetMethod("get_Authority", 0, true);
 
-			return this.var_get_authority_0_0;
+			return this.var_get_authority_0_0.Import();
 		}
 						
 		private Method var_get_hostnametype_0_0;
@@ -24424,9 +24424,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_HostNameType()
 		{
 			if(this.var_get_hostnametype_0_0 == null)
-				this.var_get_hostnametype_0_0 = this.builderType.GetMethod("get_HostNameType", 0, true).Import();
+				this.var_get_hostnametype_0_0 = this.builderType.GetMethod("get_HostNameType", 0, true);
 
-			return this.var_get_hostnametype_0_0;
+			return this.var_get_hostnametype_0_0.Import();
 		}
 						
 		private Method var_get_isdefaultport_0_0;
@@ -24439,9 +24439,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_IsDefaultPort()
 		{
 			if(this.var_get_isdefaultport_0_0 == null)
-				this.var_get_isdefaultport_0_0 = this.builderType.GetMethod("get_IsDefaultPort", 0, true).Import();
+				this.var_get_isdefaultport_0_0 = this.builderType.GetMethod("get_IsDefaultPort", 0, true);
 
-			return this.var_get_isdefaultport_0_0;
+			return this.var_get_isdefaultport_0_0.Import();
 		}
 						
 		private Method var_get_isfile_0_0;
@@ -24454,9 +24454,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_IsFile()
 		{
 			if(this.var_get_isfile_0_0 == null)
-				this.var_get_isfile_0_0 = this.builderType.GetMethod("get_IsFile", 0, true).Import();
+				this.var_get_isfile_0_0 = this.builderType.GetMethod("get_IsFile", 0, true);
 
-			return this.var_get_isfile_0_0;
+			return this.var_get_isfile_0_0.Import();
 		}
 						
 		private Method var_get_isloopback_0_0;
@@ -24469,9 +24469,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_IsLoopback()
 		{
 			if(this.var_get_isloopback_0_0 == null)
-				this.var_get_isloopback_0_0 = this.builderType.GetMethod("get_IsLoopback", 0, true).Import();
+				this.var_get_isloopback_0_0 = this.builderType.GetMethod("get_IsLoopback", 0, true);
 
-			return this.var_get_isloopback_0_0;
+			return this.var_get_isloopback_0_0.Import();
 		}
 						
 		private Method var_get_pathandquery_0_0;
@@ -24484,9 +24484,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_PathAndQuery()
 		{
 			if(this.var_get_pathandquery_0_0 == null)
-				this.var_get_pathandquery_0_0 = this.builderType.GetMethod("get_PathAndQuery", 0, true).Import();
+				this.var_get_pathandquery_0_0 = this.builderType.GetMethod("get_PathAndQuery", 0, true);
 
-			return this.var_get_pathandquery_0_0;
+			return this.var_get_pathandquery_0_0.Import();
 		}
 						
 		private Method var_get_segments_0_0;
@@ -24499,9 +24499,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_Segments()
 		{
 			if(this.var_get_segments_0_0 == null)
-				this.var_get_segments_0_0 = this.builderType.GetMethod("get_Segments", 0, true).Import();
+				this.var_get_segments_0_0 = this.builderType.GetMethod("get_Segments", 0, true);
 
-			return this.var_get_segments_0_0;
+			return this.var_get_segments_0_0.Import();
 		}
 						
 		private Method var_get_isunc_0_0;
@@ -24514,9 +24514,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_IsUnc()
 		{
 			if(this.var_get_isunc_0_0 == null)
-				this.var_get_isunc_0_0 = this.builderType.GetMethod("get_IsUnc", 0, true).Import();
+				this.var_get_isunc_0_0 = this.builderType.GetMethod("get_IsUnc", 0, true);
 
-			return this.var_get_isunc_0_0;
+			return this.var_get_isunc_0_0.Import();
 		}
 						
 		private Method var_get_host_0_0;
@@ -24529,9 +24529,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_Host()
 		{
 			if(this.var_get_host_0_0 == null)
-				this.var_get_host_0_0 = this.builderType.GetMethod("get_Host", 0, true).Import();
+				this.var_get_host_0_0 = this.builderType.GetMethod("get_Host", 0, true);
 
-			return this.var_get_host_0_0;
+			return this.var_get_host_0_0.Import();
 		}
 						
 		private Method var_get_port_0_0;
@@ -24544,9 +24544,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_Port()
 		{
 			if(this.var_get_port_0_0 == null)
-				this.var_get_port_0_0 = this.builderType.GetMethod("get_Port", 0, true).Import();
+				this.var_get_port_0_0 = this.builderType.GetMethod("get_Port", 0, true);
 
-			return this.var_get_port_0_0;
+			return this.var_get_port_0_0.Import();
 		}
 						
 		private Method var_get_query_0_0;
@@ -24559,9 +24559,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_Query()
 		{
 			if(this.var_get_query_0_0 == null)
-				this.var_get_query_0_0 = this.builderType.GetMethod("get_Query", 0, true).Import();
+				this.var_get_query_0_0 = this.builderType.GetMethod("get_Query", 0, true);
 
-			return this.var_get_query_0_0;
+			return this.var_get_query_0_0.Import();
 		}
 						
 		private Method var_get_fragment_0_0;
@@ -24574,9 +24574,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_Fragment()
 		{
 			if(this.var_get_fragment_0_0 == null)
-				this.var_get_fragment_0_0 = this.builderType.GetMethod("get_Fragment", 0, true).Import();
+				this.var_get_fragment_0_0 = this.builderType.GetMethod("get_Fragment", 0, true);
 
-			return this.var_get_fragment_0_0;
+			return this.var_get_fragment_0_0.Import();
 		}
 						
 		private Method var_get_scheme_0_0;
@@ -24589,9 +24589,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_Scheme()
 		{
 			if(this.var_get_scheme_0_0 == null)
-				this.var_get_scheme_0_0 = this.builderType.GetMethod("get_Scheme", 0, true).Import();
+				this.var_get_scheme_0_0 = this.builderType.GetMethod("get_Scheme", 0, true);
 
-			return this.var_get_scheme_0_0;
+			return this.var_get_scheme_0_0.Import();
 		}
 						
 		private Method var_get_originalstring_0_0;
@@ -24604,9 +24604,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_OriginalString()
 		{
 			if(this.var_get_originalstring_0_0 == null)
-				this.var_get_originalstring_0_0 = this.builderType.GetMethod("get_OriginalString", 0, true).Import();
+				this.var_get_originalstring_0_0 = this.builderType.GetMethod("get_OriginalString", 0, true);
 
-			return this.var_get_originalstring_0_0;
+			return this.var_get_originalstring_0_0.Import();
 		}
 						
 		private Method var_get_dnssafehost_0_0;
@@ -24619,9 +24619,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_DnsSafeHost()
 		{
 			if(this.var_get_dnssafehost_0_0 == null)
-				this.var_get_dnssafehost_0_0 = this.builderType.GetMethod("get_DnsSafeHost", 0, true).Import();
+				this.var_get_dnssafehost_0_0 = this.builderType.GetMethod("get_DnsSafeHost", 0, true);
 
-			return this.var_get_dnssafehost_0_0;
+			return this.var_get_dnssafehost_0_0.Import();
 		}
 						
 		private Method var_get_idnhost_0_0;
@@ -24634,9 +24634,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_IdnHost()
 		{
 			if(this.var_get_idnhost_0_0 == null)
-				this.var_get_idnhost_0_0 = this.builderType.GetMethod("get_IdnHost", 0, true).Import();
+				this.var_get_idnhost_0_0 = this.builderType.GetMethod("get_IdnHost", 0, true);
 
-			return this.var_get_idnhost_0_0;
+			return this.var_get_idnhost_0_0.Import();
 		}
 						
 		private Method var_get_isabsoluteuri_0_0;
@@ -24649,9 +24649,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_IsAbsoluteUri()
 		{
 			if(this.var_get_isabsoluteuri_0_0 == null)
-				this.var_get_isabsoluteuri_0_0 = this.builderType.GetMethod("get_IsAbsoluteUri", 0, true).Import();
+				this.var_get_isabsoluteuri_0_0 = this.builderType.GetMethod("get_IsAbsoluteUri", 0, true);
 
-			return this.var_get_isabsoluteuri_0_0;
+			return this.var_get_isabsoluteuri_0_0.Import();
 		}
 						
 		private Method var_get_userescaped_0_0;
@@ -24664,9 +24664,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_UserEscaped()
 		{
 			if(this.var_get_userescaped_0_0 == null)
-				this.var_get_userescaped_0_0 = this.builderType.GetMethod("get_UserEscaped", 0, true).Import();
+				this.var_get_userescaped_0_0 = this.builderType.GetMethod("get_UserEscaped", 0, true);
 
-			return this.var_get_userescaped_0_0;
+			return this.var_get_userescaped_0_0.Import();
 		}
 						
 		private Method var_get_userinfo_0_0;
@@ -24679,9 +24679,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_get_UserInfo()
 		{
 			if(this.var_get_userinfo_0_0 == null)
-				this.var_get_userinfo_0_0 = this.builderType.GetMethod("get_UserInfo", 0, true).Import();
+				this.var_get_userinfo_0_0 = this.builderType.GetMethod("get_UserInfo", 0, true);
 
-			return this.var_get_userinfo_0_0;
+			return this.var_get_userinfo_0_0.Import();
 		}
 						
 		private Method var_checkhostname_0_1;
@@ -24694,9 +24694,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_CheckHostName()
 		{
 			if(this.var_checkhostname_0_1 == null)
-				this.var_checkhostname_0_1 = this.builderType.GetMethod("CheckHostName", 1, true).Import();
+				this.var_checkhostname_0_1 = this.builderType.GetMethod("CheckHostName", 1, true);
 
-			return this.var_checkhostname_0_1;
+			return this.var_checkhostname_0_1.Import();
 		}
 						
 		private Method var_getleftpart_0_1;
@@ -24709,9 +24709,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetLeftPart()
 		{
 			if(this.var_getleftpart_0_1 == null)
-				this.var_getleftpart_0_1 = this.builderType.GetMethod("GetLeftPart", 1, true).Import();
+				this.var_getleftpart_0_1 = this.builderType.GetMethod("GetLeftPart", 1, true);
 
-			return this.var_getleftpart_0_1;
+			return this.var_getleftpart_0_1.Import();
 		}
 						
 		private Method var_hexescape_0_1;
@@ -24724,9 +24724,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_HexEscape()
 		{
 			if(this.var_hexescape_0_1 == null)
-				this.var_hexescape_0_1 = this.builderType.GetMethod("HexEscape", 1, true).Import();
+				this.var_hexescape_0_1 = this.builderType.GetMethod("HexEscape", 1, true);
 
-			return this.var_hexescape_0_1;
+			return this.var_hexescape_0_1.Import();
 		}
 						
 		private Method var_ishexencoding_0_2;
@@ -24739,9 +24739,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_IsHexEncoding()
 		{
 			if(this.var_ishexencoding_0_2 == null)
-				this.var_ishexencoding_0_2 = this.builderType.GetMethod("IsHexEncoding", 2, true).Import();
+				this.var_ishexencoding_0_2 = this.builderType.GetMethod("IsHexEncoding", 2, true);
 
-			return this.var_ishexencoding_0_2;
+			return this.var_ishexencoding_0_2.Import();
 		}
 						
 		private Method var_checkschemename_0_1;
@@ -24754,9 +24754,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_CheckSchemeName()
 		{
 			if(this.var_checkschemename_0_1 == null)
-				this.var_checkschemename_0_1 = this.builderType.GetMethod("CheckSchemeName", 1, true).Import();
+				this.var_checkschemename_0_1 = this.builderType.GetMethod("CheckSchemeName", 1, true);
 
-			return this.var_checkschemename_0_1;
+			return this.var_checkschemename_0_1.Import();
 		}
 						
 		private Method var_ishexdigit_0_1;
@@ -24769,9 +24769,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_IsHexDigit()
 		{
 			if(this.var_ishexdigit_0_1 == null)
-				this.var_ishexdigit_0_1 = this.builderType.GetMethod("IsHexDigit", 1, true).Import();
+				this.var_ishexdigit_0_1 = this.builderType.GetMethod("IsHexDigit", 1, true);
 
-			return this.var_ishexdigit_0_1;
+			return this.var_ishexdigit_0_1.Import();
 		}
 						
 		private Method var_fromhex_0_1;
@@ -24784,9 +24784,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_FromHex()
 		{
 			if(this.var_fromhex_0_1 == null)
-				this.var_fromhex_0_1 = this.builderType.GetMethod("FromHex", 1, true).Import();
+				this.var_fromhex_0_1 = this.builderType.GetMethod("FromHex", 1, true);
 
-			return this.var_fromhex_0_1;
+			return this.var_fromhex_0_1.Import();
 		}
 						
 		private Method var_gethashcode_0_0;
@@ -24799,9 +24799,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetHashCode()
 		{
 			if(this.var_gethashcode_0_0 == null)
-				this.var_gethashcode_0_0 = this.builderType.GetMethod("GetHashCode", 0, true).Import();
+				this.var_gethashcode_0_0 = this.builderType.GetMethod("GetHashCode", 0, true);
 
-			return this.var_gethashcode_0_0;
+			return this.var_gethashcode_0_0.Import();
 		}
 						
 		private Method var_tostring_0_0;
@@ -24814,9 +24814,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_ToString()
 		{
 			if(this.var_tostring_0_0 == null)
-				this.var_tostring_0_0 = this.builderType.GetMethod("ToString", 0, true).Import();
+				this.var_tostring_0_0 = this.builderType.GetMethod("ToString", 0, true);
 
-			return this.var_tostring_0_0;
+			return this.var_tostring_0_0.Import();
 		}
 						
 		private Method var_op_equality_0_2;
@@ -24829,9 +24829,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_op_Equality()
 		{
 			if(this.var_op_equality_0_2 == null)
-				this.var_op_equality_0_2 = this.builderType.GetMethod("op_Equality", 2, true).Import();
+				this.var_op_equality_0_2 = this.builderType.GetMethod("op_Equality", 2, true);
 
-			return this.var_op_equality_0_2;
+			return this.var_op_equality_0_2.Import();
 		}
 						
 		private Method var_op_inequality_0_2;
@@ -24844,9 +24844,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_op_Inequality()
 		{
 			if(this.var_op_inequality_0_2 == null)
-				this.var_op_inequality_0_2 = this.builderType.GetMethod("op_Inequality", 2, true).Import();
+				this.var_op_inequality_0_2 = this.builderType.GetMethod("op_Inequality", 2, true);
 
-			return this.var_op_inequality_0_2;
+			return this.var_op_inequality_0_2.Import();
 		}
 						
 		private Method var_equals_0_1;
@@ -24859,9 +24859,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_Equals()
 		{
 			if(this.var_equals_0_1 == null)
-				this.var_equals_0_1 = this.builderType.GetMethod("Equals", 1, true).Import();
+				this.var_equals_0_1 = this.builderType.GetMethod("Equals", 1, true);
 
-			return this.var_equals_0_1;
+			return this.var_equals_0_1.Import();
 		}
 						
 		private Method var_makerelativeuri_0_1;
@@ -24874,9 +24874,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_MakeRelativeUri()
 		{
 			if(this.var_makerelativeuri_0_1 == null)
-				this.var_makerelativeuri_0_1 = this.builderType.GetMethod("MakeRelativeUri", 1, true).Import();
+				this.var_makerelativeuri_0_1 = this.builderType.GetMethod("MakeRelativeUri", 1, true);
 
-			return this.var_makerelativeuri_0_1;
+			return this.var_makerelativeuri_0_1.Import();
 		}
 						
 		private Method var_gettype_0_0;
@@ -24889,9 +24889,9 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_GetType()
 		{
 			if(this.var_gettype_0_0 == null)
-				this.var_gettype_0_0 = this.builderType.GetMethod("GetType", 0, true).Import();
+				this.var_gettype_0_0 = this.builderType.GetMethod("GetType", 0, true);
 
-			return this.var_gettype_0_0;
+			return this.var_gettype_0_0.Import();
 		}
 						
 		private Method var_ctor_0_1;
@@ -24906,9 +24906,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_ctor_0_1 == null)
-				this.var_ctor_0_1 = this.builderType.GetMethod(".ctor", true, puriString).Import();
+				this.var_ctor_0_1 = this.builderType.GetMethod(".ctor", true, puriString);
 			
-			return this.var_ctor_0_1;
+			return this.var_ctor_0_1.Import();
 						
 		}
 						
@@ -24935,33 +24935,33 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.String).AreEqual(puriString) && typeof(System.Boolean).AreEqual(pdontEscape))
 			{
 				if(this.var_ctor_0_2 == null)
-					this.var_ctor_0_2 = this.builderType.GetMethod(".ctor", true, puriString, pdontEscape).Import();
+					this.var_ctor_0_2 = this.builderType.GetMethod(".ctor", true, puriString, pdontEscape);
 			
-				return this.var_ctor_0_2;
+				return this.var_ctor_0_2.Import();
 			}
 			
 			if(typeof(System.String).AreEqual(puriString) && typeof(System.UriKind).AreEqual(pdontEscape))
 			{
 				if(this.var_ctor_1_2 == null)
-					this.var_ctor_1_2 = this.builderType.GetMethod(".ctor", true, puriString, pdontEscape).Import();
+					this.var_ctor_1_2 = this.builderType.GetMethod(".ctor", true, puriString, pdontEscape);
 			
-				return this.var_ctor_1_2;
+				return this.var_ctor_1_2.Import();
 			}
 			
 			if(typeof(System.Uri).AreEqual(puriString) && typeof(System.String).AreEqual(pdontEscape))
 			{
 				if(this.var_ctor_2_2 == null)
-					this.var_ctor_2_2 = this.builderType.GetMethod(".ctor", true, puriString, pdontEscape).Import();
+					this.var_ctor_2_2 = this.builderType.GetMethod(".ctor", true, puriString, pdontEscape);
 			
-				return this.var_ctor_2_2;
+				return this.var_ctor_2_2.Import();
 			}
 			
 			if(typeof(System.Uri).AreEqual(puriString) && typeof(System.Uri).AreEqual(pdontEscape))
 			{
 				if(this.var_ctor_3_2 == null)
-					this.var_ctor_3_2 = this.builderType.GetMethod(".ctor", true, puriString, pdontEscape).Import();
+					this.var_ctor_3_2 = this.builderType.GetMethod(".ctor", true, puriString, pdontEscape);
 			
-				return this.var_ctor_3_2;
+				return this.var_ctor_3_2.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -24980,9 +24980,9 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_ctor_0_3 == null)
-				this.var_ctor_0_3 = this.builderType.GetMethod(".ctor", true, pbaseUri, prelativeUri, pdontEscape).Import();
+				this.var_ctor_0_3 = this.builderType.GetMethod(".ctor", true, pbaseUri, prelativeUri, pdontEscape);
 			
-			return this.var_ctor_0_3;
+			return this.var_ctor_0_3.Import();
 						
 		}
 					}
