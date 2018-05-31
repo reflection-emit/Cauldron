@@ -26,6 +26,7 @@ namespace Cauldron.Interception.Cecilator.Coders
 
         public bool RequiresReturn =>
             this.instructions.Count > 0 &&
+            this.instructions.Last.OpCode != OpCodes.Leave &&
             this.instructions.Last.OpCode != OpCodes.Rethrow &&
             this.instructions.Last.OpCode != OpCodes.Throw &&
             this.instructions.Last.OpCode != OpCodes.Endfinally &&

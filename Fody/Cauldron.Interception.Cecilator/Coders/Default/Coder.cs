@@ -842,8 +842,11 @@ namespace Cauldron.Interception.Cecilator.Coders
             this.instructions.Append(result);
             this.instructions.Append(result.jumpTargets.beginning);
             this.instructions.Append(InstructionBlock.CreateCode(this, null, then(this.NewCoder())));
-            this.instructions.Append(this.instructions.ilprocessor.Create(OpCodes.Br, endOfIf));
+
+            if (this.instructions.Last.OpCode != OpCodes.Throw)
+                this.instructions.Append(this.instructions.ilprocessor.Create(OpCodes.Br, endOfIf));
             this.instructions.Append(result.jumpTargets.ending);
+
             this.instructions.Append(InstructionBlock.CreateCode(this, null, @else(this.NewCoder())));
             this.instructions.Append(endOfIf);
 

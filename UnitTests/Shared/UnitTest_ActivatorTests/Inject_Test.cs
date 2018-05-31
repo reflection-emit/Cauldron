@@ -7,8 +7,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
-//[module: GenericComponent(typeof(KeyedTestList<string, int, ITestInterface>), typeof(KeyedTestList<string, int, ITestInterface>))]
-
 namespace Activator_Tests
 {
     [TestClass]
