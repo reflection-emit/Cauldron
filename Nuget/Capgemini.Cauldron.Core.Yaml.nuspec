@@ -16,8 +16,8 @@
       2018.05.04 - [C] Assemblies for Net45, Net451, Net452, Net46, Net461 and Net462 added
     </releaseNotes>
     <dependencies>
-      <dependency id="Capgemini.Cauldron.Core.Extensions.Convertions" version="3.0.24" />
-      <dependency id="Capgemini.Cauldron.Core.Reflection" version="3.0.24" />
+      <dependency id="Capgemini.Cauldron.Core.Extensions.Convertions" version="3.0.19" />
+      <dependency id="Capgemini.Cauldron.Core.Reflection" version="3.0.19" />
     </dependencies>
   </metadata>
   <files>

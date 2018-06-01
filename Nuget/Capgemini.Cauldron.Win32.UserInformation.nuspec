@@ -20,10 +20,10 @@
       2017.12.19 - [A] WTSClientName added to User and CurrentUser. WTSClientName returns the Windows Terminal Session client name.
     </releaseNotes>
     <dependencies>
-      <dependency id="Capgemini.Cauldron.Core.Comparing" version="3.0.24" />
-      <dependency id="Capgemini.Cauldron.Core.Extensions" version="3.0.24" />
-      <dependency id="Capgemini.Cauldron.Core.Net" version="3.0.24" />
-      <dependency id="Capgemini.Cauldron.Core.Extensions.Convertions" version="3.0.24" />
+      <dependency id="Capgemini.Cauldron.Core.Comparing" version="3.0.19" />
+      <dependency id="Capgemini.Cauldron.Core.Extensions" version="3.0.19" />
+      <dependency id="Capgemini.Cauldron.Core.Net" version="3.0.19" />
+      <dependency id="Capgemini.Cauldron.Core.Extensions.Convertions" version="3.0.19" />
     </dependencies>
     <frameworkAssemblies>
       <frameworkAssembly assemblyName="System.DirectoryServices" />
