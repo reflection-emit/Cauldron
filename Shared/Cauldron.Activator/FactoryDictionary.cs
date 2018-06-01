@@ -8,15 +8,18 @@ namespace Cauldron.Activator
          http://blog.teamleadnet.com/2012/07/ultra-fast-hashtable-dictionary-with.html
     */
 
+    internal static class FactoryDictionary
+    {
+        public static readonly uint[] primeSizes = new uint[]{ 89, 179, 359, 719, 1439, 2879, 5779, 11579, 23159, 46327,
+                                        92657, 185323, 370661, 741337, 1482707, 2965421, 5930887, 11861791,
+                                        23723599, 47447201, 94894427, 189788857, 379577741, 759155483};
+    }
+
     internal sealed class FactoryDictionary<TKey, TValue>
         where TKey : class
         where TValue : class
     {
         private const int initialsize = 89;
-
-        private static readonly uint[] primeSizes = new uint[]{ 89, 179, 359, 719, 1439, 2879, 5779, 11579, 23159, 46327,
-                                        92657, 185323, 370661, 741337, 1482707, 2965421, 5930887, 11861791,
-                                        23723599, 47447201, 94894427, 189788857, 379577741, 759155483};
 
         private int[] buckets;
         private FactoryDictionaryEntry[] entries;
@@ -25,6 +28,33 @@ namespace Cauldron.Activator
         public FactoryDictionary() => Initialize();
 
         public int Count => nextfree;
+
+        public TValue this[TKey key]
+        {
+            get
+            {
+                uint pos = (uint)key.GetHashCode() % (uint)buckets.Length;
+                int entryLocation = buckets[pos];
+
+                if (entryLocation == -1)
+                    return null;
+
+                int nextpos = entryLocation;
+
+                do
+                {
+                    var entry = entries[nextpos];
+
+                    if (object.ReferenceEquals(key, entry.key))
+                        return entries[nextpos].value;
+
+                    nextpos = entry.next;
+                }
+                while (nextpos != -1);
+
+                return null;
+            }
+        }
 
         public void Add(TKey key, TValue value)
         {
@@ -129,43 +159,13 @@ namespace Cauldron.Activator
             return false;
         }
 
-        public bool TryGetValue(TKey key, out TValue value)
-        {
-            uint pos = (uint)key.GetHashCode() % (uint)buckets.Length;
-            int entryLocation = buckets[pos];
-
-            if (entryLocation == -1)
-            {
-                value = null;
-                return false;
-            }
-
-            int nextpos = entryLocation;
-
-            do
-            {
-                var entry = entries[nextpos];
-
-                if (key.Equals(entry.key))
-                {
-                    value = entries[nextpos].value;
-                    return true;
-                }
-                nextpos = entry.next;
-            }
-            while (nextpos != -1);
-
-            value = null;
-            return false;
-        }
-
         private uint FindNewSize()
         {
             uint roughsize = (uint)buckets.Length * 2 + 1;
 
-            for (int i = 0; i < primeSizes.Length; i++)
-                if (primeSizes[i] >= roughsize)
-                    return primeSizes[i];
+            for (int i = 0; i < FactoryDictionary.primeSizes.Length; i++)
+                if (FactoryDictionary.primeSizes[i] >= roughsize)
+                    return FactoryDictionary.primeSizes[i];
 
             throw new NotImplementedException("Too large array");
         }
@@ -212,10 +212,5 @@ namespace Cauldron.Activator
             public int next;
             public TValue value;
         }
-    }
-
-    internal sealed class FactoryDictionaryValue
-    {
-        public IFactoryTypeInfo[] factoryTypeInfos;
     }
 }

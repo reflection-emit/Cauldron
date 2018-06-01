@@ -97,7 +97,6 @@ namespace Activator_Tests
         [TestMethod]
         public void Dictionary_Injection()
         {
-            var ttt = typeof(Dictionary<string, float>);
             var dictionaryMock = new Dictionary<string, float>();
             var documentMockType = dictionaryMock.GetType();
 

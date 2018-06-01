@@ -1,6 +1,5 @@
 ﻿using Cauldron.Core.Reflection;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
@@ -11,7 +10,7 @@ namespace Cauldron.Activator
     /// </summary>
     public sealed class FactoryResolver
     {
-        private Dictionary<string, Func<IFactoryTypeInfo>> resolver = new Dictionary<string, Func<IFactoryTypeInfo>>();
+        private FactoryDictionary<string, Func<IFactoryTypeInfo>> resolver = new FactoryDictionary<string, Func<IFactoryTypeInfo>>();
 
         /// <summary>
         /// Adds a new contractname resolver to the dictionary.
@@ -91,15 +90,17 @@ namespace Cauldron.Activator
 
         internal IFactoryTypeInfo SelectAmbiguousMatch(string contractName)
         {
-            if (resolver.TryGetValue(contractName, out Func<IFactoryTypeInfo> factoryTypeInfo))
-                return factoryTypeInfo();
+            var factoryTypeInfo = resolver[contractName];
 
-            throw new AmbiguousMatchException(
-                string.Join(@"\r\n\", new string[] {
+            if (factoryTypeInfo == null)
+                throw new AmbiguousMatchException(
+                    string.Join(@"\r\n\", new string[] {
                     $"Unable to resolve the contract '{contractName}'.",
                     "The Factory has found multiple implementations, but it is not defined which one to use.",
                     "To define, use Factory.Resolver.Add",
-                }));
+                    }));
+
+            return factoryTypeInfo();
         }
     }
 }

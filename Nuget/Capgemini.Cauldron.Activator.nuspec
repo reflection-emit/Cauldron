@@ -38,6 +38,9 @@
       <dependency id="Cauldron.Interception.Fody" version="3.0.19" />
       <dependency id="Fody" version="3.0.3" />
     </dependencies>
+    <contentFiles>
+      <file src="..\Fody\Interceptors\Cauldron.ActivatorInterceptors*.dll" buildAction="None" />
+    </contentFiles>
   </metadata>
   <files>
     <file src="..\UWP\Cauldron.Activator\bin\Release\Cauldron.Activator.dll" target="lib\uap10.0" />

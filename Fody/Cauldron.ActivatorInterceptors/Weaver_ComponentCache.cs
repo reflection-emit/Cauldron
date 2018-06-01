@@ -351,7 +351,10 @@ public static class Weaver_ComponentCache
                 CreateComponentParameterlessCtor(context, component.Type.ParameterlessContructor, componentAttributeValues);
                 builder.Log(LogTypes.Info, $"The component '{component.Type.Fullname}' has no ComponentConstructor attribute. A parameterless ctor was found and will be used.");
             }
-            else context.Load(value: null).Return();
+            else
+                context.ThrowNew(typeof(NotImplementedException), x =>
+                    x.Call(BuilderTypes.String.GetMethod_Concat(BuilderTypes.String, BuilderTypes.String), unknownConstructorText,
+                        x.NewCoder().Call(BuilderTypes2.IFactoryTypeInfo.GetMethod_get_ContractName())).End);
         }
 
         if (context.AssociatedMethod.Parameters.Length > 0)

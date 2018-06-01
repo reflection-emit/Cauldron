@@ -14,7 +14,7 @@ namespace Cauldron.Activator
     /// <summary>
     /// Provides methods for creating and destroying object instances
     /// </summary>
-    public sealed class Factory
+    public static class Factory
     {
         private static readonly string iFactoryExtensionName = typeof(IFactoryExtension).FullName;
         private static FactoryDictionary<string, FactoryDictionaryValue> componentsNamed;
@@ -112,17 +112,13 @@ namespace Cauldron.Activator
         public static IFactoryTypeInfo AddType(string contractName, FactoryCreationPolicy creationPolicy, Type type, Func<object[], object> createInstance)
         {
             var factoryTypeInfo = new FactoryTypeInfoInternal(contractName, creationPolicy, type, createInstance);
+            var result = componentsNamed[contractName];
 
-            if (componentsNamed.TryGetValue(contractName, out FactoryDictionaryValue content))
-            {
-                content.factoryTypeInfos = content.factoryTypeInfos.Concat(factoryTypeInfo);
-                return factoryTypeInfo;
-            }
+            if (result == null)
+                componentsNamed.Add(contractName, new FactoryDictionaryValue().SetValues(new IFactoryTypeInfo[] { factoryTypeInfo }));
+            else
+                result.SetValues(result.factoryTypeInfos.Concat(factoryTypeInfo).ToArray());
 
-            componentsNamed.Add(contractName, new FactoryDictionaryValue
-            {
-                factoryTypeInfos = new IFactoryTypeInfo[] { factoryTypeInfo }
-            });
             return factoryTypeInfo;
         }
 
@@ -145,24 +141,33 @@ namespace Cauldron.Activator
         /// </exception>
         public static object CreateInstance(Type type, params object[] args)
         {
-            var contractName = type.FullName;
-            if (componentsNamed.TryGetValue(contractName, out FactoryDictionaryValue factoryInfos))
+            var factoryInfos = componentsNamed[type.FullName];
+            if (factoryInfos == null)
             {
-                if (factoryInfos.factoryTypeInfos.Length == 1)
-                    return factoryInfos.factoryTypeInfos[0].CreateInstance(args);
-
-                if (factoryInfos.factoryTypeInfos.Length == 0)
+#if NETFX_CORE
+                if(type.GetTypeInfo().IsInterface)
+#else
+                if (type.IsInterface)
+#endif
                 {
                     if (CanRaiseExceptions)
-                        throw new NotImplementedException("The contractName '" + contractName + "' was not found.");
+                        throw new NotImplementedException($"The contractName '{type}' was not found.");
 
-                    Debug.WriteLine($"ERROR: The contractName '{contractName}' was not found.");
+                    Debug.WriteLine($"ERROR: The contractName '{type}' was not found.");
+                    return null;
                 }
 
-                return ResolveAmbiguousMatch(contractName)?.CreateInstance(args);
+                return type.CreateInstance(args);
             }
 
-            return type.CreateInstance(args);
+            if (factoryInfos.isSingle)
+                return factoryInfos.ambigious.CreateInstance(args);
+
+            var result = ResolveAmbiguousMatch(type.FullName);
+            factoryInfos.ambigious = result;
+            factoryInfos.isSingle = true;
+
+            return result.CreateInstance(args);
         }
 
         #region Create
@@ -205,23 +210,24 @@ namespace Cauldron.Activator
         /// </exception>
         public static object Create(string contractName)
         {
-            if (componentsNamed.TryGetValue(contractName, out FactoryDictionaryValue factoryInfos))
+            var factoryInfos = componentsNamed[contractName];
+            if (factoryInfos == null)
             {
-                if (factoryInfos.factoryTypeInfos.Length == 1)
-                    return factoryInfos.factoryTypeInfos[0].CreateInstance();
+                if (CanRaiseExceptions)
+                    throw new NotImplementedException($"The contractName '{contractName}' was not found.");
 
-                if (factoryInfos.factoryTypeInfos.Length == 0)
-                {
-                    if (CanRaiseExceptions)
-                        throw new NotImplementedException($"The contractName '{contractName}' was not found.");
-
-                    Debug.WriteLine($"ERROR: The contractName '{contractName}' was not found.");
-                }
-
-                return ResolveAmbiguousMatch(contractName)?.CreateInstance();
+                Debug.WriteLine($"ERROR: The contractName '{contractName}' was not found.");
+                return null;
             }
 
-            return null;
+            if (factoryInfos.isSingle)
+                return factoryInfos.ambigious.CreateInstance();
+
+            var result = ResolveAmbiguousMatch(contractName);
+            factoryInfos.ambigious = result;
+            factoryInfos.isSingle = true;
+
+            return result.CreateInstance();
         }
 
         /// <summary>
@@ -246,27 +252,8 @@ namespace Cauldron.Activator
         /// </exception>
         public static object Create(Type contractType)
         {
-            if (componentsTyped.TryGetValue(contractType, out FactoryDictionaryValue factoryInfos))
-            {
-                if (factoryInfos.factoryTypeInfos.Length == 1)
-                    return factoryInfos.factoryTypeInfos[0].CreateInstance();
-
-                if (factoryInfos.factoryTypeInfos.Length == 0)
-                {
-                    if (CanRaiseExceptions)
-                        throw new NotImplementedException($"The contractName '{contractType.FullName}' was not found.");
-
-                    Debug.WriteLine($"ERROR: The contractName '{contractType.FullName}' was not found.");
-                }
-
-                return ResolveAmbiguousMatch(contractType.FullName)?.CreateInstance();
-            }
-
-#if NETFX_CORE
-            if (contractType.GetTypeInfo().IsInterface)
-#else
-            if (contractType.IsInterface)
-#endif
+            var factoryInfos = componentsTyped[contractType];
+            if (factoryInfos == null)
             {
                 if (CanRaiseExceptions)
                     throw new NotImplementedException($"The contractName '{contractType.FullName}' was not found.");
@@ -275,7 +262,14 @@ namespace Cauldron.Activator
                 return null;
             }
 
-            return contractType.CreateInstance();
+            if (factoryInfos.isSingle)
+                return factoryInfos.ambigious.CreateInstance();
+
+            var result = ResolveAmbiguousMatch(contractType.FullName);
+            factoryInfos.ambigious = result;
+            factoryInfos.isSingle = true;
+
+            return result.CreateInstance();
         }
 
         #endregion Create
@@ -317,20 +311,17 @@ namespace Cauldron.Activator
         /// </exception>
         public static object CreateFirst(Type contractType)
         {
-            if (componentsTyped.TryGetValue(contractType, out FactoryDictionaryValue factoryInfos))
+            var factoryInfos = componentsTyped[contractType];
+            if (factoryInfos == null)
             {
-                if (factoryInfos.factoryTypeInfos.Length == 1)
-                    return factoryInfos.factoryTypeInfos[0].CreateInstance();
+                if (CanRaiseExceptions)
+                    throw new NotImplementedException($"The contractName '{contractType}' was not found.");
 
-                if (factoryInfos.factoryTypeInfos.Length != 0)
-                    return factoryInfos.factoryTypeInfos.MaxBy(x => x.Priority).CreateInstance();
+                Debug.WriteLine($"ERROR: The contractName '{contractType}' was not found.");
+                return null;
             }
 
-            if (CanRaiseExceptions)
-                throw new KeyNotFoundException($"The contractName '{contractType}' was not found.");
-
-            Debug.WriteLine($"ERROR: The contractName '{contractType}' was not found.");
-            return null;
+            return factoryInfos.createFirst.CreateInstance();
         }
 
         /// <summary>
@@ -349,20 +340,17 @@ namespace Cauldron.Activator
         /// </exception>
         public static object CreateFirst(string contractName)
         {
-            if (componentsNamed.TryGetValue(contractName, out FactoryDictionaryValue factoryInfos))
+            var factoryInfos = componentsNamed[contractName];
+            if (factoryInfos == null)
             {
-                if (factoryInfos.factoryTypeInfos.Length == 1)
-                    return factoryInfos.factoryTypeInfos[0].CreateInstance();
+                if (CanRaiseExceptions)
+                    throw new NotImplementedException($"The contractName '{contractName}' was not found.");
 
-                if (factoryInfos.factoryTypeInfos.Length != 0)
-                    return factoryInfos.factoryTypeInfos.MaxBy(x => x.Priority).CreateInstance();
+                Debug.WriteLine($"ERROR: The contractName '{contractName}' was not found.");
+                return null;
             }
 
-            if (CanRaiseExceptions)
-                throw new KeyNotFoundException("The contractName '" + contractName + "' was not found.");
-
-            Debug.WriteLine($"ERROR: The contractName '" + contractName + "' was not found.");
-            return null;
+            return factoryInfos.createFirst.CreateInstance();
         }
 
         #endregion CreateFirst
@@ -385,21 +373,21 @@ namespace Cauldron.Activator
         /// </exception>
         public static IEnumerable CreateMany(string contractName)
         {
-            if (componentsNamed.TryGetValue(contractName, out FactoryDictionaryValue factoryInfos))
+            var factoryInfos = componentsNamed[contractName];
+            if (factoryInfos == null)
             {
-                var result = new object[factoryInfos.factoryTypeInfos.Length];
-                for (int i = 0; i < factoryInfos.factoryTypeInfos.Length; i++)
-                    result[i] = factoryInfos.factoryTypeInfos[i].CreateInstance();
+                if (CanRaiseExceptions)
+                    throw new NotImplementedException($"The contractName '{contractName}' was not found.");
 
-                return result;
+                Debug.WriteLine($"ERROR: The contractName '{contractName}' was not found.");
+                return null;
             }
 
-            if (CanRaiseExceptions)
-                throw new NotImplementedException($"The contractName '{contractName}' was not found.");
+            var result = new object[factoryInfos.factoryTypeInfos.Length];
+            for (int i = 0; i < factoryInfos.factoryTypeInfos.Length; i++)
+                result[i] = factoryInfos.factoryTypeInfos[i].CreateInstance();
 
-            Debug.WriteLine($"ERROR: The contractName '{contractName}' was not found.");
-
-            return null;
+            return result;
         }
 
         /// <summary>
@@ -418,21 +406,21 @@ namespace Cauldron.Activator
         /// </exception>
         public static IEnumerable CreateMany(Type contractType)
         {
-            if (componentsTyped.TryGetValue(contractType, out FactoryDictionaryValue factoryInfos))
+            var factoryInfos = componentsTyped[contractType];
+            if (factoryInfos == null)
             {
-                var result = new object[factoryInfos.factoryTypeInfos.Length];
-                for (int i = 0; i < factoryInfos.factoryTypeInfos.Length; i++)
-                    result[i] = factoryInfos.factoryTypeInfos[i].CreateInstance();
+                if (CanRaiseExceptions)
+                    throw new NotImplementedException($"The contractName '{contractType}' was not found.");
 
-                return result;
+                Debug.WriteLine($"ERROR: The contractName '{contractType}' was not found.");
+                return null;
             }
 
-            if (CanRaiseExceptions)
-                throw new NotImplementedException($"The contractName '{contractType}' was not found.");
+            var result = new object[factoryInfos.factoryTypeInfos.Length];
+            for (int i = 0; i < factoryInfos.factoryTypeInfos.Length; i++)
+                result[i] = factoryInfos.factoryTypeInfos[i].CreateInstance();
 
-            Debug.WriteLine($"ERROR: The contractName '{contractType}' was not found.");
-
-            return null;
+            return result;
         }
 
         /// <summary>
@@ -472,22 +460,21 @@ namespace Cauldron.Activator
         /// </exception>
         public static IEnumerable CreateManyOrdered(string contractName)
         {
-            if (componentsNamed.TryGetValue(contractName, out FactoryDictionaryValue factoryInfos))
+            var factoryInfos = componentsNamed[contractName];
+            if (factoryInfos == null)
             {
-                var result = new object[factoryInfos.factoryTypeInfos.Length];
-                int i = 0;
-                foreach (var item in factoryInfos.factoryTypeInfos.OrderBy(x => x.Priority))
-                    result[i++] = factoryInfos.factoryTypeInfos[i].CreateInstance();
+                if (CanRaiseExceptions)
+                    throw new NotImplementedException($"The contractName '{contractName}' was not found.");
 
-                return result;
+                Debug.WriteLine($"ERROR: The contractName '{contractName}' was not found.");
+                return null;
             }
 
-            if (CanRaiseExceptions)
-                throw new NotImplementedException($"The contractName '{contractName}' was not found.");
+            var result = new object[factoryInfos.factoryTypeInfos.Length];
+            for (int i = 0; i < factoryInfos.factoryTypeInfos.Length; i++)
+                result[i] = factoryInfos.factoryTypeInfosOrdered[i].CreateInstance();
 
-            Debug.WriteLine($"ERROR: The contractName '{contractName}' was not found.");
-
-            return null;
+            return result;
         }
 
         /// <summary>
@@ -507,22 +494,21 @@ namespace Cauldron.Activator
         /// </exception>
         public static IEnumerable CreateManyOrdered(Type contractType)
         {
-            if (componentsTyped.TryGetValue(contractType, out FactoryDictionaryValue factoryInfos))
+            var factoryInfos = componentsTyped[contractType];
+            if (factoryInfos == null)
             {
-                var result = new object[factoryInfos.factoryTypeInfos.Length];
-                int i = 0;
-                foreach (var item in factoryInfos.factoryTypeInfos.OrderBy(x => x.Priority))
-                    result[i++] = factoryInfos.factoryTypeInfos[i].CreateInstance();
+                if (CanRaiseExceptions)
+                    throw new NotImplementedException($"The contractName '{contractType}' was not found.");
 
-                return result;
+                Debug.WriteLine($"ERROR: The contractName '{contractType}' was not found.");
+                return null;
             }
 
-            if (CanRaiseExceptions)
-                throw new NotImplementedException($"The contractName '{contractType}' was not found.");
+            var result = new object[factoryInfos.factoryTypeInfos.Length];
+            for (int i = 0; i < factoryInfos.factoryTypeInfos.Length; i++)
+                result[i] = factoryInfos.factoryTypeInfosOrdered[i].CreateInstance();
 
-            Debug.WriteLine($"ERROR: The contractName '{contractType}' was not found.");
-
-            return null;
+            return result;
         }
 
         /// <summary>
@@ -594,23 +580,24 @@ namespace Cauldron.Activator
         /// </exception>
         public static object Create(string contractName, params object[] parameters)
         {
-            if (componentsNamed.TryGetValue(contractName, out FactoryDictionaryValue factoryInfos))
+            var factoryInfos = componentsNamed[contractName];
+            if (factoryInfos == null)
             {
-                if (factoryInfos.factoryTypeInfos.Length == 1)
-                    return factoryInfos.factoryTypeInfos[0].CreateInstance(parameters);
+                if (CanRaiseExceptions)
+                    throw new NotImplementedException($"The contractName '{contractName}' was not found.");
 
-                if (factoryInfos.factoryTypeInfos.Length == 0)
-                {
-                    if (CanRaiseExceptions)
-                        throw new NotImplementedException($"The contractName '{contractName}' was not found.");
-
-                    Debug.WriteLine($"ERROR: The contractName '{contractName}' was not found.");
-                }
-
-                return ResolveAmbiguousMatch(contractName)?.CreateInstance(parameters);
+                Debug.WriteLine($"ERROR: The contractName '{contractName}' was not found.");
+                return null;
             }
 
-            return null;
+            if (factoryInfos.isSingle)
+                return factoryInfos.ambigious.CreateInstance(parameters);
+
+            var result = ResolveAmbiguousMatch(contractName);
+            factoryInfos.ambigious = result;
+            factoryInfos.isSingle = true;
+
+            return result.CreateInstance(parameters);
         }
 
         /// <summary>
@@ -640,27 +627,8 @@ namespace Cauldron.Activator
         /// </exception>
         public static object Create(Type contractType, params object[] parameters)
         {
-            if (componentsTyped.TryGetValue(contractType, out FactoryDictionaryValue factoryInfos))
-            {
-                if (factoryInfos.factoryTypeInfos.Length == 1)
-                    return factoryInfos.factoryTypeInfos[0].CreateInstance(parameters);
-
-                if (factoryInfos.factoryTypeInfos.Length == 0)
-                {
-                    if (CanRaiseExceptions)
-                        throw new NotImplementedException($"The contractName '{contractType.FullName}' was not found.");
-
-                    Debug.WriteLine($"ERROR: The contractName '{contractType.FullName}' was not found.");
-                }
-
-                return ResolveAmbiguousMatch(contractType.FullName)?.CreateInstance(parameters);
-            }
-
-#if NETFX_CORE
-            if (contractType.GetTypeInfo().IsInterface)
-#else
-            if (contractType.IsInterface)
-#endif
+            var factoryInfos = componentsTyped[contractType];
+            if (factoryInfos == null)
             {
                 if (CanRaiseExceptions)
                     throw new NotImplementedException($"The contractName '{contractType.FullName}' was not found.");
@@ -669,7 +637,14 @@ namespace Cauldron.Activator
                 return null;
             }
 
-            return contractType.CreateInstance(parameters);
+            if (factoryInfos.isSingle)
+                return factoryInfos.ambigious.CreateInstance(parameters);
+
+            var result = ResolveAmbiguousMatch(contractType.FullName);
+            factoryInfos.ambigious = result;
+            factoryInfos.isSingle = true;
+
+            return result.CreateInstance(parameters);
         }
 
         #endregion Create with parameters
@@ -721,20 +696,17 @@ namespace Cauldron.Activator
         /// </exception>
         public static object CreateFirst(Type contractType, params object[] parameters)
         {
-            if (componentsTyped.TryGetValue(contractType, out FactoryDictionaryValue factoryInfos))
+            var factoryInfos = componentsTyped[contractType];
+            if (factoryInfos == null)
             {
-                if (factoryInfos.factoryTypeInfos.Length == 1)
-                    return factoryInfos.factoryTypeInfos[0].CreateInstance(parameters);
+                if (CanRaiseExceptions)
+                    throw new NotImplementedException($"The contractName '{contractType}' was not found.");
 
-                if (factoryInfos.factoryTypeInfos.Length != 0)
-                    return factoryInfos.factoryTypeInfos.MaxBy(x => x.Priority).CreateInstance(parameters);
+                Debug.WriteLine($"ERROR: The contractName '{contractType}' was not found.");
+                return null;
             }
 
-            if (CanRaiseExceptions)
-                throw new KeyNotFoundException($"The contractName '{contractType}' was not found.");
-
-            Debug.WriteLine($"ERROR: The contractName '{contractType}' was not found.");
-            return null;
+            return factoryInfos.createFirst.CreateInstance(parameters);
         }
 
         /// <summary>
@@ -758,20 +730,17 @@ namespace Cauldron.Activator
         /// </exception>
         public static object CreateFirst(string contractName, params object[] parameters)
         {
-            if (componentsNamed.TryGetValue(contractName, out FactoryDictionaryValue factoryInfos))
+            var factoryInfos = componentsNamed[contractName];
+            if (factoryInfos == null)
             {
-                if (factoryInfos.factoryTypeInfos.Length == 1)
-                    return factoryInfos.factoryTypeInfos[0].CreateInstance(parameters);
+                if (CanRaiseExceptions)
+                    throw new NotImplementedException($"The contractName '{contractName}' was not found.");
 
-                if (factoryInfos.factoryTypeInfos.Length != 0)
-                    return factoryInfos.factoryTypeInfos.MaxBy(x => x.Priority).CreateInstance(parameters);
+                Debug.WriteLine($"ERROR: The contractName '{contractName}' was not found.");
+                return null;
             }
 
-            if (CanRaiseExceptions)
-                throw new KeyNotFoundException("The contractName '" + contractName + "' was not found.");
-
-            Debug.WriteLine($"ERROR: The contractName '" + contractName + "' was not found.");
-            return null;
+            return factoryInfos.createFirst.CreateInstance(parameters);
         }
 
         #endregion CreateFirst with parameters
@@ -799,21 +768,21 @@ namespace Cauldron.Activator
         /// </exception>
         public static IEnumerable CreateMany(string contractName, params object[] parameters)
         {
-            if (componentsNamed.TryGetValue(contractName, out FactoryDictionaryValue factoryInfos))
+            var factoryInfos = componentsNamed[contractName];
+            if (factoryInfos == null)
             {
-                var result = new object[factoryInfos.factoryTypeInfos.Length];
-                for (int i = 0; i < factoryInfos.factoryTypeInfos.Length; i++)
-                    result[i] = factoryInfos.factoryTypeInfos[i].CreateInstance(parameters);
+                if (CanRaiseExceptions)
+                    throw new NotImplementedException($"The contractName '{contractName}' was not found.");
 
-                return result;
+                Debug.WriteLine($"ERROR: The contractName '{contractName}' was not found.");
+                return null;
             }
 
-            if (CanRaiseExceptions)
-                throw new NotImplementedException($"The contractName '{contractName}' was not found.");
+            var result = new object[factoryInfos.factoryTypeInfos.Length];
+            for (int i = 0; i < factoryInfos.factoryTypeInfos.Length; i++)
+                result[i] = factoryInfos.factoryTypeInfos[i].CreateInstance(parameters);
 
-            Debug.WriteLine($"ERROR: The contractName '{contractName}' was not found.");
-
-            return null;
+            return result;
         }
 
         /// <summary>
@@ -837,21 +806,21 @@ namespace Cauldron.Activator
         /// </exception>
         public static IEnumerable CreateMany(Type contractType, params object[] parameters)
         {
-            if (componentsTyped.TryGetValue(contractType, out FactoryDictionaryValue factoryInfos))
+            var factoryInfos = componentsTyped[contractType];
+            if (factoryInfos == null)
             {
-                var result = new object[factoryInfos.factoryTypeInfos.Length];
-                for (int i = 0; i < factoryInfos.factoryTypeInfos.Length; i++)
-                    result[i] = factoryInfos.factoryTypeInfos[i].CreateInstance(parameters);
+                if (CanRaiseExceptions)
+                    throw new NotImplementedException($"The contractName '{contractType}' was not found.");
 
-                return result;
+                Debug.WriteLine($"ERROR: The contractName '{contractType}' was not found.");
+                return null;
             }
 
-            if (CanRaiseExceptions)
-                throw new NotImplementedException($"The contractName '{contractType}' was not found.");
+            var result = new object[factoryInfos.factoryTypeInfos.Length];
+            for (int i = 0; i < factoryInfos.factoryTypeInfos.Length; i++)
+                result[i] = factoryInfos.factoryTypeInfos[i].CreateInstance(parameters);
 
-            Debug.WriteLine($"ERROR: The contractName '{contractType}' was not found.");
-
-            return null;
+            return result;
         }
 
         /// <summary>
@@ -901,22 +870,21 @@ namespace Cauldron.Activator
         /// </exception>
         public static IEnumerable CreateManyOrdered(string contractName, params object[] parameters)
         {
-            if (componentsNamed.TryGetValue(contractName, out FactoryDictionaryValue factoryInfos))
+            var factoryInfos = componentsNamed[contractName];
+            if (factoryInfos == null)
             {
-                var result = new object[factoryInfos.factoryTypeInfos.Length];
-                int i = 0;
-                foreach (var item in factoryInfos.factoryTypeInfos.OrderBy(x => x.Priority))
-                    result[i++] = factoryInfos.factoryTypeInfos[i].CreateInstance(parameters);
+                if (CanRaiseExceptions)
+                    throw new NotImplementedException($"The contractName '{contractName}' was not found.");
 
-                return result;
+                Debug.WriteLine($"ERROR: The contractName '{contractName}' was not found.");
+                return null;
             }
 
-            if (CanRaiseExceptions)
-                throw new NotImplementedException($"The contractName '{contractName}' was not found.");
+            var result = new object[factoryInfos.factoryTypeInfos.Length];
+            for (int i = 0; i < factoryInfos.factoryTypeInfos.Length; i++)
+                result[i] = factoryInfos.factoryTypeInfosOrdered[i].CreateInstance(parameters);
 
-            Debug.WriteLine($"ERROR: The contractName '{contractName}' was not found.");
-
-            return null;
+            return result;
         }
 
         /// <summary>
@@ -941,22 +909,21 @@ namespace Cauldron.Activator
         /// </exception>
         public static IEnumerable CreateManyOrdered(Type contractType, params object[] parameters)
         {
-            if (componentsTyped.TryGetValue(contractType, out FactoryDictionaryValue factoryInfos))
+            var factoryInfos = componentsTyped[contractType];
+            if (factoryInfos == null)
             {
-                var result = new object[factoryInfos.factoryTypeInfos.Length];
-                int i = 0;
-                foreach (var item in factoryInfos.factoryTypeInfos.OrderBy(x => x.Priority))
-                    result[i++] = factoryInfos.factoryTypeInfos[i].CreateInstance(parameters);
+                if (CanRaiseExceptions)
+                    throw new NotImplementedException($"The contractName '{contractType}' was not found.");
 
-                return result;
+                Debug.WriteLine($"ERROR: The contractName '{contractType}' was not found.");
+                return null;
             }
 
-            if (CanRaiseExceptions)
-                throw new NotImplementedException($"The contractName '{contractType}' was not found.");
+            var result = new object[factoryInfos.factoryTypeInfos.Length];
+            for (int i = 0; i < factoryInfos.factoryTypeInfos.Length; i++)
+                result[i] = factoryInfos.factoryTypeInfosOrdered[i].CreateInstance(parameters);
 
-            Debug.WriteLine($"ERROR: The contractName '{contractType}' was not found.");
-
-            return null;
+            return result;
         }
 
         /// <summary>
@@ -1010,11 +977,13 @@ namespace Cauldron.Activator
         /// <param name="contractName">The name that identifies the type</param>
         public static void Destroy(string contractName)
         {
-            if (componentsNamed.TryGetValue(contractName, out FactoryDictionaryValue content))
-                for (int i = 0; i < content.factoryTypeInfos.Length; i++)
+            var value = componentsNamed[contractName];
+
+            if (value != null)
+                for (int i = 0; i < value.factoryTypeInfos.Length; i++)
                 {
-                    (content.factoryTypeInfos[i].Instance as IDisposable)?.Dispose();
-                    content.factoryTypeInfos[i].Instance = null;
+                    (value.factoryTypeInfos[i].Instance as IDisposable)?.Dispose();
+                    value.factoryTypeInfos[i].Instance = null;
                 }
         }
 
@@ -1038,46 +1007,41 @@ namespace Cauldron.Activator
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static IFactoryTypeInfo GetFactoryTypeInfo(string contractName)
         {
-            if (componentsNamed.TryGetValue(contractName, out FactoryDictionaryValue factoryInfos))
+            var factoryInfos = componentsNamed[contractName];
+            if (factoryInfos == null)
             {
-                if (factoryInfos.factoryTypeInfos.Length == 1)
-                    return factoryInfos.factoryTypeInfos[0];
+                if (CanRaiseExceptions)
+                    throw new NotImplementedException($"The contractName '{contractName}' was not found.");
 
-                if (factoryInfos.factoryTypeInfos.Length == 0)
-                {
-                    if (CanRaiseExceptions)
-                        throw new NotImplementedException("The contractName '" + contractName + "' was not found.");
-                    else
-                        Debug.WriteLine($"ERROR: The contractName '{contractName}' was not found.");
-                }
-
-                return ResolveAmbiguousMatch(contractName);
+                Debug.WriteLine($"ERROR: The contractName '{contractName}' was not found.");
+                return null;
             }
 
-            throw new NotImplementedException("The contractName '" + contractName + "' was not found.");
+            if (factoryInfos.isSingle)
+                return factoryInfos.ambigious;
+
+            var result = ResolveAmbiguousMatch(contractName);
+            factoryInfos.ambigious = result;
+            factoryInfos.isSingle = true;
+
+            return result;
         }
 
         /// <exclude/>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static IFactoryTypeInfo GetFactoryTypeInfoFirst(string contractName)
         {
-            if (componentsNamed.TryGetValue(contractName, out FactoryDictionaryValue factoryInfos))
+            var factoryInfos = componentsNamed[contractName];
+            if (factoryInfos == null)
             {
-                if (factoryInfos.factoryTypeInfos.Length == 1)
-                    return factoryInfos.factoryTypeInfos[0];
+                if (CanRaiseExceptions)
+                    throw new NotImplementedException($"The contractName '{contractName}' was not found.");
 
-                if (factoryInfos.factoryTypeInfos.Length == 0)
-                {
-                    if (CanRaiseExceptions)
-                        throw new NotImplementedException("The contractName '" + contractName + "' was not found.");
-                    else
-                        Debug.WriteLine($"ERROR: The contractName '{contractName}' was not found.");
-                }
-
-                return factoryInfos.factoryTypeInfos.MaxBy(x => x.Priority);
+                Debug.WriteLine($"ERROR: The contractName '{contractName}' was not found.");
+                return null;
             }
 
-            throw new NotImplementedException("The contractName '" + contractName + "' was not found.");
+            return factoryInfos.createFirst;
         }
 
         /// <summary>
@@ -1125,26 +1089,28 @@ namespace Cauldron.Activator
         /// <threadsafety static="false" instance="false"/>
         public static void RemoveType(string contractName, Type type)
         {
-            if (componentsNamed.TryGetValue(contractName, out FactoryDictionaryValue factoryTypeInfos))
+            var factoryTypeInfo = componentsNamed[contractName];
+            if (factoryTypeInfo == null)
+                return;
+
+            var tobeRemoved = factoryTypeInfo.factoryTypeInfos.Where(x => x.Type == type).ToArray();
+            var newList = factoryTypeInfo.factoryTypeInfos.Where(x => x.Type != type).ToArray();
+
+            if (newList.Length == 0)
+                componentsNamed.Remove(contractName);
+            else
+                factoryTypeInfo.SetValues(newList);
+
+            for (int i = 0; i < tobeRemoved.Length; i++)
             {
-                if (factoryTypeInfos == null)
-                    return;
-
-                var tobeRemoved = factoryTypeInfos.factoryTypeInfos.Where(x => x.Type == type).ToArray();
-                factoryTypeInfos.factoryTypeInfos = factoryTypeInfos.factoryTypeInfos.Where(x => x.Type != type).ToArray();
-
-                for (int i = 0; i < tobeRemoved.Length; i++)
-                {
-                    (tobeRemoved[i].Instance as IDisposable)?.Dispose();
-                    tobeRemoved[i].Instance = null;
-                }
+                (tobeRemoved[i].Instance as IDisposable)?.Dispose();
+                tobeRemoved[i].Instance = null;
             }
         }
 
         private static void GetAndInitializeAllExtensions(IEnumerable<IFactoryTypeInfo> factoryTypeInfos)
         {
-            foreach (var item in factoryInfoTypes
-                  .Where(x => x.ContractName.GetHashCode() == iFactoryExtensionName.GetHashCode() && x.ContractName == iFactoryExtensionName).Select(x => x.CreateInstance() as IFactoryExtension))
+            foreach (var item in factoryInfoTypes.Where(x => x.ContractName.GetHashCode() == iFactoryExtensionName.GetHashCode() && x.ContractName == iFactoryExtensionName).Select(x => x.CreateInstance() as IFactoryExtension))
                 item.Initialize(factoryTypeInfos);
         }
 
@@ -1153,7 +1119,7 @@ namespace Cauldron.Activator
             // Get all known components
             componentsNamed = new FactoryDictionary<string, FactoryDictionaryValue>();
             foreach (var item in factoryInfoTypes.GroupBy(x => x.ContractName).Select(x => new { x.Key, Items = x.ToArray() }))
-                componentsNamed.Add(item.Key, new FactoryDictionaryValue { factoryTypeInfos = item.Items });
+                componentsNamed.Add(item.Key, new FactoryDictionaryValue().SetValues(item.Items));
             // Get all factory extensions
             GetAndInitializeAllExtensions(factoryInfoTypes);
 
@@ -1162,8 +1128,8 @@ namespace Cauldron.Activator
 
             // Get all known components
             componentsTyped = new FactoryDictionary<Type, FactoryDictionaryValue>();
-            foreach (var item in factoryInfoTypes.Where(x => x.ContractType != null).GroupBy(x => x.ContractType).Select(x => new { x.Key, Items = x.ToArray() }))
-                componentsTyped.Add(item.Key, new FactoryDictionaryValue { factoryTypeInfos = item.Items });
+            foreach (var item in factoryInfoTypes.Where(x => x.ContractType != null).GroupBy(x => x.ContractType).Select(x => new { x.Key, Items = x.ToArray() }).Where(x => x.Items.Length > 0))
+                componentsTyped.Add(item.Key, new FactoryDictionaryValue().SetValues(item.Items));
             // Get all factory extensions
             GetAndInitializeAllExtensions(factoryInfoTypes);
 
@@ -1171,5 +1137,25 @@ namespace Cauldron.Activator
         }
 
         private static IFactoryTypeInfo ResolveAmbiguousMatch(string contractName) => Resolvers.SelectAmbiguousMatch(contractName);
+
+        private static FactoryDictionaryValue SetValues(this FactoryDictionaryValue factoryDictionaryValue, IFactoryTypeInfo[] items)
+        {
+            factoryDictionaryValue.factoryTypeInfos = items;
+            factoryDictionaryValue.factoryTypeInfosOrdered = items.OrderBy(x => x.Priority).ToArray();
+            factoryDictionaryValue.createFirst = items.MaxBy(x => x.Priority);
+            factoryDictionaryValue.ambigious = items.Length == 1 ? items[0] : null;
+            factoryDictionaryValue.isSingle = items.Length == 1;
+
+            return factoryDictionaryValue;
+        }
+    }
+
+    internal sealed class FactoryDictionaryValue
+    {
+        public IFactoryTypeInfo ambigious;
+        public IFactoryTypeInfo createFirst;
+        public IFactoryTypeInfo[] factoryTypeInfos;
+        public IFactoryTypeInfo[] factoryTypeInfosOrdered;
+        public bool isSingle;
     }
 }
