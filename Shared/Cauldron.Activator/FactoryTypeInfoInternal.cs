@@ -8,6 +8,7 @@ namespace Cauldron.Activator
     public sealed class FactoryTypeInfoInternal : IFactoryTypeInfo
     {
         private Func<object[], object> createInstance;
+        private object instanceObject = new object();
 
         /// <exclude/>
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -22,6 +23,10 @@ namespace Cauldron.Activator
         /// <exclude/>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string ContractName { get; private set; }
+
+        /// <exclude/>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public Type ContractType { get; }
 
         /// <exclude/>
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -44,10 +49,39 @@ namespace Cauldron.Activator
         public object CreateInstance(params object[] arguments)
         {
             if (this.CreationPolicy == FactoryCreationPolicy.Instanced)
+            {
+                if (arguments == null || arguments.Length == 0)
+                    return this.createInstance(null);
+
                 return this.createInstance(arguments);
+            }
 
             if (this.Instance == null)
-                this.Instance = this.createInstance(arguments);
+            {
+                lock (this.instanceObject)
+                {
+                    if (arguments == null || arguments.Length == 0)
+                        this.Instance = this.createInstance(null);
+                    else
+                        this.Instance = this.createInstance(arguments);
+                }
+            }
+
+            return this.Instance;
+        }
+
+        /// <exclude/>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public object CreateInstance()
+        {
+            if (this.CreationPolicy == FactoryCreationPolicy.Instanced)
+                return this.createInstance(null);
+
+            if (this.Instance == null)
+                lock (this.instanceObject)
+                {
+                    this.Instance = this.createInstance(null);
+                }
 
             return this.Instance;
         }

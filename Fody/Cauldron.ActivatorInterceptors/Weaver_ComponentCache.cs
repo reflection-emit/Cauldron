@@ -15,6 +15,7 @@ public static class Weaver_ComponentCache
     public static string Name = "Activator Component Cache (Dependency Injection)";
     public static int Priority = int.MaxValue;
     public static Field unknownConstructorText;
+    private static int indexer = 0;
 
     [Display("Creating Component Cache and Inject Attribute")]
     public static void Implement(Builder builder)
@@ -49,8 +50,6 @@ public static class Weaver_ComponentCache
         });
 
         int counter = 0;
-
-        var createInstanceInterfaceMethod = BuilderTypes2.IFactoryTypeInfo.GetMethod_CreateInstance();
 
         // Get all Components
         var componentTypes = new List<BuilderType>();
@@ -100,7 +99,6 @@ public static class Weaver_ComponentCache
             if (componentAttributeValue.Policy == 1 && component.Type.Implements(BuilderTypes.IDisposable) && !component.Type.Implements(BuilderTypes2.IDisposableObject))
                 builder.Log(LogTypes.Error, component.Type, NoIDisposableObjectExceptionText);
 
-            var instanceFieldName = $"<{component.Type}>_componentInstance";
             var componentType = builder.CreateType("", TypeAttributes.NotPublic | TypeAttributes.Sealed | TypeAttributes.BeforeFieldInit, "<>f__IFactoryTypeInfo_" + component.Type.Name.GetValidName() + "_" + counter++);
             componentType.AddInterface(BuilderTypes2.IFactoryTypeInfo);
             componentType.CustomAttributes.AddDebuggerDisplayAttribute(component.Type.Name + " ({ContractName})");
@@ -112,62 +110,8 @@ public static class Weaver_ComponentCache
                .NewCoder();
 
             // Implement the methods
-            componentType.CreateMethod(Modifiers.Public | Modifiers.Overrides, createInstanceInterfaceMethod.ReturnType, createInstanceInterfaceMethod.Name, createInstanceInterfaceMethod.Parameters)
-                .NewCoder()
-                .Context(x =>
-                {
-                    if (componentAttributeValue.Policy == 1)
-                    {
-                        var instanceSyncObjectName = $"<{component.Type}>_componentInstanceSyncObject";
-                        var instanceField = cauldron.GetField(instanceFieldName, false) ?? cauldron.CreateField(Modifiers.InternalStatic, (BuilderType)BuilderTypes.Object, instanceFieldName);
-                        var instanceFieldSyncObject = cauldron.GetField(instanceSyncObjectName, false) ?? cauldron.CreateField(Modifiers.InternalStatic, (BuilderType)BuilderTypes.Object, instanceSyncObjectName);
-                        var instancedCreator = componentType.CreateMethod(Modifiers.Private, createInstanceInterfaceMethod.ReturnType, $"<{component.Type.Fullname}>__CreateInstance", createInstanceInterfaceMethod.Parameters);
-                        var lockTaken = instancedCreator.GetOrCreateVariable((BuilderType)BuilderTypes.Boolean);
-                        instancedCreator.NewCoder()
-                            .SetValue(lockTaken, false)
-                            .Try(@try => @try
-                                .Call(BuilderTypes.Monitor.GetMethod_Enter(), instanceFieldSyncObject, lockTaken).End
-                                .If(@if => @if.Load(instanceField).IsNull(),
-                                    then => AddContext(builder, then, factory, component),
-                                    @else => @else.Load(instanceField)))
-                            .Finally(@finally => @finally.If(@if => @if.Load(lockTaken).Is(true), then => @then.Call(BuilderTypes.Monitor.GetMethod_Exit(), instanceFieldSyncObject)))
-                            .EndTry()
-                            .Return()
-                            .Replace();
-                        cauldron.CreateStaticConstructor().NewCoder().SetValue(instanceFieldSyncObject, y => y.NewObj(BuilderTypes.Object.GetMethod_ctor())).Insert(InsertionPosition.Beginning);
-
-                        x.If(@if => @if.Load(instanceField).IsNotNull(), then => then.Load(instanceField).Return());
-                        x.SetValue(instanceField, m => m.Call(instancedCreator, CodeBlocks.GetParameters()));
-                        // every singleton that implements the idisposable interface has also to
-                        // implement the IDisposableObject interface this is because we want to know if
-                        // an instance was disposed (somehow)
-                        if (component.Type.Implements(BuilderTypes.IDisposable))
-                        {
-                            if (!component.Type.Implements(BuilderTypes2.IDisposableObject))
-                                builder.Log(LogTypes.Info, component.Type + " : " + NoIDisposableObjectExceptionText);
-                            else
-                            {
-                                // Create an event handler method
-                                var eventHandlerMethod = componentType.CreateMethod(Modifiers.Private, $"<IDisposableObject>_Handler", BuilderTypes.Object, BuilderTypes.EventArgs);
-                                eventHandlerMethod.NewCoder()
-                                    .If(ehIf => ehIf.Load(CodeBlocks.GetParameter(0)).IsNotNull(), ehThen => ehThen.Load(CodeBlocks.GetParameter(0)).As(BuilderTypes.IDisposable).Call(BuilderTypes.IDisposable.GetMethod_Dispose()))
-                                    .SetValue(instanceField, null)
-                                    .Load(instanceField).As(BuilderTypes2.IDisposableObject).Call(BuilderTypes2.IDisposableObject.GetMethod_remove_Disposed(), o => o.NewObj(BuilderTypes.EventHandler.GetConstructor(), CodeBlocks.This, eventHandlerMethod))
-                                    .Return()
-                                    .Replace();
-
-                                x.Load(instanceField).As(BuilderTypes2.IDisposableObject).Call(BuilderTypes2.IDisposableObject.GetMethod_add_Disposed(), o => o.NewObj(BuilderTypes.EventHandler.GetConstructor(), CodeBlocks.This, eventHandlerMethod));
-                            }
-                        }
-
-                        x.Load(instanceField).Return();
-                    }
-                    else
-                        AddContext(builder, x, factory, component);
-
-                    return x;
-                })
-                .Replace();
+            AddCreateInstanceMethod(builder, cauldron, BuilderTypes2.IFactoryTypeInfo.GetMethod_CreateInstance_1(), component, componentAttributeValue, componentType).Replace();
+            AddCreateInstanceMethod(builder, cauldron, BuilderTypes2.IFactoryTypeInfo.GetMethod_CreateInstance(), component, componentAttributeValue, componentType).Replace();
 
             // Implement the properties
             foreach (var property in BuilderTypes2.IFactoryTypeInfo.BuilderType.Properties)
@@ -187,6 +131,14 @@ public static class Weaver_ComponentCache
                             propertyResult.BackingField.Remove();
                             propertyResult.Getter.NewCoder().Load(componentAttributeValue.ContractName).Return().Replace();
                         }
+                        break;
+
+                    case "ContractType":
+                        propertyResult.BackingField.Remove();
+                        if (componentAttributeValue.ContractType == null)
+                            propertyResult.Getter.NewCoder().Load(value: null).Return().Replace();
+                        else
+                            propertyResult.Getter.NewCoder().Load(componentAttributeValue.ContractType).Return().Replace();
                         break;
 
                     case "CreationPolicy":
@@ -213,6 +165,7 @@ public static class Weaver_ComponentCache
                         }
                         else
                         {
+                            var instanceFieldName = $"<{component.Type}>_componentInstance";
                             var instanceField = cauldron.GetField(instanceFieldName, false) ?? cauldron.CreateField(Modifiers.InternalStatic, (BuilderType)BuilderTypes.Object, instanceFieldName);
                             propertyResult.Getter.NewCoder().Load(instanceField).Return().Replace();
                             propertyResult.Setter.NewCoder().SetValue(instanceField, CodeBlocks.GetParameter(0)).Return().Replace();
@@ -310,43 +263,10 @@ public static class Weaver_ComponentCache
         }
     }
 
-    private static Coder AddContext(Builder builder, Coder context, BuilderTypeFactory factory, AttributedType component)
+    private static Coder AddContext(Builder builder, Coder context, AttributedType component)
     {
-        var componentConstructorAttribute = BuilderTypes2.ComponentConstructorAttribute;
         var componentAttributeValues = new ComponentAttributeValues(component);
-
-        // Find any method with a componentcontructor attribute
-        var ctors = component.Type.GetMethods(y =>
-        {
-            if (y.Name == ".cctor")
-                return false;
-
-            if (!y.Resolve().IsPublic && !y.Resolve().IsAssembly)
-                return false;
-
-            if (y.Name == ".ctor" && y.DeclaringType.FullName.GetHashCode() != component.Type.Fullname.GetHashCode() && y.DeclaringType.FullName != component.Type.Fullname)
-                return false;
-
-            if (y.Name.StartsWith("set_"))
-                return false;
-
-            return true;
-        })
-            .Where(y => y.CustomAttributes.HasAttribute(componentConstructorAttribute))
-            .Concat(
-                component.Type.GetAllProperties().Where(y => y.CustomAttributes.HasAttribute(componentConstructorAttribute))
-                    .Select(y =>
-                    {
-                        y.CustomAttributes.Remove(componentConstructorAttribute);
-                        y.CustomAttributes.AddEditorBrowsableAttribute(EditorBrowsableState.Never);
-
-                        return y.Getter;
-                    })
-                )
-            .OrderBy(y => y.Parameters.Length)
-            .ToArray();
-
-        var arrayAvatar = BuilderTypes.Array;
+        var ctors = GetComponentConstructors(component);
 
         if (ctors.Length > 0)
         {
@@ -361,17 +281,17 @@ public static class Weaver_ComponentCache
                 ctor.CustomAttributes.AddEditorBrowsableAttribute(EditorBrowsableState.Never);
                 var ctorParameters = ctor.Parameters;
 
-                if (ctorParameters.Length > 0)
+                if (ctorParameters.Length > 0 && context.AssociatedMethod.Parameters.Length > 0)
                 {
                     // In this case we have to find a parameterless constructor first
                     if (component.Type.ParameterlessContructor != null && !parameterlessCtorAlreadyHandled && component.Type.ParameterlessContructor.IsPublicOrInternal)
                     {
-                        context.If(x => x.Load(CodeBlocks.GetParameter(0)).IsNull().OrOr(y => y.Load(CodeBlocks.GetParameter(0)).Call(arrayAvatar.GetMethod_get_Length()).Is(0)), then =>
+                        context.If(x => x.Load(CodeBlocks.GetParameter(0)).IsNull().OrOr(y => y.Load(CodeBlocks.GetParameter(0)).Call(BuilderTypes.Array.GetMethod_get_Length()).Is(0)), then =>
                         {
                             then.NewObj(component.Type.ParameterlessContructor);
 
                             if (componentAttributeValues.InvokeOnObjectCreationEvent)
-                                then.Duplicate().Call(factory.GetMethod_OnObjectCreation(), CodeBlocks.This);
+                                then.Duplicate().Call(BuilderTypes2.Factory.GetMethod_OnObjectCreation(), CodeBlocks.This);
 
                             return then.Return();
                         });
@@ -380,7 +300,7 @@ public static class Weaver_ComponentCache
 
                     context.If(@if =>
                     {
-                        var resultCoder = @if.Load(CodeBlocks.GetParameter(0)).Call(arrayAvatar.GetMethod_get_Length()).Is(ctorParameters.Length);
+                        var resultCoder = @if.Load(CodeBlocks.GetParameter(0)).Call(BuilderTypes.Array.GetMethod_get_Length()).Is(ctorParameters.Length);
                         for (int i = 0; i < ctorParameters.Length; i++)
                             resultCoder = resultCoder.AndAnd(x => x.Load(CodeBlocks.GetParameter(0)).ArrayElement(i).Is(ctorParameters[i]));
 
@@ -392,32 +312,22 @@ public static class Weaver_ComponentCache
                             then.NewObj(ctor, CodeBlocks.GetParameter(0).ArrayElements());
 
                             if (componentAttributeValues.InvokeOnObjectCreationEvent)
-                                then.Duplicate().Call(factory.GetMethod_OnObjectCreation(), CodeBlocks.This);
+                                then.Duplicate().Call(BuilderTypes2.Factory.GetMethod_OnObjectCreation(), CodeBlocks.This);
                         }
                         else
                         {
                             then.Call(ctor, CodeBlocks.GetParameter(0).ArrayElements());
 
                             if (componentAttributeValues.InvokeOnObjectCreationEvent)
-                                then.Duplicate().Call(factory.GetMethod_OnObjectCreation(), CodeBlocks.This);
+                                then.Duplicate().Call(BuilderTypes2.Factory.GetMethod_OnObjectCreation(), CodeBlocks.This);
                         }
 
                         return then.Return();
                     });
                 }
-                else
+                else if (ctorParameters.Length == 0)
                 {
-                    context.If(x => x.Load(CodeBlocks.GetParameter(0)).IsNull().OrOr(y => y.Load(CodeBlocks.GetParameter(0)).Call(arrayAvatar.GetMethod_get_Length()).Is(0)), then =>
-                    {
-                        if (ctor.Name == ".ctor")
-                            then.NewObj(ctor);
-                        else
-                            then.Call(ctor);
-
-                        if (componentAttributeValues.InvokeOnObjectCreationEvent) then.Duplicate().Call(factory.GetMethod_OnObjectCreation(), CodeBlocks.This);
-                        return then.Return();
-                    });
-
+                    CreateComponentParameterlessCtor(context, ctor, componentAttributeValues);
                     parameterlessCtorAlreadyHandled = true;
                 }
             }
@@ -430,15 +340,47 @@ public static class Weaver_ComponentCache
                 builder.Log(LogTypes.Error, component.Type, $"The component '{component.Type.Fullname}' has no ComponentConstructor attribute or the constructor is not public");
             else if (component.Type.ParameterlessContructor.IsPublicOrInternal)
             {
-                context.If(x => x.Load(CodeBlocks.GetParameter(0)).IsNull().OrOr(y => y.Load(CodeBlocks.GetParameter(0)).Call(arrayAvatar.GetMethod_get_Length()).Is(0)), then =>
+                CreateComponentParameterlessCtor(context, component.Type.ParameterlessContructor, componentAttributeValues);
+                builder.Log(LogTypes.Info, $"The component '{component.Type.Fullname}' has no ComponentConstructor attribute. A parameterless ctor was found and will be used.");
+            }
+        }
+
+        if (context.AssociatedMethod.Parameters.Length > 0)
+            context.ThrowNew(typeof(NotImplementedException), x =>
+                x.Call(BuilderTypes.String.GetMethod_Concat(BuilderTypes.String, BuilderTypes.String), unknownConstructorText,
+                    x.NewCoder().Call(BuilderTypes2.IFactoryTypeInfo.GetMethod_get_ContractName())).End);
+
+        return context;
+    }
+
+    private static Coder AddContextParameterless(Builder builder, Coder context, AttributedType component)
+    {
+        var componentAttributeValues = new ComponentAttributeValues(component);
+        var ctors = GetComponentConstructors(component);
+
+        if (ctors.Length > 0)
+        {
+            for (int index = 0; index < ctors.Length; index++)
+            {
+                builder.Log(LogTypes.Info, "- " + ctors[index].Fullname);
+
+                var ctor = ctors[index];
+                if (ctor.Parameters.Length == 0)
                 {
-                    then.NewObj(component.Type.ParameterlessContructor);
-
-                    if (componentAttributeValues.InvokeOnObjectCreationEvent)
-                        then.Duplicate().Call(factory.GetMethod_OnObjectCreation(), CodeBlocks.This);
-                    return then.Return();
-                });
-
+                    ctor.CustomAttributes.AddEditorBrowsableAttribute(EditorBrowsableState.Never);
+                    CreateComponentParameterlessCtor(context, ctor, componentAttributeValues);
+                }
+            }
+        }
+        else
+        {
+            // In case we don't have constructor with ComponentConstructor Attribute,
+            // then we should look for a parameterless Ctor
+            if (component.Type.ParameterlessContructor == null)
+                builder.Log(LogTypes.Error, component.Type, $"The component '{component.Type.Fullname}' has no ComponentConstructor attribute or the constructor is not public");
+            else if (component.Type.ParameterlessContructor.IsPublicOrInternal)
+            {
+                CreateComponentParameterlessCtor(context, component.Type.ParameterlessContructor, componentAttributeValues);
                 builder.Log(LogTypes.Info, $"The component '{component.Type.Fullname}' has no ComponentConstructor attribute. A parameterless ctor was found and will be used.");
             }
         }
@@ -448,6 +390,72 @@ public static class Weaver_ComponentCache
                 x.NewCoder().Call(BuilderTypes2.IFactoryTypeInfo.GetMethod_get_ContractName())).End);
 
         return context;
+    }
+
+    private static Coder AddCreateInstanceMethod(Builder builder, BuilderType cauldron, Method createInstanceInterfaceMethod, AttributedType component, ComponentAttributeValues componentAttributeValue, BuilderType componentType)
+    {
+        var instanceFieldName = $"<{component.Type}>_componentInstance";
+        return componentType.CreateMethod(Modifiers.Public | Modifiers.Overrides, createInstanceInterfaceMethod.ReturnType, createInstanceInterfaceMethod.Name, createInstanceInterfaceMethod.Parameters)
+            .NewCoder()
+            .Context(x =>
+            {
+                if (componentAttributeValue.Policy == 1)
+                {
+                    var instanceSyncObjectName = $"<{component.Type}>_componentInstanceSyncObject";
+                    var instanceField = cauldron.GetField(instanceFieldName, false) ?? cauldron.CreateField(Modifiers.InternalStatic, (BuilderType)BuilderTypes.Object, instanceFieldName);
+                    var instanceFieldSyncObject = cauldron.GetField(instanceSyncObjectName, false) ?? cauldron.CreateField(Modifiers.InternalStatic, (BuilderType)BuilderTypes.Object, instanceSyncObjectName);
+                    var instancedCreator = componentType.CreateMethod(Modifiers.Private, createInstanceInterfaceMethod.ReturnType, $"<{component.Type.Fullname}>__CreateInstance_{indexer++}", createInstanceInterfaceMethod.Parameters);
+                    var lockTaken = instancedCreator.GetOrCreateVariable((BuilderType)BuilderTypes.Boolean);
+                    instancedCreator.NewCoder()
+                        .SetValue(lockTaken, false)
+                        .Try(@try => @try
+                            .Call(BuilderTypes.Monitor.GetMethod_Enter(), instanceFieldSyncObject, lockTaken).End
+                            .If(@if => @if.Load(instanceField).IsNull(),
+                                then => AddContext(builder, then, component),
+                                @else => @else.Load(instanceField)))
+                        .Finally(@finally => @finally.If(@if => @if.Load(lockTaken).Is(true), then => @then.Call(BuilderTypes.Monitor.GetMethod_Exit(), instanceFieldSyncObject)))
+                        .EndTry()
+                        .Return()
+                        .Replace();
+                    cauldron.CreateStaticConstructor().NewCoder().SetValue(instanceFieldSyncObject, y => y.NewObj(BuilderTypes.Object.GetMethod_ctor())).Insert(InsertionPosition.Beginning);
+
+                    x.If(@if => @if.Load(instanceField).IsNotNull(), then => then.Load(instanceField).Return());
+                    if (createInstanceInterfaceMethod.Parameters.Length == 0)
+                        x.SetValue(instanceField, m => m.Call(instancedCreator));
+                    else
+                        x.SetValue(instanceField, m => m.Call(instancedCreator, CodeBlocks.GetParameters()));
+                    // every singleton that implements the idisposable interface has also to
+                    // implement the IDisposableObject interface this is because we want to know if
+                    // an instance was disposed (somehow)
+                    if (component.Type.Implements(BuilderTypes.IDisposable))
+                    {
+                        if (!component.Type.Implements(BuilderTypes2.IDisposableObject))
+                            builder.Log(LogTypes.Info, component.Type + " : " + NoIDisposableObjectExceptionText);
+                        else
+                        {
+                            // Create an event handler method
+                            var eventHandlerMethod =
+                                componentType.GetMethod($"<IDisposableObject>_Handler", 2, false) ??
+                                componentType.CreateMethod(Modifiers.Private, $"<IDisposableObject>_Handler", BuilderTypes.Object, BuilderTypes.EventArgs);
+                            eventHandlerMethod.NewCoder()
+                                .If(ehIf => ehIf.Load(CodeBlocks.GetParameter(0)).IsNotNull(), ehThen => ehThen.Load(CodeBlocks.GetParameter(0)).As(BuilderTypes.IDisposable).Call(BuilderTypes.IDisposable.GetMethod_Dispose()))
+                                .SetValue(instanceField, null)
+                                .If(@if => @if.Load(instanceField).IsNotNull(), @then => @then
+                                    .Load(instanceField).As(BuilderTypes2.IDisposableObject).Call(BuilderTypes2.IDisposableObject.GetMethod_remove_Disposed(), o => o.NewObj(BuilderTypes.EventHandler.GetConstructor(), CodeBlocks.This, eventHandlerMethod)))
+                                .Return()
+                                .Replace();
+
+                            x.Load(instanceField).As(BuilderTypes2.IDisposableObject).Call(BuilderTypes2.IDisposableObject.GetMethod_add_Disposed(), o => o.NewObj(BuilderTypes.EventHandler.GetConstructor(), CodeBlocks.This, eventHandlerMethod));
+                        }
+                    }
+
+                    x.Load(instanceField).Return();
+                }
+                else
+                    AddContext(builder, x, component);
+
+                return x;
+            });
     }
 
     private static Method AddFactoryRebuiltHandler(InjectAttributeValues injectAttributeValues, Property property, Field injectorField, Method factoryTypeInfoGet)
@@ -476,6 +484,35 @@ public static class Weaver_ComponentCache
             coder.SetValue(injectorField, x => x.Call(factoryTypeInfoGet, injectAttributeValues.ContractName)).Insert(InsertionPosition.Beginning);
     }
 
+    private static void CreateComponentParameterlessCtor(Coder context, Method contructor, ComponentAttributeValues componentAttributeValues)
+    {
+        if (context.AssociatedMethod.Parameters.Length > 0)
+            context.If(x => x.Load(CodeBlocks.GetParameter(0)).IsNull().OrOr(y => y.Load(CodeBlocks.GetParameter(0)).Call(BuilderTypes.Array.GetMethod_get_Length()).Is(0)), then =>
+            {
+                if (contructor.Name == ".ctor")
+                    then.NewObj(contructor);
+                else
+                    then.Call(contructor);
+
+                if (componentAttributeValues.InvokeOnObjectCreationEvent)
+                    then.Duplicate().Call(BuilderTypes2.Factory.GetMethod_OnObjectCreation(), CodeBlocks.This);
+
+                return then.Return();
+            });
+        else
+        {
+            if (contructor.Name == ".ctor")
+                context.NewObj(contructor);
+            else
+                context.Call(contructor);
+
+            if (componentAttributeValues.InvokeOnObjectCreationEvent)
+                context.Duplicate().Call(BuilderTypes2.Factory.GetMethod_OnObjectCreation(), CodeBlocks.This);
+
+            context.Return();
+        }
+    }
+
     private static Field CreateInjectorField(Property property)
     {
         var injectorField = property.DeclaringType.CreateField(Modifiers.PrivateStatic, BuilderTypes2.IFactoryTypeInfo.BuilderType, $"<{property.Name}>__injectorField");
@@ -483,6 +520,42 @@ public static class Weaver_ComponentCache
         injectorField.CustomAttributes.AddDebuggerBrowsableAttribute(DebuggerBrowsableState.Never);
         injectorField.CustomAttributes.AddNonSerializedAttribute();
         return injectorField;
+    }
+
+    private static Method[] GetComponentConstructors(AttributedType component)
+    {
+        var componentConstructorAttribute = BuilderTypes2.ComponentConstructorAttribute;
+
+        // Find any method with a componentcontructor attribute
+        return component.Type.GetMethods(y =>
+        {
+            if (y.Name == ".cctor")
+                return false;
+
+            if (!y.Resolve().IsPublic && !y.Resolve().IsAssembly)
+                return false;
+
+            if (y.Name == ".ctor" && y.DeclaringType.FullName.GetHashCode() != component.Type.Fullname.GetHashCode() && y.DeclaringType.FullName != component.Type.Fullname)
+                return false;
+
+            if (y.Name.StartsWith("set_"))
+                return false;
+
+            return true;
+        })
+            .Where(y => y.CustomAttributes.HasAttribute(componentConstructorAttribute))
+            .Concat(
+                component.Type.GetAllProperties().Where(y => y.CustomAttributes.HasAttribute(componentConstructorAttribute))
+                    .Select(y =>
+                    {
+                        y.CustomAttributes.Remove(componentConstructorAttribute);
+                        y.CustomAttributes.AddEditorBrowsableAttribute(EditorBrowsableState.Never);
+
+                        return y.Getter;
+                    })
+                )
+            .OrderBy(y => y.Parameters.Length)
+            .ToArray();
     }
 
     private static void ImplementGetterValueSet(InjectAttributeValues injectAttributeValues, Property property, Coder then)
@@ -552,7 +625,7 @@ public static class Weaver_ComponentCache
         {
             // Special case for parameterless injections - preloading stuff in .cctor
             var injectorField = CreateInjectorField(property);
-            then.SetValue(property.BackingField, x => x.Load(injectorField).Call(BuilderTypes2.IFactoryTypeInfo.GetMethod_CreateInstance(), null));
+            then.SetValue(property.BackingField, x => x.Load(injectorField).Call(BuilderTypes2.IFactoryTypeInfo.GetMethod_CreateInstance()));
             AddFactoryRebuiltHandler(injectAttributeValues, property, injectorField, BuilderTypes2.Factory.GetMethod_GetFactoryTypeInfoFirst());
         }
         else if (injectAttributeValues.InjectFirst)
@@ -568,7 +641,7 @@ public static class Weaver_ComponentCache
         {
             // Special case for parameterless injections - preloading stuff in .cctor
             var injectorField = CreateInjectorField(property);
-            then.SetValue(property.BackingField, x => x.Load(injectorField).Call(BuilderTypes2.IFactoryTypeInfo.GetMethod_CreateInstance(), null));
+            then.SetValue(property.BackingField, x => x.Load(injectorField).Call(BuilderTypes2.IFactoryTypeInfo.GetMethod_CreateInstance()));
             AddFactoryRebuiltHandler(injectAttributeValues, property, injectorField, BuilderTypes2.Factory.GetMethod_GetFactoryTypeInfo());
         }
         else

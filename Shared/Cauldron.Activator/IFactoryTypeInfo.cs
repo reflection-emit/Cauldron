@@ -14,6 +14,11 @@ namespace Cauldron.Activator
         string ContractName { get; }
 
         /// <summary>
+        /// The contract type of the component. Can be null if contract name is not a type.
+        /// </summary>
+        Type ContractType { get; }
+
+        /// <summary>
         /// The creation policy of the type
         /// </summary>
         FactoryCreationPolicy CreationPolicy { get; }
@@ -40,5 +45,12 @@ namespace Cauldron.Activator
         /// <returns>The instance of the component</returns>
         [EditorBrowsable(EditorBrowsableState.Never)]
         object CreateInstance(params object[] arguments);
+
+        /// <summary>
+        /// Returns an instance of the component
+        /// </summary>
+        /// <returns>The instance of the component</returns>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        object CreateInstance();
     }
 }

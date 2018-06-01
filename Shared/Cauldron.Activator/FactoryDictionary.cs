@@ -8,7 +8,9 @@ namespace Cauldron.Activator
          http://blog.teamleadnet.com/2012/07/ultra-fast-hashtable-dictionary-with.html
     */
 
-    internal sealed class FactoryDictionary<TValue> where TValue : class
+    internal sealed class FactoryDictionary<TKey, TValue>
+        where TKey : class
+        where TValue : class
     {
         private const int initialsize = 89;
 
@@ -24,7 +26,7 @@ namespace Cauldron.Activator
 
         public int Count => nextfree;
 
-        public void Add(string key, TValue value)
+        public void Add(TKey key, TValue value)
         {
             if (nextfree >= entries.Length)
                 Resize();
@@ -67,7 +69,7 @@ namespace Cauldron.Activator
 
         public void Clear() => Initialize();
 
-        public bool ContainsKey(string key)
+        public bool ContainsKey(TKey key)
         {
             uint hash = (uint)key.GetHashCode();
             uint pos = hash % (uint)buckets.Length;
@@ -98,7 +100,7 @@ namespace Cauldron.Activator
                     yield return entries[i].value;
         }
 
-        public bool Remove(string key)
+        public bool Remove(TKey key)
         {
             uint hash = (uint)key.GetHashCode();
             uint pos = hash % (uint)buckets.Length;
@@ -127,7 +129,7 @@ namespace Cauldron.Activator
             return false;
         }
 
-        public bool TryGetValue(string key, out TValue value)
+        public bool TryGetValue(TKey key, out TValue value)
         {
             uint hash = (uint)key.GetHashCode();
             uint pos = hash % (uint)buckets.Length;
@@ -207,7 +209,7 @@ namespace Cauldron.Activator
         private class FactoryDictionaryEntry
         {
             public uint hashcode;
-            public string key;
+            public TKey key;
             public int next;
             public TValue value;
         }

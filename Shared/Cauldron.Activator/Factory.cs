@@ -17,7 +17,8 @@ namespace Cauldron.Activator
     public sealed class Factory
     {
         private static readonly string iFactoryExtensionName = typeof(IFactoryExtension).FullName;
-        private static FactoryDictionary<FactoryDictionaryValue> components;
+        private static FactoryDictionary<string, FactoryDictionaryValue> componentsNamed;
+        private static FactoryDictionary<Type, FactoryDictionaryValue> componentsTyped;
         private static IFactoryTypeInfo[] factoryInfoTypes;
 
         static Factory()
@@ -77,7 +78,7 @@ namespace Cauldron.Activator
         /// <summary>
         /// Gets a collection types that is known to the <see cref="Factory"/>
         /// </summary>
-        public static IEnumerable<IFactoryTypeInfo> RegisteredTypes => components.GetValues().SelectMany(x => x.factoryTypeInfos);
+        public static IEnumerable<IFactoryTypeInfo> RegisteredTypes => componentsNamed.GetValues().SelectMany(x => x.factoryTypeInfos);
 
         /// <summary>
         /// Gets a collection of resolvers.
@@ -112,18 +113,438 @@ namespace Cauldron.Activator
         {
             var factoryTypeInfo = new FactoryTypeInfoInternal(contractName, creationPolicy, type, createInstance);
 
-            if (components.TryGetValue(contractName, out FactoryDictionaryValue content))
+            if (componentsNamed.TryGetValue(contractName, out FactoryDictionaryValue content))
             {
                 content.factoryTypeInfos = content.factoryTypeInfos.Concat(factoryTypeInfo);
                 return factoryTypeInfo;
             }
 
-            components.Add(contractName, new FactoryDictionaryValue
+            componentsNamed.Add(contractName, new FactoryDictionaryValue
             {
                 factoryTypeInfos = new IFactoryTypeInfo[] { factoryTypeInfo }
             });
             return factoryTypeInfo;
         }
+
+        /// <summary>
+        /// Creates an instance of the specified type using the constructor that best matches the
+        /// specified parameters. This method is similar to <see
+        /// cref="ExtensionsReflection.CreateInstance(Type, object[])"/>, but this takes the types
+        /// defined with <see cref="ComponentAttribute"/> into account.
+        /// </summary>
+        /// <param name="type">The type of object to create.</param>
+        /// <param name="args">
+        /// An array of arguments that match in number, order, and type the parameters of the
+        /// constructor to invoke. If args is an empty array or null, the constructor that takes no
+        /// parameters (the default constructor) is invoked.
+        /// </param>
+        /// <returns>A reference to the newly created object.</returns>
+        /// <exception cref="ArgumentNullException"><paramref name="type"/> is null</exception>
+        /// <exception cref="NotImplementedException">
+        /// Implementation of <paramref name="type"/> not found
+        /// </exception>
+        public static object CreateInstance(Type type, params object[] args)
+        {
+            var contractName = type.FullName;
+            if (componentsNamed.TryGetValue(contractName, out FactoryDictionaryValue factoryInfos))
+            {
+                if (factoryInfos.factoryTypeInfos.Length == 1)
+                    return factoryInfos.factoryTypeInfos[0].CreateInstance(args);
+
+                if (factoryInfos.factoryTypeInfos.Length == 0)
+                {
+                    if (CanRaiseExceptions)
+                        throw new NotImplementedException("The contractName '" + contractName + "' was not found.");
+
+                    Debug.WriteLine($"ERROR: The contractName '{contractName}' was not found.");
+                }
+
+                return ResolveAmbiguousMatch(contractName)?.CreateInstance(args);
+            }
+
+            return type.CreateInstance(args);
+        }
+
+        #region Create
+
+        /// <summary>
+        /// Creates an instance of the specified type depending on the <see cref="ComponentAttribute"/>
+        /// </summary>
+        /// <typeparam name="T">The Type that contract name derives from</typeparam>
+        /// <returns>A reference to the newly created object.</returns>
+        /// <exception cref="KeyNotFoundException">
+        /// The contract described by <typeparamref name="T"/> was not found
+        /// </exception>
+        /// <exception cref="Exception">Unknown <see cref="FactoryCreationPolicy"/></exception>
+        /// <exception cref="AmbiguousMatchException">
+        /// There is more than one implementation with contractname <typeparamref name="T"/> found.
+        /// </exception>
+        /// <exception cref="NotSupportedException">
+        /// An <see cref="object"/> with <see cref="FactoryCreationPolicy.Singleton"/> with an
+        /// implemented <see cref="IDisposable"/> must also implement the <see
+        /// cref="IDisposableObject"/> interface.
+        /// </exception>
+        public static T Create<T>() where T : class => Create(typeof(T)) as T;
+
+        /// <summary>
+        /// Creates an instance of the specified type depending on the <see cref="ComponentAttribute"/>
+        /// </summary>
+        /// <param name="contractName">The name that identifies the type</param>
+        /// <returns>A reference to the newly created object.</returns>
+        /// <exception cref="KeyNotFoundException">
+        /// The contract described by <paramref name="contractName"/> was not found
+        /// </exception>
+        /// <exception cref="Exception">Unknown <see cref="FactoryCreationPolicy"/></exception>
+        /// <exception cref="AmbiguousMatchException">
+        /// There is more than one implementation with contractname <paramref name="contractName"/> found.
+        /// </exception>
+        /// <exception cref="NotSupportedException">
+        /// An <see cref="object"/> with <see cref="FactoryCreationPolicy.Singleton"/> with an
+        /// implemented <see cref="IDisposable"/> must also implement the <see
+        /// cref="IDisposableObject"/> interface.
+        /// </exception>
+        public static object Create(string contractName)
+        {
+            if (componentsNamed.TryGetValue(contractName, out FactoryDictionaryValue factoryInfos))
+            {
+                if (factoryInfos.factoryTypeInfos.Length == 1)
+                    return factoryInfos.factoryTypeInfos[0].CreateInstance();
+
+                if (factoryInfos.factoryTypeInfos.Length == 0)
+                {
+                    if (CanRaiseExceptions)
+                        throw new NotImplementedException($"The contractName '{contractName}' was not found.");
+
+                    Debug.WriteLine($"ERROR: The contractName '{contractName}' was not found.");
+                }
+
+                return ResolveAmbiguousMatch(contractName)?.CreateInstance();
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// Creates an instance of the specified type depending on the <see cref="ComponentAttribute"/>
+        /// </summary>
+        /// <param name="contractType">The Type that contract name derives from</param>
+        /// <returns>A reference to the newly created object.</returns>
+        /// <exception cref="ArgumentNullException">
+        /// The parameter <paramref name="contractType"/> is null
+        /// </exception>
+        /// <exception cref="KeyNotFoundException">
+        /// The contract described by <paramref name="contractType"/> was not found
+        /// </exception>
+        /// <exception cref="Exception">Unknown <see cref="FactoryCreationPolicy"/></exception>
+        /// <exception cref="AmbiguousMatchException">
+        /// There is more than one implementation with contractname <paramref name="contractType"/> found.
+        /// </exception>
+        /// <exception cref="NotSupportedException">
+        /// An <see cref="object"/> with <see cref="FactoryCreationPolicy.Singleton"/> with an
+        /// implemented <see cref="IDisposable"/> must also implement the <see
+        /// cref="IDisposableObject"/> interface.
+        /// </exception>
+        public static object Create(Type contractType)
+        {
+            if (componentsTyped.TryGetValue(contractType, out FactoryDictionaryValue factoryInfos))
+            {
+                if (factoryInfos.factoryTypeInfos.Length == 1)
+                    return factoryInfos.factoryTypeInfos[0].CreateInstance();
+
+                if (factoryInfos.factoryTypeInfos.Length == 0)
+                {
+                    if (CanRaiseExceptions)
+                        throw new NotImplementedException($"The contractName '{contractType.FullName}' was not found.");
+
+                    Debug.WriteLine($"ERROR: The contractName '{contractType.FullName}' was not found.");
+                }
+
+                return ResolveAmbiguousMatch(contractType.FullName)?.CreateInstance();
+            }
+
+#if NETFX_CORE
+            if (contractType.GetTypeInfo().IsInterface)
+#else
+            if (contractType.IsInterface)
+#endif
+            {
+                if (CanRaiseExceptions)
+                    throw new NotImplementedException($"The contractName '{contractType.FullName}' was not found.");
+
+                Debug.WriteLine($"ERROR: The contractName '{contractType.FullName}' was not found.");
+                return null;
+            }
+
+            return contractType.CreateInstance();
+        }
+
+        #endregion Create
+
+        #region CreateFirst
+
+        /// <summary>
+        /// Creates an instance of the specified type depending on the <see cref="ComponentAttribute"/>.
+        /// If multiple implementations are available, the <see cref="Factory"/> will prefer the implementation with the highest priority.
+        /// </summary>
+        /// <typeparam name="T">The Type that contract name derives from</typeparam>
+        /// <returns>A reference to the newly created object.</returns>
+        /// <exception cref="KeyNotFoundException">
+        /// The contract described by <typeparamref name="T"/> was not found
+        /// </exception>
+        /// <exception cref="Exception">Unknown <see cref="FactoryCreationPolicy"/></exception>
+        /// <exception cref="NotSupportedException">
+        /// An <see cref="object"/> with <see cref="FactoryCreationPolicy.Singleton"/> with an
+        /// implemented <see cref="IDisposable"/> must also implement the <see cref="IDisposableObject"/> interface.
+        /// </exception>
+        public static T CreateFirst<T>() where T : class => CreateFirst(typeof(T)) as T;
+
+        /// <summary>
+        /// Creates an instance of the specified type depending on the <see cref="ComponentAttribute"/>.
+        /// If multiple implementations are available, the <see cref="Factory"/> will prefer the implementation with the highest priority.
+        /// </summary>
+        /// <param name="contractType">The Type that contract name derives from</param>
+        /// <returns>A reference to the newly created object.</returns>
+        /// <exception cref="ArgumentNullException">
+        /// The parameter <paramref name="contractType"/> is null
+        /// </exception>
+        /// <exception cref="KeyNotFoundException">
+        /// The contract described by <paramref name="contractType"/> was not found
+        /// </exception>
+        /// <exception cref="Exception">Unknown <see cref="FactoryCreationPolicy"/></exception>
+        /// <exception cref="NotSupportedException">
+        /// An <see cref="object"/> with <see cref="FactoryCreationPolicy.Singleton"/> with an
+        /// implemented <see cref="IDisposable"/> must also implement the <see cref="IDisposableObject"/> interface.
+        /// </exception>
+        public static object CreateFirst(Type contractType)
+        {
+            if (componentsTyped.TryGetValue(contractType, out FactoryDictionaryValue factoryInfos))
+            {
+                if (factoryInfos.factoryTypeInfos.Length == 1)
+                    return factoryInfos.factoryTypeInfos[0].CreateInstance();
+
+                if (factoryInfos.factoryTypeInfos.Length != 0)
+                    return factoryInfos.factoryTypeInfos.MaxBy(x => x.Priority).CreateInstance();
+            }
+
+            if (CanRaiseExceptions)
+                throw new KeyNotFoundException($"The contractName '{contractType}' was not found.");
+
+            Debug.WriteLine($"ERROR: The contractName '{contractType}' was not found.");
+            return null;
+        }
+
+        /// <summary>
+        /// Creates an instance of the specified type depending on the <see cref="ComponentAttribute"/>.
+        /// If multiple implementations are available, the <see cref="Factory"/> will prefer the implementation with the highest priority.
+        /// </summary>
+        /// <param name="contractName">The name that identifies the type</param>
+        /// <returns>A reference to the newly created object.</returns>
+        /// <exception cref="KeyNotFoundException">
+        /// The contract described by <paramref name="contractName"/> was not found
+        /// </exception>
+        /// <exception cref="Exception">Unknown <see cref="FactoryCreationPolicy"/></exception>
+        /// <exception cref="NotSupportedException">
+        /// An <see cref="object"/> with <see cref="FactoryCreationPolicy.Singleton"/> with an
+        /// implemented <see cref="IDisposable"/> must also implement the <see cref="IDisposableObject"/> interface.
+        /// </exception>
+        public static object CreateFirst(string contractName)
+        {
+            if (componentsNamed.TryGetValue(contractName, out FactoryDictionaryValue factoryInfos))
+            {
+                if (factoryInfos.factoryTypeInfos.Length == 1)
+                    return factoryInfos.factoryTypeInfos[0].CreateInstance();
+
+                if (factoryInfos.factoryTypeInfos.Length != 0)
+                    return factoryInfos.factoryTypeInfos.MaxBy(x => x.Priority).CreateInstance();
+            }
+
+            if (CanRaiseExceptions)
+                throw new KeyNotFoundException("The contractName '" + contractName + "' was not found.");
+
+            Debug.WriteLine($"ERROR: The contractName '" + contractName + "' was not found.");
+            return null;
+        }
+
+        #endregion CreateFirst
+
+        #region CreateMany
+
+        /// <summary>
+        /// Creates instances of the specified type depending on the <see cref="ComponentAttribute"/>
+        /// </summary>
+        /// <param name="contractName">The name that identifies the type</param>
+        /// <returns>A collection of the newly created objects.</returns>
+        /// <exception cref="KeyNotFoundException">
+        /// The contract described by <paramref name="contractName"/> was not found
+        /// </exception>
+        /// <exception cref="Exception">Unknown <see cref="FactoryCreationPolicy"/></exception>
+        /// <exception cref="NotSupportedException">
+        /// An <see cref="object"/> with <see cref="FactoryCreationPolicy.Singleton"/> with an
+        /// implemented <see cref="IDisposable"/> must also implement the <see
+        /// cref="IDisposableObject"/> interface.
+        /// </exception>
+        public static IEnumerable CreateMany(string contractName)
+        {
+            if (componentsNamed.TryGetValue(contractName, out FactoryDictionaryValue factoryInfos))
+            {
+                var result = new object[factoryInfos.factoryTypeInfos.Length];
+                for (int i = 0; i < factoryInfos.factoryTypeInfos.Length; i++)
+                    result[i] = factoryInfos.factoryTypeInfos[i].CreateInstance();
+
+                return result;
+            }
+
+            if (CanRaiseExceptions)
+                throw new NotImplementedException($"The contractName '{contractName}' was not found.");
+
+            Debug.WriteLine($"ERROR: The contractName '{contractName}' was not found.");
+
+            return null;
+        }
+
+        /// <summary>
+        /// Creates instances of the specified type depending on the <see cref="ComponentAttribute"/>
+        /// </summary>
+        /// <param name="contractType">The Type that contract name derives from</param>
+        /// <returns>A collection of the newly created objects.</returns>
+        /// <exception cref="KeyNotFoundException">
+        /// The contract described by <paramref name="contractType"/> was not found
+        /// </exception>
+        /// <exception cref="Exception">Unknown <see cref="FactoryCreationPolicy"/></exception>
+        /// <exception cref="NotSupportedException">
+        /// An <see cref="object"/> with <see cref="FactoryCreationPolicy.Singleton"/> with an
+        /// implemented <see cref="IDisposable"/> must also implement the <see
+        /// cref="IDisposableObject"/> interface.
+        /// </exception>
+        public static IEnumerable CreateMany(Type contractType)
+        {
+            if (componentsTyped.TryGetValue(contractType, out FactoryDictionaryValue factoryInfos))
+            {
+                var result = new object[factoryInfos.factoryTypeInfos.Length];
+                for (int i = 0; i < factoryInfos.factoryTypeInfos.Length; i++)
+                    result[i] = factoryInfos.factoryTypeInfos[i].CreateInstance();
+
+                return result;
+            }
+
+            if (CanRaiseExceptions)
+                throw new NotImplementedException($"The contractName '{contractType}' was not found.");
+
+            Debug.WriteLine($"ERROR: The contractName '{contractType}' was not found.");
+
+            return null;
+        }
+
+        /// <summary>
+        /// Creates instances of the specified type depending on the <see cref="ComponentAttribute"/>
+        /// </summary>
+        /// <typeparam name="T">The Type that contract name derives from</typeparam>
+        /// <returns>A collection of the newly created objects.</returns>
+        /// <exception cref="KeyNotFoundException">
+        /// The contract described by <typeparamref name="T"/> was not found
+        /// </exception>
+        /// <exception cref="Exception">Unknown <see cref="FactoryCreationPolicy"/></exception>
+        /// <exception cref="NotSupportedException">
+        /// An <see cref="object"/> with <see cref="FactoryCreationPolicy.Singleton"/> with an
+        /// implemented <see cref="IDisposable"/> must also implement the <see
+        /// cref="IDisposableObject"/> interface.
+        /// </exception>
+        public static IEnumerable<T> CreateMany<T>() => CreateMany(typeof(T)).Cast<T>();
+
+        #endregion CreateMany
+
+        #region Create Many Ordered
+
+        /// <summary>
+        /// Creates instances of the specified type depending on the <see cref="ComponentAttribute"/>.
+        /// The returned values are ordered by the defined priority.
+        /// </summary>
+        /// <param name="contractName">The name that identifies the type</param>
+        /// <returns>A collection of the newly created objects.</returns>
+        /// <exception cref="KeyNotFoundException">
+        /// The contract described by <paramref name="contractName"/> was not found
+        /// </exception>
+        /// <exception cref="Exception">Unknown <see cref="FactoryCreationPolicy"/></exception>
+        /// <exception cref="NotSupportedException">
+        /// An <see cref="object"/> with <see cref="FactoryCreationPolicy.Singleton"/> with an
+        /// implemented <see cref="IDisposable"/> must also implement the <see
+        /// cref="IDisposableObject"/> interface.
+        /// </exception>
+        public static IEnumerable CreateManyOrdered(string contractName)
+        {
+            if (componentsNamed.TryGetValue(contractName, out FactoryDictionaryValue factoryInfos))
+            {
+                var result = new object[factoryInfos.factoryTypeInfos.Length];
+                int i = 0;
+                foreach (var item in factoryInfos.factoryTypeInfos.OrderBy(x => x.Priority))
+                    result[i++] = factoryInfos.factoryTypeInfos[i].CreateInstance();
+
+                return result;
+            }
+
+            if (CanRaiseExceptions)
+                throw new NotImplementedException($"The contractName '{contractName}' was not found.");
+
+            Debug.WriteLine($"ERROR: The contractName '{contractName}' was not found.");
+
+            return null;
+        }
+
+        /// <summary>
+        /// Creates instances of the specified type depending on the <see cref="ComponentAttribute"/>
+        /// The returned values are ordered by the defined priority.
+        /// </summary>
+        /// <param name="contractType">The Type that contract name derives from</param>
+        /// <returns>A collection of the newly created objects.</returns>
+        /// <exception cref="KeyNotFoundException">
+        /// The contract described by <paramref name="contractType"/> was not found
+        /// </exception>
+        /// <exception cref="Exception">Unknown <see cref="FactoryCreationPolicy"/></exception>
+        /// <exception cref="NotSupportedException">
+        /// An <see cref="object"/> with <see cref="FactoryCreationPolicy.Singleton"/> with an
+        /// implemented <see cref="IDisposable"/> must also implement the <see
+        /// cref="IDisposableObject"/> interface.
+        /// </exception>
+        public static IEnumerable CreateManyOrdered(Type contractType)
+        {
+            if (componentsTyped.TryGetValue(contractType, out FactoryDictionaryValue factoryInfos))
+            {
+                var result = new object[factoryInfos.factoryTypeInfos.Length];
+                int i = 0;
+                foreach (var item in factoryInfos.factoryTypeInfos.OrderBy(x => x.Priority))
+                    result[i++] = factoryInfos.factoryTypeInfos[i].CreateInstance();
+
+                return result;
+            }
+
+            if (CanRaiseExceptions)
+                throw new NotImplementedException($"The contractName '{contractType}' was not found.");
+
+            Debug.WriteLine($"ERROR: The contractName '{contractType}' was not found.");
+
+            return null;
+        }
+
+        /// <summary>
+        /// Creates instances of the specified type depending on the <see cref="ComponentAttribute"/>
+        /// The returned values are ordered by the defined priority.
+        /// </summary>
+        /// <typeparam name="T">The Type that contract name derives from</typeparam>
+        /// <returns>A collection of the newly created objects.</returns>
+        /// <exception cref="KeyNotFoundException">
+        /// The contract described by <typeparamref name="T"/> was not found
+        /// </exception>
+        /// <exception cref="Exception">Unknown <see cref="FactoryCreationPolicy"/></exception>
+        /// <exception cref="NotSupportedException">
+        /// An <see cref="object"/> with <see cref="FactoryCreationPolicy.Singleton"/> with an
+        /// implemented <see cref="IDisposable"/> must also implement the <see
+        /// cref="IDisposableObject"/> interface.
+        /// </exception>
+        public static IEnumerable<T> CreateManyOrdered<T>() => CreateManyOrdered(typeof(T)).Cast<T>();
+
+        #endregion Create Many Ordered
+
+        #region Create with parameters
 
         /// <summary>
         /// Creates an instance of the specified type depending on the <see cref="ComponentAttribute"/>
@@ -147,7 +568,7 @@ namespace Cauldron.Activator
         /// implemented <see cref="IDisposable"/> must also implement the <see
         /// cref="IDisposableObject"/> interface.
         /// </exception>
-        public static T Create<T>(params object[] parameters) where T : class => GetInstance(typeof(T).FullName, parameters) as T;
+        public static T Create<T>(params object[] parameters) where T : class => Create(typeof(T), parameters) as T;
 
         /// <summary>
         /// Creates an instance of the specified type depending on the <see cref="ComponentAttribute"/>
@@ -171,7 +592,26 @@ namespace Cauldron.Activator
         /// implemented <see cref="IDisposable"/> must also implement the <see
         /// cref="IDisposableObject"/> interface.
         /// </exception>
-        public static object Create(string contractName, params object[] parameters) => GetInstance(contractName, parameters);
+        public static object Create(string contractName, params object[] parameters)
+        {
+            if (componentsNamed.TryGetValue(contractName, out FactoryDictionaryValue factoryInfos))
+            {
+                if (factoryInfos.factoryTypeInfos.Length == 1)
+                    return factoryInfos.factoryTypeInfos[0].CreateInstance(parameters);
+
+                if (factoryInfos.factoryTypeInfos.Length == 0)
+                {
+                    if (CanRaiseExceptions)
+                        throw new NotImplementedException($"The contractName '{contractName}' was not found.");
+
+                    Debug.WriteLine($"ERROR: The contractName '{contractName}' was not found.");
+                }
+
+                return ResolveAmbiguousMatch(contractName)?.CreateInstance(parameters);
+            }
+
+            return null;
+        }
 
         /// <summary>
         /// Creates an instance of the specified type depending on the <see cref="ComponentAttribute"/>
@@ -198,7 +638,43 @@ namespace Cauldron.Activator
         /// implemented <see cref="IDisposable"/> must also implement the <see
         /// cref="IDisposableObject"/> interface.
         /// </exception>
-        public static object Create(Type contractType, params object[] parameters) => GetInstance(contractType.FullName, parameters);
+        public static object Create(Type contractType, params object[] parameters)
+        {
+            if (componentsTyped.TryGetValue(contractType, out FactoryDictionaryValue factoryInfos))
+            {
+                if (factoryInfos.factoryTypeInfos.Length == 1)
+                    return factoryInfos.factoryTypeInfos[0].CreateInstance(parameters);
+
+                if (factoryInfos.factoryTypeInfos.Length == 0)
+                {
+                    if (CanRaiseExceptions)
+                        throw new NotImplementedException($"The contractName '{contractType.FullName}' was not found.");
+
+                    Debug.WriteLine($"ERROR: The contractName '{contractType.FullName}' was not found.");
+                }
+
+                return ResolveAmbiguousMatch(contractType.FullName)?.CreateInstance(parameters);
+            }
+
+#if NETFX_CORE
+            if (contractType.GetTypeInfo().IsInterface)
+#else
+            if (contractType.IsInterface)
+#endif
+            {
+                if (CanRaiseExceptions)
+                    throw new NotImplementedException($"The contractName '{contractType.FullName}' was not found.");
+
+                Debug.WriteLine($"ERROR: The contractName '{contractType.FullName}' was not found.");
+                return null;
+            }
+
+            return contractType.CreateInstance(parameters);
+        }
+
+        #endregion Create with parameters
+
+        #region CreateFirst with parameters
 
         /// <summary>
         /// Creates an instance of the specified type depending on the <see cref="ComponentAttribute"/>.
@@ -219,7 +695,7 @@ namespace Cauldron.Activator
         /// An <see cref="object"/> with <see cref="FactoryCreationPolicy.Singleton"/> with an
         /// implemented <see cref="IDisposable"/> must also implement the <see cref="IDisposableObject"/> interface.
         /// </exception>
-        public static T CreateFirst<T>(params object[] parameters) where T : class => CreateFirst(typeof(T).FullName, parameters) as T;
+        public static T CreateFirst<T>(params object[] parameters) where T : class => CreateFirst(typeof(T), parameters) as T;
 
         /// <summary>
         /// Creates an instance of the specified type depending on the <see cref="ComponentAttribute"/>.
@@ -243,7 +719,23 @@ namespace Cauldron.Activator
         /// An <see cref="object"/> with <see cref="FactoryCreationPolicy.Singleton"/> with an
         /// implemented <see cref="IDisposable"/> must also implement the <see cref="IDisposableObject"/> interface.
         /// </exception>
-        public static object CreateFirst(Type contractType, params object[] parameters) => CreateFirst(contractType.FullName, parameters);
+        public static object CreateFirst(Type contractType, params object[] parameters)
+        {
+            if (componentsTyped.TryGetValue(contractType, out FactoryDictionaryValue factoryInfos))
+            {
+                if (factoryInfos.factoryTypeInfos.Length == 1)
+                    return factoryInfos.factoryTypeInfos[0].CreateInstance(parameters);
+
+                if (factoryInfos.factoryTypeInfos.Length != 0)
+                    return factoryInfos.factoryTypeInfos.MaxBy(x => x.Priority).CreateInstance(parameters);
+            }
+
+            if (CanRaiseExceptions)
+                throw new KeyNotFoundException($"The contractName '{contractType}' was not found.");
+
+            Debug.WriteLine($"ERROR: The contractName '{contractType}' was not found.");
+            return null;
+        }
 
         /// <summary>
         /// Creates an instance of the specified type depending on the <see cref="ComponentAttribute"/>.
@@ -266,7 +758,7 @@ namespace Cauldron.Activator
         /// </exception>
         public static object CreateFirst(string contractName, params object[] parameters)
         {
-            if (components.TryGetValue(contractName, out FactoryDictionaryValue factoryInfos))
+            if (componentsNamed.TryGetValue(contractName, out FactoryDictionaryValue factoryInfos))
             {
                 if (factoryInfos.factoryTypeInfos.Length == 1)
                     return factoryInfos.factoryTypeInfos[0].CreateInstance(parameters);
@@ -282,44 +774,9 @@ namespace Cauldron.Activator
             return null;
         }
 
-        /// <summary>
-        /// Creates an instance of the specified type using the constructor that best matches the
-        /// specified parameters. This method is similar to <see
-        /// cref="ExtensionsReflection.CreateInstance(Type, object[])"/>, but this takes the types
-        /// defined with <see cref="ComponentAttribute"/> into account.
-        /// </summary>
-        /// <param name="type">The type of object to create.</param>
-        /// <param name="args">
-        /// An array of arguments that match in number, order, and type the parameters of the
-        /// constructor to invoke. If args is an empty array or null, the constructor that takes no
-        /// parameters (the default constructor) is invoked.
-        /// </param>
-        /// <returns>A reference to the newly created object.</returns>
-        /// <exception cref="ArgumentNullException"><paramref name="type"/> is null</exception>
-        /// <exception cref="NotImplementedException">
-        /// Implementation of <paramref name="type"/> not found
-        /// </exception>
-        public static object CreateInstance(Type type, params object[] args)
-        {
-            var contractName = type.FullName;
-            if (components.TryGetValue(contractName, out FactoryDictionaryValue factoryInfos))
-            {
-                if (factoryInfos.factoryTypeInfos.Length == 1)
-                    return factoryInfos.factoryTypeInfos[0].CreateInstance(args);
+        #endregion CreateFirst with parameters
 
-                if (factoryInfos.factoryTypeInfos.Length == 0)
-                {
-                    if (CanRaiseExceptions)
-                        throw new NotImplementedException("The contractName '" + contractName + "' was not found.");
-                    else
-                        Debug.WriteLine($"ERROR: The contractName '{contractName}' was not found.");
-                }
-
-                return ResolveAmbiguousMatch(contractName)?.CreateInstance(args);
-            }
-
-            return type.CreateInstance(args);
-        }
+        #region CreateMany with parameters
 
         /// <summary>
         /// Creates instances of the specified type depending on the <see cref="ComponentAttribute"/>
@@ -340,7 +797,24 @@ namespace Cauldron.Activator
         /// implemented <see cref="IDisposable"/> must also implement the <see
         /// cref="IDisposableObject"/> interface.
         /// </exception>
-        public static IEnumerable CreateMany(string contractName, params object[] parameters) => GetInstances(contractName, parameters).ToArray();
+        public static IEnumerable CreateMany(string contractName, params object[] parameters)
+        {
+            if (componentsNamed.TryGetValue(contractName, out FactoryDictionaryValue factoryInfos))
+            {
+                var result = new object[factoryInfos.factoryTypeInfos.Length];
+                for (int i = 0; i < factoryInfos.factoryTypeInfos.Length; i++)
+                    result[i] = factoryInfos.factoryTypeInfos[i].CreateInstance(parameters);
+
+                return result;
+            }
+
+            if (CanRaiseExceptions)
+                throw new NotImplementedException($"The contractName '{contractName}' was not found.");
+
+            Debug.WriteLine($"ERROR: The contractName '{contractName}' was not found.");
+
+            return null;
+        }
 
         /// <summary>
         /// Creates instances of the specified type depending on the <see cref="ComponentAttribute"/>
@@ -361,7 +835,24 @@ namespace Cauldron.Activator
         /// implemented <see cref="IDisposable"/> must also implement the <see
         /// cref="IDisposableObject"/> interface.
         /// </exception>
-        public static IEnumerable CreateMany(Type contractType, params object[] parameters) => GetInstances(contractType.FullName, parameters).ToArray();
+        public static IEnumerable CreateMany(Type contractType, params object[] parameters)
+        {
+            if (componentsTyped.TryGetValue(contractType, out FactoryDictionaryValue factoryInfos))
+            {
+                var result = new object[factoryInfos.factoryTypeInfos.Length];
+                for (int i = 0; i < factoryInfos.factoryTypeInfos.Length; i++)
+                    result[i] = factoryInfos.factoryTypeInfos[i].CreateInstance(parameters);
+
+                return result;
+            }
+
+            if (CanRaiseExceptions)
+                throw new NotImplementedException($"The contractName '{contractType}' was not found.");
+
+            Debug.WriteLine($"ERROR: The contractName '{contractType}' was not found.");
+
+            return null;
+        }
 
         /// <summary>
         /// Creates instances of the specified type depending on the <see cref="ComponentAttribute"/>
@@ -382,7 +873,11 @@ namespace Cauldron.Activator
         /// implemented <see cref="IDisposable"/> must also implement the <see
         /// cref="IDisposableObject"/> interface.
         /// </exception>
-        public static IEnumerable<T> CreateMany<T>(params object[] parameters) => GetInstances(typeof(T).FullName, parameters).Cast<T>();
+        public static IEnumerable<T> CreateMany<T>(params object[] parameters) => CreateMany(typeof(T), parameters).Cast<T>();
+
+        #endregion CreateMany with parameters
+
+        #region Create Many Ordered with parameters
 
         /// <summary>
         /// Creates instances of the specified type depending on the <see cref="ComponentAttribute"/>.
@@ -404,7 +899,25 @@ namespace Cauldron.Activator
         /// implemented <see cref="IDisposable"/> must also implement the <see
         /// cref="IDisposableObject"/> interface.
         /// </exception>
-        public static IEnumerable CreateManyOrdered(string contractName, params object[] parameters) => GetInstancesOrdered(contractName, parameters).ToArray();
+        public static IEnumerable CreateManyOrdered(string contractName, params object[] parameters)
+        {
+            if (componentsNamed.TryGetValue(contractName, out FactoryDictionaryValue factoryInfos))
+            {
+                var result = new object[factoryInfos.factoryTypeInfos.Length];
+                int i = 0;
+                foreach (var item in factoryInfos.factoryTypeInfos.OrderBy(x => x.Priority))
+                    result[i++] = factoryInfos.factoryTypeInfos[i].CreateInstance(parameters);
+
+                return result;
+            }
+
+            if (CanRaiseExceptions)
+                throw new NotImplementedException($"The contractName '{contractName}' was not found.");
+
+            Debug.WriteLine($"ERROR: The contractName '{contractName}' was not found.");
+
+            return null;
+        }
 
         /// <summary>
         /// Creates instances of the specified type depending on the <see cref="ComponentAttribute"/>
@@ -426,7 +939,25 @@ namespace Cauldron.Activator
         /// implemented <see cref="IDisposable"/> must also implement the <see
         /// cref="IDisposableObject"/> interface.
         /// </exception>
-        public static IEnumerable CreateManyOrdered(Type contractType, params object[] parameters) => GetInstancesOrdered(contractType.FullName, parameters).ToArray();
+        public static IEnumerable CreateManyOrdered(Type contractType, params object[] parameters)
+        {
+            if (componentsTyped.TryGetValue(contractType, out FactoryDictionaryValue factoryInfos))
+            {
+                var result = new object[factoryInfos.factoryTypeInfos.Length];
+                int i = 0;
+                foreach (var item in factoryInfos.factoryTypeInfos.OrderBy(x => x.Priority))
+                    result[i++] = factoryInfos.factoryTypeInfos[i].CreateInstance(parameters);
+
+                return result;
+            }
+
+            if (CanRaiseExceptions)
+                throw new NotImplementedException($"The contractName '{contractType}' was not found.");
+
+            Debug.WriteLine($"ERROR: The contractName '{contractType}' was not found.");
+
+            return null;
+        }
 
         /// <summary>
         /// Creates instances of the specified type depending on the <see cref="ComponentAttribute"/>
@@ -448,7 +979,9 @@ namespace Cauldron.Activator
         /// implemented <see cref="IDisposable"/> must also implement the <see
         /// cref="IDisposableObject"/> interface.
         /// </exception>
-        public static IEnumerable<T> CreateManyOrdered<T>(params object[] parameters) => GetInstancesOrdered(typeof(T).FullName, parameters).Cast<T>().ToArray();
+        public static IEnumerable<T> CreateManyOrdered<T>(params object[] parameters) => CreateManyOrdered(typeof(T), parameters).Cast<T>();
+
+        #endregion Create Many Ordered with parameters
 
         /// <summary>
         /// Performs application-defined tasks associated with freeing, releasing, or resetting
@@ -477,7 +1010,7 @@ namespace Cauldron.Activator
         /// <param name="contractName">The name that identifies the type</param>
         public static void Destroy(string contractName)
         {
-            if (components.TryGetValue(contractName, out FactoryDictionaryValue content))
+            if (componentsNamed.TryGetValue(contractName, out FactoryDictionaryValue content))
                 for (int i = 0; i < content.factoryTypeInfos.Length; i++)
                 {
                     (content.factoryTypeInfos[i].Instance as IDisposable)?.Dispose();
@@ -493,7 +1026,7 @@ namespace Cauldron.Activator
         /// </summary>
         public static void Destroy()
         {
-            foreach (var item in components.GetValues())
+            foreach (var item in componentsNamed.GetValues())
                 for (int i = 0; i < item.factoryTypeInfos.Length; i++)
                 {
                     (item.factoryTypeInfos[i].Instance as IDisposable)?.Dispose();
@@ -505,7 +1038,7 @@ namespace Cauldron.Activator
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static IFactoryTypeInfo GetFactoryTypeInfo(string contractName)
         {
-            if (components.TryGetValue(contractName, out FactoryDictionaryValue factoryInfos))
+            if (componentsNamed.TryGetValue(contractName, out FactoryDictionaryValue factoryInfos))
             {
                 if (factoryInfos.factoryTypeInfos.Length == 1)
                     return factoryInfos.factoryTypeInfos[0];
@@ -528,7 +1061,7 @@ namespace Cauldron.Activator
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static IFactoryTypeInfo GetFactoryTypeInfoFirst(string contractName)
         {
-            if (components.TryGetValue(contractName, out FactoryDictionaryValue factoryInfos))
+            if (componentsNamed.TryGetValue(contractName, out FactoryDictionaryValue factoryInfos))
             {
                 if (factoryInfos.factoryTypeInfos.Length == 1)
                     return factoryInfos.factoryTypeInfos[0];
@@ -552,21 +1085,21 @@ namespace Cauldron.Activator
         /// </summary>
         /// <param name="contractName">The name that identifies the type</param>
         /// <returns>True if the contract exists, otherwise false</returns>
-        public static bool HasContract(string contractName) => components.ContainsKey(contractName);
+        public static bool HasContract(string contractName) => componentsNamed.ContainsKey(contractName);
 
         /// <summary>
         /// Determines whether a contract exist
         /// </summary>
         /// <param name="contractType">The Type that contract name derives from</param>
         /// <returns>True if the contract exists, otherwise false</returns>
-        public static bool HasContract(Type contractType) => components.ContainsKey(contractType.FullName);
+        public static bool HasContract(Type contractType) => componentsTyped.ContainsKey(contractType);
 
         /// <summary>
         /// Determines whether a contract exist
         /// </summary>
         /// <typeparam name="T">The Type that contract name derives from</typeparam>
         /// <returns>True if the contract exists, otherwise false</returns>
-        public static bool HasContract<T>() => components.ContainsKey(typeof(T).FullName);
+        public static bool HasContract<T>() => componentsTyped.ContainsKey(typeof(T));
 
         /// <exclude/>
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -592,7 +1125,7 @@ namespace Cauldron.Activator
         /// <threadsafety static="false" instance="false"/>
         public static void RemoveType(string contractName, Type type)
         {
-            if (components.TryGetValue(contractName, out FactoryDictionaryValue factoryTypeInfos))
+            if (componentsNamed.TryGetValue(contractName, out FactoryDictionaryValue factoryTypeInfos))
             {
                 if (factoryTypeInfos == null)
                     return;
@@ -615,102 +1148,24 @@ namespace Cauldron.Activator
                 item.Initialize(factoryTypeInfos);
         }
 
-        private static object GetInstance(string contractName, object[] parameters)
-        {
-            if (components.TryGetValue(contractName, out FactoryDictionaryValue factoryInfos))
-            {
-                if (factoryInfos.factoryTypeInfos.Length == 1)
-                    return factoryInfos.factoryTypeInfos[0].CreateInstance(parameters);
-
-                if (factoryInfos.factoryTypeInfos.Length == 0)
-                {
-                    if (CanRaiseExceptions)
-                        throw new NotImplementedException("The contractName '" + contractName + "' was not found.");
-                    else
-                        Debug.WriteLine($"ERROR: The contractName '{contractName}' was not found.");
-                }
-
-                return ResolveAmbiguousMatch(contractName)?.CreateInstance(parameters);
-            }
-
-            try
-            {
-                // Try to find out the type
-                var realType = Assemblies.GetTypeFromName(contractName);
-
-                if (realType == null)
-                {
-                    if (CanRaiseExceptions)
-                        throw new NotImplementedException("The contractName '" + contractName + "' was not found.");
-                    else
-                        Debug.WriteLine($"ERROR: The contractName '{contractName}' was not found.");
-
-                    return null;
-                }
-
-                return realType.CreateInstance(parameters);
-            }
-            catch (Exception e)
-            {
-                if (CanRaiseExceptions)
-                    throw;
-                else
-                    Debug.WriteLine(e.Message);
-
-                return null;
-            }
-        }
-
-        private static object[] GetInstances(string contractName, object[] parameters)
-        {
-            if (components.TryGetValue(contractName, out FactoryDictionaryValue factoryInfos))
-            {
-                var result = new object[factoryInfos.factoryTypeInfos.Length];
-                for (int i = 0; i < factoryInfos.factoryTypeInfos.Length; i++)
-                    result[i] = factoryInfos.factoryTypeInfos[i].CreateInstance(parameters);
-
-                return result;
-            }
-
-            if (CanRaiseExceptions)
-                throw new NotImplementedException("The contractName '" + contractName + "' was not found.");
-            else
-                Debug.WriteLine($"ERROR: The contractName '" + contractName + "' was not found.");
-
-            return null;
-        }
-
-        private static object[] GetInstancesOrdered(string contractName, object[] parameters)
-        {
-            if (components.TryGetValue(contractName, out FactoryDictionaryValue factoryInfos))
-            {
-                var result = new object[factoryInfos.factoryTypeInfos.Length];
-                int i = 0;
-                foreach (var item in factoryInfos.factoryTypeInfos.OrderBy(x => x.Priority))
-                    result[i++] = factoryInfos.factoryTypeInfos[i].CreateInstance(parameters);
-
-                return result;
-            }
-
-            if (CanRaiseExceptions)
-                throw new NotImplementedException("The contractName '" + contractName + "' was not found.");
-
-            Debug.WriteLine($"ERROR: The contractName '" + contractName + "' was not found.");
-
-            return null;
-        }
-
         private static void InitializeFactory(IEnumerable<IFactoryTypeInfo> factoryInfoTypes)
         {
             // Get all known components
-            components = new FactoryDictionary<FactoryDictionaryValue>();
+            componentsNamed = new FactoryDictionary<string, FactoryDictionaryValue>();
             foreach (var item in factoryInfoTypes.GroupBy(x => x.ContractName).Select(x => new { x.Key, Items = x.ToArray() }))
-                components.Add(item.Key, new FactoryDictionaryValue { factoryTypeInfos = item.Items });
+                componentsNamed.Add(item.Key, new FactoryDictionaryValue { factoryTypeInfos = item.Items });
             // Get all factory extensions
             GetAndInitializeAllExtensions(factoryInfoTypes);
 
-            if (components.Count == 0)
+            if (componentsNamed.Count == 0)
                 Debug.WriteLine($"ERROR: Unable to find any components. Please check if FodyWeavers.xml has an entry for Cauldron.Interception");
+
+            // Get all known components
+            componentsTyped = new FactoryDictionary<Type, FactoryDictionaryValue>();
+            foreach (var item in factoryInfoTypes.Where(x => x.Type != null).GroupBy(x => x.Type).Select(x => new { x.Key, Items = x.ToArray() }))
+                componentsTyped.Add(item.Key, new FactoryDictionaryValue { factoryTypeInfos = item.Items });
+            // Get all factory extensions
+            GetAndInitializeAllExtensions(factoryInfoTypes);
 
             Rebuilt?.Invoke(null, EventArgs.Empty);
         }

@@ -414,10 +414,7 @@ namespace Cauldron.Interception.Fody
 		
 		/// <exclude />
 		public static implicit operator TypeReference(BuilderTypeApplication value) => Builder.Current.Import((TypeReference)value.builderType);
-
-		/// <exclude />
-		public BuilderType BuilderType => this.builderType;
-				
+						
 				
 		private Method var_run_0_0;
 		
@@ -1353,10 +1350,7 @@ namespace Cauldron.Interception.Fody
 		
 		/// <exclude />
 		public static implicit operator TypeReference(BuilderTypeComponentAttribute value) => Builder.Current.Import((TypeReference)value.builderType);
-
-		/// <exclude />
-		public BuilderType BuilderType => this.builderType;
-				
+						
 				
 		private Method var_get_contractname_0_0;
 		
@@ -1622,10 +1616,7 @@ namespace Cauldron.Interception.Fody
 		
 		/// <exclude />
 		public static implicit operator TypeReference(BuilderTypeComponentConstructorAttribute value) => Builder.Current.Import((TypeReference)value.builderType);
-
-		/// <exclude />
-		public BuilderType BuilderType => this.builderType;
-				
+						
 				
 		private Method var_equals_0_1;
 		
@@ -1763,10 +1754,7 @@ namespace Cauldron.Interception.Fody
 		
 		/// <exclude />
 		public static implicit operator TypeReference(BuilderTypeExtensions value) => Builder.Current.Import((TypeReference)value.builderType);
-
-		/// <exclude />
-		public BuilderType BuilderType => this.builderType;
-				
+						
 				
 		private Method var_getsha256hash_0_1;
 		
@@ -1874,10 +1862,7 @@ namespace Cauldron.Interception.Fody
 		
 		/// <exclude />
 		public static implicit operator TypeReference(BuilderTypeExtensionsReflection value) => Builder.Current.Import((TypeReference)value.builderType);
-
-		/// <exclude />
-		public BuilderType BuilderType => this.builderType;
-				
+						
 				
 		private Method var_arereferenceassignable_0_2;
 		
@@ -2270,10 +2255,7 @@ namespace Cauldron.Interception.Fody
 		
 		/// <exclude />
 		public static implicit operator TypeReference(BuilderTypeFactory value) => Builder.Current.Import((TypeReference)value.builderType);
-
-		/// <exclude />
-		public BuilderType BuilderType => this.builderType;
-				
+						
 				
 		private Method var_add_objectcreated_0_1;
 		
@@ -2817,10 +2799,7 @@ namespace Cauldron.Interception.Fody
 		
 		/// <exclude />
 		public static implicit operator TypeReference(BuilderTypeFactory1 value) => Builder.Current.Import((TypeReference)value.builderType);
-
-		/// <exclude />
-		public BuilderType BuilderType => this.builderType;
-				
+						
 				
 		private Method var_tostring_0_0;
 		
@@ -2898,10 +2877,7 @@ namespace Cauldron.Interception.Fody
 		
 		/// <exclude />
 		public static implicit operator TypeReference(BuilderTypeGenericComponentAttribute value) => Builder.Current.Import((TypeReference)value.builderType);
-
-		/// <exclude />
-		public BuilderType BuilderType => this.builderType;
-				
+						
 				
 		private Method var_get_contractname_0_0;
 		
@@ -3133,10 +3109,7 @@ namespace Cauldron.Interception.Fody
 		
 		/// <exclude />
 		public static implicit operator TypeReference(BuilderTypeIConstructorInterceptor value) => Builder.Current.Import((TypeReference)value.builderType);
-
-		/// <exclude />
-		public BuilderType BuilderType => this.builderType;
-				
+						
 				
 		private Method var_onbeforeinitialization_0_3;
 		
@@ -3214,10 +3187,7 @@ namespace Cauldron.Interception.Fody
 		
 		/// <exclude />
 		public static implicit operator TypeReference(BuilderTypeIDisposableObject value) => Builder.Current.Import((TypeReference)value.builderType);
-
-		/// <exclude />
-		public BuilderType BuilderType => this.builderType;
-				
+						
 				
 		private Method var_add_disposed_0_1;
 		
@@ -3280,10 +3250,7 @@ namespace Cauldron.Interception.Fody
 		
 		/// <exclude />
 		public static implicit operator TypeReference(BuilderTypeIFactoryExtension value) => Builder.Current.Import((TypeReference)value.builderType);
-
-		/// <exclude />
-		public BuilderType BuilderType => this.builderType;
-				
+						
 				
 		private Method var_initialize_0_1;
 		
@@ -3316,10 +3283,7 @@ namespace Cauldron.Interception.Fody
 		
 		/// <exclude />
 		public static implicit operator TypeReference(BuilderTypeIFactoryTypeInfo value) => Builder.Current.Import((TypeReference)value.builderType);
-
-		/// <exclude />
-		public BuilderType BuilderType => this.builderType;
-				
+						
 				
 		private Method var_get_contractname_0_0;
 		
@@ -3334,6 +3298,21 @@ namespace Cauldron.Interception.Fody
 				this.var_get_contractname_0_0 = this.builderType.GetMethod("get_ContractName", 0, true);
 
 			return this.var_get_contractname_0_0.Import();
+		}
+						
+		private Method var_get_contracttype_0_0;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// System.Type get_ContractType()<para/>
+		/// </summary>
+		public Method GetMethod_get_ContractType()
+		{
+			if(this.var_get_contracttype_0_0 == null)
+				this.var_get_contracttype_0_0 = this.builderType.GetMethod("get_ContractType", 0, true);
+
+			return this.var_get_contracttype_0_0.Import();
 		}
 						
 		private Method var_get_creationpolicy_0_0;
@@ -3418,12 +3397,33 @@ namespace Cauldron.Interception.Fody
 		/// <para />
 		/// System.Object CreateInstance(System.Object[])<para/>
 		/// </summary>
+		public Method GetMethod_CreateInstance(TypeReference parguments)
+		{
+						
+						
+			if(this.var_createinstance_0_1 == null)
+				this.var_createinstance_0_1 = this.builderType.GetMethod("CreateInstance", true, parguments);
+			
+			return this.var_createinstance_0_1.Import();
+						
+		}
+						
+		private Method var_createinstance_0_0;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// System.Object CreateInstance()<para/>
+		/// </summary>
 		public Method GetMethod_CreateInstance()
 		{
-			if(this.var_createinstance_0_1 == null)
-				this.var_createinstance_0_1 = this.builderType.GetMethod("CreateInstance", 1, true);
+						
+			if(this.var_createinstance_0_0 == null)
+				this.var_createinstance_0_0 = this.builderType.GetMethod("CreateInstance", true);
 
-			return this.var_createinstance_0_1.Import();
+			return this.var_createinstance_0_0.Import();
+						
+						
 		}
 					}
 
@@ -3442,10 +3442,7 @@ namespace Cauldron.Interception.Fody
 		
 		/// <exclude />
 		public static implicit operator TypeReference(BuilderTypeIMethodInterceptor value) => Builder.Current.Import((TypeReference)value.builderType);
-
-		/// <exclude />
-		public BuilderType BuilderType => this.builderType;
-				
+						
 				
 		private Method var_onenter_0_4;
 		
@@ -3508,10 +3505,7 @@ namespace Cauldron.Interception.Fody
 		
 		/// <exclude />
 		public static implicit operator TypeReference(BuilderTypeInterceptionRuleAttribute value) => Builder.Current.Import((TypeReference)value.builderType);
-
-		/// <exclude />
-		public BuilderType BuilderType => this.builderType;
-				
+						
 				
 		private Method var_equals_0_1;
 		
@@ -3634,10 +3628,7 @@ namespace Cauldron.Interception.Fody
 		
 		/// <exclude />
 		public static implicit operator TypeReference(BuilderTypeInterceptorOptionsAttribute value) => Builder.Current.Import((TypeReference)value.builderType);
-
-		/// <exclude />
-		public BuilderType BuilderType => this.builderType;
-				
+						
 				
 		private Method var_get_alwayscreatenewinstance_0_0;
 		
@@ -3805,10 +3796,7 @@ namespace Cauldron.Interception.Fody
 		
 		/// <exclude />
 		public static implicit operator TypeReference(BuilderTypeIPropertyGetterInterceptor value) => Builder.Current.Import((TypeReference)value.builderType);
-
-		/// <exclude />
-		public BuilderType BuilderType => this.builderType;
-				
+						
 				
 		private Method var_onexception_0_1;
 		
@@ -3871,10 +3859,7 @@ namespace Cauldron.Interception.Fody
 		
 		/// <exclude />
 		public static implicit operator TypeReference(BuilderTypeIPropertyInterceptorInitialize value) => Builder.Current.Import((TypeReference)value.builderType);
-
-		/// <exclude />
-		public BuilderType BuilderType => this.builderType;
-				
+						
 				
 		private Method var_oninitialize_0_2;
 		
@@ -3907,10 +3892,7 @@ namespace Cauldron.Interception.Fody
 		
 		/// <exclude />
 		public static implicit operator TypeReference(BuilderTypeIPropertySetterInterceptor value) => Builder.Current.Import((TypeReference)value.builderType);
-
-		/// <exclude />
-		public BuilderType BuilderType => this.builderType;
-				
+						
 				
 		private Method var_onexception_0_1;
 		
@@ -3973,10 +3955,7 @@ namespace Cauldron.Interception.Fody
 		
 		/// <exclude />
 		public static implicit operator TypeReference(BuilderTypeISimpleMethodInterceptor value) => Builder.Current.Import((TypeReference)value.builderType);
-
-		/// <exclude />
-		public BuilderType BuilderType => this.builderType;
-				
+						
 				
 		private Method var_onenter_0_4;
 		
@@ -4009,10 +3988,7 @@ namespace Cauldron.Interception.Fody
 		
 		/// <exclude />
 		public static implicit operator TypeReference(BuilderTypeISyncRoot value) => Builder.Current.Import((TypeReference)value.builderType);
-
-		/// <exclude />
-		public BuilderType BuilderType => this.builderType;
-				
+						
 				
 		private Method var_get_syncroot_0_0;
 		
@@ -4060,10 +4036,7 @@ namespace Cauldron.Interception.Fody
 		
 		/// <exclude />
 		public static implicit operator TypeReference(BuilderTypePropertyInterceptionInfo value) => Builder.Current.Import((TypeReference)value.builderType);
-
-		/// <exclude />
-		public BuilderType BuilderType => this.builderType;
-				
+						
 				
 		private Method var_get_childtype_0_0;
 		
@@ -4291,10 +4264,7 @@ namespace Cauldron.Interception.Fody
 		
 		/// <exclude />
 		public static implicit operator TypeReference(BuilderTypeResourceDictionary value) => Builder.Current.Import((TypeReference)value.builderType);
-
-		/// <exclude />
-		public BuilderType BuilderType => this.builderType;
-				
+						
 				
 		private Method var_copyto_0_2;
 		

@@ -1,4 +1,5 @@
 ﻿using Cauldron.Activator;
+using Cauldron.Core;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -36,8 +37,11 @@ namespace Activator_Tests
 
     [Component(typeof(object), FactoryCreationPolicy.Singleton, 34)]
     [Component("Hello", FactoryCreationPolicy.Singleton, 34)]
-    public class AllParametersClass
+    public class AllParametersClass : DisposableBase
     {
+        protected override void OnDispose(bool disposeManaged)
+        {
+        }
     }
 
     public class ComponentTestBase<T> where T : new()

@@ -196,10 +196,7 @@ namespace Cauldron.Interception.Fody
 		
 		/// <exclude />
 		public static implicit operator TypeReference(BuilderType<#=type.Name.Replace("`", "")#> value) => Builder.Current.Import((TypeReference)value.builderType);
-
-		/// <exclude />
-		public BuilderType BuilderType => this.builderType;
-				
+						
 		<#
 		// Methods
 		var constructors = type

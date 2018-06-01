@@ -112,6 +112,18 @@ namespace Cauldron.Interception.Fody
 
     public partial class BuilderTypeIFactoryTypeInfo : TypeSystemExBase
     {
+        /// <summary>
+        /// Represents the following method:
+        /// <para />
+        /// System.Object CreateInstance(System.Object[])<para/>
+        /// </summary>
+        public Method GetMethod_CreateInstance_1()
+        {
+            if (this.var_createinstance_0_1 == null)
+                this.var_createinstance_0_1 = this.builderType.GetMethod("CreateInstance", 1, true);
+
+            return this.var_createinstance_0_1.Import();
+        }
     }
 
     public partial class BuilderTypeInterceptionRuleAttribute : TypeSystemExBase

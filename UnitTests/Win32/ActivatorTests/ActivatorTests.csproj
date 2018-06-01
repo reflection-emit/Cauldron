@@ -65,6 +65,10 @@
       <Project>{0584e5fa-bdf8-42e2-a20e-051dc4bee540}</Project>
       <Name>Cauldron.Core.Collections</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Win32\Cauldron.Core.Disposable\Cauldron.Core.Disposable.csproj">
+      <Project>{667BFA3C-10B8-4E75-BEFD-9256543F0857}</Project>
+      <Name>Cauldron.Core.Disposable</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Win32\Cauldron.Core.Extensions.Convertions\Cauldron.Core.Extensions.Convertions.csproj">
       <Project>{be180ed2-42f6-4341-b33a-25a9d081f706}</Project>
       <Name>Cauldron.Core.Extensions.Convertions</Name>
