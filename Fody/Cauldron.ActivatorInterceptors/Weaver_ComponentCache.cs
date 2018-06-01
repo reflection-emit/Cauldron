@@ -125,7 +125,7 @@ public static class Weaver_ComponentCache
 
                         if (string.IsNullOrEmpty(componentAttributeValue.ContractName))
                             componentTypeCtor.SetValue(propertyResult.BackingField, x =>
-                                x.Load(builder.Import((TypeReference)componentAttributeValue.ContractType).ToBuilderType()).Call(BuilderTypes.Type.GetMethod_get_FullName()));
+                                x.Load(componentAttributeValue.ContractType).Call(BuilderTypes.Type.GetMethod_get_FullName()));
                         else
                         {
                             propertyResult.BackingField.Remove();
@@ -268,7 +268,7 @@ public static class Weaver_ComponentCache
         var componentAttributeValues = new ComponentAttributeValues(component);
         var ctors = GetComponentConstructors(component);
 
-        if (ctors.Length > 0)
+        if (ctors.Length > 0 && context.AssociatedMethod.Parameters.Length > 0)
         {
             var parameterlessCtorAlreadyHandled = false;
 
@@ -281,7 +281,7 @@ public static class Weaver_ComponentCache
                 ctor.CustomAttributes.AddEditorBrowsableAttribute(EditorBrowsableState.Never);
                 var ctorParameters = ctor.Parameters;
 
-                if (ctorParameters.Length > 0 && context.AssociatedMethod.Parameters.Length > 0)
+                if (ctorParameters.Length > 0)
                 {
                     // In this case we have to find a parameterless constructor first
                     if (component.Type.ParameterlessContructor != null && !parameterlessCtorAlreadyHandled && component.Type.ParameterlessContructor.IsPublicOrInternal)
@@ -332,7 +332,7 @@ public static class Weaver_ComponentCache
                 }
             }
         }
-        else
+        else if (context.AssociatedMethod.Parameters.Length > 0)
         {
             // In case we don't have constructor with ComponentConstructor Attribute,
             // then we should look for a parameterless Ctor
@@ -343,6 +343,15 @@ public static class Weaver_ComponentCache
                 CreateComponentParameterlessCtor(context, component.Type.ParameterlessContructor, componentAttributeValues);
                 builder.Log(LogTypes.Info, $"The component '{component.Type.Fullname}' has no ComponentConstructor attribute. A parameterless ctor was found and will be used.");
             }
+        }
+        else
+        {
+            if (component.Type.ParameterlessContructor != null && component.Type.ParameterlessContructor.IsPublicOrInternal)
+            {
+                CreateComponentParameterlessCtor(context, component.Type.ParameterlessContructor, componentAttributeValues);
+                builder.Log(LogTypes.Info, $"The component '{component.Type.Fullname}' has no ComponentConstructor attribute. A parameterless ctor was found and will be used.");
+            }
+            else context.Load(value: null).Return();
         }
 
         if (context.AssociatedMethod.Parameters.Length > 0)

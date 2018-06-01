@@ -718,7 +718,7 @@ namespace Cauldron.Interception.Cecilator
         public static IEnumerable<Instruction> TypeOf(this ILProcessor processor, TypeReference type)
         {
             return new Instruction[] {
-                processor.Create(OpCodes.Ldtoken, type),
+                processor.Create(OpCodes.Ldtoken, Builder.Current.Import(type)),
                 processor.Create(OpCodes.Call,
                     Builder.Current.Import(
                         typeof(Type).GetTypeDefinition()
@@ -1107,6 +1107,22 @@ namespace Cauldron.Interception.Cecilator
         }
 
         internal static bool IsDelegate(this TypeReference typeReference) => typeReference.BetterResolve().IsDelegate();
+
+        internal static bool IsJumpReturnOrThrow(this Instruction instruction)
+        {
+            var opCode = instruction.OpCode;
+            return
+                opCode == OpCodes.Throw ||
+                opCode == OpCodes.Leave ||
+                opCode == OpCodes.Brfalse ||
+                opCode == OpCodes.Brfalse_S ||
+                opCode == OpCodes.Brtrue ||
+                opCode == OpCodes.Brtrue_S ||
+                opCode == OpCodes.Br_S ||
+                opCode == OpCodes.Ret ||
+                opCode == OpCodes.Br ||
+                opCode == OpCodes.Break;
+        }
 
         internal static bool IsLoadArgument(this Instruction instruction)
         {

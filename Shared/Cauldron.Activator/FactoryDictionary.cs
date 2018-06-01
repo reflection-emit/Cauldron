@@ -45,7 +45,7 @@ namespace Cauldron.Activator
                     var entry = entries[currEntryPos];
 
                     // same key is in the dictionary
-                    if (hash == entry.hashcode && key == entry.key)
+                    if (key.Equals(entry.key))
                         return;
 
                     currEntryPos = entry.next;
@@ -115,7 +115,7 @@ namespace Cauldron.Activator
             {
                 var entry = entries[nextpos];
 
-                if (hash == entry.hashcode && key == entry.key)
+                if (key.Equals(entry.key))
                 {
                     nextfree--;
                     buckets[pos] = -1;
@@ -131,8 +131,7 @@ namespace Cauldron.Activator
 
         public bool TryGetValue(TKey key, out TValue value)
         {
-            uint hash = (uint)key.GetHashCode();
-            uint pos = hash % (uint)buckets.Length;
+            uint pos = (uint)key.GetHashCode() % (uint)buckets.Length;
             int entryLocation = buckets[pos];
 
             if (entryLocation == -1)
@@ -147,7 +146,7 @@ namespace Cauldron.Activator
             {
                 var entry = entries[nextpos];
 
-                if (hash == entry.hashcode && key == entry.key)
+                if (key.Equals(entry.key))
                 {
                     value = entries[nextpos].value;
                     return true;
