@@ -1162,7 +1162,7 @@ namespace Cauldron.Activator
 
             // Get all known components
             componentsTyped = new FactoryDictionary<Type, FactoryDictionaryValue>();
-            foreach (var item in factoryInfoTypes.Where(x => x.Type != null).GroupBy(x => x.Type).Select(x => new { x.Key, Items = x.ToArray() }))
+            foreach (var item in factoryInfoTypes.Where(x => x.ContractType != null).GroupBy(x => x.ContractType).Select(x => new { x.Key, Items = x.ToArray() }))
                 componentsTyped.Add(item.Key, new FactoryDictionaryValue { factoryTypeInfos = item.Items });
             // Get all factory extensions
             GetAndInitializeAllExtensions(factoryInfoTypes);
