@@ -17,7 +17,7 @@ namespace Cauldron.Activator
     public static class Factory
     {
         private static readonly string iFactoryExtensionName = typeof(IFactoryExtension).FullName;
-        private static FactoryDictionary<string, FactoryDictionaryValue> componentsNamed;
+        private static FactoryStringDictionary<FactoryDictionaryValue> componentsNamed;
         private static FactoryDictionary<Type, FactoryDictionaryValue> componentsTyped;
         private static IFactoryTypeInfo[] factoryInfoTypes;
 
@@ -1117,7 +1117,7 @@ namespace Cauldron.Activator
         private static void InitializeFactory(IEnumerable<IFactoryTypeInfo> factoryInfoTypes)
         {
             // Get all known components
-            componentsNamed = new FactoryDictionary<string, FactoryDictionaryValue>();
+            componentsNamed = new FactoryStringDictionary<FactoryDictionaryValue>();
             foreach (var item in factoryInfoTypes.GroupBy(x => x.ContractName).Select(x => new { x.Key, Items = x.ToArray() }))
                 componentsNamed.Add(item.Key, new FactoryDictionaryValue().SetValues(item.Items));
             // Get all factory extensions

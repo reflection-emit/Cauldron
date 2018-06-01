@@ -8,15 +8,7 @@ namespace Cauldron.Activator
          http://blog.teamleadnet.com/2012/07/ultra-fast-hashtable-dictionary-with.html
     */
 
-    internal static class FactoryDictionary
-    {
-        public static readonly uint[] primeSizes = new uint[]{ 89, 179, 359, 719, 1439, 2879, 5779, 11579, 23159, 46327,
-                                        92657, 185323, 370661, 741337, 1482707, 2965421, 5930887, 11861791,
-                                        23723599, 47447201, 94894427, 189788857, 379577741, 759155483};
-    }
-
-    internal sealed class FactoryDictionary<TKey, TValue>
-        where TKey : class
+    internal sealed class FactoryStringDictionary<TValue>
         where TValue : class
     {
         private const int initialsize = 89;
@@ -25,11 +17,11 @@ namespace Cauldron.Activator
         private FactoryDictionaryEntry[] entries;
         private int nextfree;
 
-        public FactoryDictionary() => Initialize();
+        public FactoryStringDictionary() => Initialize();
 
         public int Count => nextfree;
 
-        public TValue this[TKey key]
+        public TValue this[string key]
         {
             get
             {
@@ -45,7 +37,7 @@ namespace Cauldron.Activator
                 {
                     var entry = entries[nextpos];
 
-                    if (object.ReferenceEquals(key, entry.key))
+                    if (key == entry.key)
                         return entries[nextpos].value;
 
                     nextpos = entry.next;
@@ -56,7 +48,7 @@ namespace Cauldron.Activator
             }
         }
 
-        public void Add(TKey key, TValue value)
+        public void Add(string key, TValue value)
         {
             if (nextfree >= entries.Length)
                 Resize();
@@ -74,7 +66,7 @@ namespace Cauldron.Activator
                 {
                     var entry = entries[currEntryPos];
 
-                    if (object.ReferenceEquals(key, entry.key))
+                    if (key == entry.key)
                         return;
 
                     currEntryPos = entry.next;
@@ -98,7 +90,7 @@ namespace Cauldron.Activator
 
         public void Clear() => Initialize();
 
-        public bool ContainsKey(TKey key)
+        public bool ContainsKey(string key)
         {
             uint hash = (uint)key.GetHashCode();
             uint pos = hash % (uint)buckets.Length;
@@ -113,7 +105,7 @@ namespace Cauldron.Activator
             {
                 var entry = entries[nextpos];
 
-                if (object.ReferenceEquals(key, entry.key))
+                if (key == entry.key)
                     return true;
 
                 nextpos = entry.next;
@@ -129,7 +121,7 @@ namespace Cauldron.Activator
                     yield return entries[i].value;
         }
 
-        public bool Remove(TKey key)
+        public bool Remove(string key)
         {
             uint hash = (uint)key.GetHashCode();
             uint pos = hash % (uint)buckets.Length;
@@ -144,7 +136,7 @@ namespace Cauldron.Activator
             {
                 var entry = entries[nextpos];
 
-                if (object.ReferenceEquals(key, entry.key))
+                if (key == entry.key)
                 {
                     nextfree--;
                     buckets[pos] = -1;
@@ -207,7 +199,7 @@ namespace Cauldron.Activator
         private class FactoryDictionaryEntry
         {
             public uint hashcode;
-            public TKey key;
+            public string key;
             public int next;
             public TValue value;
         }
