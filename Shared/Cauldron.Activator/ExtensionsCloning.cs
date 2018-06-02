@@ -137,7 +137,7 @@ namespace Cauldron.Activator
         /// <returns>Returns the target</returns>
         /// <exception cref="ArgumentNullException"><paramref name="source"/> is null</exception>
         public static T MapTo<T>(this object source) where T : class, new() =>
-            source.MapTo(Factory.Create<T>());
+            source.MapTo(Factory.CreateInstance(typeof(T)) as T);
 
         private static object CopyObject(Type valueType, object value)
         {
@@ -235,7 +235,7 @@ namespace Cauldron.Activator
             else if (valueType.IsValueType && !valueType.IsEnum || valueType.GetConstructor(Type.EmptyTypes) != null)
 #endif
             {
-                result = Factory.Create(valueType);
+                result = Factory.CreateInstance(valueType);
 
                 if (result == null)
                     result = valueType.CreateInstance();

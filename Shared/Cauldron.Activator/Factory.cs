@@ -96,8 +96,25 @@ namespace Cauldron.Activator
         /// <param name="createInstance">
         /// An action that is called by the factory to create the object
         /// </param>
-        public static IFactoryTypeInfo AddType(Type contractType, FactoryCreationPolicy creationPolicy, Type type, Func<object[], object> createInstance) =>
-            AddType(contractType.FullName, creationPolicy, type, createInstance);
+        public static IFactoryTypeInfo AddType(Type contractType, FactoryCreationPolicy creationPolicy, Type type, Func<object[], object> createInstance)
+        {
+            var factoryTypeInfo = new FactoryTypeInfoInternal(contractType, creationPolicy, type, createInstance);
+            var result = componentsTyped[contractType];
+
+            if (result == null)
+                componentsTyped.Add(contractType, new FactoryDictionaryValue().SetValues(new IFactoryTypeInfo[] { factoryTypeInfo }));
+            else
+                result.SetValues(result.factoryTypeInfos.Concat(factoryTypeInfo).ToArray());
+
+            result = componentsNamed[contractType.FullName];
+
+            if (result == null)
+                componentsNamed.Add(contractType.FullName, new FactoryDictionaryValue().SetValues(new IFactoryTypeInfo[] { factoryTypeInfo }));
+            else
+                result.SetValues(result.factoryTypeInfos.Concat(factoryTypeInfo).ToArray());
+
+            return factoryTypeInfo;
+        }
 
         /// <summary>
         /// Adds a new <see cref="Type"/> to list of known types.
@@ -143,22 +160,7 @@ namespace Cauldron.Activator
         {
             var factoryInfos = componentsNamed[type.FullName];
             if (factoryInfos == null)
-            {
-#if NETFX_CORE
-                if(type.GetTypeInfo().IsInterface)
-#else
-                if (type.IsInterface)
-#endif
-                {
-                    if (CanRaiseExceptions)
-                        throw new NotImplementedException($"The contractName '{type}' was not found.");
-
-                    Debug.WriteLine($"ERROR: The contractName '{type}' was not found.");
-                    return null;
-                }
-
-                return type.CreateInstance(args);
-            }
+                return ThrowExceptionOrReturnNull(type, args);
 
             if (factoryInfos.isSingle)
                 return factoryInfos.ambigious.CreateInstance(args);
@@ -212,13 +214,7 @@ namespace Cauldron.Activator
         {
             var factoryInfos = componentsNamed[contractName];
             if (factoryInfos == null)
-            {
-                if (CanRaiseExceptions)
-                    throw new NotImplementedException($"The contractName '{contractName}' was not found.");
-
-                Debug.WriteLine($"ERROR: The contractName '{contractName}' was not found.");
-                return null;
-            }
+                return ThrowExceptionOrReturnNull(contractName);
 
             if (factoryInfos.isSingle)
                 return factoryInfos.ambigious.CreateInstance();
@@ -254,13 +250,7 @@ namespace Cauldron.Activator
         {
             var factoryInfos = componentsTyped[contractType];
             if (factoryInfos == null)
-            {
-                if (CanRaiseExceptions)
-                    throw new NotImplementedException($"The contractName '{contractType.FullName}' was not found.");
-
-                Debug.WriteLine($"ERROR: The contractName '{contractType.FullName}' was not found.");
-                return null;
-            }
+                return ThrowExceptionOrReturnNull(contractType);
 
             if (factoryInfos.isSingle)
                 return factoryInfos.ambigious.CreateInstance();
@@ -313,13 +303,7 @@ namespace Cauldron.Activator
         {
             var factoryInfos = componentsTyped[contractType];
             if (factoryInfos == null)
-            {
-                if (CanRaiseExceptions)
-                    throw new NotImplementedException($"The contractName '{contractType}' was not found.");
-
-                Debug.WriteLine($"ERROR: The contractName '{contractType}' was not found.");
-                return null;
-            }
+                return ThrowExceptionOrReturnNull(contractType);
 
             return factoryInfos.createFirst.CreateInstance();
         }
@@ -342,13 +326,7 @@ namespace Cauldron.Activator
         {
             var factoryInfos = componentsNamed[contractName];
             if (factoryInfos == null)
-            {
-                if (CanRaiseExceptions)
-                    throw new NotImplementedException($"The contractName '{contractName}' was not found.");
-
-                Debug.WriteLine($"ERROR: The contractName '{contractName}' was not found.");
-                return null;
-            }
+                return ThrowExceptionOrReturnNull(contractName);
 
             return factoryInfos.createFirst.CreateInstance();
         }
@@ -375,13 +353,7 @@ namespace Cauldron.Activator
         {
             var factoryInfos = componentsNamed[contractName];
             if (factoryInfos == null)
-            {
-                if (CanRaiseExceptions)
-                    throw new NotImplementedException($"The contractName '{contractName}' was not found.");
-
-                Debug.WriteLine($"ERROR: The contractName '{contractName}' was not found.");
-                return null;
-            }
+                return ThrowExceptionOrReturnNull(contractName) as IEnumerable;
 
             var result = new object[factoryInfos.factoryTypeInfos.Length];
             for (int i = 0; i < factoryInfos.factoryTypeInfos.Length; i++)
@@ -408,13 +380,7 @@ namespace Cauldron.Activator
         {
             var factoryInfos = componentsTyped[contractType];
             if (factoryInfos == null)
-            {
-                if (CanRaiseExceptions)
-                    throw new NotImplementedException($"The contractName '{contractType}' was not found.");
-
-                Debug.WriteLine($"ERROR: The contractName '{contractType}' was not found.");
-                return null;
-            }
+                return ThrowExceptionOrReturnNull(contractType) as IEnumerable;
 
             var result = new object[factoryInfos.factoryTypeInfos.Length];
             for (int i = 0; i < factoryInfos.factoryTypeInfos.Length; i++)
@@ -462,13 +428,7 @@ namespace Cauldron.Activator
         {
             var factoryInfos = componentsNamed[contractName];
             if (factoryInfos == null)
-            {
-                if (CanRaiseExceptions)
-                    throw new NotImplementedException($"The contractName '{contractName}' was not found.");
-
-                Debug.WriteLine($"ERROR: The contractName '{contractName}' was not found.");
-                return null;
-            }
+                return ThrowExceptionOrReturnNull(contractName) as IEnumerable;
 
             var result = new object[factoryInfos.factoryTypeInfos.Length];
             for (int i = 0; i < factoryInfos.factoryTypeInfos.Length; i++)
@@ -496,13 +456,7 @@ namespace Cauldron.Activator
         {
             var factoryInfos = componentsTyped[contractType];
             if (factoryInfos == null)
-            {
-                if (CanRaiseExceptions)
-                    throw new NotImplementedException($"The contractName '{contractType}' was not found.");
-
-                Debug.WriteLine($"ERROR: The contractName '{contractType}' was not found.");
-                return null;
-            }
+                return ThrowExceptionOrReturnNull(contractType) as IEnumerable;
 
             var result = new object[factoryInfos.factoryTypeInfos.Length];
             for (int i = 0; i < factoryInfos.factoryTypeInfos.Length; i++)
@@ -582,13 +536,7 @@ namespace Cauldron.Activator
         {
             var factoryInfos = componentsNamed[contractName];
             if (factoryInfos == null)
-            {
-                if (CanRaiseExceptions)
-                    throw new NotImplementedException($"The contractName '{contractName}' was not found.");
-
-                Debug.WriteLine($"ERROR: The contractName '{contractName}' was not found.");
-                return null;
-            }
+                return ThrowExceptionOrReturnNull(contractName);
 
             if (factoryInfos.isSingle)
                 return factoryInfos.ambigious.CreateInstance(parameters);
@@ -629,13 +577,7 @@ namespace Cauldron.Activator
         {
             var factoryInfos = componentsTyped[contractType];
             if (factoryInfos == null)
-            {
-                if (CanRaiseExceptions)
-                    throw new NotImplementedException($"The contractName '{contractType.FullName}' was not found.");
-
-                Debug.WriteLine($"ERROR: The contractName '{contractType.FullName}' was not found.");
-                return null;
-            }
+                return ThrowExceptionOrReturnNull(contractType, parameters);
 
             if (factoryInfos.isSingle)
                 return factoryInfos.ambigious.CreateInstance(parameters);
@@ -698,13 +640,7 @@ namespace Cauldron.Activator
         {
             var factoryInfos = componentsTyped[contractType];
             if (factoryInfos == null)
-            {
-                if (CanRaiseExceptions)
-                    throw new NotImplementedException($"The contractName '{contractType}' was not found.");
-
-                Debug.WriteLine($"ERROR: The contractName '{contractType}' was not found.");
-                return null;
-            }
+                return ThrowExceptionOrReturnNull(contractType, parameters);
 
             return factoryInfos.createFirst.CreateInstance(parameters);
         }
@@ -732,13 +668,7 @@ namespace Cauldron.Activator
         {
             var factoryInfos = componentsNamed[contractName];
             if (factoryInfos == null)
-            {
-                if (CanRaiseExceptions)
-                    throw new NotImplementedException($"The contractName '{contractName}' was not found.");
-
-                Debug.WriteLine($"ERROR: The contractName '{contractName}' was not found.");
-                return null;
-            }
+                return ThrowExceptionOrReturnNull(contractName);
 
             return factoryInfos.createFirst.CreateInstance(parameters);
         }
@@ -770,13 +700,7 @@ namespace Cauldron.Activator
         {
             var factoryInfos = componentsNamed[contractName];
             if (factoryInfos == null)
-            {
-                if (CanRaiseExceptions)
-                    throw new NotImplementedException($"The contractName '{contractName}' was not found.");
-
-                Debug.WriteLine($"ERROR: The contractName '{contractName}' was not found.");
-                return null;
-            }
+                return ThrowExceptionOrReturnNull(contractName) as IEnumerable;
 
             var result = new object[factoryInfos.factoryTypeInfos.Length];
             for (int i = 0; i < factoryInfos.factoryTypeInfos.Length; i++)
@@ -808,13 +732,7 @@ namespace Cauldron.Activator
         {
             var factoryInfos = componentsTyped[contractType];
             if (factoryInfos == null)
-            {
-                if (CanRaiseExceptions)
-                    throw new NotImplementedException($"The contractName '{contractType}' was not found.");
-
-                Debug.WriteLine($"ERROR: The contractName '{contractType}' was not found.");
-                return null;
-            }
+                return ThrowExceptionOrReturnNull(contractType, parameters) as IEnumerable;
 
             var result = new object[factoryInfos.factoryTypeInfos.Length];
             for (int i = 0; i < factoryInfos.factoryTypeInfos.Length; i++)
@@ -872,13 +790,7 @@ namespace Cauldron.Activator
         {
             var factoryInfos = componentsNamed[contractName];
             if (factoryInfos == null)
-            {
-                if (CanRaiseExceptions)
-                    throw new NotImplementedException($"The contractName '{contractName}' was not found.");
-
-                Debug.WriteLine($"ERROR: The contractName '{contractName}' was not found.");
-                return null;
-            }
+                return ThrowExceptionOrReturnNull(contractName) as IEnumerable;
 
             var result = new object[factoryInfos.factoryTypeInfos.Length];
             for (int i = 0; i < factoryInfos.factoryTypeInfos.Length; i++)
@@ -911,13 +823,7 @@ namespace Cauldron.Activator
         {
             var factoryInfos = componentsTyped[contractType];
             if (factoryInfos == null)
-            {
-                if (CanRaiseExceptions)
-                    throw new NotImplementedException($"The contractName '{contractType}' was not found.");
-
-                Debug.WriteLine($"ERROR: The contractName '{contractType}' was not found.");
-                return null;
-            }
+                return ThrowExceptionOrReturnNull(contractType, parameters) as IEnumerable;
 
             var result = new object[factoryInfos.factoryTypeInfos.Length];
             for (int i = 0; i < factoryInfos.factoryTypeInfos.Length; i++)
@@ -1009,13 +915,7 @@ namespace Cauldron.Activator
         {
             var factoryInfos = componentsNamed[contractName];
             if (factoryInfos == null)
-            {
-                if (CanRaiseExceptions)
-                    throw new NotImplementedException($"The contractName '{contractName}' was not found.");
-
-                Debug.WriteLine($"ERROR: The contractName '{contractName}' was not found.");
-                return null;
-            }
+                return ThrowExceptionOrReturnNull(contractName) as IFactoryTypeInfo;
 
             if (factoryInfos.isSingle)
                 return factoryInfos.ambigious;
@@ -1033,13 +933,7 @@ namespace Cauldron.Activator
         {
             var factoryInfos = componentsNamed[contractName];
             if (factoryInfos == null)
-            {
-                if (CanRaiseExceptions)
-                    throw new NotImplementedException($"The contractName '{contractName}' was not found.");
-
-                Debug.WriteLine($"ERROR: The contractName '{contractName}' was not found.");
-                return null;
-            }
+                return ThrowExceptionOrReturnNull(contractName) as IFactoryTypeInfo;
 
             return factoryInfos.createFirst;
         }
@@ -1147,6 +1041,54 @@ namespace Cauldron.Activator
             factoryDictionaryValue.isSingle = items.Length == 1;
 
             return factoryDictionaryValue;
+        }
+
+        private static object ThrowExceptionOrReturnNull(Type contractType, object[] parameters)
+        {
+#if NETFX_CORE
+            if(contractType.GetTypeInfo().IsInterface)
+#else
+            if (contractType.IsInterface)
+#endif
+            {
+                if (CanRaiseExceptions)
+                    throw new NotImplementedException($"Unable to create an instance from the interface '{contractType.FullName}'");
+                else
+                    Debug.WriteLine($"ERROR: Unable to create an instance from the interface '{contractType.FullName}'");
+
+                return null;
+            }
+
+            return contractType.CreateInstance(parameters);
+        }
+
+        private static object ThrowExceptionOrReturnNull(Type contractType)
+        {
+#if NETFX_CORE
+            if(contractType.GetTypeInfo().IsInterface)
+#else
+            if (contractType.IsInterface)
+#endif
+            {
+                if (CanRaiseExceptions)
+                    throw new NotImplementedException($"Unable to create an instance from the interface '{contractType.FullName}'");
+                else
+                    Debug.WriteLine($"ERROR: Unable to create an instance from the interface '{contractType.FullName}'");
+
+                return null;
+            }
+
+            return contractType.CreateInstance();
+        }
+
+        private static object ThrowExceptionOrReturnNull(string contractName)
+        {
+            if (CanRaiseExceptions)
+                throw new NotImplementedException($"The contractName '{contractName}' was not found.");
+
+            Debug.WriteLine($"ERROR: The contractName '{contractName}' was not found.");
+
+            return null;
         }
     }
 

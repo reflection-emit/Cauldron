@@ -20,6 +20,16 @@ namespace Cauldron.Activator
             this.createInstance = createInstance;
         }
 
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        internal FactoryTypeInfoInternal(Type contractType, FactoryCreationPolicy creationPolicy, Type type, Func<object[], object> createInstance)
+        {
+            this.ContractName = contractType.FullName;
+            this.ContractType = contractType;
+            this.CreationPolicy = creationPolicy;
+            this.Type = type;
+            this.createInstance = createInstance;
+        }
+
         /// <exclude/>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string ContractName { get; private set; }

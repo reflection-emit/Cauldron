@@ -266,7 +266,7 @@ public static class Weaver_ComponentCache
     private static Coder AddContext(Builder builder, Coder context, AttributedType component)
     {
         var componentAttributeValues = new ComponentAttributeValues(component);
-        var ctors = GetComponentConstructors(component);
+        var ctors = GetComponentConstructors(component).ToArray();
 
         if (ctors.Length > 0 && context.AssociatedMethod.Parameters.Length > 0)
         {
@@ -331,40 +331,34 @@ public static class Weaver_ComponentCache
                     parameterlessCtorAlreadyHandled = true;
                 }
             }
+
+            context.ThrowNew(typeof(NotImplementedException), x =>
+                x.Call(BuilderTypes.String.GetMethod_Concat(BuilderTypes.String, BuilderTypes.String), unknownConstructorText,
+                    x.NewCoder().Call(BuilderTypes2.IFactoryTypeInfo.GetMethod_get_ContractName())).End);
         }
-        else if (context.AssociatedMethod.Parameters.Length > 0)
+        else if (ctors.Length > 0)
         {
-            // In case we don't have constructor with ComponentConstructor Attribute,
-            // then we should look for a parameterless Ctor
-            if (component.Type.ParameterlessContructor == null)
-                builder.Log(LogTypes.Error, component.Type, $"The component '{component.Type.Fullname}' has no ComponentConstructor attribute or the constructor is not public");
-            else if (component.Type.ParameterlessContructor.IsPublicOrInternal)
-            {
-                CreateComponentParameterlessCtor(context, component.Type.ParameterlessContructor, componentAttributeValues);
-                builder.Log(LogTypes.Info, $"The component '{component.Type.Fullname}' has no ComponentConstructor attribute. A parameterless ctor was found and will be used.");
-            }
-        }
-        else
-        {
-            if (component.Type.ParameterlessContructor != null && component.Type.ParameterlessContructor.IsPublicOrInternal)
-            {
-                CreateComponentParameterlessCtor(context, component.Type.ParameterlessContructor, componentAttributeValues);
-                builder.Log(LogTypes.Info, $"The component '{component.Type.Fullname}' has no ComponentConstructor attribute. A parameterless ctor was found and will be used.");
-            }
-            else
+            var ctor = ctors.FirstOrDefault(x => x.Parameters.Length == 0);
+            if (ctor == null)
                 context.ThrowNew(typeof(NotImplementedException), x =>
                     x.Call(BuilderTypes.String.GetMethod_Concat(BuilderTypes.String, BuilderTypes.String), unknownConstructorText,
                         x.NewCoder().Call(BuilderTypes2.IFactoryTypeInfo.GetMethod_get_ContractName())).End);
+            else
+                CreateComponentParameterlessCtor(context, ctor, componentAttributeValues);
         }
-
-        if (context.AssociatedMethod.Parameters.Length > 0)
+        else
+        {
             context.ThrowNew(typeof(NotImplementedException), x =>
                 x.Call(BuilderTypes.String.GetMethod_Concat(BuilderTypes.String, BuilderTypes.String), unknownConstructorText,
                     x.NewCoder().Call(BuilderTypes2.IFactoryTypeInfo.GetMethod_get_ContractName())).End);
 
+            builder.Log(LogTypes.Error, component.Type, $"The component '{component.Type.Fullname}' has no ComponentConstructor attribute or the constructor is not public or internal");
+        }
+
         return context;
     }
 
+    /*
     private static Coder AddContextParameterless(Builder builder, Coder context, AttributedType component)
     {
         var componentAttributeValues = new ComponentAttributeValues(component);
@@ -403,6 +397,7 @@ public static class Weaver_ComponentCache
 
         return context;
     }
+    */
 
     private static Coder AddCreateInstanceMethod(Builder builder, BuilderType cauldron, Method createInstanceInterfaceMethod, AttributedType component, ComponentAttributeValues componentAttributeValue, BuilderType componentType)
     {
@@ -534,40 +529,61 @@ public static class Weaver_ComponentCache
         return injectorField;
     }
 
-    private static Method[] GetComponentConstructors(AttributedType component)
+    private static IEnumerable<Method> GetComponentConstructors(AttributedType component)
     {
-        var componentConstructorAttribute = BuilderTypes2.ComponentConstructorAttribute;
+        var methods = component.Type.GetMethods().OrderBy(x => x.Parameters.Length);
 
-        // Find any method with a componentcontructor attribute
-        return component.Type.GetMethods(y =>
+        // First all ctors with component Attribute
+        foreach (var item in methods)
         {
-            if (y.Name == ".cctor")
-                return false;
+            if (item.Name != ".ctor")
+                continue;
 
-            if (!y.Resolve().IsPublic && !y.Resolve().IsAssembly)
-                return false;
+            if (item.IsPublicOrInternal && item.CustomAttributes.HasAttribute(BuilderTypes2.ComponentConstructorAttribute))
+                yield return item;
+        }
 
-            if (y.Name == ".ctor" && y.DeclaringType.FullName.GetHashCode() != component.Type.Fullname.GetHashCode() && y.DeclaringType.FullName != component.Type.Fullname)
-                return false;
+        // Get all properties with component attribute
+        foreach (var item in component.Type.GetAllProperties())
+        {
+            if (item.Getter == null)
+                continue;
 
-            if (y.Name.StartsWith("set_"))
-                return false;
+            if (item.IsStatic && item.Getter.IsPublicOrInternal && item.CustomAttributes.HasAttribute(BuilderTypes2.ComponentConstructorAttribute))
+                yield return item.Getter;
+        }
 
-            return true;
-        })
-            .Where(y => y.CustomAttributes.HasAttribute(componentConstructorAttribute))
-            .Concat(
-                component.Type.GetAllProperties().Where(y => y.CustomAttributes.HasAttribute(componentConstructorAttribute))
-                    .Select(y =>
-                    {
-                        y.CustomAttributes.Remove(componentConstructorAttribute);
-                        y.CustomAttributes.AddEditorBrowsableAttribute(EditorBrowsableState.Never);
+        // Then all static methods with component attribute
+        foreach (var item in methods)
+        {
+            if (!item.IsStatic)
+                continue;
 
-                        return y.Getter;
-                    })
-                )
-            .OrderBy(y => y.Parameters.Length)
-            .ToArray();
+            if (item.Name == ".cctor")
+                continue;
+
+            if (item.Name.StartsWith("set_"))
+                continue;
+
+            if (item.Name.StartsWith("get_"))
+                continue;
+
+            if (item.IsPublicOrInternal && item.CustomAttributes.HasAttribute(BuilderTypes2.ComponentConstructorAttribute))
+                yield return item;
+        }
+
+        // At last all ctors without component Attribute
+        foreach (var item in methods)
+        {
+            if (item.Name != ".ctor")
+                continue;
+
+            if (item.DeclaringType != component.Type)
+                continue;
+
+            if (item.IsPublicOrInternal && !item.CustomAttributes.HasAttribute(BuilderTypes2.ComponentConstructorAttribute))
+                yield return item;
+        }
     }
 
     private static void ImplementGetterValueSet(InjectAttributeValues injectAttributeValues, Property property, Coder then)
