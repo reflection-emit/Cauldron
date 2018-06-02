@@ -344,7 +344,10 @@ public static class Weaver_ComponentCache
                     x.Call(BuilderTypes.String.GetMethod_Concat(BuilderTypes.String, BuilderTypes.String), unknownConstructorText,
                         x.NewCoder().Call(BuilderTypes2.IFactoryTypeInfo.GetMethod_get_ContractName())).End);
             else
+            {
+                ctor.CustomAttributes.AddEditorBrowsableAttribute(EditorBrowsableState.Never);
                 CreateComponentParameterlessCtor(context, ctor, componentAttributeValues);
+            }
         }
         else
         {
