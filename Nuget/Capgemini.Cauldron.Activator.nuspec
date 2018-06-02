@@ -13,6 +13,8 @@
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Activator Dependency Injection Factory Cauldron</tags>
     <releaseNotes>
+      2018.06.02 - [A] contentFiles entry in nuget added.
+      2018.06.02 - [C] More performance boost for the DI
       2018.05.27 - [A] Rebuilt event added
       2018.05.26 - [A] Injector properties added
       2018.05.26 - [A] Component attribute options added.
@@ -31,15 +33,15 @@
       2017.12.04 - [A] CreateFirst method added to the Factory. This will auto-pick the implementation with the highest priority if multiple implementations are available.
     </releaseNotes>
     <dependencies>
-      <dependency id="Capgemini.Cauldron.Core.Diagnostics" version="3.0.19" />
-      <dependency id="Capgemini.Cauldron.Core.Disposable" version="3.0.19" />
-      <dependency id="Capgemini.Cauldron.Core.Extensions" version="3.0.19" />
-      <dependency id="Capgemini.Cauldron.Core.Reflection" version="3.0.19" />
-      <dependency id="Cauldron.Interception.Fody" version="3.0.19" />
+      <dependency id="Capgemini.Cauldron.Core.Diagnostics" version="3.0.22" />
+      <dependency id="Capgemini.Cauldron.Core.Disposable" version="3.0.22" />
+      <dependency id="Capgemini.Cauldron.Core.Extensions" version="3.0.22" />
+      <dependency id="Capgemini.Cauldron.Core.Reflection" version="3.0.22" />
+      <dependency id="Cauldron.Interception.Fody" version="3.0.22" />
       <dependency id="Fody" version="3.0.3" />
     </dependencies>
     <contentFiles>
-      <file src="..\Fody\Interceptors\Cauldron.ActivatorInterceptors*.dll" buildAction="None" />
+      <files include="**/Interceptors/*.*" buildAction="None" />
     </contentFiles>
   </metadata>
   <files>
@@ -70,5 +72,6 @@
     <file src="..\Win32\Cauldron.Activator\bin\Release\Net462\Cauldron.Activator.pdb" target="lib\net462" />
     <file src="..\Shared\Cauldron.Activator\**\*.cs" target="src" />
     <file src="..\Fody\Interceptors\Cauldron.ActivatorInterceptors*.dll" target="Content\Interceptors" />
+    <file src="..\Fody\Interceptors\Cauldron.ActivatorInterceptors*.dll" target="contentFiles\any\any\Interceptors" />
   </files>
 </package>

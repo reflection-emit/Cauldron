@@ -14,6 +14,7 @@
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Cauldron Interception interceptor interception AOP Fody Cecil CIL ILWeaving aspect decorator boundary invocation</tags>
     <releaseNotes>
+      2018.06.02 - [A] contentFiles entry in nuget added.
       2018.05.18 - [A] InterceptorOptionAttribute added.
       2018.05.15 - [A] Interceptors in abstract class for methods and properties are now possible.
       2018.05.15 - [B] Due to changes in cecilator the method weaver has to be fixed also
@@ -22,8 +23,11 @@
       2018.04.23 - [A] First version
     </releaseNotes>
     <dependencies>
-      <dependency id="Cauldron.Interception.Fody" version="3.0.19" />
+      <dependency id="Cauldron.Interception.Fody" version="3.0.22" />
     </dependencies>
+    <contentFiles>
+      <files include="**/Interceptors/*.*" buildAction="None" />
+    </contentFiles>
   </metadata>
   <files>
     <file src="..\NetStandard\Cauldron.Interception\bin\Release\netstandard2.0\Cauldron.Interception.dll" target="lib\netstandard2.0" />
@@ -51,6 +55,7 @@
     <file src="..\Win32\Cauldron.Interception\bin\Release\Net462\Cauldron.Interception.xml" target="lib\net462" />
     <file src="..\Win32\Cauldron.Interception\bin\Release\Net462\Cauldron.Interception.pdb" target="lib\net462" />
     <file src="..\Fody\Interceptors\Cauldron.BasicInterceptors*.dll" target="Content\Interceptors" />
+    <file src="..\Fody\Interceptors\Cauldron.BasicInterceptors*.dll" target="contentFiles\any\any\Interceptors" />
     <file src="..\Shared\Cauldron.Interception\**\*.cs" target="src" />
   </files>
 </package>

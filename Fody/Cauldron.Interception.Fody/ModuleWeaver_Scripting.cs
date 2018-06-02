@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Xml;
 
 namespace Cauldron.Interception.Fody
 {
@@ -30,7 +31,8 @@ namespace Cauldron.Interception.Fody
                 if (Directory.Exists(interceptorDirectory))
                     scripts = scripts
                         .Concat(Directory.GetFiles(interceptorDirectory, "*.csx", SearchOption.AllDirectories))
-                        .Concat(Directory.GetFiles(interceptorDirectory, "*.dll", SearchOption.AllDirectories));
+                        .Concat(Directory.GetFiles(interceptorDirectory, "*.dll", SearchOption.AllDirectories))
+                        .Concat(GetNugetPropsInterceptorPaths());
 
                 scriptBinaries.AddRange(scripts.Select(x => LoadScript(x)));
 
@@ -147,6 +149,31 @@ namespace Cauldron.Interception.Fody
 
                 for (int i = 0; i < dlls.Length; i++)
                     yield return dlls[i];
+            }
+        }
+
+        private IEnumerable<string> GetNugetPropsInterceptorPaths()
+        {
+            var nugetFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), ".nuget\\packages\\");
+            var path = Directory.GetFiles(Path.Combine(this.ProjectDirectoryPath, "obj"), "*.csproj.nuget.g.props", SearchOption.TopDirectoryOnly).FirstOrDefault();
+
+            if (path == null)
+                yield break;
+
+            var xml = new XmlDocument();
+            xml.Load(path);
+
+            foreach (XmlNode item in xml.LastChild.ChildNodes)
+            {
+                if (item.Name != "ItemGroup")
+                    continue;
+
+                foreach (XmlNode itemGroup in item.ChildNodes)
+                {
+                    var value = itemGroup.Attributes["Include"]?.Value;
+                    if (!string.IsNullOrEmpty(value) && value.IndexOf(@"\contentFiles\any\any\Interceptors\", StringComparison.InvariantCultureIgnoreCase) >= 0)
+                        yield return value.Replace("$(NuGetPackageRoot)", nugetFolder);
+                }
             }
         }
 
