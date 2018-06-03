@@ -12,7 +12,7 @@ public static class Weaver_Constructor
 
     static Weaver_Constructor()
     {
-        constructorInterceptionAttributes = Builder.Current.FindAttributesByInterfaces(BuilderTypes2.IConstructorInterceptor.BuilderType.Fullname);
+        constructorInterceptionAttributes = Builder.Current.FindAttributesByInterfaces(BuilderTypes.IConstructorInterceptor.BuilderType.Fullname);
     }
 
     [Display("Constructor Interception")]
@@ -25,7 +25,7 @@ public static class Weaver_Constructor
             .FindMethodsByAttributes(constructorInterceptionAttributes)
             .Where(x => !x.Method.OriginType.IsInterface)
             .GroupBy(x => new MethodKey(x.Method, null))
-            .Select(x => new MethodBuilderInfo<MethodBuilderInfoItem<BuilderTypeIConstructorInterceptor>>(x.Key, x.Select(y => new MethodBuilderInfoItem<BuilderTypeIConstructorInterceptor>(y, BuilderTypes2.IConstructorInterceptor))))
+            .Select(x => new MethodBuilderInfo<MethodBuilderInfoItem<BuilderTypeIConstructorInterceptor>>(x.Key, x.Select(y => new MethodBuilderInfoItem<BuilderTypeIConstructorInterceptor>(y, BuilderTypes.IConstructorInterceptor))))
             .ToArray();
 
         foreach (var constructor in constructors)

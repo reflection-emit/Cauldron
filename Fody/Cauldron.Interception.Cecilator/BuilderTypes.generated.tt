@@ -1,5 +1,11 @@
 ﻿<#@ template debug="false" hostspecific="false" language="C#" #>
 <#@ assembly name="System.Core" #>
+<#@ assembly name="WindowsBase" #>
+<#@ assembly name="PresentationFramework" #>
+<#@ assembly name="$(SolutionDir)Win32\\Cauldron.Activator\\bin\\Release\\Cauldron.Activator.dll" #>
+<#@ assembly name="$(SolutionDir)Win32\\Cauldron.Core.Disposable\\bin\\Release\\Cauldron.Core.Disposable.dll" #>
+<#@ assembly name="$(SolutionDir)Win32\\Cauldron.Interception\\bin\\Release\\Cauldron.Interception.dll" #>
+<#@ assembly name="$(SolutionDir)Win32\\Cauldron.Core.Reflection\\bin\\Release\\Cauldron.Core.Reflection.dll" #>
 <#@ import namespace="System" #>
 <#@ import namespace="System.Collections" #>
 <#@ import namespace="System.Collections.Generic" #>
@@ -60,6 +66,28 @@
 		typeof(EventHandler),
 		typeof(Monitor),
 		typeof(Uri),
+		typeof(Cauldron.Activator.ComponentConstructorAttribute),
+		typeof(Cauldron.Activator.ComponentAttribute),
+		typeof(Cauldron.Core.IDisposableObject),
+		typeof(Cauldron.Activator.IFactoryTypeInfo),
+		typeof(Cauldron.Activator.IFactoryExtension),
+		typeof(Cauldron.Activator.GenericComponentAttribute),
+		typeof(System.Windows.Application),
+		typeof(System.Windows.ResourceDictionary),
+		typeof(Cauldron.Interception.Extensions),
+		typeof(Cauldron.ExtensionsReflection),
+		typeof(Cauldron.Activator.Factory),
+		typeof(Cauldron.Activator.Factory<>),
+		typeof(Cauldron.Interception.IConstructorInterceptor),
+		typeof(Cauldron.Interception.IMethodInterceptor),
+		typeof(Cauldron.Interception.InterceptionRuleAttribute),
+		typeof(Cauldron.Interception.InterceptorOptionsAttribute),
+		typeof(Cauldron.Interception.IPropertyGetterInterceptor),
+		typeof(Cauldron.Interception.IPropertyInterceptorInitialize),
+		typeof(Cauldron.Interception.IPropertySetterInterceptor),
+		typeof(Cauldron.Interception.ISimpleMethodInterceptor),
+		typeof(Cauldron.Interception.ISyncRoot),
+		typeof(Cauldron.Interception.PropertyInterceptionInfo),
 	};
 
 	string GenerateCommas(string count)
@@ -93,6 +121,12 @@
 		}
 
 		return typeName;
+	}
+
+	string StringRepresentation(string typeName)
+	{
+		var blaPos = typeName.IndexOf('[');
+		return typeName.Substring(0, blaPos < 0 ? typeName.Length : blaPos);
 	}
 	
 	string StringRepresentationToCSharpFull(string typeName)
@@ -128,6 +162,9 @@
 				return false;
 
 			if(item.ParameterType.Name.IndexOf("*") >= 0)
+				return false;
+
+			if(item.ParameterType.FullName.StartsWith("Cauldron."))
 				return false;
 		}
 
@@ -191,9 +228,9 @@ namespace Cauldron.Interception.Cecilator
         {
             get
             {
-                if (<#=variableName#> == null) <#=variableName#> = new BuilderType<#=type.Name.Replace("`", "")#>(Builder.Current.GetType(typeof(<#=StringRepresentationToCSharp(type.Name)#>)).Import());
+                if (<#=variableName#> == null) <#=variableName#> = new BuilderType<#=type.Name.Replace("`", "")#>(Builder.Current.GetType("<#=StringRepresentation(type.FullName)#>").Import());
                 return <#=variableName#>;
-            }
+			}
         }
 
 		#endregion

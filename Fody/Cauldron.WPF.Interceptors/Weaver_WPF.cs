@@ -167,7 +167,7 @@ public static class Weaver_WPF
             .ToArray();
 
         var resourceDictionaryMergerClass = builder.CreateType("XamlGeneratedNamespace", TypeAttributes.Public | TypeAttributes.Class | TypeAttributes.Sealed, "<>_generated_resourceDictionary_Loader");
-        resourceDictionaryMergerClass.CustomAttributes.Add(BuilderTypes2.ComponentAttribute.BuilderType, __ResourceDictionary.Type.Fullname);
+        resourceDictionaryMergerClass.CustomAttributes.Add(BuilderTypes.ComponentAttribute.BuilderType, __ResourceDictionary.Type.Fullname);
         resourceDictionaryMergerClass.CustomAttributes.AddEditorBrowsableAttribute(EditorBrowsableState.Never);
         resourceDictionaryMergerClass.CustomAttributes.AddCompilerGeneratedAttribute();
 
@@ -177,8 +177,8 @@ public static class Weaver_WPF
             var resourceDick = context.AssociatedMethod.GetOrCreateVariable(BuilderTypes.ICollection1.BuilderType.MakeGeneric(__ResourceDictionary.Type));
             context
                 .SetValue(resourceDick, x =>
-                    x.Call(BuilderTypes2.Application.GetMethod_get_Current())
-                    .Call(BuilderTypes2.Application.GetMethod_get_Resources())
+                    x.Call(BuilderTypes.Application.GetMethod_get_Current())
+                    .Call(BuilderTypes.Application.GetMethod_get_Resources())
                     .Call(resourceDictionary.MergedDictionaries));
 
             var resourceDictionaryInstance = context.AssociatedMethod.GetOrCreateVariable(__ResourceDictionary.Type);
@@ -203,7 +203,7 @@ public static class Weaver_WPF
         // TODO
 
         resourceDictionaryMergerClass.ParameterlessContructor.CustomAttributes.AddEditorBrowsableAttribute(EditorBrowsableState.Never);
-        resourceDictionaryMergerClass.ParameterlessContructor.CustomAttributes.Add(BuilderTypes2.ComponentConstructorAttribute.BuilderType);
+        resourceDictionaryMergerClass.ParameterlessContructor.CustomAttributes.Add(BuilderTypes.ComponentConstructorAttribute.BuilderType);
     }
 
     [Display("IChangeAwareViewModel implementer")]

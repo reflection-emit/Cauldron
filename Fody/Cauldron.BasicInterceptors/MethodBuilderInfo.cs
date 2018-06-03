@@ -63,7 +63,7 @@ public sealed class MethodBuilderInfoItem<T1, T2> : IMethodBuilderInfoItem
         this.InterfaceB = interfaceB;
         this.AssignMethodAttributeInfos = AssignMethodAttributeInfo.GetAllAssignMethodAttributedFields(attribute);
         this.InterceptorInfo = new InterceptorInfo(this.Attribute.Attribute.Type);
-        this.HasSyncRootInterface = attribute.Attribute.Type.Implements(BuilderTypes2.ISyncRoot);
+        this.HasSyncRootInterface = attribute.Attribute.Type.Implements(BuilderTypes.ISyncRoot);
         this.HasInterfaceA = this.Attribute.Attribute.Type.Implements(this.InterfaceA.BuilderType);
         this.HasInterfaceB = this.Attribute.Attribute.Type.Implements(this.InterfaceB.BuilderType);
 
@@ -103,7 +103,7 @@ public sealed class MethodBuilderInfoItem<T> : IMethodBuilderInfoItem
         this.Interface = @interface;
         this.AssignMethodAttributeInfos = AssignMethodAttributeInfo.GetAllAssignMethodAttributedFields(attribute);
         this.InterceptorInfo = new InterceptorInfo(this.Attribute.Attribute.Type);
-        this.HasSyncRootInterface = attribute.Attribute.Type.Implements(BuilderTypes2.ISyncRoot);
+        this.HasSyncRootInterface = attribute.Attribute.Type.Implements(BuilderTypes.ISyncRoot);
     }
 
     public AssignMethodAttributeInfo[] AssignMethodAttributeInfos { get; private set; }

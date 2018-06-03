@@ -61,11 +61,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyWideAttributeConfig.cs" />
-    <Compile Include="BuilderTypes2.generated.cs">
-      <DependentUpon>BuilderTypes2.generated.tt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <Compile Include="DisplayAttribute.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="HelperTypes\GetAssemblyWeaver.cs" />
@@ -93,15 +88,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <Compile Include="BuilderTypes2.partial.cs" />
     <None Include="csc\csc.exe.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="BuilderTypes2.generated.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>BuilderTypes2.generated.cs</LastGenOutput>
-    </Content>
     <Content Include="csc\csc.exe" />
     <Content Include="csc\Microsoft.CodeAnalysis.CSharp.dll" />
     <Content Include="csc\Microsoft.CodeAnalysis.dll" />

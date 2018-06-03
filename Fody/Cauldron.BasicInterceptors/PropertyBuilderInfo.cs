@@ -56,7 +56,7 @@ namespace Cauldron.Interception.Fody
             this.InterfaceSetter = interfaceSetter;
             this.InterfaceInitializer = interfaceInitializer;
             this.Property = property;
-            this.HasSyncRootInterface = attribute.Attribute.Type.Implements(BuilderTypes2.ISyncRoot);
+            this.HasSyncRootInterface = attribute.Attribute.Type.Implements(BuilderTypes.ISyncRoot);
             this.AssignMethodAttributeInfos = AssignMethodAttributeInfo.GetAllAssignMethodAttributedFields(attribute);
             this.InterceptorInfo = new InterceptorInfo(this.Attribute.Attribute.Type);
         }

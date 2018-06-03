@@ -1,4 +1,5 @@
 ﻿using Mono.Cecil;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -68,6 +69,27 @@ namespace Cauldron.Interception.Cecilator
         }
     }
 
+    public partial class BuilderTypeExtensionsReflection : TypeSystemExBase
+    {
+        /// <summary>
+        /// Represents the following method:
+        /// <para />
+        /// System.Object CreateInstance(System.Type, System.Object[])<para/>
+        /// System.Object CreateInstance(System.Reflection.ConstructorInfo, System.Object[])<para/>
+        /// </summary>
+        public Method GetMethod_CreateInstance()
+        {
+            if (this.var_createinstance_0_2 == null)
+                this.var_createinstance_0_2 = this.builderType.GetMethod("CreateInstance", true, "System.Type", "System.Object[]").Import();
+
+            return this.var_createinstance_0_2;
+        }
+    }
+
+    public partial class BuilderTypeFactory : TypeSystemExBase
+    {
+    }
+
     public partial class BuilderTypeICollection1
     {
         private Method _add;
@@ -79,6 +101,43 @@ namespace Cauldron.Interception.Cecilator
 
             return this._add;
         }
+    }
+
+    public partial class BuilderTypeIFactoryTypeInfo : TypeSystemExBase
+    {
+        /// <summary>
+        /// Represents the following method:
+        /// <para />
+        /// System.Object CreateInstance(System.Object[])<para/>
+        /// </summary>
+        public Method GetMethod_CreateInstance_1()
+        {
+            if (this.var_createinstance_0_1 == null)
+                this.var_createinstance_0_1 = this.builderType.GetMethod("CreateInstance", 1, true);
+
+            return this.var_createinstance_0_1.Import();
+        }
+    }
+
+    public partial class BuilderTypeInterceptionRuleAttribute : TypeSystemExBase
+    {
+        private Method constructor;
+
+        public Method GetConstructor()
+        {
+            if (this.constructor == null)
+                this.constructor = this.builderType.GetMethod("Equals", 2, true).Import();
+
+            return this.constructor;
+        }
+    }
+
+    public partial class BuilderTypeIPropertySetterInterceptor : TypeSystemExBase
+    {
+    }
+
+    public partial class BuilderTypeISyncRoot : TypeSystemExBase
+    {
     }
 
     public partial class BuilderTypeMethodBase

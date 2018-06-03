@@ -8,8 +8,8 @@ public class InterceptorInfo
 {
     public InterceptorInfo(BuilderType attributedType)
     {
-        var interceptorRule = BuilderTypes2.InterceptionRuleAttribute;
-        var interceptorOption = BuilderTypes2.InterceptorOptionsAttribute;
+        var interceptorRule = BuilderTypes.InterceptionRuleAttribute;
+        var interceptorOption = BuilderTypes.InterceptorOptionsAttribute;
 
         this.CustomAttributes = attributedType.CustomAttributes.ToArray();
         var interceptorRules = this.CustomAttributes.Where(x => x.Fullname == interceptorRule.BuilderType.Fullname);

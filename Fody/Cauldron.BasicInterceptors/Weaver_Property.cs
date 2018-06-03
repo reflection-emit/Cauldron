@@ -61,15 +61,15 @@ public static class Weaver_Property
         if (!PropertyInterceptingAttributes.Any())
             return;
 
-        var propertyInterceptionInfo = BuilderTypes2.PropertyInterceptionInfo;
+        var propertyInterceptionInfo = BuilderTypes.PropertyInterceptionInfo;
 
         var properties = builder
             .FindPropertiesByAttributes(PropertyInterceptingAttributes)
             .GroupBy(x => x.Property)
             .Select(x => new PropertyBuilderInfo(x.Key, x.Select(y => new PropertyBuilderInfoItem(y, y.Property,
-                     y.Attribute.Type.Implements(BuilderTypes2.IPropertyGetterInterceptor) ? BuilderTypes2.IPropertyGetterInterceptor : null,
-                     y.Attribute.Type.Implements(BuilderTypes2.IPropertySetterInterceptor) ? BuilderTypes2.IPropertySetterInterceptor : null,
-                     y.Attribute.Type.Implements(BuilderTypes2.IPropertyInterceptorInitialize) ? BuilderTypes2.IPropertyInterceptorInitialize : null))))
+                     y.Attribute.Type.Implements(BuilderTypes.IPropertyGetterInterceptor) ? BuilderTypes.IPropertyGetterInterceptor : null,
+                     y.Attribute.Type.Implements(BuilderTypes.IPropertySetterInterceptor) ? BuilderTypes.IPropertySetterInterceptor : null,
+                     y.Attribute.Type.Implements(BuilderTypes.IPropertyInterceptorInitialize) ? BuilderTypes.IPropertyInterceptorInitialize : null))))
             .ToArray();
 
         foreach (var member in properties)
@@ -82,7 +82,7 @@ public static class Weaver_Property
             if (!member.HasGetterInterception && !member.HasSetterInterception && !member.HasInitializer)
                 continue;
 
-            var propertyField = member.Property.CreateField(BuilderTypes2.PropertyInterceptionInfo.BuilderType, $"<{member.Property.Name}>p__propertyInfo");
+            var propertyField = member.Property.CreateField(BuilderTypes.PropertyInterceptionInfo.BuilderType, $"<{member.Property.Name}>p__propertyInfo");
             propertyField.CustomAttributes.AddNonSerializedAttribute();
 
             var actionObjectCtor = builder.Import(typeof(Action<object>).GetConstructor(new Type[] { typeof(object), typeof(IntPtr) }));
@@ -110,7 +110,7 @@ public static class Weaver_Property
                 });
 
             if (member.HasInitializer)
-                AddPropertyInitializeInterception(builder, BuilderTypes2.PropertyInterceptionInfo, member, propertyField, actionObjectCtor, propertySetter, interceptorFields);
+                AddPropertyInitializeInterception(builder, BuilderTypes.PropertyInterceptionInfo, member, propertyField, actionObjectCtor, propertySetter, interceptorFields);
 
             if (member.HasGetterInterception && member.Property.Getter != null)
                 AddPropertyGetterInterception(builder, propertyInterceptionInfo, member, propertyField, actionObjectCtor, propertySetter, interceptorFields);
@@ -145,7 +145,7 @@ public static class Weaver_Property
         Method propertySetter,
         Dictionary<string, Field> interceptorFields)
     {
-        var syncRoot = BuilderTypes2.ISyncRoot;
+        var syncRoot = BuilderTypes.ISyncRoot;
         var legalGetterInterceptors = member.InterceptorInfos.Where(x => x.InterfaceGetter != null).ToArray();
 
         member.Property.Getter
@@ -270,7 +270,7 @@ public static class Weaver_Property
         Dictionary<string, Field> interceptorFields)
     {
         var declaringType = member.Property.OriginType;
-        var syncRoot = BuilderTypes2.ISyncRoot;
+        var syncRoot = BuilderTypes.ISyncRoot;
         var legalInitInterceptors = member.InterceptorInfos.Where(x => x.InterfaceInitializer != null).ToArray();
         var relevantCtors = member.Property.IsStatic ? new Method[] { declaringType.StaticConstructor } : declaringType.GetRelevantConstructors().Where(x => x.Name != ".cctor");
 
@@ -287,7 +287,7 @@ public static class Weaver_Property
                         context.SetValue(field, x => x.NewObj(item.Attribute));
 
                         if (item.HasSyncRootInterface)
-                            context.Load(field).As(BuilderTypes2.ISyncRoot).Call(syncRoot.GetMethod_set_SyncRoot(), member.SyncRoot);
+                            context.Load(field).As(BuilderTypes.ISyncRoot).Call(syncRoot.GetMethod_set_SyncRoot(), member.SyncRoot);
 
                         ModuleWeaver.ImplementAssignMethodAttribute(builder, legalInitInterceptors[i].AssignMethodAttributeInfos, field, item.Attribute.Attribute.Type, context);
                     }
@@ -325,7 +325,7 @@ public static class Weaver_Property
         Method propertySetter,
         Dictionary<string, Field> interceptorFields)
     {
-        var syncRoot = BuilderTypes2.ISyncRoot;
+        var syncRoot = BuilderTypes.ISyncRoot;
         var legalSetterInterceptors = member.InterceptorInfos.Where(x => x.InterfaceSetter != null).ToArray();
 
         member.Property.Setter
@@ -505,8 +505,8 @@ public static class Weaver_Property
         // Only this if the property implements idisposable
         if (propertyType.Implements(typeof(IDisposable)))
             CodeMe(
-                field => setterCode.Call(BuilderTypes2.Extensions.GetMethod_TryDisposeInternal(), x => x.Load(field)),
-                property => setterCode.Call(BuilderTypes2.Extensions.GetMethod_TryDisposeInternal(), x => x.Call(property.Getter)));
+                field => setterCode.Call(BuilderTypes.Extensions.GetMethod_TryDisposeInternal(), x => x.Load(field)),
+                property => setterCode.Call(BuilderTypes.Extensions.GetMethod_TryDisposeInternal(), x => x.Call(property.Getter)));
 
         setterCode.If(x => x.Load(CodeBlocks.GetParameter(0)).IsNull(), then =>
         {

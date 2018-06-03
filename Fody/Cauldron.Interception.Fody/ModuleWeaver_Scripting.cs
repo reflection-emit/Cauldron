@@ -38,7 +38,7 @@ namespace Cauldron.Interception.Fody
                 scripts = scripts
                     .Concat(GetNugetPropsInterceptorPaths())
                     .Concat(GetNugetJsonInterceptorPaths())
-                    .Distinct();
+                    .Distinct(new ScriptNameEqualityComparer());
                 scriptBinaries.AddRange(scripts.Select(x => LoadScript(x)));
 
                 builder.Log(LogTypes.Info, "Found Custom interceptors");
@@ -273,6 +273,15 @@ namespace Cauldron.Interception.Fody
             }
 
             throw new NotSupportedException("Unsupported file type");
+        }
+
+        private class ScriptNameEqualityComparer : IEqualityComparer<string>
+        {
+            public bool Equals(string x, string y) =>
+                string.Equals(Path.GetFileName(x), Path.GetFileName(y), StringComparison.InvariantCultureIgnoreCase) &&
+                    new FileInfo(x).Length == new FileInfo(y).Length;
+
+            public int GetHashCode(string obj) => Path.GetFileName(obj).ToLower().GetHashCode();
         }
     }
 }

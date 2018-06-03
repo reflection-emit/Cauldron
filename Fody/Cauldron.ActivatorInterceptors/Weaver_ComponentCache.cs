@@ -23,9 +23,8 @@ public static class Weaver_ComponentCache
         builder.Log(LogTypes.Info, "Creating Cauldron Cache");
 
         var cauldron = builder.GetType("CauldronInterceptionHelper", SearchContext.Module);
-        var componentAttribute = BuilderTypes2.ComponentAttribute;
-        var genericComponentAttribute = BuilderTypes2.GenericComponentAttribute;
-        var factory = BuilderTypes2.Factory;
+        var componentAttribute = BuilderTypes.ComponentAttribute;
+        var genericComponentAttribute = BuilderTypes.GenericComponentAttribute;
         unknownConstructorText = cauldron.CreateField(Modifiers.PublicStatic, (BuilderType)BuilderTypes.String, "UnknownConstructorText");
         unknownConstructorText.CustomAttributes.AddCompilerGeneratedAttribute();
         unknownConstructorText.CustomAttributes.AddEditorBrowsableAttribute(EditorBrowsableState.Never);
@@ -35,10 +34,10 @@ public static class Weaver_ComponentCache
             .Insert(InsertionPosition.Beginning);
 
         // Before we start let us find all factoryextensions and add a component attribute to them
-        var factoryResolverInterface = (BuilderType)BuilderTypes2.IFactoryExtension;
+        var factoryResolverInterface = (BuilderType)BuilderTypes.IFactoryExtension;
         AddComponentAttribute(builder, builder.FindTypesByInterface(factoryResolverInterface), x => factoryResolverInterface);
         // Also the same to all types that inherits from Factory<>
-        var factoryGeneric = (BuilderType)BuilderTypes2.Factory1;
+        var factoryGeneric = (BuilderType)BuilderTypes.Factory1;
         AddComponentAttribute(builder, builder.FindTypesByBaseClass(factoryGeneric), type =>
         {
             var factoryBase = type.BaseClasses.FirstOrDefault(x => x.Fullname.StartsWith("Cauldron.Activator.Factory"));
@@ -96,11 +95,11 @@ public static class Weaver_ComponentCache
             /*
                 Check for IDisposable
             */
-            if (componentAttributeValue.Policy == 1 && component.Type.Implements(BuilderTypes.IDisposable) && !component.Type.Implements(BuilderTypes2.IDisposableObject))
+            if (componentAttributeValue.Policy == 1 && component.Type.Implements(BuilderTypes.IDisposable) && !component.Type.Implements(BuilderTypes.IDisposableObject))
                 builder.Log(LogTypes.Error, component.Type, NoIDisposableObjectExceptionText);
 
             var componentType = builder.CreateType("", TypeAttributes.NotPublic | TypeAttributes.Sealed | TypeAttributes.BeforeFieldInit, "<>f__IFactoryTypeInfo_" + component.Type.Name.GetValidName() + "_" + counter++);
-            componentType.AddInterface(BuilderTypes2.IFactoryTypeInfo);
+            componentType.AddInterface(BuilderTypes.IFactoryTypeInfo);
             componentType.CustomAttributes.AddDebuggerDisplayAttribute(component.Type.Name + " ({ContractName})");
             componentTypes.Add(componentType);
 
@@ -110,11 +109,11 @@ public static class Weaver_ComponentCache
                .NewCoder();
 
             // Implement the methods
-            AddCreateInstanceMethod(builder, cauldron, BuilderTypes2.IFactoryTypeInfo.GetMethod_CreateInstance_1(), component, componentAttributeValue, componentType).Replace();
-            AddCreateInstanceMethod(builder, cauldron, BuilderTypes2.IFactoryTypeInfo.GetMethod_CreateInstance(), component, componentAttributeValue, componentType).Replace();
+            AddCreateInstanceMethod(builder, cauldron, BuilderTypes.IFactoryTypeInfo.GetMethod_CreateInstance_1(), component, componentAttributeValue, componentType).Replace();
+            AddCreateInstanceMethod(builder, cauldron, BuilderTypes.IFactoryTypeInfo.GetMethod_CreateInstance(), component, componentAttributeValue, componentType).Replace();
 
             // Implement the properties
-            foreach (var property in BuilderTypes2.IFactoryTypeInfo.BuilderType.Properties)
+            foreach (var property in BuilderTypes.IFactoryTypeInfo.BuilderType.Properties)
             {
                 var propertyResult = componentType.CreateProperty(Modifiers.Public | Modifiers.Overrides, property.ReturnType, property.Name,
                     property.Setter == null ? PropertySetterCreationOption.DontCreateSetter : PropertySetterCreationOption.AlwaysCreate);
@@ -182,7 +181,7 @@ public static class Weaver_ComponentCache
         builder.Log(LogTypes.Info, "Adding component IFactoryCache Interface");
 
         var linqEnumerable = builder.GetType("System.Linq.Enumerable", SearchContext.AllReferencedModules);
-        var ifactoryTypeInfo = BuilderTypes2.IFactoryTypeInfo.BuilderType.Import().MakeArray();
+        var ifactoryTypeInfo = BuilderTypes.IFactoryTypeInfo.BuilderType.Import().MakeArray();
         var getComponentsFromOtherAssemblies = builder.ReferencedAssemblies
             .Select(x => x.MainModule.GetType("CauldronInterceptionHelper"))
             .Where(x => x != null)
@@ -201,7 +200,7 @@ public static class Weaver_ComponentCache
                     context.If(x => x.Load(componentsField).IsNotNull(), then => then.Load(componentsField).Return());
 
                     var resultValue = context.GetOrCreateReturnVariable();
-                    context.SetValue(resultValue, x => x.Newarr(BuilderTypes2.IFactoryTypeInfo, componentTypes.Count));
+                    context.SetValue(resultValue, x => x.Newarr(BuilderTypes.IFactoryTypeInfo, componentTypes.Count));
 
                     for (int i = 0; i < componentTypes.Count; i++)
                     {
@@ -243,8 +242,8 @@ public static class Weaver_ComponentCache
 
     private static void AddComponentAttribute(Builder builder, IEnumerable<BuilderType> builderTypes, Func<BuilderType, BuilderType> contractNameDelegate = null)
     {
-        var componentConstructorAttribute = BuilderTypes2.ComponentConstructorAttribute;
-        var componentAttribute = BuilderTypes2.ComponentAttribute.BuilderType;
+        var componentConstructorAttribute = BuilderTypes.ComponentConstructorAttribute;
+        var componentAttribute = BuilderTypes.ComponentAttribute.BuilderType;
 
         foreach (var item in builderTypes)
         {
@@ -291,7 +290,7 @@ public static class Weaver_ComponentCache
                             then.NewObj(component.Type.ParameterlessContructor);
 
                             if (componentAttributeValues.InvokeOnObjectCreationEvent)
-                                then.Duplicate().Call(BuilderTypes2.Factory.GetMethod_OnObjectCreation(), CodeBlocks.This);
+                                then.Duplicate().Call(BuilderTypes.Factory.GetMethod_OnObjectCreation(), CodeBlocks.This);
 
                             return then.Return();
                         });
@@ -312,14 +311,14 @@ public static class Weaver_ComponentCache
                             then.NewObj(ctor, CodeBlocks.GetParameter(0).ArrayElements());
 
                             if (componentAttributeValues.InvokeOnObjectCreationEvent)
-                                then.Duplicate().Call(BuilderTypes2.Factory.GetMethod_OnObjectCreation(), CodeBlocks.This);
+                                then.Duplicate().Call(BuilderTypes.Factory.GetMethod_OnObjectCreation(), CodeBlocks.This);
                         }
                         else
                         {
                             then.Call(ctor, CodeBlocks.GetParameter(0).ArrayElements());
 
                             if (componentAttributeValues.InvokeOnObjectCreationEvent)
-                                then.Duplicate().Call(BuilderTypes2.Factory.GetMethod_OnObjectCreation(), CodeBlocks.This);
+                                then.Duplicate().Call(BuilderTypes.Factory.GetMethod_OnObjectCreation(), CodeBlocks.This);
                         }
 
                         return then.Return();
@@ -334,7 +333,7 @@ public static class Weaver_ComponentCache
 
             context.ThrowNew(typeof(NotImplementedException), x =>
                 x.Call(BuilderTypes.String.GetMethod_Concat(BuilderTypes.String, BuilderTypes.String), unknownConstructorText,
-                    x.NewCoder().Call(BuilderTypes2.IFactoryTypeInfo.GetMethod_get_ContractName())).End);
+                    x.NewCoder().Call(BuilderTypes.IFactoryTypeInfo.GetMethod_get_ContractName())).End);
         }
         else if (ctors.Length > 0)
         {
@@ -342,7 +341,7 @@ public static class Weaver_ComponentCache
             if (ctor == null)
                 context.ThrowNew(typeof(NotImplementedException), x =>
                     x.Call(BuilderTypes.String.GetMethod_Concat(BuilderTypes.String, BuilderTypes.String), unknownConstructorText,
-                        x.NewCoder().Call(BuilderTypes2.IFactoryTypeInfo.GetMethod_get_ContractName())).End);
+                        x.NewCoder().Call(BuilderTypes.IFactoryTypeInfo.GetMethod_get_ContractName())).End);
             else
             {
                 ctor.CustomAttributes.AddEditorBrowsableAttribute(EditorBrowsableState.Never);
@@ -353,7 +352,7 @@ public static class Weaver_ComponentCache
         {
             context.ThrowNew(typeof(NotImplementedException), x =>
                 x.Call(BuilderTypes.String.GetMethod_Concat(BuilderTypes.String, BuilderTypes.String), unknownConstructorText,
-                    x.NewCoder().Call(BuilderTypes2.IFactoryTypeInfo.GetMethod_get_ContractName())).End);
+                    x.NewCoder().Call(BuilderTypes.IFactoryTypeInfo.GetMethod_get_ContractName())).End);
 
             builder.Log(LogTypes.Error, component.Type, $"The component '{component.Type.Fullname}' has no ComponentConstructor attribute or the constructor is not public or internal");
         }
@@ -396,7 +395,7 @@ public static class Weaver_ComponentCache
 
         context.ThrowNew(typeof(NotImplementedException), x =>
             x.Call(BuilderTypes.String.GetMethod_Concat(BuilderTypes.String, BuilderTypes.String), unknownConstructorText,
-                x.NewCoder().Call(BuilderTypes2.IFactoryTypeInfo.GetMethod_get_ContractName())).End);
+                x.NewCoder().Call(BuilderTypes.IFactoryTypeInfo.GetMethod_get_ContractName())).End);
 
         return context;
     }
@@ -439,7 +438,7 @@ public static class Weaver_ComponentCache
                     // an instance was disposed (somehow)
                     if (component.Type.Implements(BuilderTypes.IDisposable))
                     {
-                        if (!component.Type.Implements(BuilderTypes2.IDisposableObject))
+                        if (!component.Type.Implements(BuilderTypes.IDisposableObject))
                             builder.Log(LogTypes.Info, component.Type + " : " + NoIDisposableObjectExceptionText);
                         else
                         {
@@ -451,11 +450,11 @@ public static class Weaver_ComponentCache
                                 .If(ehIf => ehIf.Load(CodeBlocks.GetParameter(0)).IsNotNull(), ehThen => ehThen.Load(CodeBlocks.GetParameter(0)).As(BuilderTypes.IDisposable).Call(BuilderTypes.IDisposable.GetMethod_Dispose()))
                                 .SetValue(instanceField, null)
                                 .If(@if => @if.Load(instanceField).IsNotNull(), @then => @then
-                                    .Load(instanceField).As(BuilderTypes2.IDisposableObject).Call(BuilderTypes2.IDisposableObject.GetMethod_remove_Disposed(), o => o.NewObj(BuilderTypes.EventHandler.GetConstructor(), CodeBlocks.This, eventHandlerMethod)))
+                                    .Load(instanceField).As(BuilderTypes.IDisposableObject).Call(BuilderTypes.IDisposableObject.GetMethod_remove_Disposed(), o => o.NewObj(BuilderTypes.EventHandler.GetConstructor(), CodeBlocks.This, eventHandlerMethod)))
                                 .Return()
                                 .Replace();
 
-                            x.Load(instanceField).As(BuilderTypes2.IDisposableObject).Call(BuilderTypes2.IDisposableObject.GetMethod_add_Disposed(), o => o.NewObj(BuilderTypes.EventHandler.GetConstructor(), CodeBlocks.This, eventHandlerMethod));
+                            x.Load(instanceField).As(BuilderTypes.IDisposableObject).Call(BuilderTypes.IDisposableObject.GetMethod_add_Disposed(), o => o.NewObj(BuilderTypes.EventHandler.GetConstructor(), CodeBlocks.This, eventHandlerMethod));
                         }
                     }
 
@@ -478,7 +477,7 @@ public static class Weaver_ComponentCache
             handler.CustomAttributes.AddCompilerGeneratedAttribute();
             handler.NewCoder().Return().Replace();
             declaringType.CreateStaticConstructor().NewCoder().Call(handler, new object[] { null, null }).End.Insert(InsertionPosition.Beginning);
-            declaringType.CreateStaticConstructor().NewCoder().Call(BuilderTypes2.Factory.GetMethod_add_Rebuilt(), x => x.NewObj(BuilderTypes.EventHandler.GetConstructor(), CodeBlocks.This, handler)).End.Insert(InsertionPosition.End);
+            declaringType.CreateStaticConstructor().NewCoder().Call(BuilderTypes.Factory.GetMethod_add_Rebuilt(), x => x.NewObj(BuilderTypes.EventHandler.GetConstructor(), CodeBlocks.This, handler)).End.Insert(InsertionPosition.End);
         }
         AssignFactoryGetFactoryInfo(handler.NewCoder(), injectAttributeValues, property, injectorField, factoryTypeInfoGet);
         return handler;
@@ -505,7 +504,7 @@ public static class Weaver_ComponentCache
                     then.Call(contructor);
 
                 if (componentAttributeValues.InvokeOnObjectCreationEvent)
-                    then.Duplicate().Call(BuilderTypes2.Factory.GetMethod_OnObjectCreation(), CodeBlocks.This);
+                    then.Duplicate().Call(BuilderTypes.Factory.GetMethod_OnObjectCreation(), CodeBlocks.This);
 
                 return then.Return();
             });
@@ -517,7 +516,7 @@ public static class Weaver_ComponentCache
                 context.Call(contructor);
 
             if (componentAttributeValues.InvokeOnObjectCreationEvent)
-                context.Duplicate().Call(BuilderTypes2.Factory.GetMethod_OnObjectCreation(), CodeBlocks.This);
+                context.Duplicate().Call(BuilderTypes.Factory.GetMethod_OnObjectCreation(), CodeBlocks.This);
 
             context.Return();
         }
@@ -525,7 +524,7 @@ public static class Weaver_ComponentCache
 
     private static Field CreateInjectorField(Property property)
     {
-        var injectorField = property.DeclaringType.CreateField(Modifiers.PrivateStatic, BuilderTypes2.IFactoryTypeInfo.BuilderType, $"<{property.Name}>__injectorField");
+        var injectorField = property.DeclaringType.CreateField(Modifiers.PrivateStatic, BuilderTypes.IFactoryTypeInfo.BuilderType, $"<{property.Name}>__injectorField");
         injectorField.CustomAttributes.AddCompilerGeneratedAttribute();
         injectorField.CustomAttributes.AddDebuggerBrowsableAttribute(DebuggerBrowsableState.Never);
         injectorField.CustomAttributes.AddNonSerializedAttribute();
@@ -542,7 +541,7 @@ public static class Weaver_ComponentCache
             if (item.Name != ".ctor")
                 continue;
 
-            if (item.IsPublicOrInternal && item.CustomAttributes.HasAttribute(BuilderTypes2.ComponentConstructorAttribute))
+            if (item.IsPublicOrInternal && item.CustomAttributes.HasAttribute(BuilderTypes.ComponentConstructorAttribute))
                 yield return item;
         }
 
@@ -552,7 +551,7 @@ public static class Weaver_ComponentCache
             if (item.Getter == null)
                 continue;
 
-            if (item.IsStatic && item.Getter.IsPublicOrInternal && item.CustomAttributes.HasAttribute(BuilderTypes2.ComponentConstructorAttribute))
+            if (item.IsStatic && item.Getter.IsPublicOrInternal && item.CustomAttributes.HasAttribute(BuilderTypes.ComponentConstructorAttribute))
                 yield return item.Getter;
         }
 
@@ -571,7 +570,7 @@ public static class Weaver_ComponentCache
             if (item.Name.StartsWith("get_"))
                 continue;
 
-            if (item.IsPublicOrInternal && item.CustomAttributes.HasAttribute(BuilderTypes2.ComponentConstructorAttribute))
+            if (item.IsPublicOrInternal && item.CustomAttributes.HasAttribute(BuilderTypes.ComponentConstructorAttribute))
                 yield return item;
         }
 
@@ -584,7 +583,7 @@ public static class Weaver_ComponentCache
             if (item.DeclaringType != component.Type)
                 continue;
 
-            if (item.IsPublicOrInternal && !item.CustomAttributes.HasAttribute(BuilderTypes2.ComponentConstructorAttribute))
+            if (item.IsPublicOrInternal && !item.CustomAttributes.HasAttribute(BuilderTypes.ComponentConstructorAttribute))
                 yield return item;
         }
     }
@@ -592,7 +591,6 @@ public static class Weaver_ComponentCache
     private static void ImplementGetterValueSet(InjectAttributeValues injectAttributeValues, Property property, Coder then)
     {
         var type = BuilderTypes.Type;
-        var factory = BuilderTypes2.Factory;
         LocalVariable variable = null;
 
         if (injectAttributeValues.Arguments != null && injectAttributeValues.Arguments.Length > 0)
@@ -637,52 +635,94 @@ public static class Weaver_ComponentCache
             }
         }
 
-        if (!injectAttributeValues.ForceDontCreateMany && (BuilderTypes.IEnumerable.BuilderType.AreReferenceAssignable(property.ReturnType) || property.ReturnType.IsArray) && !property.ReturnType.Implements(BuilderTypes.IDictionary))
+        var objectArray = (TypeReference)BuilderTypes.Object.BuilderType.MakeArray();
+
+        if (
+            !injectAttributeValues.ForceDontCreateMany &&
+            (BuilderTypes.IEnumerable.BuilderType.AreReferenceAssignable(property.ReturnType) || property.ReturnType.IsArray) &&
+            !property.ReturnType.Implements(BuilderTypes.IDictionary) &&
+            (injectAttributeValues.Arguments == null || injectAttributeValues.Arguments.Length == 0))
         {
             if (string.IsNullOrEmpty(injectAttributeValues.ContractName) && injectAttributeValues.ContractType == null)
                 then.SetValue(property.BackingField, x => x.Call(injectAttributeValues.IsOrdered ?
-                                                                    factory.GetMethod_CreateManyOrdered(BuilderTypes.String) :
-                                                                    factory.GetMethod_CreateMany(BuilderTypes.String), y => y.Load(property.ReturnType.ChildType).Call(type.GetMethod_get_FullName()), y => variable ?? null));
+                                                                    BuilderTypes.Factory.GetMethod_CreateManyOrdered(BuilderTypes.String) :
+                                                                    BuilderTypes.Factory.GetMethod_CreateMany(BuilderTypes.String), y => y.Load(property.ReturnType.ChildType).Call(type.GetMethod_get_FullName())));
             else if (injectAttributeValues.ContractType != null)
                 then.SetValue(property.BackingField, x => x.Call(injectAttributeValues.IsOrdered ?
-                                                                    factory.GetMethod_CreateManyOrdered(BuilderTypes.String) :
-                                                                    factory.GetMethod_CreateMany(BuilderTypes.String), y => y.Load(injectAttributeValues.ContractType).Call(type.GetMethod_get_FullName()), y => variable ?? null));
+                                                                    BuilderTypes.Factory.GetMethod_CreateManyOrdered(BuilderTypes.String) :
+                                                                    BuilderTypes.Factory.GetMethod_CreateMany(BuilderTypes.String), y => y.Load(injectAttributeValues.ContractType).Call(type.GetMethod_get_FullName())));
             else
                 then.SetValue(property.BackingField, x => x.Call(injectAttributeValues.IsOrdered ?
-                                                                    factory.GetMethod_CreateManyOrdered(BuilderTypes.String) :
-                                                                    factory.GetMethod_CreateMany(BuilderTypes.String), injectAttributeValues.ContractName, variable ?? null));
+                                                                    BuilderTypes.Factory.GetMethod_CreateManyOrdered(BuilderTypes.String) :
+                                                                    BuilderTypes.Factory.GetMethod_CreateMany(BuilderTypes.String), injectAttributeValues.ContractName));
+        }
+        else if (
+            !injectAttributeValues.ForceDontCreateMany &&
+            (BuilderTypes.IEnumerable.BuilderType.AreReferenceAssignable(property.ReturnType) || property.ReturnType.IsArray) &&
+            !property.ReturnType.Implements(BuilderTypes.IDictionary))
+        {
+            if (string.IsNullOrEmpty(injectAttributeValues.ContractName) && injectAttributeValues.ContractType == null)
+                then.SetValue(property.BackingField, x => x.Call(injectAttributeValues.IsOrdered ?
+                                                                    BuilderTypes.Factory.GetMethod_CreateManyOrdered(BuilderTypes.String, objectArray) :
+                                                                    BuilderTypes.Factory.GetMethod_CreateMany(BuilderTypes.String, objectArray), y => y.Load(property.ReturnType.ChildType).Call(type.GetMethod_get_FullName()), y => variable ?? null));
+            else if (injectAttributeValues.ContractType != null)
+                then.SetValue(property.BackingField, x => x.Call(injectAttributeValues.IsOrdered ?
+                                                                    BuilderTypes.Factory.GetMethod_CreateManyOrdered(BuilderTypes.String, objectArray) :
+                                                                    BuilderTypes.Factory.GetMethod_CreateMany(BuilderTypes.String, objectArray), y => y.Load(injectAttributeValues.ContractType).Call(type.GetMethod_get_FullName()), y => variable ?? null));
+            else
+                then.SetValue(property.BackingField, x => x.Call(injectAttributeValues.IsOrdered ?
+                                                                    BuilderTypes.Factory.GetMethod_CreateManyOrdered(BuilderTypes.String, objectArray) :
+                                                                    BuilderTypes.Factory.GetMethod_CreateMany(BuilderTypes.String, objectArray), injectAttributeValues.ContractName, variable ?? null));
         }
         else if (injectAttributeValues.InjectFirst && (injectAttributeValues.Arguments == null || injectAttributeValues.Arguments.Length == 0) && !injectAttributeValues.NoPreloading)
         {
             // Special case for parameterless injections - preloading stuff in .cctor
             var injectorField = CreateInjectorField(property);
-            then.SetValue(property.BackingField, x => x.Load(injectorField).Call(BuilderTypes2.IFactoryTypeInfo.GetMethod_CreateInstance()));
-            AddFactoryRebuiltHandler(injectAttributeValues, property, injectorField, BuilderTypes2.Factory.GetMethod_GetFactoryTypeInfoFirst());
+            then.SetValue(property.BackingField, x => x.Load(injectorField).Call(BuilderTypes.IFactoryTypeInfo.GetMethod_CreateInstance()));
+            AddFactoryRebuiltHandler(injectAttributeValues, property, injectorField, BuilderTypes.Factory.GetMethod_GetFactoryTypeInfoFirst());
+        }
+        else if (injectAttributeValues.InjectFirst && (injectAttributeValues.Arguments == null || injectAttributeValues.Arguments.Length == 0))
+        {
+            if (string.IsNullOrEmpty(injectAttributeValues.ContractName) && injectAttributeValues.ContractType == null)
+                then.SetValue(property.BackingField, x => x.Call(BuilderTypes.Factory.GetMethod_CreateFirst(BuilderTypes.String), y => y.Load(property.ReturnType).Call(type.GetMethod_get_FullName())));
+            else if (injectAttributeValues.ContractType != null)
+                then.SetValue(property.BackingField, x => x.Call(BuilderTypes.Factory.GetMethod_CreateFirst(BuilderTypes.String), y => y.Load(injectAttributeValues.ContractType).Call(type.GetMethod_get_FullName())));
+            else
+                then.SetValue(property.BackingField, x => x.Call(BuilderTypes.Factory.GetMethod_CreateFirst(BuilderTypes.String), injectAttributeValues.ContractName));
         }
         else if (injectAttributeValues.InjectFirst)
         {
             if (string.IsNullOrEmpty(injectAttributeValues.ContractName) && injectAttributeValues.ContractType == null)
-                then.SetValue(property.BackingField, x => x.Call(factory.GetMethod_CreateFirst(BuilderTypes.String), y => y.Load(property.ReturnType).Call(type.GetMethod_get_FullName()), y => variable ?? null));
+                then.SetValue(property.BackingField, x => x.Call(BuilderTypes.Factory.GetMethod_CreateFirst(BuilderTypes.String, objectArray), y => y.Load(property.ReturnType).Call(type.GetMethod_get_FullName()), y => variable ?? null));
             else if (injectAttributeValues.ContractType != null)
-                then.SetValue(property.BackingField, x => x.Call(factory.GetMethod_CreateFirst(BuilderTypes.String), y => y.Load(injectAttributeValues.ContractType).Call(type.GetMethod_get_FullName()), y => variable ?? null));
+                then.SetValue(property.BackingField, x => x.Call(BuilderTypes.Factory.GetMethod_CreateFirst(BuilderTypes.String, objectArray), y => y.Load(injectAttributeValues.ContractType).Call(type.GetMethod_get_FullName()), y => variable ?? null));
             else
-                then.SetValue(property.BackingField, x => x.Call(factory.GetMethod_CreateFirst(BuilderTypes.String), injectAttributeValues.ContractName, variable ?? null));
+                then.SetValue(property.BackingField, x => x.Call(BuilderTypes.Factory.GetMethod_CreateFirst(BuilderTypes.String, objectArray), injectAttributeValues.ContractName, variable ?? null));
         }
         else if ((injectAttributeValues.Arguments == null || injectAttributeValues.Arguments.Length == 0) && !injectAttributeValues.NoPreloading)
         {
             // Special case for parameterless injections - preloading stuff in .cctor
             var injectorField = CreateInjectorField(property);
-            then.SetValue(property.BackingField, x => x.Load(injectorField).Call(BuilderTypes2.IFactoryTypeInfo.GetMethod_CreateInstance()));
-            AddFactoryRebuiltHandler(injectAttributeValues, property, injectorField, BuilderTypes2.Factory.GetMethod_GetFactoryTypeInfo());
+            then.SetValue(property.BackingField, x => x.Load(injectorField).Call(BuilderTypes.IFactoryTypeInfo.GetMethod_CreateInstance()));
+            AddFactoryRebuiltHandler(injectAttributeValues, property, injectorField, BuilderTypes.Factory.GetMethod_GetFactoryTypeInfo());
+        }
+        else if ((injectAttributeValues.Arguments == null || injectAttributeValues.Arguments.Length == 0))
+        {
+            if (string.IsNullOrEmpty(injectAttributeValues.ContractName) && injectAttributeValues.ContractType == null)
+                then.SetValue(property.BackingField, x => x.Call(BuilderTypes.Factory.GetMethod_Create(BuilderTypes.String), y => y.Load(property.ReturnType).Call(type.GetMethod_get_FullName())));
+            else if (injectAttributeValues.ContractType != null)
+                then.SetValue(property.BackingField, x => x.Call(BuilderTypes.Factory.GetMethod_Create(BuilderTypes.String), y => y.Load(injectAttributeValues.ContractType).Call(type.GetMethod_get_FullName())));
+            else
+                then.SetValue(property.BackingField, x => x.Call(BuilderTypes.Factory.GetMethod_Create(BuilderTypes.String), injectAttributeValues.ContractName).As(property.ReturnType));
         }
         else
         {
             if (string.IsNullOrEmpty(injectAttributeValues.ContractName) && injectAttributeValues.ContractType == null)
-                then.SetValue(property.BackingField, x => x.Call(factory.GetMethod_Create(BuilderTypes.String), y => y.Load(property.ReturnType).Call(type.GetMethod_get_FullName()), y => variable ?? null));
+                then.SetValue(property.BackingField, x => x.Call(BuilderTypes.Factory.GetMethod_Create(BuilderTypes.String, objectArray), y => y.Load(property.ReturnType).Call(type.GetMethod_get_FullName()), y => variable ?? null));
             else if (injectAttributeValues.ContractType != null)
-                then.SetValue(property.BackingField, x => x.Call(factory.GetMethod_Create(BuilderTypes.String), y => y.Load(injectAttributeValues.ContractType).Call(type.GetMethod_get_FullName()), y => variable ?? null));
+                then.SetValue(property.BackingField, x => x.Call(BuilderTypes.Factory.GetMethod_Create(BuilderTypes.String, objectArray), y => y.Load(injectAttributeValues.ContractType).Call(type.GetMethod_get_FullName()), y => variable ?? null));
             else
-                then.SetValue(property.BackingField, x => x.Call(factory.GetMethod_Create(BuilderTypes.String), injectAttributeValues.ContractName, variable ?? null).As(property.ReturnType));
+                then.SetValue(property.BackingField, x => x.Call(BuilderTypes.Factory.GetMethod_Create(BuilderTypes.String, objectArray), injectAttributeValues.ContractName, variable ?? null).As(property.ReturnType));
         }
     }
 

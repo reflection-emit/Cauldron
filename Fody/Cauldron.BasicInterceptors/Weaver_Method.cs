@@ -33,7 +33,7 @@ public sealed class Weaver_Method
             .Where(x => !x.Method.IsPropertyGetterSetter)
             .GroupBy(x => new MethodKey(x.Method, x.AsyncMethod))
             .Select(x => new MethodBuilderInfo<MethodBuilderInfoItem<BuilderTypeIMethodInterceptor, BuilderTypeISimpleMethodInterceptor>>(x.Key,
-                x.Select(y => new MethodBuilderInfoItem<BuilderTypeIMethodInterceptor, BuilderTypeISimpleMethodInterceptor>(y, BuilderTypes2.IMethodInterceptor, BuilderTypes2.ISimpleMethodInterceptor))))
+                x.Select(y => new MethodBuilderInfoItem<BuilderTypeIMethodInterceptor, BuilderTypeISimpleMethodInterceptor>(y, BuilderTypes.IMethodInterceptor, BuilderTypes.ISimpleMethodInterceptor))))
             .OrderBy(x => x.Key.Method.DeclaringType.Fullname)
             .ToArray();
 
@@ -75,7 +75,7 @@ public sealed class Weaver_Method
                         {
                             interceptorInstanceCoder.SetValue(item.Interceptor, z => z.NewObj(item.Attribute));
                             if (item.HasSyncRootInterface)
-                                interceptorInstanceCoder.Load<ICasting>(item.Interceptor).As(BuilderTypes2.ISyncRoot).To<ICallMethod<CallCoder>>().Call(BuilderTypes2.ISyncRoot.GetMethod_set_SyncRoot(), method.SyncRoot);
+                                interceptorInstanceCoder.Load<ICasting>(item.Interceptor).As(BuilderTypes.ISyncRoot).To<ICallMethod<CallCoder>>().Call(BuilderTypes.ISyncRoot.GetMethod_set_SyncRoot(), method.SyncRoot);
 
                             ModuleWeaver.ImplementAssignMethodAttribute(builder, method.Items[i].AssignMethodAttributeInfos, item.FieldOrVariable, item.Attribute.Attribute.Type, interceptorInstanceCoder);
                             return interceptorInstanceCoder;
