@@ -1,4 +1,5 @@
 ﻿using Cauldron.Interception.Cecilator;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 
@@ -67,6 +68,27 @@ namespace Cauldron.Interception.Fody
                 return char.ToUpper(target[0]) + target.Substring(1, target.Length - 1);
 
             return target;
+        }
+
+        internal static IEnumerable<JContainer> GetChildren(this JContainer container)
+        {
+            foreach (var item in container.Children())
+            {
+                yield return item as JContainer;
+            }
+        }
+
+        internal static IEnumerable<JContainer> GetChildren<T>(this JContainer container, Func<T, bool> predicate) where T : JContainer
+        {
+            foreach (var item in container.Children())
+            {
+                var data = item as T;
+                if (data == null)
+                    continue;
+
+                if (predicate(data))
+                    yield return item as JContainer;
+            }
         }
     }
 }

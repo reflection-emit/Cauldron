@@ -33,15 +33,15 @@
       2017.12.04 - [A] CreateFirst method added to the Factory. This will auto-pick the implementation with the highest priority if multiple implementations are available.
     </releaseNotes>
     <dependencies>
-      <dependency id="Capgemini.Cauldron.Core.Diagnostics" version="3.0.22" />
-      <dependency id="Capgemini.Cauldron.Core.Disposable" version="3.0.22" />
-      <dependency id="Capgemini.Cauldron.Core.Extensions" version="3.0.22" />
-      <dependency id="Capgemini.Cauldron.Core.Reflection" version="3.0.22" />
-      <dependency id="Cauldron.Interception.Fody" version="3.0.22" />
+      <dependency id="Capgemini.Cauldron.Core.Diagnostics" version="3.0.21" />
+      <dependency id="Capgemini.Cauldron.Core.Disposable" version="3.0.21" />
+      <dependency id="Capgemini.Cauldron.Core.Extensions" version="3.0.21" />
+      <dependency id="Capgemini.Cauldron.Core.Reflection" version="3.0.21" />
+      <dependency id="Cauldron.Interception.Fody" version="3.0.21" />
       <dependency id="Fody" version="3.0.3" />
     </dependencies>
     <contentFiles>
-      <files include="**/Interceptors/*.*" buildAction="None" />
+      <files include="**/Interceptors/*.dll" buildAction="None" />
     </contentFiles>
   </metadata>
   <files>

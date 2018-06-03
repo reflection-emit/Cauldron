@@ -17,13 +17,13 @@
       2018.04.11 - [C] Fody version 3.0.0 update and minor bug fixes.
     </releaseNotes>
     <dependencies>
-      <dependency id="Capgemini.Cauldron.Core.Collections" version="3.0.22" />
-      <dependency id="Capgemini.Cauldron.Core.Diagnostics" version="3.0.22" />
-      <dependency id="Capgemini.Cauldron.Core.Disposable" version="3.0.22" />
-      <dependency id="Capgemini.Cauldron.Core.Extensions" version="3.0.22" />
-      <dependency id="Capgemini.Cauldron.Core.Extensions.Convertions" version="3.0.22" />
-      <dependency id="Capgemini.Cauldron.Core.Extensions.IO" version="3.0.22" />
-      <dependency id="Capgemini.Cauldron.Core.Reflection" version="3.0.22" />
+      <dependency id="Capgemini.Cauldron.Core.Collections" version="3.0.21" />
+      <dependency id="Capgemini.Cauldron.Core.Diagnostics" version="3.0.21" />
+      <dependency id="Capgemini.Cauldron.Core.Disposable" version="3.0.21" />
+      <dependency id="Capgemini.Cauldron.Core.Extensions" version="3.0.21" />
+      <dependency id="Capgemini.Cauldron.Core.Extensions.Convertions" version="3.0.21" />
+      <dependency id="Capgemini.Cauldron.Core.Extensions.IO" version="3.0.21" />
+      <dependency id="Capgemini.Cauldron.Core.Reflection" version="3.0.21" />
       <dependency id="Newtonsoft.Json" version="11.0.2" />
     </dependencies>
   </metadata>

@@ -1,5 +1,6 @@
 ﻿using Cauldron.Interception.Cecilator;
 using Cauldron.Interception.Fody;
+using System.Runtime.InteropServices;
 
 public static class MinimizedReferences
 {
@@ -9,5 +10,6 @@ public static class MinimizedReferences
     [Display("Delete Members without usage")]
     public static void Z_Implement(Builder builder)
     {
+        var excludeNamespace = "Cauldron.Activator";
     }
 }

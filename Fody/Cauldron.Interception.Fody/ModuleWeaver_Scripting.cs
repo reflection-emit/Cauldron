@@ -1,4 +1,6 @@
 ﻿using Cauldron.Interception.Cecilator;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -31,10 +33,17 @@ namespace Cauldron.Interception.Fody
                 if (Directory.Exists(interceptorDirectory))
                     scripts = scripts
                         .Concat(Directory.GetFiles(interceptorDirectory, "*.csx", SearchOption.AllDirectories))
-                        .Concat(Directory.GetFiles(interceptorDirectory, "*.dll", SearchOption.AllDirectories))
-                        .Concat(GetNugetPropsInterceptorPaths());
+                        .Concat(Directory.GetFiles(interceptorDirectory, "*.dll", SearchOption.AllDirectories));
 
+                scripts = scripts
+                    .Concat(GetNugetPropsInterceptorPaths())
+                    .Concat(GetNugetJsonInterceptorPaths())
+                    .Distinct();
                 scriptBinaries.AddRange(scripts.Select(x => LoadScript(x)));
+
+                builder.Log(LogTypes.Info, "Found Custom interceptors");
+                foreach (var interceptorPath in scripts)
+                    builder.Log(LogTypes.Info, "- " + interceptorPath);
 
                 foreach (var scriptBinary in scriptBinaries
                             .SelectMany(x => x.DefinedTypes)
@@ -152,10 +161,43 @@ namespace Cauldron.Interception.Fody
             }
         }
 
+        private IEnumerable<string> GetNugetJsonInterceptorPaths()
+        {
+            var projectObjPath = Path.Combine(this.ProjectDirectoryPath, "obj");
+            if (!Directory.Exists(projectObjPath))
+                yield break;
+
+            var nugetFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), ".nuget\\packages\\");
+            var jsonFile = Directory.GetFiles(projectObjPath, "project.assets.json", SearchOption.TopDirectoryOnly).FirstOrDefault();
+
+            if (jsonFile == null)
+                yield break;
+
+            var jObject = JsonConvert.DeserializeObject(File.ReadAllText(jsonFile)) as JObject;
+
+            foreach (var item in jObject
+                .GetChildren<JProperty>(x => x.Name == "targets")
+                .SelectMany(x => x.GetChildren())
+                .SelectMany(x => x.GetChildren())
+                .SelectMany(x => x.GetChildren())
+                .SelectMany(x => x.GetChildren())
+                .SelectMany(x => x.GetChildren())
+                .SelectMany(x => x.GetChildren<JProperty>(y => y.Name == "contentFiles"))
+                .SelectMany(x => x.GetChildren())
+                .SelectMany(x => x.GetChildren<JProperty>(y => y.Name.IndexOf(@"contentFiles/any/any/Interceptors/", StringComparison.InvariantCultureIgnoreCase) >= 0))
+                .Select(x => Path.Combine(nugetFolder, (x.Parent.Parent.Parent.Parent as JProperty).Name, (x as JProperty).Name).Replace('/', '\\'))
+                .Distinct())
+                yield return item;
+        }
+
         private IEnumerable<string> GetNugetPropsInterceptorPaths()
         {
+            var projectObjPath = Path.Combine(this.ProjectDirectoryPath, "obj");
+            if (!Directory.Exists(projectObjPath))
+                yield break;
+
             var nugetFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), ".nuget\\packages\\");
-            var path = Directory.GetFiles(Path.Combine(this.ProjectDirectoryPath, "obj"), "*.csproj.nuget.g.props", SearchOption.TopDirectoryOnly).FirstOrDefault();
+            var path = Directory.GetFiles(projectObjPath, "*.csproj.nuget.g.props", SearchOption.TopDirectoryOnly).FirstOrDefault();
 
             if (path == null)
                 yield break;
