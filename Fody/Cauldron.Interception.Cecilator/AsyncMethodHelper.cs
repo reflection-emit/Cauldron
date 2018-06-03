@@ -12,6 +12,9 @@ namespace Cauldron.Interception.Cecilator
         private static BuilderType iAsyncStateMachine;
         private readonly Method method;
 
+        private Method asyncMethod;
+        private Method moveNextMethod;
+
         static AsyncMethodHelper()
         {
             asyncStateMachineAttribute = Builder.Current.GetType("System.Runtime.CompilerServices.AsyncStateMachineAttribute");
@@ -19,6 +22,11 @@ namespace Cauldron.Interception.Cecilator
         }
 
         internal AsyncMethodHelper(Method method) : base(method) => this.method = method;
+
+        /// <summary>
+        /// Gets the async state machine
+        /// </summary>
+        public BuilderType AsyncStateMachineType => this.MoveNextMethod.OriginType;
 
         public bool HasAsyncStateMachineAttribute
         {
@@ -34,23 +42,18 @@ namespace Cauldron.Interception.Cecilator
             }
         }
 
+        /// <summary>
+        /// Return "this" if the method is the async method; otherwise the field that references to the async method's class.
+        /// </summary>
         public object Instance
         {
             get
             {
-                if (this.method.AsyncMethod == null && this.method.OriginType.IsAsyncStateMachine)
+                if (this.method.OriginType.IsAsyncStateMachine)
                 {
-                    var result = this.method.OriginType.Fields.FirstOrDefault(x => x.Name == "<>4__this");
+                    var result = this.AsyncStateMachineType.GetField("<>4__this", false);
                     if (result == null)
-                        throw new Exception("This is not possible.");
-
-                    return result;
-                }
-                else if (this.method.AsyncMethod != null)
-                {
-                    var result = this.method.AsyncMethod.OriginType.Fields.FirstOrDefault(x => x.Name == "<>4__this");
-                    if (result == null)
-                        return this.AddThisReference();
+                        result = this.AddThisReference();
 
                     return result;
                 }
@@ -59,104 +62,109 @@ namespace Cauldron.Interception.Cecilator
             }
         }
 
+        /// <summary>
+        /// Gets the async method
+        /// </summary>
         public Method Method
         {
             get
             {
-                var originType = this.OriginType;
-                if (originType == this.method.OriginType)
-                    return this.method;
+                if (this.asyncMethod == null)
+                {
+                    if (this.method.CustomAttributes.Any(x => x.Type == asyncStateMachineAttribute))
+                    {
+                        this.asyncMethod = this.method;
+                        return this.asyncMethod;
+                    }
+                    else if (this.method.Name == "MoveNext" && this.method.OriginType.IsAsyncStateMachine)
+                    {
+                        var methodOriginType = this.method.OriginType;
+                        var originType = this.method.OriginType.GetNestedTypeParent();
+                        var asyncMachine = asyncStateMachineAttribute.typeDefinition;
+                        this.asyncMethod = originType
+                              .GetMethods()
+                              .FirstOrDefault(x =>
+                              {
+                                  if (!x.methodDefinition.HasCustomAttributes)
+                                      return false;
 
-                var methodOriginType = this.method.OriginType;
-                var asyncMachine = asyncStateMachineAttribute.typeDefinition;
-                return originType
-                      .GetMethods()
-                      .FirstOrDefault(x =>
-                      {
-                          if (!x.methodDefinition.HasCustomAttributes)
-                              return false;
+                                  for (int i = 0; i < x.methodDefinition.CustomAttributes.Count; i++)
+                                      if (x.methodDefinition.CustomAttributes[i].AttributeType.AreEqual(asyncMachine) &&
+                                        (x.methodDefinition.CustomAttributes[i].ConstructorArguments[0].Value as TypeReference).AreEqual(methodOriginType))
+                                          return true;
 
-                          for (int i = 0; i < x.methodDefinition.CustomAttributes.Count; i++)
-                              if (x.methodDefinition.CustomAttributes[i].AttributeType.AreEqual(asyncMachine) &&
-                                (x.methodDefinition.CustomAttributes[i].ConstructorArguments[0].Value as TypeReference).AreEqual(methodOriginType))
-                                  return true;
+                                  return false;
+                              });
 
-                          return false;
-                      });
+                        return this.asyncMethod;
+                    }
+                    throw new Exception("Unable to get the method.");
+                }
+
+                return this.asyncMethod;
             }
         }
 
-        public BuilderType OriginType
+        /// <summary>
+        /// Gets the MoveNext method in the async state machine
+        /// </summary>
+        public Method MoveNextMethod
         {
             get
             {
-                if (this.method.AsyncMethod == null && this.method.OriginType.IsAsyncStateMachine)
+                if (this.moveNextMethod == null)
                 {
-                    var result = this.method.OriginType.Fields.FirstOrDefault(x => x.Name == "<>4__this");
-                    if (result == null)
-                        throw new Exception("This is not possible.");
-
-                    return result.FieldType;
-                }
-                else if (this.method.AsyncMethod != null)
-                {
-                    var result = this.method.AsyncMethod.OriginType.Fields.FirstOrDefault(x => x.Name == "<>4__this");
-                    if (result == null)
-                        return this.AddThisReference()?.FieldType;
-
-                    return result.FieldType;
+                    if (this.method.Name == "MoveNext" && this.method.OriginType.IsAsyncStateMachine)
+                        this.moveNextMethod = this.method;
+                    else if (this.method.CustomAttributes.Any(x => x.Type == asyncStateMachineAttribute))
+                        this.moveNextMethod = this.method.AsyncMethod;
                 }
 
-                return this.method.OriginType;
+                return this.moveNextMethod;
             }
         }
 
+        /// <summary>
+        /// Gets the type that inherited the async method.
+        /// </summary>
+        public BuilderType OriginType => this.Method.OriginType;
+
         public Tuple<Positions, ExceptionHandler> GetAsyncStateMachineExceptionBlock()
         {
-            var asyncMethod = this.method.AsyncMethod ?? this.method;
-
-            if (asyncMethod == null)
-                return new Tuple<Positions, ExceptionHandler>(new Positions { Beginning = null, End = null }, null);
-
-            var lastException = asyncMethod.methodDefinition.Body.ExceptionHandlers.Last(x => x.HandlerType == ExceptionHandlerType.Catch);
+            var lastException = this.MoveNextMethod.methodDefinition.Body.ExceptionHandlers.Last(x => x.HandlerType == ExceptionHandlerType.Catch);
 
             return
                 new Tuple<Positions, ExceptionHandler>(
                 new Positions
                 {
-                    Beginning = new Position(asyncMethod, lastException.HandlerStart),
-                    End = new Position(asyncMethod, lastException.HandlerEnd)
+                    Beginning = new Position(this.MoveNextMethod, lastException.HandlerStart),
+                    End = new Position(this.MoveNextMethod, lastException.HandlerEnd)
                 },
                 lastException);
         }
 
         public LocalVariable GetAsyncStateMachineExceptionVariable()
         {
-            var asyncMethod = this.method.AsyncMethod ?? this.method;
-
-            if (asyncMethod == null)
-                return null;
-
-            var lastException = asyncMethod.methodDefinition.Body.ExceptionHandlers.Last(x => x.HandlerType == ExceptionHandlerType.Catch);
+            var lastException = this.MoveNextMethod.methodDefinition.Body.ExceptionHandlers.Last(x => x.HandlerType == ExceptionHandlerType.Catch);
             var lastOpCode = lastException.HandlerStart;
             VariableDefinition variable = null;
 
-            if (lastOpCode.Operand is int index && asyncMethod.methodDefinition.Body.Variables.Count > index)
-                variable = asyncMethod.methodDefinition.Body.Variables[index];
+            if (lastOpCode.Operand is int index && this.MoveNextMethod.methodDefinition.Body.Variables.Count > index)
+                variable = this.MoveNextMethod.methodDefinition.Body.Variables[index];
 
             if (variable == null && lastOpCode.Operand is VariableDefinition variableReference)
                 variable = variableReference;
 
             if (variable == null)
-                if (lastOpCode.OpCode == OpCodes.Stloc_0) variable = asyncMethod.methodDefinition.Body.Variables[0];
-                else if (lastOpCode.OpCode == OpCodes.Stloc_1) variable = asyncMethod.methodDefinition.Body.Variables[1];
-                else if (lastOpCode.OpCode == OpCodes.Stloc_2) variable = asyncMethod.methodDefinition.Body.Variables[2];
-                else if (lastOpCode.OpCode == OpCodes.Stloc_3) variable = asyncMethod.methodDefinition.Body.Variables[3];
+                if (lastOpCode.OpCode == OpCodes.Stloc_0) variable = this.MoveNextMethod.methodDefinition.Body.Variables[0];
+                else if (lastOpCode.OpCode == OpCodes.Stloc_1) variable = this.MoveNextMethod.methodDefinition.Body.Variables[1];
+                else if (lastOpCode.OpCode == OpCodes.Stloc_2) variable = this.MoveNextMethod.methodDefinition.Body.Variables[2];
+                else if (lastOpCode.OpCode == OpCodes.Stloc_3) variable = this.MoveNextMethod.methodDefinition.Body.Variables[3];
 
             if (variable == null)
                 throw new NullReferenceException("Unable to find the state machines exception variable.");
 
-            return new LocalVariable(asyncMethod.type, variable);
+            return new LocalVariable(this.MoveNextMethod.type, variable);
         }
 
         /// <summary>
@@ -165,12 +173,7 @@ namespace Cauldron.Interception.Cecilator
         /// <returns></returns>
         public Position GetAsyncStateMachineLastGetResult()
         {
-            var asyncMethod = this.method.AsyncMethod ?? this.method;
-
-            if (asyncMethod == null)
-                return null;
-
-            var lastGetResult = asyncMethod.methodDefinition.Body.Instructions.Last(x =>
+            var lastGetResult = this.MoveNextMethod.methodDefinition.Body.Instructions.Last(x =>
             {
                 if (x.OpCode == OpCodes.Call)
                 {
@@ -185,7 +188,7 @@ namespace Cauldron.Interception.Cecilator
             if (lastGetResult == null)
                 return null;
 
-            return new Position(asyncMethod, lastGetResult.Previous.Previous);
+            return new Position(this.MoveNextMethod, lastGetResult.Previous.Previous);
         }
 
         /// <summary>
@@ -194,12 +197,7 @@ namespace Cauldron.Interception.Cecilator
         /// <returns></returns>
         public Position GetAsyncStateMachineLastSetResult()
         {
-            var asyncMethod = this.method.AsyncMethod ?? this.method;
-
-            if (asyncMethod == null)
-                return null;
-
-            var lastSetResult = asyncMethod.methodDefinition.Body.Instructions.Last(x =>
+            var lastSetResult = this.MoveNextMethod.methodDefinition.Body.Instructions.Last(x =>
             {
                 if (x.OpCode == OpCodes.Call)
                 {
@@ -214,29 +212,23 @@ namespace Cauldron.Interception.Cecilator
             if (lastSetResult == null)
                 return null;
 
-            return new Position(asyncMethod, lastSetResult.Previous.Previous.Previous);
+            return new Position(this.MoveNextMethod, lastSetResult.Previous.Previous.Previous);
         }
 
         public Positions GetAsyncStateMachineTryBlock()
         {
-            var asyncMethod = this.method.AsyncMethod ?? this.method;
-
-            if (asyncMethod == null)
-                return new Positions { Beginning = null, End = null };
-
-            var lastException = asyncMethod.methodDefinition.Body.ExceptionHandlers.Last(x => x.HandlerType == ExceptionHandlerType.Catch);
+            var lastException = this.MoveNextMethod.methodDefinition.Body.ExceptionHandlers.Last(x => x.HandlerType == ExceptionHandlerType.Catch);
 
             return new Positions
             {
-                Beginning = new Position(asyncMethod, lastException.TryStart),
-                End = new Position(asyncMethod, lastException.TryEnd)
+                Beginning = new Position(this.MoveNextMethod, lastException.TryStart),
+                End = new Position(this.MoveNextMethod, lastException.TryEnd)
             };
         }
 
         public Position GetAsyncTaskMethodBuilderInitialization()
         {
-            var asyncMethod = this.Method;
-            var result = asyncMethod.methodDefinition.Body.Instructions
+            var result = this.Method.methodDefinition.Body.Instructions
                 .FirstOrDefault(x => x.OpCode == OpCodes.Stfld && (x.Operand as FieldDefinition ?? x.Operand as FieldReference).Name == "<>1__state");
 
             // If the result is null then probably the helper class is a struct
@@ -248,8 +240,7 @@ namespace Cauldron.Interception.Cecilator
 
         public Position GetAsyncTaskMethodBuilderStart()
         {
-            var asyncMethod = this.method.AsyncMethod ?? this.method;
-            var result = asyncMethod.methodDefinition.Body.Instructions
+            var result = this.Method.methodDefinition.Body.Instructions
                 .FirstOrDefault(x => x.OpCode == OpCodes.Call && (x.Operand as MethodDefinition ?? x.Operand as MethodReference).Name == "Start");
 
             // If the result is null then probably the helper class is a struct
@@ -264,22 +255,22 @@ namespace Cauldron.Interception.Cecilator
 
         public Field InsertFieldToAsyncStateMachine(string fieldName, TypeReference fieldType, Func<Coder, object> setCoder)
         {
-            var result = this.method.AsyncMethod.OriginType.GetField(fieldName, false);
+            var result = this.AsyncStateMachineType.GetField(fieldName, false);
             if (result != null)
                 return result;
 
-            var newField = this.method.AsyncMethod.OriginType.CreateField(Modifiers.Public, fieldType, fieldName);
-            var resolvedField = newField.Resolve(this.method);
+            var newField = this.AsyncStateMachineType.CreateField(Modifiers.Public, fieldType, fieldName);
+            var resolvedField = newField.Resolve(this.Method);
             var position = this.GetAsyncTaskMethodBuilderInitialization();
 
             if (position == null)
-                this.method.NewCoder().Load(variable: x => x.GetVariable(0)).SetValue(resolvedField, setCoder).Insert(InsertionPosition.Beginning);
+                this.Method.NewCoder().Load(variable: x => x.GetVariable(0)).SetValue(resolvedField, setCoder).Insert(InsertionPosition.Beginning);
             else
-                this.method.NewCoder().Load(variable: x => x.GetVariable(0)).SetValue(resolvedField, setCoder).Insert(InsertionAction.After, position);
+                this.Method.NewCoder().Load(variable: x => x.GetVariable(0)).SetValue(resolvedField, setCoder).Insert(InsertionAction.After, position);
 
-            return newField.Resolve(this.method.AsyncMethod.DeclaringType);
+            return newField.Resolve(this.AsyncStateMachineType);
         }
 
-        private Field AddThisReference() => this.InsertFieldToAsyncStateMachine("<>4__this", this.method.OriginType, x => CodeBlocks.This);
+        private Field AddThisReference() => this.InsertFieldToAsyncStateMachine("<>4__this", this.OriginType, x => CodeBlocks.This);
     }
 }

@@ -468,6 +468,12 @@ namespace Cauldron.Interception.Cecilator
 
         public static IEnumerable<MethodDefinitionAndReference> GetMethodReferencesByInterfaces(this TypeReference type) => GetMethodReferences(type, true);
 
+        public static BuilderType GetNestedTypeParent(this BuilderType builderType)
+        {
+            var pos = builderType.typeReference.FullName.IndexOf('/');
+            return Builder.Current.GetType(builderType.typeReference.FullName.Substring(0, pos));
+        }
+
         public static IEnumerable<TypeReference> GetNestedTypes(this TypeReference type)
         {
             var typeDef = type.BetterResolve();
