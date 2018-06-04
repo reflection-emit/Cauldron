@@ -166,7 +166,7 @@ namespace Cauldron.Interception.Cecilator.Coders
 
             if (variable == null)
             {
-                var objectArrayType = BuilderTypes.Object.BuilderType.MakeArray();
+                var objectArrayType = Builder.Current.Import(new ArrayType(Builder.Current.Import(BuilderTypes.Object)));
                 var newBlock = this.instructions.Spawn();
                 variable = variableOrigin.GetOrCreateVariable(objectArrayType, variableName);
 
@@ -174,7 +174,7 @@ namespace Cauldron.Interception.Cecilator.Coders
                     throw new NullReferenceException("Unable to create a local variable");
 
                 newBlock.Emit(OpCodes.Ldc_I4, associatedMethod.AsyncMethodHelper.Method.methodReference.Parameters.Count);
-                newBlock.Emit(OpCodes.Newarr, (objectArrayType.typeReference as ArrayType).ElementType);
+                newBlock.Emit(OpCodes.Newarr, Builder.Current.Import(BuilderTypes.Object.BuilderType.typeReference));
                 newBlock.Emit(OpCodes.Stloc, variable.variable);
 
                 if (associatedMethod.IsAsync)

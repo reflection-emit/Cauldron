@@ -17,6 +17,7 @@
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Cauldron Interception interceptor interception AOP Fody Cecil CIL ILWeaving</tags>
     <releaseNotes>
+      2018.06.04 - [B] "Member 'Cast' is declared in another module and needs to be imported" error fixed
       2018.06.04 - [C] Async helper coder optimized
       2018.05.28 - [B] Async Methods "this" reference fixed.
       2018.05.28 - [B] Async Methods parameters are "optimized" away on release mode. The weaver now adds the parameters.

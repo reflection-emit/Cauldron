@@ -128,7 +128,7 @@ namespace Cauldron.Interception.Cecilator
                         // instance to stack and then box it
                         if (referencedTypeSpec.ElementType.IsValueType)
                         {
-                            yield return Instruction.Create(OpCodes.Ldobj, referencedTypeSpec.ElementType);
+                            yield return Instruction.Create(OpCodes.Ldobj, Builder.Current.Import(referencedTypeSpec.ElementType));
                             pointerToValueTypeVariable = true;
                         }
                         else
@@ -142,7 +142,7 @@ namespace Cauldron.Interception.Cecilator
                 if (pointerToValueTypeVariable)
                 {
                     // Box the de-referenced parameter type
-                    yield return Instruction.Create(OpCodes.Box, referencedTypeSpec.ElementType);
+                    yield return Instruction.Create(OpCodes.Box, Builder.Current.Import(referencedTypeSpec.ElementType));
                 }
             }
             else
@@ -153,7 +153,7 @@ namespace Cauldron.Interception.Cecilator
                 if (paramType.IsValueType || paramType.IsGenericParameter)
                 {
                     // Box the parameter type
-                    yield return Instruction.Create(OpCodes.Box, paramType);
+                    yield return Instruction.Create(OpCodes.Box, Builder.Current.Import(paramType));
                 }
             }
 

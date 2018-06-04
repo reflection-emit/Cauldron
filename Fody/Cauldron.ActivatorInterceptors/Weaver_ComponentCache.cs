@@ -635,7 +635,7 @@ public static class Weaver_ComponentCache
             }
         }
 
-        var objectArray = (TypeReference)BuilderTypes.Object.BuilderType.MakeArray();
+        var objectArray = (TypeReference)BuilderTypes.Object.BuilderType.MakeArray().Import();
 
         if (
             !injectAttributeValues.ForceDontCreateMany &&

@@ -721,15 +721,15 @@ namespace Cauldron.Interception.Cecilator.Coders
 
         public void Emit(OpCode opcode, Field field) => this.instructions.Add(ilprocessor.Create(opcode, field.fieldRef));
 
-        public void Emit(OpCode opcode, MethodReference method) => this.instructions.Add(ilprocessor.Create(opcode, method));
+        public void Emit(OpCode opcode, MethodReference method) => this.instructions.Add(ilprocessor.Create(opcode, Builder.Current.Import(method)));
 
         public void Emit(OpCode opcode, Method method) => this.instructions.Add(ilprocessor.Create(opcode, Builder.Current.Import(method.methodReference)));
 
         public void Emit(OpCode opcode, CallSite site) => this.instructions.Add(ilprocessor.Create(opcode, site));
 
-        public void Emit(OpCode opcode, TypeReference type) => this.instructions.Add(ilprocessor.Create(opcode, type));
+        public void Emit(OpCode opcode, TypeReference type) => this.instructions.Add(ilprocessor.Create(opcode, Builder.Current.Import(type)));
 
-        public void Emit(OpCode opcode, BuilderType type) => this.instructions.Add(ilprocessor.Create(opcode, type.typeReference));
+        public void Emit(OpCode opcode, BuilderType type) => this.instructions.Add(ilprocessor.Create(opcode, Builder.Current.Import(type.typeReference)));
 
         public void Emit(OpCode opcode, short value) => this.instructions.Add(ilprocessor.Create(opcode, value));
 
