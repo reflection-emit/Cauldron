@@ -723,7 +723,7 @@ namespace Cauldron.Interception.Cecilator.Coders
 
         public void Emit(OpCode opcode, MethodReference method) => this.instructions.Add(ilprocessor.Create(opcode, method));
 
-        public void Emit(OpCode opcode, Method method) => this.instructions.Add(ilprocessor.Create(opcode, method.methodReference));
+        public void Emit(OpCode opcode, Method method) => this.instructions.Add(ilprocessor.Create(opcode, Builder.Current.Import(method.methodReference)));
 
         public void Emit(OpCode opcode, CallSite site) => this.instructions.Add(ilprocessor.Create(opcode, site));
 
@@ -1484,8 +1484,8 @@ namespace Cauldron.Interception.Cecilator.Coders
             else if ((instructionBlock.ResultingType.AreEqual((TypeReference)BuilderTypes.Object) || instructionBlock.ResultingType.AreEqual((TypeReference)BuilderTypes.IEnumerable)) && (targetType.IsArray || targetType == BuilderTypes.IEnumerable1))
             {
                 var childType = Builder.Current.GetChildrenType(targetType.typeReference);
-                var castMethod = BuilderTypes.Enumerable.GetMethod_Cast(childType);
-                var toArrayMethod = BuilderTypes.Enumerable.GetMethod_ToArray(childType);
+                var castMethod = BuilderTypes.Enumerable.GetMethod_Cast(childType).Import();
+                var toArrayMethod = BuilderTypes.Enumerable.GetMethod_ToArray(childType).Import();
 
                 if (instructionBlock.ResultingType.AreEqual((TypeReference)BuilderTypes.Object))
                     instructionBlock.Emit(OpCodes.Isinst, (TypeReference)BuilderTypes.IEnumerable);
@@ -1497,8 +1497,8 @@ namespace Cauldron.Interception.Cecilator.Coders
             else if ((instructionBlock.ResultingType.AreEqual((TypeReference)BuilderTypes.Object) || instructionBlock.ResultingType.AreEqual((TypeReference)BuilderTypes.IEnumerable)) && targetType == BuilderTypes.List1)
             {
                 var childType = Builder.Current.GetChildrenType(targetType.typeReference);
-                var castMethod = BuilderTypes.Enumerable.GetMethod_Cast(childType);
-                var toList = BuilderTypes.Enumerable.GetMethod_ToList(childType);
+                var castMethod = BuilderTypes.Enumerable.GetMethod_Cast(childType).Import();
+                var toList = BuilderTypes.Enumerable.GetMethod_ToList(childType).Import();
 
                 if (instructionBlock.ResultingType.AreEqual((TypeReference)BuilderTypes.Object))
                     instructionBlock.Emit(OpCodes.Isinst, (TypeReference)BuilderTypes.IEnumerable);
@@ -1551,8 +1551,8 @@ namespace Cauldron.Interception.Cecilator.Coders
                     .FirstOrDefault(x => x.Name == ".ctor" && x.HasParameters && x.Parameters[0].ParameterType.FullName.StartsWith("System.Collections.Generic.IList`1<") && x.Parameters.Count == 1);
             if (ctorCollection != null)
             {
-                var castMethod = BuilderTypes.Enumerable.GetMethod_Cast(childType);
-                var toList = BuilderTypes.Enumerable.GetMethod_ToList(childType);
+                var castMethod = BuilderTypes.Enumerable.GetMethod_Cast(childType).Import();
+                var toList = BuilderTypes.Enumerable.GetMethod_ToList(childType).Import();
 
                 if (instructionBlock.ResultingType.AreEqual((TypeReference)BuilderTypes.Object))
                     instructionBlock.Emit(OpCodes.Isinst, (TypeReference)BuilderTypes.IEnumerable);
@@ -1569,7 +1569,7 @@ namespace Cauldron.Interception.Cecilator.Coders
                     .FirstOrDefault(x => x.Name == ".ctor" && x.HasParameters && x.Parameters[0].ParameterType.FullName.StartsWith("System.Collections.Generic.IEnumerable`1<") && x.Parameters.Count == 1);
             if (ctorCollection != null)
             {
-                var castMethod = BuilderTypes.Enumerable.GetMethod_Cast(childType);
+                var castMethod = BuilderTypes.Enumerable.GetMethod_Cast(childType).Import();
 
                 if (instructionBlock.ResultingType.AreEqual((TypeReference)BuilderTypes.Object))
                     instructionBlock.Emit(OpCodes.Isinst, (TypeReference)BuilderTypes.IEnumerable);
