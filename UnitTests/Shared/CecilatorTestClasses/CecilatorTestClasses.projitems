@@ -9,6 +9,7 @@
     <Import_RootNamespace>CecilatorTestClasses</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)GetParametersArrayTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TestClass.cs" />
   </ItemGroup>
 </Project>

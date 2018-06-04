@@ -98,7 +98,8 @@ namespace Cauldron.Interception.Cecilator
 
                         return this.asyncMethod;
                     }
-                    throw new Exception("Unable to get the method.");
+                    else // This happens if this property is called and the method is not async at all
+                        this.asyncMethod = this.method;
                 }
 
                 return this.asyncMethod;

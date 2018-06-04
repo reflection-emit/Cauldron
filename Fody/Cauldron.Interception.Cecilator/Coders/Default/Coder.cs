@@ -131,64 +131,66 @@ namespace Cauldron.Interception.Cecilator.Coders
             return null;
         }
 
+        /// <summary>
+        /// Gets a variable of type object array that holds all parameter values of the current method.
+        /// <para/>
+        /// This method generate code that has to be explicitly inserted. This works best in connection with <see cref="Context(Func{Coder, Coder})"/>.
+        /// </summary>
+        /// <example>
+        /// <code>
+        /// attributedMethod.Method.NewCoder()
+        ///     .Context(x => x.Call(writeLineMethod, x.GetParametersArray()).End)
+        ///     .Insert(InsertionPosition.Beginning);
+        /// </code>
+        /// </example>
+        /// <returns></returns>
         public ParametersVariableCodeBlock GetParametersArray()
         {
-            Method targetMethod;
-            Method originMethod;
+            var associatedMethod = this.instructions.associatedMethod;
 
-            if (this.instructions.associatedMethod.IsAsync || this.instructions.associatedMethod.AsyncOriginType.IsAsyncStateMachine)
+            if (associatedMethod.IsAsync)
             {
-                targetMethod = this.instructions.associatedMethod;
-                originMethod = this.instructions.associatedMethod.AsyncMethodHelper.Method;
-
-                for (int i = 0; i < originMethod.methodReference.Parameters.Count; i++)
+                for (int i = 0; i < associatedMethod.AsyncMethodHelper.Method.methodReference.Parameters.Count; i++)
                 {
-                    var parameter = originMethod.methodReference.Parameters[i];
-                    originMethod.AsyncMethodHelper.InsertFieldToAsyncStateMachine(parameter.Name, parameter.ParameterType, x => CodeBlocks.GetParameter(i));
+                    var parameter = associatedMethod.AsyncMethodHelper.Method.methodReference.Parameters[i];
+                    associatedMethod.AsyncMethodHelper.InsertFieldToAsyncStateMachine(parameter.Name, parameter.ParameterType, x => CodeBlocks.GetParameter(i));
                 }
             }
-            else
-            {
-                targetMethod = this.instructions.associatedMethod;
-                originMethod = this.instructions.associatedMethod;
-            }
 
-            var variableName = "<>params_" + targetMethod.Identification;
-            var variable = targetMethod.GetVariable(variableName);
-
-            if (variable == null)
-                variable = targetMethod.GetVariable(targetMethod.Identification);
+            var variableOrigin = (associatedMethod.IsAsync ? associatedMethod.AsyncMethodHelper.MoveNextMethod : associatedMethod);
+            var variableName = "<>params_" + associatedMethod.Identification;
+            var variable = variableOrigin.GetVariable(variableName);
 
             if (this.AssociatedMethod is AsyncStateMachineMoveNextMethod moveNextMethod)
                 moveNextMethod.BeginOfCode = this.instructions[0];
 
             if (variable == null)
             {
-                var objectArrayType = Builder.Current.GetType(typeof(object[]));
+                var objectArrayType = BuilderTypes.Object.BuilderType.MakeArray();
                 var newBlock = this.instructions.Spawn();
-                variable = targetMethod.GetOrCreateVariable(objectArrayType, variableName);
+                variable = variableOrigin.GetOrCreateVariable(objectArrayType, variableName);
 
                 if (variable?.variable == null)
                     throw new NullReferenceException("Unable to create a local variable");
 
-                newBlock.Emit(OpCodes.Ldc_I4, originMethod.methodReference.Parameters.Count);
+                newBlock.Emit(OpCodes.Ldc_I4, associatedMethod.AsyncMethodHelper.Method.methodReference.Parameters.Count);
                 newBlock.Emit(OpCodes.Newarr, (objectArrayType.typeReference as ArrayType).ElementType);
                 newBlock.Emit(OpCodes.Stloc, variable.variable);
 
-                if (originMethod.IsAsync)
+                if (associatedMethod.IsAsync)
                 {
                     int counter = 0;
-                    foreach (var parameter in originMethod.methodReference.Parameters)
+                    foreach (var parameter in associatedMethod.methodReference.Parameters)
                     {
                         newBlock.Emit(OpCodes.Ldloc, variable.variable);
                         newBlock.Append(InstructionBlock.CreateCode(newBlock, null, counter++));
-                        newBlock.Append(InstructionBlock.CreateCode(newBlock, BuilderTypes.Object, targetMethod.OriginType.GetField(parameter.Name)));
+                        newBlock.Append(InstructionBlock.CreateCode(newBlock, BuilderTypes.Object, associatedMethod.AsyncMethodHelper.AsyncStateMachineType.GetField(parameter.Name)));
                         newBlock.Emit(OpCodes.Stelem_Ref);
                     }
                 }
                 else
                 {
-                    foreach (var parameter in originMethod.methodReference.Parameters)
+                    foreach (var parameter in associatedMethod.methodReference.Parameters)
                         newBlock.Append(IlHelper.ProcessParam(parameter, variable.variable));
                 }
 

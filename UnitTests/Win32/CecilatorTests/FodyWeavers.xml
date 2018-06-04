@@ -2,8 +2,7 @@
 <Weavers VerifyAssembly="True">
   <Cauldron.Interception>
     <CustomInterceptors>
-      $(ProjectDir)..\..\Shared\Interceptors\CoderTest.csx
-      $(ProjectDir)..\..\Shared\Interceptors\IfElseTests.csx
+      $(ProjectDir)..\..\Shared\Interceptors\*.csx
     </CustomInterceptors>
   </Cauldron.Interception>
 </Weavers>
