@@ -23,7 +23,7 @@
       2018.04.23 - [A] First version
     </releaseNotes>
     <dependencies>
-      <dependency id="Cauldron.Interception.Fody" version="3.0.21" />
+      <dependency id="Cauldron.Interception.Fody" version="3.0.20" />
     </dependencies>
     <contentFiles>
       <files include="**/Interceptors/*.*" buildAction="None" />

@@ -17,6 +17,8 @@
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Cauldron Interception interceptor interception AOP Fody Cecil CIL ILWeaving aspect decorator boundary invocation</tags>
     <releaseNotes>
+      2018.06.03 - [A] Searches csproj.nuget.g.props file for interceptors
+      2018.06.03 - [A] Searches project.assets.json file for interceptors
       2018.06.03 - [A] Support for project "linked" interceptors.
       2018.05.23 - [B] Bug that causes an exception while weaving in Net47 fixed.
       2018.05.02 - [B] Fixed bugs in weaving methods with generic parameters

@@ -306,6 +306,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Interceptors", "Interceptors", "{D047389A-016A-4ECC-BEE4-E3C3B8241FB8}"
 	ProjectSection(SolutionItems) = preProject
 		UnitTests\Shared\Interceptors\CoderTest.csx = UnitTests\Shared\Interceptors\CoderTest.csx
+		UnitTests\Shared\Interceptors\GetParametersArray.csx = UnitTests\Shared\Interceptors\GetParametersArray.csx
 		UnitTests\Shared\Interceptors\IfElseTests.csx = UnitTests\Shared\Interceptors\IfElseTests.csx
 	EndProjectSection
 EndProject
