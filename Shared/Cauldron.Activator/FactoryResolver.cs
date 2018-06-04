@@ -10,7 +10,7 @@ namespace Cauldron.Activator
     /// </summary>
     public sealed class FactoryResolver
     {
-        private FactoryDictionary<string, Func<IFactoryTypeInfo>> resolver = new FactoryDictionary<string, Func<IFactoryTypeInfo>>();
+        private FactoryStringDictionary<Func<IFactoryTypeInfo>> resolver = new FactoryStringDictionary<Func<IFactoryTypeInfo>>();
 
         /// <summary>
         /// Adds a new contractname resolver to the dictionary.
