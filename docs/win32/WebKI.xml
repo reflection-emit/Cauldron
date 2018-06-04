@@ -419,8 +419,8 @@
     <HelpKINode Title="ViewModelBase.BeforeRaiseNotifyPropertyChanged Method " Url="html/M_Cauldron_XAML_ViewModels_ViewModelBase_BeforeRaiseNotifyPropertyChanged.htm" />
   </HelpKINode>
   <HelpKINode Title="Beginning enumeration member" Url="html/T_Cauldron_Interception_Cecilator_InsertionPosition.htm" />
-  <HelpKINode Title="beginning field" Url="html/F_Cauldron_Interception_Cecilator_Coders_InstructionPoints_beginning.htm" />
   <HelpKINode Title="Beginning field" Url="html/F_Cauldron_Interception_Cecilator_Positions_Beginning.htm" />
+  <HelpKINode Title="beginning field" Url="html/F_Cauldron_Interception_Cecilator_Coders_InstructionPoints_beginning.htm" />
   <HelpKINode Title="Behaviour(Of T) class">
     <HelpKINode Title="Behaviour(T) Class" Url="html/T_Cauldron_XAML_Interactivity_Behaviour_1.htm" />
     <HelpKINode Title="constructor" Url="html/M_Cauldron_XAML_Interactivity_Behaviour_1__ctor.htm" />
@@ -3747,14 +3747,14 @@
   <HelpKINode Title="Extension.With(Of TType, TNew) method" Url="html/M_Cauldron_Interception_Cecilator_Extension_With__2.htm" />
   <HelpKINode Title="Extension.With&lt;TType, TNew&gt; method" Url="html/M_Cauldron_Interception_Cecilator_Extension_With__2.htm" />
   <HelpKINode Title="Extensions class">
-    <HelpKINode Title="Extensions Class" Url="html/T_Cauldron_XAML_Extensions.htm" />
     <HelpKINode Title="Extensions Class" Url="html/T_Cauldron_Interception_Extensions.htm" />
     <HelpKINode Title="Extensions Class" Url="html/T_Cauldron_Extensions.htm" />
     <HelpKINode Title="Extensions Class" Url="html/T_Cauldron_Core_Collections_Extensions.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Interception_Extensions.htm" />
+    <HelpKINode Title="Extensions Class" Url="html/T_Cauldron_XAML_Extensions.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Core_Collections_Extensions.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Extensions.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_XAML_Extensions.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Extensions.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Interception_Extensions.htm" />
   </HelpKINode>
   <HelpKINode Title="Extensions property" Url="html/P_Cauldron_Interception_Cecilator_BuilderTypes_Extensions.htm" />
   <HelpKINode Title="Extensions.AddHookParameterPassing method" Url="html/M_Cauldron_Extensions_AddHookParameterPassing.htm" />
