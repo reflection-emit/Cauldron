@@ -403,7 +403,18 @@ namespace Cauldron.Activator
         /// implemented <see cref="IDisposable"/> must also implement the <see
         /// cref="IDisposableObject"/> interface.
         /// </exception>
-        public static IEnumerable<T> CreateMany<T>() => CreateMany(typeof(T)).Cast<T>();
+        public static IEnumerable<T> CreateMany<T>() where T : class
+        {
+            var factoryInfos = componentsTyped[typeof(T)];
+            if (factoryInfos == null)
+                return ThrowExceptionOrReturnNull(typeof(T)) as IEnumerable<T>;
+
+            var result = new T[factoryInfos.factoryTypeInfos.Length];
+            for (int i = 0; i < factoryInfos.factoryTypeInfos.Length; i++)
+                result[i] = factoryInfos.factoryTypeInfos[i].CreateInstance() as T;
+
+            return result;
+        }
 
         #endregion CreateMany
 
@@ -480,7 +491,18 @@ namespace Cauldron.Activator
         /// implemented <see cref="IDisposable"/> must also implement the <see
         /// cref="IDisposableObject"/> interface.
         /// </exception>
-        public static IEnumerable<T> CreateManyOrdered<T>() => CreateManyOrdered(typeof(T)).Cast<T>();
+        public static IEnumerable<T> CreateManyOrdered<T>() where T : class
+        {
+            var factoryInfos = componentsTyped[typeof(T)];
+            if (factoryInfos == null)
+                return ThrowExceptionOrReturnNull(typeof(T)) as IEnumerable<T>;
+
+            var result = new T[factoryInfos.factoryTypeInfos.Length];
+            for (int i = 0; i < factoryInfos.factoryTypeInfos.Length; i++)
+                result[i] = factoryInfos.factoryTypeInfosOrdered[i].CreateInstance() as T;
+
+            return result;
+        }
 
         #endregion Create Many Ordered
 
@@ -760,7 +782,18 @@ namespace Cauldron.Activator
         /// implemented <see cref="IDisposable"/> must also implement the <see
         /// cref="IDisposableObject"/> interface.
         /// </exception>
-        public static IEnumerable<T> CreateMany<T>(params object[] parameters) => CreateMany(typeof(T), parameters).Cast<T>();
+        public static IEnumerable<T> CreateMany<T>(params object[] parameters) where T : class
+        {
+            var factoryInfos = componentsTyped[typeof(T)];
+            if (factoryInfos == null)
+                return ThrowExceptionOrReturnNull(typeof(T), parameters) as IEnumerable<T>;
+
+            var result = new T[factoryInfos.factoryTypeInfos.Length];
+            for (int i = 0; i < factoryInfos.factoryTypeInfos.Length; i++)
+                result[i] = factoryInfos.factoryTypeInfos[i].CreateInstance(parameters) as T;
+
+            return result;
+        }
 
         #endregion CreateMany with parameters
 
@@ -852,7 +885,18 @@ namespace Cauldron.Activator
         /// implemented <see cref="IDisposable"/> must also implement the <see
         /// cref="IDisposableObject"/> interface.
         /// </exception>
-        public static IEnumerable<T> CreateManyOrdered<T>(params object[] parameters) => CreateManyOrdered(typeof(T), parameters).Cast<T>();
+        public static IEnumerable<T> CreateManyOrdered<T>(params object[] parameters) where T : class
+        {
+            var factoryInfos = componentsTyped[typeof(T)];
+            if (factoryInfos == null)
+                return ThrowExceptionOrReturnNull(typeof(T), parameters) as IEnumerable<T>;
+
+            var result = new T[factoryInfos.factoryTypeInfos.Length];
+            for (int i = 0; i < factoryInfos.factoryTypeInfos.Length; i++)
+                result[i] = factoryInfos.factoryTypeInfosOrdered[i].CreateInstance(parameters) as T;
+
+            return result;
+        }
 
         #endregion Create Many Ordered with parameters
 
