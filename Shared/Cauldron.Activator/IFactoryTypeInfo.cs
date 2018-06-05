@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
 
 namespace Cauldron.Activator
@@ -8,6 +10,11 @@ namespace Cauldron.Activator
     /// </summary>
     public interface IFactoryTypeInfo
     {
+        /// <summary>
+        /// Gets the child type of the collection. null if <see cref="IsEnumerable"/> is false.
+        /// </summary>
+        Type ChildType { get; }
+
         /// <summary>
         /// The contract name associated with the type
         /// </summary>
@@ -27,6 +34,11 @@ namespace Cauldron.Activator
         /// Gets or sets the instance of a singleton
         /// </summary>
         object Instance { get; set; }
+
+        /// <summary>
+        /// Gets a value that indicates if the described type is an array or implements <see cref="IEnumerable{T}"/> or <see cref="IEnumerable"/>.
+        /// </summary>
+        bool IsEnumerable { get; }
 
         /// <summary>
         /// Gets the priority of the component

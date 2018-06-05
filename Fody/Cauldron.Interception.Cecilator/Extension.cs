@@ -263,38 +263,45 @@ namespace Cauldron.Interception.Cecilator
             }
         }
 
-        public static TypeReference GetChildrenType(this ModuleDefinition module, TypeReference type)
+        /// <summary>
+        /// Tries to get the child type of an array of IEnumerable.
+        /// </summary>
+        /// <param name="module"></param>
+        /// <param name="type"></param>
+        /// <returns>
+        /// If the child type was successfully extracted, then <see cref="Tuple{T1, T2}.Item2"/> is true; otherwise false.
+        /// <see cref="Tuple{T1, T2}.Item1"/> contains the child type; otherwise always <see cref="Object"/>
+        /// </returns>
+        public static Tuple<TypeReference, bool> GetChildrenType(this ModuleDefinition module, TypeReference type)
         {
             if (type.IsArray)
-                return type.GetElementType();
+                return new Tuple<TypeReference, bool>(module.ImportReference(type.GetElementType()), true);
 
             TypeReference getIEnumerableInterfaceChild(TypeReference typeReference)
             {
-                if (typeReference.IsGenericInstance)
+                if (typeReference is GenericInstanceType genericType)
                 {
-                    if (typeReference is GenericInstanceType genericType)
+                    foreach (var item in genericType.GetGenericInstances())
                     {
-                        var genericInstances = genericType.GetGenericInstances();
-
                         // We have to make some exceptions to dictionaries
-                        var ienumerableInterface = genericInstances.FirstOrDefault(x => x.FullName.StartsWith("System.Collections.Generic.IDictionary`2<"));
+                        Builder.Current.Log(LogTypes.Info, $"=======> {item.Resolve().AreEqual((TypeReference)BuilderTypes.IDictionary2.BuilderType.typeDefinition)} {item}");
+                        if (item.Resolve().AreEqual((TypeReference)BuilderTypes.IDictionary2.BuilderType.typeDefinition))
+                            return (item as GenericInstanceType).GenericArguments[1];
 
                         // If we have more than 1 generic argument then we try to get a IEnumerable<>
                         // interface otherwise we just return the last argument in the list
-                        if (ienumerableInterface == null)
-                            ienumerableInterface = genericInstances.FirstOrDefault(x => x.FullName.StartsWith("System.Collections.Generic.IEnumerable`1<"));
+                        Builder.Current.Log(LogTypes.Info, $"=======> {item.Resolve().AreEqual((TypeReference)BuilderTypes.IEnumerable1.BuilderType.typeDefinition)} {item}");
+                        if (item.Resolve().AreEqual((TypeReference)BuilderTypes.IEnumerable1.BuilderType.typeDefinition))
+                            return (item as GenericInstanceType).GenericArguments[0];
 
                         // A Nullable special
-                        if (ienumerableInterface == null && genericType.Resolve().AreEqual((TypeReference)BuilderTypes.Nullable1.BuilderType.typeDefinition))
-                            return genericType.GenericArguments[0];
-
-                        // We just don't know :(
-                        if (ienumerableInterface == null)
-                            return module.ImportReference(typeof(object));
-
-                        return (ienumerableInterface as GenericInstanceType).GenericArguments[0];
+                        Builder.Current.Log(LogTypes.Info, $"=======> {item.Resolve().AreEqual((TypeReference)BuilderTypes.Nullable1.BuilderType.typeDefinition)} {item}");
+                        if (item.Resolve().AreEqual((TypeReference)BuilderTypes.Nullable1.BuilderType.typeDefinition))
+                            return (item as GenericInstanceType).GenericArguments[0];
                     }
                 }
+                else if (type.AreEqual((TypeReference)BuilderTypes.IEnumerable.BuilderType.typeDefinition))
+                    return BuilderTypes.Object;
 
                 return null;
             }
@@ -302,26 +309,10 @@ namespace Cauldron.Interception.Cecilator
             var result = getIEnumerableInterfaceChild(type);
 
             if (result != null)
-                return result;
+                return new Tuple<TypeReference, bool>(module.ImportReference(result), true);
 
-            // This might be a type that inherits from list<> or something... lets find out
-            if (type.BetterResolve().GetInterfaces().Any(x => x.FullName == "System.Collections.Generic.IEnumerable`1"))
-            {
-                // if this is the case we will dig until we find a generic instance type
-                var baseType = type.BetterResolve().BaseType;
-
-                while (baseType != null)
-                {
-                    result = getIEnumerableInterfaceChild(baseType);
-
-                    if (result != null)
-                        return result;
-
-                    baseType = baseType.BetterResolve().BaseType;
-                };
-            }
-
-            return module.ImportReference(typeof(object));
+            // We just don't know :(
+            return new Tuple<TypeReference, bool>(module.ImportReference((TypeReference)BuilderTypes.Object), false);
         }
 
         public static IReadOnlyDictionary<string, TypeReference> GetGenericResolvedTypeName(this GenericInstanceType type)

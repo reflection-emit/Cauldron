@@ -1483,7 +1483,7 @@ namespace Cauldron.Interception.Cecilator.Coders
             }
             else if ((instructionBlock.ResultingType.AreEqual((TypeReference)BuilderTypes.Object) || instructionBlock.ResultingType.AreEqual((TypeReference)BuilderTypes.IEnumerable)) && (targetType.IsArray || targetType == BuilderTypes.IEnumerable1))
             {
-                var childType = Builder.Current.GetChildrenType(targetType.typeReference);
+                var childType = Builder.Current.GetChildrenType(targetType.typeReference).Item1;
                 var castMethod = BuilderTypes.Enumerable.GetMethod_Cast(childType).Import();
                 var toArrayMethod = BuilderTypes.Enumerable.GetMethod_ToArray(childType).Import();
 
@@ -1496,7 +1496,7 @@ namespace Cauldron.Interception.Cecilator.Coders
             }
             else if ((instructionBlock.ResultingType.AreEqual((TypeReference)BuilderTypes.Object) || instructionBlock.ResultingType.AreEqual((TypeReference)BuilderTypes.IEnumerable)) && targetType == BuilderTypes.List1)
             {
-                var childType = Builder.Current.GetChildrenType(targetType.typeReference);
+                var childType = Builder.Current.GetChildrenType(targetType.typeReference).Item1;
                 var castMethod = BuilderTypes.Enumerable.GetMethod_Cast(childType).Import();
                 var toList = BuilderTypes.Enumerable.GetMethod_ToList(childType).Import();
 
@@ -1545,7 +1545,7 @@ namespace Cauldron.Interception.Cecilator.Coders
 
         private static void CastToIList(InstructionBlock instructionBlock, BuilderType targetType)
         {
-            var childType = Builder.Current.GetChildrenType(targetType.typeReference);
+            var childType = Builder.Current.GetChildrenType(targetType.typeReference).Item1;
             var ctorCollection = targetType
                 .typeDefinition?.Methods
                     .FirstOrDefault(x => x.Name == ".ctor" && x.HasParameters && x.Parameters[0].ParameterType.FullName.StartsWith("System.Collections.Generic.IList`1<") && x.Parameters.Count == 1);

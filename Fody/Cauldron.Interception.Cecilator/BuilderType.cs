@@ -21,7 +21,7 @@ namespace Cauldron.Interception.Cecilator
         public AssemblyDefinition Assembly => this.typeDefinition.Module.Assembly;
         public Builder Builder { get; private set; }
 
-        public BuilderType ChildType => (new BuilderType(this.Builder, this.moduleDefinition.GetChildrenType(this.typeReference))).Import();
+        public BuilderType ChildType => (new BuilderType(this.Builder, this.moduleDefinition.GetChildrenType(this.typeReference).Item1)).Import();
 
         public BuilderCustomAttributeCollection CustomAttributes => new BuilderCustomAttributeCollection(this.Builder, this.typeDefinition);
 

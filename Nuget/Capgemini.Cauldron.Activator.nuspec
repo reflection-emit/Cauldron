@@ -13,6 +13,7 @@
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Activator Dependency Injection Factory Cauldron</tags>
     <releaseNotes>
+      2018.06.05 - [A] added 2 new properties to IFactoryTypeInfo: ChildType, IsEnumerable
       2018.06.04 - [B] Resolver was unable to resolve.
       2018.06.02 - [A] contentFiles entry in nuget added.
       2018.06.02 - [C] More performance boost for the DI

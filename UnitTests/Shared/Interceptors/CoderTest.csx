@@ -202,6 +202,30 @@ public class CoderTest
                 .Replace();
     }
 
+    public static void GetChildrenType_Dictionary_Tests(Builder builder)
+    {
+        var method = testType.CreateMethod(Modifiers.Public, nameof(GetChildrenType_Dictionary_Tests), Type.EmptyTypes);
+        var type = BuilderTypes.Dictionary2.BuilderType.MakeGeneric(typeof(int), typeof(string));
+        method.CustomAttributes.Add(builder.GetType(TestMethodAttribute));
+
+        method.NewCoder()
+            .Call(assertAreEqual.MakeGeneric(BuilderTypes.Type.BuilderType), typeof(string).ToBuilderType(), type.ChildType)
+                .Return()
+                .Replace();
+    }
+
+    public static void GetChildrenType_IEnumerable_Tests(Builder builder)
+    {
+        var method = testType.CreateMethod(Modifiers.Public, nameof(GetChildrenType_IEnumerable_Tests), Type.EmptyTypes);
+        var type = BuilderTypes.IEnumerable1.BuilderType.MakeGeneric(typeof(int));
+        method.CustomAttributes.Add(builder.GetType(TestMethodAttribute));
+
+        method.NewCoder()
+            .Call(assertAreEqual.MakeGeneric(BuilderTypes.Type.BuilderType), typeof(int).ToBuilderType(), type.ChildType)
+                .Return()
+                .Replace();
+    }
+
     public static void Field_NewObj_Load_Delegate(Builder builder)
     {
         var field1Name = "field_1" + nameof(Field_NewObj_Load_Delegate);

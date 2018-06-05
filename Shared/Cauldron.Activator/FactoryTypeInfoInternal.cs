@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.ComponentModel;
 
 namespace Cauldron.Activator
@@ -18,6 +19,8 @@ namespace Cauldron.Activator
             this.CreationPolicy = creationPolicy;
             this.Type = type;
             this.createInstance = createInstance;
+            this.IsEnumerable = type.IsArray || type.ImplementsInterface(typeof(IEnumerable));
+            this.ChildType = type.GetChildrenType();
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -28,7 +31,13 @@ namespace Cauldron.Activator
             this.CreationPolicy = creationPolicy;
             this.Type = type;
             this.createInstance = createInstance;
+            this.IsEnumerable = type.IsArray || type.ImplementsInterface(typeof(IEnumerable));
+            this.ChildType = type.GetChildrenType();
         }
+
+        /// <exclude/>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public Type ChildType { get; }
 
         /// <exclude/>
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -45,6 +54,10 @@ namespace Cauldron.Activator
         /// <exclude/>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public object Instance { get; set; }
+
+        /// <exclude/>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public bool IsEnumerable { get; }
 
         /// <exclude/>
         [EditorBrowsable(EditorBrowsableState.Never)]

@@ -91,6 +91,7 @@ public static class Weaver_ComponentCache
             builder.Log(LogTypes.Info, "Hardcoding component factory .ctor: " + component.Type.Fullname);
 
             var componentAttributeValue = new ComponentAttributeValues(component);
+            var childType = Builder.Current.GetChildrenType((TypeReference)component.Type);
 
             /*
                 Check for IDisposable
@@ -153,6 +154,16 @@ public static class Weaver_ComponentCache
                     case "Type":
                         propertyResult.BackingField.Remove();
                         propertyResult.Getter.NewCoder().Load(component.Type).Return().Replace();
+                        break;
+
+                    case "IsEnumerable":
+                        propertyResult.BackingField.Remove();
+                        propertyResult.Getter.NewCoder().Load(childType.Item2).Return().Replace();
+                        break;
+
+                    case "ChildType":
+                        propertyResult.BackingField.Remove();
+                        propertyResult.Getter.NewCoder().Load(childType.Item2 ? childType.Item1 : null).Return().Replace();
                         break;
 
                     case "Instance":

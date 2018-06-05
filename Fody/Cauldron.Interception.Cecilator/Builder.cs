@@ -23,7 +23,15 @@ namespace Cauldron.Interception.Cecilator
 
         public override bool Equals(object obj) => this.moduleDefinition.Assembly.FullName.Equals(obj?.ToString());
 
-        public TypeReference GetChildrenType(TypeReference type) => this.moduleDefinition.GetChildrenType(type);
+        /// <summary>
+        /// Tries to get the child type of an array of IEnumerable.
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns>
+        /// If the child type was successfully extracted, then <see cref="Tuple{T1, T2}.Item2"/> is true; otherwise false.
+        /// <see cref="Tuple{T1, T2}.Item1"/> contains the child type; otherwise always <see cref="Object"/>
+        /// </returns>
+        public Tuple<TypeReference, bool> GetChildrenType(TypeReference type) => this.moduleDefinition.GetChildrenType(type);
 
         public override int GetHashCode() => this.moduleDefinition.Assembly.FullName.GetHashCode();
 
