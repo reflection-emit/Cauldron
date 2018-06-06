@@ -1,0 +1,142 @@
+﻿{
+  "projects": [
+    {
+      "id": "Cauldron.Interception.Fody",
+      "projects": [
+        {
+          "path": "..\\Fody\\Cauldron.Interception.Fody\\Cauldron.Interception.Fody.csproj",
+          "build-config": [ "Release" ]
+        }
+      ],
+      "priority": 0
+    },
+    {
+      "id": "Capgemini.Cauldron.Activator",
+      "projects": [
+        {
+          "path": "..\\UWP\\Cauldron.Activator\\Cauldron.Activator.csproj",
+          "build-config": [ "Release" ]
+        },
+        {
+          "path": "..\\NetStandard\\Cauldron.Activator\\Cauldron.Activator.csproj",
+          "build-config": [ "Release" ]
+        },
+        {
+          "path": "..\\Win32\\Cauldron.Activator\\Cauldron.Activator.csproj",
+          "build-config": [ "Release-Net45", "Release-Net451", "Release-Net452", "Release-Net46", "Release-Net461", "Release-Net462" ]
+        },
+        {
+          "path": "..\\Fody\\Cauldron.ActivatorInterceptors\\Cauldron.ActivatorInterceptors.csproj",
+          "build-config": [ "Release" ]
+        }
+      ],
+      "priority": 2
+    },
+    {
+      "id": "Cauldron.BasicInterceptors",
+      "projects": [
+        {
+          "path": "..\\UWP\\Cauldron.Interception\\Cauldron.Interception.csproj",
+          "build-config": [ "Release" ]
+        },
+        {
+          "path": "..\\NetStandard\\Cauldron.Interception\\Cauldron.Interception.csproj",
+          "build-config": [ "Release" ]
+        },
+        {
+          "path": "..\\Win32\\Cauldron.Interception\\Cauldron.Interception.csproj",
+          "build-config": [ "Release-Net45", "Release-Net451", "Release-Net452", "Release-Net46", "Release-Net461", "Release-Net462" ]
+        },
+        {
+          "path": "..\\Fody\\Cauldron.BasicInterceptors\\Cauldron.BasicInterceptors.csproj",
+          "build-config": [ "Release" ]
+        }
+      ],
+      "priority": 2
+    },
+    {
+      "id": "Capgemini.Cauldron.Core.Diagnostics",
+      "projects": [
+        {
+          "path": "..\\UWP\\Cauldron.Core.Diagnostics\\Cauldron.Core.Diagnostics.csproj",
+          "build-config": [ "Release" ]
+        },
+        {
+          "path": "..\\NetStandard\\Cauldron.Core.Diagnostics\\Cauldron.Core.Diagnostics.csproj",
+          "build-config": [ "Release" ]
+        },
+        {
+          "path": "..\\Win32\\Cauldron.Core.Diagnostics\\Cauldron.Core.Diagnostics.csproj",
+          "build-config": [ "Release-Net45", "Release-Net451", "Release-Net452", "Release-Net46", "Release-Net461", "Release-Net462" ]
+        }
+      ],
+      "priority": 100
+    },
+    {
+      "id": "Capgemini.Cauldron.Core.Disposable",
+      "projects": [
+        {
+          "path": "..\\UWP\\Cauldron.Core.Disposable\\Cauldron.Core.Disposable.csproj",
+          "build-config": [ "Release" ]
+        },
+        {
+          "path": "..\\NetStandard\\Cauldron.Core.Disposable\\Cauldron.Core.Disposable.csproj",
+          "build-config": [ "Release" ]
+        },
+        {
+          "path": "..\\Win32\\Cauldron.Core.Disposable\\Cauldron.Core.Disposable.csproj",
+          "build-config": [ "Release-Net45", "Release-Net451", "Release-Net452", "Release-Net46", "Release-Net461", "Release-Net462" ]
+        }
+      ],
+      "priority": 100
+    },
+    {
+      "id": "Capgemini.Cauldron.Core.Extensions",
+      "projects": [
+        {
+          "path": "..\\UWP\\Cauldron.Core.Extensions\\Cauldron.Core.Extensions.csproj",
+          "build-config": [ "Release" ]
+        },
+        {
+          "path": "..\\NetStandard\\Cauldron.Core.Extensions\\Cauldron.Core.Extensions.csproj",
+          "build-config": [ "Release" ]
+        },
+        {
+          "path": "..\\Win32\\Cauldron.Core.Extensions\\Cauldron.Core.Extensions.csproj",
+          "build-config": [ "Release-Net45", "Release-Net451", "Release-Net452", "Release-Net46", "Release-Net461", "Release-Net462" ]
+        }
+      ],
+      "priority": 100
+    },
+    {
+      "id": "Capgemini.Cauldron.Core.Reflection",
+      "projects": [
+        {
+          "path": "..\\UWP\\Cauldron.Core.Reflection\\Cauldron.Core.Reflection.csproj",
+          "build-config": [ "Release" ]
+        },
+        {
+          "path": "..\\NetStandard\\Cauldron.Core.Reflection\\Cauldron.Core.Reflection.csproj",
+          "build-config": [ "Release" ]
+        },
+        {
+          "path": "..\\Win32\\Cauldron.Core.Reflection\\Cauldron.Core.Reflection.csproj",
+          "build-config": [ "Release-Net45", "Release-Net451", "Release-Net452", "Release-Net46", "Release-Net461", "Release-Net462" ]
+        }
+      ],
+      "priority": 100
+    }
+  ],
+  "nuget-output-path": "..\\Nuget\\Packages",
+  "solution-path": "..\\Cauldron.sln",
+  "msbuild-path": "C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Community\\MSBuild\\15.0\\Bin\\msbuild.exe",
+  "nuget-path": "..\\Nuget\\nuget.exe",
+  // leave blank to leave alone
+  "authors": "Alexander Schunk, Capgemini Deutschland GmbH",
+  "owners": "Alexander Schunk, Capgemini Deutschland GmbH",
+  "licenseUrl": "https://raw.githubusercontent.com/Capgemini/Cauldron/master/LICENSE",
+  "projectUrl": "https://github.com/Capgemini/Cauldron",
+  "copyright": "Copyright (c) 2016 Capgemini Deutschland GmbH",
+  "iconUrl": "https://raw.githubusercontent.com/Capgemini/Cauldron/master/cauldron.png",
+  "requireLicenseAcceptance": true
+}

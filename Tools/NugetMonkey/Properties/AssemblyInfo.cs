@@ -1,16 +1,16 @@
-using System.Reflection;
+﻿using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Cauldron.Core.Diagnostics")]
+[assembly: AssemblyTitle("NugetMonkey")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Alexander Schunk, Capgemini Deutschland GmbH")]
-[assembly: AssemblyProduct("Cauldron.Core.Diagnostics")]
-[assembly: AssemblyCopyright("Copyright (c) 2016 Capgemini Deutschland GmbH")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("NugetMonkey")]
+[assembly: AssemblyCopyright("Copyright ©  2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("637c0bb9-9915-4e38-9be6-4bfa1feca39f")]
+[assembly: Guid("d5de38fd-1ef6-4d80-bbd2-d0ac3e137453")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -31,6 +31,6 @@ using System.Runtime.InteropServices;
 //
 // You can specify all the values or you can default the Build and Revision Numbers
 // by using the '*' as shown below:
-// "3.0.0.8")]
-[assembly: AssemblyVersion("3.0.0.23")]
-[assembly: AssemblyFileVersion("3.0.0.23")]
+// [assembly: AssemblyVersion("1.0.*")]
+[assembly: AssemblyVersion("1.0.0.0")]
+[assembly: AssemblyFileVersion("1.0.0.0")]

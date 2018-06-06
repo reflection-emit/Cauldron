@@ -2,14 +2,14 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>Capgemini.Cauldron.Activator</id>
-    <version>2.0.2-beta</version>
+    <version>3.0.23</version>
     <authors>Alexander Schunk, Capgemini Deutschland GmbH</authors>
     <owners>Alexander Schunk, Capgemini Deutschland GmbH</owners>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <licenseUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/LICENSE</licenseUrl>
     <projectUrl>https://github.com/Capgemini/Cauldron</projectUrl>
     <iconUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/cauldron.png</iconUrl>
-    <description>The activator is a simple and very fast dependency injection framework. It is based on attributes and does not require any configuration files for configuration. It also supports using static methods as component constructor.</description>
+    <description>The activator is a simple and fast dependency injection framework. It is based on attributes and does not require any configuration files for configuration. It also supports using static methods as component constructor.</description>
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Activator Dependency Injection Factory Cauldron</tags>
     <releaseNotes>
@@ -36,11 +36,11 @@
       2017.12.04 - [A] CreateFirst method added to the Factory. This will auto-pick the implementation with the highest priority if multiple implementations are available.
     </releaseNotes>
     <dependencies>
-      <dependency id="Capgemini.Cauldron.Core.Diagnostics" version="3.0.22" />
-      <dependency id="Capgemini.Cauldron.Core.Disposable" version="3.0.22" />
-      <dependency id="Capgemini.Cauldron.Core.Extensions" version="3.0.22" />
-      <dependency id="Capgemini.Cauldron.Core.Reflection" version="3.0.22" />
-      <dependency id="Cauldron.Interception.Fody" version="3.0.22" />
+      <dependency id="Capgemini.Cauldron.Core.Diagnostics" version="3.0.23" />
+      <dependency id="Capgemini.Cauldron.Core.Disposable" version="3.0.23" />
+      <dependency id="Capgemini.Cauldron.Core.Extensions" version="3.0.23" />
+      <dependency id="Capgemini.Cauldron.Core.Reflection" version="3.0.23" />
+      <dependency id="Cauldron.Interception.Fody" version="3.0.23" />
       <dependency id="Fody" version="3.0.3" />
     </dependencies>
     <contentFiles>

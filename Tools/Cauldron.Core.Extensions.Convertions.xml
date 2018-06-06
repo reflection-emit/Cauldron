@@ -1,0 +1,694 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Cauldron.Core.Extensions.Convertions</name>
+    </assembly>
+    <members>
+        <member name="T:Cauldron.Core.Encodings">
+            <summary>
+            Provides predefined encodings
+            </summary>
+        </member>
+        <member name="F:Cauldron.Core.Encodings.ASCII">
+            <summary>
+             Encoding for the ASCII (7-bit) character set.
+            </summary>
+        </member>
+        <member name="F:Cauldron.Core.Encodings.BigEndianUnicode">
+            <summary>
+            Encoding for the UTF-16 format that uses the big endian byte order.
+            </summary>
+        </member>
+        <member name="F:Cauldron.Core.Encodings.Unicode">
+            <summary>
+            Encoding for the UTF-16 format using the little endian byte order.
+            </summary>
+        </member>
+        <member name="F:Cauldron.Core.Encodings.UTF32">
+            <summary>
+            Encoding for the UTF-32 format using the little endian byte order.
+            </summary>
+        </member>
+        <member name="F:Cauldron.Core.Encodings.ANSI">
+            <summary>
+            Encoding for the ISO-8859-1 format. Used by default in the legacy components of Microsoft Windows.
+            </summary>
+        </member>
+        <member name="F:Cauldron.Core.Encodings.UTF7">
+            <summary>
+            Encoding for the UTF-7 format.
+            </summary>
+        </member>
+        <member name="F:Cauldron.Core.Encodings.UTF8">
+            <summary>
+            Encoding for the UTF-8 format.
+            </summary>
+        </member>
+        <member name="F:Cauldron.Core.Encodings.EBCDIC_IBM037">
+            <summary>
+            Encoding for the IBM EBCDIC format (US-Canada).
+            </summary>
+        </member>
+        <member name="F:Cauldron.Core.Encodings.EBCDIC_IBM01047">
+            <summary>
+            Encoding for the IBM EBCDIC format (IBM Latin-1).
+            </summary>
+        </member>
+        <member name="F:Cauldron.Core.Encodings.EBCDIC_IBM01140">
+            <summary>
+            Encoding for the IBM EBCDIC format (US-Canada-Euro).
+            </summary>
+        </member>
+        <member name="F:Cauldron.Core.Encodings.EBCDIC_IBM01141">
+            <summary>
+            Encoding for the IBM EBCDIC format (Germany-Euro).
+            </summary>
+        </member>
+        <member name="T:Cauldron.ExtensionsConvertions">
+            <summary>
+            Provides usefull extension methods
+            </summary>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.As``1(System.Object)">
+             <summary>
+             Performs a cast between compatible reference types. If a convertion is not possible then
+             null is returned. As a last resort it will use <see
+             cref="M:System.Convert.ChangeType(System.Object,System.Type)"/>.
+             <para/>
+             Tries to use the implicit and explicit operators if exists when convertion with 'as'
+             returns null.
+             </summary>
+             <typeparam name="T">The <see cref="T:System.Type"/> to convert to</typeparam>
+             <param name="source">The object to convert</param>
+             <returns>The object casted to <typeparamref name="T"/></returns>
+             <example>
+             In the following code example, the 'As' extension is used to convert a returned object
+             via the implicit operator.
+             <code>
+             public interface IFoo
+             {
+                 string Name {get;}
+                 string Description {get;}
+             }
+            
+             public class Foo : IFoo
+             {
+                 public string Name {get; set;}
+                 public string Description {get; set;}
+             }
+            
+             public class Bar : BarBase
+             {
+                 private IFoo internalFoo;
+            
+                 private Bar(IFoo foo)
+                 {
+                     this.internalFoo = foo;
+                 }
+            
+                 public void DoSomeStuff()
+                 {
+                 }
+            
+                 public void DoSomeOtherStuff()
+                 {
+                 }
+            
+                 public static implicit operator Bar(Foo value) =&gt; new Boo(value);
+                 public static implicit operator Foo(Bar value) =&gt; value.internalFoo;
+             }
+            
+             public class SomeOtherClass
+             {
+                 public IFoo GetFooFromSomewhere(string fooId) =&gt; new Foo { Name = "A Foo", Description = "This is the foo you are looking for." };
+             }
+             </code>
+             The code can be called like following:
+             <code>
+             var bar = someOtherClassInstance.GetFooFromSomewhere("fooThatINeed").As&lt;Bar&gt;();
+             </code>
+             </example>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.As(System.Object,System.Type,System.Type)">
+             <summary>
+             Converts a type using the implicit or explicit operators. If both fails it will try to
+             convert the value with <see cref="M:System.Convert.ChangeType(System.Object,System.Type)"/>.
+             </summary>
+             <param name="source">The object to convert</param>
+             <param name="sourceType">The type of the object to convert</param>
+             <param name="targetType">The type to convert to</param>
+             <returns>A new instance of <paramref name="targetType"/>.</returns>
+             <example>
+             <code>
+             public class Bla
+             {
+                 public string Value { get; set; }
+            
+                 public static implicit operator Bla(string value) =&gt; new Bla { Value = value };
+            
+                 public static implicit operator Bla(int value) =&gt; new Bla { Value = value.ToString() };
+             }
+             </code>
+             The code can be called like following:
+             <code>
+             var bar = "Test Test".As(typeof(string), typeof(Bla));
+             </code>
+             </example>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.As(System.Object,System.Type)">
+             <summary>
+             Converts a type using the implicit or explicit operators. If both fails it will try to
+             convert the value with <see cref="M:System.Convert.ChangeType(System.Object,System.Type)"/>.
+             </summary>
+             <param name="source">The object to convert</param>
+             <param name="targetType">The type to convert to</param>
+             <returns>A new instance of <paramref name="targetType"/>.</returns>
+             <example>
+             <code>
+             public class Bla
+             {
+                 public string Value { get; set; }
+            
+                 public static implicit operator Bla(string value) =&gt; new Bla { Value = value };
+            
+                 public static implicit operator Bla(int value) =&gt; new Bla { Value = value.ToString() };
+             }
+             </code>
+             The code can be called like following:
+             <code>
+             var bar = "Test Test".As(typeof(Bla));
+             </code>
+             </example>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.AsReadOnly``2(System.Collections.Generic.IDictionary{``0,``1})">
+            <summary>
+            Converts a <see cref="T:System.Collections.Generic.IDictionary`2"/> to a <see
+            cref="T:System.Collections.ObjectModel.ReadOnlyDictionary`2"/>.
+            </summary>
+            <typeparam name="TKey">The type of keys in the dictionary.</typeparam>
+            <typeparam name="TValue">The type of values in the dictionary.</typeparam>
+            <param name="dictionary">The dictionary to wrap.</param>
+            <returns>A new instance of <see cref="T:System.Collections.ObjectModel.ReadOnlyDictionary`2"/></returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="dictionary"/> is null</exception>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.Convert``1(System.String)">
+            <summary>
+            Converts a string to the type defined by <typeparamref name="T"/>
+            </summary>
+            <typeparam name="T">The type to convert the string to</typeparam>
+            <param name="value">The string value to convert</param>
+            <returns>The converted value</returns>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.Convert``1(System.String,System.Globalization.NumberFormatInfo)">
+            <summary>
+            Converts a string to the type defined by <typeparamref name="T"/>
+            </summary>
+            <typeparam name="T">The type to convert the string to</typeparam>
+            <param name="value">The string value to convert</param>
+            <param name="numberformat">
+            An object that supplies culture-specific formatting information about <paramref name="value"/>.
+            </param>
+            <returns>The converted value</returns>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.Convert(System.String,System.Type)">
+            <summary>
+            Converts a string to the type defined by <paramref name="targetType"/>
+            </summary>
+            <param name="value">The string value to convert</param>
+            <param name="targetType">The type to convert the string to</param>
+            <returns>The converted value</returns>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.Convert(System.String,System.Type,System.Globalization.NumberFormatInfo)">
+            <summary>
+            Converts a string to the type defined by <paramref name="targetType"/>
+            </summary>
+            <param name="value">The string value to convert</param>
+            <param name="targetType">The type to convert the string to</param>
+            <param name="numberformat">
+            An object that supplies culture-specific formatting information about <paramref name="value"/>.
+            </param>
+            <returns>The converted value</returns>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.Convert(System.String,Cauldron.Core.Encodings,Cauldron.Core.Encodings)">
+            <summary>
+            Converts a string from a encoding to another encoding
+            </summary>
+            <param name="source">The string to convert</param>
+            <param name="from">The source strings encoding</param>
+            <param name="to">The target encoding</param>
+            <returns>The converted string</returns>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.Convert(System.Byte[],Cauldron.Core.Encodings,Cauldron.Core.Encodings)">
+            <summary>
+            Converts a string represented by a byte array from a encoding to another encoding
+            </summary>
+            <param name="source">The string to convert</param>
+            <param name="from">The source strings encoding</param>
+            <param name="to">The target encoding</param>
+            <returns>The converted string</returns>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ConvertEscapeSequences(System.String)">
+            <summary>
+            Converts the readable escaped chars in a string to its equivalent char. This includes
+            simple-escape-sequences such as \' \" \\ \0 \a \b \f \n \r \t \v
+            </summary>
+            <param name="source">The source string to convert</param>
+            <returns>The converted string</returns>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ConvertToBytes(System.String,Cauldron.Core.Encodings,Cauldron.Core.Encodings)">
+            <summary>
+            Converts a string from a encoding to another encoding
+            </summary>
+            <param name="source">The string to convert</param>
+            <param name="from">The source strings encoding</param>
+            <param name="to">The target encoding</param>
+            <returns>The converted string</returns>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ToArray(System.Collections.IEnumerable,System.Type)">
+            <summary>
+            Converts a <see cref="T:System.Collections.IEnumerable"/> to an array
+            </summary>
+            <param name="source">The <see cref="T:System.Collections.IEnumerable"/> to convert</param>
+            <param name="elementType">The element type contained in the <see cref="T:System.Collections.IEnumerable"/></param>
+            <returns>An array of <paramref name="elementType"/></returns>
+            <exception cref="T:System.ArgumentNullException">source is null</exception>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ToBase64String(System.String)">
+            <summary>
+            Converts a string to its equivalent string representation that is encoded with base-64 digits.
+            </summary>
+            <param name="source">The string to convert</param>
+            <returns>The string representation, in base 64</returns>
+            <exception cref="T:System.ArgumentNullException">source string is null</exception>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ToBool(System.String)">
+            <summary>
+            Converts a string to bool.
+            <para/>
+            This will first try to compare the string to "true" and then to "false". If both fails
+            then it will use <see cref="M:System.Boolean.TryParse(System.String,System.Boolean@)"/> to parse the string to
+            bool. If that also fails then the string will be compared to "1".
+            </summary>
+            <param name="target">The value to convert</param>
+            <returns>Returns true if the string is equivalent to true; otherwise false.</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="target"/> is null</exception>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ToByte(System.String)">
+            <summary>
+            Converts the value to a byte If convertion fails the value will always be 0
+            </summary>
+            <param name="target">The value to convert</param>
+            <returns>The byte value of the string</returns>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ToBytes(System.UInt32)">
+            <summary>
+            Converts the value to a byte array
+            </summary>
+            <param name="target">The value to convert</param>
+            <returns>The <paramref name="target"/> as an array of bytes</returns>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ToBytes(System.Int32)">
+            <summary>
+            Converts the value to a byte array
+            </summary>
+            <param name="target">The value to convert</param>
+            <returns>The <paramref name="target"/> as an array of bytes</returns>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ToBytes(System.Int64)">
+            <summary>
+            Converts the value to a byte array
+            </summary>
+            <param name="target">The value to convert</param>
+            <returns>The <paramref name="target"/> as an array of bytes</returns>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ToBytes(System.Double)">
+            <summary>
+            Converts the value to a byte array
+            </summary>
+            <param name="target">The value to convert</param>
+            <returns>The <paramref name="target"/> as an array of bytes</returns>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ToBytes(System.Single)">
+            <summary>
+            Converts the value to a byte array
+            </summary>
+            <param name="target">The value to convert</param>
+            <returns>The <paramref name="target"/> as an array of bytes</returns>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ToBytesAsync(System.IO.Stream)">
+            <summary>
+            Converts a <see cref="T:System.IO.Stream"/> to <see cref="T:System.Byte"/> array. If the stream is not
+            seekable, then this will use <see cref="M:System.IO.StreamReader.ReadToEndAsync"/> to get the stream.
+            </summary>
+            <param name="stream">The <see cref="T:System.IO.Stream"/> to convert</param>
+            <returns>An array of bytes</returns>
+            <exception cref="T:System.ArgumentNullException">
+            Parameter <paramref name="stream"/> is null
+            </exception>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ToChar(System.String)">
+            <summary>
+            Converts the value to a char If convertion fails the value will always be '\0'
+            </summary>
+            <param name="target">The value to convert</param>
+            <returns>The char value of the string</returns>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ToDecimal(System.String)">
+            <summary>
+            Tries to convert a <see cref="T:System.String"/> to an <see cref="T:System.Decimal"/>
+            </summary>
+            <param name="target">The string to convert</param>
+            <returns>Returns a decimal that represents the converted string</returns>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ToDecimal(System.String,System.Globalization.NumberFormatInfo)">
+            <summary>
+            Tries to convert a <see cref="T:System.String"/> to an <see cref="T:System.Decimal"/>
+            </summary>
+            <param name="target">The string to convert</param>
+            <returns>Returns a decimal that represents the converted string</returns>
+            <param name="numberformat">
+            An object that supplies culture-specific formatting information about <paramref name="target"/>.
+            </param>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ToDecimalUS(System.String)">
+            <summary>
+            Tries to convert a <see cref="T:System.String"/> to an <see cref="T:System.Decimal"/> using the en-US
+            number format
+            </summary>
+            <param name="target">The string to convert</param>
+            <returns>Returns a decimal that represents the converted string</returns>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ToDouble(System.String)">
+            <summary>
+            Converts the string representation of a number in a specified culture-specific format to
+            its double-precision floating-point number equivalent. if the string content is "nan"
+            then a <see cref="F:System.Double.NaN"/> is returned.
+            </summary>
+            <param name="target">A string that contains a number to convert.</param>
+            <returns>
+            A double-precision floating-point number that is equivalent to the numeric value or
+            symbol specified in <paramref name="target"/>.
+            </returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="target"/> is null</exception>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ToDouble(System.Byte[])">
+            <summary>
+            Returns a double-precision floating point number converted from eight bytes at a
+            specified position in a byte array.
+            </summary>
+            <param name="target">The byte array to convert to its double representation</param>
+            <returns>The double-precision floating point number value of the byte array</returns>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ToDouble(System.String,System.Globalization.NumberFormatInfo)">
+            <summary>
+            Converts the string representation of a number in a specified culture-specific format to
+            its double-precision floating-point number equivalent. if the string content is "nan"
+            then a <see cref="F:System.Double.NaN"/> is returned.
+            </summary>
+            <param name="target">A string that contains a number to convert.</param>
+            <param name="numberformat">
+            An object that supplies culture-specific formatting information about <paramref name="target"/>.
+            </param>
+            <returns>
+            A double-precision floating-point number that is equivalent to the numeric value or
+            symbol specified in <paramref name="target"/>.
+            </returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="target"/> is null</exception>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ToDoubleUS(System.String)">
+            <summary>
+            Converts the string representation of a number in the en-US format to its
+            double-precision floating-point number equivalent. if the string content is "nan" then a
+            <see cref="F:System.Double.NaN"/> is returned.
+            </summary>
+            <param name="target">A string that contains a number to convert.</param>
+            <returns>
+            A double-precision floating-point number that is equivalent to the numeric value or
+            symbol specified in <paramref name="target"/>.
+            </returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="target"/> is null</exception>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ToFloat(System.String)">
+            <summary>
+            Converts the string representation of a number in a specified style and culture-specific
+            format to its single-precision floating-point number equivalent. if the string content is
+            "nan" then a <see cref="F:System.Double.NaN"/> is returned.
+            </summary>
+            <param name="target">A string that contains a number to convert.</param>
+            <returns>
+            A single-precision floating-point number equivalent to the numeric value or symbol
+            specified in <paramref name="target"/>.
+            </returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="target"/> is null</exception>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ToFloat(System.Byte[])">
+            <summary>
+            Returns a single-precision floating point number converted from four bytes at a specified
+            position in a byte array.
+            </summary>
+            <param name="target">The byte array to convert</param>
+            <returns>The single-precision floating point number representaion of the byte array</returns>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ToFloat(System.String,System.Globalization.NumberFormatInfo)">
+            <summary>
+            Converts the string representation of a number in a specified style and culture-specific
+            format to its single-precision floating-point number equivalent. if the string content is
+            "nan" then a <see cref="F:System.Double.NaN"/> is returned.
+            </summary>
+            <param name="target">A string that contains a number to convert.</param>
+            <param name="numberformat">
+            An object that supplies culture-specific formatting information about <paramref name="target"/>.
+            </param>
+            <returns>
+            A single-precision floating-point number equivalent to the numeric value or symbol
+            specified in <paramref name="target"/>.
+            </returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="target"/> is null</exception>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ToFloatUS(System.String)">
+            <summary>
+            Converts the string representation of a number in a the en-US format format to its
+            single-precision floating-point number equivalent. if the string content is "nan" then a
+            <see cref="F:System.Double.NaN"/> is returned.
+            </summary>
+            <param name="target">A string that contains a number to convert.</param>
+            <returns>
+            A single-precision floating-point number equivalent to the numeric value or symbol
+            specified in <paramref name="target"/>.
+            </returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="target"/> is null</exception>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ToInteger(System.Byte[])">
+            <summary>
+            Returns a 32-bit signed integer converted from four bytes at a specified position in a
+            byte array.
+            </summary>
+            <param name="target">An array of bytes.</param>
+            <returns>A 32-bit signed integer formed by four bytes</returns>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ToInteger(System.String)">
+            <summary>
+            Tries to convert a <see cref="T:System.String"/> to an <see cref="T:System.Int32"/>
+            </summary>
+            <param name="target">The string to convert</param>
+            <returns>Returns an int that represents the converted string</returns>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ToInteger(System.String,System.Globalization.NumberFormatInfo)">
+            <summary>
+            Tries to convert a <see cref="T:System.String"/> to an <see cref="T:System.Int32"/>
+            </summary>
+            <param name="target">The string to convert</param>
+            <returns>Returns an int that represents the converted string</returns>
+            <param name="numberformat">
+            An object that supplies culture-specific formatting information about <paramref name="target"/>.
+            </param>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ToIntegerUS(System.String)">
+            <summary>
+            Tries to convert a <see cref="T:System.String"/> to an <see cref="T:System.Int32"/> using the en-US number format
+            </summary>
+            <param name="target">The string to convert</param>
+            <returns>Returns an int that represents the converted string</returns>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ToLong(System.Byte[])">
+            <summary>
+            Returns a long converted from eight bytes.
+            </summary>
+            <param name="target">An array of bytes.</param>
+            <returns>A long formed by eight bytes</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="target"/> is null</exception>
+            <exception cref="T:System.ArgumentException"><paramref name="target"/> has less than 8 bytes</exception>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ToLong(System.Object)">
+            <summary>
+            Tries to convert a <see cref="T:System.Object"/> to an <see cref="T:System.Int64"/>
+            </summary>
+            <param name="target">The object to convert</param>
+            <returns>Returns a long that represents the converted object</returns>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ToLong(System.String)">
+            <summary>
+            Tries to convert a <see cref="T:System.String"/> to an <see cref="T:System.Int64"/>
+            </summary>
+            <param name="target">The string to convert</param>
+            <returns>Returns a long that represents the converted string</returns>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ToLong(System.String,System.Globalization.NumberFormatInfo)">
+            <summary>
+            Tries to convert a <see cref="T:System.String"/> to an <see cref="T:System.Int64"/>
+            </summary>
+            <param name="target">The string to convert</param>
+            <returns>Returns a long that represents the converted string</returns>
+            <param name="numberformat">
+            An object that supplies culture-specific formatting information about <paramref name="target"/>.
+            </param>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ToLongUS(System.String)">
+            <summary>
+            Tries to convert a <see cref="T:System.String"/> to an <see cref="T:System.Int64"/> using the en-US number format
+            </summary>
+            <param name="target">The string to convert</param>
+            <returns>Returns a long that represents the converted string</returns>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ToOrdinalDate(System.DateTime)">
+            <summary>
+            Converts a <see cref="T:System.DateTime"/> to ordinal date.
+            An ordinal date is a calendar date typically consisting of a year and a day of year ranging between 1 and 366 (starting on January 1).
+            </summary>
+            <param name="date">The date to convert</param>
+            <returns>A ordinal formatted string representation of the date</returns>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ToShort(System.String)">
+            <summary>
+            Tries to convert a <see cref="T:System.String"/> to an <see cref="T:System.Int16"/>
+            </summary>
+            <param name="target">The string to convert</param>
+            <returns>Returns a short that represents the converted string</returns>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ToShort(System.String,System.Globalization.NumberFormatInfo)">
+            <summary>
+            Tries to convert a <see cref="T:System.String"/> to an <see cref="T:System.Int16"/>
+            </summary>
+            <param name="target">The string to convert</param>
+            <returns>Returns a short that represents the converted string</returns>
+            <param name="numberformat">
+            An object that supplies culture-specific formatting information about <paramref name="target"/>.
+            </param>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ToShortUS(System.String)">
+            <summary>
+            Tries to convert a <see cref="T:System.String"/> to an <see cref="T:System.Int16"/> using the en-US number format
+            </summary>
+            <param name="target">The string to convert</param>
+            <returns>Returns a short that represents the converted string</returns>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ToString(System.String,System.Object[])">
+            <summary>
+            Replaces the format item in a specified string with the string representation of a
+            corresponding object in a specified array. This also takes into account that <paramref
+            name="source"/> can be an inline text for the TextBlock. <see
+            cref="P:System.Globalization.CultureInfo.CurrentCulture"/> is used as <see cref="T:System.IFormatProvider"/>
+            </summary>
+            <param name="source">The formatted string</param>
+            <param name="args">An object array that contains zero or more objects to format.</param>
+            <returns>
+            A copy of format in which the format items have been replaced by the string
+            representation of the corresponding objects in <paramref name="args"/>.
+            </returns>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ToString(System.String,System.IFormatProvider,System.Object[])">
+            <summary>
+            Replaces the format item in a specified string with the string representation of a
+            corresponding object in a specified array. This also takes into account that <paramref
+            name="source"/> can be an inline text for the TextBlock
+            </summary>
+            <param name="source">The formatted string</param>
+            <param name="provider">An object that supplies culture-specific formatting information</param>
+            <param name="args">An object array that contains zero or more objects to format.</param>
+            <returns>
+            A copy of format in which the format items have been replaced by the string
+            representation of the corresponding objects in <paramref name="args"/>.
+            </returns>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ToUInteger(System.String)">
+            <summary>
+            Tries to convert a <see cref="T:System.String"/> to an <see cref="T:System.UInt32"/>
+            </summary>
+            <param name="target">The string to convert</param>
+            <returns>Returns an uint that represents the converted string</returns>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ToUInteger(System.String,System.Globalization.NumberFormatInfo)">
+            <summary>
+            Tries to convert a <see cref="T:System.String"/> to an <see cref="T:System.UInt32"/>
+            </summary>
+            <param name="target">The string to convert</param>
+            <returns>Returns an uint that represents the converted string</returns>
+            <param name="numberformat">
+            An object that supplies culture-specific formatting information about <paramref name="target"/>.
+            </param>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ToUIntegerUS(System.String)">
+            <summary>
+            Tries to convert a <see cref="T:System.String"/> to an <see cref="T:System.UInt32"/> using the en-US number format
+            </summary>
+            <param name="target">The string to convert</param>
+            <returns>Returns an uint that represents the converted string</returns>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ToULong(System.String)">
+            <summary>
+            Tries to convert a <see cref="T:System.String"/> to an <see cref="T:System.UInt64"/>
+            </summary>
+            <param name="target">The string to convert</param>
+            <returns>Returns a ulong that represents the converted string</returns>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ToULong(System.String,System.Globalization.NumberFormatInfo)">
+            <summary>
+            Tries to convert a <see cref="T:System.String"/> to an <see cref="T:System.UInt64"/>
+            </summary>
+            <param name="target">The string to convert</param>
+            <returns>Returns a ulong that represents the converted string</returns>
+            <param name="numberformat">
+            An object that supplies culture-specific formatting information about <paramref name="target"/>.
+            </param>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ToULongUS(System.String)">
+            <summary>
+            Tries to convert a <see cref="T:System.String"/> to an <see cref="T:System.UInt64"/> using the en-US number format
+            </summary>
+            <param name="target">The string to convert</param>
+            <returns>Returns a ulong that represents the converted string</returns>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ToUShort(System.Byte[])">
+            <summary>
+            Returns a 16-bit signed integer converted from four bytes at a specified position in a
+            byte array.
+            </summary>
+            <param name="target">An array of bytes.</param>
+            <returns>A 16-bit signed integer formed by four bytes</returns>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ToUShort(System.String)">
+            <summary>
+            Tries to convert a <see cref="T:System.String"/> to an <see cref="T:System.UInt16"/>
+            </summary>
+            <param name="target">The string to convert</param>
+            <returns>Returns a ushort that represents the converted string</returns>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ToUShort(System.String,System.Globalization.NumberFormatInfo)">
+            <summary>
+            Tries to convert a <see cref="T:System.String"/> to an <see cref="T:System.UInt16"/>
+            </summary>
+            <param name="target">The string to convert</param>
+            <returns>Returns a ushort that represents the converted string</returns>
+            <param name="numberformat">
+            An object that supplies culture-specific formatting information about <paramref name="target"/>.
+            </param>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ToUShortUS(System.String)">
+            <summary>
+            Tries to convert a <see cref="T:System.String"/> to an <see cref="T:System.UInt16"/> using the en-US number format
+            </summary>
+            <param name="target">The string to convert</param>
+            <returns>Returns a ushort that represents the converted string</returns>
+        </member>
+    </members>
+</doc>
