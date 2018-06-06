@@ -172,7 +172,7 @@ namespace NugetMonkey
                 return;
             }
 
-            var projectInfos = nuspecPaths.Select(x => new ProjectInfo(x));
+            var projectInfos = nuspecPaths.Select(x => new ProjectInfo(x)).ToArray();
 
             WriteLine("Getting all projects that is required for the package.");
             var dependencies = projectInfos
@@ -223,11 +223,14 @@ namespace NugetMonkey
             startInfo.Arguments = $"push \"{nupkgPath}\" -Source https://www.nuget.org/api/v2/package";
             startInfo.CreateNoWindow = true;
             startInfo.RedirectStandardOutput = true;
+            startInfo.RedirectStandardError = true;
 
             var process = Process.Start(startInfo);
-            var error = process.StandardOutput.ReadToEnd();
+            var output = process.StandardOutput.ReadToEnd();
+            var error = process.StandardError.ReadToEnd();
 
             process.WaitForExit();
+            Console.WriteLine(output);
 
             if (process.ExitCode != 0)
                 throw new Exception(error);
