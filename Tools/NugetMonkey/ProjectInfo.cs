@@ -13,7 +13,6 @@ namespace NugetMonkey
 {
     public sealed class ProjectInfo : IEquatable<ProjectInfo>
     {
-        private NugetVersion _nugetVersion;
         private Version _projectVersion;
         private string nugetDirectory;
         private string nugetPath;
@@ -33,7 +32,7 @@ namespace NugetMonkey
             this.NugetVersion = this.nuspec["package"]["metadata"]["version"].InnerText;
             this.ProjectVersion = GetProjectVersion(this.Infos[0].Path);
 
-            ProjectInfo.ProjectInfos.TryAdd(this.ProjectName, this);
+            ProjectInfo.ProjectInfos.TryAdd(this.Id, this);
         }
 
         public static ConcurrentDictionary<string, ProjectInfo> ProjectInfos { get; } = new ConcurrentDictionary<string, ProjectInfo>();
@@ -42,17 +41,7 @@ namespace NugetMonkey
 
         public Project1[] Infos { get; private set; }
 
-        public NugetVersion NugetVersion
-        {
-            get
-            {
-                if (this.PackageInfo == null)
-                    return this._nugetVersion;
-
-                return new NugetVersion(this.PackageInfo.Items.Last().Items.Last().CatalogEntry.Version);
-            }
-            set { this._nugetVersion = value; }
-        }
+        public NugetVersion NugetVersion { get; private set; }
 
         public string NuspecPath => this.nugetPath;
 
@@ -123,6 +112,7 @@ namespace NugetMonkey
                     {
                         var data = await response.Content.ReadAsStringAsync();
                         this.PackageInfo = JsonConvert.DeserializeObject<CatalogRoot>(data);
+                        this.NugetVersion = new NugetVersion(this.PackageInfo.Items.Last().Items.Last().CatalogEntry.Version);
                     }
                 }
             }

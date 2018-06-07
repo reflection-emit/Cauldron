@@ -41,7 +41,7 @@
       <dependency id="Capgemini.Cauldron.Core.Disposable" version="3.0.25" />
       <dependency id="Capgemini.Cauldron.Core.Extensions" version="3.0.25" />
       <dependency id="Capgemini.Cauldron.Core.Reflection" version="3.0.25" />
-      <dependency id="Cauldron.Interception.Fody" version="3.0.24" />
+      <dependency id="Cauldron.Interception.Fody" version="3.0.25" />
       <dependency id="Fody" version="3.0.3" />
     </dependencies>
     <contentFiles>

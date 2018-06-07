@@ -61,13 +61,7 @@ namespace NugetMonkey
                 revision = 0;
             }
 
-            return new NugetVersion
-            {
-                Major = this.Major,
-                Revision = revision,
-                IsBeta = this.IsBeta,
-                Minor = minor
-            };
+            return new NugetVersion(this.Major, minor, revision, this.IsBeta);
         }
 
         public override string ToString() =>

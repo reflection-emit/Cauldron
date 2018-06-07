@@ -32,13 +32,15 @@ namespace NugetMonkey
         {
             Console.WriteLine($"Packing: {projectInfo.NuspecPath}");
 
-            var startInfo = new ProcessStartInfo();
-            startInfo.UseShellExecute = false;
-            startInfo.WorkingDirectory = Path.GetDirectoryName(NugetMonkeyJson.Nugetpath);
-            startInfo.FileName = NugetMonkeyJson.Nugetpath;
-            startInfo.Arguments = $"pack \"{projectInfo.NuspecPath}\" -Symbols -OutputDir \"{NugetMonkeyJson.NugetOutputPath}\"";
-            startInfo.CreateNoWindow = true;
-            startInfo.RedirectStandardOutput = true;
+            var startInfo = new ProcessStartInfo
+            {
+                UseShellExecute = false,
+                WorkingDirectory = Path.GetDirectoryName(NugetMonkeyJson.Nugetpath),
+                FileName = NugetMonkeyJson.Nugetpath,
+                Arguments = $"pack \"{projectInfo.NuspecPath}\" -Symbols -OutputDir \"{NugetMonkeyJson.NugetOutputPath}\"",
+                CreateNoWindow = true,
+                RedirectStandardOutput = true
+            };
 
             var process = Process.Start(startInfo);
             var error = process.StandardOutput.ReadToEnd();
@@ -55,14 +57,16 @@ namespace NugetMonkey
             {
                 Console.WriteLine($"Building: {project.Path} | {build}");
 
-                var startInfo = new ProcessStartInfo();
-                startInfo.UseShellExecute = false;
-                startInfo.WorkingDirectory = Path.GetDirectoryName(NugetMonkeyJson.Solutionpath);
-                startInfo.FileName = NugetMonkeyJson.Msbuildpath;
-                startInfo.Arguments = string.Format("\"{0}\" /target:Clean;Rebuild /p:Configuration=" + build, project.Path);
-                startInfo.CreateNoWindow = true;
-                startInfo.RedirectStandardOutput = true;
-                startInfo.RedirectStandardError = true;
+                var startInfo = new ProcessStartInfo
+                {
+                    UseShellExecute = false,
+                    WorkingDirectory = Path.GetDirectoryName(NugetMonkeyJson.Solutionpath),
+                    FileName = NugetMonkeyJson.Msbuildpath,
+                    Arguments = string.Format("\"{0}\" /target:Clean;Rebuild /p:Configuration=" + build, project.Path),
+                    CreateNoWindow = true,
+                    RedirectStandardOutput = true,
+                    RedirectStandardError = true
+                };
 
                 var process = Process.Start(startInfo);
                 var output = process.StandardOutput.ReadToEnd();
