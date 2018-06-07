@@ -538,9 +538,9 @@ public static class Weaver_Property
             var add = propertyType.GetMethod("Add", 1);
             var array = setterDelegateMethod.GetOrCreateVariable(propertyType.ChildType.MakeArray());
             setterCode.SetValue(array, CodeBlocks.GetParameter(0));
-            setterCode.For(array, (x, item) => CodeMe(
-                field => x.Load(field).Call(add, item),
-                property => x.Call(property.Getter).Call(add, item)));
+            setterCode.For(array, (x, item, indexer) => CodeMe(
+                field => x.Load(field).Call(add, item()),
+                property => x.Call(property.Getter).Call(add, item())));
             if (!add.ReturnType.IsVoid)
                 setterCode.Pop();
         }

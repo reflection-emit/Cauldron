@@ -150,5 +150,11 @@ namespace Cauldron.Interception.Cecilator.Coders
             this.StoreElementInternal(this.builderType, element, index);
             return new Coder(this.instructions);
         }
+
+        public Coder StoreElement(object element, LocalVariable index)
+        {
+            this.StoreElementInternal(this.builderType, element, index);
+            return new Coder(this.instructions);
+        }
     }
 }

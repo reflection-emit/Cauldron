@@ -15304,6 +15304,36 @@ namespace Cauldron.Interception.Cecilator
 			return this.var_getfactorytypeinfofirst_0_1.Import();
 		}
 						
+		private Method var_getfactorytypeinfomany_0_1;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// Cauldron.Activator.IFactoryTypeInfo[] GetFactoryTypeInfoMany(System.String)<para/>
+		/// </summary>
+		public Method GetMethod_GetFactoryTypeInfoMany()
+		{
+			if(this.var_getfactorytypeinfomany_0_1 == null)
+				this.var_getfactorytypeinfomany_0_1 = this.builderType.GetMethod("GetFactoryTypeInfoMany", 1, true);
+
+			return this.var_getfactorytypeinfomany_0_1.Import();
+		}
+						
+		private Method var_getfactorytypeinfomanyordered_0_1;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// Cauldron.Activator.IFactoryTypeInfo[] GetFactoryTypeInfoManyOrdered(System.String)<para/>
+		/// </summary>
+		public Method GetMethod_GetFactoryTypeInfoManyOrdered()
+		{
+			if(this.var_getfactorytypeinfomanyordered_0_1 == null)
+				this.var_getfactorytypeinfomanyordered_0_1 = this.builderType.GetMethod("GetFactoryTypeInfoManyOrdered", 1, true);
+
+			return this.var_getfactorytypeinfomanyordered_0_1.Import();
+		}
+						
 		private Method var_hascontract_0_1;
 				
 		private Method var_hascontract_1_1;
@@ -16252,6 +16282,21 @@ namespace Cauldron.Interception.Cecilator
 		public static implicit operator TypeReference(BuilderTypeIFactoryTypeInfo value) => Builder.Current.Import((TypeReference)value.builderType);
 			
 				
+		private Method var_get_childtype_0_0;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// System.Type get_ChildType()<para/>
+		/// </summary>
+		public Method GetMethod_get_ChildType()
+		{
+			if(this.var_get_childtype_0_0 == null)
+				this.var_get_childtype_0_0 = this.builderType.GetMethod("get_ChildType", 0, true);
+
+			return this.var_get_childtype_0_0.Import();
+		}
+						
 		private Method var_get_contractname_0_0;
 		
 		/// <summary>
@@ -16325,6 +16370,21 @@ namespace Cauldron.Interception.Cecilator
 				this.var_set_instance_0_1 = this.builderType.GetMethod("set_Instance", 1, true);
 
 			return this.var_set_instance_0_1.Import();
+		}
+						
+		private Method var_get_isenumerable_0_0;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// Boolean get_IsEnumerable()<para/>
+		/// </summary>
+		public Method GetMethod_get_IsEnumerable()
+		{
+			if(this.var_get_isenumerable_0_0 == null)
+				this.var_get_isenumerable_0_0 = this.builderType.GetMethod("get_IsEnumerable", 0, true);
+
+			return this.var_get_isenumerable_0_0.Import();
 		}
 						
 		private Method var_get_priority_0_0;
@@ -21473,21 +21533,6 @@ namespace Cauldron.Interception.Cecilator
 		public static implicit operator TypeReference(BuilderTypeString value) => Builder.Current.Import((TypeReference)value.builderType);
 			
 				
-		private Method var_get_length_0_0;
-		
-		/// <summary>
-		/// Represents the following method:
-		/// <para />
-		/// Int32 get_Length()<para/>
-		/// </summary>
-		public Method GetMethod_get_Length()
-		{
-			if(this.var_get_length_0_0 == null)
-				this.var_get_length_0_0 = this.builderType.GetMethod("get_Length", 0, true);
-
-			return this.var_get_length_0_0.Import();
-		}
-						
 		private Method var_join_0_2;
 				
 		private Method var_join_1_2;
@@ -21776,6 +21821,21 @@ namespace Cauldron.Interception.Cecilator
 				this.var_gethashcode_0_0 = this.builderType.GetMethod("GetHashCode", 0, true);
 
 			return this.var_gethashcode_0_0.Import();
+		}
+						
+		private Method var_get_length_0_0;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// Int32 get_Length()<para/>
+		/// </summary>
+		public Method GetMethod_get_Length()
+		{
+			if(this.var_get_length_0_0 == null)
+				this.var_get_length_0_0 = this.builderType.GetMethod("get_Length", 0, true);
+
+			return this.var_get_length_0_0.Import();
 		}
 						
 		private Method var_split_0_1;
@@ -25263,21 +25323,6 @@ namespace Cauldron.Interception.Cecilator
 		public static implicit operator TypeReference(BuilderTypeType value) => Builder.Current.Import((TypeReference)value.builderType);
 			
 				
-		private Method var_gettypefromhandle_0_1;
-		
-		/// <summary>
-		/// Represents the following method:
-		/// <para />
-		/// System.Type GetTypeFromHandle(System.RuntimeTypeHandle)<para/>
-		/// </summary>
-		public Method GetMethod_GetTypeFromHandle()
-		{
-			if(this.var_gettypefromhandle_0_1 == null)
-				this.var_gettypefromhandle_0_1 = this.builderType.GetMethod("GetTypeFromHandle", 1, true);
-
-			return this.var_gettypefromhandle_0_1.Import();
-		}
-						
 		private Method var_get_membertype_0_0;
 		
 		/// <summary>
@@ -25858,6 +25903,21 @@ namespace Cauldron.Interception.Cecilator
 				this.var_gettypehandle_0_1 = this.builderType.GetMethod("GetTypeHandle", 1, true);
 
 			return this.var_gettypehandle_0_1.Import();
+		}
+						
+		private Method var_gettypefromhandle_0_1;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// System.Type GetTypeFromHandle(System.RuntimeTypeHandle)<para/>
+		/// </summary>
+		public Method GetMethod_GetTypeFromHandle()
+		{
+			if(this.var_gettypefromhandle_0_1 == null)
+				this.var_gettypefromhandle_0_1 = this.builderType.GetMethod("GetTypeFromHandle", 1, true);
+
+			return this.var_gettypefromhandle_0_1.Import();
 		}
 						
 		private Method var_get_fullname_0_0;

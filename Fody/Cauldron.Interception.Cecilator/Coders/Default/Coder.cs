@@ -81,11 +81,19 @@ namespace Cauldron.Interception.Cecilator.Coders
             return this;
         }
 
-        public Coder For(LocalVariable array, Action<Coder, LocalVariable> action)
+        public Coder For(Field array, Action<Coder, Func<InstructionBlock>, LocalVariable> action)
         {
-            var item = this.instructions.associatedMethod.GetOrCreateVariable(array.Type.ChildType);
             var indexer = this.instructions.associatedMethod.GetOrCreateVariable(typeof(int));
             var lengthCheck = this.instructions.ilprocessor.Create(OpCodes.Ldloc, indexer.variable);
+            var loadItem = new Func<InstructionBlock>(() =>
+            {
+                var newBlock = this.instructions.Spawn();
+                InstructionBlock.CreateCodeForFieldReference(newBlock, array.FieldType, array, true);
+                newBlock.Emit(OpCodes.Ldloc, indexer.variable);
+                newBlock.Emit(LoadElement(array.FieldType.typeReference));
+                this.instructions.ResultingType = array.FieldType.ChildType.typeReference;
+                return newBlock;
+            });
 
             // var i = 0;
             this.instructions.Emit(OpCodes.Ldc_I4_0);
@@ -95,12 +103,48 @@ namespace Cauldron.Interception.Cecilator.Coders
             var start = this.instructions.ilprocessor.Create(OpCodes.Nop);
             this.instructions.Append(start);
 
-            this.instructions.Emit(OpCodes.Ldloc, array.variable);
-            this.instructions.Emit(OpCodes.Ldloc, indexer.variable);
-            this.instructions.Emit(LoadElement(array.variable.VariableType));
-            this.instructions.Emit(OpCodes.Stloc, item.variable);
+            action(this, loadItem, indexer);
 
-            action(this, item);
+            // i++
+            this.instructions.Emit(OpCodes.Ldloc, indexer.variable);
+            this.instructions.Emit(OpCodes.Ldc_I4_1);
+            this.instructions.Emit(OpCodes.Add);
+            this.instructions.Emit(OpCodes.Stloc, indexer.variable);
+
+            // i < array.Length
+            this.instructions.Append(lengthCheck);
+            InstructionBlock.CreateCodeForFieldReference(this, array.FieldType, array, true);
+            this.instructions.Emit(OpCodes.Ldlen);
+            this.instructions.Emit(OpCodes.Conv_I4);
+            this.instructions.Emit(OpCodes.Clt);
+            this.instructions.Emit(OpCodes.Brtrue, start);
+
+            return this;
+        }
+
+        public Coder For(LocalVariable array, Action<Coder, Func<InstructionBlock>, LocalVariable> action)
+        {
+            var indexer = this.instructions.associatedMethod.GetOrCreateVariable(typeof(int));
+            var lengthCheck = this.instructions.ilprocessor.Create(OpCodes.Ldloc, indexer.variable);
+            var loadItem = new Func<InstructionBlock>(() =>
+            {
+                var newBlock = this.instructions.Spawn();
+                this.instructions.Emit(OpCodes.Ldloc, array.variable);
+                this.instructions.Emit(OpCodes.Ldloc, indexer.variable);
+                this.instructions.Emit(LoadElement(array.variable.VariableType));
+                this.instructions.ResultingType = array.Type.ChildType.typeReference;
+                return newBlock;
+            });
+
+            // var i = 0;
+            this.instructions.Emit(OpCodes.Ldc_I4_0);
+            this.instructions.Emit(OpCodes.Stloc, indexer.variable);
+            this.instructions.Emit(OpCodes.Br, lengthCheck);
+
+            var start = this.instructions.ilprocessor.Create(OpCodes.Nop);
+            this.instructions.Append(start);
+
+            action(this, loadItem, indexer);
 
             // i++
             this.instructions.Emit(OpCodes.Ldloc, indexer.variable);
@@ -226,6 +270,15 @@ namespace Cauldron.Interception.Cecilator.Coders
         public Coder Newarr(BuilderType type, int size)
         {
             this.instructions.Append(InstructionBlock.CreateCode(this.instructions, null, size));
+            this.instructions.Emit(OpCodes.Newarr, Builder.Current.Import(type.typeReference));
+
+            return this;
+        }
+
+        public Coder Newarr(BuilderType type, Field field)
+        {
+            InstructionBlock.CreateCodeForFieldReference(this, field.FieldType, field, true);
+            this.instructions.Emit(OpCodes.Ldlen);
             this.instructions.Emit(OpCodes.Newarr, Builder.Current.Import(type.typeReference));
 
             return this;
@@ -798,6 +851,27 @@ namespace Cauldron.Interception.Cecilator.Coders
         {
             this.instructions.Append(InstructionBlock.CreateCode(this, null, value));
             return this;
+        }
+
+        public T Load<T>(InstructionBlock instruction) where T : CoderBase
+        {
+            var resultingType = instruction.ResultingType?.ToBuilderType();
+            this.instructions.Append(instruction);
+
+            if (typeof(T) == typeof(FieldCoder))
+            {
+                return new FieldCoder(this, resultingType) as T;
+            }
+            else if (typeof(T) == typeof(VariableCoder))
+            {
+                return new VariableCoder(this, resultingType) as T;
+            }
+            else if (typeof(T) == typeof(ArgCoder))
+            {
+                return new ArgCoder(this, resultingType) as T;
+            }
+
+            throw new NotSupportedException($"The coder {typeof(T)} is not supported");
         }
 
         #endregion Load Value

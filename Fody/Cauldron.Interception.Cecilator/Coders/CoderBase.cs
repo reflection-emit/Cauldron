@@ -269,7 +269,14 @@ namespace Cauldron.Interception.Cecilator.Coders
         protected void StoreElementInternal(BuilderType arrayType, object element, int index)
         {
             this.instructions.Append(InstructionBlock.CreateCode(this.instructions, null, index));
-            this.instructions.Append(InstructionBlock.CreateCode(this.instructions, arrayType, element));
+            this.instructions.Append(InstructionBlock.CreateCode(this.instructions, arrayType.ChildType, element));
+            this.instructions.Emit(OpCodes.Stelem_Ref);
+        }
+
+        protected void StoreElementInternal(BuilderType arrayType, object element, LocalVariable index)
+        {
+            InstructionBlock.CreateCodeForVariableDefinition(this.instructions, BuilderTypes.Int32, index);
+            this.instructions.Append(InstructionBlock.CreateCode(this.instructions, arrayType.ChildType, element));
             this.instructions.Emit(OpCodes.Stelem_Ref);
         }
     }

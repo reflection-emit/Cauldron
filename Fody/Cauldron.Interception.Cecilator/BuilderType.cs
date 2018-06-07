@@ -18,10 +18,20 @@ namespace Cauldron.Interception.Cecilator
         [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
         internal readonly TypeReference typeReference;
 
+        private BuilderType childType;
         public AssemblyDefinition Assembly => this.typeDefinition.Module.Assembly;
         public Builder Builder { get; private set; }
 
-        public BuilderType ChildType => (new BuilderType(this.Builder, this.moduleDefinition.GetChildrenType(this.typeReference).Item1)).Import();
+        public BuilderType ChildType
+        {
+            get
+            {
+                if (childType == null)
+                    childType = (new BuilderType(this.Builder, this.moduleDefinition.GetChildrenType(this.typeReference).Item1));
+
+                return childType.Import();
+            }
+        }
 
         public BuilderCustomAttributeCollection CustomAttributes => new BuilderCustomAttributeCollection(this.Builder, this.typeDefinition);
 
@@ -86,11 +96,11 @@ namespace Cauldron.Interception.Cecilator
         public bool IsByReference { get; private set; }
         public bool IsDelegate => this.typeDefinition.IsDelegate();
         public bool IsEnum => this.typeDefinition.IsEnum;
+        public bool IsEnumerable => BuilderTypes.IEnumerable.BuilderType.AreReferenceAssignable(this) || this.IsArray;
         public bool IsForeign => this.moduleDefinition.Assembly == this.typeDefinition.Module.Assembly;
         public bool IsGenerated => this.typeDefinition.FullName.IndexOf('<') >= 0 || this.typeDefinition.FullName.IndexOf('>') >= 0;
         public bool IsGenericInstance => this.typeReference.IsGenericInstance;
         public bool IsGenericParameter => this.typeReference.IsGenericParameter;
-
         public bool IsGenericType => this.typeDefinition == null || this.typeReference.Resolve() == null;
         public bool IsInterface => this.typeDefinition == null ? false : this.typeDefinition.Attributes.HasFlag(TypeAttributes.Interface);
 

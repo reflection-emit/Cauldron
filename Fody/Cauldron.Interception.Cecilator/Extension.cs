@@ -284,18 +284,15 @@ namespace Cauldron.Interception.Cecilator
                     foreach (var item in genericType.GetGenericInstances())
                     {
                         // We have to make some exceptions to dictionaries
-                        Builder.Current.Log(LogTypes.Info, $"=======> {item.Resolve().AreEqual((TypeReference)BuilderTypes.IDictionary2.BuilderType.typeDefinition)} {item}");
                         if (item.Resolve().AreEqual((TypeReference)BuilderTypes.IDictionary2.BuilderType.typeDefinition))
                             return (item as GenericInstanceType).GenericArguments[1];
 
                         // If we have more than 1 generic argument then we try to get a IEnumerable<>
                         // interface otherwise we just return the last argument in the list
-                        Builder.Current.Log(LogTypes.Info, $"=======> {item.Resolve().AreEqual((TypeReference)BuilderTypes.IEnumerable1.BuilderType.typeDefinition)} {item}");
                         if (item.Resolve().AreEqual((TypeReference)BuilderTypes.IEnumerable1.BuilderType.typeDefinition))
                             return (item as GenericInstanceType).GenericArguments[0];
 
                         // A Nullable special
-                        Builder.Current.Log(LogTypes.Info, $"=======> {item.Resolve().AreEqual((TypeReference)BuilderTypes.Nullable1.BuilderType.typeDefinition)} {item}");
                         if (item.Resolve().AreEqual((TypeReference)BuilderTypes.Nullable1.BuilderType.typeDefinition))
                             return (item as GenericInstanceType).GenericArguments[0];
                     }
@@ -934,14 +931,12 @@ namespace Cauldron.Interception.Cecilator
         {
             TypeReference GetTypeOfValueInStack(Instruction ins)
             {
-                //if (ins.OpCode == OpCodes.Ldelem_Ref)
-                //    return ParametersCodeBlock.GetTargetTypeFromOpCode(method, ins.Previous.Previous).With(x =>
-                //    {
-                //        if (x == null)
-                //            return null;
-
-                //        return x.typeReference.ResolveType(method.DeclaringType.typeReference, method.methodReference);
-                //    });
+                if (ins.OpCode == OpCodes.Ldelem_Ref)
+                {
+                    var temp = instructions.ToArray();
+                    Builder.Current.Log(LogTypes.Info, $"--------> {ins.OpCode} -- {Array.IndexOf(temp, ins)} - {temp[Array.IndexOf(temp, ins) - 2]}");
+                    return GetTypeOfValueInStack(temp[Array.IndexOf(temp, ins) - 2]);
+                }
 
                 if (ins.IsCallOrNew())
                     return (ins.Operand as MethodReference).With(x =>

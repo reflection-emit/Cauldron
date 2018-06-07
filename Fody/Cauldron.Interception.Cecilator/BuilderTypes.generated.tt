@@ -16,7 +16,7 @@
 <#@ output extension=".cs" #>
 
 <#
-
+ 
 	var types = new Type[]
 	{
 		typeof(System.Runtime.CompilerServices.AsyncTaskMethodBuilder),
@@ -28,7 +28,7 @@
 		typeof(IDisposable),
 		typeof(int),
 		typeof(uint),
-		typeof(string),
+		typeof(string), 
 		typeof(IList<>),
 		typeof(IDictionary),
 		typeof(IDictionary<,>),

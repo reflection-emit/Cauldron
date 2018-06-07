@@ -62,14 +62,16 @@ namespace NugetMonkey
                 startInfo.Arguments = string.Format("\"{0}\" /target:Clean;Rebuild /p:Configuration=" + build, project.Path);
                 startInfo.CreateNoWindow = true;
                 startInfo.RedirectStandardOutput = true;
+                startInfo.RedirectStandardError = true;
 
                 var process = Process.Start(startInfo);
-                var error = process.StandardOutput.ReadToEnd();
+                var output = process.StandardOutput.ReadToEnd();
+                var error = process.StandardError.ReadToEnd();
 
                 process.WaitForExit();
 
                 if (process.ExitCode != 0)
-                    throw new Exception(error);
+                    throw new Exception(output);
             });
         }
 
@@ -231,6 +233,7 @@ namespace NugetMonkey
 
             process.WaitForExit();
             Console.WriteLine(output);
+            Console.WriteLine(error);
 
             if (process.ExitCode != 0)
                 throw new Exception(error);

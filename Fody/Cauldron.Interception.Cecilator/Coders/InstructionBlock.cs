@@ -401,6 +401,7 @@ namespace Cauldron.Interception.Cecilator.Coders
 
                 case InstructionBlock value:
                     result.Append(value);
+                    result.ResultingType = value.ResultingType;
                     break;
 
                 case ParameterArrayCodeBlock value:
@@ -1390,9 +1391,9 @@ namespace Cauldron.Interception.Cecilator.Coders
 
         private static void CastOrBoxValuesInternal(InstructionBlock instructionBlock, GenericParameter genericParameter)
         {
-            var genericParameterResulting = instructionBlock.resultingType as GenericParameter;
+            var genericParameterResulting = instructionBlock.ResultingType as GenericParameter;
 
-            if (genericParameterResulting == null && instructionBlock.resultingType != null)
+            if (genericParameterResulting == null && instructionBlock.ResultingType != null)
             {
                 if (genericParameter.HasReferenceTypeConstraint)
                 {
@@ -1489,12 +1490,14 @@ namespace Cauldron.Interception.Cecilator.Coders
 
                 if (instructionBlock.ResultingType.AreEqual((TypeReference)BuilderTypes.Object))
                     instructionBlock.Emit(OpCodes.Isinst, (TypeReference)BuilderTypes.IEnumerable);
-                instructionBlock.Emit(OpCodes.Call, castMethod);
+
+                if (!childType.AreEqual(Builder.Current.GetChildrenType(instructionBlock.ResultingType).Item1))
+                    instructionBlock.Emit(OpCodes.Call, castMethod);
 
                 if (targetType.IsArray)
                     instructionBlock.Emit(OpCodes.Call, toArrayMethod);
             }
-            else if ((instructionBlock.ResultingType.AreEqual((TypeReference)BuilderTypes.Object) || instructionBlock.ResultingType.AreEqual((TypeReference)BuilderTypes.IEnumerable)) && targetType == BuilderTypes.List1)
+            else if ((instructionBlock.ResultingType.AreEqual((TypeReference)BuilderTypes.Object) || instructionBlock.ResultingType.AreEqual((TypeReference)BuilderTypes.IEnumerable) || instructionBlock.ResultingType.IsArray) && targetType == BuilderTypes.List1)
             {
                 var childType = Builder.Current.GetChildrenType(targetType.typeReference).Item1;
                 var castMethod = BuilderTypes.Enumerable.GetMethod_Cast(childType).Import();
@@ -1503,10 +1506,13 @@ namespace Cauldron.Interception.Cecilator.Coders
                 if (instructionBlock.ResultingType.AreEqual((TypeReference)BuilderTypes.Object))
                     instructionBlock.Emit(OpCodes.Isinst, (TypeReference)BuilderTypes.IEnumerable);
 
-                instructionBlock.Emit(OpCodes.Call, castMethod);
+                Builder.Current.Log(LogTypes.Info, $"-------->  {targetType} {instructionBlock.ResultingType}");
+
+                if (!childType.AreEqual(Builder.Current.GetChildrenType(instructionBlock.ResultingType).Item1))
+                    instructionBlock.Emit(OpCodes.Call, castMethod);
                 instructionBlock.Emit(OpCodes.Call, toList);
             }
-            else if ((instructionBlock.ResultingType.AreEqual((TypeReference)BuilderTypes.Object) || instructionBlock.ResultingType.AreEqual((TypeReference)BuilderTypes.IEnumerable)) && targetType.Implements(BuilderTypes.IList))
+            else if ((instructionBlock.ResultingType.AreEqual((TypeReference)BuilderTypes.Object) || instructionBlock.ResultingType.AreEqual((TypeReference)BuilderTypes.IEnumerable) || instructionBlock.ResultingType.IsArray) && targetType.Implements(BuilderTypes.IList))
                 CastToIList(instructionBlock, targetType);
             else if
                 (
@@ -1557,7 +1563,8 @@ namespace Cauldron.Interception.Cecilator.Coders
                 if (instructionBlock.ResultingType.AreEqual((TypeReference)BuilderTypes.Object))
                     instructionBlock.Emit(OpCodes.Isinst, (TypeReference)BuilderTypes.IEnumerable);
 
-                instructionBlock.Emit(OpCodes.Call, castMethod);
+                if (!childType.AreEqual(Builder.Current.GetChildrenType(instructionBlock.ResultingType).Item1))
+                    instructionBlock.Emit(OpCodes.Call, castMethod);
                 instructionBlock.Emit(OpCodes.Call, toList);
                 instructionBlock.Emit(OpCodes.Newobj, Builder.Current.Import(ctorCollection.MakeHostInstanceGeneric(targetType.GenericArguments().Select(x => x.typeReference))));
                 return;
@@ -1574,7 +1581,8 @@ namespace Cauldron.Interception.Cecilator.Coders
                 if (instructionBlock.ResultingType.AreEqual((TypeReference)BuilderTypes.Object))
                     instructionBlock.Emit(OpCodes.Isinst, (TypeReference)BuilderTypes.IEnumerable);
 
-                instructionBlock.Emit(OpCodes.Call, castMethod);
+                if (!childType.AreEqual(Builder.Current.GetChildrenType(instructionBlock.ResultingType).Item1))
+                    instructionBlock.Emit(OpCodes.Call, castMethod);
                 instructionBlock.Emit(OpCodes.Newobj, Builder.Current.Import(ctorCollection.MakeHostInstanceGeneric(targetType.GenericArguments().Select(x => x.typeReference))));
                 return;
             }

@@ -78,7 +78,7 @@ namespace Activator_Tests
 
     public class NestedClassParent
     {
-        [Inject]
+        [Inject(NoPreloading = true)]
         private ITestInterface injectMe = null;
 
         public class NestedClassChild

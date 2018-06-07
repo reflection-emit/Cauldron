@@ -497,9 +497,11 @@ public static class Weaver_ComponentCache
     private static void AssignFactoryGetFactoryInfo(Coder coder, InjectAttributeValues injectAttributeValues, Property property, Field injectorField, Method factoryTypeInfoGet)
     {
         if (string.IsNullOrEmpty(injectAttributeValues.ContractName) && injectAttributeValues.ContractType == null)
-            coder.SetValue(injectorField, x => x.Call(factoryTypeInfoGet, y => y.Load(property.ReturnType).Call(BuilderTypes.Type.GetMethod_get_FullName()))).Insert(InsertionPosition.Beginning);
+            coder.SetValue(injectorField, x => x.Call(factoryTypeInfoGet, y =>
+                y.Load(property.ReturnType.IsEnumerable ? property.ReturnType.ChildType : property.ReturnType).Call(BuilderTypes.Type.GetMethod_get_FullName()))).Insert(InsertionPosition.Beginning);
         else if (injectAttributeValues.ContractType != null)
-            coder.SetValue(injectorField, x => x.Call(factoryTypeInfoGet, y => y.Load(injectAttributeValues.ContractType).Call(BuilderTypes.Type.GetMethod_get_FullName()))).Insert(InsertionPosition.Beginning);
+            coder.SetValue(injectorField, x => x.Call(factoryTypeInfoGet,
+                y => y.Load(injectAttributeValues.ContractType.IsEnumerable ? injectAttributeValues.ContractType.ChildType : injectAttributeValues.ContractType).Call(BuilderTypes.Type.GetMethod_get_FullName()))).Insert(InsertionPosition.Beginning);
         else
             coder.SetValue(injectorField, x => x.Call(factoryTypeInfoGet, injectAttributeValues.ContractName)).Insert(InsertionPosition.Beginning);
     }
@@ -533,9 +535,12 @@ public static class Weaver_ComponentCache
         }
     }
 
-    private static Field CreateInjectorField(Property property)
+    private static Field CreateInjectorField(Property property, bool isMultiple = false)
     {
-        var injectorField = property.DeclaringType.CreateField(Modifiers.PrivateStatic, BuilderTypes.IFactoryTypeInfo.BuilderType, $"<{property.Name}>__injectorField");
+        var injectorField = property.DeclaringType.CreateField(Modifiers.PrivateStatic, isMultiple ?
+            BuilderTypes.IFactoryTypeInfo.BuilderType.MakeArray() :
+            BuilderTypes.IFactoryTypeInfo.BuilderType, $"<{property.Name}>__injectorField");
+
         injectorField.CustomAttributes.AddCompilerGeneratedAttribute();
         injectorField.CustomAttributes.AddDebuggerBrowsableAttribute(DebuggerBrowsableState.Never);
         injectorField.CustomAttributes.AddNonSerializedAttribute();
@@ -627,10 +632,8 @@ public static class Weaver_ComponentCache
                         var assignProperty = property.DeclaringType.GetProperty(value.Substring("[property]".Length).Trim());
 
                         if (assignProperty.Getter != null) then.Load(variable).StoreElement(then.NewCoder().Call(assignProperty.Getter), i);
-                        else if (assignProperty.BackingField != null)
-                            then.Load(variable).StoreElement(property.DeclaringType.GetField(assignProperty.BackingField), i);
-                        else
-                            Builder.Current.Log(LogTypes.Error, $"The property '{assignProperty}' does not have a getter and a backing field.");
+                        else if (assignProperty.BackingField != null) then.Load(variable).StoreElement(assignProperty.BackingField, i);
+                        else Builder.Current.Log(LogTypes.Error, $"The property '{assignProperty}' does not have a getter and a backing field.");
 
                         continue;
                     }
@@ -652,6 +655,28 @@ public static class Weaver_ComponentCache
             !injectAttributeValues.ForceDontCreateMany &&
             (BuilderTypes.IEnumerable.BuilderType.AreReferenceAssignable(property.ReturnType) || property.ReturnType.IsArray) &&
             !property.ReturnType.Implements(BuilderTypes.IDictionary) &&
+            (injectAttributeValues.Arguments == null || injectAttributeValues.Arguments.Length == 0) && !injectAttributeValues.NoPreloading)
+        {
+            // Special case for parameterless injections - preloading stuff in .cctor
+            var injectorField = CreateInjectorField(property, true);
+            var localArray = then.AssociatedMethod.GetOrCreateVariable(property.ReturnType.ChildType.MakeArray());
+            then.SetValue(localArray, x => x.Newarr(property.ReturnType.ChildType, injectorField));
+            then.For(injectorField, (coder, item, indexer) =>
+                    coder
+                        .Load(localArray)
+                        .StoreElement(
+                            coder.NewCoder()
+                            .Load<FieldCoder>(item())
+                            .Call(BuilderTypes.IFactoryTypeInfo.GetMethod_CreateInstance()), indexer))
+                .SetValue(property.BackingField, localArray);
+
+            AddFactoryRebuiltHandler(injectAttributeValues, property, injectorField,
+                injectAttributeValues.IsOrdered ?
+                    BuilderTypes.Factory.GetMethod_GetFactoryTypeInfoManyOrdered() :
+                    BuilderTypes.Factory.GetMethod_GetFactoryTypeInfoMany());
+        }
+        else if (
+            !injectAttributeValues.ForceDontCreateMany && property.ReturnType.IsEnumerable && !property.ReturnType.Implements(BuilderTypes.IDictionary) &&
             (injectAttributeValues.Arguments == null || injectAttributeValues.Arguments.Length == 0))
         {
             if (string.IsNullOrEmpty(injectAttributeValues.ContractName) && injectAttributeValues.ContractType == null)
@@ -668,9 +693,7 @@ public static class Weaver_ComponentCache
                                                                     BuilderTypes.Factory.GetMethod_CreateMany(BuilderTypes.String), injectAttributeValues.ContractName));
         }
         else if (
-            !injectAttributeValues.ForceDontCreateMany &&
-            (BuilderTypes.IEnumerable.BuilderType.AreReferenceAssignable(property.ReturnType) || property.ReturnType.IsArray) &&
-            !property.ReturnType.Implements(BuilderTypes.IDictionary))
+            !injectAttributeValues.ForceDontCreateMany && property.ReturnType.IsEnumerable && !property.ReturnType.Implements(BuilderTypes.IDictionary))
         {
             if (string.IsNullOrEmpty(injectAttributeValues.ContractName) && injectAttributeValues.ContractType == null)
                 then.SetValue(property.BackingField, x => x.Call(injectAttributeValues.IsOrdered ?
@@ -823,7 +846,15 @@ public static class Weaver_ComponentCache
                 var lockTaken = method.GetOrCreateVariable((BuilderType)BuilderTypes.Boolean);
 
                 foreach (var ctor in property.DeclaringType.GetRelevantConstructors())
+                {
+                    if (!property.DeclaringType.IsStatic && ctor.Name == ".cctor")
+                        continue;
+
+                    if (property.DeclaringType.IsStatic && ctor.Name == ".ctor")
+                        continue;
+
                     ctor.NewCoder().SetValue(syncObject, x => x.NewObj(objectCtor)).Insert(InsertionPosition.Beginning);
+                }
 
                 method.NewCoder()
                     .SetValue(lockTaken, false)

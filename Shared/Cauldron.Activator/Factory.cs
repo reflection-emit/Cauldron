@@ -113,6 +113,7 @@ namespace Cauldron.Activator
             else
                 result.SetValues(result.factoryTypeInfos.Concat(factoryTypeInfo).ToArray());
 
+            Rebuilt?.Invoke(null, EventArgs.Empty);
             return factoryTypeInfo;
         }
 
@@ -136,6 +137,7 @@ namespace Cauldron.Activator
             else
                 result.SetValues(result.factoryTypeInfos.Concat(factoryTypeInfo).ToArray());
 
+            Rebuilt?.Invoke(null, EventArgs.Empty);
             return factoryTypeInfo;
         }
 
@@ -982,6 +984,28 @@ namespace Cauldron.Activator
             return factoryInfos.createFirst;
         }
 
+        /// <exclude/>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static IFactoryTypeInfo[] GetFactoryTypeInfoMany(string contractName)
+        {
+            var result = componentsNamed[contractName];
+            if (result == null)
+                return ThrowExceptionOrReturnNull(contractName) as IFactoryTypeInfo[];
+
+            return result.factoryTypeInfos;
+        }
+
+        /// <exclude/>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static IFactoryTypeInfo[] GetFactoryTypeInfoManyOrdered(string contractName)
+        {
+            var result = componentsNamed[contractName];
+            if (result == null)
+                return ThrowExceptionOrReturnNull(contractName) as IFactoryTypeInfo[];
+
+            return result.factoryTypeInfosOrdered;
+        }
+
         /// <summary>
         /// Determines whether a contract exist
         /// </summary>
@@ -1044,6 +1068,8 @@ namespace Cauldron.Activator
                 (tobeRemoved[i].Instance as IDisposable)?.Dispose();
                 tobeRemoved[i].Instance = null;
             }
+
+            Rebuilt?.Invoke(null, EventArgs.Empty);
         }
 
         private static void GetAndInitializeAllExtensions(IEnumerable<IFactoryTypeInfo> factoryTypeInfos)

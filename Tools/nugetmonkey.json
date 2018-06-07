@@ -125,6 +125,20 @@
         }
       ],
       "priority": 100
+    },
+    {
+      "id": "Capgemini.Cauldron.Core.Threading",
+      "projects": [
+        {
+          "path": "..\\NetStandard\\Cauldron.Core.Threading\\Cauldron.Core.Threading.csproj",
+          "build-config": [ "Release" ]
+        },
+        {
+          "path": "..\\Win32\\Cauldron.Core.Threading\\Cauldron.Core.Threading.csproj",
+          "build-config": [ "Release-Net45", "Release-Net451", "Release-Net452", "Release-Net46", "Release-Net461", "Release-Net462" ]
+        }
+      ],
+      "priority": 100
     }
   ],
   "nuget-output-path": "..\\Nuget\\Packages",
