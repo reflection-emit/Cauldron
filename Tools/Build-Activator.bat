@@ -1,0 +1,1 @@
+NugetMonkey.exe "..\Nuget\Capgemini.Cauldron.Activator.nuspec" "..\Nuget\Cauldron.BasicInterceptors.nuspec" ..\Nuget\Capgemini.Cauldron.Core.Threading.nuspec

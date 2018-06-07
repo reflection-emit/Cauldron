@@ -211,7 +211,9 @@ namespace NugetMonkey
 
             WriteLine("Do you want to upload the packages? [Y/N]", ConsoleColor.Magenta);
             if (Console.ReadKey().Key == ConsoleKey.Y)
-                Parallel.ForEach(Directory.GetFiles(NugetMonkeyJson.NugetOutputPath, "*.nupkg"), file => UploadNugetPackage(file));
+                Parallel.ForEach(
+                    Directory.GetFiles(NugetMonkeyJson.NugetOutputPath, "*.nupkg").Where(x => x.IndexOf(".symbols", StringComparison.InvariantCultureIgnoreCase) < 0),
+                    file => UploadNugetPackage(file));
         }
 
         private static void UploadNugetPackage(string nupkgPath)
