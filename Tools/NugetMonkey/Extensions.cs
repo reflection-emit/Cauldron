@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using System.Xml;
 
 namespace NugetMonkey
@@ -41,6 +42,26 @@ namespace NugetMonkey
                 return null;
 
             return target.Substring(startPos, endPos - startPos + end.Length);
+        }
+
+        public static string GetStackTrace(this Exception e)
+        {
+            var sb = new StringBuilder();
+            var ex = e;
+
+            do
+            {
+                sb.AppendLine("Exception Type: " + ex.GetType().Name);
+                sb.AppendLine("Source: " + ex.Source);
+                sb.AppendLine(ex.Message);
+                sb.AppendLine("------------------------");
+                sb.AppendLine(ex.StackTrace);
+                sb.AppendLine("------------------------");
+
+                ex = ex.InnerException;
+            } while (ex != null);
+
+            return sb.ToString();
         }
 
         public static Version Increment(this Version version)

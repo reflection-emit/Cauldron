@@ -27,6 +27,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)IFactoryExtension.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IFactoryTypeInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)InjectAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)RenameAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UnitTestAwareFactoryResolverBase.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)Interceptors\MethodRenamer.csx" />
   </ItemGroup>
 </Project>

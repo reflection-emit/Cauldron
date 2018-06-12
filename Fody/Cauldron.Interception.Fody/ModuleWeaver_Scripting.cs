@@ -95,7 +95,7 @@ namespace Cauldron.Interception.Fody
 
             Directory.CreateDirectory(tempDirectory);
 
-            var additionalReferences = GetReferences(path);
+            var additionalReferences = GetReferences(path, tempDirectory);
             var arguments = new string[]
             {
                 $"/t:library",
@@ -222,7 +222,7 @@ namespace Cauldron.Interception.Fody
             }
         }
 
-        private Tuple<IEnumerable<string>, string> GetReferences(string path)
+        private Tuple<IEnumerable<string>, string> GetReferences(string path, string tempDirectory)
         {
             var assemblyDomain = AppDomain.CreateDomain(friendlyName: "spider-man");
 
@@ -243,7 +243,6 @@ namespace Cauldron.Interception.Fody
                     }
                 }
 
-                var tempDirectory = Path.Combine(Path.GetTempPath(), Path.GetFileName(this.ProjectDirectoryPath), Path.GetFileNameWithoutExtension(path));
                 var output = Path.Combine(tempDirectory, Path.GetFileNameWithoutExtension(path) + ".cs");
 
                 File.WriteAllLines(output, lines.Where(x =>

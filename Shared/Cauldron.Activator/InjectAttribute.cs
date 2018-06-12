@@ -77,7 +77,7 @@ namespace Cauldron.Activator
         public bool MakeThreadSafe { get; set; } = false;
 
         /// <summary>
-        /// Gets or sets a value that indicates if the injection should be preloaded. If true the weaver will weave preloading in the static constructor of the class.
+        /// Gets or sets a value that indicates if the injection should be preloaded. If false the weaver will weave preloading in the static constructor of the class.
         /// </summary>
         public bool NoPreloading { get; set; }
     }

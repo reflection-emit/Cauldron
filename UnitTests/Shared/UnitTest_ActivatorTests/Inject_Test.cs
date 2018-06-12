@@ -72,6 +72,32 @@ namespace Activator_Tests
         }
 
         [TestMethod]
+        public void Injection_Weave_Test()
+        {
+            var a1 = Factory.Create<IInjectionTest>();
+            var a2 = Factory.Create<IInjectionTest>("Hello");
+
+            var a3 = Factory.Create(typeof(IInjectionTest));
+            var a4 = Factory.Create(typeof(IInjectionTest), "Hello");
+
+            var a5 = Factory.Create(typeof(IInjectionTest).FullName);
+            var a6 = Factory.Create(typeof(IInjectionTest).FullName, "Hello");
+
+            var a7 = Factory.GetFactoryTypeInfo(typeof(IInjectionTest), typeof(IInjectionTest).FullName);
+
+            Assert.AreNotEqual(null, a1);
+            Assert.AreNotEqual(null, a2);
+
+            Assert.AreNotEqual(null, a3);
+            Assert.AreNotEqual(null, a4);
+
+            Assert.AreNotEqual(null, a5);
+            Assert.AreNotEqual(null, a6);
+
+            Assert.AreNotEqual(null, a7);
+        }
+
+        [TestMethod]
         public void Collection_Injection()
         {
             var documentMock1 = new { }.CreateType<ITestInterface>();

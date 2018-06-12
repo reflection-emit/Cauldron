@@ -20,18 +20,18 @@ namespace Cauldron.Core.Threading
         /// <param name="factoryInfoTypes">A collection of known factory types.</param>
         protected override void OnInitialize(IEnumerable<IFactoryTypeInfo> factoryInfoTypes)
         {
-            Factory.Resolvers.Add(ContractName, new Func<IFactoryTypeInfo>(() =>
-            {
-                if (dispatcher != null)
-                    return dispatcher;
+            Factory.Resolvers.Add(ContractName, new Func<Type, IFactoryTypeInfo[], IFactoryTypeInfo>((callingType, ambigiousTypes) =>
+             {
+                 if (dispatcher != null)
+                     return dispatcher;
 
-                if (this.IsUnitTest)
-                    dispatcher = factoryInfoTypes.FirstOrDefault(x => x.Type == typeof(DispatcherDummy));
-                else
-                    dispatcher = factoryInfoTypes.Where(x => x.ContractName == ContractName).MaxBy(x => x.Priority);
+                 if (this.IsUnitTest)
+                     dispatcher = ambigiousTypes.FirstOrDefault(x => x.Type == typeof(DispatcherDummy));
+                 else
+                     dispatcher = ambigiousTypes.Where(x => x.ContractName == ContractName).MaxBy(x => x.Priority);
 
-                return dispatcher;
-            }));
+                 return dispatcher;
+             }));
         }
     }
 }

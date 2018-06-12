@@ -20,14 +20,14 @@ namespace Cauldron.XAML
         /// <param name="factoryInfoTypes">A collection of known factory types.</param>
         public void Initialize(IEnumerable<IFactoryTypeInfo> factoryInfoTypes)
         {
-            Factory.Resolvers.Add(typeof(INavigator), () =>
+            Factory.Resolvers.Add(typeof(INavigator), (callingType, ambigiousTypes) =>
             {
                 var app = Application.Current.As<ApplicationBase>();
 
                 if (app != null && app.IsSinglePage)
-                    return factoryInfoTypes.FirstOrDefault(x => x.Type == typeof(NavigatorSinglePage));
+                    return ambigiousTypes.FirstOrDefault(x => x.Type == typeof(NavigatorSinglePage));
 
-                return factoryInfoTypes.FirstOrDefault(x => x.Type == typeof(Navigator));
+                return ambigiousTypes.FirstOrDefault(x => x.Type == typeof(Navigator));
             });
         }
     }

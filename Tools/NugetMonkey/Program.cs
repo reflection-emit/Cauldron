@@ -24,7 +24,7 @@ namespace NugetMonkey
             }
             catch (Exception e)
             {
-                WriteLine(e.Message, ConsoleColor.Red);
+                WriteLine(e.GetStackTrace(), ConsoleColor.Red);
             }
         }
 

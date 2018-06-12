@@ -1506,8 +1506,6 @@ namespace Cauldron.Interception.Cecilator.Coders
                 if (instructionBlock.ResultingType.AreEqual((TypeReference)BuilderTypes.Object))
                     instructionBlock.Emit(OpCodes.Isinst, (TypeReference)BuilderTypes.IEnumerable);
 
-                Builder.Current.Log(LogTypes.Info, $"-------->  {targetType} {instructionBlock.ResultingType}");
-
                 if (!childType.AreEqual(Builder.Current.GetChildrenType(instructionBlock.ResultingType).Item1))
                     instructionBlock.Emit(OpCodes.Call, castMethod);
                 instructionBlock.Emit(OpCodes.Call, toList);

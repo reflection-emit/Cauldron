@@ -18,6 +18,7 @@ namespace Cauldron.Activator
         /// <param name="source">The source object</param>
         /// <returns>Returns the clone of <paramref name="source"/></returns>
         /// <exception cref="ArgumentNullException"><paramref name="source"/> is null</exception>
+        [Obsolete("Use Mapster instead")]
         public static T DeepClone<T>(this T source) where T : class
         {
             if (source == null)
@@ -38,6 +39,7 @@ namespace Cauldron.Activator
         /// <returns>Returns the target</returns>
         /// <exception cref="ArgumentNullException"><paramref name="source"/> is null</exception>
         /// <exception cref="ArgumentNullException"><paramref name="target"/> is null</exception>
+        [Obsolete("Use Mapster instead")]
         public static TTarget MapTo<T, TTarget>(this T source, TTarget target)
         {
             /*
@@ -136,8 +138,9 @@ namespace Cauldron.Activator
         /// <param name="source">The source object</param>
         /// <returns>Returns the target</returns>
         /// <exception cref="ArgumentNullException"><paramref name="source"/> is null</exception>
+        [Obsolete("Use Mapster instead")]
         public static T MapTo<T>(this object source) where T : class, new() =>
-            source.MapTo(Factory.CreateInstance(typeof(T)) as T);
+            source.MapTo(Factory.Create<T>(callingType: typeof(T)));
 
         private static object CopyObject(Type valueType, object value)
         {
@@ -235,7 +238,7 @@ namespace Cauldron.Activator
             else if (valueType.IsValueType && !valueType.IsEnum || valueType.GetConstructor(Type.EmptyTypes) != null)
 #endif
             {
-                result = Factory.CreateInstance(valueType);
+                result = Factory.Create(valueType, callingType: valueType);
 
                 if (result == null)
                     result = valueType.CreateInstance();

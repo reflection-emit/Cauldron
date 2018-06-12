@@ -2,10 +2,12 @@
 using Mono.Cecil;
 using Mono.Cecil.Cil;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Cauldron.Interception.Cecilator
 {
@@ -39,6 +41,13 @@ namespace Cauldron.Interception.Cecilator
         internal Method(BuilderType type, MethodDefinition methodDefinition) : base(type)
         {
             this.type = type;
+            this.methodDefinition = methodDefinition;
+            this.methodReference = methodDefinition.CreateMethodReference();
+        }
+
+        internal Method(MethodDefinition methodDefinition) : base(Builder.Current)
+        {
+            this.type = methodDefinition.DeclaringType.ToBuilderType();
             this.methodDefinition = methodDefinition;
             this.methodReference = methodDefinition.CreateMethodReference();
         }
@@ -142,7 +151,7 @@ namespace Cauldron.Interception.Cecilator
             }
         }
 
-        public string Name => this.methodDefinition.Name;
+        public string Name { get => this.methodDefinition.Name; set => this.methodDefinition.Name = value; }
 
         /// <summary>
         /// Gets the type that inherited the method.
@@ -151,6 +160,8 @@ namespace Cauldron.Interception.Cecilator
 
         public BuilderType[] Parameters =>
             this.methodReference.Parameters.Select(x => new BuilderType(this.OriginType.Builder, x.ParameterType.ResolveType(this.type.typeReference, this.methodReference))).ToArray();
+
+        public int ParametersCount => this.methodReference.Parameters.Count;
 
         public BuilderType ReturnType => new BuilderType(this.type, this.methodReference.ReturnType);
 
@@ -184,14 +195,7 @@ namespace Cauldron.Interception.Cecilator
         public Field CreateField(TypeReference typeReference, string name) =>
             this.IsStatic ? this.OriginType.CreateField(Modifiers.PrivateStatic, typeReference, name) : this.OriginType.CreateField(Modifiers.Private, typeReference, name);
 
-        public IEnumerable<MethodUsage> FindUsages()
-        {
-            var result = this.type.Builder.GetTypes()
-                .SelectMany(x => x.Methods)
-                .SelectMany(x => this.GetMethodUsage(x));
-
-            return result;
-        }
+        public MethodUsage[] FindUsages() => InstructionBucket.Find(this.methodDefinition).Select(x => new MethodUsage(this, new Method(x.method), x.instruction)).ToArray();
 
         /// <summary>
         /// Returns all constant strings in the instruction body
@@ -359,8 +363,6 @@ namespace Cauldron.Interception.Cecilator
                 return new Method(this.type.Builder, this.methodDefinition.MakeGeneric(null, types.Select(x => this.moduleDefinition.ImportReference(this.type.Builder.GetType(x).typeReference)).ToArray()), this.methodDefinition);
         }
 
-        //public ICode NewCode() => new InstructionsSet(this.type, this);
-
         public void Overrides(Method method) => this.methodDefinition.Overrides.Add(method.methodReference);
 
         internal VariableDefinition AddLocalVariable(string name, VariableDefinition variable)
@@ -379,6 +381,7 @@ namespace Cauldron.Interception.Cecilator
 
         internal ILProcessor GetILProcessor() => this.methodDefinition.Body.GetILProcessor();
 
+        /*
         private IEnumerable<MethodUsage> GetMethodUsage(Method method)
         {
             if (method.methodDefinition.Body != null)
@@ -391,8 +394,11 @@ namespace Cauldron.Interception.Cecilator
                         yield return new MethodUsage(this, method, instruction);
                 }
         }
+        */
 
         #region Equitable stuff
+
+        public static explicit operator MethodReference(Method value) => value?.methodReference;
 
         public static implicit operator string(Method value) => value?.ToString();
 

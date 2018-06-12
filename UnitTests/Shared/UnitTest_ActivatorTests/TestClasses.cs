@@ -6,6 +6,20 @@ using System.Collections.ObjectModel;
 
 namespace Activator_Tests
 {
+    [Component(typeof(IInjectionTest))]
+    public class InjectionTest : IInjectionTest
+    {
+        public InjectionTest()
+        {
+        }
+        public InjectionTest(string paramerter)
+        {
+        }
+    }
+    public interface IInjectionTest
+    {
+    }
+
     [Component(typeof(ComponentTest))]
     public class ComponentTest : ComponentTestBase<ComponentTest>
     {

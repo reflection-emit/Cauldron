@@ -2,11 +2,14 @@
 using Cauldron.Interception.Cecilator.Coders;
 using Cauldron.Interception.Fody;
 using Mono.Cecil;
+using Mono.Cecil.Cil;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 
 public static class Weaver_ComponentCache
 {
@@ -249,6 +252,7 @@ public static class Weaver_ComponentCache
 
         ImplementInjectField(builder, fields);
         ImplementInjectProperties(builder, properties);
+        ReplaceFactoryCreate(builder);
     }
 
     private static void AddComponentAttribute(Builder builder, IEnumerable<BuilderType> builderTypes, Func<BuilderType, BuilderType> contractNameDelegate = null)
@@ -371,47 +375,6 @@ public static class Weaver_ComponentCache
         return context;
     }
 
-    /*
-    private static Coder AddContextParameterless(Builder builder, Coder context, AttributedType component)
-    {
-        var componentAttributeValues = new ComponentAttributeValues(component);
-        var ctors = GetComponentConstructors(component);
-
-        if (ctors.Length > 0)
-        {
-            for (int index = 0; index < ctors.Length; index++)
-            {
-                builder.Log(LogTypes.Info, "- " + ctors[index].Fullname);
-
-                var ctor = ctors[index];
-                if (ctor.Parameters.Length == 0)
-                {
-                    ctor.CustomAttributes.AddEditorBrowsableAttribute(EditorBrowsableState.Never);
-                    CreateComponentParameterlessCtor(context, ctor, componentAttributeValues);
-                }
-            }
-        }
-        else
-        {
-            // In case we don't have constructor with ComponentConstructor Attribute,
-            // then we should look for a parameterless Ctor
-            if (component.Type.ParameterlessContructor == null)
-                builder.Log(LogTypes.Error, component.Type, $"The component '{component.Type.Fullname}' has no ComponentConstructor attribute or the constructor is not public");
-            else if (component.Type.ParameterlessContructor.IsPublicOrInternal)
-            {
-                CreateComponentParameterlessCtor(context, component.Type.ParameterlessContructor, componentAttributeValues);
-                builder.Log(LogTypes.Info, $"The component '{component.Type.Fullname}' has no ComponentConstructor attribute. A parameterless ctor was found and will be used.");
-            }
-        }
-
-        context.ThrowNew(typeof(NotImplementedException), x =>
-            x.Call(BuilderTypes.String.GetMethod_Concat(BuilderTypes.String, BuilderTypes.String), unknownConstructorText,
-                x.NewCoder().Call(BuilderTypes.IFactoryTypeInfo.GetMethod_get_ContractName())).End);
-
-        return context;
-    }
-    */
-
     private static Coder AddCreateInstanceMethod(Builder builder, BuilderType cauldron, Method createInstanceInterfaceMethod, AttributedType component, ComponentAttributeValues componentAttributeValue, BuilderType componentType)
     {
         var instanceFieldName = $"<{component.Type}>_componentInstance";
@@ -497,13 +460,32 @@ public static class Weaver_ComponentCache
     private static void AssignFactoryGetFactoryInfo(Coder coder, InjectAttributeValues injectAttributeValues, Property property, Field injectorField, Method factoryTypeInfoGet)
     {
         if (string.IsNullOrEmpty(injectAttributeValues.ContractName) && injectAttributeValues.ContractType == null)
-            coder.SetValue(injectorField, x => x.Call(factoryTypeInfoGet, y =>
-                y.Load(property.ReturnType.IsEnumerable ? property.ReturnType.ChildType : property.ReturnType).Call(BuilderTypes.Type.GetMethod_get_FullName()))).Insert(InsertionPosition.Beginning);
+        {
+            if (factoryTypeInfoGet.ParametersCount == 2)
+                coder.SetValue(injectorField, x => x.Call(factoryTypeInfoGet,
+                    y => coder.AssociatedMethod.DeclaringType,
+                    y => y.Load(property.ReturnType.IsEnumerable ? property.ReturnType.ChildType : property.ReturnType).Call(BuilderTypes.Type.GetMethod_get_FullName()))).Insert(InsertionPosition.Beginning);
+            else
+                coder.SetValue(injectorField, x => x.Call(factoryTypeInfoGet,
+                    y => y.Load(property.ReturnType.IsEnumerable ? property.ReturnType.ChildType : property.ReturnType).Call(BuilderTypes.Type.GetMethod_get_FullName()))).Insert(InsertionPosition.Beginning);
+        }
         else if (injectAttributeValues.ContractType != null)
-            coder.SetValue(injectorField, x => x.Call(factoryTypeInfoGet,
-                y => y.Load(injectAttributeValues.ContractType.IsEnumerable ? injectAttributeValues.ContractType.ChildType : injectAttributeValues.ContractType).Call(BuilderTypes.Type.GetMethod_get_FullName()))).Insert(InsertionPosition.Beginning);
+        {
+            if (factoryTypeInfoGet.ParametersCount == 2)
+                coder.SetValue(injectorField, x => x.Call(factoryTypeInfoGet,
+                    y => coder.AssociatedMethod.DeclaringType,
+                    y => y.Load(injectAttributeValues.ContractType.IsEnumerable ? injectAttributeValues.ContractType.ChildType : injectAttributeValues.ContractType).Call(BuilderTypes.Type.GetMethod_get_FullName()))).Insert(InsertionPosition.Beginning);
+            else
+                coder.SetValue(injectorField, x => x.Call(factoryTypeInfoGet,
+                    y => y.Load(injectAttributeValues.ContractType.IsEnumerable ? injectAttributeValues.ContractType.ChildType : injectAttributeValues.ContractType).Call(BuilderTypes.Type.GetMethod_get_FullName()))).Insert(InsertionPosition.Beginning);
+        }
         else
-            coder.SetValue(injectorField, x => x.Call(factoryTypeInfoGet, injectAttributeValues.ContractName)).Insert(InsertionPosition.Beginning);
+        {
+            if (factoryTypeInfoGet.ParametersCount == 2)
+                coder.SetValue(injectorField, x => x.Call(factoryTypeInfoGet, coder.AssociatedMethod.DeclaringType, injectAttributeValues.ContractName)).Insert(InsertionPosition.Beginning);
+            else
+                coder.SetValue(injectorField, x => x.Call(factoryTypeInfoGet, injectAttributeValues.ContractName)).Insert(InsertionPosition.Beginning);
+        }
     }
 
     private static void CreateComponentParameterlessCtor(Coder context, Method contructor, ComponentAttributeValues componentAttributeValues)
@@ -881,6 +863,101 @@ public static class Weaver_ComponentCache
             return then;
         }).Insert(InsertionPosition.Beginning);
     }
+
+    private static void ReplaceFactoryCreate(Builder builder)
+    {
+        var objectArray = BuilderTypes.Object.BuilderType.MakeArray();
+
+        var createMethodUsages = BuilderTypes.Factory.GetMethod_Create().FindUsages();
+        var createTypeMethodUsages = BuilderTypes.Factory.GetMethod_Create(BuilderTypes.Type).FindUsages();
+        var createStringMethodUsages = BuilderTypes.Factory.GetMethod_Create(BuilderTypes.String).FindUsages();
+        var createGenericMethodUsages = BuilderTypes.Factory.GetMethod_Create_Generic().FindUsages();
+        var createTypeTypeMethodUsages = BuilderTypes.Factory.GetMethod_Create(BuilderTypes.Type, (TypeReference)objectArray).FindUsages();
+        var createStringTypeMethodUsages = BuilderTypes.Factory.GetMethod_Create(BuilderTypes.String, (TypeReference)objectArray).FindUsages();
+
+        foreach (var item in createMethodUsages)
+        {
+            Builder.Current.Log(LogTypes.Info, $"{item}");
+            ((Instruction)item).Operand = Builder.Current.Import((MethodReference)BuilderTypes.Factory.GetMethod_____Create().MakeGeneric(item.GetGenericArgument(0)));
+            item.HostMethod.NewCoder().Load(item.HostMethod.DeclaringType).End.Insert(InsertionAction.Before, item.Position);
+        }
+
+        foreach (var item in createTypeMethodUsages)
+        {
+            Builder.Current.Log(LogTypes.Info, $"{item}");
+            item.Replace(BuilderTypes.Factory.GetMethod_____Create(BuilderTypes.Type, BuilderTypes.Type));
+            item.HostMethod.NewCoder().Load(item.HostMethod.DeclaringType).End.Insert(InsertionAction.Before, item.Position);
+        }
+
+        foreach (var item in createStringMethodUsages)
+        {
+            Builder.Current.Log(LogTypes.Info, $"{item}");
+            item.Replace(BuilderTypes.Factory.GetMethod_____Create(BuilderTypes.String, BuilderTypes.Type));
+            item.HostMethod.NewCoder().Load(item.HostMethod.DeclaringType).End.Insert(InsertionAction.Before, item.Position);
+        }
+
+        foreach (var item in createGenericMethodUsages)
+        {
+            Builder.Current.Log(LogTypes.Info, $"{item}");
+            ((Instruction)item).Operand = Builder.Current.Import((MethodReference)BuilderTypes.Factory.GetMethod_____Create_Generic().MakeGeneric(item.GetGenericArgument(0)));
+            item.HostMethod.NewCoder().Load(item.HostMethod.DeclaringType).End.Insert(InsertionAction.Before, item.Position);
+        }
+
+        foreach (var item in createTypeTypeMethodUsages)
+        {
+            Builder.Current.Log(LogTypes.Info, $"{item}");
+            item.Replace(BuilderTypes.Factory.GetMethod_____Create(BuilderTypes.Type, (TypeReference)objectArray, BuilderTypes.Type));
+            item.HostMethod.NewCoder().Load(item.HostMethod.DeclaringType).End.Insert(InsertionAction.Before, item.Position);
+        }
+
+        foreach (var item in createStringTypeMethodUsages)
+        {
+            Builder.Current.Log(LogTypes.Info, $"{item}");
+            item.Replace(BuilderTypes.Factory.GetMethod_____Create(BuilderTypes.String, (TypeReference)objectArray, BuilderTypes.Type));
+            item.HostMethod.NewCoder().Load(item.HostMethod.DeclaringType).End.Insert(InsertionAction.Before, item.Position);
+        }
+    }
+
+    /*
+    private static Coder AddContextParameterless(Builder builder, Coder context, AttributedType component)
+    {
+        var componentAttributeValues = new ComponentAttributeValues(component);
+        var ctors = GetComponentConstructors(component);
+
+        if (ctors.Length > 0)
+        {
+            for (int index = 0; index < ctors.Length; index++)
+            {
+                builder.Log(LogTypes.Info, "- " + ctors[index].Fullname);
+
+                var ctor = ctors[index];
+                if (ctor.Parameters.Length == 0)
+                {
+                    ctor.CustomAttributes.AddEditorBrowsableAttribute(EditorBrowsableState.Never);
+                    CreateComponentParameterlessCtor(context, ctor, componentAttributeValues);
+                }
+            }
+        }
+        else
+        {
+            // In case we don't have constructor with ComponentConstructor Attribute,
+            // then we should look for a parameterless Ctor
+            if (component.Type.ParameterlessContructor == null)
+                builder.Log(LogTypes.Error, component.Type, $"The component '{component.Type.Fullname}' has no ComponentConstructor attribute or the constructor is not public");
+            else if (component.Type.ParameterlessContructor.IsPublicOrInternal)
+            {
+                CreateComponentParameterlessCtor(context, component.Type.ParameterlessContructor, componentAttributeValues);
+                builder.Log(LogTypes.Info, $"The component '{component.Type.Fullname}' has no ComponentConstructor attribute. A parameterless ctor was found and will be used.");
+            }
+        }
+
+        context.ThrowNew(typeof(NotImplementedException), x =>
+            x.Call(BuilderTypes.String.GetMethod_Concat(BuilderTypes.String, BuilderTypes.String), unknownConstructorText,
+                x.NewCoder().Call(BuilderTypes.IFactoryTypeInfo.GetMethod_get_ContractName())).End);
+
+        return context;
+    }
+    */
 
     private class ComponentAttributeValues
     {

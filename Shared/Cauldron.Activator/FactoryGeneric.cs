@@ -26,7 +26,7 @@ namespace Cauldron.Activator
                     lock (syncRoot)
                     {
                         if (current == null || (disposable != null && disposable.IsDisposed))
-                            current = Factory.Create<T>();
+                            current = Factory.Create<T>(callingType: typeof(T));
                     }
                 }
 

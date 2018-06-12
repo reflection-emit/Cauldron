@@ -935,6 +935,8 @@ namespace Cauldron.Interception.Cecilator.Coders
 
         public void Insert(InsertionAction action, Position position)
         {
+            InstructionBucket.Reset();
+
             if (action == InsertionAction.After)
                 this.instructions.ilprocessor.InsertAfter(position.instruction, this.instructions);
             else if (action == InsertionAction.Before)
@@ -954,6 +956,8 @@ namespace Cauldron.Interception.Cecilator.Coders
 
         public void Insert(InsertionPosition position)
         {
+            InstructionBucket.Reset();
+
             Instruction instructionPosition = null;
             if (this.instructions.ilprocessor.Body == null || this.instructions.ilprocessor.Body.Instructions.Count == 0)
                 this.instructions.Emit(OpCodes.Ret);
@@ -1030,6 +1034,8 @@ namespace Cauldron.Interception.Cecilator.Coders
         /// </summary>
         public void Replace()
         {
+            InstructionBucket.Reset();
+
             // A very special case for async methods
             if (this.instructions.associatedMethod is AsyncStateMachineMoveNextMethod moveNextMethod)
             {

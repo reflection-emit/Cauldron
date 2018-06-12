@@ -20,6 +20,7 @@ namespace Cauldron.Interception.Cecilator
 
         public bool IsOpCode(OpCode opcode) => this.instruction.OpCode == opcode;
 
-        public override string ToString() => this.instruction.ToString();
+        public override string ToString() =>
+            $"IL_{instruction.Offset.ToString("X4")}: {instruction.OpCode.ToString()} { (instruction.Operand is Instruction ? "IL_" + (instruction.Operand as Instruction).Offset.ToString("X4") : instruction.Operand?.ToString())} ";
     }
 }

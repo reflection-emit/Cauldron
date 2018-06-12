@@ -934,7 +934,6 @@ namespace Cauldron.Interception.Cecilator
                 if (ins.OpCode == OpCodes.Ldelem_Ref)
                 {
                     var temp = instructions.ToArray();
-                    Builder.Current.Log(LogTypes.Info, $"--------> {ins.OpCode} -- {Array.IndexOf(temp, ins)} - {temp[Array.IndexOf(temp, ins) - 2]}");
                     return GetTypeOfValueInStack(temp[Array.IndexOf(temp, ins) - 2]);
                 }
 

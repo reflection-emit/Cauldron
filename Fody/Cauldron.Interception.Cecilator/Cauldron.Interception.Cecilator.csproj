@@ -121,6 +121,7 @@
     <Compile Include="IlHelper.cs" />
     <Compile Include="InsertionAction.cs" />
     <Compile Include="InsertionPosition.cs" />
+    <Compile Include="InstructionBucket.cs" />
     <Compile Include="ListEx.cs" />
     <Compile Include="LogTypes.cs" />
     <Compile Include="MethodDefinitionAndReference.cs" />

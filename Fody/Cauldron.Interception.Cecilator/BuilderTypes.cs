@@ -88,6 +88,52 @@ namespace Cauldron.Interception.Cecilator
 
     public partial class BuilderTypeFactory : TypeSystemExBase
     {
+        private Method var_____create_0_1;
+        private Method var_create_0_0;
+        private Method var_create_0_0_1;
+        private Method varr_____create_0_0_2;
+
+        /// <summary>
+        /// Represents the following method:
+        /// <para />
+        /// System.Object __Create(System.Type)<para/>
+        /// </summary>
+        public Method GetMethod_____Create()
+        {
+            if (this.var_____create_0_1 == null)
+                this.var_____create_0_1 = this.builderType.GetMethod("<>__Create", true, BuilderTypes.Type.BuilderType);
+
+            return this.var_____create_0_1.Import();
+        }
+
+        public Method GetMethod_____Create_Generic()
+        {
+            if (this.varr_____create_0_0_2 == null)
+                this.varr_____create_0_0_2 = this.builderType.GetMethod("<>__Create", true, BuilderTypes.Object.BuilderType.MakeArray(), BuilderTypes.Type.BuilderType);
+
+            return this.varr_____create_0_0_2.Import();
+        }
+
+        /// <summary>
+        /// Represents the following method:
+        /// <para />
+        /// System.Object Create()<para/>
+        /// </summary>
+        public Method GetMethod_Create()
+        {
+            if (this.var_create_0_0 == null)
+                this.var_create_0_0 = this.builderType.GetMethod("Create", true);
+
+            return this.var_create_0_0.Import();
+        }
+
+        public Method GetMethod_Create_Generic()
+        {
+            if (this.var_create_0_0_1 == null)
+                this.var_create_0_0_1 = this.builderType.GetMethod("Create", true, BuilderTypes.Object.BuilderType.MakeArray());
+
+            return this.var_create_0_0_1.Import();
+        }
     }
 
     public partial class BuilderTypeICollection1

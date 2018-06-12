@@ -14935,21 +14935,6 @@ namespace Cauldron.Interception.Cecilator
 			return this.var_get_resolvers_0_0.Import();
 		}
 						
-		private Method var_createinstance_0_2;
-		
-		/// <summary>
-		/// Represents the following method:
-		/// <para />
-		/// System.Object CreateInstance(System.Type, System.Object[])<para/>
-		/// </summary>
-		public Method GetMethod_CreateInstance()
-		{
-			if(this.var_createinstance_0_2 == null)
-				this.var_createinstance_0_2 = this.builderType.GetMethod("CreateInstance", 2, true);
-
-			return this.var_createinstance_0_2.Import();
-		}
-						
 		private Method var_create_0_1;
 				
 		private Method var_create_1_1;
@@ -15012,6 +14997,74 @@ namespace Cauldron.Interception.Cecilator
 					this.var_create_1_2 = this.builderType.GetMethod("Create", true, pcontractName, pparameters);
 			
 				return this.var_create_1_2.Import();
+			}
+			
+			throw new Exception("Method with defined parameters not found.");
+			
+		}
+						
+		private Method var_____create_0_2;
+				
+		private Method var_____create_1_2;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// System.Object <>__Create(System.String, System.Type)<para/>
+		/// System.Object <>__Create(System.Type, System.Type)<para/>
+		/// </summary>
+		public Method GetMethod_____Create(TypeReference pcontractName, TypeReference pcallingType)
+		{
+						
+						
+			if(typeof(System.String).AreEqual(pcontractName) && typeof(System.Type).AreEqual(pcallingType))
+			{
+				if(this.var_____create_0_2 == null)
+					this.var_____create_0_2 = this.builderType.GetMethod("<>__Create", true, pcontractName, pcallingType);
+			
+				return this.var_____create_0_2.Import();
+			}
+			
+			if(typeof(System.Type).AreEqual(pcontractName) && typeof(System.Type).AreEqual(pcallingType))
+			{
+				if(this.var_____create_1_2 == null)
+					this.var_____create_1_2 = this.builderType.GetMethod("<>__Create", true, pcontractName, pcallingType);
+			
+				return this.var_____create_1_2.Import();
+			}
+			
+			throw new Exception("Method with defined parameters not found.");
+			
+		}
+						
+		private Method var_____create_0_3;
+				
+		private Method var_____create_1_3;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// System.Object <>__Create(System.String, System.Object[], System.Type)<para/>
+		/// System.Object <>__Create(System.Type, System.Object[], System.Type)<para/>
+		/// </summary>
+		public Method GetMethod_____Create(TypeReference pcontractName, TypeReference pparameters, TypeReference pcallingType)
+		{
+						
+						
+			if(typeof(System.String).AreEqual(pcontractName) && typeof(System.Object[]).AreEqual(pparameters) && typeof(System.Type).AreEqual(pcallingType))
+			{
+				if(this.var_____create_0_3 == null)
+					this.var_____create_0_3 = this.builderType.GetMethod("<>__Create", true, pcontractName, pparameters, pcallingType);
+			
+				return this.var_____create_0_3.Import();
+			}
+			
+			if(typeof(System.Type).AreEqual(pcontractName) && typeof(System.Object[]).AreEqual(pparameters) && typeof(System.Type).AreEqual(pcallingType))
+			{
+				if(this.var_____create_1_3 == null)
+					this.var_____create_1_3 = this.builderType.GetMethod("<>__Create", true, pcontractName, pparameters, pcallingType);
+			
+				return this.var_____create_1_3.Import();
 			}
 			
 			throw new Exception("Method with defined parameters not found.");
@@ -15274,19 +15327,19 @@ namespace Cauldron.Interception.Cecilator
 						
 		}
 						
-		private Method var_getfactorytypeinfo_0_1;
+		private Method var_getfactorytypeinfo_0_2;
 		
 		/// <summary>
 		/// Represents the following method:
 		/// <para />
-		/// Cauldron.Activator.IFactoryTypeInfo GetFactoryTypeInfo(System.String)<para/>
+		/// Cauldron.Activator.IFactoryTypeInfo GetFactoryTypeInfo(System.Type, System.String)<para/>
 		/// </summary>
 		public Method GetMethod_GetFactoryTypeInfo()
 		{
-			if(this.var_getfactorytypeinfo_0_1 == null)
-				this.var_getfactorytypeinfo_0_1 = this.builderType.GetMethod("GetFactoryTypeInfo", 1, true);
+			if(this.var_getfactorytypeinfo_0_2 == null)
+				this.var_getfactorytypeinfo_0_2 = this.builderType.GetMethod("GetFactoryTypeInfo", 2, true);
 
-			return this.var_getfactorytypeinfo_0_1.Import();
+			return this.var_getfactorytypeinfo_0_2.Import();
 		}
 						
 		private Method var_getfactorytypeinfofirst_0_1;
@@ -25323,6 +25376,21 @@ namespace Cauldron.Interception.Cecilator
 		public static implicit operator TypeReference(BuilderTypeType value) => Builder.Current.Import((TypeReference)value.builderType);
 			
 				
+		private Method var_gettypefromhandle_0_1;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// System.Type GetTypeFromHandle(System.RuntimeTypeHandle)<para/>
+		/// </summary>
+		public Method GetMethod_GetTypeFromHandle()
+		{
+			if(this.var_gettypefromhandle_0_1 == null)
+				this.var_gettypefromhandle_0_1 = this.builderType.GetMethod("GetTypeFromHandle", 1, true);
+
+			return this.var_gettypefromhandle_0_1.Import();
+		}
+						
 		private Method var_get_membertype_0_0;
 		
 		/// <summary>
@@ -25903,21 +25971,6 @@ namespace Cauldron.Interception.Cecilator
 				this.var_gettypehandle_0_1 = this.builderType.GetMethod("GetTypeHandle", 1, true);
 
 			return this.var_gettypehandle_0_1.Import();
-		}
-						
-		private Method var_gettypefromhandle_0_1;
-		
-		/// <summary>
-		/// Represents the following method:
-		/// <para />
-		/// System.Type GetTypeFromHandle(System.RuntimeTypeHandle)<para/>
-		/// </summary>
-		public Method GetMethod_GetTypeFromHandle()
-		{
-			if(this.var_gettypefromhandle_0_1 == null)
-				this.var_gettypefromhandle_0_1 = this.builderType.GetMethod("GetTypeFromHandle", 1, true);
-
-			return this.var_gettypefromhandle_0_1.Import();
 		}
 						
 		private Method var_get_fullname_0_0;

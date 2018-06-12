@@ -25,6 +25,8 @@ namespace Cauldron.Interception.Cecilator
 
         public Method Method { get; private set; }
 
+        public Position Position => new Position(this.HostMethod, this.instruction);
+
         public BuilderType Type { get; private set; }
 
         public static implicit operator Instruction(MethodUsage methodUsage) => methodUsage.instruction;
@@ -95,14 +97,14 @@ namespace Cauldron.Interception.Cecilator
             return new BuilderType(this.Method.type.Builder, declaringType);
         }
 
-        public void Replace(Method method)
+        public void Replace(Method method, bool autoCast = true)
         {
-            this.instruction.Operand = method.methodReference;
+            this.instruction.Operand = Builder.Current.Import(method.methodReference);
 
             // If we know this method has only one param (Because easy to do), we should try to check
             // the type and and try a cast if needed
             var parameters = method.Parameters;
-            if (parameters.Length == 1)
+            if (parameters.Length == 1 && autoCast)
             {
                 var previousType = this.GetPreviousInstructionObjectType();
 

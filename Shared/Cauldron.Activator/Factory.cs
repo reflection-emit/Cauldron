@@ -20,6 +20,7 @@ namespace Cauldron.Activator
         private static FactoryStringDictionary<FactoryDictionaryValue> componentsNamed;
         private static FactoryDictionary<Type, FactoryDictionaryValue> componentsTyped;
         private static IFactoryTypeInfo[] factoryInfoTypes;
+        private static IFactoryTypeInfo[] singletons;
 
         static Factory()
         {
@@ -141,39 +142,6 @@ namespace Cauldron.Activator
             return factoryTypeInfo;
         }
 
-        /// <summary>
-        /// Creates an instance of the specified type using the constructor that best matches the
-        /// specified parameters. This method is similar to <see
-        /// cref="ExtensionsReflection.CreateInstance(Type, object[])"/>, but this takes the types
-        /// defined with <see cref="ComponentAttribute"/> into account.
-        /// </summary>
-        /// <param name="type">The type of object to create.</param>
-        /// <param name="args">
-        /// An array of arguments that match in number, order, and type the parameters of the
-        /// constructor to invoke. If args is an empty array or null, the constructor that takes no
-        /// parameters (the default constructor) is invoked.
-        /// </param>
-        /// <returns>A reference to the newly created object.</returns>
-        /// <exception cref="ArgumentNullException"><paramref name="type"/> is null</exception>
-        /// <exception cref="NotImplementedException">
-        /// Implementation of <paramref name="type"/> not found
-        /// </exception>
-        public static object CreateInstance(Type type, params object[] args)
-        {
-            var factoryInfos = componentsNamed[type.FullName];
-            if (factoryInfos == null)
-                return ThrowExceptionOrReturnNull(type, args);
-
-            if (factoryInfos.isSingle)
-                return factoryInfos.ambigious.CreateInstance(args);
-
-            var result = ResolveAmbiguousMatch(type.FullName);
-            factoryInfos.ambigious = result;
-            factoryInfos.isSingle = true;
-
-            return result.CreateInstance(args);
-        }
-
         #region Create
 
         /// <summary>
@@ -193,7 +161,27 @@ namespace Cauldron.Activator
         /// implemented <see cref="IDisposable"/> must also implement the <see
         /// cref="IDisposableObject"/> interface.
         /// </exception>
-        public static T Create<T>() where T : class => Create(typeof(T)) as T;
+        public static T Create<T>() where T : class => throw new NotImplementedException("This method was not correctly weaved by Cauldron.");
+
+        /// <exclude/>
+        [Rename]
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static T Create<T>(Type callingType) where T : class
+        {
+            var contractType = typeof(T);
+            var factoryInfos = componentsTyped[contractType];
+            if (factoryInfos == null)
+                return ThrowExceptionOrReturnNull(contractType) as T;
+
+            if (factoryInfos.isSingle)
+                return factoryInfos.single.CreateInstance() as T;
+
+            var result = ResolveAmbiguousMatch(callingType, contractType, factoryInfos.factoryTypeInfos);
+            if (result == null)
+                return ThrowExceptionOrReturnNull(contractType) as T;
+
+            return result.CreateInstance() as T;
+        }
 
         /// <summary>
         /// Creates an instance of the specified type depending on the <see cref="ComponentAttribute"/>
@@ -212,18 +200,23 @@ namespace Cauldron.Activator
         /// implemented <see cref="IDisposable"/> must also implement the <see
         /// cref="IDisposableObject"/> interface.
         /// </exception>
-        public static object Create(string contractName)
+        public static object Create(string contractName) => throw new NotImplementedException("This method was not correctly weaved by Cauldron.");
+
+        /// <exclude/>
+        [Rename]
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static object Create(string contractName, Type callingType)
         {
             var factoryInfos = componentsNamed[contractName];
             if (factoryInfos == null)
                 return ThrowExceptionOrReturnNull(contractName);
 
             if (factoryInfos.isSingle)
-                return factoryInfos.ambigious.CreateInstance();
+                return factoryInfos.single.CreateInstance();
 
-            var result = ResolveAmbiguousMatch(contractName);
-            factoryInfos.ambigious = result;
-            factoryInfos.isSingle = true;
+            var result = ResolveAmbiguousMatch(callingType, contractName, factoryInfos.factoryTypeInfos);
+            if (result == null)
+                return ThrowExceptionOrReturnNull(contractName);
 
             return result.CreateInstance();
         }
@@ -248,18 +241,23 @@ namespace Cauldron.Activator
         /// implemented <see cref="IDisposable"/> must also implement the <see
         /// cref="IDisposableObject"/> interface.
         /// </exception>
-        public static object Create(Type contractType)
+        public static object Create(Type contractType) => throw new NotImplementedException("This method was not correctly weaved by Cauldron.");
+
+        /// <exclude/>
+        [Rename]
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static object Create(Type contractType, Type callingType)
         {
             var factoryInfos = componentsTyped[contractType];
             if (factoryInfos == null)
                 return ThrowExceptionOrReturnNull(contractType);
 
             if (factoryInfos.isSingle)
-                return factoryInfos.ambigious.CreateInstance();
+                return factoryInfos.single.CreateInstance();
 
-            var result = ResolveAmbiguousMatch(contractType.FullName);
-            factoryInfos.ambigious = result;
-            factoryInfos.isSingle = true;
+            var result = ResolveAmbiguousMatch(callingType, contractType, factoryInfos.factoryTypeInfos);
+            if (result == null)
+                return ThrowExceptionOrReturnNull(contractType);
 
             return result.CreateInstance();
         }
@@ -532,7 +530,27 @@ namespace Cauldron.Activator
         /// implemented <see cref="IDisposable"/> must also implement the <see
         /// cref="IDisposableObject"/> interface.
         /// </exception>
-        public static T Create<T>(params object[] parameters) where T : class => Create(typeof(T), parameters) as T;
+        public static T Create<T>(params object[] parameters) where T : class => throw new NotImplementedException("This method was not correctly weaved by Cauldron.");
+
+        /// <exclude/>
+        [Rename]
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static T Create<T>(object[] parameters, Type callingType) where T : class
+        {
+            var contractType = typeof(T);
+            var factoryInfos = componentsTyped[contractType];
+            if (factoryInfos == null)
+                return ThrowExceptionOrReturnNull(contractType, parameters) as T;
+
+            if (factoryInfos.isSingle)
+                return factoryInfos.single.CreateInstance(parameters) as T;
+
+            var result = ResolveAmbiguousMatch(callingType, contractType.FullName, factoryInfos.factoryTypeInfos);
+            if (result == null)
+                return ThrowExceptionOrReturnNull(contractType, parameters) as T;
+
+            return result.CreateInstance(parameters) as T;
+        }
 
         /// <summary>
         /// Creates an instance of the specified type depending on the <see cref="ComponentAttribute"/>
@@ -556,18 +574,23 @@ namespace Cauldron.Activator
         /// implemented <see cref="IDisposable"/> must also implement the <see
         /// cref="IDisposableObject"/> interface.
         /// </exception>
-        public static object Create(string contractName, params object[] parameters)
+        public static object Create(string contractName, params object[] parameters) => throw new NotImplementedException("This method was not correctly weaved by Cauldron.");
+
+        /// <exclude/>
+        [Rename]
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static object Create(string contractName, object[] parameters, Type callingType)
         {
             var factoryInfos = componentsNamed[contractName];
             if (factoryInfos == null)
                 return ThrowExceptionOrReturnNull(contractName);
 
             if (factoryInfos.isSingle)
-                return factoryInfos.ambigious.CreateInstance(parameters);
+                return factoryInfos.single.CreateInstance(parameters);
 
-            var result = ResolveAmbiguousMatch(contractName);
-            factoryInfos.ambigious = result;
-            factoryInfos.isSingle = true;
+            var result = ResolveAmbiguousMatch(callingType, contractName, factoryInfos.factoryTypeInfos);
+            if (result == null)
+                return ThrowExceptionOrReturnNull(contractName);
 
             return result.CreateInstance(parameters);
         }
@@ -597,18 +620,23 @@ namespace Cauldron.Activator
         /// implemented <see cref="IDisposable"/> must also implement the <see
         /// cref="IDisposableObject"/> interface.
         /// </exception>
-        public static object Create(Type contractType, params object[] parameters)
+        public static object Create(Type contractType, params object[] parameters) => throw new NotImplementedException("This method was not correctly weaved by Cauldron.");
+
+        /// <exclude/>
+        [Rename]
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static object Create(Type contractType, object[] parameters, Type callingType)
         {
             var factoryInfos = componentsTyped[contractType];
             if (factoryInfos == null)
                 return ThrowExceptionOrReturnNull(contractType, parameters);
 
             if (factoryInfos.isSingle)
-                return factoryInfos.ambigious.CreateInstance(parameters);
+                return factoryInfos.single.CreateInstance(parameters);
 
-            var result = ResolveAmbiguousMatch(contractType.FullName);
-            factoryInfos.ambigious = result;
-            factoryInfos.isSingle = true;
+            var result = ResolveAmbiguousMatch(callingType, contractType.FullName, factoryInfos.factoryTypeInfos);
+            if (result == null)
+                return ThrowExceptionOrReturnNull(contractType, parameters);
 
             return result.CreateInstance(parameters);
         }
@@ -947,30 +975,25 @@ namespace Cauldron.Activator
         /// </summary>
         public static void Destroy()
         {
-            foreach (var item in componentsNamed.GetValues())
-                for (int i = 0; i < item.factoryTypeInfos.Length; i++)
-                {
-                    (item.factoryTypeInfos[i].Instance as IDisposable)?.Dispose();
-                    item.factoryTypeInfos[i].Instance = null;
-                }
+            for (int i = 0; i < singletons.Length; i++)
+            {
+                (singletons[i].Instance as IDisposable)?.Dispose();
+                singletons[i].Instance = null;
+            }
         }
 
         /// <exclude/>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public static IFactoryTypeInfo GetFactoryTypeInfo(string contractName)
+        public static IFactoryTypeInfo GetFactoryTypeInfo(Type callingType, string contractName)
         {
             var factoryInfos = componentsNamed[contractName];
             if (factoryInfos == null)
                 return ThrowExceptionOrReturnNull(contractName) as IFactoryTypeInfo;
 
             if (factoryInfos.isSingle)
-                return factoryInfos.ambigious;
+                return factoryInfos.single;
 
-            var result = ResolveAmbiguousMatch(contractName);
-            factoryInfos.ambigious = result;
-            factoryInfos.isSingle = true;
-
-            return result;
+            return ResolveAmbiguousMatch(callingType, contractName, factoryInfos.factoryTypeInfos);
         }
 
         /// <exclude/>
@@ -1039,7 +1062,31 @@ namespace Cauldron.Activator
         /// <param name="contractType">The Type that the contract name derives from</param>
         /// <param name="type">The type to be removed</param>
         /// <threadsafety static="false" instance="false"/>
-        public static void RemoveType(Type contractType, Type type) => RemoveType(contractType.FullName, type);
+        public static void RemoveType(Type contractType, Type type)
+        {
+            var factoryTypeInfo = componentsTyped[contractType];
+            if (factoryTypeInfo == null)
+                return;
+
+            var tobeRemoved = factoryTypeInfo.factoryTypeInfos.Where(x => x.Type == type).ToArray();
+            var newList = factoryTypeInfo.factoryTypeInfos.Where(x => x.Type != type).ToArray();
+
+            if (newList.Length == 0)
+            {
+                componentsTyped.Remove(contractType);
+                componentsNamed.Remove(contractType.FullName);
+            }
+            else
+                factoryTypeInfo.SetValues(newList);
+
+            for (int i = 0; i < tobeRemoved.Length; i++)
+            {
+                (tobeRemoved[i].Instance as IDisposable)?.Dispose();
+                tobeRemoved[i].Instance = null;
+            }
+
+            Rebuilt?.Invoke(null, EventArgs.Empty);
+        }
 
         /// <summary>
         /// Removes a <see cref="Type"/> from the list of known types.
@@ -1094,20 +1141,24 @@ namespace Cauldron.Activator
             componentsTyped = new FactoryDictionary<Type, FactoryDictionaryValue>();
             foreach (var item in factoryInfoTypes.Where(x => x.ContractType != null).GroupBy(x => x.ContractType).Select(x => new { x.Key, Items = x.ToArray() }).Where(x => x.Items.Length > 0))
                 componentsTyped.Add(item.Key, new FactoryDictionaryValue().SetValues(item.Items));
+            // All singleton to a list for easier disposing
+            singletons = factoryInfoTypes.Where(x => x.CreationPolicy == FactoryCreationPolicy.Singleton).ToArray();
             // Get all factory extensions
             GetAndInitializeAllExtensions(factoryInfoTypes);
 
             Rebuilt?.Invoke(null, EventArgs.Empty);
         }
 
-        private static IFactoryTypeInfo ResolveAmbiguousMatch(string contractName) => Resolvers.SelectAmbiguousMatch(contractName);
+        private static IFactoryTypeInfo ResolveAmbiguousMatch(Type callingType, string contractName, IFactoryTypeInfo[] ambigiousTypes) => Resolvers.SelectAmbiguousMatch(callingType, contractName, ambigiousTypes);
+
+        private static IFactoryTypeInfo ResolveAmbiguousMatch(Type callingType, Type contractType, IFactoryTypeInfo[] ambigiousTypes) => Resolvers.SelectAmbiguousMatch(callingType, contractType, ambigiousTypes);
 
         private static FactoryDictionaryValue SetValues(this FactoryDictionaryValue factoryDictionaryValue, IFactoryTypeInfo[] items)
         {
             factoryDictionaryValue.factoryTypeInfos = items;
             factoryDictionaryValue.factoryTypeInfosOrdered = items.OrderBy(x => x.Priority).ToArray();
             factoryDictionaryValue.createFirst = items.MaxBy(x => x.Priority);
-            factoryDictionaryValue.ambigious = items.Length == 1 ? items[0] : null;
+            factoryDictionaryValue.single = items.Length == 1 ? items[0] : null;
             factoryDictionaryValue.isSingle = items.Length == 1;
 
             return factoryDictionaryValue;
@@ -1116,7 +1167,7 @@ namespace Cauldron.Activator
         private static object ThrowExceptionOrReturnNull(Type contractType, object[] parameters)
         {
 #if NETFX_CORE
-            if(contractType.GetTypeInfo().IsInterface)
+            if (contractType.GetTypeInfo().IsInterface)
 #else
             if (contractType.IsInterface)
 #endif
@@ -1135,7 +1186,7 @@ namespace Cauldron.Activator
         private static object ThrowExceptionOrReturnNull(Type contractType)
         {
 #if NETFX_CORE
-            if(contractType.GetTypeInfo().IsInterface)
+            if (contractType.GetTypeInfo().IsInterface)
 #else
             if (contractType.IsInterface)
 #endif
@@ -1164,10 +1215,10 @@ namespace Cauldron.Activator
 
     internal sealed class FactoryDictionaryValue
     {
-        public IFactoryTypeInfo ambigious;
         public IFactoryTypeInfo createFirst;
         public IFactoryTypeInfo[] factoryTypeInfos;
         public IFactoryTypeInfo[] factoryTypeInfosOrdered;
         public bool isSingle;
+        public IFactoryTypeInfo single;
     }
 }

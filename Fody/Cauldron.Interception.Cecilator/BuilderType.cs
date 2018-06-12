@@ -718,7 +718,12 @@ namespace Cauldron.Interception.Cecilator
             }
 
             if (throwException)
+            {
+                foreach (var method in this.typeReference.GetMethodReferences())
+                    Builder.Current.Log(LogTypes.Info, $"-------> {method}");
+
                 throw new MethodNotFoundException($"Unable to proceed. The type '{this.typeDefinition.FullName}' does not contain a method '{name}'");
+            }
 
             return null;
         }
