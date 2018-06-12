@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <HelpKI>
+  <HelpKINode Title="&lt;&gt;__Create method" Url="html/Overload_Cauldron_Activator_Factory_____Create.htm" />
   <HelpKINode Title="Add method">
     <HelpKINode Title="ConcurrentList(T).Add Method " Url="html/M_Cauldron_Core_Collections_ConcurrentList_1_Add.htm" />
     <HelpKINode Title="FactoryResolver.Add Method " Url="html/Overload_Cauldron_Activator_FactoryResolver_Add.htm" />
@@ -277,7 +278,10 @@
   <HelpKINode Title="Cauldron.TypeIsInterfaceException class" Url="html/T_Cauldron_TypeIsInterfaceException.htm" />
   <HelpKINode Title="CauldronGetComponents property" Url="html/P_Cauldron_Core_Reflection_AssemblyAddedEventArgs_CauldronGetComponents.htm" />
   <HelpKINode Title="Center enumeration member" Url="html/T_Cauldron_Consoles_ColumnAlignment.htm" />
-  <HelpKINode Title="ChildType property" Url="html/P_Cauldron_Interception_PropertyInterceptionInfo_ChildType.htm" />
+  <HelpKINode Title="ChildType property">
+    <HelpKINode Title="IFactoryTypeInfo.ChildType Property " Url="html/P_Cauldron_Activator_IFactoryTypeInfo_ChildType.htm" />
+    <HelpKINode Title="PropertyInterceptionInfo.ChildType Property " Url="html/P_Cauldron_Interception_PropertyInterceptionInfo_ChildType.htm" />
+  </HelpKINode>
   <HelpKINode Title="Clamp method" Url="html/Overload_System_MathEx_Clamp.htm" />
   <HelpKINode Title="Classes property" Url="html/P_Cauldron_Core_Reflection_Assemblies_Classes.htm" />
   <HelpKINode Title="Clear method" Url="html/M_Cauldron_Core_Collections_ConcurrentList_1_Clear.htm" />
@@ -467,16 +471,12 @@
   <HelpKINode Title="CopyTo method" Url="html/Overload_Cauldron_Core_Collections_ConcurrentList_1_CopyTo.htm" />
   <HelpKINode Title="Count method" Url="html/M_Cauldron_Core_Collections_IEnumerableExtensions_Count.htm" />
   <HelpKINode Title="Count property" Url="html/P_Cauldron_Core_Collections_ConcurrentList_1_Count.htm" />
-  <HelpKINode Title="Create method">
-    <HelpKINode Title="CallOnce.Create Method " Url="html/Overload_Cauldron_Core_Threading_CallOnce_Create.htm" />
-    <HelpKINode Title="Factory.Create Method " Url="html/Overload_Cauldron_Activator_Factory_Create.htm" />
-  </HelpKINode>
+  <HelpKINode Title="Create method" Url="html/Overload_Cauldron_Core_Threading_CallOnce_Create.htm" />
   <HelpKINode Title="CreateFileAsync method" Url="html/Overload_Cauldron_ExtensionsDirectoryInfo_CreateFileAsync.htm" />
   <HelpKINode Title="CreateFirst method" Url="html/Overload_Cauldron_Activator_Factory_CreateFirst.htm" />
   <HelpKINode Title="CreateFolderAsync method" Url="html/Overload_Cauldron_ExtensionsDirectoryInfo_CreateFolderAsync.htm" />
   <HelpKINode Title="CreateInstance method">
     <HelpKINode Title="ExtensionsReflection.CreateInstance Method " Url="html/Overload_Cauldron_ExtensionsReflection_CreateInstance.htm" />
-    <HelpKINode Title="Factory.CreateInstance Method " Url="html/M_Cauldron_Activator_Factory_CreateInstance.htm" />
     <HelpKINode Title="IFactoryTypeInfo.CreateInstance Method " Url="html/Overload_Cauldron_Activator_IFactoryTypeInfo_CreateInstance.htm" />
   </HelpKINode>
   <HelpKINode Title="CreateKeyMaterial method" Url="html/Overload_Cauldron_Cryptography_KeyMaterial_CreateKeyMaterial.htm" />
@@ -669,12 +669,12 @@
   <HelpKINode Title="ExistsAsync method" Url="html/M_Cauldron_ExtensionsFileIO_ExistsAsync.htm" />
   <HelpKINode Title="ExportedTypes property" Url="html/P_Cauldron_Core_Reflection_Assemblies_ExportedTypes.htm" />
   <HelpKINode Title="Extensions class">
-    <HelpKINode Title="Extensions Class" Url="html/T_Cauldron_Extensions.htm" />
     <HelpKINode Title="Extensions Class" Url="html/T_Cauldron_Core_Collections_Extensions.htm" />
     <HelpKINode Title="Extensions Class" Url="html/T_Cauldron_Interception_Extensions.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Interception_Extensions.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Core_Collections_Extensions.htm" />
+    <HelpKINode Title="Extensions Class" Url="html/T_Cauldron_Extensions.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Extensions.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Core_Collections_Extensions.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Interception_Extensions.htm" />
   </HelpKINode>
   <HelpKINode Title="Extensions.Concat method" Url="html/Overload_Cauldron_Extensions_Concat.htm" />
   <HelpKINode Title="Extensions.Contains method" Url="html/M_Cauldron_Extensions_Contains.htm" />
@@ -870,11 +870,10 @@
   <HelpKINode Title="Factory(Of T).Current property" Url="html/P_Cauldron_Activator_Factory_1_Current.htm" />
   <HelpKINode Title="Factory(Of T).Factory constructor" Url="html/M_Cauldron_Activator_Factory_1__ctor.htm" />
   <HelpKINode Title="Factory(Of T).Free method" Url="html/M_Cauldron_Activator_Factory_1_Free.htm" />
+  <HelpKINode Title="Factory.&lt;&gt;__Create method" Url="html/Overload_Cauldron_Activator_Factory_____Create.htm" />
   <HelpKINode Title="Factory.AddType method" Url="html/Overload_Cauldron_Activator_Factory_AddType.htm" />
   <HelpKINode Title="Factory.CanRaiseExceptions property" Url="html/P_Cauldron_Activator_Factory_CanRaiseExceptions.htm" />
-  <HelpKINode Title="Factory.Create method" Url="html/Overload_Cauldron_Activator_Factory_Create.htm" />
   <HelpKINode Title="Factory.CreateFirst method" Url="html/Overload_Cauldron_Activator_Factory_CreateFirst.htm" />
-  <HelpKINode Title="Factory.CreateInstance method" Url="html/M_Cauldron_Activator_Factory_CreateInstance.htm" />
   <HelpKINode Title="Factory.CreateMany method" Url="html/Overload_Cauldron_Activator_Factory_CreateMany.htm" />
   <HelpKINode Title="Factory.CreateManyOrdered method" Url="html/Overload_Cauldron_Activator_Factory_CreateManyOrdered.htm" />
   <HelpKINode Title="Factory.Destroy method" Url="html/Overload_Cauldron_Activator_Factory_Destroy.htm" />
@@ -1095,11 +1094,13 @@
     <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Activator_IFactoryTypeInfo.htm" />
     <HelpKINode Title="properties" Url="html/Properties_T_Cauldron_Activator_IFactoryTypeInfo.htm" />
   </HelpKINode>
+  <HelpKINode Title="IFactoryTypeInfo.ChildType property" Url="html/P_Cauldron_Activator_IFactoryTypeInfo_ChildType.htm" />
   <HelpKINode Title="IFactoryTypeInfo.ContractName property" Url="html/P_Cauldron_Activator_IFactoryTypeInfo_ContractName.htm" />
   <HelpKINode Title="IFactoryTypeInfo.ContractType property" Url="html/P_Cauldron_Activator_IFactoryTypeInfo_ContractType.htm" />
   <HelpKINode Title="IFactoryTypeInfo.CreateInstance method" Url="html/Overload_Cauldron_Activator_IFactoryTypeInfo_CreateInstance.htm" />
   <HelpKINode Title="IFactoryTypeInfo.CreationPolicy property" Url="html/P_Cauldron_Activator_IFactoryTypeInfo_CreationPolicy.htm" />
   <HelpKINode Title="IFactoryTypeInfo.Instance property" Url="html/P_Cauldron_Activator_IFactoryTypeInfo_Instance.htm" />
+  <HelpKINode Title="IFactoryTypeInfo.IsEnumerable property" Url="html/P_Cauldron_Activator_IFactoryTypeInfo_IsEnumerable.htm" />
   <HelpKINode Title="IFactoryTypeInfo.Priority property" Url="html/P_Cauldron_Activator_IFactoryTypeInfo_Priority.htm" />
   <HelpKINode Title="IFactoryTypeInfo.Type property" Url="html/P_Cauldron_Activator_IFactoryTypeInfo_Type.htm" />
   <HelpKINode Title="IList(Of T).Item explicitly implemented property" Url="html/P_Cauldron_Core_Collections_ConcurrentList_1_System_Collections_Generic_IList{T}_Item.htm" />
@@ -1209,6 +1210,7 @@
     <HelpKINode Title="DisposableBase.IsDisposed Property " Url="html/P_Cauldron_Core_DisposableBase_IsDisposed.htm" />
     <HelpKINode Title="IDisposableObject.IsDisposed Property " Url="html/P_Cauldron_Core_IDisposableObject_IsDisposed.htm" />
   </HelpKINode>
+  <HelpKINode Title="IsEnumerable property" Url="html/P_Cauldron_Activator_IFactoryTypeInfo_IsEnumerable.htm" />
   <HelpKINode Title="IsEqualTo method" Url="html/M_Cauldron_Extensions_IsEqualTo.htm" />
   <HelpKINode Title="IsFixedSize property" Url="html/P_Cauldron_Core_Collections_ConcurrentList_1_IsFixedSize.htm" />
   <HelpKINode Title="IsImplementingInterfaceOrInheritBaseClass enumeration member" Url="html/T_Cauldron_Interception_InterceptionRuleOptions.htm" />
