@@ -174,6 +174,9 @@ namespace Cauldron.Interception.Fody
                 if (item.Name.Name == "netstandard")
                     continue;
 
+                if (item.Name.Name == "WindowsBase")
+                    continue;
+
                 if (onlyIncludeUs.Any(x => !item.Name.Name.StartsWith(x)))
                     continue;
 

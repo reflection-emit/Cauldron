@@ -70,7 +70,7 @@ namespace Cauldron.Interception.Cecilator.Coders
                     TryEnd = this.instructions.Next(this.markers[i].instruction),
                     HandlerStart = handlerStart,
                     HandlerEnd = handlerEnd,
-                    CatchType = handlerType == ExceptionHandlerType.Finally ? null : this.markers[i].exceptionType.typeReference
+                    CatchType = handlerType == ExceptionHandlerType.Finally ? null : Builder.Current.Import(this.markers[i].exceptionType.typeReference)
                 };
 
                 this.instructions.exceptionHandlers.Add(handler);

@@ -21,6 +21,8 @@ namespace Cauldron.Interception.Cecilator
 
         public static bool AreEqual(this ModuleDefinition a, ModuleDefinition b) => a?.Assembly.Name.Name.AreEqual(b?.Assembly.Name.Name) ?? false;
 
+        public static bool AreEqual(this AssemblyDefinition a, AssemblyDefinition b) => a.Name.Name.AreEqual(b.Name.Name);
+
         public static bool AreEqual(this TypeDefinition a, TypeDefinition b) =>
             AreEqual(a.Resolve()?.Module, b.Resolve()?.Module) &&
             a.FullName.GetHashCode() == b.FullName.GetHashCode() &&
@@ -1468,6 +1470,9 @@ namespace Cauldron.Interception.Cecilator
                 return true;
 
             if ((assemblyA == "System.Runtime" || assemblyA == "mscorlib") && (assemblyB == "System.Runtime" || assemblyB == "mscorlib"))
+                return true;
+
+            if ((assemblyA == "System.Runtime" || assemblyA == "netstandard") && (assemblyB == "System.Runtime" || assemblyB == "netstandard"))
                 return true;
 
             return false;

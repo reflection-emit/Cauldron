@@ -95,6 +95,10 @@ namespace Cauldron.Interception.Cecilator
                 .Where(x => x != null)
                 .Concat(this.moduleDefinition.Types)
                 .Where(x => x.Module != null && x.Module.Assembly != null)
+                .Select(x => new { Prio = GetAssemblyPrio(x), Type = x })
+                .OrderBy(x => x.Prio)
+                .ThenBy(x => x.Type.FullName)
+                .Select(x => x.Type)
                 .Distinct(new TypeDefinitionEqualityComparer())
                 .ToList();
             this.Log("-----------------------------------------------------------------------------");
@@ -148,6 +152,16 @@ namespace Cauldron.Interception.Cecilator
         /// <param name="assemblyName">The name of the assembly to check.</param>
         /// <returns>Return true if the assembly is referenced; otherwise false.</returns>
         public bool IsReferenced(string assemblyName) => this.ReferencedAssemblies.Any(x => x.Name.Name == assemblyName);
+
+        private int GetAssemblyPrio(TypeDefinition typeDefinition)
+        {
+            switch (typeDefinition.Module.Assembly.Name.Name)
+            {
+                case "mscorlib": return 0;
+                case "netstandard": return 1;
+                default: return 2;
+            }
+        }
 
         private AssemblyDefinition LoadAssembly(string path)
         {

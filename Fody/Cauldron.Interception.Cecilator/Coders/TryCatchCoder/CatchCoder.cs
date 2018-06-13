@@ -16,7 +16,7 @@ namespace Cauldron.Interception.Cecilator.Coders
                             {
                                 instruction = tryCatchFinallyCoderBase.instructions.Last,
                                 markerType = MarkerType.Catch,
-                                exceptionType = exceptionType.Import()
+                                exceptionType = exceptionType
                             })
         {
             // save the exception object to a local variable if required

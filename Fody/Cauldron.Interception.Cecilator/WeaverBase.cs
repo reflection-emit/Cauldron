@@ -98,8 +98,7 @@ namespace Cauldron.Interception.Cecilator
 
         public override IEnumerable<string> GetAssembliesForScanning()
         {
-            yield return "mscorlib";
-            yield return "System";
+            yield break;
         }
 
         /// <summary>

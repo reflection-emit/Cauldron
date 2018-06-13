@@ -263,7 +263,7 @@ namespace Cauldron.Interception.Cecilator
 		}
 
 		/// <exclude />
-		public BuilderType BuilderType => this.builderType;
+		public BuilderType BuilderType => this.builderType.Import();
 	}		
 	<#
 	foreach(var type in types.OrderBy(x => x.Name) )

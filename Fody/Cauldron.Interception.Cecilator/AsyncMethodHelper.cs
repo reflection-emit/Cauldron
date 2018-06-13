@@ -121,6 +121,15 @@ namespace Cauldron.Interception.Cecilator
                         this.moveNextMethod = this.method.AsyncMethod;
                 }
 
+                if (this.moveNextMethod == null)
+                    throw new NullReferenceException(string.Join("\r\n", new string[]{
+                        "Unable to detect current method:",
+                        $"      Name:                          {this.method.Name}", $"" +
+                        $"      MoveNext:                      {this.method.Name == "MoveNext"}", $"" +
+                        $"      IsAsyncStateMachine:           {this.method.OriginType.IsAsyncStateMachine}",
+                        $"      HasAsyncStateMachineAttribute: {this.method.CustomAttributes.Any(x => x.Type == asyncStateMachineAttribute)}"
+                        }));
+
                 return this.moveNextMethod;
             }
         }
