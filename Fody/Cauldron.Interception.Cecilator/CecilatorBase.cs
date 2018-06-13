@@ -157,8 +157,8 @@ namespace Cauldron.Interception.Cecilator
         {
             switch (typeDefinition.Module.Assembly.Name.Name)
             {
-                case "mscorlib": return 0;
-                case "netstandard": return 1;
+                case "netstandard": return 0;
+                case "mscorlib": return 1;
                 default: return 2;
             }
         }
