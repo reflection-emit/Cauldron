@@ -201,7 +201,7 @@ namespace Cauldron.Interception.Cecilator.Coders
                 }
             }
 
-            var variableOrigin = (associatedMethod.IsAsync ? associatedMethod.AsyncMethodHelper.MoveNextMethod : associatedMethod);
+            var variableOrigin = associatedMethod.AsyncMethodHelper.Method;
             var variableName = "<>params_" + associatedMethod.Identification;
             var variable = variableOrigin.GetVariable(variableName);
 
@@ -936,6 +936,32 @@ namespace Cauldron.Interception.Cecilator.Coders
         public void Insert(InsertionAction action, Position position)
         {
             InstructionBucket.Reset();
+
+            if (action == InsertionAction.Before)
+            {
+                // We have to move all jumps to the target position to the first instruction of our block
+                foreach (var item in this.instructions.ilprocessor.Body.ExceptionHandlers)
+                {
+                    if (item.FilterStart == position.instruction)
+                        item.FilterStart = this.instructions[0];
+
+                    if (item.HandlerEnd == position.instruction)
+                        item.HandlerEnd = this.instructions[0];
+
+                    if (item.HandlerStart == position.instruction)
+                        item.HandlerStart = this.instructions[0];
+
+                    if (item.TryEnd == position.instruction)
+                        item.TryEnd = this.instructions[0];
+
+                    if (item.TryStart == position.instruction)
+                        item.TryStart = this.instructions[0];
+                }
+
+                foreach (var item in this.instructions.ilprocessor.Body.Instructions)
+                    if (item.Operand == position.instruction)
+                        item.Operand = this.instructions[0];
+            }
 
             if (action == InsertionAction.After)
                 this.instructions.ilprocessor.InsertAfter(position.instruction, this.instructions);
