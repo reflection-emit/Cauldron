@@ -41,7 +41,7 @@ namespace Cauldron.Interception.Cecilator
                     if (x.instruction.Operand == null)
                         return false;
 
-                    var value = x.instruction.Operand as MethodReference;
+                    var value = (x.instruction.Operand as MethodReference)?.Resolve();
 
                     if (value == null)
                         return false;

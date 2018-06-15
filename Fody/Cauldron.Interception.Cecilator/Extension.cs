@@ -19,37 +19,47 @@ namespace Cauldron.Interception.Cecilator
 
         public static bool AreEqual(this ModuleDefinition a, Type b) => a?.Assembly.Name.Name.AreEqual(b?.Assembly.GetName().Name) ?? false;
 
-        public static bool AreEqual(this ModuleDefinition a, ModuleDefinition b) => a?.Assembly.Name.Name.AreEqual(b?.Assembly.Name.Name) ?? false;
+        public static bool AreEqual(this ModuleDefinition a, ModuleDefinition b)
+        {
+            if (a == null && b == null)
+                return true;
 
-        public static bool AreEqual(this AssemblyDefinition a, AssemblyDefinition b) => a.Name.Name.AreEqual(b.Name.Name);
+            if (a == null || b == null)
+                return false;
 
-        public static bool AreEqual(this TypeDefinition a, TypeDefinition b) =>
-            AreEqual(a.Resolve()?.Module, b.Resolve()?.Module) &&
-            a.FullName.GetHashCode() == b.FullName.GetHashCode() &&
-            a.FullName == b.FullName;
+            return a.Assembly.AreEqual(b.Assembly);
+        }
 
-        public static bool AreEqual(this TypeReference a, TypeReference b) =>
-            AreEqual(a.Resolve()?.Module, b.Resolve()?.Module) &&
-            a.FullName.GetHashCode() == b.FullName.GetHashCode() &&
-            a.FullName == b.FullName;
+        public static bool AreEqual(this AssemblyDefinition a, AssemblyDefinition b)
+        {
+            if (a == null && b == null)
+                return true;
 
-        public static bool AreEqual(this TypeReference a, TypeDefinition b) =>
-            AreEqual(a.Resolve()?.Module, b.Resolve()?.Module) &&
-            a.FullName.GetHashCode() == b.FullName.GetHashCode() &&
-            a.FullName == b.FullName;
+            if (a == null || b == null)
+                return false;
 
-        public static bool AreEqual(this Type a, TypeDefinition b) =>
-            AreEqual(a, b.Resolve()?.Module) &&
-            a.FullName.GetHashCode() == b.FullName.GetHashCode() &&
-            a.FullName == b.FullName;
+            return a.Name.Name.AreEqual(b.Name.Name);
+        }
+
+        public static bool AreEqual(this TypeDefinition a, TypeDefinition b) => AreEqual(a as TypeReference, b as TypeReference);
+
+        public static bool AreEqual(this TypeReference a, TypeReference b)
+        {
+            if (a.IsGenericParameter && b.IsGenericParameter)
+                return a.FullName == b.FullName;
+
+            return AreEqual(a.Resolve()?.Module, b.Resolve()?.Module) && a.FullName == b.FullName;
+        }
+
+        public static bool AreEqual(this TypeReference a, TypeDefinition b) => AreEqual(a, b as TypeReference);
+
+        public static bool AreEqual(this Type a, TypeDefinition b) => AreEqual(a, b.Resolve()?.Module) && a.FullName == b.FullName;
 
         public static bool AreEqual(this Type a, BuilderType b) =>
             a.AreEqual(b.typeReference) ||
             a.AreEqual(b.typeDefinition ?? b.typeReference);
 
-        public static bool AreEqual(this Type a, TypeReference b) =>
-            a.FullName.GetHashCode() == b.FullName.GetHashCode() &&
-            a.FullName == b.FullName;
+        public static bool AreEqual(this Type a, TypeReference b) => a.FullName == b.FullName;
 
         public static bool AreEqual(this TypeReference a, BuilderType b) =>
             a.AreEqual(b.typeReference) ||
@@ -1463,11 +1473,11 @@ namespace Cauldron.Interception.Cecilator
 
         private static bool AreEqual(this string assemblyA, string assemblyB)
         {
-            if (assemblyA == null || assemblyB == null)
-                return false;
-
             if (assemblyA == assemblyB)
                 return true;
+
+            if (assemblyA == null || assemblyB == null)
+                return false;
 
             if ((assemblyA == "System.Runtime" || assemblyA == "mscorlib") && (assemblyB == "System.Runtime" || assemblyB == "mscorlib"))
                 return true;
