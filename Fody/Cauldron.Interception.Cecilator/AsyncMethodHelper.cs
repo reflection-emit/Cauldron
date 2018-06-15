@@ -122,6 +122,14 @@ namespace Cauldron.Interception.Cecilator
                 }
 
                 if (this.moveNextMethod == null)
+                {
+                    Builder.Current.Log(LogTypes.Info, $"The method has the following attributes.");
+
+                    foreach (var item in this.method.CustomAttributes)
+                        Builder.Current.Log(LogTypes.Info, $"  {item.Type.Assembly.FullName} | {item.Type}");
+
+                    Builder.Current.Log(LogTypes.Info, $"AsyncStateMachineAttribute: {asyncStateMachineAttribute.Assembly.FullName} {asyncStateMachineAttribute.Fullname}");
+
                     throw new NullReferenceException(string.Join("\r\n", new string[]{
                         "Unable to detect current method:",
                         $"      Name:                          {this.method.Name}", $"" +
@@ -129,6 +137,7 @@ namespace Cauldron.Interception.Cecilator
                         $"      IsAsyncStateMachine:           {this.method.OriginType.IsAsyncStateMachine}",
                         $"      HasAsyncStateMachineAttribute: {this.method.CustomAttributes.Any(x => x.Type == asyncStateMachineAttribute)}"
                         }));
+                }
 
                 return this.moveNextMethod;
             }

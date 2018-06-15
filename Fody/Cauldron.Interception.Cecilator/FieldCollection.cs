@@ -18,7 +18,8 @@ namespace Cauldron.Interception.Cecilator
                 return;
 
             for (int i = 0; i < fields.Count; i++)
-                this.innerCollection.Add(new Field(type, fields[i]));
+                if (!this.innerCollection.Contains(fields[i].Name))
+                    this.innerCollection.Add(new Field(type, fields[i]));
         }
 
         public Field this[int index] { get { return this.innerCollection[index]; } }
