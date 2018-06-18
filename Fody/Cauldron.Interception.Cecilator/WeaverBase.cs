@@ -17,6 +17,10 @@ namespace Cauldron.Interception.Cecilator
 
         public Builder Builder { get; private set; }
 
+        public string ProjectName => this.ProjectDirectoryPath
+            .With(x => x.Substring(x.LastIndexOf('\\', this.ProjectDirectoryPath.Length - 2) + 1))
+            .Replace("\\", "");
+
         public override void AfterWeaving()
         {
             AllTypes = null;

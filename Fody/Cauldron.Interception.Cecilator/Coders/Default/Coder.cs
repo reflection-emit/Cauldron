@@ -201,7 +201,7 @@ namespace Cauldron.Interception.Cecilator.Coders
                 }
             }
 
-            var variableOrigin = associatedMethod.AsyncMethodHelper.Method;
+            var variableOrigin = (associatedMethod.IsAsync ? associatedMethod.AsyncMethodHelper.MoveNextMethod : associatedMethod);
             var variableName = "<>params_" + associatedMethod.Identification;
             var variable = variableOrigin.GetVariable(variableName);
 

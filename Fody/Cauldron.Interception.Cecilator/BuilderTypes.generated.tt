@@ -86,6 +86,7 @@
 		typeof(Cauldron.Interception.IPropertyInterceptorInitialize),
 		typeof(Cauldron.Interception.IPropertySetterInterceptor),
 		typeof(Cauldron.Interception.ISimpleMethodInterceptor),
+		typeof(Cauldron.Interception.IMethodInterceptorOnExit),
 		typeof(Cauldron.Interception.ISyncRoot),
 		typeof(Cauldron.Interception.PropertyInterceptionInfo),
 	};

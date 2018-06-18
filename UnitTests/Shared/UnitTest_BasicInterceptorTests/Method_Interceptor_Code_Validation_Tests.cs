@@ -76,6 +76,52 @@ namespace UnitTest_BasicInterceptorTests
         }
 
         [TestMethod]
+        public void Manipulate_Return_Value()
+        {
+            Assert.AreEqual(3.4, MethodInterceptorOnExit_Double());
+            Assert.AreEqual("Hello", MethodInterceptorOnExit_String());
+            Assert.AreEqual(35, MethodInterceptorOnExit_Int());
+            Assert.AreEqual(22.99f, MethodInterceptorOnExit_Float());
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(NotImplementedException))]
+        public void MethodInterceptor_OnExit_Void_Method()
+        {
+            MethodInterceptorOnExit_Void();
+        }
+
+        [MethodInterceptorOnExit]
+        private void MethodInterceptorOnExit_Void()
+        {
+        }
+
+        [MethodInterceptorOnExit]
+        private float MethodInterceptorOnExit_Float()
+        {
+            return 0.9f;
+        }
+
+        [MethodInterceptorOnExit]
+        [MethodInterceptorOnExit]
+        private double MethodInterceptorOnExit_Double()
+        {
+            return 77.5;
+        }
+
+        [MethodInterceptorOnExit]
+        private int MethodInterceptorOnExit_Int()
+        {
+            return 99;
+        }
+
+        [MethodInterceptorOnExit]
+        private string MethodInterceptorOnExit_String()
+        {
+            return "Bob";
+        }
+
+        [TestMethod]
         public void Async_Method_Interception_Try_Catch_Correctly_Catching()
         {
             bool exception = false;

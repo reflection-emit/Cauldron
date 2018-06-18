@@ -66,6 +66,7 @@ public sealed class MethodBuilderInfoItem<T1, T2> : IMethodBuilderInfoItem
         this.HasSyncRootInterface = attribute.Attribute.Type.Implements(BuilderTypes.ISyncRoot);
         this.HasInterfaceA = this.Attribute.Attribute.Type.Implements(this.InterfaceA.BuilderType);
         this.HasInterfaceB = this.Attribute.Attribute.Type.Implements(this.InterfaceB.BuilderType);
+        this.HasOnExitInterface = this.Attribute.Attribute.Type.Implements(BuilderTypes.IMethodInterceptorOnExit);
 
         var name = $"<{attribute.Method.Name}>_{attribute.Identification}";
         var newInterceptor = this.InterceptorInfo.AlwaysCreateNewInstance ?
@@ -84,6 +85,7 @@ public sealed class MethodBuilderInfoItem<T1, T2> : IMethodBuilderInfoItem
     public CecilatorBase FieldOrVariable { get; }
     public bool HasInterfaceA { get; }
     public bool HasInterfaceB { get; }
+    public bool HasOnExitInterface { get; }
     public bool HasSyncRootInterface { get; }
     public CecilatorBase Interceptor { get; }
     public InterceptorInfo InterceptorInfo { get; }
