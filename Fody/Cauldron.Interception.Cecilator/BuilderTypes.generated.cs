@@ -687,6 +687,23 @@ namespace Cauldron.Interception.Cecilator
 
 		#endregion
 				
+		#region IMethodInterceptorOnExit
+        private static BuilderTypeIMethodInterceptorOnExit _imethodinterceptoronexit;
+		
+        /// <summary>
+        /// Gets <see cref="BuilderType"/> representing <see cref="Cauldron.Interception.IMethodInterceptorOnExit"/>. 
+        /// </summary>
+        public static BuilderTypeIMethodInterceptorOnExit IMethodInterceptorOnExit
+        {
+            get
+            {
+                if (_imethodinterceptoronexit == null) _imethodinterceptoronexit = new BuilderTypeIMethodInterceptorOnExit(Builder.Current.GetType("Cauldron.Interception.IMethodInterceptorOnExit").Import());
+                return _imethodinterceptoronexit;
+			}
+        }
+
+		#endregion
+				
 		#region Int16
         private static BuilderTypeInt16 _int16;
 		
@@ -1229,7 +1246,7 @@ namespace Cauldron.Interception.Cecilator
 		}
 
 		/// <exclude />
-		public BuilderType BuilderType =>this.builderType.Import();
+		public BuilderType BuilderType => this.builderType.Import();
 	}		
 			
     /// <summary>
@@ -16773,6 +16790,39 @@ namespace Cauldron.Interception.Cecilator
 
 			
     /// <summary>
+    /// Provides a wrapper class for <see cref="Cauldron.Interception.IMethodInterceptorOnExit"/>
+    /// </summary>
+    public partial class BuilderTypeIMethodInterceptorOnExit : TypeSystemExBase
+	{
+        internal BuilderTypeIMethodInterceptorOnExit(BuilderType builderType) : base(builderType)
+		{
+		}
+
+		/// <exclude />
+		public static implicit operator BuilderType(BuilderTypeIMethodInterceptorOnExit value) => value.builderType.Import();
+		
+		/// <exclude />
+		public static implicit operator TypeReference(BuilderTypeIMethodInterceptorOnExit value) => Builder.Current.Import((TypeReference)value.builderType);
+			
+				
+		private Method var_onexit_0_2;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// System.Object OnExit(System.Type, System.Object)<para/>
+		/// </summary>
+		public Method GetMethod_OnExit()
+		{
+			if(this.var_onexit_0_2 == null)
+				this.var_onexit_0_2 = this.builderType.GetMethod("OnExit", 2, true);
+
+			return this.var_onexit_0_2.Import();
+		}
+					}
+
+			
+    /// <summary>
     /// Provides a wrapper class for <see cref="System.Int16"/>
     /// </summary>
     public partial class BuilderTypeInt16 : TypeSystemExBase
@@ -21586,21 +21636,6 @@ namespace Cauldron.Interception.Cecilator
 		public static implicit operator TypeReference(BuilderTypeString value) => Builder.Current.Import((TypeReference)value.builderType);
 			
 				
-		private Method var_get_length_0_0;
-		
-		/// <summary>
-		/// Represents the following method:
-		/// <para />
-		/// Int32 get_Length()<para/>
-		/// </summary>
-		public Method GetMethod_get_Length()
-		{
-			if(this.var_get_length_0_0 == null)
-				this.var_get_length_0_0 = this.builderType.GetMethod("get_Length", 0, true);
-
-			return this.var_get_length_0_0.Import();
-		}
-						
 		private Method var_join_0_2;
 				
 		private Method var_join_1_2;
@@ -21889,6 +21924,21 @@ namespace Cauldron.Interception.Cecilator
 				this.var_gethashcode_0_0 = this.builderType.GetMethod("GetHashCode", 0, true);
 
 			return this.var_gethashcode_0_0.Import();
+		}
+						
+		private Method var_get_length_0_0;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// Int32 get_Length()<para/>
+		/// </summary>
+		public Method GetMethod_get_Length()
+		{
+			if(this.var_get_length_0_0 == null)
+				this.var_get_length_0_0 = this.builderType.GetMethod("get_Length", 0, true);
+
+			return this.var_get_length_0_0.Import();
 		}
 						
 		private Method var_split_0_1;
@@ -25376,21 +25426,6 @@ namespace Cauldron.Interception.Cecilator
 		public static implicit operator TypeReference(BuilderTypeType value) => Builder.Current.Import((TypeReference)value.builderType);
 			
 				
-		private Method var_gettypefromhandle_0_1;
-		
-		/// <summary>
-		/// Represents the following method:
-		/// <para />
-		/// System.Type GetTypeFromHandle(System.RuntimeTypeHandle)<para/>
-		/// </summary>
-		public Method GetMethod_GetTypeFromHandle()
-		{
-			if(this.var_gettypefromhandle_0_1 == null)
-				this.var_gettypefromhandle_0_1 = this.builderType.GetMethod("GetTypeFromHandle", 1, true);
-
-			return this.var_gettypefromhandle_0_1.Import();
-		}
-						
 		private Method var_get_membertype_0_0;
 		
 		/// <summary>
@@ -25971,6 +26006,21 @@ namespace Cauldron.Interception.Cecilator
 				this.var_gettypehandle_0_1 = this.builderType.GetMethod("GetTypeHandle", 1, true);
 
 			return this.var_gettypehandle_0_1.Import();
+		}
+						
+		private Method var_gettypefromhandle_0_1;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// System.Type GetTypeFromHandle(System.RuntimeTypeHandle)<para/>
+		/// </summary>
+		public Method GetMethod_GetTypeFromHandle()
+		{
+			if(this.var_gettypefromhandle_0_1 == null)
+				this.var_gettypefromhandle_0_1 = this.builderType.GetMethod("GetTypeFromHandle", 1, true);
+
+			return this.var_gettypefromhandle_0_1.Import();
 		}
 						
 		private Method var_get_fullname_0_0;

@@ -1,8 +1,6 @@
 ﻿using Cauldron.Interception.Cecilator;
 using Cauldron.Interception.Cecilator.Coders;
 using Cauldron.Interception.Fody;
-using Cauldron.Interception.Fody.HelperTypes;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -135,7 +133,40 @@ public sealed class Weaver_Method
                 tryCoder.Finally(x =>
                 {
                     for (int i = 0; i < fullMethodInterceptors.Length; i++)
-                        x.Load<ICallMethod<CallCoder>>(fullMethodInterceptors[i].FieldOrVariable).Call(fullMethodInterceptors[i].InterfaceA.GetMethod_OnExit());
+                    {
+                        if (fullMethodInterceptors[i].HasOnExitInterface)
+                        {
+                            if (method.Key.Method.ReturnType == BuilderTypes.Void)
+                            {
+                                if (fullMethodInterceptors[i].FieldOrVariable is Field field)
+                                    x.Load(field)
+                                        .As(BuilderTypes.IMethodInterceptorOnExit)
+                                        .Call(BuilderTypes.IMethodInterceptorOnExit.GetMethod_OnExit(), BuilderTypes.Void, null)
+                                        .Pop();
+                                else if (fullMethodInterceptors[i].FieldOrVariable is LocalVariable localVariable)
+                                    x.Load(localVariable)
+                                        .As(BuilderTypes.IMethodInterceptorOnExit)
+                                        .Call(BuilderTypes.IMethodInterceptorOnExit.GetMethod_OnExit(), BuilderTypes.Void, null)
+                                        .Pop();
+                            }
+                            else
+                                x.SetValue(x.GetOrCreateReturnVariable(), y =>
+                                {
+                                    if (fullMethodInterceptors[i].FieldOrVariable is Field field)
+                                        y.Load(field)
+                                            .As(BuilderTypes.IMethodInterceptorOnExit)
+                                            .Call(BuilderTypes.IMethodInterceptorOnExit.GetMethod_OnExit(), method.Key.Method.ReturnType, y.GetOrCreateReturnVariable());
+                                    else if (fullMethodInterceptors[i].FieldOrVariable is LocalVariable localVariable)
+                                        y.Load(localVariable)
+                                            .As(BuilderTypes.IMethodInterceptorOnExit)
+                                            .Call(BuilderTypes.IMethodInterceptorOnExit.GetMethod_OnExit(), method.Key.Method.ReturnType, y.GetOrCreateReturnVariable());
+
+                                    return y;
+                                });
+                        }
+                        else
+                            x.Load<ICallMethod<CallCoder>>(fullMethodInterceptors[i].FieldOrVariable).Call(fullMethodInterceptors[i].InterfaceA.GetMethod_OnExit());
+                    }
 
                     return x;
                 })
