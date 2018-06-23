@@ -4,17 +4,20 @@
   <HelpKINode Title="Add method">
     <HelpKINode Title="ConcurrentList(T).Add Method " Url="html/M_Cauldron_Core_Collections_ConcurrentList_1_Add.htm" />
     <HelpKINode Title="FactoryResolver.Add Method " Url="html/Overload_Cauldron_Activator_FactoryResolver_Add.htm" />
+    <HelpKINode Title="FastDictionary(TKey, TValue).Add Method " Url="html/Overload_System_Collections_Generic_FastDictionary_2_Add.htm" />
     <HelpKINode Title="Formatter.Add Method " Url="html/M_Cauldron_Core_Formatters_Formatter_Add.htm" />
     <HelpKINode Title="KeyRawValueDictionary.Add Method " Url="html/Overload_Cauldron_Core_Collections_KeyRawValueDictionary_Add.htm" />
     <HelpKINode Title="MathEx.Add Method " Url="html/M_System_MathEx_Add.htm" />
   </HelpKINode>
   <HelpKINode Title="AddAssemblies method" Url="html/M_Cauldron_Core_Reflection_Assemblies_AddAssemblies.htm" />
   <HelpKINode Title="AddAssembly method" Url="html/M_Cauldron_Core_Reflection_Assemblies_AddAssembly.htm" />
+  <HelpKINode Title="AddConditional method" Url="html/M_Cauldron_Activator_FactoryResolver_AddConditional.htm" />
   <HelpKINode Title="AddRange method">
     <HelpKINode Title="ConcurrentKeyedCollection(TKey, TItem).AddRange Method " Url="html/M_Cauldron_Core_Collections_ConcurrentKeyedCollection_2_AddRange.htm" />
     <HelpKINode Title="ConcurrentList(T).AddRange Method " Url="html/M_Cauldron_Core_Collections_ConcurrentList_1_AddRange.htm" />
   </HelpKINode>
   <HelpKINode Title="AddType method" Url="html/Overload_Cauldron_Activator_Factory_AddType.htm" />
+  <HelpKINode Title="AddTypes method" Url="html/M_Cauldron_Activator_Factory_AddTypes.htm" />
   <HelpKINode Title="Aes class">
     <HelpKINode Title="Aes Class" Url="html/T_Cauldron_Cryptography_Aes.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Cryptography_Aes.htm" />
@@ -54,6 +57,10 @@
   <HelpKINode Title="ApplicationPath property" Url="html/P_Cauldron_Core_Reflection_ApplicationInfo_ApplicationPath.htm" />
   <HelpKINode Title="ApplicationPublisher property" Url="html/P_Cauldron_Core_Reflection_ApplicationInfo_ApplicationPublisher.htm" />
   <HelpKINode Title="ApplicationVersion property" Url="html/P_Cauldron_Core_Reflection_ApplicationInfo_ApplicationVersion.htm" />
+  <HelpKINode Title="AreEqual method">
+    <HelpKINode Title="CustomDictionary(TKey, TValue).AreEqual Method " Url="html/M_System_Collections_Generic_CustomDictionary_2_AreEqual.htm" />
+    <HelpKINode Title="FastDictionary(TKey, TValue).AreEqual Method " Url="html/M_System_Collections_Generic_FastDictionary_2_AreEqual.htm" />
+  </HelpKINode>
   <HelpKINode Title="AreReferenceAssignable method" Url="html/M_Cauldron_ExtensionsReflection_AreReferenceAssignable.htm" />
   <HelpKINode Title="As method" Url="html/Overload_Cauldron_ExtensionsConvertions_As.htm" />
   <HelpKINode Title="ASCII enumeration member" Url="html/T_Cauldron_Core_Encodings.htm" />
@@ -253,6 +260,7 @@
   <HelpKINode Title="Cauldron.Interception.Extensions class" Url="html/T_Cauldron_Interception_Extensions.htm" />
   <HelpKINode Title="Cauldron.Interception.IConstructorInterceptor interface" Url="html/T_Cauldron_Interception_IConstructorInterceptor.htm" />
   <HelpKINode Title="Cauldron.Interception.IMethodInterceptor interface" Url="html/T_Cauldron_Interception_IMethodInterceptor.htm" />
+  <HelpKINode Title="Cauldron.Interception.IMethodInterceptorOnExit interface" Url="html/T_Cauldron_Interception_IMethodInterceptorOnExit.htm" />
   <HelpKINode Title="Cauldron.Interception.InterceptionRuleAttribute class" Url="html/T_Cauldron_Interception_InterceptionRuleAttribute.htm" />
   <HelpKINode Title="Cauldron.Interception.InterceptionRuleOptions enumeration" Url="html/T_Cauldron_Interception_InterceptionRuleOptions.htm" />
   <HelpKINode Title="Cauldron.Interception.InterceptorOptionsAttribute class" Url="html/T_Cauldron_Interception_InterceptorOptionsAttribute.htm" />
@@ -284,7 +292,10 @@
   </HelpKINode>
   <HelpKINode Title="Clamp method" Url="html/Overload_System_MathEx_Clamp.htm" />
   <HelpKINode Title="Classes property" Url="html/P_Cauldron_Core_Reflection_Assemblies_Classes.htm" />
-  <HelpKINode Title="Clear method" Url="html/M_Cauldron_Core_Collections_ConcurrentList_1_Clear.htm" />
+  <HelpKINode Title="Clear method">
+    <HelpKINode Title="ConcurrentList(T).Clear Method " Url="html/M_Cauldron_Core_Collections_ConcurrentList_1_Clear.htm" />
+    <HelpKINode Title="FastDictionary(TKey, TValue).Clear Method " Url="html/M_System_Collections_Generic_FastDictionary_2_Clear.htm" />
+  </HelpKINode>
   <HelpKINode Title="ClearItems method" Url="html/M_Cauldron_Core_Collections_ConcurrentKeyedCollection_2_ClearItems.htm" />
   <HelpKINode Title="CloneIgnoreAttribute class">
     <HelpKINode Title="CloneIgnoreAttribute Class" Url="html/T_Cauldron_Activator_CloneIgnoreAttribute.htm" />
@@ -452,8 +463,10 @@
   <HelpKINode Title="Contains method">
     <HelpKINode Title="ConcurrentList(T).Contains Method " Url="html/Overload_Cauldron_Core_Collections_ConcurrentList_1_Contains.htm" />
     <HelpKINode Title="Extensions.Contains Method " Url="html/M_Cauldron_Extensions_Contains.htm" />
+    <HelpKINode Title="FastDictionary(TKey, TValue).Contains Method " Url="html/M_System_Collections_Generic_FastDictionary_2_Contains.htm" />
     <HelpKINode Title="Locale.Contains Method " Url="html/M_Cauldron_Localization_Locale_Contains.htm" />
   </HelpKINode>
+  <HelpKINode Title="ContainsKey method" Url="html/M_System_Collections_Generic_FastDictionary_2_ContainsKey.htm" />
   <HelpKINode Title="ContractName property">
     <HelpKINode Title="ComponentAttribute.ContractName Property " Url="html/P_Cauldron_Activator_ComponentAttribute_ContractName.htm" />
     <HelpKINode Title="IFactoryTypeInfo.ContractName Property " Url="html/P_Cauldron_Activator_IFactoryTypeInfo_ContractName.htm" />
@@ -468,9 +481,15 @@
   <HelpKINode Title="ConvertToBytes method" Url="html/M_Cauldron_ExtensionsConvertions_ConvertToBytes.htm" />
   <HelpKINode Title="Copy method" Url="html/Overload_Cauldron_Extensions_Copy.htm" />
   <HelpKINode Title="CopyAsync method" Url="html/Overload_Cauldron_ExtensionsDirectoryInfo_CopyAsync.htm" />
-  <HelpKINode Title="CopyTo method" Url="html/Overload_Cauldron_Core_Collections_ConcurrentList_1_CopyTo.htm" />
+  <HelpKINode Title="CopyTo method">
+    <HelpKINode Title="ConcurrentList(T).CopyTo Method " Url="html/Overload_Cauldron_Core_Collections_ConcurrentList_1_CopyTo.htm" />
+    <HelpKINode Title="FastDictionary(TKey, TValue).CopyTo Method " Url="html/M_System_Collections_Generic_FastDictionary_2_CopyTo.htm" />
+  </HelpKINode>
   <HelpKINode Title="Count method" Url="html/M_Cauldron_Core_Collections_IEnumerableExtensions_Count.htm" />
-  <HelpKINode Title="Count property" Url="html/P_Cauldron_Core_Collections_ConcurrentList_1_Count.htm" />
+  <HelpKINode Title="Count property">
+    <HelpKINode Title="ConcurrentList(T).Count Property " Url="html/P_Cauldron_Core_Collections_ConcurrentList_1_Count.htm" />
+    <HelpKINode Title="FastDictionary(TKey, TValue).Count Property " Url="html/P_System_Collections_Generic_FastDictionary_2_Count.htm" />
+  </HelpKINode>
   <HelpKINode Title="Create method" Url="html/Overload_Cauldron_Core_Threading_CallOnce_Create.htm" />
   <HelpKINode Title="CreateFileAsync method" Url="html/Overload_Cauldron_ExtensionsDirectoryInfo_CreateFileAsync.htm" />
   <HelpKINode Title="CreateFirst method" Url="html/Overload_Cauldron_Activator_Factory_CreateFirst.htm" />
@@ -502,6 +521,22 @@
     <HelpKINode Title="Factory(T).Current Property " Url="html/P_Cauldron_Activator_Factory_1_Current.htm" />
   </HelpKINode>
   <HelpKINode Title="CurrentTask property" Url="html/P_Cauldron_Core_Threading_CallOnce_CurrentTask.htm" />
+  <HelpKINode Title="CustomDictionary(Of TKey, TValue) class">
+    <HelpKINode Title="CustomDictionary(TKey, TValue) Class" Url="html/T_System_Collections_Generic_CustomDictionary_2.htm" />
+    <HelpKINode Title="constructor" Url="html/M_System_Collections_Generic_CustomDictionary_2__ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_System_Collections_Generic_CustomDictionary_2.htm" />
+    <HelpKINode Title="properties" Url="html/Properties_T_System_Collections_Generic_CustomDictionary_2.htm" />
+  </HelpKINode>
+  <HelpKINode Title="CustomDictionary(Of TKey, TValue).AreEqual method" Url="html/M_System_Collections_Generic_CustomDictionary_2_AreEqual.htm" />
+  <HelpKINode Title="CustomDictionary(Of TKey, TValue).CustomDictionary constructor" Url="html/M_System_Collections_Generic_CustomDictionary_2__ctor.htm" />
+  <HelpKINode Title="CustomDictionary&lt;TKey, TValue&gt; class">
+    <HelpKINode Title="CustomDictionary(TKey, TValue) Class" Url="html/T_System_Collections_Generic_CustomDictionary_2.htm" />
+    <HelpKINode Title="constructor" Url="html/M_System_Collections_Generic_CustomDictionary_2__ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_System_Collections_Generic_CustomDictionary_2.htm" />
+    <HelpKINode Title="properties" Url="html/Properties_T_System_Collections_Generic_CustomDictionary_2.htm" />
+  </HelpKINode>
+  <HelpKINode Title="CustomDictionary&lt;TKey, TValue&gt;.AreEqual method" Url="html/M_System_Collections_Generic_CustomDictionary_2_AreEqual.htm" />
+  <HelpKINode Title="CustomDictionary&lt;TKey, TValue&gt;.CustomDictionary constructor" Url="html/M_System_Collections_Generic_CustomDictionary_2__ctor.htm" />
   <HelpKINode Title="Debug class">
     <HelpKINode Title="Debug Class" Url="html/T_Cauldron_Core_Diagnostics_Debug.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Core_Diagnostics_Debug.htm" />
@@ -669,12 +704,12 @@
   <HelpKINode Title="ExistsAsync method" Url="html/M_Cauldron_ExtensionsFileIO_ExistsAsync.htm" />
   <HelpKINode Title="ExportedTypes property" Url="html/P_Cauldron_Core_Reflection_Assemblies_ExportedTypes.htm" />
   <HelpKINode Title="Extensions class">
-    <HelpKINode Title="Extensions Class" Url="html/T_Cauldron_Core_Collections_Extensions.htm" />
     <HelpKINode Title="Extensions Class" Url="html/T_Cauldron_Interception_Extensions.htm" />
+    <HelpKINode Title="Extensions Class" Url="html/T_Cauldron_Core_Collections_Extensions.htm" />
     <HelpKINode Title="Extensions Class" Url="html/T_Cauldron_Extensions.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Extensions.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Core_Collections_Extensions.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Interception_Extensions.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Extensions.htm" />
   </HelpKINode>
   <HelpKINode Title="Extensions.Concat method" Url="html/Overload_Cauldron_Extensions_Concat.htm" />
   <HelpKINode Title="Extensions.Contains method" Url="html/M_Cauldron_Extensions_Contains.htm" />
@@ -872,6 +907,7 @@
   <HelpKINode Title="Factory(Of T).Free method" Url="html/M_Cauldron_Activator_Factory_1_Free.htm" />
   <HelpKINode Title="Factory.&lt;&gt;__Create method" Url="html/Overload_Cauldron_Activator_Factory_____Create.htm" />
   <HelpKINode Title="Factory.AddType method" Url="html/Overload_Cauldron_Activator_Factory_AddType.htm" />
+  <HelpKINode Title="Factory.AddTypes method" Url="html/M_Cauldron_Activator_Factory_AddTypes.htm" />
   <HelpKINode Title="Factory.CanRaiseExceptions property" Url="html/P_Cauldron_Activator_Factory_CanRaiseExceptions.htm" />
   <HelpKINode Title="Factory.CreateFirst method" Url="html/Overload_Cauldron_Activator_Factory_CreateFirst.htm" />
   <HelpKINode Title="Factory.CreateMany method" Url="html/Overload_Cauldron_Activator_Factory_CreateMany.htm" />
@@ -907,6 +943,7 @@
     <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Activator_FactoryResolver.htm" />
   </HelpKINode>
   <HelpKINode Title="FactoryResolver.Add method" Url="html/Overload_Cauldron_Activator_FactoryResolver_Add.htm" />
+  <HelpKINode Title="FactoryResolver.AddConditional method" Url="html/M_Cauldron_Activator_FactoryResolver_AddConditional.htm" />
   <HelpKINode Title="FactoryResolver.FactoryResolver constructor" Url="html/M_Cauldron_Activator_FactoryResolver__ctor.htm" />
   <HelpKINode Title="FactoryTypeInfo property" Url="html/P_Cauldron_Activator_FactoryObjectCreatedEventArgs_FactoryTypeInfo.htm" />
   <HelpKINode Title="FactoryTypes property" Url="html/P_Cauldron_Activator_Factory_FactoryTypes.htm" />
@@ -914,6 +951,52 @@
     <HelpKINode Title="CreationCollisionOption Enumeration" Url="html/T_Cauldron_CreationCollisionOption.htm" />
     <HelpKINode Title="NameCollisionOption Enumeration" Url="html/T_Cauldron_NameCollisionOption.htm" />
   </HelpKINode>
+  <HelpKINode Title="FastDictionary(Of TKey, TValue) class">
+    <HelpKINode Title="FastDictionary(TKey, TValue) Class" Url="html/T_System_Collections_Generic_FastDictionary_2.htm" />
+    <HelpKINode Title="constructor" Url="html/M_System_Collections_Generic_FastDictionary_2__ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_System_Collections_Generic_FastDictionary_2.htm" />
+    <HelpKINode Title="properties" Url="html/Properties_T_System_Collections_Generic_FastDictionary_2.htm" />
+  </HelpKINode>
+  <HelpKINode Title="FastDictionary(Of TKey, TValue).Add method" Url="html/Overload_System_Collections_Generic_FastDictionary_2_Add.htm" />
+  <HelpKINode Title="FastDictionary(Of TKey, TValue).AreEqual method" Url="html/M_System_Collections_Generic_FastDictionary_2_AreEqual.htm" />
+  <HelpKINode Title="FastDictionary(Of TKey, TValue).Clear method" Url="html/M_System_Collections_Generic_FastDictionary_2_Clear.htm" />
+  <HelpKINode Title="FastDictionary(Of TKey, TValue).Contains method" Url="html/M_System_Collections_Generic_FastDictionary_2_Contains.htm" />
+  <HelpKINode Title="FastDictionary(Of TKey, TValue).ContainsKey method" Url="html/M_System_Collections_Generic_FastDictionary_2_ContainsKey.htm" />
+  <HelpKINode Title="FastDictionary(Of TKey, TValue).CopyTo method" Url="html/M_System_Collections_Generic_FastDictionary_2_CopyTo.htm" />
+  <HelpKINode Title="FastDictionary(Of TKey, TValue).Count property" Url="html/P_System_Collections_Generic_FastDictionary_2_Count.htm" />
+  <HelpKINode Title="FastDictionary(Of TKey, TValue).FastDictionary constructor" Url="html/M_System_Collections_Generic_FastDictionary_2__ctor.htm" />
+  <HelpKINode Title="FastDictionary(Of TKey, TValue).GetEnumerator method" Url="html/M_System_Collections_Generic_FastDictionary_2_GetEnumerator.htm" />
+  <HelpKINode Title="FastDictionary(Of TKey, TValue).IEnumerable(Of TValue).GetEnumerator explicitly implemented method" Url="html/M_System_Collections_Generic_FastDictionary_2_System_Collections_Generic_IEnumerable{TValue}_GetEnumerator.htm" />
+  <HelpKINode Title="FastDictionary(Of TKey, TValue).IEnumerable.GetEnumerator explicitly implemented method" Url="html/M_System_Collections_Generic_FastDictionary_2_System_Collections_IEnumerable_GetEnumerator.htm" />
+  <HelpKINode Title="FastDictionary(Of TKey, TValue).IsReadOnly property" Url="html/P_System_Collections_Generic_FastDictionary_2_IsReadOnly.htm" />
+  <HelpKINode Title="FastDictionary(Of TKey, TValue).Item property" Url="html/P_System_Collections_Generic_FastDictionary_2_Item.htm" />
+  <HelpKINode Title="FastDictionary(Of TKey, TValue).Keys property" Url="html/P_System_Collections_Generic_FastDictionary_2_Keys.htm" />
+  <HelpKINode Title="FastDictionary(Of TKey, TValue).Remove method" Url="html/Overload_System_Collections_Generic_FastDictionary_2_Remove.htm" />
+  <HelpKINode Title="FastDictionary(Of TKey, TValue).TryGetValue method" Url="html/M_System_Collections_Generic_FastDictionary_2_TryGetValue.htm" />
+  <HelpKINode Title="FastDictionary(Of TKey, TValue).Values property" Url="html/P_System_Collections_Generic_FastDictionary_2_Values.htm" />
+  <HelpKINode Title="FastDictionary&lt;TKey, TValue&gt; class">
+    <HelpKINode Title="FastDictionary(TKey, TValue) Class" Url="html/T_System_Collections_Generic_FastDictionary_2.htm" />
+    <HelpKINode Title="constructor" Url="html/M_System_Collections_Generic_FastDictionary_2__ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_System_Collections_Generic_FastDictionary_2.htm" />
+    <HelpKINode Title="properties" Url="html/Properties_T_System_Collections_Generic_FastDictionary_2.htm" />
+  </HelpKINode>
+  <HelpKINode Title="FastDictionary&lt;TKey, TValue&gt;.Add method" Url="html/Overload_System_Collections_Generic_FastDictionary_2_Add.htm" />
+  <HelpKINode Title="FastDictionary&lt;TKey, TValue&gt;.AreEqual method" Url="html/M_System_Collections_Generic_FastDictionary_2_AreEqual.htm" />
+  <HelpKINode Title="FastDictionary&lt;TKey, TValue&gt;.Clear method" Url="html/M_System_Collections_Generic_FastDictionary_2_Clear.htm" />
+  <HelpKINode Title="FastDictionary&lt;TKey, TValue&gt;.Contains method" Url="html/M_System_Collections_Generic_FastDictionary_2_Contains.htm" />
+  <HelpKINode Title="FastDictionary&lt;TKey, TValue&gt;.ContainsKey method" Url="html/M_System_Collections_Generic_FastDictionary_2_ContainsKey.htm" />
+  <HelpKINode Title="FastDictionary&lt;TKey, TValue&gt;.CopyTo method" Url="html/M_System_Collections_Generic_FastDictionary_2_CopyTo.htm" />
+  <HelpKINode Title="FastDictionary&lt;TKey, TValue&gt;.Count property" Url="html/P_System_Collections_Generic_FastDictionary_2_Count.htm" />
+  <HelpKINode Title="FastDictionary&lt;TKey, TValue&gt;.FastDictionary constructor" Url="html/M_System_Collections_Generic_FastDictionary_2__ctor.htm" />
+  <HelpKINode Title="FastDictionary&lt;TKey, TValue&gt;.GetEnumerator method" Url="html/M_System_Collections_Generic_FastDictionary_2_GetEnumerator.htm" />
+  <HelpKINode Title="FastDictionary&lt;TKey, TValue&gt;.IEnumerable.GetEnumerator explicitly implemented method" Url="html/M_System_Collections_Generic_FastDictionary_2_System_Collections_IEnumerable_GetEnumerator.htm" />
+  <HelpKINode Title="FastDictionary&lt;TKey, TValue&gt;.IEnumerable&lt;TValue&gt;.GetEnumerator explicitly implemented method" Url="html/M_System_Collections_Generic_FastDictionary_2_System_Collections_Generic_IEnumerable{TValue}_GetEnumerator.htm" />
+  <HelpKINode Title="FastDictionary&lt;TKey, TValue&gt;.IsReadOnly property" Url="html/P_System_Collections_Generic_FastDictionary_2_IsReadOnly.htm" />
+  <HelpKINode Title="FastDictionary&lt;TKey, TValue&gt;.Item property" Url="html/P_System_Collections_Generic_FastDictionary_2_Item.htm" />
+  <HelpKINode Title="FastDictionary&lt;TKey, TValue&gt;.Keys property" Url="html/P_System_Collections_Generic_FastDictionary_2_Keys.htm" />
+  <HelpKINode Title="FastDictionary&lt;TKey, TValue&gt;.Remove method" Url="html/Overload_System_Collections_Generic_FastDictionary_2_Remove.htm" />
+  <HelpKINode Title="FastDictionary&lt;TKey, TValue&gt;.TryGetValue method" Url="html/M_System_Collections_Generic_FastDictionary_2_TryGetValue.htm" />
+  <HelpKINode Title="FastDictionary&lt;TKey, TValue&gt;.Values property" Url="html/P_System_Collections_Generic_FastDictionary_2_Values.htm" />
   <HelpKINode Title="Filename property" Url="html/P_Cauldron_Core_Reflection_AssemblyResource_Filename.htm" />
   <HelpKINode Title="Filler property" Url="html/P_Cauldron_Consoles_ConsoleTableColumn_Filler.htm" />
   <HelpKINode Title="FillWithRandomValues method" Url="html/Overload_Cauldron_Extensions_FillWithRandomValues.htm" />
@@ -974,7 +1057,10 @@
   <HelpKINode Title="GetDisplayName&lt;TEnum&gt; method" Url="html/M_Cauldron_ExtensionsReflection_GetDisplayName__1.htm" />
   <HelpKINode Title="GetDisplayNames(Of TEnum) method" Url="html/M_System_EnumEx_GetDisplayNames__1.htm" />
   <HelpKINode Title="GetDisplayNames&lt;TEnum&gt; method" Url="html/M_System_EnumEx_GetDisplayNames__1.htm" />
-  <HelpKINode Title="GetEnumerator method" Url="html/M_Cauldron_Core_Collections_ConcurrentList_1_GetEnumerator.htm" />
+  <HelpKINode Title="GetEnumerator method">
+    <HelpKINode Title="ConcurrentList(T).GetEnumerator Method " Url="html/M_Cauldron_Core_Collections_ConcurrentList_1_GetEnumerator.htm" />
+    <HelpKINode Title="FastDictionary(TKey, TValue).GetEnumerator Method " Url="html/M_System_Collections_Generic_FastDictionary_2_GetEnumerator.htm" />
+  </HelpKINode>
   <HelpKINode Title="GetFieldsEx method" Url="html/M_Cauldron_ExtensionsReflection_GetFieldsEx.htm" />
   <HelpKINode Title="GetFileAsync method" Url="html/M_Cauldron_ExtensionsDirectoryInfo_GetFileAsync.htm" />
   <HelpKINode Title="GetFirstAssemblyWithResourceName method" Url="html/M_Cauldron_Core_Reflection_Assemblies_GetFirstAssemblyWithResourceName.htm" />
@@ -1064,7 +1150,12 @@
   <HelpKINode Title="IDisposableObject.Disposed event" Url="html/E_Cauldron_Core_IDisposableObject_Disposed.htm" />
   <HelpKINode Title="IDisposableObject.IsDisposed property" Url="html/P_Cauldron_Core_IDisposableObject_IsDisposed.htm" />
   <HelpKINode Title="Idle enumeration member" Url="html/T_Cauldron_Core_Threading_DispatcherPriority.htm" />
-  <HelpKINode Title="IEnumerable.GetEnumerator explicitly implemented method" Url="html/M_Cauldron_Core_Collections_ConcurrentList_1_System_Collections_IEnumerable_GetEnumerator.htm" />
+  <HelpKINode Title="IEnumerable(Of TValue).GetEnumerator explicitly implemented method" Url="html/M_System_Collections_Generic_FastDictionary_2_System_Collections_Generic_IEnumerable{TValue}_GetEnumerator.htm" />
+  <HelpKINode Title="IEnumerable.GetEnumerator explicitly implemented method">
+    <HelpKINode Title="ConcurrentList(T).IEnumerable.GetEnumerator Method " Url="html/M_Cauldron_Core_Collections_ConcurrentList_1_System_Collections_IEnumerable_GetEnumerator.htm" />
+    <HelpKINode Title="FastDictionary(TKey, TValue).IEnumerable.GetEnumerator Method " Url="html/M_System_Collections_Generic_FastDictionary_2_System_Collections_IEnumerable_GetEnumerator.htm" />
+  </HelpKINode>
+  <HelpKINode Title="IEnumerable&lt;TValue&gt;.GetEnumerator explicitly implemented method" Url="html/M_System_Collections_Generic_FastDictionary_2_System_Collections_Generic_IEnumerable{TValue}_GetEnumerator.htm" />
   <HelpKINode Title="IEnumerableExtensions class">
     <HelpKINode Title="IEnumerableExtensions Class" Url="html/T_Cauldron_Core_Collections_IEnumerableExtensions.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Core_Collections_IEnumerableExtensions.htm" />
@@ -1127,6 +1218,11 @@
   <HelpKINode Title="IMethodInterceptor.OnEnter method" Url="html/M_Cauldron_Interception_IMethodInterceptor_OnEnter.htm" />
   <HelpKINode Title="IMethodInterceptor.OnException method" Url="html/M_Cauldron_Interception_IMethodInterceptor_OnException.htm" />
   <HelpKINode Title="IMethodInterceptor.OnExit method" Url="html/M_Cauldron_Interception_IMethodInterceptor_OnExit.htm" />
+  <HelpKINode Title="IMethodInterceptorOnExit interface">
+    <HelpKINode Title="IMethodInterceptorOnExit Interface" Url="html/T_Cauldron_Interception_IMethodInterceptorOnExit.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Interception_IMethodInterceptorOnExit.htm" />
+  </HelpKINode>
+  <HelpKINode Title="IMethodInterceptorOnExit.OnExit method" Url="html/M_Cauldron_Interception_IMethodInterceptorOnExit_OnExit.htm" />
   <HelpKINode Title="ImplementsInterface method" Url="html/Overload_Cauldron_ExtensionsReflection_ImplementsInterface.htm" />
   <HelpKINode Title="IndexOf method">
     <HelpKINode Title="ConcurrentList(T).IndexOf Method " Url="html/Overload_Cauldron_Core_Collections_ConcurrentList_1_IndexOf.htm" />
@@ -1223,7 +1319,10 @@
   <HelpKINode Title="IsNotNull method" Url="html/Overload_Cauldron_Extensions_IsNotNull.htm" />
   <HelpKINode Title="IsNullable method" Url="html/M_Cauldron_ExtensionsReflection_IsNullable.htm" />
   <HelpKINode Title="IsOrdered property" Url="html/P_Cauldron_Activator_InjectAttribute_IsOrdered.htm" />
-  <HelpKINode Title="IsReadOnly property" Url="html/P_Cauldron_Core_Collections_ConcurrentList_1_IsReadOnly.htm" />
+  <HelpKINode Title="IsReadOnly property">
+    <HelpKINode Title="ConcurrentList(T).IsReadOnly Property " Url="html/P_Cauldron_Core_Collections_ConcurrentList_1_IsReadOnly.htm" />
+    <HelpKINode Title="FastDictionary(TKey, TValue).IsReadOnly Property " Url="html/P_System_Collections_Generic_FastDictionary_2_IsReadOnly.htm" />
+  </HelpKINode>
   <HelpKINode Title="IsRequired property" Url="html/P_Cauldron_Consoles_ParameterAttribute_IsRequired.htm" />
   <HelpKINode Title="IsSynchronized property" Url="html/P_Cauldron_Core_Collections_ConcurrentList_1_IsSynchronized.htm" />
   <HelpKINode Title="IsUnitTest property" Url="html/P_Cauldron_Activator_UnitTestAwareFactoryResolverBase_IsUnitTest.htm" />
@@ -1235,6 +1334,7 @@
   <HelpKINode Title="ISyncRoot.SyncRoot property" Url="html/P_Cauldron_Interception_ISyncRoot_SyncRoot.htm" />
   <HelpKINode Title="Item property">
     <HelpKINode Title="ConcurrentList(T).Item Property " Url="html/P_Cauldron_Core_Collections_ConcurrentList_1_Item.htm" />
+    <HelpKINode Title="FastDictionary(TKey, TValue).Item Property " Url="html/P_System_Collections_Generic_FastDictionary_2_Item.htm" />
     <HelpKINode Title="Locale.Item Property " Url="html/Overload_Cauldron_Localization_Locale_Item.htm" />
   </HelpKINode>
   <HelpKINode Title="Join method" Url="html/Overload_Cauldron_Extensions_Join.htm" />
@@ -1300,6 +1400,7 @@
   <HelpKINode Title="KeyRawValueDictionary.Deserialize method" Url="html/M_Cauldron_Core_Collections_KeyRawValueDictionary_Deserialize.htm" />
   <HelpKINode Title="KeyRawValueDictionary.KeyRawValueDictionary constructor" Url="html/M_Cauldron_Core_Collections_KeyRawValueDictionary__ctor.htm" />
   <HelpKINode Title="KeyRawValueDictionary.Serialize method" Url="html/M_Cauldron_Core_Collections_KeyRawValueDictionary_Serialize.htm" />
+  <HelpKINode Title="Keys property" Url="html/P_System_Collections_Generic_FastDictionary_2_Keys.htm" />
   <HelpKINode Title="Known property" Url="html/P_Cauldron_Core_Reflection_Assemblies_Known.htm" />
   <HelpKINode Title="KnownFolders class">
     <HelpKINode Title="KnownFolders Class" Url="html/T_Cauldron_Core_KnownFolders.htm" />
@@ -1443,6 +1544,7 @@
   <HelpKINode Title="OnExit method">
     <HelpKINode Title="IConstructorInterceptor.OnExit Method " Url="html/M_Cauldron_Interception_IConstructorInterceptor_OnExit.htm" />
     <HelpKINode Title="IMethodInterceptor.OnExit Method " Url="html/M_Cauldron_Interception_IMethodInterceptor_OnExit.htm" />
+    <HelpKINode Title="IMethodInterceptorOnExit.OnExit Method " Url="html/M_Cauldron_Interception_IMethodInterceptorOnExit_OnExit.htm" />
     <HelpKINode Title="IPropertyGetterInterceptor.OnExit Method " Url="html/M_Cauldron_Interception_IPropertyGetterInterceptor_OnExit.htm" />
     <HelpKINode Title="IPropertySetterInterceptor.OnExit Method " Url="html/M_Cauldron_Interception_IPropertySetterInterceptor_OnExit.htm" />
   </HelpKINode>
@@ -1577,7 +1679,10 @@
   <HelpKINode Title="RegisteredTypes property" Url="html/P_Cauldron_Activator_Factory_RegisteredTypes.htm" />
   <HelpKINode Title="remoteIpAddress field" Url="html/F_Cauldron_Core_Net_PingResults_remoteIpAddress.htm" />
   <HelpKINode Title="remotePort field" Url="html/F_Cauldron_Core_Net_PingResults_remotePort.htm" />
-  <HelpKINode Title="Remove method" Url="html/Overload_Cauldron_Core_Collections_ConcurrentList_1_Remove.htm" />
+  <HelpKINode Title="Remove method">
+    <HelpKINode Title="ConcurrentList(T).Remove Method " Url="html/Overload_Cauldron_Core_Collections_ConcurrentList_1_Remove.htm" />
+    <HelpKINode Title="FastDictionary(TKey, TValue).Remove Method " Url="html/Overload_System_Collections_Generic_FastDictionary_2_Remove.htm" />
+  </HelpKINode>
   <HelpKINode Title="RemoveAll method" Url="html/M_Cauldron_Core_Collections_ConcurrentList_1_RemoveAll.htm" />
   <HelpKINode Title="RemoveAt method" Url="html/M_Cauldron_Core_Collections_ConcurrentList_1_RemoveAt.htm" />
   <HelpKINode Title="RemoveItem method" Url="html/M_Cauldron_Core_Collections_ConcurrentKeyedCollection_2_RemoveItem.htm" />
@@ -1672,6 +1777,11 @@
     <HelpKINode Title="ISyncRoot.SyncRoot Property " Url="html/P_Cauldron_Interception_ISyncRoot_SyncRoot.htm" />
   </HelpKINode>
   <HelpKINode Title="System namespace" Url="html/N_System.htm" />
+  <HelpKINode Title="System.Collections.Generic namespace" Url="html/N_System_Collections_Generic.htm" />
+  <HelpKINode Title="System.Collections.Generic.CustomDictionary(Of TKey, TValue) class" Url="html/T_System_Collections_Generic_CustomDictionary_2.htm" />
+  <HelpKINode Title="System.Collections.Generic.CustomDictionary&lt;TKey, TValue&gt; class" Url="html/T_System_Collections_Generic_CustomDictionary_2.htm" />
+  <HelpKINode Title="System.Collections.Generic.FastDictionary(Of TKey, TValue) class" Url="html/T_System_Collections_Generic_FastDictionary_2.htm" />
+  <HelpKINode Title="System.Collections.Generic.FastDictionary&lt;TKey, TValue&gt; class" Url="html/T_System_Collections_Generic_FastDictionary_2.htm" />
   <HelpKINode Title="System.EnumEx class" Url="html/T_System_EnumEx.htm" />
   <HelpKINode Title="System.MathEx class" Url="html/T_System_MathEx.htm" />
   <HelpKINode Title="TargetFramework property" Url="html/P_Cauldron_Core_Reflection_ApplicationInfo_TargetFramework.htm" />
@@ -1738,6 +1848,7 @@
   <HelpKINode Title="ToUShortUS method" Url="html/M_Cauldron_ExtensionsConvertions_ToUShortUS.htm" />
   <HelpKINode Title="TryDispose method" Url="html/M_Cauldron_Extensions_TryDispose.htm" />
   <HelpKINode Title="TryEncode method" Url="html/M_Cauldron_Extensions_TryEncode.htm" />
+  <HelpKINode Title="TryGetValue method" Url="html/M_System_Collections_Generic_FastDictionary_2_TryGetValue.htm" />
   <HelpKINode Title="Type property" Url="html/P_Cauldron_Activator_IFactoryTypeInfo_Type.htm" />
   <HelpKINode Title="TypeIsInterfaceException class">
     <HelpKINode Title="TypeIsInterfaceException Class" Url="html/T_Cauldron_TypeIsInterfaceException.htm" />
@@ -1788,7 +1899,10 @@
   <HelpKINode Title="Utilities.GetWeeksInYear method" Url="html/M_Cauldron_Core_Utilities_GetWeeksInYear.htm" />
   <HelpKINode Title="ValueOf method" Url="html/Overload_System_MathEx_ValueOf.htm" />
   <HelpKINode Title="ValueOptional property" Url="html/P_Cauldron_Consoles_ParameterAttribute_ValueOptional.htm" />
-  <HelpKINode Title="Values property" Url="html/P_Cauldron_Consoles_ConsoleTableColumn_Values.htm" />
+  <HelpKINode Title="Values property">
+    <HelpKINode Title="ConsoleTableColumn.Values Property " Url="html/P_Cauldron_Consoles_ConsoleTableColumn_Values.htm" />
+    <HelpKINode Title="FastDictionary(TKey, TValue).Values Property " Url="html/P_System_Collections_Generic_FastDictionary_2_Values.htm" />
+  </HelpKINode>
   <HelpKINode Title="VeryStrong enumeration member" Url="html/T_Cauldron_Cryptography_PasswordScore.htm" />
   <HelpKINode Title="VeryWeak enumeration member" Url="html/T_Cauldron_Cryptography_PasswordScore.htm" />
   <HelpKINode Title="VideosLibrary property" Url="html/P_Cauldron_Core_KnownFolders_VideosLibrary.htm" />

@@ -10,6 +10,7 @@ using System.Reflection;
 namespace Cauldron.Activator
 {
     using Cauldron.Core.Diagnostics;
+    using System.Runtime.CompilerServices;
 
     /// <summary>
     /// Provides methods for creating and destroying object instances
@@ -18,30 +19,14 @@ namespace Cauldron.Activator
     {
         private static readonly string iFactoryExtensionName = typeof(IFactoryExtension).FullName;
         private static FactoryStringDictionary<FactoryDictionaryValue> componentsNamed;
-        private static FactoryDictionary<Type, FactoryDictionaryValue> componentsTyped;
+        private static FactoryTypeDictionary<FactoryDictionaryValue> componentsTyped;
+        private static List<IFactoryTypeInfo> customTypes = new List<IFactoryTypeInfo>();
         private static IFactoryTypeInfo[] factoryInfoTypes;
         private static IFactoryTypeInfo[] singletons;
 
         static Factory()
         {
-            if (FactoryCore._components != null)
-                factoryInfoTypes = FactoryCore._components;
-            else
-            {
-                var componentList = new List<IFactoryTypeInfo>();
-                var getComponents = Assemblies.Known
-                        .Select(x => x?
-                            .GetType("CauldronInterceptionHelper")?
-                            .GetMethod("GetComponents", BindingFlags.Public | BindingFlags.Static))
-                            .Where(x => x != null);
-
-                foreach (var item in getComponents)
-                    componentList.AddRange(item.Invoke(null, null) as IFactoryTypeInfo[]);
-
-                factoryInfoTypes = componentList.Distinct(new FactoryTypeInfoComparer()).ToArray();
-            }
-
-            InitializeFactory(factoryInfoTypes);
+            InitializeFactory();
 
             Assemblies.LoadedAssemblyChanged += (s, e) =>
             {
@@ -79,7 +64,7 @@ namespace Cauldron.Activator
         /// <summary>
         /// Gets a collection types that is known to the <see cref="Factory"/>
         /// </summary>
-        public static IEnumerable<IFactoryTypeInfo> RegisteredTypes => componentsNamed.GetValues().SelectMany(x => x.factoryTypeInfos);
+        public static IEnumerable<IFactoryTypeInfo> RegisteredTypes => (componentsNamed as IEnumerable<FactoryDictionaryValue>).SelectMany(x => x.factoryTypeInfos);
 
         /// <summary>
         /// Gets a collection of resolvers.
@@ -88,7 +73,7 @@ namespace Cauldron.Activator
         public static FactoryResolver Resolvers { get; } = new FactoryResolver();
 
         /// <summary>
-        /// Adds a new <see cref="Type"/> to list of known types.
+        /// Adds a new <see cref="Type"/> to list of custom types.
         /// </summary>
         /// <threadsafety static="false" instance="false"/>
         /// <param name="contractType">The Type that contract name derives from</param>
@@ -100,26 +85,14 @@ namespace Cauldron.Activator
         public static IFactoryTypeInfo AddType(Type contractType, FactoryCreationPolicy creationPolicy, Type type, Func<object[], object> createInstance)
         {
             var factoryTypeInfo = new FactoryTypeInfoInternal(contractType, creationPolicy, type, createInstance);
-            var result = componentsTyped[contractType];
+            customTypes.Add(factoryTypeInfo);
 
-            if (result == null)
-                componentsTyped.Add(contractType, new FactoryDictionaryValue().SetValues(new IFactoryTypeInfo[] { factoryTypeInfo }));
-            else
-                result.SetValues(result.factoryTypeInfos.Concat(factoryTypeInfo).ToArray());
-
-            result = componentsNamed[contractType.FullName];
-
-            if (result == null)
-                componentsNamed.Add(contractType.FullName, new FactoryDictionaryValue().SetValues(new IFactoryTypeInfo[] { factoryTypeInfo }));
-            else
-                result.SetValues(result.factoryTypeInfos.Concat(factoryTypeInfo).ToArray());
-
-            Rebuilt?.Invoke(null, EventArgs.Empty);
+            InitializeFactory();
             return factoryTypeInfo;
         }
 
         /// <summary>
-        /// Adds a new <see cref="Type"/> to list of known types.
+        /// Adds a new <see cref="Type"/> to list of custom types.
         /// </summary>
         /// <threadsafety static="false" instance="false"/>
         /// <param name="contractName">The name that identifies the type</param>
@@ -131,15 +104,20 @@ namespace Cauldron.Activator
         public static IFactoryTypeInfo AddType(string contractName, FactoryCreationPolicy creationPolicy, Type type, Func<object[], object> createInstance)
         {
             var factoryTypeInfo = new FactoryTypeInfoInternal(contractName, creationPolicy, type, createInstance);
-            var result = componentsNamed[contractName];
+            customTypes.Add(factoryTypeInfo);
 
-            if (result == null)
-                componentsNamed.Add(contractName, new FactoryDictionaryValue().SetValues(new IFactoryTypeInfo[] { factoryTypeInfo }));
-            else
-                result.SetValues(result.factoryTypeInfos.Concat(factoryTypeInfo).ToArray());
-
-            Rebuilt?.Invoke(null, EventArgs.Empty);
+            InitializeFactory();
             return factoryTypeInfo;
+        }
+
+        /// <summary>
+        /// Adds a collection of <see cref="IFactoryTypeInfo"/> to the list fo custom types.
+        /// </summary>
+        /// <param name="factoryTypeInfos">A collection of <see cref="IFactoryTypeInfo"/> that should be added to the list of custom types.</param>
+        public static void AddTypes(IEnumerable<IFactoryTypeInfo> factoryTypeInfos)
+        {
+            customTypes.AddRange(factoryTypeInfos);
+            InitializeFactory();
         }
 
         #region Create
@@ -1055,7 +1033,7 @@ namespace Cauldron.Activator
         public static void OnObjectCreation(object @object, IFactoryTypeInfo factoryTypeInfo) => ObjectCreated?.Invoke(null, new FactoryObjectCreatedEventArgs(@object, factoryTypeInfo));
 
         /// <summary>
-        /// Removes a <see cref="Type"/> from the list of known types.
+        /// Removes a <see cref="Type"/> from the list of manually added types.
         /// <para/>
         /// Not threadsafe.
         /// </summary>
@@ -1064,32 +1042,14 @@ namespace Cauldron.Activator
         /// <threadsafety static="false" instance="false"/>
         public static void RemoveType(Type contractType, Type type)
         {
-            var factoryTypeInfo = componentsTyped[contractType];
-            if (factoryTypeInfo == null)
-                return;
+            foreach (var item in customTypes.Where(x => x.ContractType == contractType).ToArray())
+                customTypes.Remove(item);
 
-            var tobeRemoved = factoryTypeInfo.factoryTypeInfos.Where(x => x.Type == type).ToArray();
-            var newList = factoryTypeInfo.factoryTypeInfos.Where(x => x.Type != type).ToArray();
-
-            if (newList.Length == 0)
-            {
-                componentsTyped.Remove(contractType);
-                componentsNamed.Remove(contractType.FullName);
-            }
-            else
-                factoryTypeInfo.SetValues(newList);
-
-            for (int i = 0; i < tobeRemoved.Length; i++)
-            {
-                (tobeRemoved[i].Instance as IDisposable)?.Dispose();
-                tobeRemoved[i].Instance = null;
-            }
-
-            Rebuilt?.Invoke(null, EventArgs.Empty);
+            InitializeFactory();
         }
 
         /// <summary>
-        /// Removes a <see cref="Type"/> from the list of known types.
+        /// Removes a <see cref="Type"/> from the list of manually added types.
         /// <para/>
         /// Not threadsafe.
         /// </summary>
@@ -1098,25 +1058,10 @@ namespace Cauldron.Activator
         /// <threadsafety static="false" instance="false"/>
         public static void RemoveType(string contractName, Type type)
         {
-            var factoryTypeInfo = componentsNamed[contractName];
-            if (factoryTypeInfo == null)
-                return;
+            foreach (var item in customTypes.Where(x => x.ContractName == contractName).ToArray())
+                customTypes.Remove(item);
 
-            var tobeRemoved = factoryTypeInfo.factoryTypeInfos.Where(x => x.Type == type).ToArray();
-            var newList = factoryTypeInfo.factoryTypeInfos.Where(x => x.Type != type).ToArray();
-
-            if (newList.Length == 0)
-                componentsNamed.Remove(contractName);
-            else
-                factoryTypeInfo.SetValues(newList);
-
-            for (int i = 0; i < tobeRemoved.Length; i++)
-            {
-                (tobeRemoved[i].Instance as IDisposable)?.Dispose();
-                tobeRemoved[i].Instance = null;
-            }
-
-            Rebuilt?.Invoke(null, EventArgs.Empty);
+            InitializeFactory();
         }
 
         private static void GetAndInitializeAllExtensions(IEnumerable<IFactoryTypeInfo> factoryTypeInfos)
@@ -1125,8 +1070,34 @@ namespace Cauldron.Activator
                 item.Initialize(factoryTypeInfos);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static void InitializeFactory()
+        {
+            if (FactoryCore._components != null)
+                factoryInfoTypes = FactoryCore._components;
+            else
+            {
+                var componentList = new List<IFactoryTypeInfo>();
+                var getComponents = Assemblies.Known
+                        .Select(x => x?
+                            .GetType("CauldronInterceptionHelper")?
+                            .GetMethod("GetComponents", BindingFlags.Public | BindingFlags.Static))
+                            .Where(x => x != null);
+
+                foreach (var item in getComponents)
+                    componentList.AddRange(item.Invoke(null, null) as IFactoryTypeInfo[]);
+
+                factoryInfoTypes = componentList.Distinct(new FactoryTypeInfoComparer()).ToArray();
+            }
+
+            InitializeFactory(factoryInfoTypes);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static void InitializeFactory(IEnumerable<IFactoryTypeInfo> factoryInfoTypes)
         {
+            factoryInfoTypes = factoryInfoTypes.Concat(customTypes);
+
             // Get all known components
             componentsNamed = new FactoryStringDictionary<FactoryDictionaryValue>();
             foreach (var item in factoryInfoTypes.GroupBy(x => x.ContractName).Select(x => new { x.Key, Items = x.ToArray() }))
@@ -1138,7 +1109,7 @@ namespace Cauldron.Activator
                 Debug.WriteLine($"ERROR: Unable to find any components. Please check if FodyWeavers.xml has an entry for Cauldron.Interception");
 
             // Get all known components
-            componentsTyped = new FactoryDictionary<Type, FactoryDictionaryValue>();
+            componentsTyped = new FactoryTypeDictionary<FactoryDictionaryValue>();
             foreach (var item in factoryInfoTypes.Where(x => x.ContractType != null).GroupBy(x => x.ContractType).Select(x => new { x.Key, Items = x.ToArray() }).Where(x => x.Items.Length > 0))
                 componentsTyped.Add(item.Key, new FactoryDictionaryValue().SetValues(item.Items));
             // All singleton to a list for easier disposing
@@ -1164,6 +1135,7 @@ namespace Cauldron.Activator
             return factoryDictionaryValue;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static object ThrowExceptionOrReturnNull(Type contractType, object[] parameters)
         {
 #if NETFX_CORE
@@ -1183,6 +1155,7 @@ namespace Cauldron.Activator
             return contractType.CreateInstance(parameters);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static object ThrowExceptionOrReturnNull(Type contractType)
         {
 #if NETFX_CORE
@@ -1202,6 +1175,7 @@ namespace Cauldron.Activator
             return contractType.CreateInstance();
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static object ThrowExceptionOrReturnNull(string contractName)
         {
             if (CanRaiseExceptions)

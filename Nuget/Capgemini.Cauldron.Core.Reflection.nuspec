@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>Capgemini.Cauldron.Core.Reflection</id>
-    <version>3.0.28</version>
+    <version>3.0.29</version>
     <authors>Alexander Schunk, Capgemini Deutschland GmbH</authors>
     <owners>Alexander Schunk, Capgemini Deutschland GmbH</owners>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
@@ -33,8 +33,8 @@
     </releaseNotes>
     <dependencies>
       <dependency id="Fody" version="3.0.3" />
-      <dependency id="Cauldron.Interception.Fody" version="3.0.28" />
-      <dependency id="Capgemini.Cauldron.Core.Diagnostics" version="3.0.28" />
+      <dependency id="Cauldron.Interception.Fody" version="3.0.30" />
+      <dependency id="Capgemini.Cauldron.Core.Diagnostics" version="3.0.29" />
     </dependencies>
   </metadata>
   <files>
