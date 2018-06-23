@@ -173,7 +173,7 @@ namespace Cauldron.Activator
 
             public override bool Equals(object obj) => this.Equals(obj as ConditionalContract);
 
-            public bool Equals(ConditionalContract other) => this.condition == other.condition && this.contractType == other.contractType;
+            public bool Equals(ConditionalContract other) => object.ReferenceEquals(this.condition, other.condition) && object.ReferenceEquals(this.contractType, other.contractType);
 
             public override int GetHashCode() => this.contractType.GetHashCode() ^ this.condition.GetHashCode();
         }
