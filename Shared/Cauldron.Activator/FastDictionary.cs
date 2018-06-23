@@ -8,30 +8,11 @@ namespace System.Collections.Generic
     /// </summary>
     /// <typeparam name="TKey"></typeparam>
     /// <typeparam name="TValue"></typeparam>
-    public class CustomDictionary<TKey, TValue> : FastDictionary<TKey, TValue>
+    public class FastDictionary<TKey, TValue> : IDictionary<TKey, TValue>, IEnumerable, IEnumerable<TValue>
         where TKey : class
         where TValue : class
     {
-        /// <summary>
-        /// Determines whether the specified object is equal to the current object.
-        /// </summary>
-        /// <param name="a">The object to compare with object <paramref name="b"/>.</param>
-        /// <param name="b">The object to compare with object <paramref name="a"/>.</param>
-        /// <returns>Should be true if <paramref name="a"/> and <paramref name="b"/> are equal.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        protected override bool AreEqual(TKey a, TKey b) => object.Equals(a, b);
-    }
-
-    /// <summary>
-    /// Represents a collection of keys and values optimized for speed.
-    /// </summary>
-    /// <typeparam name="TKey"></typeparam>
-    /// <typeparam name="TValue"></typeparam>
-    public abstract class FastDictionary<TKey, TValue> : IDictionary<TKey, TValue>, IEnumerable, IEnumerable<TValue>
-        where TKey : class
-        where TValue : class
-    {
-        private const int initialsize = 64;
+        private const int initialsize = 32;
         private int bucketLength;
         private int[] buckets;
         private FastDictionaryEntry[] entries;
@@ -41,6 +22,12 @@ namespace System.Collections.Generic
         /// Initializes a new instance of <see cref="FastDictionary{TKey, TValue}"/>.
         /// </summary>
         public FastDictionary() => Initialize();
+
+        /// <summary>
+        /// Initializes a new instance of <see cref="FastDictionary{TKey, TValue}"/>.
+        /// </summary>
+        /// <param name="roughsize">The max size of the bucket.</param>
+        public FastDictionary(int roughsize) => Initialize(this.GetRoughSize(roughsize));
 
         /// <summary>
         /// Gets the number of key/value pairs contained in the <see cref="FastDictionary{TKey, TValue}"/>.
@@ -83,7 +70,7 @@ namespace System.Collections.Generic
                 {
                     var entry = unchecked(entries[nextpos]);
 
-                    if (AreEqual(key, entry.key))
+                    if (object.ReferenceEquals(key, entry.key) || object.Equals(key, entry.key))
                         return entry.value;
 
                     nextpos = entry.next;
@@ -144,7 +131,7 @@ namespace System.Collections.Generic
             {
                 var entry = entries[nextpos];
 
-                if (AreEqual(key, entry.key))
+                if (object.ReferenceEquals(key, entry.key) || object.Equals(key, entry.key))
                     return true;
 
                 nextpos = entry.next;
@@ -210,7 +197,7 @@ namespace System.Collections.Generic
             {
                 var entry = entries[nextpos];
 
-                if (AreEqual(key, entry.key))
+                if (object.ReferenceEquals(key, entry.key) || object.Equals(key, entry.key))
                 {
                     this.nextfree--;
                     this.buckets[pos] = -1;
@@ -249,15 +236,6 @@ namespace System.Collections.Generic
             return result == null;
         }
 
-        /// <summary>
-        /// Determines whether the specified object is equal to the current object.
-        /// </summary>
-        /// <param name="a">The object to compare with object <paramref name="b"/>.</param>
-        /// <param name="b">The object to compare with object <paramref name="a"/>.</param>
-        /// <returns>Should be true if <paramref name="a"/> and <paramref name="b"/> are equal.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        protected abstract bool AreEqual(TKey a, TKey b);
-
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void Add(TKey key, TValue value, bool overwrite)
         {
@@ -282,7 +260,7 @@ namespace System.Collections.Generic
                 {
                     var entry = entries[currEntryPos];
 
-                    if (AreEqual(key, entry.key))
+                    if (object.ReferenceEquals(key, entry.key) || object.Equals(key, entry.key))
                         if (overwrite)
                         {
                             entry.value = value;
@@ -311,23 +289,30 @@ namespace System.Collections.Generic
             };
         }
 
-        private int FindNewSize()
-        {
-            var roughsize = buckets.Length * 2;
-
-            for (int i = initialsize; i < int.MaxValue; i++)
-                if (i * 2 >= roughsize)
-                    return i * 2;
-
-            throw new IndexOutOfRangeException("The hash array is too big.");
-        }
-
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private IEnumerable<TKey> GetKeys()
         {
             for (int i = 0; i < entries.Length; i++)
                 if (entries[i] != null)
                     yield return entries[i].key;
+        }
+
+        private int GetRoughSize(int roughSize)
+        {
+            int result = initialsize;
+
+            while (true)
+            {
+                if (result >= roughSize)
+                    return result;
+
+                result *= 2;
+
+                if (result > int.MaxValue)
+                    break;
+            }
+
+            throw new IndexOutOfRangeException("The hash array is too big.");
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -339,11 +324,11 @@ namespace System.Collections.Generic
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private void Initialize()
+        private void Initialize(int roughSize = initialsize)
         {
-            this.buckets = new int[initialsize];
+            this.buckets = new int[roughSize];
             this.bucketLength = this.buckets.Length - 1;
-            this.entries = new FastDictionaryEntry[initialsize];
+            this.entries = new FastDictionaryEntry[roughSize];
 
             nextfree = 0;
 
@@ -353,7 +338,7 @@ namespace System.Collections.Generic
 
         private void Resize()
         {
-            var newsize = FindNewSize();
+            var newsize = this.GetRoughSize(this.buckets.Length * 2);
             var newhashes = new int[newsize];
             var newentries = new FastDictionaryEntry[newsize];
 

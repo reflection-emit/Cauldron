@@ -4,12 +4,10 @@ using Cauldron.Interception.Fody;
 using Mono.Cecil;
 using Mono.Cecil.Cil;
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
 
 public static class Weaver_ComponentCache
 {

@@ -18,8 +18,8 @@ namespace Cauldron.Activator
     public static class Factory
     {
         private static readonly string iFactoryExtensionName = typeof(IFactoryExtension).FullName;
-        private static FactoryStringDictionary<FactoryDictionaryValue> componentsNamed;
-        private static FactoryTypeDictionary<FactoryDictionaryValue> componentsTyped;
+        private static FastDictionary<string, FactoryDictionaryValue> componentsNamed;
+        private static FastDictionary<Type, FactoryDictionaryValue> componentsTyped;
         private static List<IFactoryTypeInfo> customTypes = new List<IFactoryTypeInfo>();
         private static IFactoryTypeInfo[] factoryInfoTypes;
         private static IFactoryTypeInfo[] singletons;
@@ -1097,10 +1097,12 @@ namespace Cauldron.Activator
         private static void InitializeFactory(IEnumerable<IFactoryTypeInfo> factoryInfoTypes)
         {
             factoryInfoTypes = factoryInfoTypes.Concat(customTypes);
+            var components = factoryInfoTypes.GroupBy(x => x.ContractName).Select(x => new { x.Key, Items = x.ToArray() }).ToArray();
+            var typeComponents = factoryInfoTypes.Where(x => x.ContractType != null).GroupBy(x => x.ContractType).Select(x => new { x.Key, Items = x.ToArray() }).Where(x => x.Items.Length > 0).ToArray();
 
             // Get all known components
-            componentsNamed = new FactoryStringDictionary<FactoryDictionaryValue>();
-            foreach (var item in factoryInfoTypes.GroupBy(x => x.ContractName).Select(x => new { x.Key, Items = x.ToArray() }))
+            componentsNamed = new FastDictionary<string, FactoryDictionaryValue>(components.Length);
+            foreach (var item in components)
                 componentsNamed.Add(item.Key, new FactoryDictionaryValue().SetValues(item.Items));
             // Get all factory extensions
             GetAndInitializeAllExtensions(factoryInfoTypes);
@@ -1109,8 +1111,8 @@ namespace Cauldron.Activator
                 Debug.WriteLine($"ERROR: Unable to find any components. Please check if FodyWeavers.xml has an entry for Cauldron.Interception");
 
             // Get all known components
-            componentsTyped = new FactoryTypeDictionary<FactoryDictionaryValue>();
-            foreach (var item in factoryInfoTypes.Where(x => x.ContractType != null).GroupBy(x => x.ContractType).Select(x => new { x.Key, Items = x.ToArray() }).Where(x => x.Items.Length > 0))
+            componentsTyped = new FastDictionary<Type, FactoryDictionaryValue>(typeComponents.Length);
+            foreach (var item in typeComponents)
                 componentsTyped.Add(item.Key, new FactoryDictionaryValue().SetValues(item.Items));
             // All singleton to a list for easier disposing
             singletons = factoryInfoTypes.Where(x => x.CreationPolicy == FactoryCreationPolicy.Singleton).ToArray();

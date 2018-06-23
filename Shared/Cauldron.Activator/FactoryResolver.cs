@@ -11,11 +11,10 @@ namespace Cauldron.Activator
     /// </summary>
     public sealed class FactoryResolver
     {
-        private FactoryConditionalContractDictionary<Func<Type, IFactoryTypeInfo[], IFactoryTypeInfo>> conditionalTypes = new FactoryConditionalContractDictionary<Func<Type, IFactoryTypeInfo[], IFactoryTypeInfo>>();
-
-        private FactoryStringDictionary<Func<Type, IFactoryTypeInfo[], IFactoryTypeInfo>> resolverNamed = new FactoryStringDictionary<Func<Type, IFactoryTypeInfo[], IFactoryTypeInfo>>();
-
-        private FactoryTypeDictionary<Func<Type, IFactoryTypeInfo[], IFactoryTypeInfo>> resolverTypes = new FactoryTypeDictionary<Func<Type, IFactoryTypeInfo[], IFactoryTypeInfo>>();
+        private FastDictionary<ConditionalContractString, Func<Type, IFactoryTypeInfo[], IFactoryTypeInfo>> conditionalNamed = new FastDictionary<ConditionalContractString, Func<Type, IFactoryTypeInfo[], IFactoryTypeInfo>>(16);
+        private FastDictionary<ConditionalContract, Func<Type, IFactoryTypeInfo[], IFactoryTypeInfo>> conditionalTypes = new FastDictionary<ConditionalContract, Func<Type, IFactoryTypeInfo[], IFactoryTypeInfo>>(16);
+        private FastDictionary<string, Func<Type, IFactoryTypeInfo[], IFactoryTypeInfo>> resolverNamed = new FastDictionary<string, Func<Type, IFactoryTypeInfo[], IFactoryTypeInfo>>(16);
+        private FastDictionary<Type, Func<Type, IFactoryTypeInfo[], IFactoryTypeInfo>> resolverTypes = new FastDictionary<Type, Func<Type, IFactoryTypeInfo[], IFactoryTypeInfo>>(16);
 
         /// <summary>
         /// Adds a new contractname resolver to the dictionary.
@@ -122,6 +121,7 @@ namespace Cauldron.Activator
                 throw new NullReferenceException($"Unable to find the type '{resolveToType}' with the contractname '{contractType}'. Make sure that the type is decorated with the {nameof(ComponentAttribute)}.");
 
             this.conditionalTypes[new ConditionalContract(contractType, condition)] = new Func<Type, IFactoryTypeInfo[], IFactoryTypeInfo>((callingType, types) => factoryTypeInfo);
+            this.conditionalNamed[new ConditionalContractString(contractType.FullName, condition)] = new Func<Type, IFactoryTypeInfo[], IFactoryTypeInfo>((callingType, types) => factoryTypeInfo);
         }
 
         internal IFactoryTypeInfo SelectAmbiguousMatch(Type callingType, Type contractType, IFactoryTypeInfo[] ambigiousTypes)
@@ -141,7 +141,7 @@ namespace Cauldron.Activator
 
         internal IFactoryTypeInfo SelectAmbiguousMatch(Type callingType, string contractName, IFactoryTypeInfo[] ambigiousTypes)
         {
-            var factoryTypeInfo = resolverNamed[contractName];
+            var factoryTypeInfo = conditionalNamed[new ConditionalContractString(contractName, callingType)] ?? resolverNamed[contractName];
 
             if (factoryTypeInfo == null)
                 throw new AmbiguousMatchException(
@@ -178,9 +178,22 @@ namespace Cauldron.Activator
             public override int GetHashCode() => this.contractType.GetHashCode() ^ this.condition.GetHashCode();
         }
 
-        private sealed class FactoryConditionalContractDictionary<TValue> : FastDictionary<ConditionalContract, TValue> where TValue : class
+        private sealed class ConditionalContractString : IEquatable<ConditionalContractString>
         {
-            protected override bool AreEqual(ConditionalContract a, ConditionalContract b) => a.Equals(b);
+            private Type condition;
+            private string contractName;
+
+            public ConditionalContractString(string contractName, Type condition)
+            {
+                this.condition = condition;
+                this.contractName = contractName;
+            }
+
+            public override bool Equals(object obj) => this.Equals(obj as ConditionalContractString);
+
+            public bool Equals(ConditionalContractString other) => object.ReferenceEquals(this.condition, other.condition) && object.Equals(this.contractName, other.contractName);
+
+            public override int GetHashCode() => this.contractName.GetHashCode() ^ this.condition.GetHashCode();
         }
     }
 }
