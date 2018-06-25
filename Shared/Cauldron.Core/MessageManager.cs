@@ -10,7 +10,7 @@ namespace Cauldron.Core
     /// </summary>
     public static class MessageManager
     {
-        private static ConcurrentList<MessageObject> messages = new ConcurrentList<MessageObject>();
+        private static ConcurrentCollection<MessageObject> messages = new ConcurrentCollection<MessageObject>();
 
         /// <summary>
         /// Sends a message to all message subscribers

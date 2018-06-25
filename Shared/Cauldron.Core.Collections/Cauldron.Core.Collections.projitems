@@ -9,12 +9,13 @@
     <Import_RootNamespace>Cauldron.Core.Collections</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)ConcurrentList.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ConcurrentCollection.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)FastDictionaryEntry.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)FastDictionaryEnumerator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)FastKeyedCollection.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)FastDictionary.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)FastObservableCollection.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IEnumerableExtensions.cs" />
   </ItemGroup>
 </Project>

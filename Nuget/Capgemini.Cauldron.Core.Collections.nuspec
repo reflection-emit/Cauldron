@@ -13,6 +13,12 @@
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Collections ConcurrentList List</tags>
     <releaseNotes>
+      2018.06.25 - [C] FastDictionary added.
+      2018.06.25 - [C] FastObservableCollection added.
+      2018.06.25 - [C] ConcurrentList removed and replaced by ConcurrentCollection.
+      2018.06.25 - [C] KeyedCollectionEx removed and replaced by FastKeyedCollection.
+      2018.06.25 - [C] Extension ToKeyedCollection removed and replaced by ToFastKeyedCollection.
+      2018.06.25 - [C] ConcurrentKeyedCollection removed with no replacement, because it is better to use ConcurrentDictionary.
       2018.05.04 - [C] Assemblies for Net45, Net451, Net452, Net46, Net461 and Net462 added
     </releaseNotes>
     <dependencies>
