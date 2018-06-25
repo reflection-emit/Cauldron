@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 
-namespace Cauldron.Core.Collections
+namespace Cauldron.XAML
 {
     /// <summary>
     /// Represents a collection of key and <see cref="RawValue"/>.
     /// </summary>
+    [EditorBrowsable(EditorBrowsableState.Never)]
     public sealed class KeyRawValueDictionary : Dictionary<string, RawValue>
     {
         /// <summary>
@@ -117,7 +119,7 @@ namespace Cauldron.Core.Collections
 
         internal byte[] Raw { get { return this.raw; } }
 
-        /// <exclude/>m
+        /// <exclude/>
         public static implicit operator RawValue(int value) => new RawValue(value.ToBytes());
 
         /// <exclude/>

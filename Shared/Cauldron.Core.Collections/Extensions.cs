@@ -23,14 +23,7 @@ namespace Cauldron
         /// <returns>
         /// A <see cref="KeyedCollection{TKey, TItem}"/> that contains values of <paramref name="source"/>.
         /// </returns>
-        public static KeyedCollection<TKey, TSource> ToKeyedCollection<TKey, TSource>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector)
-        {
-            var collection = new KeyedCollectionEx<TKey, TSource>(keySelector);
-
-            foreach (var item in source)
-                collection.Add(item);
-
-            return collection;
-        }
+        public static FastKeyedCollection<TKey, TSource> ToFastKeyedCollection<TKey, TSource>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector) where TSource : class =>
+            new FastKeyedCollection<TKey, TSource>(source, keySelector);
     }
 }

@@ -1,6 +1,5 @@
 ﻿using Cauldron.Activator;
 using Cauldron.Core;
-using Cauldron.Core.Collections;
 using Cauldron.Core.Reflection;
 using Cauldron.XAML.ViewModels;
 using System;
@@ -18,6 +17,7 @@ namespace Cauldron.XAML.Navigation
 {
     using Cauldron.Core.Diagnostics;
     using Cauldron.Core.Threading;
+    using System.Collections.Concurrent;
 
     /// <summary>
     /// Handles creation of a new <see cref="Window"/> and association of the viewmodel
@@ -28,7 +28,7 @@ namespace Cauldron.XAML.Navigation
         private static readonly object SplashScreenWindowTag = new object();
 
         // The navigator always knows every window that it has created
-        private static ConcurrentList<WindowViewModelObject> windows = new ConcurrentList<WindowViewModelObject>();
+        private static ConcurrentBag<WindowViewModelObject> windows = new ConcurrentBag<WindowViewModelObject>();
 
         private WindowType windowType;
 
@@ -462,7 +462,7 @@ namespace Cauldron.XAML.Navigation
             window.Closing += Window_Closing;
             window.Closed += (s, e) =>
             {
-                windows.Remove(x => x.window == s);
+                windows.TryTake.Remove(x => x.window == s);
 
                 if (callback1 != null)
                     (viewModel as IDialogViewModel<TResult>).IsNotNull(async x => await callback1(x.Result));

@@ -135,6 +135,7 @@
     <Compile Include="IImageManager.cs" />
     <Compile Include="ImageManager.cs" />
     <Compile Include="IMessageDialog.cs" />
+    <Compile Include="KeyRawValueDictionary.cs" />
     <Compile Include="MessageBoxImage.cs" />
     <Compile Include="MessageDialogEx.cs" />
     <Compile Include="Navigation\INavigator_Win32.cs" />
