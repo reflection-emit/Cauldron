@@ -5,6 +5,7 @@ using Mono.Cecil;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 
@@ -12,6 +13,18 @@ namespace Cauldron.Interception.Fody
 {
     public sealed partial class ModuleWeaver : WeaverBase
     {
+        public string GetFullPath(string path)
+        {
+            if (string.IsNullOrEmpty(path))
+                return "";
+
+            return Path.GetFullPath(
+                path
+                .Trim()
+                .Replace("$(SolutionPath)", this.SolutionDirectoryPath)
+                .Replace("$(ProjectDir)", this.ProjectDirectoryPath));
+        }
+
         protected override void OnExecute()
         {
             var versionAttribute = typeof(ModuleWeaver)
@@ -26,6 +39,7 @@ namespace Cauldron.Interception.Fody
             this.ExecuteInterceptionScripts(this.Builder);
             this.AddEntranceAssemblyHACK(this.Builder);
             this.ExecuteModuleAddition(this.Builder);
+            this.SignCauldronAssemblies();
         }
 
         private void AddEntranceAssemblyHACK(Builder builder)
@@ -104,6 +118,36 @@ namespace Cauldron.Interception.Fody
             }
 
             cauldron.CustomAttributes.AddDebuggerDisplayAttribute(cauldron.Assembly.Name.Name);
+        }
+
+        private int ExecuteExternalApplication(string exePath, string[] arguments, string workingDirectory)
+        {
+            var processStartInfo = new ProcessStartInfo
+            {
+                FileName = exePath,
+                Arguments = string.Join(" ", arguments),
+                CreateNoWindow = true,
+                UseShellExecute = false,
+                WindowStyle = ProcessWindowStyle.Hidden,
+                WorkingDirectory = workingDirectory,
+                RedirectStandardOutput = true,
+                RedirectStandardError = true
+            };
+
+            var process = new Process
+            {
+                StartInfo = processStartInfo
+            };
+
+            process.OutputDataReceived += (s, e) => Builder.Current.Log(LogTypes.Info, e.Data);
+            process.ErrorDataReceived += (s, e) => Builder.Current.Log(LogTypes.Info, e.Data);
+
+            process.Start();
+            process.BeginOutputReadLine();
+            process.BeginErrorReadLine();
+            process.WaitForExit();
+
+            return process.ExitCode;
         }
 
         private void ExecuteModuleAddition(Builder builder)
@@ -241,6 +285,50 @@ namespace Cauldron.Interception.Fody
 
             foreach (var item in element.Value.Split(new[] { "\r\n", "\n", ", ", " " }, StringSplitOptions.RemoveEmptyEntries))
                 yield return item;
+        }
+
+        private string GetIlAsmPath()
+        {
+            var frameworkPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Windows), "Microsoft.NET\\Framework");
+            var net4 = Directory.GetDirectories(frameworkPath, "v4*")?.FirstOrDefault();
+
+            if (net4 == null)
+                return null;
+
+            return Path.Combine(net4, "ilasm.exe");
+        }
+
+        private void SignCauldronAssemblies()
+        {
+            var keyPath = this.Config.Attribute("StrongNameKeyFile")?.Value.With(x => GetFullPath(x));
+
+            if (!File.Exists(keyPath))
+                throw new FileNotFoundException("The snk file was not found: " + keyPath);
+
+            this.Builder.Log(LogTypes.Info, $"Signing Cauldron assemblies.");
+
+            var ilasmPath = this.GetIlAsmPath();
+            var path = Path.GetDirectoryName(this.AssemblyFilePath);
+            this.Builder.Log(LogTypes.Info, this.ReferenceCopyLocalPaths);
+
+            foreach (var item in Directory.GetFiles(path, "Cauldron.*.dll"))
+            {
+                this.Builder.Log(LogTypes.Info, $"- {Path.GetFileName(item)}");
+
+                this.ExecuteExternalApplication(ilasmPath, new string[] {
+                    "/all",
+                    "/typelist",
+                    $"/out=\"{item}.il\"",
+                    $"\"{item}\""
+                }, path);
+
+                this.ExecuteExternalApplication(ilasmPath, new string[] {
+                    "/dll",
+                    "/optimize",
+                    $"/key=\"{keyPath}\"",
+                    $"\"{item}.il\""
+                }, path);
+            }
         }
     }
 }

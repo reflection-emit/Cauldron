@@ -96,6 +96,7 @@ namespace Cauldron.Interception.Fody
             Directory.CreateDirectory(tempDirectory);
 
             var additionalReferences = GetReferences(path, tempDirectory);
+
             var arguments = new string[]
             {
                 $"/t:library",
@@ -106,32 +107,7 @@ namespace Cauldron.Interception.Fody
                 $"/r:{string.Join(",", references.Concat(additionalReferences.Item1).Select(x => "\"" + x + "\""))}"
             };
 
-            var processStartInfo = new ProcessStartInfo
-            {
-                FileName = compiler,
-                Arguments = string.Join(" ", arguments),
-                CreateNoWindow = true,
-                UseShellExecute = false,
-                WindowStyle = ProcessWindowStyle.Hidden,
-                WorkingDirectory = tempDirectory,
-                RedirectStandardOutput = true,
-                RedirectStandardError = true
-            };
-
-            var process = new Process
-            {
-                StartInfo = processStartInfo
-            };
-
-            process.OutputDataReceived += (s, e) => Builder.Current.Log(LogTypes.Info, e.Data);
-            process.ErrorDataReceived += (s, e) => Builder.Current.Log(LogTypes.Info, e.Data);
-
-            process.Start();
-            process.BeginOutputReadLine();
-            process.BeginErrorReadLine();
-            process.WaitForExit();
-
-            if (process.ExitCode != 0)
+            if (ExecuteExternalApplication(compiler, arguments, tempDirectory) != 0)
                 throw new Exception($"An error has occured while compiling '{additionalReferences.Item2}'");
 
             return output;
@@ -146,10 +122,7 @@ namespace Cauldron.Interception.Fody
 
             foreach (var item in element.Value.Split(new[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries))
             {
-                var path = item
-                    .Trim()
-                    .Replace("$(SolutionPath)", this.SolutionDirectoryPath)
-                    .Replace("$(ProjectDir)", this.ProjectDirectoryPath);
+                var path = GetFullPath(item);
 
                 if (string.IsNullOrEmpty(path))
                     continue;
