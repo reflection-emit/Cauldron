@@ -40,7 +40,6 @@ namespace Cauldron.Interception.Fody
             this.ExecuteInterceptionScripts(this.Builder);
             this.AddEntranceAssemblyHACK(this.Builder);
             this.ExecuteModuleAddition(this.Builder);
-            this.SignCauldronAssemblies();
         }
 
         private void AddEntranceAssemblyHACK(Builder builder)
