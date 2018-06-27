@@ -120,7 +120,7 @@ namespace Cauldron.Interception.Fody
             if (element == null)
                 yield break;
 
-            foreach (var item in element.Value.Split(new[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries))
+            foreach (var item in element.Value.Split(new[] { "\r\n", "\n", ", ", " " }, StringSplitOptions.RemoveEmptyEntries))
             {
                 var path = GetFullPath(item);
 
