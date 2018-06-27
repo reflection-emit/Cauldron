@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace Cauldron.Interception.Fody
 {
@@ -285,50 +286,6 @@ namespace Cauldron.Interception.Fody
 
             foreach (var item in element.Value.Split(new[] { "\r\n", "\n", ", ", " " }, StringSplitOptions.RemoveEmptyEntries))
                 yield return item;
-        }
-
-        private string GetIlAsmPath()
-        {
-            var frameworkPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Windows), "Microsoft.NET\\Framework");
-            var net4 = Directory.GetDirectories(frameworkPath, "v4*")?.FirstOrDefault();
-
-            if (net4 == null)
-                return null;
-
-            return Path.Combine(net4, "ilasm.exe");
-        }
-
-        private void SignCauldronAssemblies()
-        {
-            var keyPath = this.Config.Attribute("StrongNameKeyFile")?.Value.With(x => GetFullPath(x));
-
-            if (!File.Exists(keyPath))
-                throw new FileNotFoundException("The snk file was not found: " + keyPath);
-
-            this.Builder.Log(LogTypes.Info, $"Signing Cauldron assemblies.");
-
-            var ilasmPath = this.GetIlAsmPath();
-            var path = Path.GetDirectoryName(this.AssemblyFilePath);
-            this.Builder.Log(LogTypes.Info, this.ReferenceCopyLocalPaths);
-
-            foreach (var item in Directory.GetFiles(path, "Cauldron.*.dll"))
-            {
-                this.Builder.Log(LogTypes.Info, $"- {Path.GetFileName(item)}");
-
-                this.ExecuteExternalApplication(ilasmPath, new string[] {
-                    "/all",
-                    "/typelist",
-                    $"/out=\"{item}.il\"",
-                    $"\"{item}\""
-                }, path);
-
-                this.ExecuteExternalApplication(ilasmPath, new string[] {
-                    "/dll",
-                    "/optimize",
-                    $"/key=\"{keyPath}\"",
-                    $"\"{item}.il\""
-                }, path);
-            }
         }
     }
 }
