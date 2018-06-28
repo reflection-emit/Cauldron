@@ -203,6 +203,51 @@ namespace Cauldron.Interception.Cecilator
             }
         }
 
+        public static MethodDefinition BetterResolve(this MethodReference value)
+        {
+            if (value is MethodDefinition methodDefinition)
+                return methodDefinition;
+
+            MethodDefinition resolve()
+            {
+                var declaringType = value.DeclaringType.BetterResolve();
+                foreach (var item in declaringType.Methods)
+                {
+                    if (item.Name != value.Name)
+                        continue;
+
+                    if (item.Parameters.Count != value.Parameters.Count)
+                        continue;
+
+                    var next = false;
+                    for (int i = 0; i < item.Parameters.Count; i++)
+                    {
+                        if (!item.Parameters[i].ParameterType.AreEqual(value.Parameters[i].ParameterType))
+                        {
+                            next = true;
+                            break;
+                        }
+                    }
+
+                    if (next)
+                        continue;
+
+                    return item;
+                }
+
+                return null;
+            }
+
+            try
+            {
+                return value.Resolve() ?? resolve();
+            }
+            catch
+            {
+                return resolve();
+            }
+        }
+
         public static Builder CreateBuilder(this WeaverBase weaver)
         {
             if (weaver == null)

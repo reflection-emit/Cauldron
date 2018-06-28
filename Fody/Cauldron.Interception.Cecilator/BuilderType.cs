@@ -73,7 +73,6 @@ namespace Cauldron.Interception.Cecilator
         }
 
         public BuilderType EnumUnderlyingType => new BuilderType(this.Builder, this.typeDefinition.GetEnumUnderlyingType());
-
         public string Fullname => this.typeReference.FullName;
 
         public bool HasUnresolvedGenericParameters
@@ -89,10 +88,8 @@ namespace Cauldron.Interception.Cecilator
         }
 
         public bool IsAbstract => this.typeDefinition.Attributes.HasFlag(TypeAttributes.Abstract);
-
         public bool IsArray => this.typeDefinition != null && (this.typeDefinition.IsArray || this.typeReference.FullName.EndsWith("[]") || this.typeDefinition.FullName.EndsWith("[]"));
         public bool IsAsyncStateMachine => this.Implements("System.Runtime.CompilerServices.IAsyncStateMachine", false);
-
         public bool IsByReference { get; private set; }
         public bool IsDelegate => this.typeDefinition.IsDelegate();
         public bool IsEnum => this.typeDefinition.IsEnum;
@@ -103,23 +100,15 @@ namespace Cauldron.Interception.Cecilator
         public bool IsGenericParameter => this.typeReference.IsGenericParameter;
         public bool IsGenericType => this.typeDefinition == null || this.typeReference.Resolve() == null;
         public bool IsInterface => this.typeDefinition == null ? false : this.typeDefinition.Attributes.HasFlag(TypeAttributes.Interface);
-
         public bool IsInternal => this.typeDefinition.Attributes.HasFlag(TypeAttributes.NotPublic);
-
         public bool IsNestedPrivate => this.typeDefinition.Attributes.HasFlag(TypeAttributes.NestedPrivate);
-
         public bool IsNullable => this.typeDefinition == BuilderTypes.Nullable1.BuilderType.typeDefinition;
-
         public bool IsPrimitive => this.typeDefinition?.IsPrimitive ?? this.typeReference?.IsPrimitive ?? false;
-
         public bool IsPrivate => !this.IsPublic && this.IsNestedPrivate;
-
         public bool IsPublic => this.typeDefinition.Attributes.HasFlag(TypeAttributes.Public) && !this.IsNestedPrivate;
-
         public bool IsSealed => this.typeDefinition.Attributes.HasFlag(TypeAttributes.Sealed);
-
         public bool IsStatic => this.IsAbstract && this.IsSealed;
-
+        public bool IsUsed => InstructionBucket.IsUsed(this.typeReference);
         public bool IsValueType => this.typeDefinition == null ? this.typeReference == null ? false : this.typeReference.IsValueType : this.typeDefinition.IsValueType;
 
         public bool IsVoid => this.typeDefinition.FullName == "System.Void";

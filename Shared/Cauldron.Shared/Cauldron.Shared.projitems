@@ -3,10 +3,10 @@
   <PropertyGroup>
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
     <HasSharedItems>true</HasSharedItems>
-    <SharedGUID>ec78ad43-4966-4c30-bb5d-80eaa29bf320</SharedGUID>
+    <SharedGUID>b5c061b5-725a-4718-9448-5c1f5013fd15</SharedGUID>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
-    <Import_RootNamespace>Cauldron.Core.Diagnostics</Import_RootNamespace>
+    <Import_RootNamespace>Cauldron.Shared</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Debug.cs" />

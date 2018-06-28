@@ -217,8 +217,6 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Cauldron.Core.Collections",
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Cauldron.Core.Comparing", "Shared\Cauldron.Core.Comparing\Cauldron.Core.Comparing.shproj", "{9868BF2A-C532-47E1-9525-C9BD8E256A4C}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Cauldron.Core.Diagnostics", "Shared\Cauldron.Core.Diagnostics\Cauldron.Core.Diagnostics.shproj", "{EC78AD43-4966-4C30-BB5D-80EAA29BF320}"
-EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Cauldron.Core.Disposable", "Shared\Cauldron.Core.Disposable\Cauldron.Core.Disposable.shproj", "{F830B00D-5B7F-4DA6-A6ED-28AD5755B23F}"
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Cauldron.Core.Extensions", "Shared\Cauldron.Core.Extensions\Cauldron.Core.Extensions.shproj", "{9E5B571C-92F7-431D-A2C8-5E94A1B1744B}"
@@ -374,6 +372,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cauldron.ProjectMinimizedRe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NugetMonkey", "Tools\NugetMonkey\NugetMonkey.csproj", "{D5DE38FD-1EF6-4D80-BBD2-D0AC3E137453}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Cauldron.Shared", "Shared\Cauldron.Shared\Cauldron.Shared.shproj", "{B5C061B5-725A-4718-9448-5C1F5013FD15}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		UnitTests\Shared\CecilatorTestClasses\CecilatorTestClasses.projitems*{0222072e-af2b-400e-a5c2-a448fdd693c3}*SharedItemsImports = 4
@@ -402,7 +402,6 @@ Global
 		UnitTests\Shared\CryptographyTests\CryptographyTests.projitems*{53855bd8-50c7-4566-8c93-d0f5e117527a}*SharedItemsImports = 4
 		Shared\Cauldron.Core.Threading\Cauldron.Core.Threading.projitems*{53fa379e-c047-406e-acdf-88d65fb22646}*SharedItemsImports = 4
 		Shared\Cauldron.Core.Formatters\Cauldron.Core.Formatters.projitems*{6099a1d6-7f15-4d22-8956-51815ee30070}*SharedItemsImports = 13
-		Shared\Cauldron.Core.Diagnostics\Cauldron.Core.Diagnostics.projitems*{637c0bb9-9915-4e38-9be6-4bfa1feca39f}*SharedItemsImports = 4
 		Shared\Cauldron.Core.Disposable\Cauldron.Core.Disposable.projitems*{667bfa3c-10b8-4e75-befd-9256543f0857}*SharedItemsImports = 4
 		UnitTests\Shared\CryptographyTests\CryptographyTests.projitems*{6a4dabdf-533d-4208-9777-8fa116030a79}*SharedItemsImports = 13
 		Shared\Cauldron.Core.Randomizer\Cauldron.Core.Randomizer.projitems*{6bd10ea8-a811-46eb-a8ba-ebb9e8abfc95}*SharedItemsImports = 4
@@ -422,6 +421,7 @@ Global
 		Shared\Cauldron.Core.Randomizer\Cauldron.Core.Randomizer.projitems*{ad85b816-7080-4b07-9ad5-7dd4e9ba1750}*SharedItemsImports = 4
 		Shared\Cauldron.Core.Interceptors\Cauldron.Core.Interceptors.projitems*{b148f2a0-5bb6-4d9a-b9b8-915971b25bfe}*SharedItemsImports = 4
 		Shared\Cauldron.Core\Cauldron.Core.projitems*{b5864929-a6da-473c-9023-df2c67053d22}*SharedItemsImports = 13
+		Shared\Cauldron.Shared\Cauldron.Shared.projitems*{b5c061b5-725a-4718-9448-5c1f5013fd15}*SharedItemsImports = 13
 		Shared\Cauldron.Core.Disposable\Cauldron.Core.Disposable.projitems*{b70640d8-0f69-4165-af81-555fd40fa1a3}*SharedItemsImports = 4
 		UnitTests\Shared\UnitTest_BasicInterceptorTests\UnitTest_BasicInterceptorTests.projitems*{b7271df9-bc50-48ba-b602-be45309a3456}*SharedItemsImports = 13
 		UnitTests\Shared\ExtensionsTests\ExtensionsTests.projitems*{b9380aca-435f-48da-9da6-f6ae232ec3c5}*SharedItemsImports = 4
@@ -438,14 +438,12 @@ Global
 		Shared\Cauldron.Core.Extensions\Cauldron.Core.Extensions.projitems*{d1be1727-87d4-4ca6-a537-7983cf7b2e4a}*SharedItemsImports = 4
 		UnitTests\Shared\CecilatorTestClasses\CecilatorTestClasses.projitems*{d24ed6ba-2465-4636-a8bf-19babf86f68a}*SharedItemsImports = 4
 		UnitTests\Resources\Fody_Interceptors\Fody_Interceptors.projitems*{d35a9e6b-93f6-4bdf-9823-e9b9bec6ab92}*SharedItemsImports = 4
-		Shared\Cauldron.Core.Diagnostics\Cauldron.Core.Diagnostics.projitems*{d55caa79-858d-4daa-998b-88d7d77a411e}*SharedItemsImports = 4
 		UnitTests\Shared\UnitTest_ReflectionTests\UnitTest_ReflectionTests.projitems*{d6fdb523-b4f8-43ba-810e-184820df6a99}*SharedItemsImports = 4
 		Shared\Cauldron.Core.Threading\Cauldron.Core.Threading.projitems*{d72c3274-b06f-45c8-bae7-77106aeb4094}*SharedItemsImports = 13
 		Shared\Cauldron.Core.Net\Cauldron.Core.Net.projitems*{dbc9abb4-746a-4e9f-9ea8-6a52823470c0}*SharedItemsImports = 4
 		Shared\Cauldron.Core.Extensions.Convertions\Cauldron.Core.Extensions.Convertions.projitems*{decff6f1-961c-4d98-95bd-02ea985f1e1a}*SharedItemsImports = 13
 		UnitTests\Shared\ExtensionsTests\ExtensionsTests.projitems*{e0e79fe6-2876-4a80-958a-c26c75305d0a}*SharedItemsImports = 13
 		Shared\Cauldron.Core.Randomizer\Cauldron.Core.Randomizer.projitems*{e4c35616-bb4b-45db-8dee-6c6a5f067ca7}*SharedItemsImports = 13
-		Shared\Cauldron.Core.Diagnostics\Cauldron.Core.Diagnostics.projitems*{ec78ad43-4966-4c30-bb5d-80eaa29bf320}*SharedItemsImports = 13
 		Shared\Cauldron.Core.Yaml\Cauldron.Core.Yaml.projitems*{f4d5e072-feae-4367-9fec-0a44d09f6357}*SharedItemsImports = 13
 		UnitTests\Resources\Fody_Interceptors\Fody_Interceptors.projitems*{f61e1fe7-5df3-491c-a377-f68adae8706c}*SharedItemsImports = 4
 		Shared\Cauldron.Core.Disposable\Cauldron.Core.Disposable.projitems*{f830b00d-5b7f-4da6-a6ed-28ad5755b23f}*SharedItemsImports = 13
@@ -4091,7 +4089,6 @@ Global
 		{B5864929-A6DA-473C-9023-DF2C67053D22} = {0586FBD6-24EF-4D21-963D-90443676AB1F}
 		{53427BA0-3122-4EA3-8042-3A450BFC4FC7} = {0586FBD6-24EF-4D21-963D-90443676AB1F}
 		{9868BF2A-C532-47E1-9525-C9BD8E256A4C} = {0586FBD6-24EF-4D21-963D-90443676AB1F}
-		{EC78AD43-4966-4C30-BB5D-80EAA29BF320} = {0586FBD6-24EF-4D21-963D-90443676AB1F}
 		{F830B00D-5B7F-4DA6-A6ED-28AD5755B23F} = {0586FBD6-24EF-4D21-963D-90443676AB1F}
 		{9E5B571C-92F7-431D-A2C8-5E94A1B1744B} = {0586FBD6-24EF-4D21-963D-90443676AB1F}
 		{4D305C19-10F4-43FA-8655-134F1310D2FE} = {0586FBD6-24EF-4D21-963D-90443676AB1F}
@@ -4166,6 +4163,7 @@ Global
 		{5D44F97A-60BB-42A7-A616-19772CE1FD3C} = {B18F1BA5-210C-472C-9394-213692C268F1}
 		{91E701E2-2DC9-43A1-83B7-DF0A3E8F7B6E} = {A96D9056-C178-4AB9-A5DE-1C7E03A64F80}
 		{D5DE38FD-1EF6-4D80-BBD2-D0AC3E137453} = {880BE5AF-7C18-486D-B64D-CAF7E3E59A68}
+		{B5C061B5-725A-4718-9448-5C1F5013FD15} = {0586FBD6-24EF-4D21-963D-90443676AB1F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D1F2CDF5-23CA-42FF-B139-C74A73C3FA62}

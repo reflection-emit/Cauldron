@@ -118,7 +118,6 @@
       <Version>6.0.8</Version>
     </PackageReference>
   </ItemGroup>
-  <Import Project="..\..\Shared\Cauldron.Core.Diagnostics\Cauldron.Core.Diagnostics.projitems" Label="Shared" />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

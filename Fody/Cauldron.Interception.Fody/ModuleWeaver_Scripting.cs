@@ -68,6 +68,10 @@ namespace Cauldron.Interception.Fody
                     using (new StopwatchLog(this, scriptBinary.Name))
                     {
                         this.Log(LogTypes.Info, ">> Executing custom interceptors in: " + scriptBinary.Name);
+                        var config = scriptBinary.Type.GetProperty("Config", BindingFlags.Static | BindingFlags.Public);
+
+                        if (config != null)
+                            config.SetValue(null, this.Config);
 
                         foreach (var method in scriptBinary.Implement)
                         {

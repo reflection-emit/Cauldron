@@ -127,14 +127,23 @@ namespace Cauldron.Interception.Cecilator
                     this.type.typeDefinition.FullName.IndexOf('>') >= 0;
 
         public bool IsInternal => this.methodDefinition.Attributes.HasFlag(MethodAttributes.Assembly);
+
         public bool IsOverride => this.methodDefinition.IsVirtual && this.methodDefinition.IsHideBySig && !this.methodDefinition.IsStatic;
+
         public bool IsPrivate => this.methodDefinition.IsPrivate;
+
         public bool IsPropertyGetterSetter => (this.methodDefinition.Name.StartsWith("get_") || this.methodDefinition.Name.StartsWith("set_")) && this.methodDefinition.IsSpecialName;
+
         public bool IsProtected => this.methodDefinition.Attributes.HasFlag(MethodAttributes.Family);
+
         public bool IsPublic => this.methodDefinition.IsPublic;
+
         public bool IsPublicOrInternal => this.IsPublic || this.IsInternal;
+
         public bool IsSpecialName => this.methodDefinition.IsSpecialName;
+
         public bool IsStatic => this.methodDefinition.IsStatic;
+
         public bool IsVoid => this.methodDefinition.ReturnType.FullName == "System.Void";
 
         public Modifiers Modifiers
@@ -364,6 +373,8 @@ namespace Cauldron.Interception.Cecilator
         }
 
         public void Overrides(Method method) => this.methodDefinition.Overrides.Add(method.methodReference);
+
+        public void Remove() => this.type.typeDefinition.Methods.Remove(this.methodDefinition);
 
         internal VariableDefinition AddLocalVariable(string name, VariableDefinition variable)
         {
