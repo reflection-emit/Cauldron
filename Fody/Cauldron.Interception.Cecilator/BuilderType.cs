@@ -100,7 +100,26 @@ namespace Cauldron.Interception.Cecilator
         public bool IsGenericParameter => this.typeReference.IsGenericParameter;
         public bool IsGenericType => this.typeDefinition == null || this.typeReference.Resolve() == null;
         public bool IsInterface => this.typeDefinition == null ? false : this.typeDefinition.Attributes.HasFlag(TypeAttributes.Interface);
-        public bool IsInternal => this.typeDefinition.Attributes.HasFlag(TypeAttributes.NotPublic);
+
+        public bool IsInternal
+        {
+            get => this.typeDefinition.Attributes.HasFlag(TypeAttributes.NotPublic);
+            set
+            {
+                if (this.typeDefinition.Attributes.HasFlag(TypeAttributes.Public))
+                {
+                    this.typeDefinition.Attributes = this.typeDefinition.Attributes & ~TypeAttributes.Public;
+                    this.typeDefinition.Attributes |= TypeAttributes.NotPublic;
+                }
+
+                if (this.typeDefinition.Attributes.HasFlag(TypeAttributes.NestedPublic))
+                {
+                    this.typeDefinition.Attributes = this.typeDefinition.Attributes & ~TypeAttributes.NestedPublic;
+                    this.typeDefinition.Attributes |= TypeAttributes.NestedFamily;
+                }
+            }
+        }
+
         public bool IsNestedPrivate => this.typeDefinition.Attributes.HasFlag(TypeAttributes.NestedPrivate);
         public bool IsNullable => this.typeDefinition == BuilderTypes.Nullable1.BuilderType.typeDefinition;
         public bool IsPrimitive => this.typeDefinition?.IsPrimitive ?? this.typeReference?.IsPrimitive ?? false;
@@ -362,7 +381,11 @@ namespace Cauldron.Interception.Cecilator
 
         public BuilderType MakeGeneric(params TypeReference[] typeReference) => new BuilderType(this.Builder, this.typeDefinition.MakeGenericInstanceType(typeReference));
 
-        public void Remove() => this.moduleDefinition.Types.Remove(this.typeDefinition);
+        public void Remove()
+        {
+            InstructionBucket.Reset();
+            this.moduleDefinition.Types.Remove(this.typeDefinition);
+        }
 
         #endregion Actions
 

@@ -163,6 +163,8 @@ namespace Cauldron.Interception.Cecilator
                 this.type.typeDefinition.Methods.Remove(this.propertyDefinition.SetMethod);
 
             this.type.typeDefinition.Properties.Remove(this.propertyDefinition);
+
+            InstructionBucket.Reset();
         }
 
         internal void RefreshBackingField()

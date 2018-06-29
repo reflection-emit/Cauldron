@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using System.Xml;
 
 namespace Cauldron.Interception.Fody
@@ -100,6 +101,10 @@ namespace Cauldron.Interception.Fody
             Directory.CreateDirectory(tempDirectory);
 
             var additionalReferences = GetReferences(path, tempDirectory);
+
+            if (additionalReferences.Item3 && File.Exists(output))
+                return output;
+
             var arguments = new string[]
             {
                 $"/t:library",
@@ -226,7 +231,7 @@ namespace Cauldron.Interception.Fody
             }
         }
 
-        private Tuple<IEnumerable<string>, string> GetReferences(string path, string tempDirectory)
+        private Tuple<IEnumerable<string>, string, bool> GetReferences(string path, string tempDirectory)
         {
             var assemblyDomain = AppDomain.CreateDomain(friendlyName: "spider-man");
 
@@ -247,9 +252,7 @@ namespace Cauldron.Interception.Fody
                     }
                 }
 
-                var output = Path.Combine(tempDirectory, Path.GetFileNameWithoutExtension(path) + ".cs");
-
-                File.WriteAllLines(output, lines.Where(x =>
+                var data = string.Join("\r\n", lines.Where(x =>
                 {
                     if (x == null)
                         return false;
@@ -260,7 +263,25 @@ namespace Cauldron.Interception.Fody
                     return true;
                 }).ToArray());
 
-                return new Tuple<IEnumerable<string>, string>(references, output);
+                var hash = UTF8Encoding.UTF8.GetBytes(data).GetMd5Hash();
+                var output = Path.Combine(tempDirectory, hash + ".cs");
+
+                if (File.Exists(output))
+                    return new Tuple<IEnumerable<string>, string, bool>(references, output, true);
+
+                foreach (var item in Directory.GetFiles(tempDirectory))
+                {
+                    try
+                    {
+                        File.Delete(item);
+                    }
+                    catch
+                    {
+                    }
+                }
+
+                File.WriteAllText(output, data);
+                return new Tuple<IEnumerable<string>, string, bool>(references, output, false);
             }
             finally
             {

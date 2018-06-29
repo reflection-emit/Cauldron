@@ -127,38 +127,7 @@ namespace Cauldron.Interception.Cecilator
 
         public static bool IsUsed(TypeReference typeReference)
         {
-            var definition = typeReference.BetterResolve();
-
-            var ctors = definition.Methods.Where(x => x.Name == ".ctor");
-            var usages = definition.Methods.SelectMany(x => Find(x)).ToArray();
-
-            var fieldUsage = definition.Fields.SelectMany(x => Find(x)).ToArray();
-
             return
-                fieldUsage.Any() ||
-                usages.Any() ||
-                Bucket
-                    .Any(x =>
-                    {
-                        if (typeReference == null)
-                            return false;
-
-                        if (x.instruction.Operand == null)
-                            return false;
-
-                        if (x.method.DeclaringType.AreEqual(typeReference))
-                            return false;
-
-                        var value = x.instruction.Operand as TypeReference;
-
-                        if (value == null)
-                            return false;
-
-                        if (value.AreEqual(typeReference))
-                            return true;
-
-                        return false;
-                    }) ||
                 Types
                     .Any(x =>
                     {
@@ -169,10 +138,7 @@ namespace Cauldron.Interception.Cecilator
                             return true;
 
                         return false;
-                    }) ||
-               ctors
-                .Select(x => Find(x).Any())
-                .Any(x => x);
+                    });
         }
 
         public static void Reset()
@@ -201,20 +167,43 @@ namespace Cauldron.Interception.Cecilator
                 yield return new TypeDeclaringType(typeReference, item.AttributeType);
 
             foreach (var field in typeDefinition.Fields)
+            {
                 foreach (var item in field.CustomAttributes)
                     yield return new TypeDeclaringType(typeReference, item.AttributeType);
 
+                yield return new TypeDeclaringType(typeReference, field.FieldType);
+            }
+
             foreach (var property in typeDefinition.Properties)
+            {
                 foreach (var item in property.CustomAttributes)
                     yield return new TypeDeclaringType(typeReference, item.AttributeType);
 
+                yield return new TypeDeclaringType(typeReference, property.PropertyType);
+            }
+
             foreach (var method in typeDefinition.Methods)
+            {
                 foreach (var item in method.CustomAttributes)
                     yield return new TypeDeclaringType(typeReference, item.AttributeType);
 
+                if (method.ReturnType.FullName != "System.Void")
+                    yield return new TypeDeclaringType(typeReference, method.ReturnType);
+
+                foreach (var item in method.Parameters)
+                    yield return new TypeDeclaringType(typeReference, item.ParameterType);
+
+                foreach (var item in method.GenericParameters)
+                    yield return new TypeDeclaringType(typeReference, item);
+            }
+
             foreach (var @event in typeDefinition.Events)
+            {
                 foreach (var item in @event.CustomAttributes)
                     yield return new TypeDeclaringType(typeReference, item.AttributeType);
+
+                yield return new TypeDeclaringType(typeReference, @event.EventType);
+            }
         }
 
         public sealed class InstructionMethod

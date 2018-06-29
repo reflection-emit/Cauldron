@@ -6,11 +6,12 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
+using Cauldron.Core.Collections;
+using System.Runtime.CompilerServices;
 
 namespace Cauldron.Activator
 {
     using Cauldron.Core.Diagnostics;
-    using System.Runtime.CompilerServices;
 
     /// <summary>
     /// Provides methods for creating and destroying object instances

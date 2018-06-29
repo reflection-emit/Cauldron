@@ -2,6 +2,7 @@
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 
 namespace Cauldron.Interception.Fody
 {
@@ -23,6 +24,12 @@ namespace Cauldron.Interception.Fody
                 endPos = target.Length;
 
             return target.Substring(startPos, endPos - startPos);
+        }
+
+        public static string GetMd5Hash(this byte[] target)
+        {
+            using (var md5 = new MD5CryptoServiceProvider())
+                return BitConverter.ToString(md5.ComputeHash(target)).Replace("-", "");
         }
 
         public static Modifiers GetPrivate(this Modifiers value) => value.HasFlag(Modifiers.Static) ? Modifiers.PrivateStatic : Modifiers.Private;

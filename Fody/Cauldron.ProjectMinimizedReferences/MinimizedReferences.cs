@@ -10,10 +10,17 @@ public static class MinimizedReferences
 {
     public const string Name = "Project minimize references";
     public const int Priority = int.MaxValue;
-    private static string[] minimizeList;
+    private static MinimizeListItem[] minimizeList;
+
+    public enum Target
+    {
+        All,
+        PrivateOnly
+    }
+
     public static XElement Config { get; set; }
 
-    private static string[] MinimizeList
+    private static MinimizeListItem[] MinimizeList
     {
         get
         {
@@ -24,22 +31,64 @@ public static class MinimizedReferences
         }
     }
 
-    public static bool IsFiltered(this BuilderType type) => MinimizeList.Any(x => x == type.Namespace);
+    public static bool IsFiltered(this BuilderType type) =>
+        MinimizeList.Any(x =>
+        {
+            if (x.Namespace != type.Namespace)
+                return false;
+
+            if (x.Target == Target.PrivateOnly && type.IsPublic)
+                return false;
+
+            if (x.Target == Target.All && type.IsPublic)
+                type.IsInternal = true;
+
+            return true;
+        });
 
     [Display("Delete Members without usage")]
     public static void Z_Implement(Builder builder)
     {
-        bool RemoveUnusedMethods()
+        bool deleteUnusedTypes()
         {
-            foreach (var item in builder.GetTypes(SearchContext.Module).Where(x => x.Name != "<Module>" && !x.IsPublic && !x.IsUsed && x.IsFiltered()))
+            var unusedTypes = new List<BuilderType>();
+
+            foreach (var item in builder.GetTypes(SearchContext.Module))
+            {
+                if (string.IsNullOrEmpty(item.Namespace))
+                    continue;
+
+                if (item.IsStatic)
+                    continue;
+
+                if (item.IsUsed)
+                    continue;
+
+                if (!item.IsFiltered())
+                    continue;
+
+                unusedTypes.Add(item);
+            }
+
+            foreach (var item in unusedTypes)
             {
                 builder.Log(LogTypes.Info, $"Deleting Type --> {item}");
                 item.Remove();
             }
 
+            return unusedTypes.Count != 0;
+        }
+
+        bool removeUnusedStuff()
+        {
+            while (deleteUnusedTypes())
+            {
+            }
+
+            // Delete all unused static methods
             var allMethods = builder.GetTypes(SearchContext.Module)
                 .SelectMany(x => x.Methods)
-                .Where(x => !x.OriginType.IsPublic && x.OriginType.IsFiltered() && x.IsStatic && x.Name != ".cctor" && x.Name != "op_Implicit" && x.Name != "op_Explicit")
+                .Where(x => x.OriginType.IsFiltered() && x.IsStatic && x.Name != ".cctor" && x.Name != "op_Implicit" && x.Name != "op_Explicit")
                 .ToArray();
             var usages = allMethods.SelectMany(x => x.FindUsages()).ToArray();
 
@@ -59,28 +108,28 @@ public static class MinimizedReferences
             }
 
             foreach (var item in builder.GetTypes(SearchContext.Module)
-                .Distinct().Where(x => x.Name != "<Module>" && !x.IsPublic && !x.Properties.Any() && !x.Methods.Any() && !x.Fields.Any()).ToArray())
+                .Distinct().Where(x => !x.Properties.Any() && !x.Methods.Any() && !x.Fields.Any() && x.IsFiltered()).ToArray())
             {
                 builder.Log(LogTypes.Info, $"Deleting Empty Type --> {item}");
                 item.Remove();
             }
 
-            //var fields = builder.GetTypes(SearchContext.Module)
-            //    .SelectMany(x => x.Fields)
-            //    .Where(x => !x.OriginType.IsPublic && x.OriginType.IsFiltered())
-            //    .ToArray();
-            //var fieldUsages = fields.SelectMany(x => x.FindUsages()).ToArray();
+            var fields = builder.GetTypes(SearchContext.Module)
+                .SelectMany(x => x.Fields)
+                .Where(x => x.IsPrivate && x.OriginType.IsFiltered())
+                .ToArray();
+            var fieldUsages = fields.SelectMany(x => x.FindUsages()).ToArray();
 
-            //foreach (var item in fields.Except(fieldUsages.Select(x => x.Field)))
-            //{
-            //    builder.Log(LogTypes.Info, $"Deleting Field --> {item}");
-            //    item.Remove();
-            //}
+            foreach (var item in fields.Except(fieldUsages.Select(x => x.Field)))
+            {
+                builder.Log(LogTypes.Info, $"Deleting Field --> {item}");
+                item.Remove();
+            }
 
             return unusedMethods.Any();
         }
 
-        while (RemoveUnusedMethods())
+        while (removeUnusedStuff())
         {
         }
 
@@ -95,7 +144,7 @@ public static class MinimizedReferences
         //        item.Attributes = item.Attributes & ~TypeAttributes.Public | TypeAttributes.NotPublic;
     }
 
-    private static IEnumerable<string> GetMinimizeList()
+    private static IEnumerable<MinimizeListItem> GetMinimizeList()
     {
         var element = Config.Element("Minimize");
 
@@ -107,7 +156,27 @@ public static class MinimizedReferences
             if (string.IsNullOrEmpty(item))
                 continue;
 
-            yield return item;
+            var result = item.Split(',');
+            yield return new MinimizeListItem
+            {
+                Namespace = result[0],
+                Target = result.Length > 1 ? result[1].ToTarget() : Target.PrivateOnly
+            };
         }
+    }
+
+    private static Target ToTarget(this string value)
+    {
+        switch (value.Trim())
+        {
+            case "all": return Target.All;
+            default: return Target.PrivateOnly;
+        }
+    }
+
+    private class MinimizeListItem
+    {
+        public string Namespace { get; set; }
+        public Target Target { get; set; }
     }
 }

@@ -3,6 +3,14 @@
   <Cauldron.Interception ReferenceCopyLocal="true" VerifyAssembly="true">
     <CustomInterceptors>
       $(ProjectDir)..\..\Shared\Cauldron.Activator\Interceptors\*.csx
+      $(ProjectDir)..\..\Fody\Interceptors\Cauldron.ProjectMinimizedReferences.dll
     </CustomInterceptors>
+    <Minimize>
+      Cauldron.Core.Collections, all
+      Cauldron
+      System
+      Cauldron.Core.Diagnostics, all
+      Cauldron.Core
+    </Minimize>
   </Cauldron.Interception>
 </Weavers>

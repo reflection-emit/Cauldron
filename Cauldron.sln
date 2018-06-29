@@ -382,6 +382,11 @@ Global
 		UnitTests\Shared\UnitTest_ActivatorTests\UnitTest_ActivatorTests.projitems*{11f74a68-dabb-4257-aa56-d13583c24bc6}*SharedItemsImports = 13
 		Shared\Cauldron.Core.MathExtensions\Cauldron.Core.MathExtensions.projitems*{13413838-92d4-4211-9454-532661371a51}*SharedItemsImports = 4
 		Shared\Cauldron.Activator\Cauldron.Activator.projitems*{13701490-ecb2-4f70-80c8-32897748ef05}*SharedItemsImports = 4
+		Shared\Cauldron.Core.Collections\Cauldron.Core.Collections.projitems*{13701490-ecb2-4f70-80c8-32897748ef05}*SharedItemsImports = 4
+		Shared\Cauldron.Core.Disposable\Cauldron.Core.Disposable.projitems*{13701490-ecb2-4f70-80c8-32897748ef05}*SharedItemsImports = 4
+		Shared\Cauldron.Core.Extensions\Cauldron.Core.Extensions.projitems*{13701490-ecb2-4f70-80c8-32897748ef05}*SharedItemsImports = 4
+		Shared\Cauldron.Core.Reflection\Cauldron.Core.Reflection.projitems*{13701490-ecb2-4f70-80c8-32897748ef05}*SharedItemsImports = 4
+		Shared\Cauldron.Shared\Cauldron.Shared.projitems*{13701490-ecb2-4f70-80c8-32897748ef05}*SharedItemsImports = 4
 		Shared\Cauldron.Core.Reflection\Cauldron.Core.Reflection.projitems*{18007fdf-64a8-4844-a01d-34f7d1d87e39}*SharedItemsImports = 4
 		UnitTests\Resources\Fody_Interceptors\Fody_Interceptors.projitems*{1cc529ea-669f-498a-89b2-f6ccddea0b62}*SharedItemsImports = 13
 		Shared\Cauldron.Core\Cauldron.Core.projitems*{22b1eda6-f216-4dd3-b524-7421e25f9cc9}*SharedItemsImports = 4
@@ -418,6 +423,10 @@ Global
 		Shared\Cauldron.Core.Extensions\Cauldron.Core.Extensions.projitems*{9d2559da-62d9-4472-8e2f-9c8fe1c2b9cf}*SharedItemsImports = 4
 		Shared\Cauldron.Core.Extensions\Cauldron.Core.Extensions.projitems*{9e5b571c-92f7-431d-a2c8-5e94a1b1744b}*SharedItemsImports = 13
 		Shared\Cauldron.Activator\Cauldron.Activator.projitems*{a0e73415-c2c1-421e-b551-0aeb9181ceac}*SharedItemsImports = 4
+		Shared\Cauldron.Core.Collections\Cauldron.Core.Collections.projitems*{a0e73415-c2c1-421e-b551-0aeb9181ceac}*SharedItemsImports = 4
+		Shared\Cauldron.Core.Disposable\Cauldron.Core.Disposable.projitems*{a0e73415-c2c1-421e-b551-0aeb9181ceac}*SharedItemsImports = 4
+		Shared\Cauldron.Core.Reflection\Cauldron.Core.Reflection.projitems*{a0e73415-c2c1-421e-b551-0aeb9181ceac}*SharedItemsImports = 4
+		Shared\Cauldron.Shared\Cauldron.Shared.projitems*{a0e73415-c2c1-421e-b551-0aeb9181ceac}*SharedItemsImports = 4
 		Shared\Cauldron.Core.Randomizer\Cauldron.Core.Randomizer.projitems*{ad85b816-7080-4b07-9ad5-7dd4e9ba1750}*SharedItemsImports = 4
 		Shared\Cauldron.Core.Interceptors\Cauldron.Core.Interceptors.projitems*{b148f2a0-5bb6-4d9a-b9b8-915971b25bfe}*SharedItemsImports = 4
 		Shared\Cauldron.Core\Cauldron.Core.projitems*{b5864929-a6da-473c-9023-df2c67053d22}*SharedItemsImports = 13

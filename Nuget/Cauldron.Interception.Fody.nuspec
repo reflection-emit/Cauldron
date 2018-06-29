@@ -17,6 +17,7 @@
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Cauldron Interception interceptor interception AOP Fody Cecil CIL ILWeaving aspect decorator boundary invocation</tags>
     <releaseNotes>
+      2018.06.29 - [B] Scripting build bug that caused Cauldron not to rebuild changed scripts, solved
       2018.06.18 - [B] GetParametersArray was broken
       2018.06.03 - [A] Searches csproj.nuget.g.props file for interceptors
       2018.06.03 - [A] Searches project.assets.json file for interceptors

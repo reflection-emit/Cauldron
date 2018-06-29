@@ -16,7 +16,7 @@ namespace Cauldron.Core.Collections
         private volatile int count;
         private ListItem[] data;
         private int lastposition = 0;
-        private object syncRoot;
+        private object syncRoot = new object();
 
         /// <summary>
         /// Initializes a new instance of <see cref="ConcurrentCollection{T}"/>
@@ -197,6 +197,27 @@ namespace Cauldron.Core.Collections
         }
 
         /// <summary>
+        /// Returns an enumerator that iterates through the <see cref="ConcurrentCollection{T}"/>.
+        /// The enumerator will iterate through a copy of the internal list.
+        /// Changes in the collection during the iteration are ignored.
+        /// </summary>
+        /// <returns>A new enumerator for the contents of the <see cref="ConcurrentCollection{T}"/>.</returns>
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            T[] result;
+
+            lock (this.syncRoot)
+            {
+                result = this.data
+                    .Where(x => x.item != null)
+                    .Select(x => x.item)
+                    .ToArray();
+            }
+
+            return new ConcurrentCollectionEnumerator(result);
+        }
+
+        /// <summary>
         /// Removes the first occurrence of a specific object from the <see cref="ConcurrentCollection{T}"/>.
         /// </summary>
         /// <param name="item">The object to remove from the <see cref="ConcurrentCollection{T}"/>.</param>
@@ -242,27 +263,6 @@ namespace Cauldron.Core.Collections
             }
 
             this.OnRemove(result.ToArray());
-        }
-
-        /// <summary>
-        /// Returns an enumerator that iterates through the <see cref="ConcurrentCollection{T}"/>.
-        /// The enumerator will iterate through a copy of the internal list.
-        /// Changes in the collection during the iteration are ignored.
-        /// </summary>
-        /// <returns>A new enumerator for the contents of the <see cref="ConcurrentCollection{T}"/>.</returns>
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            T[] result;
-
-            lock (this.syncRoot)
-            {
-                result = this.data
-                    .Where(x => x.item != null)
-                    .Select(x => x.item)
-                    .ToArray();
-            }
-
-            return new ConcurrentCollectionEnumerator(result);
         }
 
         /// <summary>

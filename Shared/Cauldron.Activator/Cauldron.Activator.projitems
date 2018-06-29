@@ -12,7 +12,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)CloneIgnoreAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ComponentAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ComponentConstructorAttribute.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)FastDictionary.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)GenericComponentAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ExtensionsCloning.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Factory.cs" />

@@ -45,15 +45,36 @@ namespace Cauldron.Interception.Cecilator
 
         public static bool AreEqual(this TypeReference a, TypeReference b)
         {
+            if (a == null && b == null)
+                return true;
+
+            if (a == null || b == null)
+                return false;
+
             if (a.IsGenericParameter && b.IsGenericParameter)
                 return a.FullName == b.FullName;
+            try
+            {
+                if (a is TypeDefinition && b is TypeDefinition)
+                    return AreEqual(a.BetterResolve()?.Module, b.BetterResolve()?.Module) && a.BetterResolve().FullName == b.BetterResolve().FullName;
 
-            return AreEqual(a.Resolve()?.Module, b.Resolve()?.Module) && a.FullName == b.FullName;
+                if (a is TypeDefinition && b is TypeReference)
+                    return AreEqual(a.BetterResolve()?.Module, b.BetterResolve()?.Module) && a.FullName == b.BetterResolve().FullName;
+
+                if (a is TypeReference && b is TypeDefinition)
+                    return AreEqual(a.BetterResolve()?.Module, b.BetterResolve()?.Module) && a.BetterResolve().FullName == b.FullName;
+
+                return AreEqual(a.BetterResolve()?.Module, b.BetterResolve()?.Module) && a.FullName == b.FullName;
+            }
+            catch (Exception e)
+            {
+                throw new Exception($"a: {a?.FullName}, b: {b?.FullName}", e);
+            }
         }
 
         public static bool AreEqual(this TypeReference a, TypeDefinition b) => AreEqual(a, b as TypeReference);
 
-        public static bool AreEqual(this Type a, TypeDefinition b) => AreEqual(a, b.Resolve()?.Module) && a.FullName == b.FullName;
+        public static bool AreEqual(this Type a, TypeDefinition b) => AreEqual(a, b.BetterResolve()?.Module) && a.FullName == b.FullName;
 
         public static bool AreEqual(this Type a, BuilderType b) =>
             a.AreEqual(b.typeReference) ||
@@ -64,7 +85,7 @@ namespace Cauldron.Interception.Cecilator
         public static bool AreEqual(this TypeReference a, BuilderType b) =>
             a.AreEqual(b.typeReference) ||
             a.AreEqual(b.typeDefinition ?? b.typeReference) ||
-            (a.Resolve()?.AreEqual(b.typeDefinition ?? b.typeReference) ?? false);
+            (a.BetterResolve()?.AreEqual(b.typeDefinition ?? b.typeReference) ?? false);
 
         /// <summary>
         /// Checks if <paramref name="toBeAssigned"/> is assignable to <paramref name="type"/>.
@@ -205,37 +226,47 @@ namespace Cauldron.Interception.Cecilator
 
         public static MethodDefinition BetterResolve(this MethodReference value)
         {
+            if (value == null)
+                return null;
+
             if (value is MethodDefinition methodDefinition)
                 return methodDefinition;
 
             MethodDefinition resolve()
             {
-                var declaringType = value.DeclaringType.BetterResolve();
-                foreach (var item in declaringType.Methods)
+                try
                 {
-                    if (item.Name != value.Name)
-                        continue;
-
-                    if (item.Parameters.Count != value.Parameters.Count)
-                        continue;
-
-                    var next = false;
-                    for (int i = 0; i < item.Parameters.Count; i++)
+                    var declaringType = value.DeclaringType.BetterResolve();
+                    foreach (var item in declaringType.Methods)
                     {
-                        if (!item.Parameters[i].ParameterType.AreEqual(value.Parameters[i].ParameterType))
+                        if (item.Name != value.Name)
+                            continue;
+
+                        if (item.Parameters.Count != value.Parameters.Count)
+                            continue;
+
+                        var next = false;
+                        for (int i = 0; i < item.Parameters.Count; i++)
                         {
-                            next = true;
-                            break;
+                            if (!item.Parameters[i].ParameterType.AreEqual(value.Parameters[i].ParameterType))
+                            {
+                                next = true;
+                                break;
+                            }
                         }
+
+                        if (next)
+                            continue;
+
+                        return item;
                     }
 
-                    if (next)
-                        continue;
-
-                    return item;
+                    return null;
                 }
-
-                return null;
+                catch
+                {
+                    return null;
+                }
             }
 
             try

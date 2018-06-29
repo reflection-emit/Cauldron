@@ -8,7 +8,12 @@ namespace Cauldron
     /// <summary>
     /// Provides usefull extension methods
     /// </summary>
+#if PUBLIC
     public static partial class Extensions
+#else
+    internal static partial class ExtensionsInternal
+
+#endif
     {
         /// <summary>
         /// Creates a <see cref="KeyedCollection{TKey, TItem}"/> from an <see cref="IEnumerable{T}"/>

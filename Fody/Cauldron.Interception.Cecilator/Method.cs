@@ -374,7 +374,11 @@ namespace Cauldron.Interception.Cecilator
 
         public void Overrides(Method method) => this.methodDefinition.Overrides.Add(method.methodReference);
 
-        public void Remove() => this.type.typeDefinition.Methods.Remove(this.methodDefinition);
+        public void Remove()
+        {
+            InstructionBucket.Reset();
+            this.type.typeDefinition.Methods.Remove(this.methodDefinition);
+        }
 
         internal VariableDefinition AddLocalVariable(string name, VariableDefinition variable)
         {
