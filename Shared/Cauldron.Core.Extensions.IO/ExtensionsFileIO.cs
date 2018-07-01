@@ -4,6 +4,7 @@ using System;
 
 #if WINDOWS_UWP
 
+using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Storage;
 using Windows.Storage.Streams;
 
@@ -45,7 +46,13 @@ namespace Cauldron
         {
             using (var stream = await file.OpenReadAsync())
             {
+#if WINDOWS_UWP
+                var buffer = new byte[stream.Size];
+                await stream.ReadAsync(buffer.AsBuffer(), (uint)stream.Size, InputStreamOptions.None);
+                return buffer;
+#else
                 return await stream.ToBytesAsync();
+#endif
             }
         }
 

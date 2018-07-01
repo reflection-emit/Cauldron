@@ -37,7 +37,7 @@ public static class MinimizedReferences
             if (x.Namespace != type.Namespace)
                 return false;
 
-            if (x.Target == Target.PrivateOnly && type.IsPublic)
+            if (!type.IsNested && x.Target == Target.PrivateOnly && type.IsPublic)
                 return false;
 
             if (x.Target == Target.All && type.IsPublic)
@@ -55,16 +55,19 @@ public static class MinimizedReferences
 
             foreach (var item in builder.GetTypes(SearchContext.Module))
             {
-                if (string.IsNullOrEmpty(item.Namespace))
+                if (string.IsNullOrEmpty(item.Namespace) && (
+                    item.Fullname == "CauldronInterceptionHelper" ||
+                    item.Fullname == "ProcessedByFody" ||
+                    item.Fullname == "<Module>"))
                     continue;
 
                 if (item.IsStatic)
                     continue;
 
-                if (item.IsUsed)
+                if (!item.IsFiltered())
                     continue;
 
-                if (!item.IsFiltered())
+                if (item.IsUsed)
                     continue;
 
                 unusedTypes.Add(item);
@@ -119,29 +122,20 @@ public static class MinimizedReferences
                 .Where(x => x.IsPrivate && x.OriginType.IsFiltered())
                 .ToArray();
             var fieldUsages = fields.SelectMany(x => x.FindUsages()).ToArray();
+            var unusedFields = fields.Except(fieldUsages.Select(x => x.Field)).ToArray();
 
-            foreach (var item in fields.Except(fieldUsages.Select(x => x.Field)))
+            foreach (var item in unusedFields)
             {
                 builder.Log(LogTypes.Info, $"Deleting Field --> {item}");
                 item.Remove();
             }
 
-            return unusedMethods.Any();
+            return unusedMethods.Any() || unusedFields.Any();
         }
 
         while (removeUnusedStuff())
         {
         }
-
-        //foreach (var item in types.Distinct().Where(x => !x.Properties.Any() && !x.Methods.Any() && !x.Fields.Any()).ToArray())
-        //{
-        //    builder.Log(LogTypes.Info, $"Deleting --> {item}");
-        //    item.Remove();
-        //}
-
-        //foreach (var item in builder.GetTypes(SearchContext.Module).Where(x => x.IsPublic))
-        //    if (GetMinimizeList().Any(x => x == item.Namespace))
-        //        item.Attributes = item.Attributes & ~TypeAttributes.Public | TypeAttributes.NotPublic;
     }
 
     private static IEnumerable<MinimizeListItem> GetMinimizeList()

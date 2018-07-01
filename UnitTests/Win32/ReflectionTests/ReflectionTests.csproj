@@ -54,12 +54,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Win32\Cauldron.Core.Reflection\Cauldron.Core.Reflection.csproj">
-      <Project>{485cd56e-9fc6-4392-8b4f-5aebdddd3d1b}</Project>
-      <Name>Cauldron.Core.Reflection</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="FodyWeavers.xml" />
   </ItemGroup>
   <Import Project="..\..\Shared\UnitTest_ReflectionTests\UnitTest_ReflectionTests.projitems" Label="Shared" />

@@ -54,6 +54,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="..\..\Shared\CryptographyTests\CryptographyTests.projitems" Label="Shared" />
+  <Import Project="..\..\..\Shared\Cauldron.Core.MathExtensions\Cauldron.Core.MathExtensions.projitems" Label="Shared" />
   <ItemGroup>
     <ProjectReference Include="..\..\..\Win32\Cauldron.Cryptography\Cauldron.Cryptography.csproj">
       <Project>{97d924b8-8fb2-4720-84e1-28502c2bae51}</Project>

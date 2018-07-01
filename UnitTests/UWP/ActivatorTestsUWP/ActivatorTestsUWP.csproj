@@ -149,10 +149,6 @@
       <Project>{6bd10ea8-a811-46eb-a8ba-ebb9e8abfc95}</Project>
       <Name>Cauldron.Core.Randomizer</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\UWP\Cauldron.Core.Reflection\Cauldron.Core.Reflection.csproj">
-      <Project>{18007fdf-64a8-4844-a01d-34f7d1d87e39}</Project>
-      <Name>Cauldron.Core.Reflection</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\UWP\Cauldron.Interception\Cauldron.Interception.csproj">
       <Project>{38abf85c-9322-4333-be30-a1b37fa5cc52}</Project>
       <Name>Cauldron.Interception</Name>

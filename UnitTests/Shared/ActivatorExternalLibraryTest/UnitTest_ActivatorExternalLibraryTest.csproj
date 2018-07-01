@@ -10,7 +10,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\NetStandard\Cauldron.Activator\Cauldron.Activator.csproj" />
-    <ProjectReference Include="..\..\..\NetStandard\Cauldron.Core.Reflection\Cauldron.Core.Reflection.csproj" />
   </ItemGroup>
 
 </Project>

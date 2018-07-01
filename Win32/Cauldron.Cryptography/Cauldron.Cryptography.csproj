@@ -99,6 +99,12 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <DocumentationFile>bin\Release\Net462\Cauldron.Cryptography.xml</DocumentationFile>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>..\..\NetStandard\Cauldron.Cryptography\Cryptography.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -113,30 +119,19 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Cauldron.Core.Comparing\Cauldron.Core.Comparing.csproj">
-      <Project>{73fda1f6-2b15-482e-8d56-c2c725f94b58}</Project>
-      <Name>Cauldron.Core.Comparing</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Cauldron.Core.Extensions.Compression\Cauldron.Core.Extensions.Compression.csproj">
-      <Project>{cdb697af-f754-4d2d-ab23-07005218e08d}</Project>
-      <Name>Cauldron.Core.Extensions.Compression</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Cauldron.Core.Extensions.Convertions\Cauldron.Core.Extensions.Convertions.csproj">
-      <Project>{be180ed2-42f6-4341-b33a-25a9d081f706}</Project>
-      <Name>Cauldron.Core.Extensions.Convertions</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Cauldron.Core.Extensions\Cauldron.Core.Extensions.csproj">
       <Project>{d1be1727-87d4-4ca6-a537-7983cf7b2e4a}</Project>
       <Name>Cauldron.Core.Extensions</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Cauldron.Core.MathExtensions\Cauldron.Core.MathExtensions.csproj">
-      <Project>{13413838-92d4-4211-9454-532661371a51}</Project>
-      <Name>Cauldron.Core.MathExtensions</Name>
     </ProjectReference>
     <ProjectReference Include="..\Cauldron.Core.Randomizer\Cauldron.Core.Randomizer.csproj">
       <Project>{ad85b816-7080-4b07-9ad5-7dd4e9ba1750}</Project>
       <Name>Cauldron.Core.Randomizer</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\NetStandard\Cauldron.Cryptography\Cryptography.snk">
+      <Link>Cryptography.snk</Link>
+    </None>
   </ItemGroup>
   <Import Project="..\..\Shared\Cauldron.Cryptography\Cauldron.Cryptography.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

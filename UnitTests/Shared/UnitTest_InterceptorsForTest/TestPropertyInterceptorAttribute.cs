@@ -1,11 +1,12 @@
 ﻿using Cauldron.Interception;
 using System;
 using Cauldron;
-using Cauldron.Core;
 using System.Collections.Generic;
 
 namespace UnitTest_InterceptorsForTest
 {
+    using Cauldron.Core;
+
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Class, AllowMultiple = false, Inherited = false)]
     public class TestPropertyInterceptorAttribute : Attribute, IPropertyGetterInterceptor, IPropertySetterInterceptor
     {

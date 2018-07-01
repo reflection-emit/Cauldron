@@ -105,10 +105,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Cauldron.Core.Diagnostics\Cauldron.Core.Diagnostics.csproj">
-      <Project>{637c0bb9-9915-4e38-9be6-4bfa1feca39f}</Project>
-      <Name>Cauldron.Core.Diagnostics</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Cauldron.Interception\Cauldron.Interception.csproj">
       <Project>{cfc811eb-c500-4d1f-adf1-ecaf4433af2d}</Project>
       <Name>Cauldron.Interception</Name>

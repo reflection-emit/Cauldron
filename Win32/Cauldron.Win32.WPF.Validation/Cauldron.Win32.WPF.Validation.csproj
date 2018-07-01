@@ -137,29 +137,9 @@
       <Project>{0584e5fa-bdf8-42e2-a20e-051dc4bee540}</Project>
       <Name>Cauldron.Core.Collections</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Cauldron.Core.Comparing\Cauldron.Core.Comparing.csproj">
-      <Project>{73fda1f6-2b15-482e-8d56-c2c725f94b58}</Project>
-      <Name>Cauldron.Core.Comparing</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Cauldron.Core.Disposable\Cauldron.Core.Disposable.csproj">
-      <Project>{667bfa3c-10b8-4e75-befd-9256543f0857}</Project>
-      <Name>Cauldron.Core.Disposable</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Cauldron.Core.Extensions.Convertions\Cauldron.Core.Extensions.Convertions.csproj">
-      <Project>{be180ed2-42f6-4341-b33a-25a9d081f706}</Project>
-      <Name>Cauldron.Core.Extensions.Convertions</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Cauldron.Core.Extensions\Cauldron.Core.Extensions.csproj">
       <Project>{d1be1727-87d4-4ca6-a537-7983cf7b2e4a}</Project>
       <Name>Cauldron.Core.Extensions</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Cauldron.Core.Reflection\Cauldron.Core.Reflection.csproj">
-      <Project>{485cd56e-9fc6-4392-8b4f-5aebdddd3d1b}</Project>
-      <Name>Cauldron.Core.Reflection</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Cauldron.Core.Threading\Cauldron.Core.Threading.csproj">
-      <Project>{53fa379e-c047-406e-acdf-88d65fb22646}</Project>
-      <Name>Cauldron.Core.Threading</Name>
     </ProjectReference>
     <ProjectReference Include="..\Cauldron.Cryptography\Cauldron.Cryptography.csproj">
       <Project>{97d924b8-8fb2-4720-84e1-28502c2bae51}</Project>

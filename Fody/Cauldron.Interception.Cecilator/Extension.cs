@@ -87,6 +87,34 @@ namespace Cauldron.Interception.Cecilator
             a.AreEqual(b.typeDefinition ?? b.typeReference) ||
             (a.BetterResolve()?.AreEqual(b.typeDefinition ?? b.typeReference) ?? false);
 
+        public static bool AreEqual(this MethodReference a, MethodReference b)
+        {
+            if (!a.DeclaringType.AreEqual(b.DeclaringType))
+                return false;
+
+            if (a.Name != b.Name)
+                return false;
+
+            if (a.Parameters.Count != b.Parameters.Count)
+                return false;
+
+            if (!a.ReturnType.AreEqual(b.ReturnType))
+                return false;
+
+            if (a.GenericParameters.Count != b.GenericParameters.Count)
+                return false;
+
+            for (int i = 0; i < a.Parameters.Count; i++)
+                if (!a.Parameters[i].ParameterType.AreEqual(b.Parameters[i].ParameterType))
+                    return false;
+
+            for (int i = 0; i < a.GenericParameters.Count; i++)
+                if (!a.GenericParameters[i].AreEqual(b.GenericParameters[i]))
+                    return false;
+
+            return true;
+        }
+
         /// <summary>
         /// Checks if <paramref name="toBeAssigned"/> is assignable to <paramref name="type"/>.
         /// </summary>

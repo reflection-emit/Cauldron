@@ -32,7 +32,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Cauldron.Core.Diagnostics\Cauldron.Core.Diagnostics.csproj" />
     <ProjectReference Include="..\Cauldron.Interception\Cauldron.Interception.csproj" />
   </ItemGroup>
 

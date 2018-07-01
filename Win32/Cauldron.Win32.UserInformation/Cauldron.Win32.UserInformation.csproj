@@ -110,14 +110,6 @@
     <Compile Include="UserInformation.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Cauldron.Core.Comparing\Cauldron.Core.Comparing.csproj">
-      <Project>{73fda1f6-2b15-482e-8d56-c2c725f94b58}</Project>
-      <Name>Cauldron.Core.Comparing</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Cauldron.Core.Extensions.Convertions\Cauldron.Core.Extensions.Convertions.csproj">
-      <Project>{be180ed2-42f6-4341-b33a-25a9d081f706}</Project>
-      <Name>Cauldron.Core.Extensions.Convertions</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Cauldron.Core.Extensions\Cauldron.Core.Extensions.csproj">
       <Project>{d1be1727-87d4-4ca6-a537-7983cf7b2e4a}</Project>
       <Name>Cauldron.Core.Extensions</Name>

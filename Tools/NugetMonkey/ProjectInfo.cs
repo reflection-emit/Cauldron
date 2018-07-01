@@ -146,6 +146,10 @@ namespace NugetMonkey
                 var assemblyInfoBody = File.ReadAllText(assemblyInfo);
 
                 var assemblyVersion = Regex.Match(assemblyInfoBody, @"\[assembly: AssemblyVersion\(""(.*?)""\)\]").Groups[1].Value;
+
+                if (assemblyVersion.IndexOf('*') >= 0)
+                    return new Version(1, 0, 0, 0);
+
                 return assemblyVersion == null ? new Version(1, 0, 0, 0) : new Version(assemblyVersion);
             }
         }

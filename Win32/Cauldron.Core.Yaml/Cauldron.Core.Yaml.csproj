@@ -104,16 +104,6 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Cauldron.Core.Extensions.Convertions\Cauldron.Core.Extensions.Convertions.csproj">
-      <Project>{be180ed2-42f6-4341-b33a-25a9d081f706}</Project>
-      <Name>Cauldron.Core.Extensions.Convertions</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Cauldron.Core.Reflection\Cauldron.Core.Reflection.csproj">
-      <Project>{485cd56e-9fc6-4392-8b4f-5aebdddd3d1b}</Project>
-      <Name>Cauldron.Core.Reflection</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="..\..\Shared\Cauldron.Core.Yaml\Cauldron.Core.Yaml.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

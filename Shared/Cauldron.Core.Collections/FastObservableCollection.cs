@@ -13,7 +13,16 @@ namespace Cauldron.Core.Collections
     /// Represents a dynamic data collection that provides notifications when items get added, removed, or when the whole list is refreshed.
     /// </summary>
     /// <typeparam name="T">The type of elements in the collection.</typeparam>
+#if !NETFX_CORE
+
     [Serializable]
+#else
+
+    using System.Runtime.Serialization;
+
+    [DataContract]
+#endif
+
     public class FastObservableCollection<T> : Collection<T>, INotifyCollectionChanged, INotifyPropertyChanged, IEquatable<ObservableCollection<T>>, IEquatable<FastObservableCollection<T>>
     {
         private const string IndexerName = "Item[]";
@@ -48,13 +57,19 @@ namespace Cauldron.Core.Collections
         /// <summary>
         /// Occurs when the collection changes, either by adding or removing an item.
         /// </summary>
+#if !NETFX_CORE
+
         [field: NonSerialized]
+#endif
         public event NotifyCollectionChangedEventHandler CollectionChanged;
 
         /// <summary>
         /// PropertyChanged event (per <see cref="INotifyPropertyChanged" />).
         /// </summary>
+#if !NETFX_CORE
+
         [field: NonSerialized]
+#endif
         public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>

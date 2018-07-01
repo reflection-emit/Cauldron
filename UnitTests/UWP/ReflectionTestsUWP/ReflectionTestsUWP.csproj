@@ -140,12 +140,6 @@
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\UWP\Cauldron.Core.Reflection\Cauldron.Core.Reflection.csproj">
-      <Project>{18007fdf-64a8-4844-a01d-34f7d1d87e39}</Project>
-      <Name>Cauldron.Core.Reflection</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="..\..\Shared\UnitTest_ReflectionTests\UnitTest_ReflectionTests.projitems" Label="Shared" />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

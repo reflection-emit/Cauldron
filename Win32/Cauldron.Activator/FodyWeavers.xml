@@ -8,7 +8,6 @@
     <Minimize>
       Cauldron.Core.Collections, all
       Cauldron
-      System
       Cauldron.Core.Diagnostics, all
       Cauldron.Core
     </Minimize>

@@ -35,6 +35,8 @@ namespace Cauldron.Interception.Cecilator
 
         public BuilderCustomAttributeCollection CustomAttributes => new BuilderCustomAttributeCollection(this.Builder, this.typeDefinition);
 
+        public BuilderType DeclaringType => this.typeReference.DeclaringType.ToBuilderType();
+
         public object DefaultValue
         {
             get
@@ -120,21 +122,53 @@ namespace Cauldron.Interception.Cecilator
             }
         }
 
+        public bool IsNested =>
+            this.typeDefinition.Attributes.HasFlag(TypeAttributes.NestedFamily) ||
+            this.typeDefinition.Attributes.HasFlag(TypeAttributes.NestedAssembly) ||
+            this.typeDefinition.Attributes.HasFlag(TypeAttributes.NestedPrivate) ||
+            this.typeDefinition.Attributes.HasFlag(TypeAttributes.NestedPublic);
+
+        public bool IsNestedFamily => this.typeDefinition.Attributes.HasFlag(TypeAttributes.NestedFamily);
         public bool IsNestedPrivate => this.typeDefinition.Attributes.HasFlag(TypeAttributes.NestedPrivate);
-        public bool IsNullable => this.typeDefinition == BuilderTypes.Nullable1.BuilderType.typeDefinition;
+        public bool IsNestedPublic => this.typeDefinition.Attributes.HasFlag(TypeAttributes.NestedPublic);
+        public bool IsNullable => this.typeDefinition.AreEqual(BuilderTypes.Nullable1.BuilderType.typeDefinition);
+
         public bool IsPrimitive => this.typeDefinition?.IsPrimitive ?? this.typeReference?.IsPrimitive ?? false;
+
         public bool IsPrivate => !this.IsPublic && this.IsNestedPrivate;
+
         public bool IsPublic => this.typeDefinition.Attributes.HasFlag(TypeAttributes.Public) && !this.IsNestedPrivate;
+
         public bool IsSealed => this.typeDefinition.Attributes.HasFlag(TypeAttributes.Sealed);
+
         public bool IsStatic => this.IsAbstract && this.IsSealed;
+
         public bool IsUsed => InstructionBucket.IsUsed(this.typeReference);
+
         public bool IsValueType => this.typeDefinition == null ? this.typeReference == null ? false : this.typeReference.IsValueType : this.typeDefinition.IsValueType;
 
         public bool IsVoid => this.typeDefinition.FullName == "System.Void";
 
         public string Name => this.typeDefinition == null ? this.typeReference.Name : this.typeDefinition.Name;
 
-        public string Namespace => this.typeDefinition.Namespace;
+        public string Namespace
+        {
+            get
+            {
+                if (this.typeDefinition.IsNested)
+                {
+                    var parent = this.typeDefinition.DeclaringType;
+                    while (parent != null && string.IsNullOrEmpty(parent.Namespace))
+                    {
+                        parent = parent.DeclaringType;
+                    }
+
+                    return parent?.Namespace;
+                }
+
+                return this.typeDefinition.Namespace;
+            }
+        }
 
         /// <summary>
         /// Writes the names of the methods in the current type to the build output.
@@ -384,7 +418,11 @@ namespace Cauldron.Interception.Cecilator
         public void Remove()
         {
             InstructionBucket.Reset();
-            this.moduleDefinition.Types.Remove(this.typeDefinition);
+
+            if (this.typeDefinition.IsNested)
+                this.typeDefinition.DeclaringType.NestedTypes.Remove(this.typeDefinition);
+            else
+                this.moduleDefinition.Types.Remove(this.typeDefinition);
         }
 
         #endregion Actions

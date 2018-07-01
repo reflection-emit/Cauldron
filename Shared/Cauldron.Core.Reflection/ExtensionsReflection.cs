@@ -335,10 +335,10 @@ namespace Cauldron
                 return type.GetMethod(methodName, parameterTypes, bindingFlags);
 
             return type
-            .GetInterfaces()
-            .Concat(new Type[] { type })
-            .Select(x => x.GetMethod(methodName, parameterTypes, bindingFlags | BindingFlags.FlattenHierarchy | BindingFlags.DeclaredOnly))
-            .FirstOrDefault(x => x != null);
+                .GetInterfaces()
+                .Concat(new Type[] { type })
+                .Select(x => x.GetMethod(methodName, parameterTypes, bindingFlags | BindingFlags.FlattenHierarchy | BindingFlags.DeclaredOnly))
+                .FirstOrDefault(x => x != null);
         }
 
         /// <summary>
