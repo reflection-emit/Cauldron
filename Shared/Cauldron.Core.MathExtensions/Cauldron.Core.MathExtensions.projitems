@@ -9,6 +9,7 @@
     <Import_RootNamespace>Cauldron.Core.MathExtensions</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)MathEx_With_Reflection.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MathEx.cs" />
   </ItemGroup>
 </Project>

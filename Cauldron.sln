@@ -313,6 +313,8 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Cauldron.Shared", "Shared\C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cauldron.Core.Collections", "UWP\Cauldron.Core.Collections\Cauldron.Core.Collections.csproj", "{2AEA8329-A246-496E-BCE2-265E839391D6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cauldron.Cryptography", "UWP\Cauldron.Cryptography\Cauldron.Cryptography.csproj", "{8F2BAAEE-E82B-4E86-A92A-32139436ECDC}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		UnitTests\Shared\CecilatorTestClasses\CecilatorTestClasses.projitems*{0222072e-af2b-400e-a5c2-a448fdd693c3}*SharedItemsImports = 4
@@ -350,6 +352,12 @@ Global
 		Shared\Cauldron.Interception\Cauldron.Interception.projitems*{7cdfc895-265f-4cf1-8018-c24e1127225d}*SharedItemsImports = 13
 		UnitTests\Fody_Assembly_Validation_Tests\Fody_Assembly_Validation_Tests.projitems*{7dd102a9-1c3c-4c31-bb0f-77cead417cdd}*SharedItemsImports = 4
 		UnitTests\Shared\ExtensionsTests\ExtensionsTests.projitems*{8c5f7679-ed42-44a5-94e8-1a09af61e6b1}*SharedItemsImports = 4
+		Shared\Cauldron.Core.MathExtensions\Cauldron.Core.MathExtensions.projitems*{8f2baaee-e82b-4e86-a92a-32139436ecdc}*SharedItemsImports = 4
+		Shared\Cauldron.Core.Randomizer\Cauldron.Core.Randomizer.projitems*{8f2baaee-e82b-4e86-a92a-32139436ecdc}*SharedItemsImports = 4
+		Shared\Cauldron.Cryptography\Cauldron.Cryptography.projitems*{8f2baaee-e82b-4e86-a92a-32139436ecdc}*SharedItemsImports = 4
+		Shared\Cauldron.Shared\Cauldron.Shared.projitems*{8f2baaee-e82b-4e86-a92a-32139436ecdc}*SharedItemsImports = 4
+		Shared\Cauldron.Core.MathExtensions\Cauldron.Core.MathExtensions.projitems*{97d924b8-8fb2-4720-84e1-28502c2bae51}*SharedItemsImports = 4
+		Shared\Cauldron.Core.Randomizer\Cauldron.Core.Randomizer.projitems*{97d924b8-8fb2-4720-84e1-28502c2bae51}*SharedItemsImports = 4
 		Shared\Cauldron.Cryptography\Cauldron.Cryptography.projitems*{97d924b8-8fb2-4720-84e1-28502c2bae51}*SharedItemsImports = 4
 		Shared\Cauldron.Core.Comparing\Cauldron.Core.Comparing.projitems*{9868bf2a-c532-47e1-9525-c9bd8e256a4c}*SharedItemsImports = 13
 		UnitTests\Shared\UnitTest_ReflectionTests\UnitTest_ReflectionTests.projitems*{9cadd080-bd8e-4b26-99ee-967edbbcb14a}*SharedItemsImports = 13
@@ -3159,6 +3167,38 @@ Global
 		{2AEA8329-A246-496E-BCE2-265E839391D6}.Release-Net451|x64.Build.0 = Release|x64
 		{2AEA8329-A246-496E-BCE2-265E839391D6}.Release-Net451|x86.ActiveCfg = Release|x86
 		{2AEA8329-A246-496E-BCE2-265E839391D6}.Release-Net451|x86.Build.0 = Release|x86
+		{8F2BAAEE-E82B-4E86-A92A-32139436ECDC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F2BAAEE-E82B-4E86-A92A-32139436ECDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F2BAAEE-E82B-4E86-A92A-32139436ECDC}.Debug|ARM.ActiveCfg = Debug|ARM
+		{8F2BAAEE-E82B-4E86-A92A-32139436ECDC}.Debug|ARM.Build.0 = Debug|ARM
+		{8F2BAAEE-E82B-4E86-A92A-32139436ECDC}.Debug|x64.ActiveCfg = Debug|x64
+		{8F2BAAEE-E82B-4E86-A92A-32139436ECDC}.Debug|x64.Build.0 = Debug|x64
+		{8F2BAAEE-E82B-4E86-A92A-32139436ECDC}.Debug|x86.ActiveCfg = Debug|x86
+		{8F2BAAEE-E82B-4E86-A92A-32139436ECDC}.Debug|x86.Build.0 = Debug|x86
+		{8F2BAAEE-E82B-4E86-A92A-32139436ECDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F2BAAEE-E82B-4E86-A92A-32139436ECDC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F2BAAEE-E82B-4E86-A92A-32139436ECDC}.Release|ARM.ActiveCfg = Release|ARM
+		{8F2BAAEE-E82B-4E86-A92A-32139436ECDC}.Release|ARM.Build.0 = Release|ARM
+		{8F2BAAEE-E82B-4E86-A92A-32139436ECDC}.Release|x64.ActiveCfg = Release|x64
+		{8F2BAAEE-E82B-4E86-A92A-32139436ECDC}.Release|x64.Build.0 = Release|x64
+		{8F2BAAEE-E82B-4E86-A92A-32139436ECDC}.Release|x86.ActiveCfg = Release|x86
+		{8F2BAAEE-E82B-4E86-A92A-32139436ECDC}.Release|x86.Build.0 = Release|x86
+		{8F2BAAEE-E82B-4E86-A92A-32139436ECDC}.Release-Net45|Any CPU.ActiveCfg = Release|Any CPU
+		{8F2BAAEE-E82B-4E86-A92A-32139436ECDC}.Release-Net45|Any CPU.Build.0 = Release|Any CPU
+		{8F2BAAEE-E82B-4E86-A92A-32139436ECDC}.Release-Net45|ARM.ActiveCfg = Release|ARM
+		{8F2BAAEE-E82B-4E86-A92A-32139436ECDC}.Release-Net45|ARM.Build.0 = Release|ARM
+		{8F2BAAEE-E82B-4E86-A92A-32139436ECDC}.Release-Net45|x64.ActiveCfg = Release|x64
+		{8F2BAAEE-E82B-4E86-A92A-32139436ECDC}.Release-Net45|x64.Build.0 = Release|x64
+		{8F2BAAEE-E82B-4E86-A92A-32139436ECDC}.Release-Net45|x86.ActiveCfg = Release|x86
+		{8F2BAAEE-E82B-4E86-A92A-32139436ECDC}.Release-Net45|x86.Build.0 = Release|x86
+		{8F2BAAEE-E82B-4E86-A92A-32139436ECDC}.Release-Net451|Any CPU.ActiveCfg = Release|Any CPU
+		{8F2BAAEE-E82B-4E86-A92A-32139436ECDC}.Release-Net451|Any CPU.Build.0 = Release|Any CPU
+		{8F2BAAEE-E82B-4E86-A92A-32139436ECDC}.Release-Net451|ARM.ActiveCfg = Release|ARM
+		{8F2BAAEE-E82B-4E86-A92A-32139436ECDC}.Release-Net451|ARM.Build.0 = Release|ARM
+		{8F2BAAEE-E82B-4E86-A92A-32139436ECDC}.Release-Net451|x64.ActiveCfg = Release|x64
+		{8F2BAAEE-E82B-4E86-A92A-32139436ECDC}.Release-Net451|x64.Build.0 = Release|x64
+		{8F2BAAEE-E82B-4E86-A92A-32139436ECDC}.Release-Net451|x86.ActiveCfg = Release|x86
+		{8F2BAAEE-E82B-4E86-A92A-32139436ECDC}.Release-Net451|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -3288,6 +3328,7 @@ Global
 		{D5DE38FD-1EF6-4D80-BBD2-D0AC3E137453} = {880BE5AF-7C18-486D-B64D-CAF7E3E59A68}
 		{B5C061B5-725A-4718-9448-5C1F5013FD15} = {0586FBD6-24EF-4D21-963D-90443676AB1F}
 		{2AEA8329-A246-496E-BCE2-265E839391D6} = {819B7C72-B9E8-4FA9-865A-8EA6C728AC92}
+		{8F2BAAEE-E82B-4E86-A92A-32139436ECDC} = {819B7C72-B9E8-4FA9-865A-8EA6C728AC92}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D1F2CDF5-23CA-42FF-B139-C74A73C3FA62}

@@ -1,5 +1,4 @@
 ﻿using Cauldron.Core;
-using Cauldron.Core.Extensions;
 using System;
 using System.Runtime.InteropServices;
 using System.Security;
@@ -81,26 +80,17 @@ namespace Cauldron.Cryptography
         /// <summary>
         /// Gets the initialization vector for the symmethric algorithm
         /// </summary>
-        public byte[] InitializationVector
-        {
-            get { return this.initialisationVector.UnzipAsBytes(); }
-        }
+        public byte[] InitializationVector => this.initialisationVector.UnzipAsBytes();
 
         /// <summary>
         /// Gets the secret key for the symmethric algorithm
         /// </summary>
-        public byte[] Key
-        {
-            get { return this.key.UnzipAsBytes(); }
-        }
+        public byte[] Key => this.key.UnzipAsBytes();
 
         /// <summary>
         /// Gets the salt for the symmethric algorithm
         /// </summary>
-        public byte[] Salt
-        {
-            get { return this.salt.UnzipAsBytes(); }
-        }
+        public byte[] Salt => this.salt.UnzipAsBytes();
 
         /// <summary>
         /// Creates a key material for the symmethric algorithm

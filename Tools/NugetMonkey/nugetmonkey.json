@@ -6,6 +6,18 @@
         {
           "path": "..\\Fody\\Cauldron.Interception.Fody\\Cauldron.Interception.Fody.csproj",
           "build-config": [ "Release" ]
+        },
+        {
+          "path": "..\\Fody\\Cauldron.ProjectMinimizedReferences\\Cauldron.ProjectMinimizedReferences.csproj",
+          "build-config": [ "Release" ]
+        },
+        {
+          "path": "..\\Fody\\Cauldron.ActivatorInterceptors\\Cauldron.ActivatorInterceptors.csproj",
+          "build-config": [ "Release" ]
+        },
+        {
+          "path": "..\\Fody\\Cauldron.BasicInterceptors\\Cauldron.BasicInterceptors.csproj",
+          "build-config": [ "Release" ]
         }
       ],
       "priority": 0
@@ -25,10 +37,6 @@
           "path": "..\\Win32\\Cauldron.Activator\\Cauldron.Activator.csproj",
           "build-config": [ "Release-Net45", "Release-Net451", "Release-Net452", "Release-Net46", "Release-Net461", "Release-Net462" ]
         },
-        {
-          "path": "..\\Fody\\Cauldron.ActivatorInterceptors\\Cauldron.ActivatorInterceptors.csproj",
-          "build-config": [ "Release" ]
-        }
       ],
       "priority": 2
     },
@@ -47,10 +55,6 @@
           "path": "..\\Win32\\Cauldron.Interception\\Cauldron.Interception.csproj",
           "build-config": [ "Release-Net45", "Release-Net451", "Release-Net452", "Release-Net46", "Release-Net461", "Release-Net462" ]
         },
-        {
-          "path": "..\\Fody\\Cauldron.BasicInterceptors\\Cauldron.BasicInterceptors.csproj",
-          "build-config": [ "Release" ]
-        }
       ],
       "priority": 2
     },
@@ -103,6 +107,24 @@
         },
         {
           "path": "..\\Win32\\Cauldron.Core.Randomizer\\Cauldron.Core.Randomizer.csproj",
+          "build-config": [ "Release-Net45", "Release-Net451", "Release-Net452", "Release-Net46", "Release-Net461", "Release-Net462" ]
+        }
+      ],
+      "priority": 100
+    },
+    {
+      "id": "Capgemini.Cauldron.Cryptography",
+      "projects": [
+        {
+          "path": "..\\UWP\\Cauldron.Cryptography\\Cauldron.Cryptography.csproj",
+          "build-config": [ "Release" ]
+        },
+        {
+          "path": "..\\NetStandard\\Cauldron.Cryptography\\Cauldron.Cryptography.csproj",
+          "build-config": [ "Release" ]
+        },
+        {
+          "path": "..\\Win32\\Cauldron.Cryptography\\Cauldron.Cryptography.csproj",
           "build-config": [ "Release-Net45", "Release-Net451", "Release-Net452", "Release-Net46", "Release-Net461", "Release-Net462" ]
         }
       ],

@@ -1,5 +1,4 @@
-﻿using Cauldron.Core.Extensions;
-using System;
+﻿using System;
 using System.IO;
 using System.Security;
 using System.Text;

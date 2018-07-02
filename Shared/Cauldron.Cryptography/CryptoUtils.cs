@@ -87,7 +87,7 @@ namespace Cauldron.Cryptography
                 string.Equals(password, "p455w0rd", StringComparison.CurrentCultureIgnoreCase))
                 score = 1;
 
-            if (password.Distinct(new DynamicEqualityComparer<char>((a, b) => a == b)).Count() == 1)
+            if (password.Distinct().Count() == 1)
                 score = score - 2;
 
             return (PasswordScore)MathEx.Clamp(score, 1, 5);

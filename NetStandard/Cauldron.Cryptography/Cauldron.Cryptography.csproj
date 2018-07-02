@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageId>Capgemini.Cauldron.Cryptography</PackageId>
-    <Version>3.0.22</Version>
+    <Version>3.0.0.21</Version>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <Description>Contains typical implementations for AES, RSA and RSA-AES encryptions. It also contains extensions that helps working with SecureString.</Description>
@@ -14,8 +14,8 @@
     <PackageProjectUrl>https://github.com/Capgemini/Cauldron</PackageProjectUrl>
     <PackageIconUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/cauldron.png</PackageIconUrl>
     <PackageTags>Toolkit Capgemini Cauldron Cryptography AES RSA SecureString</PackageTags>
-    <AssemblyVersion>3.0.0.22</AssemblyVersion>
-    <FileVersion>3.0.0.22</FileVersion>
+    <AssemblyVersion>3.0.0.21</AssemblyVersion>
+    <FileVersion>3.0.0.21</FileVersion>
     <Configurations>Debug;Release;Release.Net45;Release.451</Configurations>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>Cryptography.snk</AssemblyOriginatorKeyFile>
@@ -35,12 +35,21 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Cauldron.Core.Extensions\Cauldron.Core.Extensions.csproj" />
-    <ProjectReference Include="..\Cauldron.Core.Randomizer\Cauldron.Core.Randomizer.csproj" />
-  </ItemGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release.Net45|AnyCPU'">
+    <DocumentationFile>bin\Release.Net45\netstandard2.0\Cauldron.Cryptography.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release.451|AnyCPU'">
+    <DocumentationFile>bin\Release.451\netstandard2.0\Cauldron.Cryptography.xml</DocumentationFile>
+  </PropertyGroup>
 
   <Import Project="..\..\Shared\Cauldron.Cryptography\Cauldron.Cryptography.projitems" Label="Shared" />
 
   <Import Project="..\..\Shared\Cauldron.Core.MathExtensions\Cauldron.Core.MathExtensions.projitems" Label="Shared" />
+
+  <Import Project="..\..\Shared\Cauldron.Core.Randomizer\Cauldron.Core.Randomizer.projitems" Label="Shared" />
+
+  <ItemGroup>
+    <PackageReference Include="Fody" Version="3.1.3" />
+  </ItemGroup>
 </Project>

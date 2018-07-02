@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Cauldron.Core
+namespace Cauldron.Cryptography
 {
     /// <summary>
     /// Represents a base class implementation of <see cref="IDisposable"/>

@@ -56,7 +56,12 @@
         </member>
         <member name="P:Fody.BaseModuleWeaver.ModuleDefinition">
             <summary>
-            An instance of <see cref="P:Fody.BaseModuleWeaver.ModuleDefinition"/> for processing.
+            An instance of <see cref="T:Mono.Cecil.ModuleDefinition"/> for processing.
+            </summary>
+        </member>
+        <member name="P:Fody.BaseModuleWeaver.TypeSystem">
+            <summary>
+            Commonly used <see cref="T:Mono.Cecil.TypeReference"/>s.
             </summary>
         </member>
         <member name="P:Fody.BaseModuleWeaver.AssemblyFilePath">
@@ -174,6 +179,11 @@
         <member name="T:Fody.WeaverTestHelper">
             <summary>
             Uses <see cref="P:System.Reflection.Assembly.CodeBase"/> to derive the current directory.
+            </summary>
+        </member>
+        <member name="T:Fody.TypeSystem">
+            <summary>
+            Replacement for <see cref="P:Mono.Cecil.ModuleDefinition.TypeSystem"/>.
             </summary>
         </member>
     </members>
