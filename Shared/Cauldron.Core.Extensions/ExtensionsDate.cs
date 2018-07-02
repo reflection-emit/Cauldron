@@ -1,11 +1,18 @@
-﻿using System;
+﻿using Cauldron.Core;
+using System;
 
-namespace Cauldron.Core.Extensions
+namespace Cauldron
 {
     /// <summary>
     /// Provides usefull extension methods
     /// </summary>
-    public static class ExtensionsDate
+#if PUBLIC
+
+    public static partial class ExtensionsDate
+#else
+    internal static partial class ExtensionsDate
+
+#endif
     {
         /// <summary>
         /// Returns the maximum of the week of the given year

@@ -2,12 +2,18 @@
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Cauldron.Core.Extensions
+namespace Cauldron
 {
     /// <summary>
     /// Provides usefull extension methods
     /// </summary>
-    public static class ExtensionAsync
+#if PUBLIC
+
+    public static partial class ExtensionAsync
+#else
+    internal static partial class ExtensionAsync
+
+#endif
     {
         private static readonly TaskFactory _myTaskFactory = new
           TaskFactory(CancellationToken.None,
