@@ -367,6 +367,7 @@ Global
 		Shared\Cauldron.Core.Extensions.IO\Cauldron.Core.Extensions.IO.projitems*{9d2559da-62d9-4472-8e2f-9c8fe1c2b9cf}*SharedItemsImports = 4
 		Shared\Cauldron.Core.Extensions\Cauldron.Core.Extensions.projitems*{9d2559da-62d9-4472-8e2f-9c8fe1c2b9cf}*SharedItemsImports = 4
 		Shared\Cauldron.Core.Formatters\Cauldron.Core.Formatters.projitems*{9d2559da-62d9-4472-8e2f-9c8fe1c2b9cf}*SharedItemsImports = 4
+		Shared\Cauldron.Shared\Cauldron.Shared.projitems*{9d2559da-62d9-4472-8e2f-9c8fe1c2b9cf}*SharedItemsImports = 4
 		Shared\Cauldron.Core.Extensions\Cauldron.Core.Extensions.projitems*{9e5b571c-92f7-431d-a2c8-5e94a1b1744b}*SharedItemsImports = 13
 		Shared\Cauldron.Activator\Cauldron.Activator.projitems*{a0e73415-c2c1-421e-b551-0aeb9181ceac}*SharedItemsImports = 4
 		Shared\Cauldron.Core.Collections\Cauldron.Core.Collections.projitems*{a0e73415-c2c1-421e-b551-0aeb9181ceac}*SharedItemsImports = 4
@@ -394,6 +395,7 @@ Global
 		Shared\Cauldron.Core.Extensions.IO\Cauldron.Core.Extensions.IO.projitems*{d1be1727-87d4-4ca6-a537-7983cf7b2e4a}*SharedItemsImports = 4
 		Shared\Cauldron.Core.Extensions\Cauldron.Core.Extensions.projitems*{d1be1727-87d4-4ca6-a537-7983cf7b2e4a}*SharedItemsImports = 4
 		Shared\Cauldron.Core.Formatters\Cauldron.Core.Formatters.projitems*{d1be1727-87d4-4ca6-a537-7983cf7b2e4a}*SharedItemsImports = 4
+		Shared\Cauldron.Shared\Cauldron.Shared.projitems*{d1be1727-87d4-4ca6-a537-7983cf7b2e4a}*SharedItemsImports = 4
 		UnitTests\Shared\CecilatorTestClasses\CecilatorTestClasses.projitems*{d24ed6ba-2465-4636-a8bf-19babf86f68a}*SharedItemsImports = 4
 		UnitTests\Resources\Fody_Interceptors\Fody_Interceptors.projitems*{d35a9e6b-93f6-4bdf-9823-e9b9bec6ab92}*SharedItemsImports = 4
 		Shared\Cauldron.Core.Extensions.Convertions\Cauldron.Core.Extensions.Convertions.projitems*{d5de38fd-1ef6-4d80-bbd2-d0ac3e137453}*SharedItemsImports = 4

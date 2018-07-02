@@ -13,6 +13,7 @@
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Cauldron Extensions MaxBy MinBy Encode</tags>
     <releaseNotes>
+      2018.07.02 - [A] Debug class added
       2018.07.01 - [C] Now signed
       2018.07.01 - [C] All extension packages merged
       2018.07.01 - [C] Cauldron.Comparing merged with Cauldron.Core.Extension

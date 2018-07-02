@@ -24,7 +24,13 @@ namespace Cauldron.Core.Diagnostics
     /// <para/>
     /// These methods are not DEBUG conditional and will stay in Release build. Use them with care.
     /// </summary>
+#if PUBLIC
     public static class Debug
+#else
+
+    internal static class Debug
+
+#endif
     {
         /// <summary>
         /// Returns a string that can be used to identify the hardware

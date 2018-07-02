@@ -129,5 +129,6 @@
   <Import Project="..\..\Shared\Cauldron.Core.Extensions.IO\Cauldron.Core.Extensions.IO.projitems" Label="Shared" />
   <Import Project="..\..\Shared\Cauldron.Core.Comparing\Cauldron.Core.Comparing.projitems" Label="Shared" />
   <Import Project="..\..\Shared\Cauldron.Core.Formatters\Cauldron.Core.Formatters.projitems" Label="Shared" />
+  <Import Project="..\..\Shared\Cauldron.Shared\Cauldron.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
