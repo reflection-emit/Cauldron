@@ -17,13 +17,13 @@ namespace Cauldron.Interception.Fody
     public class DecoratorDecription
     {
         [JsonProperty("decorate-class")]
-        public bool DecorateClass { get; private set; } = true;
+        public bool DecorateClass { get; private set; } = false;
 
         [JsonProperty("decorate-method")]
-        public bool DecorateMethod { get; private set; } = true;
+        public bool DecorateMethod { get; private set; } = false;
 
         [JsonProperty("decorate-property")]
-        public bool DecorateProperty { get; private set; } = true;
+        public bool DecorateProperty { get; private set; } = false;
 
         [JsonProperty("parameters")]
         public DecoratorDecriptionParameter[] Parameters { get; private set; } = new DecoratorDecriptionParameter[0];
@@ -59,7 +59,7 @@ namespace Cauldron.Interception.Fody
         public bool Internal { get; private set; } = true;
 
         [JsonProperty("name")]
-        public string Name { get; private set; } = "\\w*";
+        public string Name { get; private set; } = "[a-zA-Z].*";
 
         [JsonProperty("private")]
         public bool Private { get; private set; } = true;
