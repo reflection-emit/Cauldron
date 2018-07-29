@@ -122,7 +122,7 @@ namespace Cauldron.Interception.Fody
                 if (x.IsGenerated)
                     return false;
 
-                if (!string.IsNullOrEmpty(decorator.TargetMethodFilter.Name) && !Regex.IsMatch(x.Name, decorator.TargetMethodFilter.Name == "*" ? "\\w*" : decorator.TargetMethodFilter.Name, RegexOptions.Singleline))
+                if (!string.IsNullOrEmpty(decorator.TargetMethodFilter.Name) && !Regex.IsMatch(x.Name, decorator.TargetMethodFilter.Name == "*" ? "[a-zA-Z].*" : decorator.TargetMethodFilter.Name, RegexOptions.Singleline))
                     return false;
 
                 return true;
@@ -152,7 +152,7 @@ namespace Cauldron.Interception.Fody
                 if (x.IsGenerated)
                     return false;
 
-                if (!string.IsNullOrEmpty(decorator.TargetPropertyFilter.Name) && !Regex.IsMatch(x.Name, decorator.TargetMethodFilter.Name == "*" ? "\\w*" : decorator.TargetPropertyFilter.Name, RegexOptions.Singleline))
+                if (!string.IsNullOrEmpty(decorator.TargetPropertyFilter.Name) && !Regex.IsMatch(x.Name, decorator.TargetMethodFilter.Name == "*" ? "[a-zA-Z].*" : decorator.TargetPropertyFilter.Name, RegexOptions.Singleline))
                     return false;
 
                 return true;
@@ -188,7 +188,7 @@ namespace Cauldron.Interception.Fody
                     if (decorator.TargetClassFilter.Public && !x.IsPublic && decorator.TargetClassFilter.Private && !x.IsPrivate && decorator.TargetClassFilter.Internal && !x.IsInternal)
                         return false;
 
-                    if (!string.IsNullOrEmpty(decorator.TargetClassFilter.Name) && !Regex.IsMatch(x.Fullname, decorator.TargetClassFilter.Name == "*" ? "\\w*" : decorator.TargetClassFilter.Name, RegexOptions.Singleline))
+                    if (!string.IsNullOrEmpty(decorator.TargetClassFilter.Name) && !Regex.IsMatch(x.Fullname, decorator.TargetClassFilter.Name == "*" ? "[a-zA-Z].*" : decorator.TargetClassFilter.Name, RegexOptions.Singleline))
                         return false;
 
                     if (x.IsGenerated)

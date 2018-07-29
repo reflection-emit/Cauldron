@@ -2,7 +2,7 @@
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.Security.Cryptography;
+using System.IO;
 
 namespace Cauldron.Interception.Fody
 {
