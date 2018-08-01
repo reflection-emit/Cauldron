@@ -89,7 +89,7 @@ namespace Cauldron.Interception.Cecilator
 
         public bool IsAbstract => this.methodDefinition.IsAbstract && this.methodDefinition.IsHideBySig && this.methodDefinition.IsNewSlot && this.methodDefinition.IsVirtual;
 
-        public bool IsAsync => this.AsyncMethodHelper.HasAsyncStateMachineAttribute;
+        public bool IsAsync => this.AsyncMethodHelper.HasAsyncStateMachineAttribute || this.AsyncMethodHelper.ImplementsIAsyncStateMachineInterface;
 
         public bool IsCCtor => this.methodDefinition.Name == ".cctor";
 

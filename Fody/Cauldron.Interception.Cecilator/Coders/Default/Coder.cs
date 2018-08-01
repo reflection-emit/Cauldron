@@ -223,8 +223,11 @@ namespace Cauldron.Interception.Cecilator.Coders
 
                 if (associatedMethod.IsAsync)
                 {
+                    Builder.Current.Log(LogTypes.Info, $"----> {associatedMethod.Fullname} --- {associatedMethod.methodReference.Parameters.Count}");
+                    Builder.Current.Log(LogTypes.Info, $"----> {associatedMethod.Fullname} --- {associatedMethod.methodReference.Parameters.Count}");
+
                     int counter = 0;
-                    foreach (var parameter in associatedMethod.methodReference.Parameters)
+                    foreach (var parameter in associatedMethod.AsyncMethodHelper.Method.methodReference.Parameters)
                     {
                         newBlock.Emit(OpCodes.Ldloc, variable.variable);
                         newBlock.Append(InstructionBlock.CreateCode(newBlock, null, counter++));

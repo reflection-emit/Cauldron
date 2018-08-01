@@ -22,7 +22,6 @@ namespace Cauldron
     /// <summary>
     /// Provides usefull extension methods
     /// </summary>
-
     public static class ExtensionsConvertions
     {
         private static CultureInfo cultureInfo;

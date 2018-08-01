@@ -1,5 +1,4 @@
 ﻿using Cauldron.Interception.Cecilator;
-using Cauldron.Interception.Cecilator.Coders;
 using Cauldron.Interception.Fody.HelperTypes;
 using Mono.Cecil;
 using System;
@@ -7,8 +6,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace Cauldron.Interception.Fody
 {
@@ -19,11 +16,22 @@ namespace Cauldron.Interception.Fody
             if (string.IsNullOrEmpty(path))
                 return "";
 
-            return Path.GetFullPath(
-                path
+            var result = path
                 .Trim()
                 .Replace("$(SolutionPath)", this.SolutionDirectoryPath)
-                .Replace("$(ProjectDir)", this.ProjectDirectoryPath));
+                .Replace("$(ProjectDir)", this.ProjectDirectoryPath);
+
+            if (result.IndexOfAny(Path.GetInvalidPathChars()) >= 0)
+                return result;
+
+            try
+            {
+                return Path.GetFullPath(result);
+            }
+            catch
+            {
+                return result;
+            }
         }
 
         protected override void OnExecute()

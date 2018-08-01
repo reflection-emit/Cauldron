@@ -28,19 +28,9 @@ namespace Cauldron.Interception.Cecilator
         /// </summary>
         public BuilderType AsyncStateMachineType => this.MoveNextMethod.OriginType;
 
-        public bool HasAsyncStateMachineAttribute
-        {
-            get
-            {
-                if (this.method.CustomAttributes.Any(x => x.Type == asyncStateMachineAttribute))
-                    return true;
+        public bool HasAsyncStateMachineAttribute => this.method.CustomAttributes.Any(x => x.Type == asyncStateMachineAttribute);
 
-                if (this.method.OriginType.Implements(iAsyncStateMachine))
-                    return true;
-
-                return false;
-            }
-        }
+        public bool ImplementsIAsyncStateMachineInterface => this.method.DeclaringType.Implements(iAsyncStateMachine);
 
         /// <summary>
         /// Return "this" if the method is the async method; otherwise the field that references to the async method's class.
