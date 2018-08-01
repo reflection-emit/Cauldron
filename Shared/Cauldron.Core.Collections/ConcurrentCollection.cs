@@ -367,7 +367,9 @@ namespace Cauldron.Core.Collections
 
             public bool MoveNext()
             {
-                this.currentIndex++;
+                while (this.currentIndex < this.items.Length && this.items[++this.currentIndex] == null)
+                {
+                }
                 return this.currentIndex < this.items.Length;
             }
 
