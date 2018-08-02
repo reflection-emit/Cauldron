@@ -138,6 +138,11 @@ namespace Cauldron.Interception.Cecilator
         /// </summary>
         public BuilderType OriginType => this.Method.OriginType;
 
+        /// <summary>
+        /// Returns the variable that contains the current state of the async state machine
+        /// </summary>
+        public LocalVariable StateVariable => this.MoveNextMethod?.GetVariable(0);
+
         public Tuple<Positions, ExceptionHandler> GetAsyncStateMachineExceptionBlock()
         {
             var lastException = this.MoveNextMethod.methodDefinition.Body.ExceptionHandlers.Last(x => x.HandlerType == ExceptionHandlerType.Catch);

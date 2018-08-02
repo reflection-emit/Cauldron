@@ -300,21 +300,16 @@ namespace Cauldron.Interception.Cecilator.Coders
                     throw new NotSupportedException("Creating a new method is not supported for asyncronous methods.");
 
                 this.instructions.Emit_Nop();
+                //var firstInstruction = moveNextMethod.BeginOfCode ?? (this.instructions.Count == 0 ? null : this.instructions[0]);
+                //var instructionToInsert = new Instruction[]
+                //    {
+                //            this.instructions.ilprocessor.Create(OpCodes.Ldloc_0),
+                //            this.instructions.ilprocessor.Create(OpCodes.Ldc_I4_M1),
+                //            this.instructions.ilprocessor.Create(OpCodes.Ceq),
+                //            this.instructions.ilprocessor.Create(OpCodes.Brfalse, this.instructions.Last),
+                //    };
 
-                var ldLocRequired = false;
-                var firstInstruction = moveNextMethod.BeginOfCode ?? (this.instructions.Count == 0 ? null : this.instructions[0]);
-
-                if (firstInstruction != null && firstInstruction.OpCode != OpCodes.Ldloc_0)
-                {
-                    var instructionToInsert = new Instruction[]
-                        {
-                            this.instructions.ilprocessor.Create(OpCodes.Ldloc_0),
-                            this.instructions.ilprocessor.Create(OpCodes.Brfalse, this.instructions.Last),
-                        };
-
-                    this.instructions.Insert(firstInstruction, instructionToInsert);
-                    ldLocRequired = true;
-                }
+                //this.instructions.Insert(firstInstruction, instructionToInsert);
 
                 var originalInstructions = this.instructions.associatedMethod.methodDefinition.Body.Instructions;
                 var asyncPositions = new AsyncStateMachinePositions(moveNextMethod.OriginMethod);
@@ -334,18 +329,7 @@ namespace Cauldron.Interception.Cecilator.Coders
                     }
                 }
 
-                if (ldLocRequired)
-                {
-                    var nop = this.instructions.ilprocessor.Create(OpCodes.Nop);
-                    this.instructions.Append(new Instruction[]
-                    {
-                        this.instructions.ilprocessor.Create(OpCodes.Ldloc_0),
-                        this.instructions.ilprocessor.Create(OpCodes.Brtrue, nop),
-                        this.instructions.ilprocessor.Create(OpCodes.Leave, asyncPositions.catchEnd.instruction),
-                        nop
-                    });
-                    moveNextMethod.OutOfBoundJumpIndex.Add(new Tuple<Instruction, int>(this.instructions[this.instructions.Count - 2], originalInstructions.IndexOf(asyncPositions.catchEnd.instruction)));
-                }
+                moveNextMethod.OutOfBoundJumpIndex.Add(new Tuple<Instruction, int>(this.instructions[this.instructions.Count - 2], originalInstructions.IndexOf(asyncPositions.catchEnd.instruction)));
             }
             else
             {

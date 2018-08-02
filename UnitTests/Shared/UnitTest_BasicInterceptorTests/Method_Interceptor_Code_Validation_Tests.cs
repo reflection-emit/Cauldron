@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using UnitTest_InterceptorsForTest;
 
@@ -51,6 +52,7 @@ namespace UnitTest_BasicInterceptorTests
         {
             return true;
         }
+
         [InterceptorWithoutInstance]
         public async Task<int> Async_Method_With_Local_Interceptor()
         {
