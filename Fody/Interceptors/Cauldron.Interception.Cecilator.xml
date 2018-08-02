@@ -29,6 +29,11 @@
             Gets the type that inherited the async method.
             </summary>
         </member>
+        <member name="P:Cauldron.Interception.Cecilator.AsyncMethodHelper.StateVariable">
+            <summary>
+            Returns the variable that contains the current state of the async state machine
+            </summary>
+        </member>
         <member name="M:Cauldron.Interception.Cecilator.AsyncMethodHelper.GetAsyncStateMachineLastGetResult">
             <summary>
             The position of the last GetResult method call starting from the first parameter in the AsyncStateMachine MoveNext method.
