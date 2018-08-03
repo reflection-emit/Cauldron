@@ -14,8 +14,8 @@
     <PackageTags>Toolkit Capgemini Cauldron Yaml</PackageTags>
     <Description>A YAML deserializer</Description>
     <PackageId>Capgemini.Cauldron.Core.Yaml</PackageId>
-    <AssemblyVersion>3.0.0.22</AssemblyVersion>
-    <FileVersion>3.0.0.22</FileVersion>
+    <AssemblyVersion>3.1.0.22</AssemblyVersion>
+    <FileVersion>3.1.0.22</FileVersion>
     <Configurations>Debug;Release;Release.Net45;Release.451</Configurations>
   </PropertyGroup>
 

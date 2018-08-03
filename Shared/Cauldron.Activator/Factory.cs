@@ -1,18 +1,17 @@
 ﻿using Cauldron.Core;
-using Cauldron.Core.Reflection;
+using Cauldron.Collections;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
-using Cauldron.Core.Collections;
 using System.Runtime.CompilerServices;
+using Cauldron.Core.Diagnostics;
+using Cauldron.Reflection;
 
 namespace Cauldron.Activator
 {
-    using Cauldron.Core.Diagnostics;
-
     /// <summary>
     /// Provides methods for creating and destroying object instances
     /// </summary>

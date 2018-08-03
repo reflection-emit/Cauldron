@@ -5,7 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 
-namespace Cauldron.Core.Reflection
+namespace Cauldron.Reflection
 {
     using Cauldron.Core.Diagnostics;
 

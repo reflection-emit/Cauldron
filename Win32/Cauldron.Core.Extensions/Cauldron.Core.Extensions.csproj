@@ -123,12 +123,6 @@
       <Link>Extensions.snk</Link>
     </None>
   </ItemGroup>
-  <Import Project="..\..\Shared\Cauldron.Core.Extensions\Cauldron.Core.Extensions.projitems" Label="Shared" />
-  <Import Project="..\..\Shared\Cauldron.Core.Extensions.Compression\Cauldron.Core.Extensions.Compression.projitems" Label="Shared" />
-  <Import Project="..\..\Shared\Cauldron.Core.Extensions.Convertions\Cauldron.Core.Extensions.Convertions.projitems" Label="Shared" />
-  <Import Project="..\..\Shared\Cauldron.Core.Extensions.IO\Cauldron.Core.Extensions.IO.projitems" Label="Shared" />
-  <Import Project="..\..\Shared\Cauldron.Core.Comparing\Cauldron.Core.Comparing.projitems" Label="Shared" />
-  <Import Project="..\..\Shared\Cauldron.Core.Formatters\Cauldron.Core.Formatters.projitems" Label="Shared" />
   <Import Project="..\..\Shared\Cauldron.Shared\Cauldron.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

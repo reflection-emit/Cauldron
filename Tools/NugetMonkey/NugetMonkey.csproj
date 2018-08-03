@@ -60,6 +60,5 @@
     </None>
     <None Include="packages.config" />
   </ItemGroup>
-  <Import Project="..\..\Shared\Cauldron.Core.Extensions.Convertions\Cauldron.Core.Extensions.Convertions.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

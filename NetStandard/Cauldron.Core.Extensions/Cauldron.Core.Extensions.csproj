@@ -15,8 +15,8 @@
     <Description>Provides usefull extension methods</Description>
     <PackageId>Capgemini.Cauldron.Core.Extensions</PackageId>
     <RootNamespace>Cauldron</RootNamespace>
-    <AssemblyVersion>3.0.0.32</AssemblyVersion>
-    <FileVersion>3.0.0.32</FileVersion>
+    <AssemblyVersion>3.1.0.32</AssemblyVersion>
+    <FileVersion>3.1.0.32</FileVersion>
     <Configurations>Debug;Release;Release.Net45;Release.451</Configurations>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>Extensions.snk</AssemblyOriginatorKeyFile>

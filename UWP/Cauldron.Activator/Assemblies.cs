@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 
-namespace Cauldron.Core.Reflection
+namespace Cauldron.Reflection
 {
     /// <summary>
     /// Contains methods and properties that helps to manage and gather <see cref="Assembly"/> information

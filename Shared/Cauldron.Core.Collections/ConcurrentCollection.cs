@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 
-namespace Cauldron.Core.Collections
+namespace Cauldron.Collections
 {
     /// <summary>
     /// Represents a thread-safe, unordered collection of object.

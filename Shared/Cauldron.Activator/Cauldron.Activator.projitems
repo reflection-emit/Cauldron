@@ -6,13 +6,18 @@
     <SharedGUID>3b240903-36ce-4abe-aeb6-fedde9dc0565</SharedGUID>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
-    <Import_RootNamespace>Cauldron.Activator</Import_RootNamespace>
+    <Import_RootNamespace>Cauldron</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)ApplicationData.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CloneIgnoreAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Collections\FastDictionaryEnumerator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ComponentAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ComponentConstructorAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Collections\FastDictionary.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Collections\FastDictionaryEntry.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Disposable\DisposableBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Disposable\IDisposableObject.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)GenericComponentAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ExtensionsCloning.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Factory.cs" />
@@ -26,6 +31,16 @@
     <Compile Include="$(MSBuildThisFileDirectory)IFactoryExtension.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IFactoryTypeInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)InjectAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Reflection\ActivatorCollection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Reflection\ApplicationInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Reflection\Assemblies.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Reflection\AssembliesCore.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Reflection\AssemblyAddedEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Reflection\AssemblyResource.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Reflection\DisplayNameAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Reflection\Enum.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Reflection\ExtensionsReflection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Reflection\TypeIsInterfaceException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)RenameAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UnitTestAwareFactoryResolverBase.cs" />
   </ItemGroup>

@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>c78efa96-74f8-4ec0-a869-1a04482361d1</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>Cauldron</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Comparing\Comparer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Comparing\ComparingOperatorCache.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Comparing\DynamicEqualityComparer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Comparing\Extensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Comparing\IEquatableCache.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Compression\ExtensionsGZipStream.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Compression\GZip.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Convertions\Encodings.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Convertions\ExtensionsConvertions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Convertions\ImplicitExplicitConvertionCache.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Convertions\InternalExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ExtensionAsync.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ExtensionsDate.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Formatters\ByteSizeFormatter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Formatters\Extensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Formatters\Formatter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Formatters\FormatterBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Formatters\MetricUnitFormatter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\CreationCollisionOption.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\ExtensionsDirectoryInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\ExtensionsFileInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\ExtensionsFileIO.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\NameCollisionOption.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Utils.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)KnownFolders.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Net\ConnectionGenerationTypes.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Net\Network.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Net\PingResults.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Net\Web.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Net\WebAuthenticationBrokerCallbackEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Net\WebAuthenticationBrokerWrapper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Net\WebAuthenticationBrokerWrapper.NetStandard.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Net\WebException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Position.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utilities.cs" />
+  </ItemGroup>
+</Project>

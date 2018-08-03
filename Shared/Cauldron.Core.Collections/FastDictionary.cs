@@ -5,7 +5,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 
-namespace Cauldron.Core.Collections
+namespace Cauldron.Collections
 {
     /// <summary>
     /// Represents a collection of keys and values optimized for speed.
