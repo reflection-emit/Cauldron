@@ -12,6 +12,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Aes.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CryptoUtils.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DisposableObject.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ExtensionsSecureString.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)HashAlgorithms.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)KeyMaterial.cs" />

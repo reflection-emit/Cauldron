@@ -6,7 +6,12 @@ namespace Cauldron
     /// <summary>
     /// Provides usefull extension methods
     /// </summary>
+#if PUBLIC
     public static partial class Extensions
+#else
+    internal static partial class ExtensionsInternal
+
+#endif
     {
         /// <summary>
         /// Replaces the values of data in memory with random values. The GC handle will be freed.

@@ -39,13 +39,16 @@ namespace NugetMonkey
                 FileName = NugetMonkeyJson.Nugetpath,
                 Arguments = $"pack \"{projectInfo.NuspecPath}\" -Symbols -OutputDir \"{NugetMonkeyJson.NugetOutputPath}\"",
                 CreateNoWindow = true,
-                RedirectStandardOutput = true
+                RedirectStandardOutput = true,
+                RedirectStandardError = true
             };
 
             var process = Process.Start(startInfo);
-            var error = process.StandardOutput.ReadToEnd();
+            var standard = process.StandardOutput.ReadToEnd();
+            var error = process.StandardError.ReadToEnd();
 
             process.WaitForExit();
+            Console.WriteLine(standard);
 
             if (process.ExitCode != 0)
                 throw new Exception(error);

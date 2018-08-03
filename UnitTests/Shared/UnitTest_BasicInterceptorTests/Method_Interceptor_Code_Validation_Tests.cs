@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using UnitTest_InterceptorsForTest;
 
@@ -40,6 +41,18 @@ namespace UnitTest_BasicInterceptorTests
             await Task.Run(() => 55);
         }
 
+        [ParameterPassedInterceptor]
+        public async Task<bool> ParameterCheck_Method_Async(int a, string b, bool c)
+        {
+            return await Task.Run(() => true);
+        }
+
+        [ParameterPassedInterceptor]
+        public bool ParameterCheck_Method(int a, string b, bool c)
+        {
+            return true;
+        }
+
         [InterceptorWithoutInstance]
         public async Task<int> Async_Method_With_Local_Interceptor()
         {
@@ -60,6 +73,20 @@ namespace UnitTest_BasicInterceptorTests
         public int Method_With_SyncRoot()
         {
             return 2;
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ParameterPassedInterceptorException))]
+        public void MethodParameter_Is_Correctly_Passed()
+        {
+            Assert.IsTrue(this.ParameterCheck_Method(2, "Hello", true));
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ParameterPassedInterceptorException))]
+        public async Task MethodParameter_Is_Correctly_Passed_Async()
+        {
+            await this.ParameterCheck_Method_Async(2, "Hello", true);
         }
 
         [TestMethod]

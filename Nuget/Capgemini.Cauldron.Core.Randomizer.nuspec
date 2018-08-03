@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>Capgemini.Cauldron.Core.Randomizer</id>
-    <version>2.0.5-beta</version>
+    <version>3.0.23</version>
     <authors>Alexander Schunk, Capgemini Deutschland GmbH</authors>
     <owners>Alexander Schunk, Capgemini Deutschland GmbH</owners>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
@@ -13,6 +13,7 @@
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Cauldron Random Cryptographic</tags>
     <releaseNotes>
+      2018.07.01 - [C] Now signed
       2018.05.06 - [C] Assembly for UWP added
       2018.05.04 - [C] Assemblies for Net45, Net451, Net452, Net46, Net461 and Net462 added
       2017.12.24 - [C] Net461 DLLs removed because it causes a lot of issues on mixed solutions (NetCore and Net461)

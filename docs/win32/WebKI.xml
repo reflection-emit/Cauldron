@@ -28,12 +28,11 @@
   <HelpKINode Title="Activated method" Url="html/M_Cauldron_XAML_ViewModels_IFrameAware_Activated.htm" />
   <HelpKINode Title="Add method">
     <HelpKINode Title="BuilderCustomAttributeCollection.Add Method " Url="html/Overload_Cauldron_Interception_Cecilator_BuilderCustomAttributeCollection_Add.htm" />
-    <HelpKINode Title="ConcurrentList(T).Add Method " Url="html/M_Cauldron_Core_Collections_ConcurrentList_1_Add.htm" />
+    <HelpKINode Title="ConcurrentCollection(T).Add Method " Url="html/M_Cauldron_Core_Collections_ConcurrentCollection_1_Add.htm" />
     <HelpKINode Title="FactoryResolver.Add Method " Url="html/Overload_Cauldron_Activator_FactoryResolver_Add.htm" />
-    <HelpKINode Title="FastDictionary(TKey, TValue).Add Method " Url="html/Overload_System_Collections_Generic_FastDictionary_2_Add.htm" />
+    <HelpKINode Title="FastDictionary(TKey, TValue).Add Method " Url="html/Overload_Cauldron_Core_Collections_FastDictionary_2_Add.htm" />
+    <HelpKINode Title="FastKeyedCollection(TKey, TItem).Add Method " Url="html/M_Cauldron_Core_Collections_FastKeyedCollection_2_Add.htm" />
     <HelpKINode Title="Formatter.Add Method " Url="html/M_Cauldron_Core_Formatters_Formatter_Add.htm" />
-    <HelpKINode Title="KeyRawValueDictionary.Add Method " Url="html/Overload_Cauldron_Core_Collections_KeyRawValueDictionary_Add.htm" />
-    <HelpKINode Title="MathEx.Add Method " Url="html/M_System_MathEx_Add.htm" />
   </HelpKINode>
   <HelpKINode Title="AddAssemblies method" Url="html/M_Cauldron_Core_Reflection_Assemblies_AddAssemblies.htm" />
   <HelpKINode Title="AddAssembly method" Url="html/M_Cauldron_Core_Reflection_Assemblies_AddAssembly.htm" />
@@ -46,8 +45,8 @@
   <HelpKINode Title="AddInterface method" Url="html/Overload_Cauldron_Interception_Cecilator_BuilderType_AddInterface.htm" />
   <HelpKINode Title="AddNonSerializedAttribute method" Url="html/M_Cauldron_Interception_Cecilator_BuilderCustomAttributeCollection_AddNonSerializedAttribute.htm" />
   <HelpKINode Title="AddRange method">
-    <HelpKINode Title="ConcurrentKeyedCollection(TKey, TItem).AddRange Method " Url="html/M_Cauldron_Core_Collections_ConcurrentKeyedCollection_2_AddRange.htm" />
-    <HelpKINode Title="ConcurrentList(T).AddRange Method " Url="html/M_Cauldron_Core_Collections_ConcurrentList_1_AddRange.htm" />
+    <HelpKINode Title="ConcurrentCollection(T).AddRange Method " Url="html/M_Cauldron_Core_Collections_ConcurrentCollection_1_AddRange.htm" />
+    <HelpKINode Title="FastObservableCollection(T).AddRange Method " Url="html/Overload_Cauldron_Core_Collections_FastObservableCollection_1_AddRange.htm" />
   </HelpKINode>
   <HelpKINode Title="AddSetter method" Url="html/M_Cauldron_Interception_Cecilator_Property_AddSetter.htm" />
   <HelpKINode Title="AddType method" Url="html/Overload_Cauldron_Activator_Factory_AddType.htm" />
@@ -148,16 +147,35 @@
   <HelpKINode Title="ApplicationBase.RegisterUrlProtocols method" Url="html/M_Cauldron_XAML_ApplicationBase_RegisterUrlProtocols.htm" />
   <HelpKINode Title="ApplicationBase.ShouldBringToFront property" Url="html/P_Cauldron_XAML_ApplicationBase_ShouldBringToFront.htm" />
   <HelpKINode Title="ApplicationData class">
+    <HelpKINode Title="ApplicationData Class" Url="html/T_Windows_Storage_ApplicationData.htm" />
     <HelpKINode Title="ApplicationData Class" Url="html/T_Cauldron_Core_ApplicationData.htm" />
+    <HelpKINode Title="constructor" Url="html/M_Windows_Storage_ApplicationData__ctor.htm" />
     <HelpKINode Title="constructor" Url="html/M_Cauldron_Core_ApplicationData__ctor.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Core_ApplicationData.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Windows_Storage_ApplicationData.htm" />
     <HelpKINode Title="properties" Url="html/Properties_T_Cauldron_Core_ApplicationData.htm" />
+    <HelpKINode Title="properties" Url="html/Properties_T_Windows_Storage_ApplicationData.htm" />
   </HelpKINode>
-  <HelpKINode Title="ApplicationData.ApplicationData constructor" Url="html/M_Cauldron_Core_ApplicationData__ctor.htm" />
-  <HelpKINode Title="ApplicationData.Current property" Url="html/P_Cauldron_Core_ApplicationData_Current.htm" />
-  <HelpKINode Title="ApplicationData.LocalFolder property" Url="html/P_Cauldron_Core_ApplicationData_LocalFolder.htm" />
-  <HelpKINode Title="ApplicationData.RoamingFolder property" Url="html/P_Cauldron_Core_ApplicationData_RoamingFolder.htm" />
-  <HelpKINode Title="ApplicationData.TemporaryFolder property" Url="html/P_Cauldron_Core_ApplicationData_TemporaryFolder.htm" />
+  <HelpKINode Title="ApplicationData.ApplicationData constructor">
+    <HelpKINode Title="ApplicationData Constructor " Url="html/M_Cauldron_Core_ApplicationData__ctor.htm" />
+    <HelpKINode Title="ApplicationData Constructor " Url="html/M_Windows_Storage_ApplicationData__ctor.htm" />
+  </HelpKINode>
+  <HelpKINode Title="ApplicationData.Current property">
+    <HelpKINode Title="ApplicationData.Current Property " Url="html/P_Cauldron_Core_ApplicationData_Current.htm" />
+    <HelpKINode Title="ApplicationData.Current Property " Url="html/P_Windows_Storage_ApplicationData_Current.htm" />
+  </HelpKINode>
+  <HelpKINode Title="ApplicationData.LocalFolder property">
+    <HelpKINode Title="ApplicationData.LocalFolder Property " Url="html/P_Windows_Storage_ApplicationData_LocalFolder.htm" />
+    <HelpKINode Title="ApplicationData.LocalFolder Property " Url="html/P_Cauldron_Core_ApplicationData_LocalFolder.htm" />
+  </HelpKINode>
+  <HelpKINode Title="ApplicationData.RoamingFolder property">
+    <HelpKINode Title="ApplicationData.RoamingFolder Property " Url="html/P_Windows_Storage_ApplicationData_RoamingFolder.htm" />
+    <HelpKINode Title="ApplicationData.RoamingFolder Property " Url="html/P_Cauldron_Core_ApplicationData_RoamingFolder.htm" />
+  </HelpKINode>
+  <HelpKINode Title="ApplicationData.TemporaryFolder property">
+    <HelpKINode Title="ApplicationData.TemporaryFolder Property " Url="html/P_Windows_Storage_ApplicationData_TemporaryFolder.htm" />
+    <HelpKINode Title="ApplicationData.TemporaryFolder Property " Url="html/P_Cauldron_Core_ApplicationData_TemporaryFolder.htm" />
+  </HelpKINode>
   <HelpKINode Title="ApplicationInfo class">
     <HelpKINode Title="ApplicationInfo Class" Url="html/T_Cauldron_Core_Reflection_ApplicationInfo.htm" />
     <HelpKINode Title="properties" Url="html/Properties_T_Cauldron_Core_Reflection_ApplicationInfo.htm" />
@@ -175,11 +193,7 @@
   <HelpKINode Title="ApplicationSplash property" Url="html/P_Cauldron_XAML_ApplicationBase_ApplicationSplash.htm" />
   <HelpKINode Title="ApplicationUrlProtocols property" Url="html/P_Cauldron_XAML_ApplicationBase_ApplicationUrlProtocols.htm" />
   <HelpKINode Title="ApplicationVersion property" Url="html/P_Cauldron_Core_Reflection_ApplicationInfo_ApplicationVersion.htm" />
-  <HelpKINode Title="AreEqual method">
-    <HelpKINode Title="CustomDictionary(TKey, TValue).AreEqual Method " Url="html/M_System_Collections_Generic_CustomDictionary_2_AreEqual.htm" />
-    <HelpKINode Title="Extension.AreEqual Method " Url="html/Overload_Cauldron_Interception_Cecilator_Extension_AreEqual.htm" />
-    <HelpKINode Title="FastDictionary(TKey, TValue).AreEqual Method " Url="html/M_System_Collections_Generic_FastDictionary_2_AreEqual.htm" />
-  </HelpKINode>
+  <HelpKINode Title="AreEqual method" Url="html/Overload_Cauldron_Interception_Cecilator_Extension_AreEqual.htm" />
   <HelpKINode Title="AreOtherInstanceActive property" Url="html/P_Cauldron_XAML_ParamPassing_AreOtherInstanceActive.htm" />
   <HelpKINode Title="AreReferenceAssignable method">
     <HelpKINode Title="Extension.AreReferenceAssignable Method " Url="html/Overload_Cauldron_Interception_Cecilator_Extension_AreReferenceAssignable.htm" />
@@ -295,12 +309,6 @@
     <HelpKINode Title="DynamicEventHandler.AssociatedObject Property " Url="html/P_Cauldron_XAML_DynamicEventHandler_AssociatedObject.htm" />
     <HelpKINode Title="IBehaviour.AssociatedObject Property " Url="html/P_Cauldron_XAML_Interactivity_IBehaviour_AssociatedObject.htm" />
   </HelpKINode>
-  <HelpKINode Title="AsyncHelper class">
-    <HelpKINode Title="AsyncHelper Class" Url="html/T_Cauldron_AsyncHelper.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_AsyncHelper.htm" />
-  </HelpKINode>
-  <HelpKINode Title="AsyncHelper.NullGuard method" Url="html/Overload_Cauldron_AsyncHelper_NullGuard.htm" />
-  <HelpKINode Title="AsyncHelper.RunSync method" Url="html/Overload_Cauldron_AsyncHelper_RunSync.htm" />
   <HelpKINode Title="AsyncMethod property">
     <HelpKINode Title="AttributedMethod.AsyncMethod Property " Url="html/P_Cauldron_Interception_Cecilator_AttributedMethod_AsyncMethod.htm" />
     <HelpKINode Title="Method.AsyncMethod Property " Url="html/P_Cauldron_Interception_Cecilator_Method_AsyncMethod.htm" />
@@ -427,8 +435,8 @@
     <HelpKINode Title="ViewModelBase.BeforeRaiseNotifyPropertyChanged Method " Url="html/M_Cauldron_XAML_ViewModels_ViewModelBase_BeforeRaiseNotifyPropertyChanged.htm" />
   </HelpKINode>
   <HelpKINode Title="Beginning enumeration member" Url="html/T_Cauldron_Interception_Cecilator_InsertionPosition.htm" />
-  <HelpKINode Title="Beginning field" Url="html/F_Cauldron_Interception_Cecilator_Positions_Beginning.htm" />
   <HelpKINode Title="beginning field" Url="html/F_Cauldron_Interception_Cecilator_Coders_InstructionPoints_beginning.htm" />
+  <HelpKINode Title="Beginning field" Url="html/F_Cauldron_Interception_Cecilator_Positions_Beginning.htm" />
   <HelpKINode Title="Behaviour(Of T) class">
     <HelpKINode Title="Behaviour(T) Class" Url="html/T_Cauldron_XAML_Interactivity_Behaviour_1.htm" />
     <HelpKINode Title="constructor" Url="html/M_Cauldron_XAML_Interactivity_Behaviour_1__ctor.htm" />
@@ -536,7 +544,7 @@
   </HelpKINode>
   <HelpKINode Title="BehaviourUsageAttribute.AllowMultiple property" Url="html/P_Cauldron_XAML_Interactivity_BehaviourUsageAttribute_AllowMultiple.htm" />
   <HelpKINode Title="BehaviourUsageAttribute.BehaviourUsageAttribute constructor" Url="html/Overload_Cauldron_XAML_Interactivity_BehaviourUsageAttribute__ctor.htm" />
-  <HelpKINode Title="BetterResolve method" Url="html/M_Cauldron_Interception_Cecilator_Extension_BetterResolve.htm" />
+  <HelpKINode Title="BetterResolve method" Url="html/Overload_Cauldron_Interception_Cecilator_Extension_BetterResolve.htm" />
   <HelpKINode Title="BigEndianUnicode enumeration member" Url="html/T_Cauldron_Core_Encodings.htm" />
   <HelpKINode Title="BitmapImage to BitmapImageEx conversion" Url="html/M_Cauldron_XAML_BitmapImageEx_op_Implicit_2.htm" />
   <HelpKINode Title="BitmapImageEx class">
@@ -792,6 +800,7 @@
   <HelpKINode Title="BuilderType.CreateProperty method" Url="html/Overload_Cauldron_Interception_Cecilator_BuilderType_CreateProperty.htm" />
   <HelpKINode Title="BuilderType.CreateStaticConstructor method" Url="html/M_Cauldron_Interception_Cecilator_BuilderType_CreateStaticConstructor.htm" />
   <HelpKINode Title="BuilderType.CustomAttributes property" Url="html/P_Cauldron_Interception_Cecilator_BuilderType_CustomAttributes.htm" />
+  <HelpKINode Title="BuilderType.DeclaringType property" Url="html/P_Cauldron_Interception_Cecilator_BuilderType_DeclaringType.htm" />
   <HelpKINode Title="BuilderType.DefaultValue property" Url="html/P_Cauldron_Interception_Cecilator_BuilderType_DefaultValue.htm" />
   <HelpKINode Title="BuilderType.DisplayMethodNames method" Url="html/M_Cauldron_Interception_Cecilator_BuilderType_DisplayMethodNames.htm" />
   <HelpKINode Title="BuilderType.EnumUnderlyingType property" Url="html/P_Cauldron_Interception_Cecilator_BuilderType_EnumUnderlyingType.htm" />
@@ -831,13 +840,17 @@
   <HelpKINode Title="BuilderType.IsGenericType property" Url="html/P_Cauldron_Interception_Cecilator_BuilderType_IsGenericType.htm" />
   <HelpKINode Title="BuilderType.IsInterface property" Url="html/P_Cauldron_Interception_Cecilator_BuilderType_IsInterface.htm" />
   <HelpKINode Title="BuilderType.IsInternal property" Url="html/P_Cauldron_Interception_Cecilator_BuilderType_IsInternal.htm" />
+  <HelpKINode Title="BuilderType.IsNested property" Url="html/P_Cauldron_Interception_Cecilator_BuilderType_IsNested.htm" />
+  <HelpKINode Title="BuilderType.IsNestedFamily property" Url="html/P_Cauldron_Interception_Cecilator_BuilderType_IsNestedFamily.htm" />
   <HelpKINode Title="BuilderType.IsNestedPrivate property" Url="html/P_Cauldron_Interception_Cecilator_BuilderType_IsNestedPrivate.htm" />
+  <HelpKINode Title="BuilderType.IsNestedPublic property" Url="html/P_Cauldron_Interception_Cecilator_BuilderType_IsNestedPublic.htm" />
   <HelpKINode Title="BuilderType.IsNullable property" Url="html/P_Cauldron_Interception_Cecilator_BuilderType_IsNullable.htm" />
   <HelpKINode Title="BuilderType.IsPrimitive property" Url="html/P_Cauldron_Interception_Cecilator_BuilderType_IsPrimitive.htm" />
   <HelpKINode Title="BuilderType.IsPrivate property" Url="html/P_Cauldron_Interception_Cecilator_BuilderType_IsPrivate.htm" />
   <HelpKINode Title="BuilderType.IsPublic property" Url="html/P_Cauldron_Interception_Cecilator_BuilderType_IsPublic.htm" />
   <HelpKINode Title="BuilderType.IsSealed property" Url="html/P_Cauldron_Interception_Cecilator_BuilderType_IsSealed.htm" />
   <HelpKINode Title="BuilderType.IsStatic property" Url="html/P_Cauldron_Interception_Cecilator_BuilderType_IsStatic.htm" />
+  <HelpKINode Title="BuilderType.IsUsed property" Url="html/P_Cauldron_Interception_Cecilator_BuilderType_IsUsed.htm" />
   <HelpKINode Title="BuilderType.IsValueType property" Url="html/P_Cauldron_Interception_Cecilator_BuilderType_IsValueType.htm" />
   <HelpKINode Title="BuilderType.IsVoid property" Url="html/P_Cauldron_Interception_Cecilator_BuilderType_IsVoid.htm" />
   <HelpKINode Title="BuilderType.MakeArray method" Url="html/M_Cauldron_Interception_Cecilator_BuilderType_MakeArray.htm" />
@@ -2305,17 +2318,7 @@
   <HelpKINode Title="CallCoder.SetValue method" Url="html/Overload_Cauldron_Interception_Cecilator_Coders_CallCoder_SetValue.htm" />
   <HelpKINode Title="CallCoder.StoreElement method" Url="html/M_Cauldron_Interception_Cecilator_Coders_CallCoder_StoreElement.htm" />
   <HelpKINode Title="CallMethodCodeBlock class" Url="html/T_Cauldron_Interception_Cecilator_Coders_CallMethodCodeBlock.htm" />
-  <HelpKINode Title="CallOnce class">
-    <HelpKINode Title="CallOnce Class" Url="html/T_Cauldron_Core_Threading_CallOnce.htm" />
-    <HelpKINode Title="events" Url="html/Events_T_Cauldron_Core_Threading_CallOnce.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Core_Threading_CallOnce.htm" />
-    <HelpKINode Title="properties" Url="html/Properties_T_Cauldron_Core_Threading_CallOnce.htm" />
-  </HelpKINode>
-  <HelpKINode Title="CallOnce.Create method" Url="html/Overload_Cauldron_Core_Threading_CallOnce_Create.htm" />
-  <HelpKINode Title="CallOnce.CurrentTask property" Url="html/P_Cauldron_Core_Threading_CallOnce_CurrentTask.htm" />
-  <HelpKINode Title="CallOnce.Invoke method" Url="html/M_Cauldron_Core_Threading_CallOnce_Invoke.htm" />
-  <HelpKINode Title="CallOnce.Invoked event" Url="html/E_Cauldron_Core_Threading_CallOnce_Invoked.htm" />
-  <HelpKINode Title="CallOnce.IsWaiting property" Url="html/P_Cauldron_Core_Threading_CallOnce_IsWaiting.htm" />
+  <HelpKINode Title="CameraRoll property" Url="html/P_Windows_Storage_KnownFolders_CameraRoll.htm" />
   <HelpKINode Title="Cancel property" Url="html/P_Cauldron_XAML_Navigation_NavigatingInfo_Cancel.htm" />
   <HelpKINode Title="CanClose method" Url="html/M_Cauldron_XAML_ViewModels_ICloseAwareViewModel_CanClose.htm" />
   <HelpKINode Title="CanExecute method">
@@ -2378,7 +2381,6 @@
   <HelpKINode Title="Cauldron.Activator.IFactoryTypeInfo interface" Url="html/T_Cauldron_Activator_IFactoryTypeInfo.htm" />
   <HelpKINode Title="Cauldron.Activator.InjectAttribute class" Url="html/T_Cauldron_Activator_InjectAttribute.htm" />
   <HelpKINode Title="Cauldron.Activator.UnitTestAwareFactoryResolverBase class" Url="html/T_Cauldron_Activator_UnitTestAwareFactoryResolverBase.htm" />
-  <HelpKINode Title="Cauldron.AsyncHelper class" Url="html/T_Cauldron_AsyncHelper.htm" />
   <HelpKINode Title="Cauldron.Consoles namespace" Url="html/N_Cauldron_Consoles.htm" />
   <HelpKINode Title="Cauldron.Consoles.ColumnAlignment enumeration" Url="html/T_Cauldron_Consoles_ColumnAlignment.htm" />
   <HelpKINode Title="Cauldron.Consoles.ConsoleTableColumn class" Url="html/T_Cauldron_Consoles_ConsoleTableColumn.htm" />
@@ -2393,27 +2395,25 @@
   <HelpKINode Title="Cauldron.Core namespace" Url="html/N_Cauldron_Core.htm" />
   <HelpKINode Title="Cauldron.Core.ApplicationData class" Url="html/T_Cauldron_Core_ApplicationData.htm" />
   <HelpKINode Title="Cauldron.Core.Collections namespace" Url="html/N_Cauldron_Core_Collections.htm" />
-  <HelpKINode Title="Cauldron.Core.Collections.ConcurrentKeyedCollection(Of TKey, TItem) class" Url="html/T_Cauldron_Core_Collections_ConcurrentKeyedCollection_2.htm" />
-  <HelpKINode Title="Cauldron.Core.Collections.ConcurrentKeyedCollection&lt;TKey, TItem&gt; class" Url="html/T_Cauldron_Core_Collections_ConcurrentKeyedCollection_2.htm" />
-  <HelpKINode Title="Cauldron.Core.Collections.ConcurrentKeyedCollectionEx(Of TKey, TItem) class" Url="html/T_Cauldron_Core_Collections_ConcurrentKeyedCollectionEx_2.htm" />
-  <HelpKINode Title="Cauldron.Core.Collections.ConcurrentKeyedCollectionEx&lt;TKey, TItem&gt; class" Url="html/T_Cauldron_Core_Collections_ConcurrentKeyedCollectionEx_2.htm" />
-  <HelpKINode Title="Cauldron.Core.Collections.ConcurrentList(Of T) class" Url="html/T_Cauldron_Core_Collections_ConcurrentList_1.htm" />
-  <HelpKINode Title="Cauldron.Core.Collections.ConcurrentList&lt;T&gt; class" Url="html/T_Cauldron_Core_Collections_ConcurrentList_1.htm" />
+  <HelpKINode Title="Cauldron.Core.Collections.ConcurrentCollection(Of T) class" Url="html/T_Cauldron_Core_Collections_ConcurrentCollection_1.htm" />
+  <HelpKINode Title="Cauldron.Core.Collections.ConcurrentCollection&lt;T&gt; class" Url="html/T_Cauldron_Core_Collections_ConcurrentCollection_1.htm" />
   <HelpKINode Title="Cauldron.Core.Collections.Extensions class" Url="html/T_Cauldron_Core_Collections_Extensions.htm" />
+  <HelpKINode Title="Cauldron.Core.Collections.FastDictionary(Of TKey, TValue) class" Url="html/T_Cauldron_Core_Collections_FastDictionary_2.htm" />
+  <HelpKINode Title="Cauldron.Core.Collections.FastDictionary&lt;TKey, TValue&gt; class" Url="html/T_Cauldron_Core_Collections_FastDictionary_2.htm" />
+  <HelpKINode Title="Cauldron.Core.Collections.FastKeyedCollection(Of TKey, TItem) class" Url="html/T_Cauldron_Core_Collections_FastKeyedCollection_2.htm" />
+  <HelpKINode Title="Cauldron.Core.Collections.FastKeyedCollection&lt;TKey, TItem&gt; class" Url="html/T_Cauldron_Core_Collections_FastKeyedCollection_2.htm" />
+  <HelpKINode Title="Cauldron.Core.Collections.FastObservableCollection(Of T) class" Url="html/T_Cauldron_Core_Collections_FastObservableCollection_1.htm" />
+  <HelpKINode Title="Cauldron.Core.Collections.FastObservableCollection&lt;T&gt; class" Url="html/T_Cauldron_Core_Collections_FastObservableCollection_1.htm" />
   <HelpKINode Title="Cauldron.Core.Collections.IEnumerableExtensions class" Url="html/T_Cauldron_Core_Collections_IEnumerableExtensions.htm" />
-  <HelpKINode Title="Cauldron.Core.Collections.KeyedCollectionEx(Of TKey, TItem) class" Url="html/T_Cauldron_Core_Collections_KeyedCollectionEx_2.htm" />
-  <HelpKINode Title="Cauldron.Core.Collections.KeyedCollectionEx&lt;TKey, TItem&gt; class" Url="html/T_Cauldron_Core_Collections_KeyedCollectionEx_2.htm" />
-  <HelpKINode Title="Cauldron.Core.Collections.KeyRawValueDictionary class" Url="html/T_Cauldron_Core_Collections_KeyRawValueDictionary.htm" />
-  <HelpKINode Title="Cauldron.Core.Collections.RawValue class" Url="html/T_Cauldron_Core_Collections_RawValue.htm" />
   <HelpKINode Title="Cauldron.Core.Comparer class" Url="html/T_Cauldron_Core_Comparer.htm" />
   <HelpKINode Title="Cauldron.Core.DeviceFamilies class" Url="html/T_Cauldron_Core_DeviceFamilies.htm" />
-  <HelpKINode Title="Cauldron.Core.Diagnostics namespace" Url="html/N_Cauldron_Core_Diagnostics.htm" />
-  <HelpKINode Title="Cauldron.Core.Diagnostics.Debug class" Url="html/T_Cauldron_Core_Diagnostics_Debug.htm" />
   <HelpKINode Title="Cauldron.Core.DisposableBase class" Url="html/T_Cauldron_Core_DisposableBase.htm" />
-  <HelpKINode Title="Cauldron.Core.DisposableObject class" Url="html/T_Cauldron_Core_DisposableObject.htm" />
   <HelpKINode Title="Cauldron.Core.DynamicEqualityComparer(Of T) class" Url="html/T_Cauldron_Core_DynamicEqualityComparer_1.htm" />
   <HelpKINode Title="Cauldron.Core.DynamicEqualityComparer&lt;T&gt; class" Url="html/T_Cauldron_Core_DynamicEqualityComparer_1.htm" />
   <HelpKINode Title="Cauldron.Core.Encodings enumeration" Url="html/T_Cauldron_Core_Encodings.htm" />
+  <HelpKINode Title="Cauldron.Core.Extensions namespace" Url="html/N_Cauldron_Core_Extensions.htm" />
+  <HelpKINode Title="Cauldron.Core.Extensions.ExtensionAsync class" Url="html/T_Cauldron_Core_Extensions_ExtensionAsync.htm" />
+  <HelpKINode Title="Cauldron.Core.Extensions.ExtensionsDate class" Url="html/T_Cauldron_Core_Extensions_ExtensionsDate.htm" />
   <HelpKINode Title="Cauldron.Core.Formatters namespace" Url="html/N_Cauldron_Core_Formatters.htm" />
   <HelpKINode Title="Cauldron.Core.Formatters.ByteSizeFormatter class" Url="html/T_Cauldron_Core_Formatters_ByteSizeFormatter.htm" />
   <HelpKINode Title="Cauldron.Core.Formatters.Formatter class" Url="html/T_Cauldron_Core_Formatters_Formatter.htm" />
@@ -2449,13 +2449,6 @@
   <HelpKINode Title="Cauldron.Core.Reflection.AssemblyAddedEventArgs class" Url="html/T_Cauldron_Core_Reflection_AssemblyAddedEventArgs.htm" />
   <HelpKINode Title="Cauldron.Core.Reflection.AssemblyResource class" Url="html/T_Cauldron_Core_Reflection_AssemblyResource.htm" />
   <HelpKINode Title="Cauldron.Core.Serializer class" Url="html/T_Cauldron_Core_Serializer.htm" />
-  <HelpKINode Title="Cauldron.Core.Threading namespace" Url="html/N_Cauldron_Core_Threading.htm" />
-  <HelpKINode Title="Cauldron.Core.Threading.CallOnce class" Url="html/T_Cauldron_Core_Threading_CallOnce.htm" />
-  <HelpKINode Title="Cauldron.Core.Threading.DispatcherDummy class" Url="html/T_Cauldron_Core_Threading_DispatcherDummy.htm" />
-  <HelpKINode Title="Cauldron.Core.Threading.DispatcherEx class" Url="html/T_Cauldron_Core_Threading_DispatcherEx.htm" />
-  <HelpKINode Title="Cauldron.Core.Threading.DispatcherFactoryResolver class" Url="html/T_Cauldron_Core_Threading_DispatcherFactoryResolver.htm" />
-  <HelpKINode Title="Cauldron.Core.Threading.DispatcherPriority enumeration" Url="html/T_Cauldron_Core_Threading_DispatcherPriority.htm" />
-  <HelpKINode Title="Cauldron.Core.Threading.IDispatcher interface" Url="html/T_Cauldron_Core_Threading_IDispatcher.htm" />
   <HelpKINode Title="Cauldron.Core.User class" Url="html/T_Cauldron_Core_User.htm" />
   <HelpKINode Title="Cauldron.Core.UserInformation class" Url="html/T_Cauldron_Core_UserInformation.htm" />
   <HelpKINode Title="Cauldron.Core.Utilities class" Url="html/T_Cauldron_Core_Utilities.htm" />
@@ -2466,6 +2459,7 @@
   <HelpKINode Title="Cauldron.Cryptography namespace" Url="html/N_Cauldron_Cryptography.htm" />
   <HelpKINode Title="Cauldron.Cryptography.Aes class" Url="html/T_Cauldron_Cryptography_Aes.htm" />
   <HelpKINode Title="Cauldron.Cryptography.CryptoUtils class" Url="html/T_Cauldron_Cryptography_CryptoUtils.htm" />
+  <HelpKINode Title="Cauldron.Cryptography.DisposableObject class" Url="html/T_Cauldron_Cryptography_DisposableObject.htm" />
   <HelpKINode Title="Cauldron.Cryptography.HashAlgorithms enumeration" Url="html/T_Cauldron_Cryptography_HashAlgorithms.htm" />
   <HelpKINode Title="Cauldron.Cryptography.KeyMaterial class" Url="html/T_Cauldron_Cryptography_KeyMaterial.htm" />
   <HelpKINode Title="Cauldron.Cryptography.KeyPair class" Url="html/T_Cauldron_Cryptography_KeyPair.htm" />
@@ -2481,6 +2475,7 @@
   <HelpKINode Title="Cauldron.ExtensionsFileInfo class" Url="html/T_Cauldron_ExtensionsFileInfo.htm" />
   <HelpKINode Title="Cauldron.ExtensionsFileIO class" Url="html/T_Cauldron_ExtensionsFileIO.htm" />
   <HelpKINode Title="Cauldron.ExtensionsReflection class" Url="html/T_Cauldron_ExtensionsReflection.htm" />
+  <HelpKINode Title="Cauldron.ExtensionsSecureString class" Url="html/T_Cauldron_ExtensionsSecureString.htm" />
   <HelpKINode Title="Cauldron.Interception namespace" Url="html/N_Cauldron_Interception.htm" />
   <HelpKINode Title="Cauldron.Interception.AssignMethodAttribute class" Url="html/T_Cauldron_Interception_AssignMethodAttribute.htm" />
   <HelpKINode Title="Cauldron.Interception.Cecilator namespace" Url="html/N_Cauldron_Interception_Cecilator.htm" />
@@ -2878,16 +2873,15 @@
     <HelpKINode Title="IFactoryTypeInfo.ChildType Property " Url="html/P_Cauldron_Activator_IFactoryTypeInfo_ChildType.htm" />
     <HelpKINode Title="PropertyInterceptionInfo.ChildType Property " Url="html/P_Cauldron_Interception_PropertyInterceptionInfo_ChildType.htm" />
   </HelpKINode>
-  <HelpKINode Title="Clamp method" Url="html/Overload_System_MathEx_Clamp.htm" />
   <HelpKINode Title="Classes property" Url="html/P_Cauldron_Core_Reflection_Assemblies_Classes.htm" />
   <HelpKINode Title="Clear method">
-    <HelpKINode Title="ConcurrentList(T).Clear Method " Url="html/M_Cauldron_Core_Collections_ConcurrentList_1_Clear.htm" />
-    <HelpKINode Title="FastDictionary(TKey, TValue).Clear Method " Url="html/M_System_Collections_Generic_FastDictionary_2_Clear.htm" />
+    <HelpKINode Title="ConcurrentCollection(T).Clear Method " Url="html/M_Cauldron_Core_Collections_ConcurrentCollection_1_Clear.htm" />
+    <HelpKINode Title="FastDictionary(TKey, TValue).Clear Method " Url="html/M_Cauldron_Core_Collections_FastDictionary_2_Clear.htm" />
+    <HelpKINode Title="FastKeyedCollection(TKey, TItem).Clear Method " Url="html/M_Cauldron_Core_Collections_FastKeyedCollection_2_Clear.htm" />
     <HelpKINode Title="InstructionBlock.Clear Method " Url="html/M_Cauldron_Interception_Cecilator_Coders_InstructionBlock_Clear.htm" />
     <HelpKINode Title="TimedCacheChangeMonitor.Clear Method " Url="html/M_Cauldron_Core_Interceptors_TimedCacheChangeMonitor_Clear.htm" />
   </HelpKINode>
   <HelpKINode Title="ClearCache event" Url="html/E_Cauldron_Core_Interceptors_TimedCacheChangeMonitor_ClearCache.htm" />
-  <HelpKINode Title="ClearItems method" Url="html/M_Cauldron_Core_Collections_ConcurrentKeyedCollection_2_ClearItems.htm" />
   <HelpKINode Title="ClearStack method" Url="html/M_Cauldron_XAML_Controls_NavigationFrame_ClearStack.htm" />
   <HelpKINode Title="Clone method" Url="html/M_Cauldron_XAML_Validation_ValidationBehaviour_Clone.htm" />
   <HelpKINode Title="Clone(Of T) method" Url="html/M_Cauldron_XAML_Extensions_Clone__1.htm" />
@@ -3003,6 +2997,7 @@
   <HelpKINode Title="CoderBase&lt;TSelf, TMaster&gt;.Negate method" Url="html/M_Cauldron_Interception_Cecilator_Coders_CoderBase_2_Negate.htm" />
   <HelpKINode Title="CoderBase&lt;TSelf, TMaster&gt;.Pop method" Url="html/M_Cauldron_Interception_Cecilator_Coders_CoderBase_2_Pop.htm" />
   <HelpKINode Title="CoderBase&lt;TSelf, TMaster&gt;.StoreElementInternal method" Url="html/Overload_Cauldron_Interception_Cecilator_Coders_CoderBase_2_StoreElementInternal.htm" />
+  <HelpKINode Title="CollectionChanged event" Url="html/E_Cauldron_Core_Collections_FastObservableCollection_1_CollectionChanged.htm" />
   <HelpKINode Title="ColumnAlignment enumeration" Url="html/T_Cauldron_Consoles_ColumnAlignment.htm" />
   <HelpKINode Title="Combine method" Url="html/Overload_Cauldron_ExtensionsDirectoryInfo_Combine.htm" />
   <HelpKINode Title="ComboBoxProperties class">
@@ -3062,106 +3057,50 @@
   <HelpKINode Title="ComponentConstructorAttribute property" Url="html/P_Cauldron_Interception_Cecilator_BuilderTypes_ComponentConstructorAttribute.htm" />
   <HelpKINode Title="ComponentConstructorAttribute.ComponentConstructorAttribute constructor" Url="html/M_Cauldron_Activator_ComponentConstructorAttribute__ctor.htm" />
   <HelpKINode Title="Concat method" Url="html/Overload_Cauldron_Extensions_Concat.htm" />
-  <HelpKINode Title="ConcurrentKeyedCollection(Of TKey, TItem) class">
-    <HelpKINode Title="ConcurrentKeyedCollection(TKey, TItem) Class" Url="html/T_Cauldron_Core_Collections_ConcurrentKeyedCollection_2.htm" />
-    <HelpKINode Title="constructor" Url="html/Overload_Cauldron_Core_Collections_ConcurrentKeyedCollection_2__ctor.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Core_Collections_ConcurrentKeyedCollection_2.htm" />
+  <HelpKINode Title="ConcurrentCollection(Of T) class">
+    <HelpKINode Title="ConcurrentCollection(T) Class" Url="html/T_Cauldron_Core_Collections_ConcurrentCollection_1.htm" />
+    <HelpKINode Title="constructor" Url="html/Overload_Cauldron_Core_Collections_ConcurrentCollection_1__ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Core_Collections_ConcurrentCollection_1.htm" />
+    <HelpKINode Title="properties" Url="html/Properties_T_Cauldron_Core_Collections_ConcurrentCollection_1.htm" />
   </HelpKINode>
-  <HelpKINode Title="ConcurrentKeyedCollection(Of TKey, TItem).AddRange method" Url="html/M_Cauldron_Core_Collections_ConcurrentKeyedCollection_2_AddRange.htm" />
-  <HelpKINode Title="ConcurrentKeyedCollection(Of TKey, TItem).ClearItems method" Url="html/M_Cauldron_Core_Collections_ConcurrentKeyedCollection_2_ClearItems.htm" />
-  <HelpKINode Title="ConcurrentKeyedCollection(Of TKey, TItem).ConcurrentKeyedCollection constructor" Url="html/Overload_Cauldron_Core_Collections_ConcurrentKeyedCollection_2__ctor.htm" />
-  <HelpKINode Title="ConcurrentKeyedCollection(Of TKey, TItem).InsertItem method" Url="html/M_Cauldron_Core_Collections_ConcurrentKeyedCollection_2_InsertItem.htm" />
-  <HelpKINode Title="ConcurrentKeyedCollection(Of TKey, TItem).RemoveItem method" Url="html/M_Cauldron_Core_Collections_ConcurrentKeyedCollection_2_RemoveItem.htm" />
-  <HelpKINode Title="ConcurrentKeyedCollection(Of TKey, TItem).SetItem method" Url="html/M_Cauldron_Core_Collections_ConcurrentKeyedCollection_2_SetItem.htm" />
-  <HelpKINode Title="ConcurrentKeyedCollection&lt;TKey, TItem&gt; class">
-    <HelpKINode Title="ConcurrentKeyedCollection(TKey, TItem) Class" Url="html/T_Cauldron_Core_Collections_ConcurrentKeyedCollection_2.htm" />
-    <HelpKINode Title="constructor" Url="html/Overload_Cauldron_Core_Collections_ConcurrentKeyedCollection_2__ctor.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Core_Collections_ConcurrentKeyedCollection_2.htm" />
+  <HelpKINode Title="ConcurrentCollection(Of T).Add method" Url="html/M_Cauldron_Core_Collections_ConcurrentCollection_1_Add.htm" />
+  <HelpKINode Title="ConcurrentCollection(Of T).AddRange method" Url="html/M_Cauldron_Core_Collections_ConcurrentCollection_1_AddRange.htm" />
+  <HelpKINode Title="ConcurrentCollection(Of T).Clear method" Url="html/M_Cauldron_Core_Collections_ConcurrentCollection_1_Clear.htm" />
+  <HelpKINode Title="ConcurrentCollection(Of T).ConcurrentCollection constructor" Url="html/Overload_Cauldron_Core_Collections_ConcurrentCollection_1__ctor.htm" />
+  <HelpKINode Title="ConcurrentCollection(Of T).Contains method" Url="html/Overload_Cauldron_Core_Collections_ConcurrentCollection_1_Contains.htm" />
+  <HelpKINode Title="ConcurrentCollection(Of T).Count property" Url="html/P_Cauldron_Core_Collections_ConcurrentCollection_1_Count.htm" />
+  <HelpKINode Title="ConcurrentCollection(Of T).GetEnumerator method" Url="html/M_Cauldron_Core_Collections_ConcurrentCollection_1_GetEnumerator.htm" />
+  <HelpKINode Title="ConcurrentCollection(Of T).IEnumerable.GetEnumerator explicitly implemented method" Url="html/M_Cauldron_Core_Collections_ConcurrentCollection_1_System_Collections_IEnumerable_GetEnumerator.htm" />
+  <HelpKINode Title="ConcurrentCollection(Of T).IsReadOnly property" Url="html/P_Cauldron_Core_Collections_ConcurrentCollection_1_IsReadOnly.htm" />
+  <HelpKINode Title="ConcurrentCollection(Of T).IsSynchronized property" Url="html/P_Cauldron_Core_Collections_ConcurrentCollection_1_IsSynchronized.htm" />
+  <HelpKINode Title="ConcurrentCollection(Of T).OnClear method" Url="html/M_Cauldron_Core_Collections_ConcurrentCollection_1_OnClear.htm" />
+  <HelpKINode Title="ConcurrentCollection(Of T).OnItemAdded method" Url="html/M_Cauldron_Core_Collections_ConcurrentCollection_1_OnItemAdded.htm" />
+  <HelpKINode Title="ConcurrentCollection(Of T).OnItemsAdded method" Url="html/M_Cauldron_Core_Collections_ConcurrentCollection_1_OnItemsAdded.htm" />
+  <HelpKINode Title="ConcurrentCollection(Of T).OnRemove method" Url="html/Overload_Cauldron_Core_Collections_ConcurrentCollection_1_OnRemove.htm" />
+  <HelpKINode Title="ConcurrentCollection(Of T).Remove method" Url="html/Overload_Cauldron_Core_Collections_ConcurrentCollection_1_Remove.htm" />
+  <HelpKINode Title="ConcurrentCollection(Of T).SyncRoot property" Url="html/P_Cauldron_Core_Collections_ConcurrentCollection_1_SyncRoot.htm" />
+  <HelpKINode Title="ConcurrentCollection&lt;T&gt; class">
+    <HelpKINode Title="ConcurrentCollection(T) Class" Url="html/T_Cauldron_Core_Collections_ConcurrentCollection_1.htm" />
+    <HelpKINode Title="constructor" Url="html/Overload_Cauldron_Core_Collections_ConcurrentCollection_1__ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Core_Collections_ConcurrentCollection_1.htm" />
+    <HelpKINode Title="properties" Url="html/Properties_T_Cauldron_Core_Collections_ConcurrentCollection_1.htm" />
   </HelpKINode>
-  <HelpKINode Title="ConcurrentKeyedCollection&lt;TKey, TItem&gt;.AddRange method" Url="html/M_Cauldron_Core_Collections_ConcurrentKeyedCollection_2_AddRange.htm" />
-  <HelpKINode Title="ConcurrentKeyedCollection&lt;TKey, TItem&gt;.ClearItems method" Url="html/M_Cauldron_Core_Collections_ConcurrentKeyedCollection_2_ClearItems.htm" />
-  <HelpKINode Title="ConcurrentKeyedCollection&lt;TKey, TItem&gt;.ConcurrentKeyedCollection constructor" Url="html/Overload_Cauldron_Core_Collections_ConcurrentKeyedCollection_2__ctor.htm" />
-  <HelpKINode Title="ConcurrentKeyedCollection&lt;TKey, TItem&gt;.InsertItem method" Url="html/M_Cauldron_Core_Collections_ConcurrentKeyedCollection_2_InsertItem.htm" />
-  <HelpKINode Title="ConcurrentKeyedCollection&lt;TKey, TItem&gt;.RemoveItem method" Url="html/M_Cauldron_Core_Collections_ConcurrentKeyedCollection_2_RemoveItem.htm" />
-  <HelpKINode Title="ConcurrentKeyedCollection&lt;TKey, TItem&gt;.SetItem method" Url="html/M_Cauldron_Core_Collections_ConcurrentKeyedCollection_2_SetItem.htm" />
-  <HelpKINode Title="ConcurrentKeyedCollectionEx(Of TKey, TItem) class">
-    <HelpKINode Title="ConcurrentKeyedCollectionEx(TKey, TItem) Class" Url="html/T_Cauldron_Core_Collections_ConcurrentKeyedCollectionEx_2.htm" />
-    <HelpKINode Title="constructor" Url="html/Overload_Cauldron_Core_Collections_ConcurrentKeyedCollectionEx_2__ctor.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Core_Collections_ConcurrentKeyedCollectionEx_2.htm" />
-  </HelpKINode>
-  <HelpKINode Title="ConcurrentKeyedCollectionEx(Of TKey, TItem).ConcurrentKeyedCollectionEx constructor" Url="html/Overload_Cauldron_Core_Collections_ConcurrentKeyedCollectionEx_2__ctor.htm" />
-  <HelpKINode Title="ConcurrentKeyedCollectionEx(Of TKey, TItem).GetKeyForItem method" Url="html/M_Cauldron_Core_Collections_ConcurrentKeyedCollectionEx_2_GetKeyForItem.htm" />
-  <HelpKINode Title="ConcurrentKeyedCollectionEx&lt;TKey, TItem&gt; class">
-    <HelpKINode Title="ConcurrentKeyedCollectionEx(TKey, TItem) Class" Url="html/T_Cauldron_Core_Collections_ConcurrentKeyedCollectionEx_2.htm" />
-    <HelpKINode Title="constructor" Url="html/Overload_Cauldron_Core_Collections_ConcurrentKeyedCollectionEx_2__ctor.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Core_Collections_ConcurrentKeyedCollectionEx_2.htm" />
-  </HelpKINode>
-  <HelpKINode Title="ConcurrentKeyedCollectionEx&lt;TKey, TItem&gt;.ConcurrentKeyedCollectionEx constructor" Url="html/Overload_Cauldron_Core_Collections_ConcurrentKeyedCollectionEx_2__ctor.htm" />
-  <HelpKINode Title="ConcurrentKeyedCollectionEx&lt;TKey, TItem&gt;.GetKeyForItem method" Url="html/M_Cauldron_Core_Collections_ConcurrentKeyedCollectionEx_2_GetKeyForItem.htm" />
-  <HelpKINode Title="ConcurrentList(Of T) class">
-    <HelpKINode Title="ConcurrentList(T) Class" Url="html/T_Cauldron_Core_Collections_ConcurrentList_1.htm" />
-    <HelpKINode Title="constructor" Url="html/Overload_Cauldron_Core_Collections_ConcurrentList_1__ctor.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Core_Collections_ConcurrentList_1.htm" />
-    <HelpKINode Title="properties" Url="html/Properties_T_Cauldron_Core_Collections_ConcurrentList_1.htm" />
-  </HelpKINode>
-  <HelpKINode Title="ConcurrentList(Of T).Add method" Url="html/M_Cauldron_Core_Collections_ConcurrentList_1_Add.htm" />
-  <HelpKINode Title="ConcurrentList(Of T).AddRange method" Url="html/M_Cauldron_Core_Collections_ConcurrentList_1_AddRange.htm" />
-  <HelpKINode Title="ConcurrentList(Of T).Clear method" Url="html/M_Cauldron_Core_Collections_ConcurrentList_1_Clear.htm" />
-  <HelpKINode Title="ConcurrentList(Of T).ConcurrentList constructor" Url="html/Overload_Cauldron_Core_Collections_ConcurrentList_1__ctor.htm" />
-  <HelpKINode Title="ConcurrentList(Of T).Contains method" Url="html/Overload_Cauldron_Core_Collections_ConcurrentList_1_Contains.htm" />
-  <HelpKINode Title="ConcurrentList(Of T).CopyTo method" Url="html/Overload_Cauldron_Core_Collections_ConcurrentList_1_CopyTo.htm" />
-  <HelpKINode Title="ConcurrentList(Of T).Count property" Url="html/P_Cauldron_Core_Collections_ConcurrentList_1_Count.htm" />
-  <HelpKINode Title="ConcurrentList(Of T).GetEnumerator method" Url="html/M_Cauldron_Core_Collections_ConcurrentList_1_GetEnumerator.htm" />
-  <HelpKINode Title="ConcurrentList(Of T).ICollection(Of T).Remove explicitly implemented method" Url="html/M_Cauldron_Core_Collections_ConcurrentList_1_System_Collections_Generic_ICollection{T}_Remove.htm" />
-  <HelpKINode Title="ConcurrentList(Of T).IEnumerable.GetEnumerator explicitly implemented method" Url="html/M_Cauldron_Core_Collections_ConcurrentList_1_System_Collections_IEnumerable_GetEnumerator.htm" />
-  <HelpKINode Title="ConcurrentList(Of T).IList(Of T).Item explicitly implemented property" Url="html/P_Cauldron_Core_Collections_ConcurrentList_1_System_Collections_Generic_IList{T}_Item.htm" />
-  <HelpKINode Title="ConcurrentList(Of T).IList.Add explicitly implemented method" Url="html/M_Cauldron_Core_Collections_ConcurrentList_1_System_Collections_IList_Add.htm" />
-  <HelpKINode Title="ConcurrentList(Of T).IList.Item explicitly implemented property" Url="html/P_Cauldron_Core_Collections_ConcurrentList_1_System_Collections_IList_Item.htm" />
-  <HelpKINode Title="ConcurrentList(Of T).IList.Remove explicitly implemented method" Url="html/M_Cauldron_Core_Collections_ConcurrentList_1_System_Collections_IList_Remove.htm" />
-  <HelpKINode Title="ConcurrentList(Of T).IndexOf method" Url="html/Overload_Cauldron_Core_Collections_ConcurrentList_1_IndexOf.htm" />
-  <HelpKINode Title="ConcurrentList(Of T).Insert method" Url="html/Overload_Cauldron_Core_Collections_ConcurrentList_1_Insert.htm" />
-  <HelpKINode Title="ConcurrentList(Of T).IsFixedSize property" Url="html/P_Cauldron_Core_Collections_ConcurrentList_1_IsFixedSize.htm" />
-  <HelpKINode Title="ConcurrentList(Of T).IsReadOnly property" Url="html/P_Cauldron_Core_Collections_ConcurrentList_1_IsReadOnly.htm" />
-  <HelpKINode Title="ConcurrentList(Of T).IsSynchronized property" Url="html/P_Cauldron_Core_Collections_ConcurrentList_1_IsSynchronized.htm" />
-  <HelpKINode Title="ConcurrentList(Of T).Item property" Url="html/P_Cauldron_Core_Collections_ConcurrentList_1_Item.htm" />
-  <HelpKINode Title="ConcurrentList(Of T).Remove method" Url="html/Overload_Cauldron_Core_Collections_ConcurrentList_1_Remove.htm" />
-  <HelpKINode Title="ConcurrentList(Of T).RemoveAll method" Url="html/M_Cauldron_Core_Collections_ConcurrentList_1_RemoveAll.htm" />
-  <HelpKINode Title="ConcurrentList(Of T).RemoveAt method" Url="html/M_Cauldron_Core_Collections_ConcurrentList_1_RemoveAt.htm" />
-  <HelpKINode Title="ConcurrentList(Of T).SyncRoot property" Url="html/P_Cauldron_Core_Collections_ConcurrentList_1_SyncRoot.htm" />
-  <HelpKINode Title="ConcurrentList(Of T).ToArray method" Url="html/M_Cauldron_Core_Collections_ConcurrentList_1_ToArray.htm" />
-  <HelpKINode Title="ConcurrentList(Of T).ToList method" Url="html/M_Cauldron_Core_Collections_ConcurrentList_1_ToList.htm" />
-  <HelpKINode Title="ConcurrentList&lt;T&gt; class">
-    <HelpKINode Title="ConcurrentList(T) Class" Url="html/T_Cauldron_Core_Collections_ConcurrentList_1.htm" />
-    <HelpKINode Title="constructor" Url="html/Overload_Cauldron_Core_Collections_ConcurrentList_1__ctor.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Core_Collections_ConcurrentList_1.htm" />
-    <HelpKINode Title="properties" Url="html/Properties_T_Cauldron_Core_Collections_ConcurrentList_1.htm" />
-  </HelpKINode>
-  <HelpKINode Title="ConcurrentList&lt;T&gt;.Add method" Url="html/M_Cauldron_Core_Collections_ConcurrentList_1_Add.htm" />
-  <HelpKINode Title="ConcurrentList&lt;T&gt;.AddRange method" Url="html/M_Cauldron_Core_Collections_ConcurrentList_1_AddRange.htm" />
-  <HelpKINode Title="ConcurrentList&lt;T&gt;.Clear method" Url="html/M_Cauldron_Core_Collections_ConcurrentList_1_Clear.htm" />
-  <HelpKINode Title="ConcurrentList&lt;T&gt;.ConcurrentList constructor" Url="html/Overload_Cauldron_Core_Collections_ConcurrentList_1__ctor.htm" />
-  <HelpKINode Title="ConcurrentList&lt;T&gt;.Contains method" Url="html/Overload_Cauldron_Core_Collections_ConcurrentList_1_Contains.htm" />
-  <HelpKINode Title="ConcurrentList&lt;T&gt;.CopyTo method" Url="html/Overload_Cauldron_Core_Collections_ConcurrentList_1_CopyTo.htm" />
-  <HelpKINode Title="ConcurrentList&lt;T&gt;.Count property" Url="html/P_Cauldron_Core_Collections_ConcurrentList_1_Count.htm" />
-  <HelpKINode Title="ConcurrentList&lt;T&gt;.GetEnumerator method" Url="html/M_Cauldron_Core_Collections_ConcurrentList_1_GetEnumerator.htm" />
-  <HelpKINode Title="ConcurrentList&lt;T&gt;.ICollection&lt;T&gt;.Remove explicitly implemented method" Url="html/M_Cauldron_Core_Collections_ConcurrentList_1_System_Collections_Generic_ICollection{T}_Remove.htm" />
-  <HelpKINode Title="ConcurrentList&lt;T&gt;.IEnumerable.GetEnumerator explicitly implemented method" Url="html/M_Cauldron_Core_Collections_ConcurrentList_1_System_Collections_IEnumerable_GetEnumerator.htm" />
-  <HelpKINode Title="ConcurrentList&lt;T&gt;.IList.Add explicitly implemented method" Url="html/M_Cauldron_Core_Collections_ConcurrentList_1_System_Collections_IList_Add.htm" />
-  <HelpKINode Title="ConcurrentList&lt;T&gt;.IList.Item explicitly implemented property" Url="html/P_Cauldron_Core_Collections_ConcurrentList_1_System_Collections_IList_Item.htm" />
-  <HelpKINode Title="ConcurrentList&lt;T&gt;.IList.Remove explicitly implemented method" Url="html/M_Cauldron_Core_Collections_ConcurrentList_1_System_Collections_IList_Remove.htm" />
-  <HelpKINode Title="ConcurrentList&lt;T&gt;.IList&lt;T&gt;.Item explicitly implemented property" Url="html/P_Cauldron_Core_Collections_ConcurrentList_1_System_Collections_Generic_IList{T}_Item.htm" />
-  <HelpKINode Title="ConcurrentList&lt;T&gt;.IndexOf method" Url="html/Overload_Cauldron_Core_Collections_ConcurrentList_1_IndexOf.htm" />
-  <HelpKINode Title="ConcurrentList&lt;T&gt;.Insert method" Url="html/Overload_Cauldron_Core_Collections_ConcurrentList_1_Insert.htm" />
-  <HelpKINode Title="ConcurrentList&lt;T&gt;.IsFixedSize property" Url="html/P_Cauldron_Core_Collections_ConcurrentList_1_IsFixedSize.htm" />
-  <HelpKINode Title="ConcurrentList&lt;T&gt;.IsReadOnly property" Url="html/P_Cauldron_Core_Collections_ConcurrentList_1_IsReadOnly.htm" />
-  <HelpKINode Title="ConcurrentList&lt;T&gt;.IsSynchronized property" Url="html/P_Cauldron_Core_Collections_ConcurrentList_1_IsSynchronized.htm" />
-  <HelpKINode Title="ConcurrentList&lt;T&gt;.Item property" Url="html/P_Cauldron_Core_Collections_ConcurrentList_1_Item.htm" />
-  <HelpKINode Title="ConcurrentList&lt;T&gt;.Remove method" Url="html/Overload_Cauldron_Core_Collections_ConcurrentList_1_Remove.htm" />
-  <HelpKINode Title="ConcurrentList&lt;T&gt;.RemoveAll method" Url="html/M_Cauldron_Core_Collections_ConcurrentList_1_RemoveAll.htm" />
-  <HelpKINode Title="ConcurrentList&lt;T&gt;.RemoveAt method" Url="html/M_Cauldron_Core_Collections_ConcurrentList_1_RemoveAt.htm" />
-  <HelpKINode Title="ConcurrentList&lt;T&gt;.SyncRoot property" Url="html/P_Cauldron_Core_Collections_ConcurrentList_1_SyncRoot.htm" />
-  <HelpKINode Title="ConcurrentList&lt;T&gt;.ToArray method" Url="html/M_Cauldron_Core_Collections_ConcurrentList_1_ToArray.htm" />
-  <HelpKINode Title="ConcurrentList&lt;T&gt;.ToList method" Url="html/M_Cauldron_Core_Collections_ConcurrentList_1_ToList.htm" />
+  <HelpKINode Title="ConcurrentCollection&lt;T&gt;.Add method" Url="html/M_Cauldron_Core_Collections_ConcurrentCollection_1_Add.htm" />
+  <HelpKINode Title="ConcurrentCollection&lt;T&gt;.AddRange method" Url="html/M_Cauldron_Core_Collections_ConcurrentCollection_1_AddRange.htm" />
+  <HelpKINode Title="ConcurrentCollection&lt;T&gt;.Clear method" Url="html/M_Cauldron_Core_Collections_ConcurrentCollection_1_Clear.htm" />
+  <HelpKINode Title="ConcurrentCollection&lt;T&gt;.ConcurrentCollection constructor" Url="html/Overload_Cauldron_Core_Collections_ConcurrentCollection_1__ctor.htm" />
+  <HelpKINode Title="ConcurrentCollection&lt;T&gt;.Contains method" Url="html/Overload_Cauldron_Core_Collections_ConcurrentCollection_1_Contains.htm" />
+  <HelpKINode Title="ConcurrentCollection&lt;T&gt;.Count property" Url="html/P_Cauldron_Core_Collections_ConcurrentCollection_1_Count.htm" />
+  <HelpKINode Title="ConcurrentCollection&lt;T&gt;.GetEnumerator method" Url="html/M_Cauldron_Core_Collections_ConcurrentCollection_1_GetEnumerator.htm" />
+  <HelpKINode Title="ConcurrentCollection&lt;T&gt;.IEnumerable.GetEnumerator explicitly implemented method" Url="html/M_Cauldron_Core_Collections_ConcurrentCollection_1_System_Collections_IEnumerable_GetEnumerator.htm" />
+  <HelpKINode Title="ConcurrentCollection&lt;T&gt;.IsReadOnly property" Url="html/P_Cauldron_Core_Collections_ConcurrentCollection_1_IsReadOnly.htm" />
+  <HelpKINode Title="ConcurrentCollection&lt;T&gt;.IsSynchronized property" Url="html/P_Cauldron_Core_Collections_ConcurrentCollection_1_IsSynchronized.htm" />
+  <HelpKINode Title="ConcurrentCollection&lt;T&gt;.OnClear method" Url="html/M_Cauldron_Core_Collections_ConcurrentCollection_1_OnClear.htm" />
+  <HelpKINode Title="ConcurrentCollection&lt;T&gt;.OnItemAdded method" Url="html/M_Cauldron_Core_Collections_ConcurrentCollection_1_OnItemAdded.htm" />
+  <HelpKINode Title="ConcurrentCollection&lt;T&gt;.OnItemsAdded method" Url="html/M_Cauldron_Core_Collections_ConcurrentCollection_1_OnItemsAdded.htm" />
+  <HelpKINode Title="ConcurrentCollection&lt;T&gt;.OnRemove method" Url="html/Overload_Cauldron_Core_Collections_ConcurrentCollection_1_OnRemove.htm" />
+  <HelpKINode Title="ConcurrentCollection&lt;T&gt;.Remove method" Url="html/Overload_Cauldron_Core_Collections_ConcurrentCollection_1_Remove.htm" />
+  <HelpKINode Title="ConcurrentCollection&lt;T&gt;.SyncRoot property" Url="html/P_Cauldron_Core_Collections_ConcurrentCollection_1_SyncRoot.htm" />
   <HelpKINode Title="Configure method" Url="html/M_Cauldron_XAML_ParamPassing_Configure.htm" />
   <HelpKINode Title="ConnectionGenerationTypes enumeration" Url="html/T_Cauldron_Core_Net_ConnectionGenerationTypes.htm" />
   <HelpKINode Title="ConnectionType property" Url="html/P_Cauldron_Core_Net_Network_ConnectionType.htm" />
@@ -3194,13 +3133,14 @@
   <HelpKINode Title="ConstantValue property" Url="html/P_Cauldron_Interception_Cecilator_Field_ConstantValue.htm" />
   <HelpKINode Title="ConstructorArguments property" Url="html/P_Cauldron_Interception_Cecilator_BuilderCustomAttribute_ConstructorArguments.htm" />
   <HelpKINode Title="Contains method">
-    <HelpKINode Title="ConcurrentList(T).Contains Method " Url="html/Overload_Cauldron_Core_Collections_ConcurrentList_1_Contains.htm" />
+    <HelpKINode Title="ConcurrentCollection(T).Contains Method " Url="html/Overload_Cauldron_Core_Collections_ConcurrentCollection_1_Contains.htm" />
     <HelpKINode Title="Extensions.Contains Method " Url="html/M_Cauldron_Extensions_Contains.htm" />
-    <HelpKINode Title="FastDictionary(TKey, TValue).Contains Method " Url="html/M_System_Collections_Generic_FastDictionary_2_Contains.htm" />
+    <HelpKINode Title="FastDictionary(TKey, TValue).Contains Method " Url="html/M_Cauldron_Core_Collections_FastDictionary_2_Contains.htm" />
+    <HelpKINode Title="FastKeyedCollection(TKey, TItem).Contains Method " Url="html/Overload_Cauldron_Core_Collections_FastKeyedCollection_2_Contains.htm" />
     <HelpKINode Title="FieldCollection.Contains Method " Url="html/M_Cauldron_Interception_Cecilator_FieldCollection_Contains.htm" />
     <HelpKINode Title="Locale.Contains Method " Url="html/M_Cauldron_Localization_Locale_Contains.htm" />
   </HelpKINode>
-  <HelpKINode Title="ContainsKey method" Url="html/M_System_Collections_Generic_FastDictionary_2_ContainsKey.htm" />
+  <HelpKINode Title="ContainsKey method" Url="html/M_Cauldron_Core_Collections_FastDictionary_2_ContainsKey.htm" />
   <HelpKINode Title="ContainsProperty method" Url="html/M_Cauldron_Interception_Cecilator_BuilderType_ContainsProperty.htm" />
   <HelpKINode Title="ContentControlProperties class">
     <HelpKINode Title="ContentControlProperties Class" Url="html/T_Cauldron_XAML_Theme_ContentControlProperties.htm" />
@@ -3240,19 +3180,17 @@
   </HelpKINode>
   <HelpKINode Title="CopyAsync method" Url="html/Overload_Cauldron_ExtensionsDirectoryInfo_CopyAsync.htm" />
   <HelpKINode Title="CopyTo method">
-    <HelpKINode Title="ConcurrentList(T).CopyTo Method " Url="html/Overload_Cauldron_Core_Collections_ConcurrentList_1_CopyTo.htm" />
-    <HelpKINode Title="FastDictionary(TKey, TValue).CopyTo Method " Url="html/M_System_Collections_Generic_FastDictionary_2_CopyTo.htm" />
+    <HelpKINode Title="FastDictionary(TKey, TValue).CopyTo Method " Url="html/M_Cauldron_Core_Collections_FastDictionary_2_CopyTo.htm" />
+    <HelpKINode Title="FastKeyedCollection(TKey, TItem).CopyTo Method " Url="html/M_Cauldron_Core_Collections_FastKeyedCollection_2_CopyTo.htm" />
   </HelpKINode>
   <HelpKINode Title="Count method" Url="html/M_Cauldron_Core_Collections_IEnumerableExtensions_Count.htm" />
   <HelpKINode Title="Count property">
-    <HelpKINode Title="ConcurrentList(T).Count Property " Url="html/P_Cauldron_Core_Collections_ConcurrentList_1_Count.htm" />
-    <HelpKINode Title="FastDictionary(TKey, TValue).Count Property " Url="html/P_System_Collections_Generic_FastDictionary_2_Count.htm" />
+    <HelpKINode Title="ConcurrentCollection(T).Count Property " Url="html/P_Cauldron_Core_Collections_ConcurrentCollection_1_Count.htm" />
+    <HelpKINode Title="FastDictionary(TKey, TValue).Count Property " Url="html/P_Cauldron_Core_Collections_FastDictionary_2_Count.htm" />
+    <HelpKINode Title="FastKeyedCollection(TKey, TItem).Count Property " Url="html/P_Cauldron_Core_Collections_FastKeyedCollection_2_Count.htm" />
     <HelpKINode Title="InstructionBlock.Count Property " Url="html/P_Cauldron_Interception_Cecilator_Coders_InstructionBlock_Count.htm" />
   </HelpKINode>
-  <HelpKINode Title="Create method">
-    <HelpKINode Title="BuilderCustomAttribute.Create Method " Url="html/Overload_Cauldron_Interception_Cecilator_BuilderCustomAttribute_Create.htm" />
-    <HelpKINode Title="CallOnce.Create Method " Url="html/Overload_Cauldron_Core_Threading_CallOnce_Create.htm" />
-  </HelpKINode>
+  <HelpKINode Title="Create method" Url="html/Overload_Cauldron_Interception_Cecilator_BuilderCustomAttribute_Create.htm" />
   <HelpKINode Title="CreateBuilder method" Url="html/M_Cauldron_Interception_Cecilator_Extension_CreateBuilder.htm" />
   <HelpKINode Title="CreateCall method" Url="html/M_Cauldron_Interception_Cecilator_Coders_CodeBlocks_CreateCall.htm" />
   <HelpKINode Title="CreateCode method" Url="html/M_Cauldron_Interception_Cecilator_Coders_InstructionBlock_CreateCode.htm" />
@@ -3297,11 +3235,11 @@
   <HelpKINode Title="CtorBeforeInit enumeration member" Url="html/T_Cauldron_Interception_Cecilator_InsertionPosition.htm" />
   <HelpKINode Title="CultureInfo property" Url="html/P_Cauldron_Localization_Locale_CultureInfo.htm" />
   <HelpKINode Title="Current property">
+    <HelpKINode Title="ApplicationData.Current Property " Url="html/P_Windows_Storage_ApplicationData_Current.htm" />
     <HelpKINode Title="ApplicationData.Current Property " Url="html/P_Cauldron_Core_ApplicationData_Current.htm" />
     <HelpKINode Title="Builder.Current Property " Url="html/P_Cauldron_Interception_Cecilator_Builder_Current.htm" />
     <HelpKINode Title="Factory(T).Current Property " Url="html/P_Cauldron_Activator_Factory_1_Current.htm" />
   </HelpKINode>
-  <HelpKINode Title="CurrentTask property" Url="html/P_Cauldron_Core_Threading_CallOnce_CurrentTask.htm" />
   <HelpKINode Title="CurrentUser property" Url="html/P_Cauldron_Core_UserInformation_CurrentUser.htm" />
   <HelpKINode Title="CustomAttributes property">
     <HelpKINode Title="Builder.CustomAttributes Property " Url="html/P_Cauldron_Interception_Cecilator_Builder_CustomAttributes.htm" />
@@ -3320,37 +3258,14 @@
   <HelpKINode Title="CustomCursor.ResourceKey attached property" Url="html/P_Cauldron_XAML_Interactivity_CustomCursor_ResourceKey.htm" />
   <HelpKINode Title="CustomCursor.ResourceKeyProperty field" Url="html/F_Cauldron_XAML_Interactivity_CustomCursor_ResourceKeyProperty.htm" />
   <HelpKINode Title="CustomCursor.SetResourceKey method" Url="html/M_Cauldron_XAML_Interactivity_CustomCursor_SetResourceKey.htm" />
-  <HelpKINode Title="CustomDictionary(Of TKey, TValue) class">
-    <HelpKINode Title="CustomDictionary(TKey, TValue) Class" Url="html/T_System_Collections_Generic_CustomDictionary_2.htm" />
-    <HelpKINode Title="constructor" Url="html/M_System_Collections_Generic_CustomDictionary_2__ctor.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_System_Collections_Generic_CustomDictionary_2.htm" />
-    <HelpKINode Title="properties" Url="html/Properties_T_System_Collections_Generic_CustomDictionary_2.htm" />
-  </HelpKINode>
-  <HelpKINode Title="CustomDictionary(Of TKey, TValue).AreEqual method" Url="html/M_System_Collections_Generic_CustomDictionary_2_AreEqual.htm" />
-  <HelpKINode Title="CustomDictionary(Of TKey, TValue).CustomDictionary constructor" Url="html/M_System_Collections_Generic_CustomDictionary_2__ctor.htm" />
-  <HelpKINode Title="CustomDictionary&lt;TKey, TValue&gt; class">
-    <HelpKINode Title="CustomDictionary(TKey, TValue) Class" Url="html/T_System_Collections_Generic_CustomDictionary_2.htm" />
-    <HelpKINode Title="constructor" Url="html/M_System_Collections_Generic_CustomDictionary_2__ctor.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_System_Collections_Generic_CustomDictionary_2.htm" />
-    <HelpKINode Title="properties" Url="html/Properties_T_System_Collections_Generic_CustomDictionary_2.htm" />
-  </HelpKINode>
-  <HelpKINode Title="CustomDictionary&lt;TKey, TValue&gt;.AreEqual method" Url="html/M_System_Collections_Generic_CustomDictionary_2_AreEqual.htm" />
-  <HelpKINode Title="CustomDictionary&lt;TKey, TValue&gt;.CustomDictionary constructor" Url="html/M_System_Collections_Generic_CustomDictionary_2__ctor.htm" />
   <HelpKINode Title="DataContextChanged method" Url="html/M_Cauldron_XAML_Interactivity_IBehaviour_DataContextChanged.htm" />
   <HelpKINode Title="DataContextPropertyChanged method" Url="html/M_Cauldron_XAML_Interactivity_IBehaviour_DataContextPropertyChanged.htm" />
   <HelpKINode Title="DataSeparator property" Url="html/P_Cauldron_XAML_ParameterPassingConfig_DataSeparator.htm" />
   <HelpKINode Title="DateTime property" Url="html/P_Cauldron_Interception_Cecilator_BuilderTypes_DateTime.htm" />
   <HelpKINode Title="Deactivated method" Url="html/M_Cauldron_XAML_ViewModels_IFrameAware_Deactivated.htm" />
-  <HelpKINode Title="Debug class">
-    <HelpKINode Title="Debug Class" Url="html/T_Cauldron_Core_Diagnostics_Debug.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Core_Diagnostics_Debug.htm" />
-    <HelpKINode Title="properties" Url="html/Properties_T_Cauldron_Core_Diagnostics_Debug.htm" />
-  </HelpKINode>
-  <HelpKINode Title="Debug.GetStackTrace method" Url="html/M_Cauldron_Core_Diagnostics_Debug_GetStackTrace.htm" />
-  <HelpKINode Title="Debug.HardwareIdentifier property" Url="html/P_Cauldron_Core_Diagnostics_Debug_HardwareIdentifier.htm" />
-  <HelpKINode Title="Debug.WriteLine method" Url="html/Overload_Cauldron_Core_Diagnostics_Debug_WriteLine.htm" />
   <HelpKINode Title="Decimal property" Url="html/P_Cauldron_Interception_Cecilator_BuilderTypes_Decimal.htm" />
   <HelpKINode Title="DeclaringType property">
+    <HelpKINode Title="BuilderType.DeclaringType Property " Url="html/P_Cauldron_Interception_Cecilator_BuilderType_DeclaringType.htm" />
     <HelpKINode Title="Field.DeclaringType Property " Url="html/P_Cauldron_Interception_Cecilator_Field_DeclaringType.htm" />
     <HelpKINode Title="Method.DeclaringType Property " Url="html/P_Cauldron_Interception_Cecilator_Method_DeclaringType.htm" />
     <HelpKINode Title="Property.DeclaringType Property " Url="html/P_Cauldron_Interception_Cecilator_Property_DeclaringType.htm" />
@@ -3375,7 +3290,6 @@
   <HelpKINode Title="DefaultValueCodeBlock class" Url="html/T_Cauldron_Interception_Cecilator_Coders_DefaultValueCodeBlock.htm" />
   <HelpKINode Title="DefaultValueOf method" Url="html/M_Cauldron_Interception_Cecilator_Coders_CodeBlocks_DefaultValueOf.htm" />
   <HelpKINode Title="definition field" Url="html/F_Cauldron_Interception_Cecilator_MethodDefinitionAndReference_definition.htm" />
-  <HelpKINode Title="DegreesToRadians method" Url="html/M_System_MathEx_DegreesToRadians.htm" />
   <HelpKINode Title="DeleteAsync method" Url="html/M_Cauldron_ExtensionsFileInfo_DeleteAsync.htm" />
   <HelpKINode Title="DependencyProperty property" Url="html/P_Cauldron_XAML_DependencyPropertyInfo_DependencyProperty.htm" />
   <HelpKINode Title="DependencyPropertyInfo class">
@@ -3392,7 +3306,6 @@
     <HelpKINode Title="ParameterAttribute.Description Property " Url="html/P_Cauldron_Consoles_ParameterAttribute_Description.htm" />
   </HelpKINode>
   <HelpKINode Title="DescriptionColor property" Url="html/P_Cauldron_Consoles_ParameterParser_DescriptionColor.htm" />
-  <HelpKINode Title="Deserialize method" Url="html/M_Cauldron_Core_Collections_KeyRawValueDictionary_Deserialize.htm" />
   <HelpKINode Title="DeserializeAsync method" Url="html/Overload_Cauldron_Core_Serializer_DeserializeAsync.htm" />
   <HelpKINode Title="DeserializeObject(Of T) method" Url="html/M_Cauldron_Core_Yaml_YamlConvert_DeserializeObject__1.htm" />
   <HelpKINode Title="DeserializeObject&lt;T&gt; method" Url="html/M_Cauldron_Core_Yaml_YamlConvert_DeserializeObject__1.htm" />
@@ -3417,35 +3330,6 @@
     <HelpKINode Title="MessageDialogEx.Dispatcher Property " Url="html/P_Cauldron_XAML_MessageDialogEx_Dispatcher.htm" />
     <HelpKINode Title="ViewModelBase.Dispatcher Property " Url="html/P_Cauldron_XAML_ViewModels_ViewModelBase_Dispatcher.htm" />
   </HelpKINode>
-  <HelpKINode Title="DispatcherDummy class">
-    <HelpKINode Title="DispatcherDummy Class" Url="html/T_Cauldron_Core_Threading_DispatcherDummy.htm" />
-    <HelpKINode Title="constructor" Url="html/M_Cauldron_Core_Threading_DispatcherDummy__ctor.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Core_Threading_DispatcherDummy.htm" />
-    <HelpKINode Title="properties" Url="html/Properties_T_Cauldron_Core_Threading_DispatcherDummy.htm" />
-  </HelpKINode>
-  <HelpKINode Title="DispatcherDummy.DispatcherDummy constructor" Url="html/M_Cauldron_Core_Threading_DispatcherDummy__ctor.htm" />
-  <HelpKINode Title="DispatcherDummy.HasThreadAccess property" Url="html/P_Cauldron_Core_Threading_DispatcherDummy_HasThreadAccess.htm" />
-  <HelpKINode Title="DispatcherDummy.RunAsync method" Url="html/Overload_Cauldron_Core_Threading_DispatcherDummy_RunAsync.htm" />
-  <HelpKINode Title="DispatcherEx class">
-    <HelpKINode Title="DispatcherEx Class" Url="html/T_Cauldron_Core_Threading_DispatcherEx.htm" />
-    <HelpKINode Title="constructor" Url="html/M_Cauldron_Core_Threading_DispatcherEx__ctor.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Core_Threading_DispatcherEx.htm" />
-    <HelpKINode Title="properties" Url="html/Properties_T_Cauldron_Core_Threading_DispatcherEx.htm" />
-  </HelpKINode>
-  <HelpKINode Title="DispatcherEx.DispatcherEx constructor" Url="html/M_Cauldron_Core_Threading_DispatcherEx__ctor.htm" />
-  <HelpKINode Title="DispatcherEx.HasThreadAccess property" Url="html/P_Cauldron_Core_Threading_DispatcherEx_HasThreadAccess.htm" />
-  <HelpKINode Title="DispatcherEx.OnCreateDispatcher method" Url="html/M_Cauldron_Core_Threading_DispatcherEx_OnCreateDispatcher.htm" />
-  <HelpKINode Title="DispatcherEx.ProcessEvents method" Url="html/M_Cauldron_Core_Threading_DispatcherEx_ProcessEvents.htm" />
-  <HelpKINode Title="DispatcherEx.RunAsync method" Url="html/Overload_Cauldron_Core_Threading_DispatcherEx_RunAsync.htm" />
-  <HelpKINode Title="DispatcherFactoryResolver class">
-    <HelpKINode Title="DispatcherFactoryResolver Class" Url="html/T_Cauldron_Core_Threading_DispatcherFactoryResolver.htm" />
-    <HelpKINode Title="constructor" Url="html/M_Cauldron_Core_Threading_DispatcherFactoryResolver__ctor.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Core_Threading_DispatcherFactoryResolver.htm" />
-    <HelpKINode Title="properties" Url="html/Properties_T_Cauldron_Core_Threading_DispatcherFactoryResolver.htm" />
-  </HelpKINode>
-  <HelpKINode Title="DispatcherFactoryResolver.DispatcherFactoryResolver constructor" Url="html/M_Cauldron_Core_Threading_DispatcherFactoryResolver__ctor.htm" />
-  <HelpKINode Title="DispatcherFactoryResolver.OnInitialize method" Url="html/M_Cauldron_Core_Threading_DispatcherFactoryResolver_OnInitialize.htm" />
-  <HelpKINode Title="DispatcherPriority enumeration" Url="html/T_Cauldron_Core_Threading_DispatcherPriority.htm" />
   <HelpKINode Title="Display method" Url="html/M_Cauldron_Interception_Cecilator_Coders_InstructionBlock_Display.htm" />
   <HelpKINode Title="DisplayMethodNames method" Url="html/M_Cauldron_Interception_Cecilator_BuilderType_DisplayMethodNames.htm" />
   <HelpKINode Title="DisplayName property">
@@ -3475,15 +3359,15 @@
   <HelpKINode Title="DisposableBase.IsDisposed property" Url="html/P_Cauldron_Core_DisposableBase_IsDisposed.htm" />
   <HelpKINode Title="DisposableBase.OnDispose method" Url="html/M_Cauldron_Core_DisposableBase_OnDispose.htm" />
   <HelpKINode Title="DisposableObject class">
-    <HelpKINode Title="DisposableObject Class" Url="html/T_Cauldron_Core_DisposableObject.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Core_DisposableObject.htm" />
+    <HelpKINode Title="DisposableObject Class" Url="html/T_Cauldron_Cryptography_DisposableObject.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Cryptography_DisposableObject.htm" />
   </HelpKINode>
-  <HelpKINode Title="DisposableObject.Dispose method" Url="html/Overload_Cauldron_Core_DisposableObject_Dispose.htm" />
-  <HelpKINode Title="DisposableObject.Finalize method" Url="html/M_Cauldron_Core_DisposableObject_Finalize.htm" />
-  <HelpKINode Title="DisposableObject.OnDispose method" Url="html/M_Cauldron_Core_DisposableObject_OnDispose.htm" />
+  <HelpKINode Title="DisposableObject.Dispose method" Url="html/Overload_Cauldron_Cryptography_DisposableObject_Dispose.htm" />
+  <HelpKINode Title="DisposableObject.Finalize method" Url="html/M_Cauldron_Cryptography_DisposableObject_Finalize.htm" />
+  <HelpKINode Title="DisposableObject.OnDispose method" Url="html/M_Cauldron_Cryptography_DisposableObject_OnDispose.htm" />
   <HelpKINode Title="Dispose method">
     <HelpKINode Title="DisposableBase.Dispose Method " Url="html/Overload_Cauldron_Core_DisposableBase_Dispose.htm" />
-    <HelpKINode Title="DisposableObject.Dispose Method " Url="html/Overload_Cauldron_Core_DisposableObject_Dispose.htm" />
+    <HelpKINode Title="DisposableObject.Dispose Method " Url="html/Overload_Cauldron_Cryptography_DisposableObject_Dispose.htm" />
     <HelpKINode Title="ImageManager.Dispose Method " Url="html/M_Cauldron_XAML_ImageManager_Dispose.htm" />
     <HelpKINode Title="WindowsServiceInstaller.Dispose Method " Url="html/M_Cauldron_WindowsService_WindowsServiceInstaller_Dispose.htm" />
   </HelpKINode>
@@ -3496,8 +3380,10 @@
   <HelpKINode Title="DistanceProperty field" Url="html/F_Cauldron_XAML_Theme_ProgressBarProperties_DistanceProperty.htm" />
   <HelpKINode Title="Distinct(Of TSource) method" Url="html/M_Cauldron_Extensions_Distinct__1.htm" />
   <HelpKINode Title="Distinct&lt;TSource&gt; method" Url="html/M_Cauldron_Extensions_Distinct__1.htm" />
-  <HelpKINode Title="Divide method" Url="html/M_System_MathEx_Divide.htm" />
-  <HelpKINode Title="DocumentsLibrary property" Url="html/P_Cauldron_Core_KnownFolders_DocumentsLibrary.htm" />
+  <HelpKINode Title="DocumentsLibrary property">
+    <HelpKINode Title="KnownFolders.DocumentsLibrary Property " Url="html/P_Cauldron_Core_KnownFolders_DocumentsLibrary.htm" />
+    <HelpKINode Title="KnownFolders.DocumentsLibrary Property " Url="html/P_Windows_Storage_KnownFolders_DocumentsLibrary.htm" />
+  </HelpKINode>
   <HelpKINode Title="DomainName property">
     <HelpKINode Title="User.DomainName Property " Url="html/P_Cauldron_Core_User_DomainName.htm" />
     <HelpKINode Title="UserInformation.DomainName Property " Url="html/P_Cauldron_Core_UserInformation_DomainName.htm" />
@@ -3637,6 +3523,7 @@
     <HelpKINode Title="BuilderType.Equals Method " Url="html/Overload_Cauldron_Interception_Cecilator_BuilderType_Equals.htm" />
     <HelpKINode Title="Comparer.Equals Method " Url="html/Overload_Cauldron_Core_Comparer_Equals.htm" />
     <HelpKINode Title="DynamicEqualityComparer(T).Equals Method " Url="html/M_Cauldron_Core_DynamicEqualityComparer_1_Equals.htm" />
+    <HelpKINode Title="FastObservableCollection(T).Equals Method " Url="html/Overload_Cauldron_Core_Collections_FastObservableCollection_1_Equals.htm" />
     <HelpKINode Title="Field.Equals Method " Url="html/Overload_Cauldron_Interception_Cecilator_Field_Equals.htm" />
     <HelpKINode Title="FieldUsage.Equals Method " Url="html/Overload_Cauldron_Interception_Cecilator_FieldUsage_Equals.htm" />
     <HelpKINode Title="InstructionBlock.Equals Method " Url="html/M_Cauldron_Interception_Cecilator_Coders_InstructionBlock_Equals.htm" />
@@ -3646,7 +3533,6 @@
     <HelpKINode Title="MethodUsage.Equals Method " Url="html/Overload_Cauldron_Interception_Cecilator_MethodUsage_Equals.htm" />
     <HelpKINode Title="Property.Equals Method " Url="html/Overload_Cauldron_Interception_Cecilator_Property_Equals.htm" />
     <HelpKINode Title="PropertyUsage.Equals Method " Url="html/Overload_Cauldron_Interception_Cecilator_PropertyUsage_Equals.htm" />
-    <HelpKINode Title="RawValue.Equals Method " Url="html/Overload_Cauldron_Core_Collections_RawValue_Equals.htm" />
     <HelpKINode Title="User.Equals Method " Url="html/Overload_Cauldron_Core_User_Equals.htm" />
   </HelpKINode>
   <HelpKINode Title="EqualsEx method" Url="html/M_Cauldron_Interception_Cecilator_Extension_EqualsEx.htm" />
@@ -3756,7 +3642,7 @@
   </HelpKINode>
   <HelpKINode Title="Extension.AreEqual method" Url="html/Overload_Cauldron_Interception_Cecilator_Extension_AreEqual.htm" />
   <HelpKINode Title="Extension.AreReferenceAssignable method" Url="html/Overload_Cauldron_Interception_Cecilator_Extension_AreReferenceAssignable.htm" />
-  <HelpKINode Title="Extension.BetterResolve method" Url="html/M_Cauldron_Interception_Cecilator_Extension_BetterResolve.htm" />
+  <HelpKINode Title="Extension.BetterResolve method" Url="html/Overload_Cauldron_Interception_Cecilator_Extension_BetterResolve.htm" />
   <HelpKINode Title="Extension.CreateBuilder method" Url="html/M_Cauldron_Interception_Cecilator_Extension_CreateBuilder.htm" />
   <HelpKINode Title="Extension.EqualsEx method" Url="html/M_Cauldron_Interception_Cecilator_Extension_EqualsEx.htm" />
   <HelpKINode Title="Extension.Get method" Url="html/Overload_Cauldron_Interception_Cecilator_Extension_Get.htm" />
@@ -3791,15 +3677,20 @@
   <HelpKINode Title="Extension.TypeOf method" Url="html/Overload_Cauldron_Interception_Cecilator_Extension_TypeOf.htm" />
   <HelpKINode Title="Extension.With(Of TType, TNew) method" Url="html/M_Cauldron_Interception_Cecilator_Extension_With__2.htm" />
   <HelpKINode Title="Extension.With&lt;TType, TNew&gt; method" Url="html/M_Cauldron_Interception_Cecilator_Extension_With__2.htm" />
+  <HelpKINode Title="ExtensionAsync class">
+    <HelpKINode Title="ExtensionAsync Class" Url="html/T_Cauldron_Core_Extensions_ExtensionAsync.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Core_Extensions_ExtensionAsync.htm" />
+  </HelpKINode>
+  <HelpKINode Title="ExtensionAsync.RunSync method" Url="html/Overload_Cauldron_Core_Extensions_ExtensionAsync_RunSync.htm" />
   <HelpKINode Title="Extensions class">
     <HelpKINode Title="Extensions Class" Url="html/T_Cauldron_Core_Collections_Extensions.htm" />
+    <HelpKINode Title="Extensions Class" Url="html/T_Cauldron_Interception_Extensions.htm" />
     <HelpKINode Title="Extensions Class" Url="html/T_Cauldron_Extensions.htm" />
     <HelpKINode Title="Extensions Class" Url="html/T_Cauldron_XAML_Extensions.htm" />
-    <HelpKINode Title="Extensions Class" Url="html/T_Cauldron_Interception_Extensions.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Extensions.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Interception_Extensions.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_XAML_Extensions.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Core_Collections_Extensions.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_XAML_Extensions.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Interception_Extensions.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Extensions.htm" />
   </HelpKINode>
   <HelpKINode Title="Extensions property" Url="html/P_Cauldron_Interception_Cecilator_BuilderTypes_Extensions.htm" />
   <HelpKINode Title="Extensions.AddHookParameterPassing method" Url="html/M_Cauldron_Extensions_AddHookParameterPassing.htm" />
@@ -3829,7 +3720,6 @@
   <HelpKINode Title="Extensions.GetInheritanceContext method" Url="html/M_Cauldron_XAML_Extensions_GetInheritanceContext.htm" />
   <HelpKINode Title="Extensions.GetLines method" Url="html/M_Cauldron_Extensions_GetLines.htm" />
   <HelpKINode Title="Extensions.GetShortPath method" Url="html/Overload_Cauldron_Extensions_GetShortPath.htm" />
-  <HelpKINode Title="Extensions.GetString method" Url="html/M_Cauldron_Extensions_GetString.htm" />
   <HelpKINode Title="Extensions.GetTarget(Of T) method" Url="html/M_Cauldron_Extensions_GetTarget__1.htm" />
   <HelpKINode Title="Extensions.GetTarget&lt;T&gt; method" Url="html/M_Cauldron_Extensions_GetTarget__1.htm" />
   <HelpKINode Title="Extensions.GetTypes method" Url="html/M_Cauldron_Extensions_GetTypes.htm" />
@@ -3842,12 +3732,10 @@
   <HelpKINode Title="Extensions.Interleave(Of T) method" Url="html/M_Cauldron_Extensions_Interleave__1.htm" />
   <HelpKINode Title="Extensions.Interleave&lt;T&gt; method" Url="html/M_Cauldron_Extensions_Interleave__1.htm" />
   <HelpKINode Title="Extensions.IsBase64String method" Url="html/M_Cauldron_Extensions_IsBase64String.htm" />
-  <HelpKINode Title="Extensions.IsEqualTo method" Url="html/M_Cauldron_Extensions_IsEqualTo.htm" />
   <HelpKINode Title="Extensions.IsNetworkPath method" Url="html/M_Cauldron_Extensions_IsNetworkPath.htm" />
   <HelpKINode Title="Extensions.IsNotNull method" Url="html/Overload_Cauldron_Extensions_IsNotNull.htm" />
   <HelpKINode Title="Extensions.Join method" Url="html/Overload_Cauldron_Extensions_Join.htm" />
   <HelpKINode Title="Extensions.Left method" Url="html/M_Cauldron_Extensions_Left.htm" />
-  <HelpKINode Title="Extensions.LowerFirstCharacter method" Url="html/M_Cauldron_Extensions_LowerFirstCharacter.htm" />
   <HelpKINode Title="Extensions.MaxBy method" Url="html/Overload_Cauldron_Extensions_MaxBy.htm" />
   <HelpKINode Title="Extensions.MinBy method" Url="html/Overload_Cauldron_Extensions_MinBy.htm" />
   <HelpKINode Title="Extensions.Move(Of T) method" Url="html/M_Cauldron_Extensions_Move__1.htm" />
@@ -3862,8 +3750,6 @@
   <HelpKINode Title="Extensions.ReadToEnd method" Url="html/Overload_Cauldron_Extensions_ReadToEnd.htm" />
   <HelpKINode Title="Extensions.RemoveNull(Of T) method" Url="html/M_Cauldron_Extensions_RemoveNull__1.htm" />
   <HelpKINode Title="Extensions.RemoveNull&lt;T&gt; method" Url="html/M_Cauldron_Extensions_RemoveNull__1.htm" />
-  <HelpKINode Title="Extensions.Replace method" Url="html/Overload_Cauldron_Extensions_Replace.htm" />
-  <HelpKINode Title="Extensions.ReplaceMe method" Url="html/Overload_Cauldron_Extensions_ReplaceMe.htm" />
   <HelpKINode Title="Extensions.Right method" Url="html/M_Cauldron_Extensions_Right.htm" />
   <HelpKINode Title="Extensions.Run method" Url="html/M_Cauldron_XAML_Extensions_Run.htm" />
   <HelpKINode Title="Extensions.RunAsync method" Url="html/M_Cauldron_XAML_Extensions_RunAsync.htm" />
@@ -3878,8 +3764,6 @@
   <HelpKINode Title="Extensions.Swap(Of T) method" Url="html/M_Cauldron_Extensions_Swap__1.htm" />
   <HelpKINode Title="Extensions.Swap&lt;T&gt; method" Url="html/M_Cauldron_Extensions_Swap__1.htm" />
   <HelpKINode Title="Extensions.ToBitmapImageAsync method" Url="html/Overload_Cauldron_XAML_Extensions_ToBitmapImageAsync.htm" />
-  <HelpKINode Title="Extensions.ToKeyedCollection(Of TKey, TSource) method" Url="html/M_Cauldron_Extensions_ToKeyedCollection__2.htm" />
-  <HelpKINode Title="Extensions.ToKeyedCollection&lt;TKey, TSource&gt; method" Url="html/M_Cauldron_Extensions_ToKeyedCollection__2.htm" />
   <HelpKINode Title="Extensions.ToSecureString method" Url="html/Overload_Cauldron_Extensions_ToSecureString.htm" />
   <HelpKINode Title="Extensions.ToStringEx method" Url="html/Overload_Cauldron_Extensions_ToStringEx.htm" />
   <HelpKINode Title="Extensions.TryClose method" Url="html/M_Cauldron_XAML_Extensions_TryClose.htm" />
@@ -3949,6 +3833,11 @@
   <HelpKINode Title="ExtensionsConvertions.ToULongUS method" Url="html/M_Cauldron_ExtensionsConvertions_ToULongUS.htm" />
   <HelpKINode Title="ExtensionsConvertions.ToUShort method" Url="html/Overload_Cauldron_ExtensionsConvertions_ToUShort.htm" />
   <HelpKINode Title="ExtensionsConvertions.ToUShortUS method" Url="html/M_Cauldron_ExtensionsConvertions_ToUShortUS.htm" />
+  <HelpKINode Title="ExtensionsDate class">
+    <HelpKINode Title="ExtensionsDate Class" Url="html/T_Cauldron_Core_Extensions_ExtensionsDate.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Core_Extensions_ExtensionsDate.htm" />
+  </HelpKINode>
+  <HelpKINode Title="ExtensionsDate.GetWeeksInYear method" Url="html/M_Cauldron_Core_Extensions_ExtensionsDate_GetWeeksInYear.htm" />
   <HelpKINode Title="ExtensionsDirectoryInfo class">
     <HelpKINode Title="ExtensionsDirectoryInfo Class" Url="html/T_Cauldron_ExtensionsDirectoryInfo.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_ExtensionsDirectoryInfo.htm" />
@@ -4014,6 +3903,13 @@
   <HelpKINode Title="ExtensionsReflection.IsCollectionOrList method" Url="html/M_Cauldron_ExtensionsReflection_IsCollectionOrList.htm" />
   <HelpKINode Title="ExtensionsReflection.IsNullable method" Url="html/M_Cauldron_ExtensionsReflection_IsNullable.htm" />
   <HelpKINode Title="ExtensionsReflection.MatchesArgumentTypes method" Url="html/Overload_Cauldron_ExtensionsReflection_MatchesArgumentTypes.htm" />
+  <HelpKINode Title="ExtensionsSecureString class">
+    <HelpKINode Title="ExtensionsSecureString Class" Url="html/T_Cauldron_ExtensionsSecureString.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_ExtensionsSecureString.htm" />
+  </HelpKINode>
+  <HelpKINode Title="ExtensionsSecureString.GetBytes method" Url="html/M_Cauldron_ExtensionsSecureString_GetBytes.htm" />
+  <HelpKINode Title="ExtensionsSecureString.GetString method" Url="html/M_Cauldron_ExtensionsSecureString_GetString.htm" />
+  <HelpKINode Title="ExtensionsSecureString.IsEqualTo method" Url="html/M_Cauldron_ExtensionsSecureString_IsEqualTo.htm" />
   <HelpKINode Title="Factory class">
     <HelpKINode Title="Factory Class" Url="html/T_Cauldron_Activator_Factory.htm" />
     <HelpKINode Title="events" Url="html/Events_T_Cauldron_Activator_Factory.htm" />
@@ -4078,51 +3974,119 @@
     <HelpKINode Title="NameCollisionOption Enumeration" Url="html/T_Cauldron_NameCollisionOption.htm" />
   </HelpKINode>
   <HelpKINode Title="FastDictionary(Of TKey, TValue) class">
-    <HelpKINode Title="FastDictionary(TKey, TValue) Class" Url="html/T_System_Collections_Generic_FastDictionary_2.htm" />
-    <HelpKINode Title="constructor" Url="html/M_System_Collections_Generic_FastDictionary_2__ctor.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_System_Collections_Generic_FastDictionary_2.htm" />
-    <HelpKINode Title="properties" Url="html/Properties_T_System_Collections_Generic_FastDictionary_2.htm" />
+    <HelpKINode Title="FastDictionary(TKey, TValue) Class" Url="html/T_Cauldron_Core_Collections_FastDictionary_2.htm" />
+    <HelpKINode Title="constructor" Url="html/Overload_Cauldron_Core_Collections_FastDictionary_2__ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Core_Collections_FastDictionary_2.htm" />
+    <HelpKINode Title="properties" Url="html/Properties_T_Cauldron_Core_Collections_FastDictionary_2.htm" />
   </HelpKINode>
-  <HelpKINode Title="FastDictionary(Of TKey, TValue).Add method" Url="html/Overload_System_Collections_Generic_FastDictionary_2_Add.htm" />
-  <HelpKINode Title="FastDictionary(Of TKey, TValue).AreEqual method" Url="html/M_System_Collections_Generic_FastDictionary_2_AreEqual.htm" />
-  <HelpKINode Title="FastDictionary(Of TKey, TValue).Clear method" Url="html/M_System_Collections_Generic_FastDictionary_2_Clear.htm" />
-  <HelpKINode Title="FastDictionary(Of TKey, TValue).Contains method" Url="html/M_System_Collections_Generic_FastDictionary_2_Contains.htm" />
-  <HelpKINode Title="FastDictionary(Of TKey, TValue).ContainsKey method" Url="html/M_System_Collections_Generic_FastDictionary_2_ContainsKey.htm" />
-  <HelpKINode Title="FastDictionary(Of TKey, TValue).CopyTo method" Url="html/M_System_Collections_Generic_FastDictionary_2_CopyTo.htm" />
-  <HelpKINode Title="FastDictionary(Of TKey, TValue).Count property" Url="html/P_System_Collections_Generic_FastDictionary_2_Count.htm" />
-  <HelpKINode Title="FastDictionary(Of TKey, TValue).FastDictionary constructor" Url="html/M_System_Collections_Generic_FastDictionary_2__ctor.htm" />
-  <HelpKINode Title="FastDictionary(Of TKey, TValue).GetEnumerator method" Url="html/M_System_Collections_Generic_FastDictionary_2_GetEnumerator.htm" />
-  <HelpKINode Title="FastDictionary(Of TKey, TValue).IEnumerable(Of TValue).GetEnumerator explicitly implemented method" Url="html/M_System_Collections_Generic_FastDictionary_2_System_Collections_Generic_IEnumerable{TValue}_GetEnumerator.htm" />
-  <HelpKINode Title="FastDictionary(Of TKey, TValue).IEnumerable.GetEnumerator explicitly implemented method" Url="html/M_System_Collections_Generic_FastDictionary_2_System_Collections_IEnumerable_GetEnumerator.htm" />
-  <HelpKINode Title="FastDictionary(Of TKey, TValue).IsReadOnly property" Url="html/P_System_Collections_Generic_FastDictionary_2_IsReadOnly.htm" />
-  <HelpKINode Title="FastDictionary(Of TKey, TValue).Item property" Url="html/P_System_Collections_Generic_FastDictionary_2_Item.htm" />
-  <HelpKINode Title="FastDictionary(Of TKey, TValue).Keys property" Url="html/P_System_Collections_Generic_FastDictionary_2_Keys.htm" />
-  <HelpKINode Title="FastDictionary(Of TKey, TValue).Remove method" Url="html/Overload_System_Collections_Generic_FastDictionary_2_Remove.htm" />
-  <HelpKINode Title="FastDictionary(Of TKey, TValue).TryGetValue method" Url="html/M_System_Collections_Generic_FastDictionary_2_TryGetValue.htm" />
-  <HelpKINode Title="FastDictionary(Of TKey, TValue).Values property" Url="html/P_System_Collections_Generic_FastDictionary_2_Values.htm" />
+  <HelpKINode Title="FastDictionary(Of TKey, TValue).Add method" Url="html/Overload_Cauldron_Core_Collections_FastDictionary_2_Add.htm" />
+  <HelpKINode Title="FastDictionary(Of TKey, TValue).Clear method" Url="html/M_Cauldron_Core_Collections_FastDictionary_2_Clear.htm" />
+  <HelpKINode Title="FastDictionary(Of TKey, TValue).Contains method" Url="html/M_Cauldron_Core_Collections_FastDictionary_2_Contains.htm" />
+  <HelpKINode Title="FastDictionary(Of TKey, TValue).ContainsKey method" Url="html/M_Cauldron_Core_Collections_FastDictionary_2_ContainsKey.htm" />
+  <HelpKINode Title="FastDictionary(Of TKey, TValue).CopyTo method" Url="html/M_Cauldron_Core_Collections_FastDictionary_2_CopyTo.htm" />
+  <HelpKINode Title="FastDictionary(Of TKey, TValue).Count property" Url="html/P_Cauldron_Core_Collections_FastDictionary_2_Count.htm" />
+  <HelpKINode Title="FastDictionary(Of TKey, TValue).FastDictionary constructor" Url="html/Overload_Cauldron_Core_Collections_FastDictionary_2__ctor.htm" />
+  <HelpKINode Title="FastDictionary(Of TKey, TValue).GetEnumerator method" Url="html/M_Cauldron_Core_Collections_FastDictionary_2_GetEnumerator.htm" />
+  <HelpKINode Title="FastDictionary(Of TKey, TValue).IEnumerable(Of TValue).GetEnumerator explicitly implemented method" Url="html/M_Cauldron_Core_Collections_FastDictionary_2_System_Collections_Generic_IEnumerable{TValue}_GetEnumerator.htm" />
+  <HelpKINode Title="FastDictionary(Of TKey, TValue).IEnumerable.GetEnumerator explicitly implemented method" Url="html/M_Cauldron_Core_Collections_FastDictionary_2_System_Collections_IEnumerable_GetEnumerator.htm" />
+  <HelpKINode Title="FastDictionary(Of TKey, TValue).IsReadOnly property" Url="html/P_Cauldron_Core_Collections_FastDictionary_2_IsReadOnly.htm" />
+  <HelpKINode Title="FastDictionary(Of TKey, TValue).Item property" Url="html/P_Cauldron_Core_Collections_FastDictionary_2_Item.htm" />
+  <HelpKINode Title="FastDictionary(Of TKey, TValue).Keys property" Url="html/P_Cauldron_Core_Collections_FastDictionary_2_Keys.htm" />
+  <HelpKINode Title="FastDictionary(Of TKey, TValue).Remove method" Url="html/Overload_Cauldron_Core_Collections_FastDictionary_2_Remove.htm" />
+  <HelpKINode Title="FastDictionary(Of TKey, TValue).TryGetValue method" Url="html/M_Cauldron_Core_Collections_FastDictionary_2_TryGetValue.htm" />
+  <HelpKINode Title="FastDictionary(Of TKey, TValue).Values property" Url="html/P_Cauldron_Core_Collections_FastDictionary_2_Values.htm" />
   <HelpKINode Title="FastDictionary&lt;TKey, TValue&gt; class">
-    <HelpKINode Title="FastDictionary(TKey, TValue) Class" Url="html/T_System_Collections_Generic_FastDictionary_2.htm" />
-    <HelpKINode Title="constructor" Url="html/M_System_Collections_Generic_FastDictionary_2__ctor.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_System_Collections_Generic_FastDictionary_2.htm" />
-    <HelpKINode Title="properties" Url="html/Properties_T_System_Collections_Generic_FastDictionary_2.htm" />
+    <HelpKINode Title="FastDictionary(TKey, TValue) Class" Url="html/T_Cauldron_Core_Collections_FastDictionary_2.htm" />
+    <HelpKINode Title="constructor" Url="html/Overload_Cauldron_Core_Collections_FastDictionary_2__ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Core_Collections_FastDictionary_2.htm" />
+    <HelpKINode Title="properties" Url="html/Properties_T_Cauldron_Core_Collections_FastDictionary_2.htm" />
   </HelpKINode>
-  <HelpKINode Title="FastDictionary&lt;TKey, TValue&gt;.Add method" Url="html/Overload_System_Collections_Generic_FastDictionary_2_Add.htm" />
-  <HelpKINode Title="FastDictionary&lt;TKey, TValue&gt;.AreEqual method" Url="html/M_System_Collections_Generic_FastDictionary_2_AreEqual.htm" />
-  <HelpKINode Title="FastDictionary&lt;TKey, TValue&gt;.Clear method" Url="html/M_System_Collections_Generic_FastDictionary_2_Clear.htm" />
-  <HelpKINode Title="FastDictionary&lt;TKey, TValue&gt;.Contains method" Url="html/M_System_Collections_Generic_FastDictionary_2_Contains.htm" />
-  <HelpKINode Title="FastDictionary&lt;TKey, TValue&gt;.ContainsKey method" Url="html/M_System_Collections_Generic_FastDictionary_2_ContainsKey.htm" />
-  <HelpKINode Title="FastDictionary&lt;TKey, TValue&gt;.CopyTo method" Url="html/M_System_Collections_Generic_FastDictionary_2_CopyTo.htm" />
-  <HelpKINode Title="FastDictionary&lt;TKey, TValue&gt;.Count property" Url="html/P_System_Collections_Generic_FastDictionary_2_Count.htm" />
-  <HelpKINode Title="FastDictionary&lt;TKey, TValue&gt;.FastDictionary constructor" Url="html/M_System_Collections_Generic_FastDictionary_2__ctor.htm" />
-  <HelpKINode Title="FastDictionary&lt;TKey, TValue&gt;.GetEnumerator method" Url="html/M_System_Collections_Generic_FastDictionary_2_GetEnumerator.htm" />
-  <HelpKINode Title="FastDictionary&lt;TKey, TValue&gt;.IEnumerable.GetEnumerator explicitly implemented method" Url="html/M_System_Collections_Generic_FastDictionary_2_System_Collections_IEnumerable_GetEnumerator.htm" />
-  <HelpKINode Title="FastDictionary&lt;TKey, TValue&gt;.IEnumerable&lt;TValue&gt;.GetEnumerator explicitly implemented method" Url="html/M_System_Collections_Generic_FastDictionary_2_System_Collections_Generic_IEnumerable{TValue}_GetEnumerator.htm" />
-  <HelpKINode Title="FastDictionary&lt;TKey, TValue&gt;.IsReadOnly property" Url="html/P_System_Collections_Generic_FastDictionary_2_IsReadOnly.htm" />
-  <HelpKINode Title="FastDictionary&lt;TKey, TValue&gt;.Item property" Url="html/P_System_Collections_Generic_FastDictionary_2_Item.htm" />
-  <HelpKINode Title="FastDictionary&lt;TKey, TValue&gt;.Keys property" Url="html/P_System_Collections_Generic_FastDictionary_2_Keys.htm" />
-  <HelpKINode Title="FastDictionary&lt;TKey, TValue&gt;.Remove method" Url="html/Overload_System_Collections_Generic_FastDictionary_2_Remove.htm" />
-  <HelpKINode Title="FastDictionary&lt;TKey, TValue&gt;.TryGetValue method" Url="html/M_System_Collections_Generic_FastDictionary_2_TryGetValue.htm" />
-  <HelpKINode Title="FastDictionary&lt;TKey, TValue&gt;.Values property" Url="html/P_System_Collections_Generic_FastDictionary_2_Values.htm" />
+  <HelpKINode Title="FastDictionary&lt;TKey, TValue&gt;.Add method" Url="html/Overload_Cauldron_Core_Collections_FastDictionary_2_Add.htm" />
+  <HelpKINode Title="FastDictionary&lt;TKey, TValue&gt;.Clear method" Url="html/M_Cauldron_Core_Collections_FastDictionary_2_Clear.htm" />
+  <HelpKINode Title="FastDictionary&lt;TKey, TValue&gt;.Contains method" Url="html/M_Cauldron_Core_Collections_FastDictionary_2_Contains.htm" />
+  <HelpKINode Title="FastDictionary&lt;TKey, TValue&gt;.ContainsKey method" Url="html/M_Cauldron_Core_Collections_FastDictionary_2_ContainsKey.htm" />
+  <HelpKINode Title="FastDictionary&lt;TKey, TValue&gt;.CopyTo method" Url="html/M_Cauldron_Core_Collections_FastDictionary_2_CopyTo.htm" />
+  <HelpKINode Title="FastDictionary&lt;TKey, TValue&gt;.Count property" Url="html/P_Cauldron_Core_Collections_FastDictionary_2_Count.htm" />
+  <HelpKINode Title="FastDictionary&lt;TKey, TValue&gt;.FastDictionary constructor" Url="html/Overload_Cauldron_Core_Collections_FastDictionary_2__ctor.htm" />
+  <HelpKINode Title="FastDictionary&lt;TKey, TValue&gt;.GetEnumerator method" Url="html/M_Cauldron_Core_Collections_FastDictionary_2_GetEnumerator.htm" />
+  <HelpKINode Title="FastDictionary&lt;TKey, TValue&gt;.IEnumerable.GetEnumerator explicitly implemented method" Url="html/M_Cauldron_Core_Collections_FastDictionary_2_System_Collections_IEnumerable_GetEnumerator.htm" />
+  <HelpKINode Title="FastDictionary&lt;TKey, TValue&gt;.IEnumerable&lt;TValue&gt;.GetEnumerator explicitly implemented method" Url="html/M_Cauldron_Core_Collections_FastDictionary_2_System_Collections_Generic_IEnumerable{TValue}_GetEnumerator.htm" />
+  <HelpKINode Title="FastDictionary&lt;TKey, TValue&gt;.IsReadOnly property" Url="html/P_Cauldron_Core_Collections_FastDictionary_2_IsReadOnly.htm" />
+  <HelpKINode Title="FastDictionary&lt;TKey, TValue&gt;.Item property" Url="html/P_Cauldron_Core_Collections_FastDictionary_2_Item.htm" />
+  <HelpKINode Title="FastDictionary&lt;TKey, TValue&gt;.Keys property" Url="html/P_Cauldron_Core_Collections_FastDictionary_2_Keys.htm" />
+  <HelpKINode Title="FastDictionary&lt;TKey, TValue&gt;.Remove method" Url="html/Overload_Cauldron_Core_Collections_FastDictionary_2_Remove.htm" />
+  <HelpKINode Title="FastDictionary&lt;TKey, TValue&gt;.TryGetValue method" Url="html/M_Cauldron_Core_Collections_FastDictionary_2_TryGetValue.htm" />
+  <HelpKINode Title="FastDictionary&lt;TKey, TValue&gt;.Values property" Url="html/P_Cauldron_Core_Collections_FastDictionary_2_Values.htm" />
+  <HelpKINode Title="FastKeyedCollection(Of TKey, TItem) class">
+    <HelpKINode Title="FastKeyedCollection(TKey, TItem) Class" Url="html/T_Cauldron_Core_Collections_FastKeyedCollection_2.htm" />
+    <HelpKINode Title="constructor" Url="html/Overload_Cauldron_Core_Collections_FastKeyedCollection_2__ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Core_Collections_FastKeyedCollection_2.htm" />
+    <HelpKINode Title="properties" Url="html/Properties_T_Cauldron_Core_Collections_FastKeyedCollection_2.htm" />
+  </HelpKINode>
+  <HelpKINode Title="FastKeyedCollection(Of TKey, TItem).Add method" Url="html/M_Cauldron_Core_Collections_FastKeyedCollection_2_Add.htm" />
+  <HelpKINode Title="FastKeyedCollection(Of TKey, TItem).Clear method" Url="html/M_Cauldron_Core_Collections_FastKeyedCollection_2_Clear.htm" />
+  <HelpKINode Title="FastKeyedCollection(Of TKey, TItem).Contains method" Url="html/Overload_Cauldron_Core_Collections_FastKeyedCollection_2_Contains.htm" />
+  <HelpKINode Title="FastKeyedCollection(Of TKey, TItem).CopyTo method" Url="html/M_Cauldron_Core_Collections_FastKeyedCollection_2_CopyTo.htm" />
+  <HelpKINode Title="FastKeyedCollection(Of TKey, TItem).Count property" Url="html/P_Cauldron_Core_Collections_FastKeyedCollection_2_Count.htm" />
+  <HelpKINode Title="FastKeyedCollection(Of TKey, TItem).FastKeyedCollection constructor" Url="html/Overload_Cauldron_Core_Collections_FastKeyedCollection_2__ctor.htm" />
+  <HelpKINode Title="FastKeyedCollection(Of TKey, TItem).IEnumerable(Of TItem).GetEnumerator explicitly implemented method" Url="html/M_Cauldron_Core_Collections_FastKeyedCollection_2_System_Collections_Generic_IEnumerable{TItem}_GetEnumerator.htm" />
+  <HelpKINode Title="FastKeyedCollection(Of TKey, TItem).IEnumerable.GetEnumerator explicitly implemented method" Url="html/M_Cauldron_Core_Collections_FastKeyedCollection_2_System_Collections_IEnumerable_GetEnumerator.htm" />
+  <HelpKINode Title="FastKeyedCollection(Of TKey, TItem).IsReadOnly property" Url="html/P_Cauldron_Core_Collections_FastKeyedCollection_2_IsReadOnly.htm" />
+  <HelpKINode Title="FastKeyedCollection(Of TKey, TItem).Item property" Url="html/P_Cauldron_Core_Collections_FastKeyedCollection_2_Item.htm" />
+  <HelpKINode Title="FastKeyedCollection(Of TKey, TItem).Keys property" Url="html/P_Cauldron_Core_Collections_FastKeyedCollection_2_Keys.htm" />
+  <HelpKINode Title="FastKeyedCollection(Of TKey, TItem).Remove method" Url="html/Overload_Cauldron_Core_Collections_FastKeyedCollection_2_Remove.htm" />
+  <HelpKINode Title="FastKeyedCollection(Of TKey, TItem).TryGetValue method" Url="html/M_Cauldron_Core_Collections_FastKeyedCollection_2_TryGetValue.htm" />
+  <HelpKINode Title="FastKeyedCollection(Of TKey, TItem).Values property" Url="html/P_Cauldron_Core_Collections_FastKeyedCollection_2_Values.htm" />
+  <HelpKINode Title="FastKeyedCollection&lt;TKey, TItem&gt; class">
+    <HelpKINode Title="FastKeyedCollection(TKey, TItem) Class" Url="html/T_Cauldron_Core_Collections_FastKeyedCollection_2.htm" />
+    <HelpKINode Title="constructor" Url="html/Overload_Cauldron_Core_Collections_FastKeyedCollection_2__ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Core_Collections_FastKeyedCollection_2.htm" />
+    <HelpKINode Title="properties" Url="html/Properties_T_Cauldron_Core_Collections_FastKeyedCollection_2.htm" />
+  </HelpKINode>
+  <HelpKINode Title="FastKeyedCollection&lt;TKey, TItem&gt;.Add method" Url="html/M_Cauldron_Core_Collections_FastKeyedCollection_2_Add.htm" />
+  <HelpKINode Title="FastKeyedCollection&lt;TKey, TItem&gt;.Clear method" Url="html/M_Cauldron_Core_Collections_FastKeyedCollection_2_Clear.htm" />
+  <HelpKINode Title="FastKeyedCollection&lt;TKey, TItem&gt;.Contains method" Url="html/Overload_Cauldron_Core_Collections_FastKeyedCollection_2_Contains.htm" />
+  <HelpKINode Title="FastKeyedCollection&lt;TKey, TItem&gt;.CopyTo method" Url="html/M_Cauldron_Core_Collections_FastKeyedCollection_2_CopyTo.htm" />
+  <HelpKINode Title="FastKeyedCollection&lt;TKey, TItem&gt;.Count property" Url="html/P_Cauldron_Core_Collections_FastKeyedCollection_2_Count.htm" />
+  <HelpKINode Title="FastKeyedCollection&lt;TKey, TItem&gt;.FastKeyedCollection constructor" Url="html/Overload_Cauldron_Core_Collections_FastKeyedCollection_2__ctor.htm" />
+  <HelpKINode Title="FastKeyedCollection&lt;TKey, TItem&gt;.IEnumerable.GetEnumerator explicitly implemented method" Url="html/M_Cauldron_Core_Collections_FastKeyedCollection_2_System_Collections_IEnumerable_GetEnumerator.htm" />
+  <HelpKINode Title="FastKeyedCollection&lt;TKey, TItem&gt;.IEnumerable&lt;TItem&gt;.GetEnumerator explicitly implemented method" Url="html/M_Cauldron_Core_Collections_FastKeyedCollection_2_System_Collections_Generic_IEnumerable{TItem}_GetEnumerator.htm" />
+  <HelpKINode Title="FastKeyedCollection&lt;TKey, TItem&gt;.IsReadOnly property" Url="html/P_Cauldron_Core_Collections_FastKeyedCollection_2_IsReadOnly.htm" />
+  <HelpKINode Title="FastKeyedCollection&lt;TKey, TItem&gt;.Item property" Url="html/P_Cauldron_Core_Collections_FastKeyedCollection_2_Item.htm" />
+  <HelpKINode Title="FastKeyedCollection&lt;TKey, TItem&gt;.Keys property" Url="html/P_Cauldron_Core_Collections_FastKeyedCollection_2_Keys.htm" />
+  <HelpKINode Title="FastKeyedCollection&lt;TKey, TItem&gt;.Remove method" Url="html/Overload_Cauldron_Core_Collections_FastKeyedCollection_2_Remove.htm" />
+  <HelpKINode Title="FastKeyedCollection&lt;TKey, TItem&gt;.TryGetValue method" Url="html/M_Cauldron_Core_Collections_FastKeyedCollection_2_TryGetValue.htm" />
+  <HelpKINode Title="FastKeyedCollection&lt;TKey, TItem&gt;.Values property" Url="html/P_Cauldron_Core_Collections_FastKeyedCollection_2_Values.htm" />
+  <HelpKINode Title="FastObservableCollection(Of T) class">
+    <HelpKINode Title="FastObservableCollection(T) Class" Url="html/T_Cauldron_Core_Collections_FastObservableCollection_1.htm" />
+    <HelpKINode Title="constructor" Url="html/Overload_Cauldron_Core_Collections_FastObservableCollection_1__ctor.htm" />
+    <HelpKINode Title="events" Url="html/Events_T_Cauldron_Core_Collections_FastObservableCollection_1.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Core_Collections_FastObservableCollection_1.htm" />
+  </HelpKINode>
+  <HelpKINode Title="FastObservableCollection(Of T).AddRange method" Url="html/Overload_Cauldron_Core_Collections_FastObservableCollection_1_AddRange.htm" />
+  <HelpKINode Title="FastObservableCollection(Of T).CollectionChanged event" Url="html/E_Cauldron_Core_Collections_FastObservableCollection_1_CollectionChanged.htm" />
+  <HelpKINode Title="FastObservableCollection(Of T).Equals method" Url="html/Overload_Cauldron_Core_Collections_FastObservableCollection_1_Equals.htm" />
+  <HelpKINode Title="FastObservableCollection(Of T).FastObservableCollection constructor" Url="html/Overload_Cauldron_Core_Collections_FastObservableCollection_1__ctor.htm" />
+  <HelpKINode Title="FastObservableCollection(Of T).GetHashCode method" Url="html/M_Cauldron_Core_Collections_FastObservableCollection_1_GetHashCode.htm" />
+  <HelpKINode Title="FastObservableCollection(Of T).Move method" Url="html/Overload_Cauldron_Core_Collections_FastObservableCollection_1_Move.htm" />
+  <HelpKINode Title="FastObservableCollection(Of T).OnPropertyChanged method" Url="html/M_Cauldron_Core_Collections_FastObservableCollection_1_OnPropertyChanged.htm" />
+  <HelpKINode Title="FastObservableCollection(Of T).PropertyChanged event" Url="html/E_Cauldron_Core_Collections_FastObservableCollection_1_PropertyChanged.htm" />
+  <HelpKINode Title="FastObservableCollection(Of T).RemoveRange method" Url="html/Overload_Cauldron_Core_Collections_FastObservableCollection_1_RemoveRange.htm" />
+  <HelpKINode Title="FastObservableCollection&lt;T&gt; class">
+    <HelpKINode Title="FastObservableCollection(T) Class" Url="html/T_Cauldron_Core_Collections_FastObservableCollection_1.htm" />
+    <HelpKINode Title="constructor" Url="html/Overload_Cauldron_Core_Collections_FastObservableCollection_1__ctor.htm" />
+    <HelpKINode Title="events" Url="html/Events_T_Cauldron_Core_Collections_FastObservableCollection_1.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Core_Collections_FastObservableCollection_1.htm" />
+  </HelpKINode>
+  <HelpKINode Title="FastObservableCollection&lt;T&gt;.AddRange method" Url="html/Overload_Cauldron_Core_Collections_FastObservableCollection_1_AddRange.htm" />
+  <HelpKINode Title="FastObservableCollection&lt;T&gt;.CollectionChanged event" Url="html/E_Cauldron_Core_Collections_FastObservableCollection_1_CollectionChanged.htm" />
+  <HelpKINode Title="FastObservableCollection&lt;T&gt;.Equals method" Url="html/Overload_Cauldron_Core_Collections_FastObservableCollection_1_Equals.htm" />
+  <HelpKINode Title="FastObservableCollection&lt;T&gt;.FastObservableCollection constructor" Url="html/Overload_Cauldron_Core_Collections_FastObservableCollection_1__ctor.htm" />
+  <HelpKINode Title="FastObservableCollection&lt;T&gt;.GetHashCode method" Url="html/M_Cauldron_Core_Collections_FastObservableCollection_1_GetHashCode.htm" />
+  <HelpKINode Title="FastObservableCollection&lt;T&gt;.Move method" Url="html/Overload_Cauldron_Core_Collections_FastObservableCollection_1_Move.htm" />
+  <HelpKINode Title="FastObservableCollection&lt;T&gt;.OnPropertyChanged method" Url="html/M_Cauldron_Core_Collections_FastObservableCollection_1_OnPropertyChanged.htm" />
+  <HelpKINode Title="FastObservableCollection&lt;T&gt;.PropertyChanged event" Url="html/E_Cauldron_Core_Collections_FastObservableCollection_1_PropertyChanged.htm" />
+  <HelpKINode Title="FastObservableCollection&lt;T&gt;.RemoveRange method" Url="html/Overload_Cauldron_Core_Collections_FastObservableCollection_1_RemoveRange.htm" />
   <HelpKINode Title="Field class">
     <HelpKINode Title="Field Class" Url="html/T_Cauldron_Interception_Cecilator_Field.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Interception_Cecilator_Field.htm" />
@@ -4209,7 +4173,7 @@
   <HelpKINode Title="FillWithRandomValues method" Url="html/Overload_Cauldron_Extensions_FillWithRandomValues.htm" />
   <HelpKINode Title="Finalize method">
     <HelpKINode Title="DisposableBase.Finalize Method " Url="html/M_Cauldron_Core_DisposableBase_Finalize.htm" />
-    <HelpKINode Title="DisposableObject.Finalize Method " Url="html/M_Cauldron_Core_DisposableObject_Finalize.htm" />
+    <HelpKINode Title="DisposableObject.Finalize Method " Url="html/M_Cauldron_Cryptography_DisposableObject_Finalize.htm" />
     <HelpKINode Title="ImageManager.Finalize Method " Url="html/M_Cauldron_XAML_ImageManager_Finalize.htm" />
   </HelpKINode>
   <HelpKINode Title="Finally method">
@@ -4338,7 +4302,10 @@
     <HelpKINode Title="ComboBoxProperties.GetButtonsTemplate Method " Url="html/M_Cauldron_XAML_Theme_ComboBoxProperties_GetButtonsTemplate.htm" />
     <HelpKINode Title="TextBoxProperties.GetButtonsTemplate Method " Url="html/M_Cauldron_XAML_Theme_TextBoxProperties_GetButtonsTemplate.htm" />
   </HelpKINode>
-  <HelpKINode Title="GetBytes method" Url="html/Overload_Cauldron_Extensions_GetBytes.htm" />
+  <HelpKINode Title="GetBytes method">
+    <HelpKINode Title="Extensions.GetBytes Method " Url="html/Overload_Cauldron_Extensions_GetBytes.htm" />
+    <HelpKINode Title="ExtensionsSecureString.GetBytes Method " Url="html/M_Cauldron_ExtensionsSecureString_GetBytes.htm" />
+  </HelpKINode>
   <HelpKINode Title="GetChildrenType method">
     <HelpKINode Title="Builder.GetChildrenType Method " Url="html/M_Cauldron_Interception_Cecilator_Builder_GetChildrenType.htm" />
     <HelpKINode Title="Extension.GetChildrenType Method " Url="html/M_Cauldron_Interception_Cecilator_Extension_GetChildrenType.htm" />
@@ -4369,8 +4336,8 @@
   <HelpKINode Title="GetDpi method" Url="html/M_Cauldron_MonitorInfo_GetDpi.htm" />
   <HelpKINode Title="GetEnumerator method">
     <HelpKINode Title="BuilderCustomAttributeCollection.GetEnumerator Method " Url="html/M_Cauldron_Interception_Cecilator_BuilderCustomAttributeCollection_GetEnumerator.htm" />
-    <HelpKINode Title="ConcurrentList(T).GetEnumerator Method " Url="html/M_Cauldron_Core_Collections_ConcurrentList_1_GetEnumerator.htm" />
-    <HelpKINode Title="FastDictionary(TKey, TValue).GetEnumerator Method " Url="html/M_System_Collections_Generic_FastDictionary_2_GetEnumerator.htm" />
+    <HelpKINode Title="ConcurrentCollection(T).GetEnumerator Method " Url="html/M_Cauldron_Core_Collections_ConcurrentCollection_1_GetEnumerator.htm" />
+    <HelpKINode Title="FastDictionary(TKey, TValue).GetEnumerator Method " Url="html/M_Cauldron_Core_Collections_FastDictionary_2_GetEnumerator.htm" />
     <HelpKINode Title="FieldCollection.GetEnumerator Method " Url="html/M_Cauldron_Interception_Cecilator_FieldCollection_GetEnumerator.htm" />
     <HelpKINode Title="InstructionBlock.GetEnumerator Method " Url="html/M_Cauldron_Interception_Cecilator_Coders_InstructionBlock_GetEnumerator.htm" />
   </HelpKINode>
@@ -4403,6 +4370,7 @@
     <HelpKINode Title="BuilderCustomAttribute.GetHashCode Method " Url="html/M_Cauldron_Interception_Cecilator_BuilderCustomAttribute_GetHashCode.htm" />
     <HelpKINode Title="BuilderType.GetHashCode Method " Url="html/M_Cauldron_Interception_Cecilator_BuilderType_GetHashCode.htm" />
     <HelpKINode Title="DynamicEqualityComparer(T).GetHashCode Method " Url="html/M_Cauldron_Core_DynamicEqualityComparer_1_GetHashCode.htm" />
+    <HelpKINode Title="FastObservableCollection(T).GetHashCode Method " Url="html/M_Cauldron_Core_Collections_FastObservableCollection_1_GetHashCode.htm" />
     <HelpKINode Title="Field.GetHashCode Method " Url="html/M_Cauldron_Interception_Cecilator_Field_GetHashCode.htm" />
     <HelpKINode Title="FieldUsage.GetHashCode Method " Url="html/M_Cauldron_Interception_Cecilator_FieldUsage_GetHashCode.htm" />
     <HelpKINode Title="InstructionBlock.GetHashCode Method " Url="html/M_Cauldron_Interception_Cecilator_Coders_InstructionBlock_GetHashCode.htm" />
@@ -4412,7 +4380,6 @@
     <HelpKINode Title="MethodUsage.GetHashCode Method " Url="html/M_Cauldron_Interception_Cecilator_MethodUsage_GetHashCode.htm" />
     <HelpKINode Title="Property.GetHashCode Method " Url="html/M_Cauldron_Interception_Cecilator_Property_GetHashCode.htm" />
     <HelpKINode Title="PropertyUsage.GetHashCode Method " Url="html/M_Cauldron_Interception_Cecilator_PropertyUsage_GetHashCode.htm" />
-    <HelpKINode Title="RawValue.GetHashCode Method " Url="html/Overload_Cauldron_Core_Collections_RawValue_GetHashCode.htm" />
     <HelpKINode Title="User.GetHashCode Method " Url="html/M_Cauldron_Core_User_GetHashCode.htm" />
   </HelpKINode>
   <HelpKINode Title="GetHasOwner method" Url="html/M_Cauldron_XAML_WindowConfiguration_GetHasOwner.htm" />
@@ -4443,10 +4410,6 @@
   <HelpKINode Title="GetIsMandatory method" Url="html/M_Cauldron_XAML_Validation_ValidationProperties_GetIsMandatory.htm" />
   <HelpKINode Title="GetIsModal method" Url="html/M_Cauldron_XAML_WindowConfiguration_GetIsModal.htm" />
   <HelpKINode Title="GetIsWindowPersistent method" Url="html/M_Cauldron_XAML_WindowConfiguration_GetIsWindowPersistent.htm" />
-  <HelpKINode Title="GetKeyForItem method">
-    <HelpKINode Title="ConcurrentKeyedCollectionEx(TKey, TItem).GetKeyForItem Method " Url="html/M_Cauldron_Core_Collections_ConcurrentKeyedCollectionEx_2_GetKeyForItem.htm" />
-    <HelpKINode Title="KeyedCollectionEx(TKey, TItem).GetKeyForItem Method " Url="html/M_Cauldron_Core_Collections_KeyedCollectionEx_2_GetKeyForItem.htm" />
-  </HelpKINode>
   <HelpKINode Title="GetLanguage method" Url="html/M_Cauldron_XAML_ValueConverterBase_GetLanguage.htm" />
   <HelpKINode Title="GetLastNewObjectType method" Url="html/M_Cauldron_Interception_Cecilator_MethodUsage_GetLastNewObjectType.htm" />
   <HelpKINode Title="GetLines method" Url="html/M_Cauldron_Extensions_GetLines.htm" />
@@ -5803,11 +5766,8 @@
   <HelpKINode Title="GetShowInTaskbar method" Url="html/M_Cauldron_XAML_WindowConfiguration_GetShowInTaskbar.htm" />
   <HelpKINode Title="GetSizeToContent method" Url="html/M_Cauldron_XAML_WindowConfiguration_GetSizeToContent.htm" />
   <HelpKINode Title="GetSourceFromPath method" Url="html/M_Cauldron_XAML_XAMLHelper_GetSourceFromPath.htm" />
-  <HelpKINode Title="GetStackTrace method">
-    <HelpKINode Title="Debug.GetStackTrace Method " Url="html/M_Cauldron_Core_Diagnostics_Debug_GetStackTrace.htm" />
-    <HelpKINode Title="Extension.GetStackTrace Method " Url="html/M_Cauldron_Interception_Cecilator_Extension_GetStackTrace.htm" />
-  </HelpKINode>
-  <HelpKINode Title="GetString method" Url="html/M_Cauldron_Extensions_GetString.htm" />
+  <HelpKINode Title="GetStackTrace method" Url="html/M_Cauldron_Interception_Cecilator_Extension_GetStackTrace.htm" />
+  <HelpKINode Title="GetString method" Url="html/M_Cauldron_ExtensionsSecureString_GetString.htm" />
   <HelpKINode Title="GetTarget(Of T) method" Url="html/M_Cauldron_Extensions_GetTarget__1.htm" />
   <HelpKINode Title="GetTarget&lt;T&gt; method" Url="html/M_Cauldron_Extensions_GetTarget__1.htm" />
   <HelpKINode Title="GetTargetType method" Url="html/Overload_Cauldron_Interception_Cecilator_Coders_ParametersCodeBlock_GetTargetType.htm" />
@@ -5853,7 +5813,10 @@
   <HelpKINode Title="GetVariable method" Url="html/Overload_Cauldron_Interception_Cecilator_Method_GetVariable.htm" />
   <HelpKINode Title="GetVisualChildren method" Url="html/M_Cauldron_XAML_Extensions_GetVisualChildren.htm" />
   <HelpKINode Title="GetVisualParent method" Url="html/M_Cauldron_XAML_Extensions_GetVisualParent.htm" />
-  <HelpKINode Title="GetWeeksInYear method" Url="html/M_Cauldron_Core_Utilities_GetWeeksInYear.htm" />
+  <HelpKINode Title="GetWeeksInYear method">
+    <HelpKINode Title="ExtensionsDate.GetWeeksInYear Method " Url="html/M_Cauldron_Core_Extensions_ExtensionsDate_GetWeeksInYear.htm" />
+    <HelpKINode Title="Utilities.GetWeeksInYear Method " Url="html/M_Cauldron_Core_Utilities_GetWeeksInYear.htm" />
+  </HelpKINode>
   <HelpKINode Title="GetWidth method" Url="html/M_Cauldron_XAML_WindowConfiguration_GetWidth.htm" />
   <HelpKINode Title="GetWindowHandle method" Url="html/M_Cauldron_XAML_Extensions_GetWindowHandle.htm" />
   <HelpKINode Title="GetWindowStartupLocation method" Url="html/M_Cauldron_XAML_WindowConfiguration_GetWindowStartupLocation.htm" />
@@ -5906,7 +5869,6 @@
   <HelpKINode Title="GroupIndex property" Url="html/P_Cauldron_Consoles_ExecutionGroupAttribute_GroupIndex.htm" />
   <HelpKINode Title="GroupName property" Url="html/P_Cauldron_Consoles_ExecutionGroupAttribute_GroupName.htm" />
   <HelpKINode Title="Handled property" Url="html/P_Cauldron_Core_Net_WebAuthenticationBrokerCallbackEventArgs_Handled.htm" />
-  <HelpKINode Title="HardwareIdentifier property" Url="html/P_Cauldron_Core_Diagnostics_Debug_HardwareIdentifier.htm" />
   <HelpKINode Title="HasAsyncStateMachineAttribute property" Url="html/P_Cauldron_Interception_Cecilator_AsyncMethodHelper_HasAsyncStateMachineAttribute.htm" />
   <HelpKINode Title="HasAttribute method">
     <HelpKINode Title="BuilderCustomAttributeCollection.HasAttribute Method " Url="html/M_Cauldron_Interception_Cecilator_BuilderCustomAttributeCollection_HasAttribute.htm" />
@@ -5923,11 +5885,6 @@
   <HelpKINode Title="HasOwner attached property" Url="html/P_Cauldron_XAML_WindowConfiguration_HasOwner.htm" />
   <HelpKINode Title="HasOwnerProperty field" Url="html/F_Cauldron_XAML_WindowConfiguration_HasOwnerProperty.htm" />
   <HelpKINode Title="HasReturnVariable method" Url="html/M_Cauldron_Interception_Cecilator_Coders_Coder_HasReturnVariable.htm" />
-  <HelpKINode Title="HasThreadAccess property">
-    <HelpKINode Title="DispatcherDummy.HasThreadAccess Property " Url="html/P_Cauldron_Core_Threading_DispatcherDummy_HasThreadAccess.htm" />
-    <HelpKINode Title="DispatcherEx.HasThreadAccess Property " Url="html/P_Cauldron_Core_Threading_DispatcherEx_HasThreadAccess.htm" />
-    <HelpKINode Title="IDispatcher.HasThreadAccess Property " Url="html/P_Cauldron_Core_Threading_IDispatcher_HasThreadAccess.htm" />
-  </HelpKINode>
   <HelpKINode Title="HasUnresolvedGenericParameters property" Url="html/P_Cauldron_Interception_Cecilator_BuilderType_HasUnresolvedGenericParameters.htm" />
   <HelpKINode Title="Header attached property">
     <HelpKINode Title="ComboBoxProperties.Header Attached Property" Url="html/P_Cauldron_XAML_Theme_ComboBoxProperties_Header.htm" />
@@ -5963,7 +5920,6 @@
   <HelpKINode Title="HeightProperty field" Url="html/F_Cauldron_XAML_WindowConfiguration_HeightProperty.htm" />
   <HelpKINode Title="Help property" Url="html/P_Cauldron_WindowsService_ServiceExecutionGroup_1_Help.htm" />
   <HelpKINode Title="HideConsole method" Url="html/M_Cauldron_Consoles_ConsoleUtils_HideConsole.htm" />
-  <HelpKINode Title="High enumeration member" Url="html/T_Cauldron_Core_Threading_DispatcherPriority.htm" />
   <HelpKINode Title="HomeDirectory property">
     <HelpKINode Title="User.HomeDirectory Property " Url="html/P_Cauldron_Core_User_HomeDirectory.htm" />
     <HelpKINode Title="UserInformation.HomeDirectory Property " Url="html/P_Cauldron_Core_UserInformation_HomeDirectory.htm" />
@@ -6091,9 +6047,7 @@
   </HelpKINode>
   <HelpKINode Title="ICloseAwareViewModel.CanClose method" Url="html/M_Cauldron_XAML_ViewModels_ICloseAwareViewModel_CanClose.htm" />
   <HelpKINode Title="ICloseAwareViewModel.Close method" Url="html/M_Cauldron_XAML_ViewModels_ICloseAwareViewModel_Close.htm" />
-  <HelpKINode Title="ICollection(Of T).Remove explicitly implemented method" Url="html/M_Cauldron_Core_Collections_ConcurrentList_1_System_Collections_Generic_ICollection{T}_Remove.htm" />
   <HelpKINode Title="ICollection1 property" Url="html/P_Cauldron_Interception_Cecilator_BuilderTypes_ICollection1.htm" />
-  <HelpKINode Title="ICollection&lt;T&gt;.Remove explicitly implemented method" Url="html/M_Cauldron_Core_Collections_ConcurrentList_1_System_Collections_Generic_ICollection{T}_Remove.htm" />
   <HelpKINode Title="IComponentConnector.Connect explicitly implemented method" Url="html/M_Cauldron_XAML_Resources_StylesAndTemplates_System_Windows_Markup_IComponentConnector_Connect.htm" />
   <HelpKINode Title="Icon attached property" Url="html/P_Cauldron_XAML_WindowConfiguration_Icon.htm" />
   <HelpKINode Title="IConditionalLogicalOperators interface">
@@ -6143,13 +6097,6 @@
   <HelpKINode Title="IDialogViewModel&lt;TResult&gt;.Result property" Url="html/P_Cauldron_XAML_ViewModels_IDialogViewModel_1_Result.htm" />
   <HelpKINode Title="IDictionary property" Url="html/P_Cauldron_Interception_Cecilator_BuilderTypes_IDictionary.htm" />
   <HelpKINode Title="IDictionary2 property" Url="html/P_Cauldron_Interception_Cecilator_BuilderTypes_IDictionary2.htm" />
-  <HelpKINode Title="IDispatcher interface">
-    <HelpKINode Title="IDispatcher Interface" Url="html/T_Cauldron_Core_Threading_IDispatcher.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Core_Threading_IDispatcher.htm" />
-    <HelpKINode Title="properties" Url="html/Properties_T_Cauldron_Core_Threading_IDispatcher.htm" />
-  </HelpKINode>
-  <HelpKINode Title="IDispatcher.HasThreadAccess property" Url="html/P_Cauldron_Core_Threading_IDispatcher_HasThreadAccess.htm" />
-  <HelpKINode Title="IDispatcher.RunAsync method" Url="html/Overload_Cauldron_Core_Threading_IDispatcher_RunAsync.htm" />
   <HelpKINode Title="IDisposable property" Url="html/P_Cauldron_Interception_Cecilator_BuilderTypes_IDisposable.htm" />
   <HelpKINode Title="IDisposableObject interface">
     <HelpKINode Title="IDisposableObject Interface" Url="html/T_Cauldron_Core_IDisposableObject.htm" />
@@ -6159,18 +6106,20 @@
   <HelpKINode Title="IDisposableObject property" Url="html/P_Cauldron_Interception_Cecilator_BuilderTypes_IDisposableObject.htm" />
   <HelpKINode Title="IDisposableObject.Disposed event" Url="html/E_Cauldron_Core_IDisposableObject_Disposed.htm" />
   <HelpKINode Title="IDisposableObject.IsDisposed property" Url="html/P_Cauldron_Core_IDisposableObject_IsDisposed.htm" />
-  <HelpKINode Title="Idle enumeration member" Url="html/T_Cauldron_Core_Threading_DispatcherPriority.htm" />
   <HelpKINode Title="IEnumerable property" Url="html/P_Cauldron_Interception_Cecilator_BuilderTypes_IEnumerable.htm" />
-  <HelpKINode Title="IEnumerable(Of TValue).GetEnumerator explicitly implemented method" Url="html/M_System_Collections_Generic_FastDictionary_2_System_Collections_Generic_IEnumerable{TValue}_GetEnumerator.htm" />
+  <HelpKINode Title="IEnumerable(Of TItem).GetEnumerator explicitly implemented method" Url="html/M_Cauldron_Core_Collections_FastKeyedCollection_2_System_Collections_Generic_IEnumerable{TItem}_GetEnumerator.htm" />
+  <HelpKINode Title="IEnumerable(Of TValue).GetEnumerator explicitly implemented method" Url="html/M_Cauldron_Core_Collections_FastDictionary_2_System_Collections_Generic_IEnumerable{TValue}_GetEnumerator.htm" />
   <HelpKINode Title="IEnumerable.GetEnumerator explicitly implemented method">
     <HelpKINode Title="BuilderCustomAttributeCollection.IEnumerable.GetEnumerator Method " Url="html/M_Cauldron_Interception_Cecilator_BuilderCustomAttributeCollection_System_Collections_IEnumerable_GetEnumerator.htm" />
-    <HelpKINode Title="ConcurrentList(T).IEnumerable.GetEnumerator Method " Url="html/M_Cauldron_Core_Collections_ConcurrentList_1_System_Collections_IEnumerable_GetEnumerator.htm" />
-    <HelpKINode Title="FastDictionary(TKey, TValue).IEnumerable.GetEnumerator Method " Url="html/M_System_Collections_Generic_FastDictionary_2_System_Collections_IEnumerable_GetEnumerator.htm" />
+    <HelpKINode Title="ConcurrentCollection(T).IEnumerable.GetEnumerator Method " Url="html/M_Cauldron_Core_Collections_ConcurrentCollection_1_System_Collections_IEnumerable_GetEnumerator.htm" />
+    <HelpKINode Title="FastDictionary(TKey, TValue).IEnumerable.GetEnumerator Method " Url="html/M_Cauldron_Core_Collections_FastDictionary_2_System_Collections_IEnumerable_GetEnumerator.htm" />
+    <HelpKINode Title="FastKeyedCollection(TKey, TItem).IEnumerable.GetEnumerator Method " Url="html/M_Cauldron_Core_Collections_FastKeyedCollection_2_System_Collections_IEnumerable_GetEnumerator.htm" />
     <HelpKINode Title="FieldCollection.IEnumerable.GetEnumerator Method " Url="html/M_Cauldron_Interception_Cecilator_FieldCollection_System_Collections_IEnumerable_GetEnumerator.htm" />
     <HelpKINode Title="InstructionBlock.IEnumerable.GetEnumerator Method " Url="html/M_Cauldron_Interception_Cecilator_Coders_InstructionBlock_System_Collections_IEnumerable_GetEnumerator.htm" />
   </HelpKINode>
   <HelpKINode Title="IEnumerable1 property" Url="html/P_Cauldron_Interception_Cecilator_BuilderTypes_IEnumerable1.htm" />
-  <HelpKINode Title="IEnumerable&lt;TValue&gt;.GetEnumerator explicitly implemented method" Url="html/M_System_Collections_Generic_FastDictionary_2_System_Collections_Generic_IEnumerable{TValue}_GetEnumerator.htm" />
+  <HelpKINode Title="IEnumerable&lt;TItem&gt;.GetEnumerator explicitly implemented method" Url="html/M_Cauldron_Core_Collections_FastKeyedCollection_2_System_Collections_Generic_IEnumerable{TItem}_GetEnumerator.htm" />
+  <HelpKINode Title="IEnumerable&lt;TValue&gt;.GetEnumerator explicitly implemented method" Url="html/M_Cauldron_Core_Collections_FastDictionary_2_System_Collections_Generic_IEnumerable{TValue}_GetEnumerator.htm" />
   <HelpKINode Title="IEnumerableExtensions class">
     <HelpKINode Title="IEnumerableExtensions Class" Url="html/T_Cauldron_Core_Collections_IEnumerableExtensions.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Core_Collections_IEnumerableExtensions.htm" />
@@ -6253,12 +6202,7 @@
   <HelpKINode Title="IImageManager.GetImageAsync method" Url="html/M_Cauldron_XAML_IImageManager_GetImageAsync.htm" />
   <HelpKINode Title="IImageManager.LoadBitmapImageAsync method" Url="html/M_Cauldron_XAML_IImageManager_LoadBitmapImageAsync.htm" />
   <HelpKINode Title="IList property" Url="html/P_Cauldron_Interception_Cecilator_BuilderTypes_IList.htm" />
-  <HelpKINode Title="IList(Of T).Item explicitly implemented property" Url="html/P_Cauldron_Core_Collections_ConcurrentList_1_System_Collections_Generic_IList{T}_Item.htm" />
-  <HelpKINode Title="IList.Add explicitly implemented method" Url="html/M_Cauldron_Core_Collections_ConcurrentList_1_System_Collections_IList_Add.htm" />
-  <HelpKINode Title="IList.Item explicitly implemented property" Url="html/P_Cauldron_Core_Collections_ConcurrentList_1_System_Collections_IList_Item.htm" />
-  <HelpKINode Title="IList.Remove explicitly implemented method" Url="html/M_Cauldron_Core_Collections_ConcurrentList_1_System_Collections_IList_Remove.htm" />
   <HelpKINode Title="IList1 property" Url="html/P_Cauldron_Interception_Cecilator_BuilderTypes_IList1.htm" />
-  <HelpKINode Title="IList&lt;T&gt;.Item explicitly implemented property" Url="html/P_Cauldron_Core_Collections_ConcurrentList_1_System_Collections_Generic_IList{T}_Item.htm" />
   <HelpKINode Title="ILoadValue(Of T) interface">
     <HelpKINode Title="ILoadValue(T) Interface" Url="html/T_Cauldron_Interception_Cecilator_Coders_ILoadValue_1.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Interception_Cecilator_Coders_ILoadValue_1.htm" />
@@ -6389,7 +6333,6 @@
     <HelpKINode Title="Position.Index Property " Url="html/P_Cauldron_Interception_Cecilator_Position_Index.htm" />
   </HelpKINode>
   <HelpKINode Title="IndexOf method">
-    <HelpKINode Title="ConcurrentList(T).IndexOf Method " Url="html/Overload_Cauldron_Core_Collections_ConcurrentList_1_IndexOf.htm" />
     <HelpKINode Title="Extension.IndexOf Method " Url="html/M_Cauldron_Interception_Cecilator_Extension_IndexOf.htm" />
     <HelpKINode Title="Extensions.IndexOf Method " Url="html/Overload_Cauldron_Extensions_IndexOf.htm" />
     <HelpKINode Title="InstructionBlock.IndexOf Method " Url="html/M_Cauldron_Interception_Cecilator_Coders_InstructionBlock_IndexOf.htm" />
@@ -6427,7 +6370,6 @@
   <HelpKINode Title="Initialize method">
     <HelpKINode Title="CecilatorObject.Initialize Method " Url="html/Overload_Cauldron_Interception_Cecilator_CecilatorObject_Initialize.htm" />
     <HelpKINode Title="IFactoryExtension.Initialize Method " Url="html/M_Cauldron_Activator_IFactoryExtension_Initialize.htm" />
-    <HelpKINode Title="NavigatorSelectorFactoryResolver.Initialize Method " Url="html/M_Cauldron_XAML_NavigatorSelectorFactoryResolver_Initialize.htm" />
     <HelpKINode Title="UnitTestAwareFactoryResolverBase.Initialize Method " Url="html/M_Cauldron_Activator_UnitTestAwareFactoryResolverBase_Initialize.htm" />
     <HelpKINode Title="WeaverBase.Initialize Method " Url="html/M_Cauldron_Interception_Cecilator_WeaverBase_Initialize.htm" />
   </HelpKINode>
@@ -6458,17 +6400,13 @@
   <HelpKINode Title="INotifyBehaviourInvocation.BehaviourInvoke event" Url="html/E_Cauldron_XAML_INotifyBehaviourInvocation_BehaviourInvoke.htm" />
   <HelpKINode Title="Insert method">
     <HelpKINode Title="Coder.Insert Method " Url="html/Overload_Cauldron_Interception_Cecilator_Coders_Coder_Insert.htm" />
-    <HelpKINode Title="ConcurrentList(T).Insert Method " Url="html/Overload_Cauldron_Core_Collections_ConcurrentList_1_Insert.htm" />
     <HelpKINode Title="InstructionBlock.Insert Method " Url="html/Overload_Cauldron_Interception_Cecilator_Coders_InstructionBlock_Insert.htm" />
   </HelpKINode>
   <HelpKINode Title="InsertAfter method" Url="html/Overload_Cauldron_Interception_Cecilator_Coders_InstructionBlock_InsertAfter.htm" />
   <HelpKINode Title="InsertFieldToAsyncStateMachine method" Url="html/Overload_Cauldron_Interception_Cecilator_AsyncMethodHelper_InsertFieldToAsyncStateMachine.htm" />
   <HelpKINode Title="InsertionAction enumeration" Url="html/T_Cauldron_Interception_Cecilator_InsertionAction.htm" />
   <HelpKINode Title="InsertionPosition enumeration" Url="html/T_Cauldron_Interception_Cecilator_InsertionPosition.htm" />
-  <HelpKINode Title="InsertItem method">
-    <HelpKINode Title="BehaviourCollection(T).InsertItem Method " Url="html/M_Cauldron_XAML_Interactivity_BehaviourCollection_1_InsertItem.htm" />
-    <HelpKINode Title="ConcurrentKeyedCollection(TKey, TItem).InsertItem Method " Url="html/M_Cauldron_Core_Collections_ConcurrentKeyedCollection_2_InsertItem.htm" />
-  </HelpKINode>
+  <HelpKINode Title="InsertItem method" Url="html/M_Cauldron_XAML_Interactivity_BehaviourCollection_1_InsertItem.htm" />
   <HelpKINode Title="Install method" Url="html/M_Cauldron_WindowsService_WindowsServiceInstaller_Install.htm" />
   <HelpKINode Title="Install property" Url="html/P_Cauldron_WindowsService_ServiceExecutionGroup_1_Install.htm" />
   <HelpKINode Title="Instance property">
@@ -6605,12 +6543,10 @@
   <HelpKINode Title="Invoke method">
     <HelpKINode Title="ActionBase.Invoke Method " Url="html/M_Cauldron_XAML_Interactivity_Actions_ActionBase_Invoke.htm" />
     <HelpKINode Title="BehaviourInvokeAwareBehaviourBase(T).Invoke Method " Url="html/M_Cauldron_XAML_Interactivity_BehaviourInvocation_BehaviourInvokeAwareBehaviourBase_1_Invoke.htm" />
-    <HelpKINode Title="CallOnce.Invoke Method " Url="html/M_Cauldron_Core_Threading_CallOnce_Invoke.htm" />
     <HelpKINode Title="CauldronUICommand.Invoke Method " Url="html/M_Cauldron_XAML_CauldronUICommand_Invoke.htm" />
     <HelpKINode Title="InvocationTrigger.Invoke Method " Url="html/M_Cauldron_XAML_Interactivity_BehaviourInvocation_InvocationTrigger_Invoke.htm" />
     <HelpKINode Title="InvokeMethodAction.Invoke Method " Url="html/M_Cauldron_XAML_Interactivity_Actions_InvokeMethodAction_Invoke.htm" />
   </HelpKINode>
-  <HelpKINode Title="Invoked event" Url="html/E_Cauldron_Core_Threading_CallOnce_Invoked.htm" />
   <HelpKINode Title="InvokeMethodAction class">
     <HelpKINode Title="InvokeMethodAction Class" Url="html/T_Cauldron_XAML_Interactivity_Actions_InvokeMethodAction.htm" />
     <HelpKINode Title="constructor" Url="html/M_Cauldron_XAML_Interactivity_Actions_InvokeMethodAction__ctor.htm" />
@@ -6728,8 +6664,7 @@
     <HelpKINode Title="BuilderType.IsEnumerable Property " Url="html/P_Cauldron_Interception_Cecilator_BuilderType_IsEnumerable.htm" />
     <HelpKINode Title="IFactoryTypeInfo.IsEnumerable Property " Url="html/P_Cauldron_Activator_IFactoryTypeInfo_IsEnumerable.htm" />
   </HelpKINode>
-  <HelpKINode Title="IsEqualTo method" Url="html/M_Cauldron_Extensions_IsEqualTo.htm" />
-  <HelpKINode Title="IsFixedSize property" Url="html/P_Cauldron_Core_Collections_ConcurrentList_1_IsFixedSize.htm" />
+  <HelpKINode Title="IsEqualTo method" Url="html/M_Cauldron_ExtensionsSecureString_IsEqualTo.htm" />
   <HelpKINode Title="IsForeign property" Url="html/P_Cauldron_Interception_Cecilator_BuilderType_IsForeign.htm" />
   <HelpKINode Title="IsGenerated property">
     <HelpKINode Title="BuilderType.IsGenerated Property " Url="html/P_Cauldron_Interception_Cecilator_BuilderType_IsGenerated.htm" />
@@ -6798,7 +6733,10 @@
   </HelpKINode>
   <HelpKINode Title="IsModal attached property" Url="html/P_Cauldron_XAML_WindowConfiguration_IsModal.htm" />
   <HelpKINode Title="IsModalProperty field" Url="html/F_Cauldron_XAML_WindowConfiguration_IsModalProperty.htm" />
+  <HelpKINode Title="IsNested property" Url="html/P_Cauldron_Interception_Cecilator_BuilderType_IsNested.htm" />
+  <HelpKINode Title="IsNestedFamily property" Url="html/P_Cauldron_Interception_Cecilator_BuilderType_IsNestedFamily.htm" />
   <HelpKINode Title="IsNestedPrivate property" Url="html/P_Cauldron_Interception_Cecilator_BuilderType_IsNestedPrivate.htm" />
+  <HelpKINode Title="IsNestedPublic property" Url="html/P_Cauldron_Interception_Cecilator_BuilderType_IsNestedPublic.htm" />
   <HelpKINode Title="IsNetworkAvailable property" Url="html/P_Cauldron_Core_Net_Network_IsNetworkAvailable.htm" />
   <HelpKINode Title="IsNetworkPath method" Url="html/M_Cauldron_Extensions_IsNetworkPath.htm" />
   <HelpKINode Title="IsNot method">
@@ -6843,8 +6781,9 @@
   </HelpKINode>
   <HelpKINode Title="IsPublicOrInternal property" Url="html/P_Cauldron_Interception_Cecilator_Method_IsPublicOrInternal.htm" />
   <HelpKINode Title="IsReadOnly property">
-    <HelpKINode Title="ConcurrentList(T).IsReadOnly Property " Url="html/P_Cauldron_Core_Collections_ConcurrentList_1_IsReadOnly.htm" />
-    <HelpKINode Title="FastDictionary(TKey, TValue).IsReadOnly Property " Url="html/P_System_Collections_Generic_FastDictionary_2_IsReadOnly.htm" />
+    <HelpKINode Title="ConcurrentCollection(T).IsReadOnly Property " Url="html/P_Cauldron_Core_Collections_ConcurrentCollection_1_IsReadOnly.htm" />
+    <HelpKINode Title="FastDictionary(TKey, TValue).IsReadOnly Property " Url="html/P_Cauldron_Core_Collections_FastDictionary_2_IsReadOnly.htm" />
+    <HelpKINode Title="FastKeyedCollection(TKey, TItem).IsReadOnly Property " Url="html/P_Cauldron_Core_Collections_FastKeyedCollection_2_IsReadOnly.htm" />
   </HelpKINode>
   <HelpKINode Title="IsRequired property" Url="html/P_Cauldron_Consoles_ParameterAttribute_IsRequired.htm" />
   <HelpKINode Title="IsSealed property" Url="html/P_Cauldron_Interception_Cecilator_BuilderType_IsSealed.htm" />
@@ -6862,8 +6801,9 @@
   </HelpKINode>
   <HelpKINode Title="IsStoreField property" Url="html/P_Cauldron_Interception_Cecilator_FieldUsage_IsStoreField.htm" />
   <HelpKINode Title="IsSubclassOf method" Url="html/Overload_Cauldron_Interception_Cecilator_Extension_IsSubclassOf.htm" />
-  <HelpKINode Title="IsSynchronized property" Url="html/P_Cauldron_Core_Collections_ConcurrentList_1_IsSynchronized.htm" />
+  <HelpKINode Title="IsSynchronized property" Url="html/P_Cauldron_Core_Collections_ConcurrentCollection_1_IsSynchronized.htm" />
   <HelpKINode Title="IsUnitTest property" Url="html/P_Cauldron_Activator_UnitTestAwareFactoryResolverBase_IsUnitTest.htm" />
+  <HelpKINode Title="IsUsed property" Url="html/P_Cauldron_Interception_Cecilator_BuilderType_IsUsed.htm" />
   <HelpKINode Title="IsValidating property">
     <HelpKINode Title="IValidatableViewModel.IsValidating Property " Url="html/P_Cauldron_XAML_ViewModels_IValidatableViewModel_IsValidating.htm" />
     <HelpKINode Title="ValidatableViewModelBase.IsValidating Property " Url="html/P_Cauldron_XAML_ViewModels_ValidatableViewModelBase_IsValidating.htm" />
@@ -6874,7 +6814,6 @@
     <HelpKINode Title="BuilderType.IsVoid Property " Url="html/P_Cauldron_Interception_Cecilator_BuilderType_IsVoid.htm" />
     <HelpKINode Title="Method.IsVoid Property " Url="html/P_Cauldron_Interception_Cecilator_Method_IsVoid.htm" />
   </HelpKINode>
-  <HelpKINode Title="IsWaiting property" Url="html/P_Cauldron_Core_Threading_CallOnce_IsWaiting.htm" />
   <HelpKINode Title="IsWindowPersistent attached property" Url="html/P_Cauldron_XAML_WindowConfiguration_IsWindowPersistent.htm" />
   <HelpKINode Title="IsWindowPersistentProperty field" Url="html/F_Cauldron_XAML_WindowConfiguration_IsWindowPersistentProperty.htm" />
   <HelpKINode Title="ISyncRoot interface">
@@ -6884,8 +6823,8 @@
   <HelpKINode Title="ISyncRoot property" Url="html/P_Cauldron_Interception_Cecilator_BuilderTypes_ISyncRoot.htm" />
   <HelpKINode Title="ISyncRoot.SyncRoot property" Url="html/P_Cauldron_Interception_ISyncRoot_SyncRoot.htm" />
   <HelpKINode Title="Item property">
-    <HelpKINode Title="ConcurrentList(T).Item Property " Url="html/P_Cauldron_Core_Collections_ConcurrentList_1_Item.htm" />
-    <HelpKINode Title="FastDictionary(TKey, TValue).Item Property " Url="html/P_System_Collections_Generic_FastDictionary_2_Item.htm" />
+    <HelpKINode Title="FastDictionary(TKey, TValue).Item Property " Url="html/P_Cauldron_Core_Collections_FastDictionary_2_Item.htm" />
+    <HelpKINode Title="FastKeyedCollection(TKey, TItem).Item Property " Url="html/P_Cauldron_Core_Collections_FastKeyedCollection_2_Item.htm" />
     <HelpKINode Title="FieldCollection.Item Property " Url="html/Overload_Cauldron_Interception_Cecilator_FieldCollection_Item.htm" />
     <HelpKINode Title="InstructionBlock.Item Property " Url="html/P_Cauldron_Interception_Cecilator_Coders_InstructionBlock_Item.htm" />
     <HelpKINode Title="Locale.Item Property " Url="html/Overload_Cauldron_Localization_Locale_Item.htm" />
@@ -6960,20 +6899,6 @@
     <HelpKINode Title="KeyMaterial.Key Property " Url="html/P_Cauldron_Cryptography_KeyMaterial_Key.htm" />
   </HelpKINode>
   <HelpKINode Title="KeyColor property" Url="html/P_Cauldron_Consoles_ParameterParser_KeyColor.htm" />
-  <HelpKINode Title="KeyedCollectionEx(Of TKey, TItem) class">
-    <HelpKINode Title="KeyedCollectionEx(TKey, TItem) Class" Url="html/T_Cauldron_Core_Collections_KeyedCollectionEx_2.htm" />
-    <HelpKINode Title="constructor" Url="html/Overload_Cauldron_Core_Collections_KeyedCollectionEx_2__ctor.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Core_Collections_KeyedCollectionEx_2.htm" />
-  </HelpKINode>
-  <HelpKINode Title="KeyedCollectionEx(Of TKey, TItem).GetKeyForItem method" Url="html/M_Cauldron_Core_Collections_KeyedCollectionEx_2_GetKeyForItem.htm" />
-  <HelpKINode Title="KeyedCollectionEx(Of TKey, TItem).KeyedCollectionEx constructor" Url="html/Overload_Cauldron_Core_Collections_KeyedCollectionEx_2__ctor.htm" />
-  <HelpKINode Title="KeyedCollectionEx&lt;TKey, TItem&gt; class">
-    <HelpKINode Title="KeyedCollectionEx(TKey, TItem) Class" Url="html/T_Cauldron_Core_Collections_KeyedCollectionEx_2.htm" />
-    <HelpKINode Title="constructor" Url="html/Overload_Cauldron_Core_Collections_KeyedCollectionEx_2__ctor.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Core_Collections_KeyedCollectionEx_2.htm" />
-  </HelpKINode>
-  <HelpKINode Title="KeyedCollectionEx&lt;TKey, TItem&gt;.GetKeyForItem method" Url="html/M_Cauldron_Core_Collections_KeyedCollectionEx_2_GetKeyForItem.htm" />
-  <HelpKINode Title="KeyedCollectionEx&lt;TKey, TItem&gt;.KeyedCollectionEx constructor" Url="html/Overload_Cauldron_Core_Collections_KeyedCollectionEx_2__ctor.htm" />
   <HelpKINode Title="KeyMaterial class">
     <HelpKINode Title="KeyMaterial Class" Url="html/T_Cauldron_Cryptography_KeyMaterial.htm" />
     <HelpKINode Title="fields" Url="html/Fields_T_Cauldron_Cryptography_KeyMaterial.htm" />
@@ -6994,16 +6919,10 @@
   <HelpKINode Title="KeyPair.OnDispose method" Url="html/M_Cauldron_Cryptography_KeyPair_OnDispose.htm" />
   <HelpKINode Title="KeyPair.PrivateKey property" Url="html/P_Cauldron_Cryptography_KeyPair_PrivateKey.htm" />
   <HelpKINode Title="KeyPair.PublicKey property" Url="html/P_Cauldron_Cryptography_KeyPair_PublicKey.htm" />
-  <HelpKINode Title="KeyRawValueDictionary class">
-    <HelpKINode Title="KeyRawValueDictionary Class" Url="html/T_Cauldron_Core_Collections_KeyRawValueDictionary.htm" />
-    <HelpKINode Title="constructor" Url="html/M_Cauldron_Core_Collections_KeyRawValueDictionary__ctor.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Core_Collections_KeyRawValueDictionary.htm" />
+  <HelpKINode Title="Keys property">
+    <HelpKINode Title="FastDictionary(TKey, TValue).Keys Property " Url="html/P_Cauldron_Core_Collections_FastDictionary_2_Keys.htm" />
+    <HelpKINode Title="FastKeyedCollection(TKey, TItem).Keys Property " Url="html/P_Cauldron_Core_Collections_FastKeyedCollection_2_Keys.htm" />
   </HelpKINode>
-  <HelpKINode Title="KeyRawValueDictionary.Add method" Url="html/Overload_Cauldron_Core_Collections_KeyRawValueDictionary_Add.htm" />
-  <HelpKINode Title="KeyRawValueDictionary.Deserialize method" Url="html/M_Cauldron_Core_Collections_KeyRawValueDictionary_Deserialize.htm" />
-  <HelpKINode Title="KeyRawValueDictionary.KeyRawValueDictionary constructor" Url="html/M_Cauldron_Core_Collections_KeyRawValueDictionary__ctor.htm" />
-  <HelpKINode Title="KeyRawValueDictionary.Serialize method" Url="html/M_Cauldron_Core_Collections_KeyRawValueDictionary_Serialize.htm" />
-  <HelpKINode Title="Keys property" Url="html/P_System_Collections_Generic_FastDictionary_2_Keys.htm" />
   <HelpKINode Title="KeyToLocalizedStringConverter class">
     <HelpKINode Title="KeyToLocalizedStringConverter Class" Url="html/T_Cauldron_XAML_ValueConverters_KeyToLocalizedStringConverter.htm" />
     <HelpKINode Title="constructor" Url="html/M_Cauldron_XAML_ValueConverters_KeyToLocalizedStringConverter__ctor.htm" />
@@ -7014,13 +6933,28 @@
   <HelpKINode Title="KeyToLocalizedStringConverter.OnConvertBack method" Url="html/M_Cauldron_XAML_ValueConverters_KeyToLocalizedStringConverter_OnConvertBack.htm" />
   <HelpKINode Title="Known property" Url="html/P_Cauldron_Core_Reflection_Assemblies_Known.htm" />
   <HelpKINode Title="KnownFolders class">
+    <HelpKINode Title="KnownFolders Class" Url="html/T_Windows_Storage_KnownFolders.htm" />
     <HelpKINode Title="KnownFolders Class" Url="html/T_Cauldron_Core_KnownFolders.htm" />
     <HelpKINode Title="properties" Url="html/Properties_T_Cauldron_Core_KnownFolders.htm" />
+    <HelpKINode Title="properties" Url="html/Properties_T_Windows_Storage_KnownFolders.htm" />
   </HelpKINode>
-  <HelpKINode Title="KnownFolders.DocumentsLibrary property" Url="html/P_Cauldron_Core_KnownFolders_DocumentsLibrary.htm" />
-  <HelpKINode Title="KnownFolders.MusicLibrary property" Url="html/P_Cauldron_Core_KnownFolders_MusicLibrary.htm" />
-  <HelpKINode Title="KnownFolders.PictureLibrary property" Url="html/P_Cauldron_Core_KnownFolders_PictureLibrary.htm" />
-  <HelpKINode Title="KnownFolders.VideosLibrary property" Url="html/P_Cauldron_Core_KnownFolders_VideosLibrary.htm" />
+  <HelpKINode Title="KnownFolders.CameraRoll property" Url="html/P_Windows_Storage_KnownFolders_CameraRoll.htm" />
+  <HelpKINode Title="KnownFolders.DocumentsLibrary property">
+    <HelpKINode Title="KnownFolders.DocumentsLibrary Property " Url="html/P_Cauldron_Core_KnownFolders_DocumentsLibrary.htm" />
+    <HelpKINode Title="KnownFolders.DocumentsLibrary Property " Url="html/P_Windows_Storage_KnownFolders_DocumentsLibrary.htm" />
+  </HelpKINode>
+  <HelpKINode Title="KnownFolders.MusicLibrary property">
+    <HelpKINode Title="KnownFolders.MusicLibrary Property " Url="html/P_Windows_Storage_KnownFolders_MusicLibrary.htm" />
+    <HelpKINode Title="KnownFolders.MusicLibrary Property " Url="html/P_Cauldron_Core_KnownFolders_MusicLibrary.htm" />
+  </HelpKINode>
+  <HelpKINode Title="KnownFolders.PictureLibrary property">
+    <HelpKINode Title="KnownFolders.PictureLibrary Property " Url="html/P_Cauldron_Core_KnownFolders_PictureLibrary.htm" />
+    <HelpKINode Title="KnownFolders.PictureLibrary Property " Url="html/P_Windows_Storage_KnownFolders_PictureLibrary.htm" />
+  </HelpKINode>
+  <HelpKINode Title="KnownFolders.VideosLibrary property">
+    <HelpKINode Title="KnownFolders.VideosLibrary Property " Url="html/P_Windows_Storage_KnownFolders_VideosLibrary.htm" />
+    <HelpKINode Title="KnownFolders.VideosLibrary Property " Url="html/P_Cauldron_Core_KnownFolders_VideosLibrary.htm" />
+  </HelpKINode>
   <HelpKINode Title="Label property" Url="html/P_Cauldron_XAML_CauldronUICommand_Label.htm" />
   <HelpKINode Title="LAN enumeration member" Url="html/T_Cauldron_Core_Net_ConnectionGenerationTypes.htm" />
   <HelpKINode Title="Landscape enumeration member" Url="html/T_Cauldron_ViewOrientation.htm" />
@@ -7122,7 +7056,10 @@
   <HelpKINode Title="Locale.GetCurrentCultureInfo method" Url="html/M_Cauldron_Localization_Locale_GetCurrentCultureInfo.htm" />
   <HelpKINode Title="Locale.Item property" Url="html/Overload_Cauldron_Localization_Locale_Item.htm" />
   <HelpKINode Title="Locale.MissingLocalizationIndicator property" Url="html/P_Cauldron_Localization_Locale_MissingLocalizationIndicator.htm" />
-  <HelpKINode Title="LocalFolder property" Url="html/P_Cauldron_Core_ApplicationData_LocalFolder.htm" />
+  <HelpKINode Title="LocalFolder property">
+    <HelpKINode Title="ApplicationData.LocalFolder Property " Url="html/P_Cauldron_Core_ApplicationData_LocalFolder.htm" />
+    <HelpKINode Title="ApplicationData.LocalFolder Property " Url="html/P_Windows_Storage_ApplicationData_LocalFolder.htm" />
+  </HelpKINode>
   <HelpKINode Title="localIpAddress field" Url="html/F_Cauldron_Core_Net_PingResults_localIpAddress.htm" />
   <HelpKINode Title="LocalizationKeyValue class">
     <HelpKINode Title="LocalizationKeyValue Class" Url="html/T_Cauldron_Localization_LocalizationKeyValue.htm" />
@@ -7184,8 +7121,6 @@
   <HelpKINode Title="LogName property" Url="html/P_Cauldron_Core_Interceptors_ExceptionToEventLogAttribute_LogName.htm" />
   <HelpKINode Title="LogonType enumeration" Url="html/T_Cauldron_LogonType.htm" />
   <HelpKINode Title="LogTypes enumeration" Url="html/T_Cauldron_Interception_Cecilator_LogTypes.htm" />
-  <HelpKINode Title="Low enumeration member" Url="html/T_Cauldron_Core_Threading_DispatcherPriority.htm" />
-  <HelpKINode Title="LowerFirstCharacter method" Url="html/M_Cauldron_Extensions_LowerFirstCharacter.htm" />
   <HelpKINode Title="MakeArray method">
     <HelpKINode Title="Builder.MakeArray Method " Url="html/M_Cauldron_Interception_Cecilator_Builder_MakeArray.htm" />
     <HelpKINode Title="BuilderType.MakeArray Method " Url="html/M_Cauldron_Interception_Cecilator_BuilderType_MakeArray.htm" />
@@ -7197,18 +7132,6 @@
   <HelpKINode Title="MakeThreadSafe property" Url="html/P_Cauldron_Activator_InjectAttribute_MakeThreadSafe.htm" />
   <HelpKINode Title="MapTo method" Url="html/Overload_Cauldron_Activator_ExtensionsCloning_MapTo.htm" />
   <HelpKINode Title="MatchesArgumentTypes method" Url="html/Overload_Cauldron_ExtensionsReflection_MatchesArgumentTypes.htm" />
-  <HelpKINode Title="MathEx class">
-    <HelpKINode Title="MathEx Class" Url="html/T_System_MathEx.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_System_MathEx.htm" />
-  </HelpKINode>
-  <HelpKINode Title="MathEx.Add method" Url="html/M_System_MathEx_Add.htm" />
-  <HelpKINode Title="MathEx.Clamp method" Url="html/Overload_System_MathEx_Clamp.htm" />
-  <HelpKINode Title="MathEx.DegreesToRadians method" Url="html/M_System_MathEx_DegreesToRadians.htm" />
-  <HelpKINode Title="MathEx.Divide method" Url="html/M_System_MathEx_Divide.htm" />
-  <HelpKINode Title="MathEx.Multiply method" Url="html/M_System_MathEx_Multiply.htm" />
-  <HelpKINode Title="MathEx.RadiansToDegrees method" Url="html/M_System_MathEx_RadiansToDegrees.htm" />
-  <HelpKINode Title="MathEx.Substract method" Url="html/M_System_MathEx_Substract.htm" />
-  <HelpKINode Title="MathEx.ValueOf method" Url="html/Overload_System_MathEx_ValueOf.htm" />
   <HelpKINode Title="MaxBy method" Url="html/Overload_Cauldron_Extensions_MaxBy.htm" />
   <HelpKINode Title="MaxHeight attached property" Url="html/P_Cauldron_XAML_WindowConfiguration_MaxHeight.htm" />
   <HelpKINode Title="MaxHeightProperty field" Url="html/F_Cauldron_XAML_WindowConfiguration_MaxHeightProperty.htm" />
@@ -7313,6 +7236,7 @@
   <HelpKINode Title="Method.Overrides method" Url="html/M_Cauldron_Interception_Cecilator_Method_Overrides.htm" />
   <HelpKINode Title="Method.Parameters property" Url="html/P_Cauldron_Interception_Cecilator_Method_Parameters.htm" />
   <HelpKINode Title="Method.ParametersCount property" Url="html/P_Cauldron_Interception_Cecilator_Method_ParametersCount.htm" />
+  <HelpKINode Title="Method.Remove method" Url="html/M_Cauldron_Interception_Cecilator_Method_Remove.htm" />
   <HelpKINode Title="Method.ReturnType property" Url="html/P_Cauldron_Interception_Cecilator_Method_ReturnType.htm" />
   <HelpKINode Title="Method.ToString method" Url="html/M_Cauldron_Interception_Cecilator_Method_ToString.htm" />
   <HelpKINode Title="Method.Variables property" Url="html/P_Cauldron_Interception_Cecilator_Method_Variables.htm" />
@@ -7416,12 +7340,15 @@
   <HelpKINode Title="MonitorInfo.PrimaryMonitorBounds property" Url="html/P_Cauldron_MonitorInfo_PrimaryMonitorBounds.htm" />
   <HelpKINode Title="MonitorInfo.WindowIsInAnyMonitor method" Url="html/M_Cauldron_MonitorInfo_WindowIsInAnyMonitor.htm" />
   <HelpKINode Title="MonitorInfo.WmGetMinMaxInfo method" Url="html/M_Cauldron_MonitorInfo_WmGetMinMaxInfo.htm" />
+  <HelpKINode Title="Move method" Url="html/Overload_Cauldron_Core_Collections_FastObservableCollection_1_Move.htm" />
   <HelpKINode Title="Move(Of T) method" Url="html/M_Cauldron_Extensions_Move__1.htm" />
   <HelpKINode Title="Move&lt;T&gt; method" Url="html/M_Cauldron_Extensions_Move__1.htm" />
   <HelpKINode Title="MoveNextMethod property" Url="html/P_Cauldron_Interception_Cecilator_AsyncMethodHelper_MoveNextMethod.htm" />
   <HelpKINode Title="MoveTo method" Url="html/Overload_Cauldron_Interception_Cecilator_BuilderCustomAttribute_MoveTo.htm" />
-  <HelpKINode Title="Multiply method" Url="html/M_System_MathEx_Multiply.htm" />
-  <HelpKINode Title="MusicLibrary property" Url="html/P_Cauldron_Core_KnownFolders_MusicLibrary.htm" />
+  <HelpKINode Title="MusicLibrary property">
+    <HelpKINode Title="KnownFolders.MusicLibrary Property " Url="html/P_Windows_Storage_KnownFolders_MusicLibrary.htm" />
+    <HelpKINode Title="KnownFolders.MusicLibrary Property " Url="html/P_Cauldron_Core_KnownFolders_MusicLibrary.htm" />
+  </HelpKINode>
   <HelpKINode Title="MyPropertyProperty field" Url="html/F_Cauldron_XAML_Interactivity_EnterKeyToCommand_MyPropertyProperty.htm" />
   <HelpKINode Title="Name property">
     <HelpKINode Title="Builder.Name Property " Url="html/P_Cauldron_Interception_Cecilator_Builder_Name.htm" />
@@ -7518,8 +7445,8 @@
     <HelpKINode Title="constructor" Url="html/M_Cauldron_XAML_NavigatorSelectorFactoryResolver__ctor.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_XAML_NavigatorSelectorFactoryResolver.htm" />
   </HelpKINode>
-  <HelpKINode Title="NavigatorSelectorFactoryResolver.Initialize method" Url="html/M_Cauldron_XAML_NavigatorSelectorFactoryResolver_Initialize.htm" />
   <HelpKINode Title="NavigatorSelectorFactoryResolver.NavigatorSelectorFactoryResolver constructor" Url="html/M_Cauldron_XAML_NavigatorSelectorFactoryResolver__ctor.htm" />
+  <HelpKINode Title="NavigatorSelectorFactoryResolver.SelectAmbiguousMatch method" Url="html/M_Cauldron_XAML_NavigatorSelectorFactoryResolver_SelectAmbiguousMatch.htm" />
   <HelpKINode Title="NavigatorSinglePage class">
     <HelpKINode Title="NavigatorSinglePage Class" Url="html/T_Cauldron_XAML_Navigation_NavigatorSinglePage.htm" />
     <HelpKINode Title="events" Url="html/Events_T_Cauldron_XAML_Navigation_NavigatorSinglePage.htm" />
@@ -7577,16 +7504,12 @@
     <HelpKINode Title="RecoveryAction Enumeration" Url="html/T_Cauldron_WindowsService_RecoveryAction.htm" />
   </HelpKINode>
   <HelpKINode Title="NoPreloading property" Url="html/P_Cauldron_Activator_InjectAttribute_NoPreloading.htm" />
-  <HelpKINode Title="Normal enumeration member">
-    <HelpKINode Title="DispatcherPriority Enumeration" Url="html/T_Cauldron_Core_Threading_DispatcherPriority.htm" />
-    <HelpKINode Title="Mode Enumeration" Url="html/T_Cauldron_Interception_Mode.htm" />
-  </HelpKINode>
+  <HelpKINode Title="Normal enumeration member" Url="html/T_Cauldron_Interception_Mode.htm" />
   <HelpKINode Title="NotConnected enumeration member" Url="html/T_Cauldron_Core_Net_ConnectionGenerationTypes.htm" />
   <HelpKINode Title="NotSupportedException property" Url="html/P_Cauldron_Interception_Cecilator_BuilderTypes_NotSupportedException.htm" />
   <HelpKINode Title="Nullable property" Url="html/P_Cauldron_Interception_Cecilator_BuilderTypes_Nullable.htm" />
   <HelpKINode Title="Nullable1 property" Url="html/P_Cauldron_Interception_Cecilator_BuilderTypes_Nullable1.htm" />
   <HelpKINode Title="NullableCodeBlock class" Url="html/T_Cauldron_Interception_Cecilator_Coders_NullableCodeBlock.htm" />
-  <HelpKINode Title="NullGuard method" Url="html/Overload_Cauldron_AsyncHelper_NullGuard.htm" />
   <HelpKINode Title="NullOrEmptyToVisibilityConverter class">
     <HelpKINode Title="NullOrEmptyToVisibilityConverter Class" Url="html/T_Cauldron_XAML_ValueConverters_NullOrEmptyToVisibilityConverter.htm" />
     <HelpKINode Title="constructor" Url="html/M_Cauldron_XAML_ValueConverters_NullOrEmptyToVisibilityConverter__ctor.htm" />
@@ -7636,6 +7559,7 @@
     <HelpKINode Title="RelayCommand(T).OnCanExecuteChanged Method " Url="html/M_Cauldron_XAML_RelayCommand_1_OnCanExecuteChanged.htm" />
     <HelpKINode Title="RelayCommand.OnCanExecuteChanged Method " Url="html/M_Cauldron_XAML_RelayCommand_OnCanExecuteChanged.htm" />
   </HelpKINode>
+  <HelpKINode Title="OnClear method" Url="html/M_Cauldron_Core_Collections_ConcurrentCollection_1_OnClear.htm" />
   <HelpKINode Title="OnConstruction method" Url="html/M_Cauldron_XAML_ApplicationBase_OnConstruction.htm" />
   <HelpKINode Title="OnConvert method">
     <HelpKINode Title="BooleanInvertConverter.OnConvert Method " Url="html/M_Cauldron_XAML_ValueConverters_BooleanInvertConverter_OnConvert.htm" />
@@ -7663,7 +7587,6 @@
     <HelpKINode Title="InvocationTrigger.OnCopy Method " Url="html/M_Cauldron_XAML_Interactivity_BehaviourInvocation_InvocationTrigger_OnCopy.htm" />
     <HelpKINode Title="PropertyChangedTrigger.OnCopy Method " Url="html/M_Cauldron_XAML_Interactivity_PropertyChangedTrigger_OnCopy.htm" />
   </HelpKINode>
-  <HelpKINode Title="OnCreateDispatcher method" Url="html/M_Cauldron_Core_Threading_DispatcherEx_OnCreateDispatcher.htm" />
   <HelpKINode Title="OnDataContextChanged method">
     <HelpKINode Title="Behaviour(T).OnDataContextChanged Method " Url="html/M_Cauldron_XAML_Interactivity_Behaviour_1_OnDataContextChanged.htm" />
     <HelpKINode Title="BehaviourInvokeAwareBehaviourBase(T).OnDataContextChanged Method " Url="html/M_Cauldron_XAML_Interactivity_BehaviourInvocation_BehaviourInvokeAwareBehaviourBase_1_OnDataContextChanged.htm" />
@@ -7689,7 +7612,7 @@
   </HelpKINode>
   <HelpKINode Title="OnDispose method">
     <HelpKINode Title="DisposableBase.OnDispose Method " Url="html/M_Cauldron_Core_DisposableBase_OnDispose.htm" />
-    <HelpKINode Title="DisposableObject.OnDispose Method " Url="html/M_Cauldron_Core_DisposableObject_OnDispose.htm" />
+    <HelpKINode Title="DisposableObject.OnDispose Method " Url="html/M_Cauldron_Cryptography_DisposableObject_OnDispose.htm" />
     <HelpKINode Title="DynamicEventHandler.OnDispose Method " Url="html/M_Cauldron_XAML_DynamicEventHandler_OnDispose.htm" />
     <HelpKINode Title="KeyMaterial.OnDispose Method " Url="html/M_Cauldron_Cryptography_KeyMaterial_OnDispose.htm" />
     <HelpKINode Title="KeyPair.OnDispose Method " Url="html/M_Cauldron_Cryptography_KeyPair_OnDispose.htm" />
@@ -7727,17 +7650,20 @@
   <HelpKINode Title="OnGet method" Url="html/M_Cauldron_Interception_IPropertyGetterInterceptor_OnGet.htm" />
   <HelpKINode Title="OnGetValue method" Url="html/M_Cauldron_Localization_LocalizationKeyValue_OnGetValue.htm" />
   <HelpKINode Title="OnInitialize method">
-    <HelpKINode Title="DispatcherFactoryResolver.OnInitialize Method " Url="html/M_Cauldron_Core_Threading_DispatcherFactoryResolver_OnInitialize.htm" />
     <HelpKINode Title="IPropertyInterceptorInitialize.OnInitialize Method " Url="html/M_Cauldron_Interception_IPropertyInterceptorInitialize_OnInitialize.htm" />
     <HelpKINode Title="RegisterChildrenAttribute.OnInitialize Method " Url="html/M_Cauldron_XAML_ViewModels_RegisterChildrenAttribute_OnInitialize.htm" />
     <HelpKINode Title="UnitTestAwareFactoryResolverBase.OnInitialize Method " Url="html/M_Cauldron_Activator_UnitTestAwareFactoryResolverBase_OnInitialize.htm" />
   </HelpKINode>
   <HelpKINode Title="OnIsLoadingChanged method" Url="html/M_Cauldron_XAML_ViewModels_ViewModelBase_OnIsLoadingChanged.htm" />
   <HelpKINode Title="OnIsValidatingChanged method" Url="html/M_Cauldron_XAML_ViewModels_ValidatableViewModelBase_OnIsValidatingChanged.htm" />
+  <HelpKINode Title="OnItemAdded method" Url="html/M_Cauldron_Core_Collections_ConcurrentCollection_1_OnItemAdded.htm" />
+  <HelpKINode Title="OnItemsAdded method" Url="html/M_Cauldron_Core_Collections_ConcurrentCollection_1_OnItemsAdded.htm" />
   <HelpKINode Title="OnNavigatedFrom method" Url="html/M_Cauldron_XAML_ViewModels_INavigable_OnNavigatedFrom.htm" />
   <HelpKINode Title="OnNavigatedTo method" Url="html/M_Cauldron_XAML_ViewModels_INavigable_OnNavigatedTo.htm" />
   <HelpKINode Title="OnNavigatingFrom method" Url="html/M_Cauldron_XAML_ViewModels_INavigable_OnNavigatingFrom.htm" />
   <HelpKINode Title="OnPreload method" Url="html/M_Cauldron_XAML_ApplicationBase_OnPreload.htm" />
+  <HelpKINode Title="OnPropertyChanged method" Url="html/M_Cauldron_Core_Collections_FastObservableCollection_1_OnPropertyChanged.htm" />
+  <HelpKINode Title="OnRemove method" Url="html/Overload_Cauldron_Core_Collections_ConcurrentCollection_1_OnRemove.htm" />
   <HelpKINode Title="OnResourceLoad method" Url="html/M_Cauldron_XAML_ApplicationBase_OnResourceLoad.htm" />
   <HelpKINode Title="OnSet method">
     <HelpKINode Title="IPropertySetterInterceptor.OnSet Method " Url="html/M_Cauldron_Interception_IPropertySetterInterceptor_OnSet.htm" />
@@ -7920,7 +7846,10 @@
     <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Core_Interceptors_PerformanceLoggerAttribute.htm" />
   </HelpKINode>
   <HelpKINode Title="PerformanceLoggerAttribute.PerformanceLoggerAttribute constructor" Url="html/M_Cauldron_Core_Interceptors_PerformanceLoggerAttribute__ctor.htm" />
-  <HelpKINode Title="PictureLibrary property" Url="html/P_Cauldron_Core_KnownFolders_PictureLibrary.htm" />
+  <HelpKINode Title="PictureLibrary property">
+    <HelpKINode Title="KnownFolders.PictureLibrary Property " Url="html/P_Windows_Storage_KnownFolders_PictureLibrary.htm" />
+    <HelpKINode Title="KnownFolders.PictureLibrary Property " Url="html/P_Cauldron_Core_KnownFolders_PictureLibrary.htm" />
+  </HelpKINode>
   <HelpKINode Title="Ping method" Url="html/M_Cauldron_Core_Net_Network_Ping.htm" />
   <HelpKINode Title="PingResults structure">
     <HelpKINode Title="PingResults Structure" Url="html/T_Cauldron_Core_Net_PingResults.htm" />
@@ -7974,7 +7903,6 @@
   <HelpKINode Title="Private enumeration member" Url="html/T_Cauldron_Interception_Cecilator_Modifiers.htm" />
   <HelpKINode Title="PrivateKey property" Url="html/P_Cauldron_Cryptography_KeyPair_PrivateKey.htm" />
   <HelpKINode Title="PrivateStatic enumeration member" Url="html/T_Cauldron_Interception_Cecilator_Modifiers.htm" />
-  <HelpKINode Title="ProcessEvents method" Url="html/M_Cauldron_Core_Threading_DispatcherEx_ProcessEvents.htm" />
   <HelpKINode Title="ProcessToPrefer property" Url="html/P_Cauldron_XAML_ParameterPassingConfig_ProcessToPrefer.htm" />
   <HelpKINode Title="ProductName property" Url="html/P_Cauldron_Core_Reflection_ApplicationInfo_ProductName.htm" />
   <HelpKINode Title="ProgressBarProperties class">
@@ -8032,11 +7960,13 @@
   <HelpKINode Title="Property.Name property" Url="html/P_Cauldron_Interception_Cecilator_Property_Name.htm" />
   <HelpKINode Title="Property.OriginType property" Url="html/P_Cauldron_Interception_Cecilator_Property_OriginType.htm" />
   <HelpKINode Title="Property.Overrides method" Url="html/M_Cauldron_Interception_Cecilator_Property_Overrides.htm" />
+  <HelpKINode Title="Property.Remove method" Url="html/M_Cauldron_Interception_Cecilator_Property_Remove.htm" />
   <HelpKINode Title="Property.ReturnType property" Url="html/P_Cauldron_Interception_Cecilator_Property_ReturnType.htm" />
   <HelpKINode Title="Property.Setter property" Url="html/P_Cauldron_Interception_Cecilator_Property_Setter.htm" />
   <HelpKINode Title="Property.ToString method" Url="html/M_Cauldron_Interception_Cecilator_Property_ToString.htm" />
   <HelpKINode Title="PropertyChanged event">
     <HelpKINode Title="ApplicationBase.PropertyChanged Event" Url="html/E_Cauldron_XAML_ApplicationBase_PropertyChanged.htm" />
+    <HelpKINode Title="FastObservableCollection(T).PropertyChanged Event" Url="html/E_Cauldron_Core_Collections_FastObservableCollection_1_PropertyChanged.htm" />
     <HelpKINode Title="NavigatorSinglePage.PropertyChanged Event" Url="html/E_Cauldron_XAML_Navigation_NavigatorSinglePage_PropertyChanged.htm" />
     <HelpKINode Title="RelayCommand(T).PropertyChanged Event" Url="html/E_Cauldron_XAML_RelayCommand_1_PropertyChanged.htm" />
     <HelpKINode Title="RelayCommand.PropertyChanged Event" Url="html/E_Cauldron_XAML_RelayCommand_PropertyChanged.htm" />
@@ -8119,7 +8049,6 @@
   <HelpKINode Title="PublicKey property" Url="html/P_Cauldron_Cryptography_KeyPair_PublicKey.htm" />
   <HelpKINode Title="PublicStatic enumeration member" Url="html/T_Cauldron_Interception_Cecilator_Modifiers.htm" />
   <HelpKINode Title="Question enumeration member" Url="html/T_Cauldron_XAML_MessageBoxImage.htm" />
-  <HelpKINode Title="RadiansToDegrees method" Url="html/M_System_MathEx_RadiansToDegrees.htm" />
   <HelpKINode Title="RaiseNotifyBehaviourInvoke method">
     <HelpKINode Title="ApplicationBase.RaiseNotifyBehaviourInvoke Method " Url="html/M_Cauldron_XAML_ApplicationBase_RaiseNotifyBehaviourInvoke.htm" />
     <HelpKINode Title="IViewModel.RaiseNotifyBehaviourInvoke Method " Url="html/M_Cauldron_XAML_ViewModels_IViewModel_RaiseNotifyBehaviourInvoke.htm" />
@@ -8149,18 +8078,6 @@
   <HelpKINode Title="RandomPick(Of T) method" Url="html/M_Cauldron_Extensions_RandomPick__1.htm" />
   <HelpKINode Title="RandomPick&lt;T&gt; method" Url="html/M_Cauldron_Extensions_RandomPick__1.htm" />
   <HelpKINode Title="RandomSelectInstance property" Url="html/P_Cauldron_XAML_ParameterPassingConfig_RandomSelectInstance.htm" />
-  <HelpKINode Title="RawValue class">
-    <HelpKINode Title="RawValue Class" Url="html/T_Cauldron_Core_Collections_RawValue.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Core_Collections_RawValue.htm" />
-  </HelpKINode>
-  <HelpKINode Title="RawValue.Equals method" Url="html/Overload_Cauldron_Core_Collections_RawValue_Equals.htm" />
-  <HelpKINode Title="RawValue.GetHashCode method" Url="html/Overload_Cauldron_Core_Collections_RawValue_GetHashCode.htm" />
-  <HelpKINode Title="RawValue.ToBool method" Url="html/M_Cauldron_Core_Collections_RawValue_ToBool.htm" />
-  <HelpKINode Title="RawValue.ToDouble method" Url="html/M_Cauldron_Core_Collections_RawValue_ToDouble.htm" />
-  <HelpKINode Title="RawValue.ToFloat method" Url="html/M_Cauldron_Core_Collections_RawValue_ToFloat.htm" />
-  <HelpKINode Title="RawValue.ToInteger method" Url="html/M_Cauldron_Core_Collections_RawValue_ToInteger.htm" />
-  <HelpKINode Title="RawValue.ToLong method" Url="html/M_Cauldron_Core_Collections_RawValue_ToLong.htm" />
-  <HelpKINode Title="RawValue.ToString method" Url="html/M_Cauldron_Core_Collections_RawValue_ToString.htm" />
   <HelpKINode Title="ReadBytesAsync method" Url="html/M_Cauldron_ExtensionsFileIO_ReadBytesAsync.htm" />
   <HelpKINode Title="ReadOnly property" Url="html/P_Cauldron_Interception_Cecilator_Field_ReadOnly.htm" />
   <HelpKINode Title="ReadTextAsync method" Url="html/Overload_Cauldron_ExtensionsFileIO_ReadTextAsync.htm" />
@@ -8263,26 +8180,26 @@
     <HelpKINode Title="BuilderCustomAttribute.Remove Method " Url="html/M_Cauldron_Interception_Cecilator_BuilderCustomAttribute_Remove.htm" />
     <HelpKINode Title="BuilderCustomAttributeCollection.Remove Method " Url="html/Overload_Cauldron_Interception_Cecilator_BuilderCustomAttributeCollection_Remove.htm" />
     <HelpKINode Title="BuilderType.Remove Method " Url="html/M_Cauldron_Interception_Cecilator_BuilderType_Remove.htm" />
-    <HelpKINode Title="ConcurrentList(T).Remove Method " Url="html/Overload_Cauldron_Core_Collections_ConcurrentList_1_Remove.htm" />
-    <HelpKINode Title="FastDictionary(TKey, TValue).Remove Method " Url="html/Overload_System_Collections_Generic_FastDictionary_2_Remove.htm" />
+    <HelpKINode Title="ConcurrentCollection(T).Remove Method " Url="html/Overload_Cauldron_Core_Collections_ConcurrentCollection_1_Remove.htm" />
+    <HelpKINode Title="FastDictionary(TKey, TValue).Remove Method " Url="html/Overload_Cauldron_Core_Collections_FastDictionary_2_Remove.htm" />
+    <HelpKINode Title="FastKeyedCollection(TKey, TItem).Remove Method " Url="html/Overload_Cauldron_Core_Collections_FastKeyedCollection_2_Remove.htm" />
     <HelpKINode Title="Field.Remove Method " Url="html/M_Cauldron_Interception_Cecilator_Field_Remove.htm" />
     <HelpKINode Title="InstructionBlock.Remove Method " Url="html/M_Cauldron_Interception_Cecilator_Coders_InstructionBlock_Remove.htm" />
+    <HelpKINode Title="Method.Remove Method " Url="html/M_Cauldron_Interception_Cecilator_Method_Remove.htm" />
+    <HelpKINode Title="Property.Remove Method " Url="html/M_Cauldron_Interception_Cecilator_Property_Remove.htm" />
   </HelpKINode>
-  <HelpKINode Title="RemoveAll method" Url="html/M_Cauldron_Core_Collections_ConcurrentList_1_RemoveAll.htm" />
   <HelpKINode Title="RemoveAllTemplateAssignedBehaviours method" Url="html/M_Cauldron_XAML_Interactivity_BehaviourCollection_1_RemoveAllTemplateAssignedBehaviours.htm" />
-  <HelpKINode Title="RemoveAt method" Url="html/M_Cauldron_Core_Collections_ConcurrentList_1_RemoveAt.htm" />
-  <HelpKINode Title="RemoveItem method">
-    <HelpKINode Title="BehaviourCollection(T).RemoveItem Method " Url="html/M_Cauldron_XAML_Interactivity_BehaviourCollection_1_RemoveItem.htm" />
-    <HelpKINode Title="ConcurrentKeyedCollection(TKey, TItem).RemoveItem Method " Url="html/M_Cauldron_Core_Collections_ConcurrentKeyedCollection_2_RemoveItem.htm" />
-  </HelpKINode>
+  <HelpKINode Title="RemoveItem method" Url="html/M_Cauldron_XAML_Interactivity_BehaviourCollection_1_RemoveItem.htm" />
   <HelpKINode Title="RemoveNull(Of T) method" Url="html/M_Cauldron_Extensions_RemoveNull__1.htm" />
   <HelpKINode Title="RemoveNull&lt;T&gt; method" Url="html/M_Cauldron_Extensions_RemoveNull__1.htm" />
-  <HelpKINode Title="RemoveRange method" Url="html/M_Cauldron_Interception_Cecilator_Coders_InstructionBlock_RemoveRange.htm" />
+  <HelpKINode Title="RemoveRange method">
+    <HelpKINode Title="FastObservableCollection(T).RemoveRange Method " Url="html/Overload_Cauldron_Core_Collections_FastObservableCollection_1_RemoveRange.htm" />
+    <HelpKINode Title="InstructionBlock.RemoveRange Method " Url="html/M_Cauldron_Interception_Cecilator_Coders_InstructionBlock_RemoveRange.htm" />
+  </HelpKINode>
   <HelpKINode Title="RemoveType method" Url="html/Overload_Cauldron_Activator_Factory_RemoveType.htm" />
   <HelpKINode Title="Rename method" Url="html/M_Cauldron_ExtensionsFileInfo_Rename.htm" />
   <HelpKINode Title="Replace method">
     <HelpKINode Title="Coder.Replace Method " Url="html/Overload_Cauldron_Interception_Cecilator_Coders_Coder_Replace.htm" />
-    <HelpKINode Title="Extensions.Replace Method " Url="html/Overload_Cauldron_Extensions_Replace.htm" />
     <HelpKINode Title="FieldUsage.Replace Method " Url="html/Overload_Cauldron_Interception_Cecilator_FieldUsage_Replace.htm" />
     <HelpKINode Title="MethodUsage.Replace Method " Url="html/M_Cauldron_Interception_Cecilator_MethodUsage_Replace.htm" />
     <HelpKINode Title="PropertyUsage.Replace Method " Url="html/Overload_Cauldron_Interception_Cecilator_PropertyUsage_Replace.htm" />
@@ -8291,7 +8208,6 @@
     <HelpKINode Title="CreationCollisionOption Enumeration" Url="html/T_Cauldron_CreationCollisionOption.htm" />
     <HelpKINode Title="NameCollisionOption Enumeration" Url="html/T_Cauldron_NameCollisionOption.htm" />
   </HelpKINode>
-  <HelpKINode Title="ReplaceMe method" Url="html/Overload_Cauldron_Extensions_ReplaceMe.htm" />
   <HelpKINode Title="Required enumeration member" Url="html/T_Cauldron_Interception_Mode.htm" />
   <HelpKINode Title="RequiredParametersMissingException class">
     <HelpKINode Title="RequiredParametersMissingException Class" Url="html/T_Cauldron_Consoles_RequiredParametersMissingException.htm" />
@@ -8341,7 +8257,10 @@
     <HelpKINode Title="Position Enumeration" Url="html/T_Cauldron_Position.htm" />
   </HelpKINode>
   <HelpKINode Title="Right method" Url="html/M_Cauldron_Extensions_Right.htm" />
-  <HelpKINode Title="RoamingFolder property" Url="html/P_Cauldron_Core_ApplicationData_RoamingFolder.htm" />
+  <HelpKINode Title="RoamingFolder property">
+    <HelpKINode Title="ApplicationData.RoamingFolder Property " Url="html/P_Windows_Storage_ApplicationData_RoamingFolder.htm" />
+    <HelpKINode Title="ApplicationData.RoamingFolder Property " Url="html/P_Cauldron_Core_ApplicationData_RoamingFolder.htm" />
+  </HelpKINode>
   <HelpKINode Title="roundTripTimeMax field" Url="html/F_Cauldron_Core_Net_PingResults_roundTripTimeMax.htm" />
   <HelpKINode Title="roundTripTimeMin field" Url="html/F_Cauldron_Core_Net_PingResults_roundTripTimeMin.htm" />
   <HelpKINode Title="Rsa class">
@@ -8359,26 +8278,21 @@
   <HelpKINode Title="RsaAes.Encrypt method" Url="html/Overload_Cauldron_Cryptography_RsaAes_Encrypt.htm" />
   <HelpKINode Title="RSAKeySizes enumeration" Url="html/T_Cauldron_Cryptography_RSAKeySizes.htm" />
   <HelpKINode Title="Run method" Url="html/M_Cauldron_XAML_Extensions_Run.htm" />
-  <HelpKINode Title="RunAsync method">
-    <HelpKINode Title="DispatcherDummy.RunAsync Method " Url="html/Overload_Cauldron_Core_Threading_DispatcherDummy_RunAsync.htm" />
-    <HelpKINode Title="DispatcherEx.RunAsync Method " Url="html/Overload_Cauldron_Core_Threading_DispatcherEx_RunAsync.htm" />
-    <HelpKINode Title="Extensions.RunAsync Method " Url="html/M_Cauldron_XAML_Extensions_RunAsync.htm" />
-    <HelpKINode Title="IDispatcher.RunAsync Method " Url="html/Overload_Cauldron_Core_Threading_IDispatcher_RunAsync.htm" />
-  </HelpKINode>
+  <HelpKINode Title="RunAsync method" Url="html/M_Cauldron_XAML_Extensions_RunAsync.htm" />
   <HelpKINode Title="RunCommand enumeration member" Url="html/T_Cauldron_WindowsService_RecoveryAction.htm" />
   <HelpKINode Title="RunDispatcherAsync method" Url="html/M_Cauldron_XAML_Extensions_RunDispatcherAsync.htm" />
-  <HelpKINode Title="RunSync method" Url="html/Overload_Cauldron_AsyncHelper_RunSync.htm" />
+  <HelpKINode Title="RunSync method" Url="html/Overload_Cauldron_Core_Extensions_ExtensionAsync_RunSync.htm" />
   <HelpKINode Title="Salt property" Url="html/P_Cauldron_Cryptography_KeyMaterial_Salt.htm" />
   <HelpKINode Title="SaveVisualAsPngAsync method" Url="html/M_Cauldron_XAML_Extensions_SaveVisualAsPngAsync.htm" />
   <HelpKINode Title="SByte property" Url="html/P_Cauldron_Interception_Cecilator_BuilderTypes_SByte.htm" />
   <HelpKINode Title="SearchContext enumeration" Url="html/T_Cauldron_Interception_Cecilator_SearchContext.htm" />
+  <HelpKINode Title="SelectAmbiguousMatch method" Url="html/M_Cauldron_XAML_NavigatorSelectorFactoryResolver_SelectAmbiguousMatch.htm" />
   <HelpKINode Title="SelectedItems attached property" Url="html/P_Cauldron_XAML_Theme_ListViewProperties_SelectedItems.htm" />
   <HelpKINode Title="SelectedItemsProperty field" Url="html/F_Cauldron_XAML_Theme_ListViewProperties_SelectedItemsProperty.htm" />
   <HelpKINode Title="SelectTemplate method" Url="html/M_Cauldron_XAML_CauldronTemplateSelector_SelectTemplate.htm" />
   <HelpKINode Title="Send method" Url="html/M_Cauldron_Core_MessageManager_Send.htm" />
   <HelpKINode Title="Sender property" Url="html/P_Cauldron_Core_MessagingArgs_Sender.htm" />
   <HelpKINode Title="SequenceEqual method" Url="html/M_Cauldron_Core_Collections_IEnumerableExtensions_SequenceEqual.htm" />
-  <HelpKINode Title="Serialize method" Url="html/M_Cauldron_Core_Collections_KeyRawValueDictionary_Serialize.htm" />
   <HelpKINode Title="SerializeAsync method" Url="html/Overload_Cauldron_Core_Serializer_SerializeAsync.htm" />
   <HelpKINode Title="Serializer class">
     <HelpKINode Title="Serializer Class" Url="html/T_Cauldron_Core_Serializer.htm" />
@@ -8461,7 +8375,6 @@
   <HelpKINode Title="SetIsMandatory method" Url="html/M_Cauldron_XAML_Validation_ValidationProperties_SetIsMandatory.htm" />
   <HelpKINode Title="SetIsModal method" Url="html/M_Cauldron_XAML_WindowConfiguration_SetIsModal.htm" />
   <HelpKINode Title="SetIsWindowPersistent method" Url="html/M_Cauldron_XAML_WindowConfiguration_SetIsWindowPersistent.htm" />
-  <HelpKINode Title="SetItem method" Url="html/M_Cauldron_Core_Collections_ConcurrentKeyedCollection_2_SetItem.htm" />
   <HelpKINode Title="SetLocalizedText method" Url="html/M_Cauldron_XAML_Interactivity_Localized_SetLocalizedText.htm" />
   <HelpKINode Title="SetMaxHeight method" Url="html/M_Cauldron_XAML_WindowConfiguration_SetMaxHeight.htm" />
   <HelpKINode Title="SetMaxWidth method" Url="html/M_Cauldron_XAML_WindowConfiguration_SetMaxWidth.htm" />
@@ -8597,21 +8510,14 @@
   <HelpKINode Title="StylesAndTemplates.InitializeComponent method" Url="html/M_Cauldron_XAML_Resources_StylesAndTemplates_InitializeComponent.htm" />
   <HelpKINode Title="Subscribe(Of T) method" Url="html/M_Cauldron_Core_MessageManager_Subscribe__1.htm" />
   <HelpKINode Title="Subscribe&lt;T&gt; method" Url="html/M_Cauldron_Core_MessageManager_Subscribe__1.htm" />
-  <HelpKINode Title="Substract method" Url="html/M_System_MathEx_Substract.htm" />
   <HelpKINode Title="Swap(Of T) method" Url="html/M_Cauldron_Extensions_Swap__1.htm" />
   <HelpKINode Title="Swap&lt;T&gt; method" Url="html/M_Cauldron_Extensions_Swap__1.htm" />
   <HelpKINode Title="SyncRoot property">
-    <HelpKINode Title="ConcurrentList(T).SyncRoot Property " Url="html/P_Cauldron_Core_Collections_ConcurrentList_1_SyncRoot.htm" />
+    <HelpKINode Title="ConcurrentCollection(T).SyncRoot Property " Url="html/P_Cauldron_Core_Collections_ConcurrentCollection_1_SyncRoot.htm" />
     <HelpKINode Title="ISyncRoot.SyncRoot Property " Url="html/P_Cauldron_Interception_ISyncRoot_SyncRoot.htm" />
   </HelpKINode>
   <HelpKINode Title="System namespace" Url="html/N_System.htm" />
-  <HelpKINode Title="System.Collections.Generic namespace" Url="html/N_System_Collections_Generic.htm" />
-  <HelpKINode Title="System.Collections.Generic.CustomDictionary(Of TKey, TValue) class" Url="html/T_System_Collections_Generic_CustomDictionary_2.htm" />
-  <HelpKINode Title="System.Collections.Generic.CustomDictionary&lt;TKey, TValue&gt; class" Url="html/T_System_Collections_Generic_CustomDictionary_2.htm" />
-  <HelpKINode Title="System.Collections.Generic.FastDictionary(Of TKey, TValue) class" Url="html/T_System_Collections_Generic_FastDictionary_2.htm" />
-  <HelpKINode Title="System.Collections.Generic.FastDictionary&lt;TKey, TValue&gt; class" Url="html/T_System_Collections_Generic_FastDictionary_2.htm" />
   <HelpKINode Title="System.EnumEx class" Url="html/T_System_EnumEx.htm" />
-  <HelpKINode Title="System.MathEx class" Url="html/T_System_MathEx.htm" />
   <HelpKINode Title="TargetFramework property" Url="html/P_Cauldron_Core_Reflection_ApplicationInfo_TargetFramework.htm" />
   <HelpKINode Title="Task property" Url="html/P_Cauldron_Interception_Cecilator_BuilderTypes_Task.htm" />
   <HelpKINode Title="Task1 property" Url="html/P_Cauldron_Interception_Cecilator_BuilderTypes_Task1.htm" />
@@ -8627,7 +8533,10 @@
     <HelpKINode Title="StyleInteraction.TemplateProperty Field" Url="html/F_Cauldron_XAML_Interactivity_StyleInteraction_TemplateProperty.htm" />
     <HelpKINode Title="WindowToolbar.TemplateProperty Field" Url="html/F_Cauldron_XAML_Theme_WindowToolbar_TemplateProperty.htm" />
   </HelpKINode>
-  <HelpKINode Title="TemporaryFolder property" Url="html/P_Cauldron_Core_ApplicationData_TemporaryFolder.htm" />
+  <HelpKINode Title="TemporaryFolder property">
+    <HelpKINode Title="ApplicationData.TemporaryFolder Property " Url="html/P_Windows_Storage_ApplicationData_TemporaryFolder.htm" />
+    <HelpKINode Title="ApplicationData.TemporaryFolder Property " Url="html/P_Cauldron_Core_ApplicationData_TemporaryFolder.htm" />
+  </HelpKINode>
   <HelpKINode Title="Text attached property">
     <HelpKINode Title="ButtonProperties.Text Attached Property" Url="html/P_Cauldron_XAML_Theme_ButtonProperties_Text.htm" />
     <HelpKINode Title="Localized.Text Attached Property" Url="html/P_Cauldron_XAML_Interactivity_Localized_Text.htm" />
@@ -8691,18 +8600,12 @@
   <HelpKINode Title="TitleProperty field" Url="html/F_Cauldron_XAML_WindowConfiguration_TitleProperty.htm" />
   <HelpKINode Title="To(Of T) method" Url="html/M_Cauldron_Interception_Cecilator_Extension_To__1.htm" />
   <HelpKINode Title="To&lt;T&gt; method" Url="html/M_Cauldron_Interception_Cecilator_Extension_To__1.htm" />
-  <HelpKINode Title="ToArray method">
-    <HelpKINode Title="ConcurrentList(T).ToArray Method " Url="html/M_Cauldron_Core_Collections_ConcurrentList_1_ToArray.htm" />
-    <HelpKINode Title="ExtensionsConvertions.ToArray Method " Url="html/M_Cauldron_ExtensionsConvertions_ToArray.htm" />
-  </HelpKINode>
+  <HelpKINode Title="ToArray method" Url="html/M_Cauldron_ExtensionsConvertions_ToArray.htm" />
   <HelpKINode Title="ToArray(Of T) method" Url="html/M_Cauldron_Core_Collections_IEnumerableExtensions_ToArray__1.htm" />
   <HelpKINode Title="ToArray&lt;T&gt; method" Url="html/M_Cauldron_Core_Collections_IEnumerableExtensions_ToArray__1.htm" />
   <HelpKINode Title="ToBase64String method" Url="html/M_Cauldron_ExtensionsConvertions_ToBase64String.htm" />
   <HelpKINode Title="ToBitmapImageAsync method" Url="html/Overload_Cauldron_XAML_Extensions_ToBitmapImageAsync.htm" />
-  <HelpKINode Title="ToBool method">
-    <HelpKINode Title="ExtensionsConvertions.ToBool Method " Url="html/M_Cauldron_ExtensionsConvertions_ToBool.htm" />
-    <HelpKINode Title="RawValue.ToBool Method " Url="html/M_Cauldron_Core_Collections_RawValue_ToBool.htm" />
-  </HelpKINode>
+  <HelpKINode Title="ToBool method" Url="html/M_Cauldron_ExtensionsConvertions_ToBool.htm" />
   <HelpKINode Title="ToBuilderType method" Url="html/Overload_Cauldron_Interception_Cecilator_Extension_ToBuilderType.htm" />
   <HelpKINode Title="ToByte method" Url="html/M_Cauldron_ExtensionsConvertions_ToByte.htm" />
   <HelpKINode Title="ToBytes method" Url="html/Overload_Cauldron_ExtensionsConvertions_ToBytes.htm" />
@@ -8711,33 +8614,18 @@
   <HelpKINode Title="ToDecimal method" Url="html/Overload_Cauldron_ExtensionsConvertions_ToDecimal.htm" />
   <HelpKINode Title="ToDecimalUS method" Url="html/M_Cauldron_ExtensionsConvertions_ToDecimalUS.htm" />
   <HelpKINode Title="ToDirectoryInfo method" Url="html/M_Cauldron_ExtensionsDirectoryInfo_ToDirectoryInfo.htm" />
-  <HelpKINode Title="ToDouble method">
-    <HelpKINode Title="ExtensionsConvertions.ToDouble Method " Url="html/Overload_Cauldron_ExtensionsConvertions_ToDouble.htm" />
-    <HelpKINode Title="RawValue.ToDouble Method " Url="html/M_Cauldron_Core_Collections_RawValue_ToDouble.htm" />
-  </HelpKINode>
+  <HelpKINode Title="ToDouble method" Url="html/Overload_Cauldron_ExtensionsConvertions_ToDouble.htm" />
   <HelpKINode Title="ToDoubleUS method" Url="html/M_Cauldron_ExtensionsConvertions_ToDoubleUS.htm" />
   <HelpKINode Title="ToFileInfo method" Url="html/M_Cauldron_ExtensionsDirectoryInfo_ToFileInfo.htm" />
-  <HelpKINode Title="ToFloat method">
-    <HelpKINode Title="ExtensionsConvertions.ToFloat Method " Url="html/Overload_Cauldron_ExtensionsConvertions_ToFloat.htm" />
-    <HelpKINode Title="RawValue.ToFloat Method " Url="html/M_Cauldron_Core_Collections_RawValue_ToFloat.htm" />
-  </HelpKINode>
+  <HelpKINode Title="ToFloat method" Url="html/Overload_Cauldron_ExtensionsConvertions_ToFloat.htm" />
   <HelpKINode Title="ToFloatUS method" Url="html/M_Cauldron_ExtensionsConvertions_ToFloatUS.htm" />
   <HelpKINode Title="ToGenericParameter method" Url="html/M_Cauldron_Interception_Cecilator_BuilderType_ToGenericParameter.htm" />
   <HelpKINode Title="ToHostMethodInstructionsString method" Url="html/M_Cauldron_Interception_Cecilator_MethodUsage_ToHostMethodInstructionsString.htm" />
-  <HelpKINode Title="ToInteger method">
-    <HelpKINode Title="ExtensionsConvertions.ToInteger Method " Url="html/Overload_Cauldron_ExtensionsConvertions_ToInteger.htm" />
-    <HelpKINode Title="RawValue.ToInteger Method " Url="html/M_Cauldron_Core_Collections_RawValue_ToInteger.htm" />
-  </HelpKINode>
+  <HelpKINode Title="ToInteger method" Url="html/Overload_Cauldron_ExtensionsConvertions_ToInteger.htm" />
   <HelpKINode Title="ToIntegerUS method" Url="html/M_Cauldron_ExtensionsConvertions_ToIntegerUS.htm" />
-  <HelpKINode Title="ToKeyedCollection(Of TKey, TSource) method" Url="html/M_Cauldron_Extensions_ToKeyedCollection__2.htm" />
-  <HelpKINode Title="ToKeyedCollection&lt;TKey, TSource&gt; method" Url="html/M_Cauldron_Extensions_ToKeyedCollection__2.htm" />
-  <HelpKINode Title="ToList method" Url="html/M_Cauldron_Core_Collections_ConcurrentList_1_ToList.htm" />
   <HelpKINode Title="ToList(Of T) method" Url="html/M_Cauldron_Core_Collections_IEnumerableExtensions_ToList__1.htm" />
   <HelpKINode Title="ToList&lt;T&gt; method" Url="html/M_Cauldron_Core_Collections_IEnumerableExtensions_ToList__1.htm" />
-  <HelpKINode Title="ToLong method">
-    <HelpKINode Title="ExtensionsConvertions.ToLong Method " Url="html/Overload_Cauldron_ExtensionsConvertions_ToLong.htm" />
-    <HelpKINode Title="RawValue.ToLong Method " Url="html/M_Cauldron_Core_Collections_RawValue_ToLong.htm" />
-  </HelpKINode>
+  <HelpKINode Title="ToLong method" Url="html/Overload_Cauldron_ExtensionsConvertions_ToLong.htm" />
   <HelpKINode Title="ToLongUS method" Url="html/M_Cauldron_ExtensionsConvertions_ToLongUS.htm" />
   <HelpKINode Title="ToolTip attached property" Url="html/P_Cauldron_XAML_Interactivity_Localized_ToolTip.htm" />
   <HelpKINode Title="ToolTipProperty field" Url="html/F_Cauldron_XAML_Interactivity_Localized_ToolTipProperty.htm" />
@@ -8768,7 +8656,6 @@
     <HelpKINode Title="Position.ToString Method " Url="html/M_Cauldron_Interception_Cecilator_Position_ToString.htm" />
     <HelpKINode Title="Property.ToString Method " Url="html/M_Cauldron_Interception_Cecilator_Property_ToString.htm" />
     <HelpKINode Title="PropertyUsage.ToString Method " Url="html/M_Cauldron_Interception_Cecilator_PropertyUsage_ToString.htm" />
-    <HelpKINode Title="RawValue.ToString Method " Url="html/M_Cauldron_Core_Collections_RawValue_ToString.htm" />
     <HelpKINode Title="User.ToString Method " Url="html/M_Cauldron_Core_User_ToString.htm" />
   </HelpKINode>
   <HelpKINode Title="ToStringEx method" Url="html/Overload_Cauldron_Extensions_ToStringEx.htm" />
@@ -8811,7 +8698,10 @@
   <HelpKINode Title="TryCoder.Finally method" Url="html/M_Cauldron_Interception_Cecilator_Coders_TryCoder_Finally.htm" />
   <HelpKINode Title="TryDispose method" Url="html/M_Cauldron_Extensions_TryDispose.htm" />
   <HelpKINode Title="TryEncode method" Url="html/M_Cauldron_Extensions_TryEncode.htm" />
-  <HelpKINode Title="TryGetValue method" Url="html/M_System_Collections_Generic_FastDictionary_2_TryGetValue.htm" />
+  <HelpKINode Title="TryGetValue method">
+    <HelpKINode Title="FastDictionary(TKey, TValue).TryGetValue Method " Url="html/M_Cauldron_Core_Collections_FastDictionary_2_TryGetValue.htm" />
+    <HelpKINode Title="FastKeyedCollection(TKey, TItem).TryGetValue Method " Url="html/M_Cauldron_Core_Collections_FastKeyedCollection_2_TryGetValue.htm" />
+  </HelpKINode>
   <HelpKINode Title="TryStartService method" Url="html/Overload_Cauldron_Extensions_TryStartService.htm" />
   <HelpKINode Title="TryStopService method" Url="html/Overload_Cauldron_Extensions_TryStopService.htm" />
   <HelpKINode Title="Type property">
@@ -9073,12 +8963,12 @@
   <HelpKINode Title="ValueConverterBase.OnConvert method" Url="html/M_Cauldron_XAML_ValueConverterBase_OnConvert.htm" />
   <HelpKINode Title="ValueConverterBase.OnConvertBack method" Url="html/M_Cauldron_XAML_ValueConverterBase_OnConvertBack.htm" />
   <HelpKINode Title="ValueConverterBase.ValueConverterBase constructor" Url="html/M_Cauldron_XAML_ValueConverterBase__ctor.htm" />
-  <HelpKINode Title="ValueOf method" Url="html/Overload_System_MathEx_ValueOf.htm" />
   <HelpKINode Title="ValueOptional property" Url="html/P_Cauldron_Consoles_ParameterAttribute_ValueOptional.htm" />
   <HelpKINode Title="ValueProperty field" Url="html/F_Cauldron_XAML_Theme_ProgressBarProperties_ValueProperty.htm" />
   <HelpKINode Title="Values property">
     <HelpKINode Title="ConsoleTableColumn.Values Property " Url="html/P_Cauldron_Consoles_ConsoleTableColumn_Values.htm" />
-    <HelpKINode Title="FastDictionary(TKey, TValue).Values Property " Url="html/P_System_Collections_Generic_FastDictionary_2_Values.htm" />
+    <HelpKINode Title="FastDictionary(TKey, TValue).Values Property " Url="html/P_Cauldron_Core_Collections_FastDictionary_2_Values.htm" />
+    <HelpKINode Title="FastKeyedCollection(TKey, TItem).Values Property " Url="html/P_Cauldron_Core_Collections_FastKeyedCollection_2_Values.htm" />
   </HelpKINode>
   <HelpKINode Title="VariableCoder class">
     <HelpKINode Title="VariableCoder Class" Url="html/T_Cauldron_Interception_Cecilator_Coders_VariableCoder.htm" />
@@ -9102,7 +8992,10 @@
   <HelpKINode Title="Variables property" Url="html/P_Cauldron_Interception_Cecilator_Method_Variables.htm" />
   <HelpKINode Title="VeryStrong enumeration member" Url="html/T_Cauldron_Cryptography_PasswordScore.htm" />
   <HelpKINode Title="VeryWeak enumeration member" Url="html/T_Cauldron_Cryptography_PasswordScore.htm" />
-  <HelpKINode Title="VideosLibrary property" Url="html/P_Cauldron_Core_KnownFolders_VideosLibrary.htm" />
+  <HelpKINode Title="VideosLibrary property">
+    <HelpKINode Title="KnownFolders.VideosLibrary Property " Url="html/P_Windows_Storage_KnownFolders_VideosLibrary.htm" />
+    <HelpKINode Title="KnownFolders.VideosLibrary Property " Url="html/P_Cauldron_Core_KnownFolders_VideosLibrary.htm" />
+  </HelpKINode>
   <HelpKINode Title="ViewAttribute class">
     <HelpKINode Title="ViewAttribute Class" Url="html/T_Cauldron_XAML_ViewAttribute.htm" />
     <HelpKINode Title="constructor" Url="html/Overload_Cauldron_XAML_ViewAttribute__ctor.htm" />
@@ -9286,6 +9179,9 @@
   <HelpKINode Title="WindowConfiguration.WindowStyle attached property" Url="html/P_Cauldron_XAML_WindowConfiguration_WindowStyle.htm" />
   <HelpKINode Title="WindowConfiguration.WindowStyleProperty field" Url="html/F_Cauldron_XAML_WindowConfiguration_WindowStyleProperty.htm" />
   <HelpKINode Title="WindowIsInAnyMonitor method" Url="html/M_Cauldron_MonitorInfo_WindowIsInAnyMonitor.htm" />
+  <HelpKINode Title="Windows.Storage namespace" Url="html/N_Windows_Storage.htm" />
+  <HelpKINode Title="Windows.Storage.ApplicationData class" Url="html/T_Windows_Storage_ApplicationData.htm" />
+  <HelpKINode Title="Windows.Storage.KnownFolders class" Url="html/T_Windows_Storage_KnownFolders.htm" />
   <HelpKINode Title="Windows.UI.Xaml.Navigation namespace" Url="html/N_Windows_UI_Xaml_Navigation.htm" />
   <HelpKINode Title="Windows.UI.Xaml.Navigation.NavigationMode enumeration" Url="html/T_Windows_UI_Xaml_Navigation_NavigationMode.htm" />
   <HelpKINode Title="WindowsServiceInstaller class">
@@ -9328,7 +9224,6 @@
   <HelpKINode Title="WmGetMinMaxInfo method" Url="html/M_Cauldron_MonitorInfo_WmGetMinMaxInfo.htm" />
   <HelpKINode Title="WrapWords property" Url="html/P_Cauldron_Consoles_ConsoleTableColumn_WrapWords.htm" />
   <HelpKINode Title="WriteBytesAsync method" Url="html/M_Cauldron_ExtensionsFileIO_WriteBytesAsync.htm" />
-  <HelpKINode Title="WriteLine method" Url="html/Overload_Cauldron_Core_Diagnostics_Debug_WriteLine.htm" />
   <HelpKINode Title="WriteTable method" Url="html/M_Cauldron_Consoles_ConsoleUtils_WriteTable.htm" />
   <HelpKINode Title="WriteTextAsync method" Url="html/Overload_Cauldron_ExtensionsFileIO_WriteTextAsync.htm" />
   <HelpKINode Title="WTSClientName property">

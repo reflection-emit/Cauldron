@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using System.Xml;
 
 namespace Cauldron.Interception.Fody
@@ -68,6 +69,10 @@ namespace Cauldron.Interception.Fody
                     using (new StopwatchLog(this, scriptBinary.Name))
                     {
                         this.Log(LogTypes.Info, ">> Executing custom interceptors in: " + scriptBinary.Name);
+                        var config = scriptBinary.Type.GetProperty("Config", BindingFlags.Static | BindingFlags.Public);
+
+                        if (config != null)
+                            config.SetValue(null, this.Config);
 
                         foreach (var method in scriptBinary.Implement)
                         {
@@ -96,6 +101,7 @@ namespace Cauldron.Interception.Fody
             Directory.CreateDirectory(tempDirectory);
 
             var additionalReferences = GetReferences(path, tempDirectory);
+
             var arguments = new string[]
             {
                 $"/t:library",
@@ -106,32 +112,7 @@ namespace Cauldron.Interception.Fody
                 $"/r:{string.Join(",", references.Concat(additionalReferences.Item1).Select(x => "\"" + x + "\""))}"
             };
 
-            var processStartInfo = new ProcessStartInfo
-            {
-                FileName = compiler,
-                Arguments = string.Join(" ", arguments),
-                CreateNoWindow = true,
-                UseShellExecute = false,
-                WindowStyle = ProcessWindowStyle.Hidden,
-                WorkingDirectory = tempDirectory,
-                RedirectStandardOutput = true,
-                RedirectStandardError = true
-            };
-
-            var process = new Process
-            {
-                StartInfo = processStartInfo
-            };
-
-            process.OutputDataReceived += (s, e) => Builder.Current.Log(LogTypes.Info, e.Data);
-            process.ErrorDataReceived += (s, e) => Builder.Current.Log(LogTypes.Info, e.Data);
-
-            process.Start();
-            process.BeginOutputReadLine();
-            process.BeginErrorReadLine();
-            process.WaitForExit();
-
-            if (process.ExitCode != 0)
+            if (ExecuteExternalApplication(compiler, arguments, tempDirectory) != 0)
                 throw new Exception($"An error has occured while compiling '{additionalReferences.Item2}'");
 
             return output;
@@ -144,12 +125,9 @@ namespace Cauldron.Interception.Fody
             if (element == null)
                 yield break;
 
-            foreach (var item in element.Value.Split(new[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries))
+            foreach (var item in element.Value.Split(new[] { "\r\n", "\n", ", ", " " }, StringSplitOptions.RemoveEmptyEntries))
             {
-                var path = item
-                    .Trim()
-                    .Replace("$(SolutionPath)", this.SolutionDirectoryPath)
-                    .Replace("$(ProjectDir)", this.ProjectDirectoryPath);
+                var path = GetFullPath(item);
 
                 if (string.IsNullOrEmpty(path))
                     continue;
@@ -222,7 +200,7 @@ namespace Cauldron.Interception.Fody
             }
         }
 
-        private Tuple<IEnumerable<string>, string> GetReferences(string path, string tempDirectory)
+        private Tuple<IEnumerable<string>, string, bool> GetReferences(string path, string tempDirectory)
         {
             var assemblyDomain = AppDomain.CreateDomain(friendlyName: "spider-man");
 
@@ -243,9 +221,7 @@ namespace Cauldron.Interception.Fody
                     }
                 }
 
-                var output = Path.Combine(tempDirectory, Path.GetFileNameWithoutExtension(path) + ".cs");
-
-                File.WriteAllLines(output, lines.Where(x =>
+                var data = string.Join("\r\n", lines.Where(x =>
                 {
                     if (x == null)
                         return false;
@@ -256,7 +232,25 @@ namespace Cauldron.Interception.Fody
                     return true;
                 }).ToArray());
 
-                return new Tuple<IEnumerable<string>, string>(references, output);
+                var hash = UTF8Encoding.UTF8.GetBytes(data).GetMd5Hash();
+                var output = Path.Combine(tempDirectory, hash + ".cs");
+
+                if (File.Exists(output))
+                    return new Tuple<IEnumerable<string>, string, bool>(references, output, true);
+
+                foreach (var item in Directory.GetFiles(tempDirectory))
+                {
+                    try
+                    {
+                        File.Delete(item);
+                    }
+                    catch
+                    {
+                    }
+                }
+
+                File.WriteAllText(output, data);
+                return new Tuple<IEnumerable<string>, string, bool>(references, output, false);
             }
             finally
             {

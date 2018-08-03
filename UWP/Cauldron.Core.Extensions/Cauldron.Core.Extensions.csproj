@@ -23,7 +23,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;PUBLIC;NETFX_CORE;WINDOWS_UWP</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
@@ -35,7 +35,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <DefineConstants>TRACE;PUBLIC;NETFX_CORE;WINDOWS_UWP</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
@@ -111,6 +111,12 @@
   <PropertyGroup>
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>..\..\NetStandard\Cauldron.Core.Extensions\Extensions.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Cauldron.Core.Extensions.rd.xml" />
@@ -120,7 +126,18 @@
       <Version>6.0.8</Version>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\NetStandard\Cauldron.Core.Extensions\Extensions.snk">
+      <Link>Extensions.snk</Link>
+    </None>
+  </ItemGroup>
   <Import Project="..\..\Shared\Cauldron.Core.Extensions\Cauldron.Core.Extensions.projitems" Label="Shared" />
+  <Import Project="..\..\Shared\Cauldron.Core.Extensions.Compression\Cauldron.Core.Extensions.Compression.projitems" Label="Shared" />
+  <Import Project="..\..\Shared\Cauldron.Core.Extensions.Convertions\Cauldron.Core.Extensions.Convertions.projitems" Label="Shared" />
+  <Import Project="..\..\Shared\Cauldron.Core.Extensions.IO\Cauldron.Core.Extensions.IO.projitems" Label="Shared" />
+  <Import Project="..\..\Shared\Cauldron.Core.Comparing\Cauldron.Core.Comparing.projitems" Label="Shared" />
+  <Import Project="..\..\Shared\Cauldron.Core.Formatters\Cauldron.Core.Formatters.projitems" Label="Shared" />
+  <Import Project="..\..\Shared\Cauldron.Shared\Cauldron.Shared.projitems" Label="Shared" />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

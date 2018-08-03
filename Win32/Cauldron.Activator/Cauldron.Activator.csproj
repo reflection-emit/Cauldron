@@ -93,6 +93,12 @@
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <DocumentationFile>bin\Release\Net462\Cauldron.Activator.xml</DocumentationFile>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>..\..\NetStandard\Cauldron.Activator\Activator.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -104,41 +110,30 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assemblies.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Cauldron.Core.Diagnostics\Cauldron.Core.Diagnostics.csproj">
-      <Project>{637c0bb9-9915-4e38-9be6-4bfa1feca39f}</Project>
-      <Name>Cauldron.Core.Diagnostics</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Cauldron.Core.Disposable\Cauldron.Core.Disposable.csproj">
-      <Project>{667bfa3c-10b8-4e75-befd-9256543f0857}</Project>
-      <Name>Cauldron.Core.Disposable</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Cauldron.Core.Extensions\Cauldron.Core.Extensions.csproj">
-      <Project>{d1be1727-87d4-4ca6-a537-7983cf7b2e4a}</Project>
-      <Name>Cauldron.Core.Extensions</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Cauldron.Core.Reflection\Cauldron.Core.Reflection.csproj">
-      <Project>{485cd56e-9fc6-4392-8b4f-5aebdddd3d1b}</Project>
-      <Name>Cauldron.Core.Reflection</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Cauldron.Interception\Cauldron.Interception.csproj">
-      <Project>{cfc811eb-c500-4d1f-adf1-ecaf4433af2d}</Project>
-      <Name>Cauldron.Interception</Name>
-    </ProjectReference>
+    <None Include="..\..\NetStandard\Cauldron.Activator\Activator.snk">
+      <Link>Activator.snk</Link>
+    </None>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <None Include="FodyWeavers.xml" />
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="..\..\Shared\Cauldron.Activator\Cauldron.Activator.projitems" Label="Shared" />
+  <Import Project="..\..\Shared\Cauldron.Shared\Cauldron.Shared.projitems" Label="Shared" />
+  <Import Project="..\..\Shared\Cauldron.Core.Reflection\Cauldron.Core.Reflection.projitems" Label="Shared" />
+  <Import Project="..\..\Shared\Cauldron.Core.Collections\Cauldron.Core.Collections.projitems" Label="Shared" />
+  <Import Project="..\..\Shared\Cauldron.Core.Disposable\Cauldron.Core.Disposable.projitems" Label="Shared" />
+  <Import Project="..\..\Shared\Cauldron.Core.Extensions\Cauldron.Core.Extensions.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\..\packages\Fody.3.0.3\build\Fody.targets" Condition="Exists('..\..\packages\Fody.3.0.3\build\Fody.targets')" />
+  <Import Project="..\..\packages\Fody.3.1.3\build\Fody.targets" Condition="Exists('..\..\packages\Fody.3.1.3\build\Fody.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\..\packages\Fody.3.0.3\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Fody.3.0.3\build\Fody.targets'))" />
+    <Error Condition="!Exists('..\..\packages\Fody.3.1.3\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Fody.3.1.3\build\Fody.targets'))" />
   </Target>
 </Project>

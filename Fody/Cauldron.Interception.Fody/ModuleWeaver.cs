@@ -1,17 +1,39 @@
 ﻿using Cauldron.Interception.Cecilator;
-using Cauldron.Interception.Cecilator.Coders;
 using Cauldron.Interception.Fody.HelperTypes;
 using Mono.Cecil;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
-using System.Text.RegularExpressions;
 
 namespace Cauldron.Interception.Fody
 {
     public sealed partial class ModuleWeaver : WeaverBase
     {
+        public string GetFullPath(string path)
+        {
+            if (string.IsNullOrEmpty(path))
+                return "";
+
+            var result = path
+                .Trim()
+                .Replace("$(SolutionPath)", this.SolutionDirectoryPath)
+                .Replace("$(ProjectDir)", this.ProjectDirectoryPath);
+
+            if (result.IndexOfAny(Path.GetInvalidPathChars()) >= 0)
+                return result;
+
+            try
+            {
+                return Path.GetFullPath(result);
+            }
+            catch
+            {
+                return result;
+            }
+        }
+
         protected override void OnExecute()
         {
             var versionAttribute = typeof(ModuleWeaver)
@@ -104,6 +126,36 @@ namespace Cauldron.Interception.Fody
             }
 
             cauldron.CustomAttributes.AddDebuggerDisplayAttribute(cauldron.Assembly.Name.Name);
+        }
+
+        private int ExecuteExternalApplication(string exePath, string[] arguments, string workingDirectory)
+        {
+            var processStartInfo = new ProcessStartInfo
+            {
+                FileName = exePath,
+                Arguments = string.Join(" ", arguments),
+                CreateNoWindow = true,
+                UseShellExecute = false,
+                WindowStyle = ProcessWindowStyle.Hidden,
+                WorkingDirectory = workingDirectory,
+                RedirectStandardOutput = true,
+                RedirectStandardError = true
+            };
+
+            var process = new Process
+            {
+                StartInfo = processStartInfo
+            };
+
+            process.OutputDataReceived += (s, e) => Builder.Current.Log(LogTypes.Info, e.Data);
+            process.ErrorDataReceived += (s, e) => Builder.Current.Log(LogTypes.Info, e.Data);
+
+            process.Start();
+            process.BeginOutputReadLine();
+            process.BeginErrorReadLine();
+            process.WaitForExit();
+
+            return process.ExitCode;
         }
 
         private void ExecuteModuleAddition(Builder builder)

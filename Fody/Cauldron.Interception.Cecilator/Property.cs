@@ -111,6 +111,7 @@ namespace Cauldron.Interception.Cecilator
         }
 
         public Method Setter { get; private set; }
+
         private MethodDefinition GetterOrSetter => this.propertyDefinition.GetMethod ?? this.propertyDefinition.SetMethod;
 
         public void AddSetter()
@@ -151,6 +152,19 @@ namespace Cauldron.Interception.Cecilator
         {
             this.Getter?.methodDefinition.Overrides.Add(property.Getter.methodReference);
             this.Setter?.methodDefinition.Overrides.Add(property.Setter.methodReference);
+        }
+
+        public void Remove()
+        {
+            if (this.propertyDefinition.GetMethod != null)
+                this.type.typeDefinition.Methods.Remove(this.propertyDefinition.GetMethod);
+
+            if (this.propertyDefinition.SetMethod != null)
+                this.type.typeDefinition.Methods.Remove(this.propertyDefinition.SetMethod);
+
+            this.type.typeDefinition.Properties.Remove(this.propertyDefinition);
+
+            InstructionBucket.Reset();
         }
 
         internal void RefreshBackingField()

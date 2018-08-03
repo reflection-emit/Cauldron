@@ -9,13 +9,10 @@
     <Import_RootNamespace>Cauldron.Core</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)ApplicationData.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DeviceFamilies.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)KnownFolders.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MessageManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MessageObject.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MessagingArgs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Serializer.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Utilities.cs" />
   </ItemGroup>
 </Project>

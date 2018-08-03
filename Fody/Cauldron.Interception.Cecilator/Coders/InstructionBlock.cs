@@ -1358,20 +1358,23 @@ namespace Cauldron.Interception.Cecilator.Coders
             }
             catch (Exception e)
             {
-                for (int i = 0; i < method.methodReference.Parameters.Count; i++)
+                if (method.methodDefinition != null)
                 {
-                    var parameterType = method.methodDefinition.Parameters[i].ParameterType.IsGenericInstance || method.methodDefinition.Parameters[i].ParameterType.IsGenericParameter ?
-                        method.methodDefinition.Parameters[i].ParameterType.ResolveType(method.OriginType.typeReference, method.methodReference) :
-                        method.methodDefinition.Parameters[i].ParameterType;
+                    for (int i = 0; i < method.methodReference.Parameters.Count; i++)
+                    {
+                        var parameterType = method.methodDefinition.Parameters[i].ParameterType.IsGenericInstance || method.methodDefinition.Parameters[i].ParameterType.IsGenericParameter ?
+                            method.methodDefinition.Parameters[i].ParameterType.ResolveType(method.OriginType.typeReference, method.methodReference) :
+                            method.methodDefinition.Parameters[i].ParameterType;
 
-                    Builder.Current.Log(LogTypes.Info, $"ERROR: {i} - {method.methodReference.Parameters[i].ParameterType.FullName}");
-                    Builder.Current.Log(LogTypes.Info, $"ERROR:       Method IsGenericInstance: {method.methodReference.IsGenericInstance}");
-                    Builder.Current.Log(LogTypes.Info, $"ERROR:       Param IsGenericInstance: {method.methodReference.Parameters[i].ParameterType.IsGenericInstance}");
-                    Builder.Current.Log(LogTypes.Info, $"ERROR:       Param IsGenericParameter: {method.methodReference.Parameters[i].ParameterType.IsGenericParameter}");
-                    Builder.Current.Log(LogTypes.Info, $"ERROR:       Param HasGenericParameters: {method.methodReference.Parameters[i].ParameterType.HasGenericParameters}");
-                    Builder.Current.Log(LogTypes.Info, $"ERROR:       Param ContainsGenericParameter: {method.methodReference.Parameters[i].ParameterType.ContainsGenericParameter}");
-                    if (method.methodDefinition.Parameters[i].ParameterType.IsGenericInstance || method.methodDefinition.Parameters[i].ParameterType.IsGenericParameter)
-                        Builder.Current.Log(LogTypes.Info, $"ERROR: Resolves to '{method.methodDefinition.Parameters[i].ParameterType.ResolveType(method.OriginType.typeReference, method.methodReference)}'");
+                        Builder.Current.Log(LogTypes.Info, $"ERROR: {i} - {method.methodReference.Parameters[i].ParameterType.FullName}");
+                        Builder.Current.Log(LogTypes.Info, $"ERROR:       Method IsGenericInstance: {method.methodReference.IsGenericInstance}");
+                        Builder.Current.Log(LogTypes.Info, $"ERROR:       Param IsGenericInstance: {method.methodReference.Parameters[i].ParameterType.IsGenericInstance}");
+                        Builder.Current.Log(LogTypes.Info, $"ERROR:       Param IsGenericParameter: {method.methodReference.Parameters[i].ParameterType.IsGenericParameter}");
+                        Builder.Current.Log(LogTypes.Info, $"ERROR:       Param HasGenericParameters: {method.methodReference.Parameters[i].ParameterType.HasGenericParameters}");
+                        Builder.Current.Log(LogTypes.Info, $"ERROR:       Param ContainsGenericParameter: {method.methodReference.Parameters[i].ParameterType.ContainsGenericParameter}");
+                        if (method.methodDefinition.Parameters[i].ParameterType.IsGenericInstance || method.methodDefinition.Parameters[i].ParameterType.IsGenericParameter)
+                            Builder.Current.Log(LogTypes.Info, $"ERROR: Resolves to '{method.methodDefinition.Parameters[i].ParameterType.ResolveType(method.OriginType.typeReference, method.methodReference)}'");
+                    }
                 }
 
                 throw new Exception($"An error has occured while trying to weave a call. '{method}'", e);

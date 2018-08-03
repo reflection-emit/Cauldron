@@ -531,7 +531,7 @@ namespace Cauldron.Interception.Cecilator
                     result.Add(type);
             });
 
-            return result;
+            return result.Distinct(new TypeReferenceEqualityComparer());
         }
 
         #endregion Getting types

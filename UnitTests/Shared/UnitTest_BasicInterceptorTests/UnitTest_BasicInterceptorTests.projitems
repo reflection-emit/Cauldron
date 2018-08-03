@@ -14,6 +14,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Field_Interception_Code_Validation_Tests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ITestInterface.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Method_Interceptor_Code_Validation_Tests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ParameterPassedInterceptor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Property_Interceptor_Code_Validation_Tests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SimpleMethod_Interceptor_Code_Validation_Tests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TestClass.cs" />

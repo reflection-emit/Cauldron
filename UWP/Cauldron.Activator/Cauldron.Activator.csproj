@@ -109,44 +109,37 @@
   <PropertyGroup>
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>..\..\NetStandard\Cauldron.Activator\Activator.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Assemblies.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Cauldron.Activator.rd.xml" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Fody">
-      <Version>3.0.3</Version>
+      <Version>3.1.3</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.0-Preview1-26502-02</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Cauldron.Core.Diagnostics\Cauldron.Core.Diagnostics.csproj">
-      <Project>{d55caa79-858d-4daa-998b-88d7d77a411e}</Project>
-      <Name>Cauldron.Core.Diagnostics</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Cauldron.Core.Disposable\Cauldron.Core.Disposable.csproj">
-      <Project>{b70640d8-0f69-4165-af81-555fd40fa1a3}</Project>
-      <Name>Cauldron.Core.Disposable</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Cauldron.Core.Extensions\Cauldron.Core.Extensions.csproj">
-      <Project>{9d2559da-62d9-4472-8e2f-9c8fe1c2b9cf}</Project>
-      <Name>Cauldron.Core.Extensions</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Cauldron.Core.Reflection\Cauldron.Core.Reflection.csproj">
-      <Project>{18007fdf-64a8-4844-a01d-34f7d1d87e39}</Project>
-      <Name>Cauldron.Core.Reflection</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Cauldron.Interception\Cauldron.Interception.csproj">
-      <Project>{38abf85c-9322-4333-be30-a1b37fa5cc52}</Project>
-      <Name>Cauldron.Interception</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
+    <None Include="..\..\NetStandard\Cauldron.Activator\Activator.snk">
+      <Link>Activator.snk</Link>
+    </None>
     <None Include="FodyWeavers.xml" />
   </ItemGroup>
   <Import Project="..\..\Shared\Cauldron.Activator\Cauldron.Activator.projitems" Label="Shared" />
+  <Import Project="..\..\Shared\Cauldron.Core.Collections\Cauldron.Core.Collections.projitems" Label="Shared" />
+  <Import Project="..\..\Shared\Cauldron.Core.Disposable\Cauldron.Core.Disposable.projitems" Label="Shared" />
+  <Import Project="..\..\Shared\Cauldron.Core.Reflection\Cauldron.Core.Reflection.projitems" Label="Shared" />
+  <Import Project="..\..\Shared\Cauldron.Shared\Cauldron.Shared.projitems" Label="Shared" />
+  <Import Project="..\..\Shared\Cauldron.Core.Extensions\Cauldron.Core.Extensions.projitems" Label="Shared" />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

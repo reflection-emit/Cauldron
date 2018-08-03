@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>Capgemini.Cauldron.Core.Extensions</id>
-    <version>3.0.29</version>
+    <version>3.0.32</version>
     <authors>Alexander Schunk, Capgemini Deutschland GmbH</authors>
     <owners>Alexander Schunk, Capgemini Deutschland GmbH</owners>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
@@ -13,6 +13,10 @@
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Cauldron Extensions MaxBy MinBy Encode</tags>
     <releaseNotes>
+      2018.07.02 - [A] Debug class added
+      2018.07.01 - [C] Now signed
+      2018.07.01 - [C] All extension packages merged
+      2018.07.01 - [C] Cauldron.Comparing merged with Cauldron.Core.Extension
       2018.05.06 - [C] Assembly for UWP added
       2018.05.04 - [C] Assemblies for Net45, Net451, Net452, Net46, Net461 and Net462 added
       2018.01.05 - [C] Concat&lt;T&gt;(this T[][] arrays) renamed to Flatten&lt;T&gt;(this T[][] arrays)

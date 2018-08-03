@@ -1,7 +1,9 @@
 ﻿using Cauldron.Activator;
 using Cauldron.Core;
 using Cauldron.Core.Collections;
+using Cauldron.Core.Diagnostics;
 using Cauldron.Core.Reflection;
+using Cauldron.Core.Threading;
 using Cauldron.XAML.ViewModels;
 using System;
 using System.Linq;
@@ -16,9 +18,6 @@ using System.Windows.Media;
 
 namespace Cauldron.XAML.Navigation
 {
-    using Cauldron.Core.Diagnostics;
-    using Cauldron.Core.Threading;
-
     /// <summary>
     /// Handles creation of a new <see cref="Window"/> and association of the viewmodel
     /// </summary>
@@ -28,7 +27,7 @@ namespace Cauldron.XAML.Navigation
         private static readonly object SplashScreenWindowTag = new object();
 
         // The navigator always knows every window that it has created
-        private static ConcurrentList<WindowViewModelObject> windows = new ConcurrentList<WindowViewModelObject>();
+        private static ConcurrentCollection<WindowViewModelObject> windows = new ConcurrentCollection<WindowViewModelObject>();
 
         private WindowType windowType;
 

@@ -35,6 +35,8 @@ namespace Cauldron.Interception.Cecilator
 
         public BuilderCustomAttributeCollection CustomAttributes => new BuilderCustomAttributeCollection(this.Builder, this.typeDefinition);
 
+        public BuilderType DeclaringType => this.typeReference.DeclaringType.ToBuilderType();
+
         public object DefaultValue
         {
             get
@@ -73,7 +75,6 @@ namespace Cauldron.Interception.Cecilator
         }
 
         public BuilderType EnumUnderlyingType => new BuilderType(this.Builder, this.typeDefinition.GetEnumUnderlyingType());
-
         public string Fullname => this.typeReference.FullName;
 
         public bool HasUnresolvedGenericParameters
@@ -89,10 +90,8 @@ namespace Cauldron.Interception.Cecilator
         }
 
         public bool IsAbstract => this.typeDefinition.Attributes.HasFlag(TypeAttributes.Abstract);
-
         public bool IsArray => this.typeDefinition != null && (this.typeDefinition.IsArray || this.typeReference.FullName.EndsWith("[]") || this.typeDefinition.FullName.EndsWith("[]"));
         public bool IsAsyncStateMachine => this.Implements("System.Runtime.CompilerServices.IAsyncStateMachine", false);
-
         public bool IsByReference { get; private set; }
         public bool IsDelegate => this.typeDefinition.IsDelegate();
         public bool IsEnum => this.typeDefinition.IsEnum;
@@ -104,11 +103,35 @@ namespace Cauldron.Interception.Cecilator
         public bool IsGenericType => this.typeDefinition == null || this.typeReference.Resolve() == null;
         public bool IsInterface => this.typeDefinition == null ? false : this.typeDefinition.Attributes.HasFlag(TypeAttributes.Interface);
 
-        public bool IsInternal => this.typeDefinition.Attributes.HasFlag(TypeAttributes.NotPublic);
+        public bool IsInternal
+        {
+            get => this.typeDefinition.Attributes.HasFlag(TypeAttributes.NotPublic);
+            set
+            {
+                if (this.typeDefinition.Attributes.HasFlag(TypeAttributes.Public))
+                {
+                    this.typeDefinition.Attributes = this.typeDefinition.Attributes & ~TypeAttributes.Public;
+                    this.typeDefinition.Attributes |= TypeAttributes.NotPublic;
+                }
 
+                if (this.typeDefinition.Attributes.HasFlag(TypeAttributes.NestedPublic))
+                {
+                    this.typeDefinition.Attributes = this.typeDefinition.Attributes & ~TypeAttributes.NestedPublic;
+                    this.typeDefinition.Attributes |= TypeAttributes.NestedFamily;
+                }
+            }
+        }
+
+        public bool IsNested =>
+            this.typeDefinition.Attributes.HasFlag(TypeAttributes.NestedFamily) ||
+            this.typeDefinition.Attributes.HasFlag(TypeAttributes.NestedAssembly) ||
+            this.typeDefinition.Attributes.HasFlag(TypeAttributes.NestedPrivate) ||
+            this.typeDefinition.Attributes.HasFlag(TypeAttributes.NestedPublic);
+
+        public bool IsNestedFamily => this.typeDefinition.Attributes.HasFlag(TypeAttributes.NestedFamily);
         public bool IsNestedPrivate => this.typeDefinition.Attributes.HasFlag(TypeAttributes.NestedPrivate);
-
-        public bool IsNullable => this.typeDefinition == BuilderTypes.Nullable1.BuilderType.typeDefinition;
+        public bool IsNestedPublic => this.typeDefinition.Attributes.HasFlag(TypeAttributes.NestedPublic);
+        public bool IsNullable => this.typeDefinition.AreEqual(BuilderTypes.Nullable1.BuilderType.typeDefinition);
 
         public bool IsPrimitive => this.typeDefinition?.IsPrimitive ?? this.typeReference?.IsPrimitive ?? false;
 
@@ -120,13 +143,32 @@ namespace Cauldron.Interception.Cecilator
 
         public bool IsStatic => this.IsAbstract && this.IsSealed;
 
+        public bool IsUsed => InstructionBucket.IsUsed(this.typeReference);
+
         public bool IsValueType => this.typeDefinition == null ? this.typeReference == null ? false : this.typeReference.IsValueType : this.typeDefinition.IsValueType;
 
         public bool IsVoid => this.typeDefinition.FullName == "System.Void";
 
         public string Name => this.typeDefinition == null ? this.typeReference.Name : this.typeDefinition.Name;
 
-        public string Namespace => this.typeDefinition.Namespace;
+        public string Namespace
+        {
+            get
+            {
+                if (this.typeDefinition.IsNested)
+                {
+                    var parent = this.typeDefinition.DeclaringType;
+                    while (parent != null && string.IsNullOrEmpty(parent.Namespace))
+                    {
+                        parent = parent.DeclaringType;
+                    }
+
+                    return parent?.Namespace;
+                }
+
+                return this.typeDefinition.Namespace;
+            }
+        }
 
         /// <summary>
         /// Writes the names of the methods in the current type to the build output.
@@ -373,7 +415,15 @@ namespace Cauldron.Interception.Cecilator
 
         public BuilderType MakeGeneric(params TypeReference[] typeReference) => new BuilderType(this.Builder, this.typeDefinition.MakeGenericInstanceType(typeReference));
 
-        public void Remove() => this.moduleDefinition.Types.Remove(this.typeDefinition);
+        public void Remove()
+        {
+            InstructionBucket.Reset();
+
+            if (this.typeDefinition.IsNested)
+                this.typeDefinition.DeclaringType.NestedTypes.Remove(this.typeDefinition);
+            else
+                this.moduleDefinition.Types.Remove(this.typeDefinition);
+        }
 
         #endregion Actions
 

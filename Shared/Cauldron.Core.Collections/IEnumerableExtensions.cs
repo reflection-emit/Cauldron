@@ -7,7 +7,7 @@ namespace Cauldron.Core.Collections
     /// <summary>
     /// Provides usefull extensions for <see cref="IEnumerable"/>
     /// </summary>
-    public static class Extensions
+    public static partial class Extensions
     {
         /// <summary>
         /// Provides linq like methods for handling and converting <see cref="IEnumerable"/>s.
