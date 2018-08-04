@@ -110,7 +110,6 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Cauldron.Yaml.rd.xml" />
   </ItemGroup>
@@ -123,6 +122,16 @@
     <None Include="..\..\NetStandard\Cauldron.Yaml\Yaml.snk">
       <Link>Yaml.snk</Link>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Cauldron.Activator\Cauldron.Activator.csproj">
+      <Project>{a0e73415-c2c1-421e-b551-0aeb9181ceac}</Project>
+      <Name>Cauldron.Activator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cauldron\Cauldron.csproj">
+      <Project>{9d2559da-62d9-4472-8e2f-9c8fe1c2b9cf}</Project>
+      <Name>Cauldron</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="..\..\Shared\Cauldron.Core.Yaml\Cauldron.Core.Yaml.projitems" Label="Shared" />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

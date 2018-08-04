@@ -17,7 +17,7 @@ using System.Security.Cryptography;
 
 #endif
 
-namespace Cauldron.Core.Diagnostics
+namespace Cauldron.Diagnostics
 {
     /// <summary>
     /// Provides a set of methods that helps debug code.

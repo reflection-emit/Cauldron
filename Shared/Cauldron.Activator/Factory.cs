@@ -1,5 +1,6 @@
-﻿using Cauldron.Core;
-using Cauldron.Collections;
+﻿using Cauldron.Collections;
+using Cauldron.Diagnostics;
+using Cauldron.Reflection;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -7,8 +8,6 @@ using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
-using Cauldron.Core.Diagnostics;
-using Cauldron.Reflection;
 
 namespace Cauldron.Activator
 {

@@ -1,6 +1,7 @@
-﻿using System;
-using static Cauldron.Core.ComparingOperatorCache;
-using static Cauldron.Core.IEquatableCache;
+﻿using Cauldron.Comparing;
+using System;
+using static Cauldron.Comparing.ComparingOperatorCache;
+using static Cauldron.Comparing.IEquatableCache;
 
 namespace Cauldron
 {

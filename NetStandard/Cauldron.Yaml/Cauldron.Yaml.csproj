@@ -38,4 +38,9 @@
   </PropertyGroup>
 
   <Import Project="..\..\Shared\Cauldron.Core.Yaml\Cauldron.Core.Yaml.projitems" Label="Shared" />
+
+  <ItemGroup>
+    <ProjectReference Include="..\Cauldron.Activator\Cauldron.Activator.csproj" />
+    <ProjectReference Include="..\Cauldron\Cauldron.csproj" />
+  </ItemGroup>
 </Project>

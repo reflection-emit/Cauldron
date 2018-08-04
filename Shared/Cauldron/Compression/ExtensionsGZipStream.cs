@@ -1,4 +1,4 @@
-﻿using Cauldron.Core.Extensions.Compression;
+﻿using Cauldron.Compression;
 using System;
 using System.IO;
 using System.Text;

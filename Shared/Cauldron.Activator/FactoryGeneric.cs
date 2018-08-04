@@ -1,6 +1,4 @@
-﻿using Cauldron.Core;
-
-namespace Cauldron.Activator
+﻿namespace Cauldron.Activator
 {
     /// <summary>
     /// Represents a singleton access to an implementation of <typeparamref name="T"/>. <typeparamref

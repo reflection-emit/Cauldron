@@ -1,5 +1,4 @@
-﻿using Cauldron.Core;
-using Cauldron.Core.Extensions.Convertions;
+﻿using Cauldron.Convertions;
 using System;
 using System.Collections;
 using System.Collections.Generic;

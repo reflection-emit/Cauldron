@@ -338,7 +338,7 @@ Global
 		Shared\Cauldron.Core.Randomizer\Cauldron.Core.Randomizer.projitems*{97d924b8-8fb2-4720-84e1-28502c2bae51}*SharedItemsImports = 4
 		Shared\Cauldron.Cryptography\Cauldron.Cryptography.projitems*{97d924b8-8fb2-4720-84e1-28502c2bae51}*SharedItemsImports = 4
 		UnitTests\Shared\UnitTest_ReflectionTests\UnitTest_ReflectionTests.projitems*{9cadd080-bd8e-4b26-99ee-967edbbcb14a}*SharedItemsImports = 13
-		Shared\Cauldron.Shared\Cauldron.Shared.projitems*{9d2559da-62d9-4472-8e2f-9c8fe1c2b9cf}*SharedItemsImports = 4
+		Shared\Cauldron\Cauldron.projitems*{9d2559da-62d9-4472-8e2f-9c8fe1c2b9cf}*SharedItemsImports = 4
 		Shared\Cauldron.Activator\Cauldron.Activator.projitems*{a0e73415-c2c1-421e-b551-0aeb9181ceac}*SharedItemsImports = 4
 		Shared\Cauldron.Shared\Cauldron.Shared.projitems*{a0e73415-c2c1-421e-b551-0aeb9181ceac}*SharedItemsImports = 4
 		Shared\Cauldron.Core.Yaml\Cauldron.Core.Yaml.projitems*{ac4d7de4-0a3b-4ff7-9993-5b1dbff9fcaf}*SharedItemsImports = 4
@@ -356,7 +356,7 @@ Global
 		Shared\Cauldron.Core.MathExtensions\Cauldron.Core.MathExtensions.projitems*{c9805386-4262-47ad-bda8-2f64f56d26a1}*SharedItemsImports = 13
 		Shared\Cauldron.Interception\Cauldron.Interception.projitems*{cfc811eb-c500-4d1f-adf1-ecaf4433af2d}*SharedItemsImports = 4
 		UnitTests\Resources\Fody_Interceptors\Fody_Interceptors.projitems*{cfda7a01-e911-41af-a025-3e00b75f1600}*SharedItemsImports = 4
-		Shared\Cauldron.Shared\Cauldron.Shared.projitems*{d1be1727-87d4-4ca6-a537-7983cf7b2e4a}*SharedItemsImports = 4
+		Shared\Cauldron\Cauldron.projitems*{d1be1727-87d4-4ca6-a537-7983cf7b2e4a}*SharedItemsImports = 4
 		UnitTests\Shared\CecilatorTestClasses\CecilatorTestClasses.projitems*{d24ed6ba-2465-4636-a8bf-19babf86f68a}*SharedItemsImports = 4
 		UnitTests\Resources\Fody_Interceptors\Fody_Interceptors.projitems*{d35a9e6b-93f6-4bdf-9823-e9b9bec6ab92}*SharedItemsImports = 4
 		UnitTests\Shared\UnitTest_ReflectionTests\UnitTest_ReflectionTests.projitems*{d6fdb523-b4f8-43ba-810e-184820df6a99}*SharedItemsImports = 4

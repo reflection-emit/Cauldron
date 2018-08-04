@@ -50,15 +50,5 @@
     <DefineConstants>TRACE;PUBLIC;RELEASE_451;NETSTANDARD2_0</DefineConstants>
   </PropertyGroup>
 
-  <Import Project="..\..\Shared\Cauldron.Core.Extensions\Cauldron.Core.Extensions.projitems" Label="Shared" />
-
-  <Import Project="..\..\Shared\Cauldron.Core.Extensions.Compression\Cauldron.Core.Extensions.Compression.projitems" Label="Shared" />
-
-  <Import Project="..\..\Shared\Cauldron.Core.Extensions.Convertions\Cauldron.Core.Extensions.Convertions.projitems" Label="Shared" />
-
-  <Import Project="..\..\Shared\Cauldron.Core.Extensions.IO\Cauldron.Core.Extensions.IO.projitems" Label="Shared" />
-
-  <Import Project="..\..\Shared\Cauldron.Core.Comparing\Cauldron.Core.Comparing.projitems" Label="Shared" />
-
-  <Import Project="..\..\Shared\Cauldron.Shared\Cauldron.Shared.projitems" Label="Shared" />
+  <Import Project="..\..\Shared\Cauldron\Cauldron.projitems" Label="Shared" />
 </Project>

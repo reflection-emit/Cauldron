@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 using Windows.Storage;
 using System.Net.Http;
-using Cauldron.Core.Extensions;
+using Cauldron;
 
 #else
 
