@@ -1,6 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 
-namespace Cauldron.Core.Yaml
+namespace Cauldron.Yaml
 {
     internal class YamlCollection : Collection<Yaml>
     {

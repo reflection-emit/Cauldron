@@ -37,7 +37,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Cauldron.Activator\Cauldron.Activator.csproj" />
     <ProjectReference Include="..\Cauldron.Core.Extensions\Cauldron.Core.Extensions.csproj" />
-    <ProjectReference Include="..\Cauldron.Core.Yaml\Cauldron.Core.Yaml.csproj" />
   </ItemGroup>
 
   <Import Project="..\..\Shared\Cauldron.Localization\Cauldron.Localization.projitems" Label="Shared" />

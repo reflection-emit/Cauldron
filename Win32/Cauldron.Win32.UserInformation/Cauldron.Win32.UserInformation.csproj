@@ -110,10 +110,6 @@
     <Compile Include="UserInformation.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Cauldron.Core.Extensions\Cauldron.Core.Extensions.csproj">
-      <Project>{d1be1727-87d4-4ca6-a537-7983cf7b2e4a}</Project>
-      <Name>Cauldron.Core.Extensions</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Cauldron.Core.Net\Cauldron.Core.Net.csproj">
       <Project>{dbc9abb4-746a-4e9f-9ea8-6a52823470c0}</Project>
       <Name>Cauldron.Core.Net</Name>

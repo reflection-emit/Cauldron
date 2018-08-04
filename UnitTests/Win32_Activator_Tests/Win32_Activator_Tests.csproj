@@ -84,14 +84,6 @@
       <Project>{e5a31648-dac2-4c60-a1b8-2fc291c2bf9e}</Project>
       <Name>Cauldron.Activator</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\NetStandard\Cauldron.Core.Collections\Cauldron.Core.Collections.csproj">
-      <Project>{a3970375-c96b-443c-86b3-59bb32ce8cb1}</Project>
-      <Name>Cauldron.Core.Collections</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\NetStandard\Cauldron.Core.Randomizer\Cauldron.Core.Randomizer.csproj">
-      <Project>{e21e227e-b578-47ca-bb75-f38b4c872c38}</Project>
-      <Name>Cauldron.Core.Randomizer</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\NetStandard\Cauldron.Interception\Cauldron.Interception.csproj">
       <Project>{54d84f50-0b4b-40cb-a27d-5ccd84f5b1ee}</Project>
       <Name>Cauldron.Interception</Name>

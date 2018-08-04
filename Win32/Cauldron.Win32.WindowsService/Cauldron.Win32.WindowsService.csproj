@@ -147,10 +147,6 @@
       <Project>{bba46e04-a223-4ea3-b3a5-fd52835be7bf}</Project>
       <Name>Cauldron.Consoles</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Cauldron.Core.Extensions\Cauldron.Core.Extensions.csproj">
-      <Project>{d1be1727-87d4-4ca6-a537-7983cf7b2e4a}</Project>
-      <Name>Cauldron.Core.Extensions</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Cauldron.Cryptography\Cauldron.Cryptography.csproj">
       <Project>{97d924b8-8fb2-4720-84e1-28502c2bae51}</Project>
       <Name>Cauldron.Cryptography</Name>

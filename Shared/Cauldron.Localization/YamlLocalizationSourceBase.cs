@@ -1,5 +1,5 @@
 ﻿using Cauldron.Core.Reflection;
-using Cauldron.Core.Yaml;
+using Cauldron.Yaml;
 using System.Collections.Generic;
 
 namespace Cauldron.Localization

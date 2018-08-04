@@ -11,7 +11,7 @@ using System.Security.Cryptography;
 
 #endif
 
-namespace Cauldron.Core
+namespace Cauldron
 {
     /// <summary>
     /// Provides a randomizer that is cryptographicly secure

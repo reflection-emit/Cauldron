@@ -136,12 +136,6 @@
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\UWP\Cauldron.Core.Extensions\Cauldron.Core.Extensions.csproj">
-      <Project>{9d2559da-62d9-4472-8e2f-9c8fe1c2b9cf}</Project>
-      <Name>Cauldron.Core.Extensions</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="..\..\Shared\ExtensionsTests\ExtensionsTests.projitems" Label="Shared" />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

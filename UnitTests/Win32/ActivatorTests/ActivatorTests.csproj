@@ -61,18 +61,6 @@
       <Project>{13701490-ecb2-4f70-80c8-32897748ef05}</Project>
       <Name>Cauldron.Activator</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Win32\Cauldron.Core.Collections\Cauldron.Core.Collections.csproj">
-      <Project>{0584e5fa-bdf8-42e2-a20e-051dc4bee540}</Project>
-      <Name>Cauldron.Core.Collections</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Win32\Cauldron.Core.Extensions\Cauldron.Core.Extensions.csproj">
-      <Project>{d1be1727-87d4-4ca6-a537-7983cf7b2e4a}</Project>
-      <Name>Cauldron.Core.Extensions</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Win32\Cauldron.Core.Randomizer\Cauldron.Core.Randomizer.csproj">
-      <Project>{ad85b816-7080-4b07-9ad5-7dd4e9ba1750}</Project>
-      <Name>Cauldron.Core.Randomizer</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\Win32\Cauldron.Interception\Cauldron.Interception.csproj">
       <Project>{cfc811eb-c500-4d1f-adf1-ecaf4433af2d}</Project>
       <Name>Cauldron.Interception</Name>

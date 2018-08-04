@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Cauldron.Core.Yaml
+namespace Cauldron.Yaml
 {
     /// <summary>
     /// Instructs the Newtonsoft.Json.JsonSerializer to always serialize the member with the specified name.

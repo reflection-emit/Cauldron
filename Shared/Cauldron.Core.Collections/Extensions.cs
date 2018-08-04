@@ -1,4 +1,4 @@
-﻿using Cauldron.Core.Collections;
+﻿using Cauldron.Collections;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -11,6 +11,7 @@ namespace Cauldron
 #if PUBLIC
     public static partial class Extensions
 #else
+
     internal static partial class ExtensionsInternal
 
 #endif
@@ -30,5 +31,11 @@ namespace Cauldron
         /// </returns>
         public static FastKeyedCollection<TKey, TSource> ToFastKeyedCollection<TKey, TSource>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector) where TSource : class =>
             new FastKeyedCollection<TKey, TSource>(source, keySelector);
+
+        public static void TryDispose(this object context)
+        {
+            var disposable = context as IDisposable;
+            disposable?.Dispose();
+        }
     }
 }

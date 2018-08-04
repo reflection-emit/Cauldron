@@ -1,5 +1,4 @@
-﻿using Cauldron.Core;
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
 
 namespace Cauldron
 {

@@ -1,4 +1,4 @@
-﻿namespace Cauldron.Core.Yaml
+﻿namespace Cauldron.Yaml
 {
     internal class Yaml
     {

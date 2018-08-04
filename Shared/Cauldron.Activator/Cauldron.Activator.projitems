@@ -18,6 +18,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Collections\FastDictionaryEntry.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Disposable\DisposableBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Disposable\IDisposableObject.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)GenericComponentAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ExtensionsCloning.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Factory.cs" />

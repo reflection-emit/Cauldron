@@ -29,7 +29,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\NetStandard\Cauldron.Activator\Cauldron.Activator.csproj" />
     <ProjectReference Include="..\..\NetStandard\Cauldron.Core.Collections\Cauldron.Core.Collections.csproj" />
-    <ProjectReference Include="..\..\NetStandard\Cauldron.Core.Randomizer\Cauldron.Core.Randomizer.csproj" />
     <ProjectReference Include="..\..\NetStandard\Cauldron.Interception\Cauldron.Interception.csproj" />
   </ItemGroup>
 

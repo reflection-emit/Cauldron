@@ -1,4 +1,4 @@
-﻿namespace Cauldron.Core.Yaml
+﻿namespace Cauldron.Yaml
 {
     /// <summary>
     /// Provides methods for converting between common language runtime types and YAML types.

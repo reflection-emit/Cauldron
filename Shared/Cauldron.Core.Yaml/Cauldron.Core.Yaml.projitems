@@ -9,6 +9,7 @@
     <Import_RootNamespace>Cauldron.Core.Yaml</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Yaml.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)YamlCollection.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)YamlConvert.cs" />
