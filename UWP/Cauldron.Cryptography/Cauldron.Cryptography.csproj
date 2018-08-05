@@ -117,9 +117,6 @@
     <EmbeddedResource Include="Properties\Cauldron.Cryptography.rd.xml" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Fody">
-      <Version>3.1.4</Version>
-    </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.1.7</Version>
     </PackageReference>
@@ -128,9 +125,6 @@
     <None Include="..\..\NetStandard\Cauldron.Cryptography\Cryptography.snk">
       <Link>Cryptography.snk</Link>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="FodyWeavers.xml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Cauldron.Randomizer\Cauldron.Randomizer.csproj">

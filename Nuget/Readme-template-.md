@@ -16,6 +16,7 @@ Capgemini.Cauldron.Core.Yaml | Capgemini.Cauldron.Yaml
 Capgemini.Cauldron.Core.Interceptors | Capgemini.Cauldron.Interceptors
 Capgemini.Cauldron.Core.Collections | Capgemini.Cauldron.Collections
 Capgemini.Cauldron.Win32.WPF<br/>Capgemini.Cauldron.Win32.WPF.Interactivity<br/>Capgemini.Cauldron.Win32.WPF.Validation | Capgemini.Cauldron.Win32.WPF
+Capgemini.Cauldron.Interceptors<br/>Capgemini.Cauldron.Win32.Interceptors | Capgemini.Cauldron.Interceptors
 
 
 

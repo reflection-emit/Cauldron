@@ -120,6 +120,9 @@
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.1.7</Version>
     </PackageReference>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>11.0.2</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\NetStandard\Cauldron.Localization\Localization.snk">
@@ -129,6 +132,21 @@
   <ItemGroup>
     <None Include="FodyWeavers.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Cauldron.Activator\Cauldron.Activator.csproj">
+      <Project>{a0e73415-c2c1-421e-b551-0aeb9181ceac}</Project>
+      <Name>Cauldron.Activator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cauldron.Yaml\Cauldron.Yaml.csproj">
+      <Project>{ac4d7de4-0a3b-4ff7-9993-5b1dbff9fcaf}</Project>
+      <Name>Cauldron.Yaml</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cauldron\Cauldron.csproj">
+      <Project>{9d2559da-62d9-4472-8e2f-9c8fe1c2b9cf}</Project>
+      <Name>Cauldron</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="..\..\Shared\Cauldron.Localization\Cauldron.Localization.projitems" Label="Shared" />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

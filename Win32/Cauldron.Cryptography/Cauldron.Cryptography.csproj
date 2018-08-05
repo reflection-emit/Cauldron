@@ -126,9 +126,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="FodyWeavers.xml" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Cauldron.Randomizer\Cauldron.Randomizer.csproj">
       <Project>{ad85b816-7080-4b07-9ad5-7dd4e9ba1750}</Project>
       <Name>Cauldron.Randomizer</Name>

@@ -1,4 +1,4 @@
-﻿using Cauldron.Core.Net;
+﻿using Cauldron.Net;
 using System;
 using System.DirectoryServices;
 using System.DirectoryServices.AccountManagement;

@@ -9,7 +9,9 @@
     <Import_RootNamespace>Cauldron.Core.Interceptors</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)ExceptionLoggerAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ExecutionTimeAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PerformanceLoggerAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PropertyOnSetAttribute.cs" />
   </ItemGroup>
 </Project>

@@ -1,0 +1,3066 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Cauldron</name>
+    </assembly>
+    <members>
+        <member name="T:Cauldron.Extensions">
+            <summary>
+            Provides usefull extension methods for the <see cref="T:System.IO.DirectoryInfo"/> and <see cref="T:System.IO.FileInfo"/> class
+            </summary>
+            <summary>
+            Provides usefull extension methods
+            </summary>
+            <summary>
+            Provides usefull extension methods
+            </summary>
+            <summary>
+            Provides usefull extension methods
+            </summary>
+            <summary>
+            Provides usefull extension methods
+            </summary>
+            <summary>
+            Provides usefull extension methods
+            </summary>
+        </member>
+        <member name="M:Cauldron.Extensions.GetShortPath(System.IO.DirectoryInfo)">
+            <summary>
+            Returns the short path format of the given path. e.g. C:\\Hello World converted to C:\\HelloWo~1
+            </summary>
+            <param name="path">The long path</param>
+            <returns>The short path</returns>
+            <exception cref="T:System.IO.IOException">Unable to shortend path of a directory or a file that does not exist.</exception>
+        </member>
+        <member name="M:Cauldron.Extensions.GetShortPath(System.IO.FileInfo)">
+            <summary>
+            Returns the short path format of the given path. e.g. C:\\Hello World converted to C:\\HelloWo~1
+            </summary>
+            <param name="path">The long path</param>
+            <returns>The short path</returns>
+            <exception cref="T:System.IO.IOException">Unable to shortend path of a directory or a file that does not exist.</exception>
+        </member>
+        <member name="M:Cauldron.Extensions.IsNetworkPath(System.IO.DirectoryInfo)">
+            <summary>
+            Determines whether a path represents a network resource.
+            </summary>
+            <param name="path">The path to test</param>
+            <returns>True if the given path is a network path; otherwise false</returns>
+        </member>
+        <member name="M:Cauldron.Extensions.Contains(System.String,System.String,System.StringComparison)">
+            <summary>
+            Returns a value indicating whether a specified substring occurs within this string.
+            </summary>
+            <param name="text">The string to seek from.</param>
+            <param name="value">The string to seek.</param>
+            <param name="comparisonType">
+            One of the enumeration values that specifies the rules for the search.
+            </param>
+            <returns>
+            True if the value parameter occurs within this string, or if value is the empty string
+            (""); otherwise, false.
+            </returns>
+        </member>
+        <member name="M:Cauldron.Extensions.Distinct``1(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``0,System.Boolean})">
+            <summary>
+            Returns distinct elements from a sequence by using a selector to compare values.
+            </summary>
+            <typeparam name="TSource">The type of the elements of <paramref name="source"/></typeparam>
+            <param name="source">The sequence to remove duplicate elements from.</param>
+            <param name="selector">
+            An expression used to determines whether the specified object are equal
+            </param>
+            <returns>
+            An <see cref="T:System.Collections.Generic.IEnumerable`1"/> that contains distinct elements from the source sequence.
+            </returns>
+        </member>
+        <member name="M:Cauldron.Extensions.EnclosedIn(System.String,System.String,System.String)">
+            <summary>
+            Gets the string enclosed by two strings
+            </summary>
+            <param name="target">The string that contains the string to be retrieved</param>
+            <param name="start"></param>
+            <param name="end"></param>
+            <returns>The enclosed string</returns>
+        </member>
+        <member name="M:Cauldron.Extensions.IndexOf(System.Byte[],System.Byte[])">
+            <summary>
+            Searches for the specified byte array and returns the zero-based index of the first
+            occurrence within the entire <see cref="T:System.Array"/>
+            </summary>
+            <param name="data">The <see cref="T:System.Array"/> that could contain <paramref name="value"/></param>
+            <param name="value">
+            The object to locate in the <see cref="T:System.Array"/>. The value can be null for reference types.
+            </param>
+            <returns>
+            The zero-based index of the first occurrence of item within the entire <see cref="T:System.Array"/>, if found; otherwise, –1.
+            </returns>
+        </member>
+        <member name="M:Cauldron.Extensions.IndexOf``1(``0[],``0)">
+            <summary>
+            Searches for the specified object and returns the zero-based index of the first
+            occurrence within the entire <see cref="T:System.Array"/>
+            </summary>
+            <typeparam name="T">The type of the <see cref="T:System.Array"/></typeparam>
+            <param name="target">The <see cref="T:System.Array"/> that could contain <paramref name="value"/></param>
+            <param name="value">
+            The object to locate in the <see cref="T:System.Array"/>. The value can be null for reference types.
+            </param>
+            <returns>
+            The zero-based index of the first occurrence of item within the entire <see
+            cref="T:System.Array"/>, if found; otherwise, –1.
+            </returns>
+        </member>
+        <member name="M:Cauldron.Extensions.IsBase64String(System.String)">
+            <summary>
+            Checkes if the string is encoded in Base64.
+            </summary>
+            <param name="str">The string to check</param>
+            <returns>True if the string is base 64 encoded; otherwise false</returns>
+        </member>
+        <member name="M:Cauldron.Extensions.ZipAsBytes(System.Byte[])">
+            <summary>
+            Compresses data using gzip
+            </summary>
+            <param name="data">The data to compress</param>
+            <returns>A byte array of the compressed data.</returns>
+        </member>
+        <member name="M:Cauldron.Extensions.ZipAsBytesAsync(System.Byte[])">
+            <summary>
+            Compresses data using gzip
+            </summary>
+            <param name="data">The data to compress</param>
+            <returns>A byte array of the compressed data.</returns>
+        </member>
+        <member name="M:Cauldron.Extensions.ZipAsFile(System.Byte[],System.IO.FileInfo,System.Boolean)">
+            <summary>
+            Compresses data using gzip
+            </summary>
+            <param name="data">The data to compress</param>
+            <param name="targetFile">The target file.</param>
+            <param name="overwrite">Overwrite the file if exists.</param>
+            <returns>The new compressed file represented by <see cref="T:System.IO.FileInfo"/></returns>
+        </member>
+        <member name="M:Cauldron.Extensions.ZipAsFile(System.Byte[],System.String,System.Boolean)">
+            <summary>
+            Compresses data using gzip
+            </summary>
+            <param name="data">The data to compress</param>
+            <param name="path">The path and filename of the compressed file</param>
+            <param name="overwrite">Overwrite the file if exists.</param>
+            <returns>The new compressed file represented by <see cref="T:System.IO.FileInfo"/></returns>
+        </member>
+        <member name="M:Cauldron.Extensions.ZipAsFileAsync(System.Byte[],System.IO.FileInfo,System.Boolean)">
+            <summary>
+            Compresses data using gzip
+            </summary>
+            <param name="data">The data to compress</param>
+            <param name="targetFile">The target file.</param>
+            <param name="overwrite">Overwrite the file if exists.</param>
+            <returns>The new compressed file represented by <see cref="T:System.IO.FileInfo"/></returns>
+        </member>
+        <member name="M:Cauldron.Extensions.ZipAsFileAsync(System.Byte[],System.String,System.Boolean)">
+            <summary>
+            Compresses data using gzip
+            </summary>
+            <param name="data">The data to compress</param>
+            <param name="path">The path and filename of the compressed file</param>
+            <param name="overwrite">Overwrite the file if exists.</param>
+            <returns>The new compressed file represented by <see cref="T:System.IO.FileInfo"/></returns>
+        </member>
+        <member name="M:Cauldron.Extensions.ZipAsStream(System.Byte[])">
+            <summary>
+            Compresses data using gzip
+            </summary>
+            <param name="data">The data to compress</param>
+            <returns>The compressed stream.</returns>
+        </member>
+        <member name="M:Cauldron.Extensions.ZipAsStreamAsync(System.Byte[])">
+            <summary>
+            Compresses data using gzip
+            </summary>
+            <param name="data">The data to compress</param>
+            <returns>The compressed stream.</returns>
+        </member>
+        <member name="M:Cauldron.Extensions.ZipAsBytes(System.IO.Stream)">
+            <summary>
+            Compresses a stream using gzip
+            </summary>
+            <param name="stream">The stream to compress</param>
+            <returns>A byte array of the compressed data.</returns>
+        </member>
+        <member name="M:Cauldron.Extensions.ZipAsBytesAsync(System.IO.Stream)">
+            <summary>
+            Compresses a stream using gzip
+            </summary>
+            <param name="stream">The stream to compress</param>
+            <returns>A byte array of the compressed data.</returns>
+        </member>
+        <member name="M:Cauldron.Extensions.ZipAsFile(System.IO.Stream,System.IO.FileInfo,System.Boolean)">
+            <summary>
+            Comptesses a stream to a file using gzip
+            </summary>
+            <param name="stream">The stream to compress</param>
+            <param name="file">The target file.</param>
+            <param name="overwrite">Overwrite the file if exists.</param>
+            <returns>The new compressed file represented by <see cref="T:System.IO.FileInfo"/></returns>
+        </member>
+        <member name="M:Cauldron.Extensions.ZipAsFile(System.IO.Stream,System.String,System.Boolean)">
+            <summary>
+            Comptesses a stream to a file using gzip
+            </summary>
+            <param name="stream">The stream to compress</param>
+            <param name="path">The path and filename of the compressed file</param>
+            <param name="overwrite">Overwrite the file if exists.</param>
+            <returns>The new compressed file represented by <see cref="T:System.IO.FileInfo"/></returns>
+        </member>
+        <member name="M:Cauldron.Extensions.ZipAsFileAsync(System.IO.Stream,System.IO.FileInfo,System.Boolean)">
+            <summary>
+            Comptesses a stream to a file using gzip
+            </summary>
+            <param name="stream">The stream to compress</param>
+            <param name="file">The target file.</param>
+            <param name="overwrite">Overwrite the file if exists.</param>
+            <returns>The new compressed file represented by <see cref="T:System.IO.FileInfo"/></returns>
+        </member>
+        <member name="M:Cauldron.Extensions.ZipAsFileAsync(System.IO.Stream,System.String,System.Boolean)">
+            <summary>
+            Comptesses a stream to a file using gzip
+            </summary>
+            <param name="stream">The stream to compress</param>
+            <param name="path">The path and filename of the compressed file</param>
+            <param name="overwrite">Overwrite the file if exists.</param>
+            <returns>The new compressed file represented by <see cref="T:System.IO.FileInfo"/></returns>
+        </member>
+        <member name="M:Cauldron.Extensions.ZipAsStream(System.IO.Stream)">
+            <summary>
+            Compresses a stream using gzip
+            </summary>
+            <param name="stream">The stream to compress</param>
+            <returns>The compressed stream.</returns>
+        </member>
+        <member name="M:Cauldron.Extensions.ZipAsStreamAsync(System.IO.Stream)">
+            <summary>
+            Compresses a stream using gzip
+            </summary>
+            <param name="stream">The stream to compress</param>
+            <returns>The compressed stream.</returns>
+        </member>
+        <member name="M:Cauldron.Extensions.ZipAsBytes(System.IO.FileInfo)">
+            <summary>
+            Compresses a file using gzip.
+            </summary>
+            <param name="file">The file to compress</param>
+            <returns>A byte array of the compressed file.</returns>
+        </member>
+        <member name="M:Cauldron.Extensions.ZipAsBytesAsync(System.IO.FileInfo)">
+            <summary>
+            Compresses a file using gzip.
+            </summary>
+            <param name="file">The file to compress</param>
+            <returns>A byte array of the compressed file.</returns>
+        </member>
+        <member name="M:Cauldron.Extensions.ZipAsFile(System.IO.FileInfo,System.IO.FileInfo,System.Boolean)">
+            <summary>
+            Compresses a file using gzip.
+            </summary>
+            <param name="file">The file to compress</param>
+            <param name="targetFile">The target file.</param>
+            <param name="overwrite">If true, overwrites the file if exists; otherwise false</param>
+            <returns>The new compressed file represented by <see cref="T:System.IO.FileInfo"/></returns>
+        </member>
+        <member name="M:Cauldron.Extensions.ZipAsFile(System.IO.FileInfo,System.String,System.Boolean)">
+            <summary>
+            Compresses a file using gzip.
+            </summary>
+            <param name="file">The file to compress</param>
+            <param name="path">The path and filename of the compressed file</param>
+            <param name="overwrite">If true, overwrites the file if exists; otherwise false</param>
+            <returns>The new compressed file represented by <see cref="T:System.IO.FileInfo"/></returns>
+        </member>
+        <member name="M:Cauldron.Extensions.ZipAsFileAsync(System.IO.FileInfo,System.IO.FileInfo,System.Boolean)">
+            <summary>
+            Compresses a file using gzip.
+            </summary>
+            <param name="file">The file to compress</param>
+            <param name="targetFile">The target file.</param>
+            <param name="overwrite">If true, overwrites the file if exists; otherwise false</param>
+            <returns>The new compressed file represented by <see cref="T:System.IO.FileInfo"/></returns>
+        </member>
+        <member name="M:Cauldron.Extensions.ZipAsFileAsync(System.IO.FileInfo,System.String,System.Boolean)">
+            <summary>
+            Compresses a file using gzip.
+            </summary>
+            <param name="file">The file to compress</param>
+            <param name="path">The path and filename of the compressed file</param>
+            <param name="overwrite">If true, overwrites the file if exists; otherwise false</param>
+            <returns>The new compressed file represented by <see cref="T:System.IO.FileInfo"/></returns>
+        </member>
+        <member name="M:Cauldron.Extensions.ZipAsStream(System.IO.FileInfo)">
+            <summary>
+            Compresses a file using gzip.
+            </summary>
+            <param name="file">The file to compress</param>
+            <returns>The compressed file as a stream.</returns>
+        </member>
+        <member name="M:Cauldron.Extensions.ZipAsStreamAsync(System.IO.FileInfo)">
+            <summary>
+            Compresses a file using gzip.
+            </summary>
+            <param name="file">The file to compress</param>
+            <returns>The compressed file as a stream.</returns>
+        </member>
+        <member name="M:Cauldron.Extensions.ZipAsBase64String(System.String)">
+            <summary>
+            Compresses a string using gzip. The default string encoding is <see cref="P:System.Text.Encoding.UTF8"/>.
+            </summary>
+            <param name="value">The string to compress.</param>
+            <returns>A base 64 string representation of the compressed string.</returns>
+        </member>
+        <member name="M:Cauldron.Extensions.ZipAsBase64String(System.String,System.Text.Encoding)">
+            <summary>
+            Compresses a string using gzip.
+            </summary>
+            <param name="value">The string to compress.</param>
+            <param name="encoding">The encoding of the string.</param>
+            <returns>A base 64 string representation of the compressed string.</returns>
+        </member>
+        <member name="M:Cauldron.Extensions.ZipAsBase64StringAsync(System.String)">
+            <summary>
+            Compresses a string using gzip. The default string encoding is <see cref="P:System.Text.Encoding.UTF8"/>.
+            </summary>
+            <param name="value">The string to compress.</param>
+            <returns>A base 64 string representation of the compressed string.</returns>
+        </member>
+        <member name="M:Cauldron.Extensions.ZipAsBase64StringAsync(System.String,System.Text.Encoding)">
+            <summary>
+            Compresses a string using gzip.
+            </summary>
+            <param name="value">The string to compress.</param>
+            <param name="encoding">The encoding of the string.</param>
+            <returns>A base 64 string representation of the compressed string.</returns>
+        </member>
+        <member name="M:Cauldron.Extensions.ZipAsBytes(System.String)">
+            <summary>
+            Compresses a string using gzip. The default string encoding is <see cref="P:System.Text.Encoding.UTF8"/>.
+            </summary>
+            <param name="value">The string to compress.</param>
+            <returns>A byte array of the compressed string.</returns>
+        </member>
+        <member name="M:Cauldron.Extensions.ZipAsBytes(System.String,System.Text.Encoding)">
+            <summary>
+            Compresses a string using gzip
+            </summary>
+            <param name="value">The string to compress.</param>
+            <param name="encoding">The encoding of the string.</param>
+            <returns>A byte array of the compressed string.</returns>
+        </member>
+        <member name="M:Cauldron.Extensions.ZipAsBytesAsync(System.String)">
+            <summary>
+            Compresses a string using gzip. The default string encoding is <see cref="P:System.Text.Encoding.UTF8"/>.
+            </summary>
+            <param name="value">The string to compress.</param>
+            <returns>A byte array of the compressed string.</returns>
+        </member>
+        <member name="M:Cauldron.Extensions.ZipAsBytesAsync(System.String,System.Text.Encoding)">
+            <summary>
+            Compresses a string using gzip
+            </summary>
+            <param name="value">The string to compress.</param>
+            <param name="encoding">The encoding of the string.</param>
+            <returns>A byte array of the compressed string.</returns>
+        </member>
+        <member name="M:Cauldron.Extensions.ZipAsStream(System.String)">
+            <summary>
+            Compresses a string using gzip. The default string encoding is <see cref="P:System.Text.Encoding.UTF8"/>.
+            </summary>
+            <param name="value">The string to compress.</param>
+            <returns>The compressed stream.</returns>
+        </member>
+        <member name="M:Cauldron.Extensions.ZipAsStream(System.String,System.Text.Encoding)">
+            <summary>
+            Compresses a string using gzip
+            </summary>
+            <param name="value">The string to compress.</param>
+            <param name="encoding">The encoding of the string.</param>
+            <returns>The compressed stream.</returns>
+        </member>
+        <member name="M:Cauldron.Extensions.ZipAsStreamAsync(System.String)">
+            <summary>
+            Compresses a string using gzip. The default string encoding is <see cref="P:System.Text.Encoding.UTF8"/>.
+            </summary>
+            <param name="value">The string to compress.</param>
+            <returns>The compressed stream.</returns>
+        </member>
+        <member name="M:Cauldron.Extensions.ZipAsStreamAsync(System.String,System.Text.Encoding)">
+            <summary>
+            Compresses a string using gzip
+            </summary>
+            <param name="value">The string to compress.</param>
+            <param name="encoding">The encoding of the string.</param>
+            <returns>The compressed stream.</returns>
+        </member>
+        <member name="M:Cauldron.Extensions.UnzipAsBytes(System.IO.Stream)">
+            <summary>
+            Uncompresses a stream using gzip.
+            </summary>
+            <param name="stream">The stream to uncompress</param>
+            <returns>The uncompressed stream as an array of bytes</returns>
+        </member>
+        <member name="M:Cauldron.Extensions.UnzipAsBytesAsync(System.IO.Stream)">
+            <summary>
+            Uncompresses a stream using gzip.
+            </summary>
+            <param name="stream">The stream to uncompress</param>
+            <returns>The uncompressed stream as an array of bytes</returns>
+        </member>
+        <member name="M:Cauldron.Extensions.UnzipAsFile(System.IO.Stream,System.IO.FileInfo,System.Boolean)">
+            <summary>
+            Uncompresses a stream using gzip.
+            </summary>
+            <param name="stream">The stream to uncompress</param>
+            <param name="file">The file to write the uncompressed data.</param>
+            <param name="overwrite">If true, overwrites the file if exists; otherwise false</param>
+            <returns>The <see cref="T:System.IO.FileInfo"/> of the uncompressed data.</returns>
+        </member>
+        <member name="M:Cauldron.Extensions.UnzipAsFile(System.IO.Stream,System.String,System.Boolean)">
+            <summary>
+            Uncompresses a stream using gzip.
+            </summary>
+            <param name="stream">The stream to uncompress</param>
+            <param name="path">The path and filename of the file to write the uncompressed data.</param>
+            <param name="overwrite">If true, overwrites the file if exists; otherwise false</param>
+            <returns>The <see cref="T:System.IO.FileInfo"/> of the uncompressed data.</returns>
+        </member>
+        <member name="M:Cauldron.Extensions.UnzipAsFileAsync(System.IO.Stream,System.IO.FileInfo,System.Boolean)">
+            <summary>
+            Uncompresses a stream using gzip.
+            </summary>
+            <param name="stream">The stream to uncompress</param>
+            <param name="file">The file to write the uncompressed data.</param>
+            <param name="overwrite">If true, overwrites the file if exists; otherwise false</param>
+            <returns>The <see cref="T:System.IO.FileInfo"/> of the uncompressed data.</returns>
+        </member>
+        <member name="M:Cauldron.Extensions.UnzipAsFileAsync(System.IO.Stream,System.String,System.Boolean)">
+            <summary>
+            Uncompresses a stream using gzip.
+            </summary>
+            <param name="stream">The stream to uncompress</param>
+            <param name="path">The path and filename of the file to write the uncompressed data.</param>
+            <param name="overwrite">If true, overwrites the file if exists; otherwise false</param>
+            <returns>The <see cref="T:System.IO.FileInfo"/> of the uncompressed data.</returns>
+        </member>
+        <member name="M:Cauldron.Extensions.UnzipAsStream(System.IO.Stream)">
+            <summary>
+            Uncompresses a stream using gzip
+            </summary>
+            <param name="stream">The stream to uncompress</param>
+            <returns>The uncompressed stream.</returns>
+        </member>
+        <member name="M:Cauldron.Extensions.UnzipAsStreamAsync(System.IO.Stream)">
+            <summary>
+            Uncompresses a stream using gzip
+            </summary>
+            <param name="stream">The stream to uncompress</param>
+            <returns>The uncompressed stream.</returns>
+        </member>
+        <member name="M:Cauldron.Extensions.UnzipAsString(System.IO.Stream)">
+            <summary>
+            Uncompresses a stream using gzip. The default encoding is <see cref="P:System.Text.Encoding.UTF8"/>.
+            </summary>
+            <param name="stream">The stream to uncompress</param>
+            <returns>The uncompresses string.</returns>
+        </member>
+        <member name="M:Cauldron.Extensions.UnzipAsString(System.IO.Stream,System.Text.Encoding)">
+            <summary>
+            Uncompresses a stream using gzip.
+            </summary>
+            <param name="stream">The stream to uncompress</param>
+            <param name="encoding">The encoding of the string.</param>
+            <returns>The uncompresses string.</returns>
+        </member>
+        <member name="M:Cauldron.Extensions.UnzipAsStringAsync(System.IO.Stream)">
+            <summary>
+            Uncompresses a stream using gzip. The default encoding is <see cref="P:System.Text.Encoding.UTF8"/>.
+            </summary>
+            <param name="stream">The stream to uncompress</param>
+            <returns>The uncompresses string.</returns>
+        </member>
+        <member name="M:Cauldron.Extensions.UnzipAsStringAsync(System.IO.Stream,System.Text.Encoding)">
+            <summary>
+            Uncompresses a stream using gzip.
+            </summary>
+            <param name="stream">The stream to uncompress</param>
+            <param name="encoding">The encoding of the string.</param>
+            <returns>The uncompresses string.</returns>
+        </member>
+        <member name="M:Cauldron.Extensions.UnzipAsBytes(System.IO.FileInfo)">
+            <summary>
+            Uncompresses a file using gzip.
+            </summary>
+            <param name="file">The file to uncompress</param>
+            <returns>The uncompressed file as byte array</returns>
+        </member>
+        <member name="M:Cauldron.Extensions.UnzipAsBytesAsync(System.IO.FileInfo)">
+            <summary>
+            Uncompresses a file using gzip.
+            </summary>
+            <param name="file">The file to uncompress</param>
+            <returns>The uncompressed file as byte array</returns>
+        </member>
+        <member name="M:Cauldron.Extensions.UnzipAsFile(System.IO.FileInfo,System.IO.FileInfo,System.Boolean)">
+            <summary>
+            Uncompresses a file using gzip.
+            </summary>
+            <param name="file">The file to uncompress</param>
+            <param name="targetFile">The file to write to the uncompressed data</param>
+            <param name="overwrite">If true, overwrites the file if exists; otherwise false</param>
+            <returns>The file that contains the uncompressed data</returns>
+        </member>
+        <member name="M:Cauldron.Extensions.UnzipAsFile(System.IO.FileInfo,System.String,System.Boolean)">
+            <summary>
+            Uncompresses a file using gzip.
+            </summary>
+            <param name="file">The file to uncompress</param>
+            <param name="path">The path and filename of the file to write to the uncompressed data</param>
+            <param name="overwrite">If true, overwrites the file if exists; otherwise false</param>
+            <returns>The file that contains the uncompressed data</returns>
+        </member>
+        <member name="M:Cauldron.Extensions.UnzipAsFileAsync(System.IO.FileInfo,System.IO.FileInfo,System.Boolean)">
+            <summary>
+            Uncompresses a file using gzip.
+            </summary>
+            <param name="file">The file to uncompress</param>
+            <param name="targetFile">The file to write to the uncompressed data</param>
+            <param name="overwrite">If true, overwrites the file if exists; otherwise false</param>
+            <returns>The file that contains the uncompressed data</returns>
+        </member>
+        <member name="M:Cauldron.Extensions.UnzipAsFileAsync(System.IO.FileInfo,System.String,System.Boolean)">
+            <summary>
+            Uncompresses a file using gzip.
+            </summary>
+            <param name="file">The file to uncompress</param>
+            <param name="path">The path and filename of the file to write to the uncompressed data</param>
+            <param name="overwrite">If true, overwrites the file if exists; otherwise false</param>
+            <returns>The file that contains the uncompressed data</returns>
+        </member>
+        <member name="M:Cauldron.Extensions.UnzipAsStream(System.IO.FileInfo)">
+            <summary>
+            Uncompresses a file using gzip.
+            </summary>
+            <param name="file">The file to uncompress</param>
+            <returns>The stream of uncompressed data.</returns>
+        </member>
+        <member name="M:Cauldron.Extensions.UnzipAsStreamAsync(System.IO.FileInfo)">
+            <summary>
+            Uncompresses a file using gzip.
+            </summary>
+            <param name="file">The file to uncompress</param>
+            <returns>The stream of uncompressed data.</returns>
+        </member>
+        <member name="M:Cauldron.Extensions.UnzipAsBytes(System.Byte[])">
+            <summary>
+            Uncompresses a file using gzip.
+            </summary>
+            <param name="bytes">The compressed data.</param>
+            <returns>The uncompressed data as byte array.</returns>
+        </member>
+        <member name="M:Cauldron.Extensions.UnzipAsBytesAsync(System.Byte[])">
+            <summary>
+            Uncompresses a file using gzip.
+            </summary>
+            <param name="bytes">The compressed data.</param>
+            <returns>The uncompressed data as byte array.</returns>
+        </member>
+        <member name="M:Cauldron.Extensions.UnzipAsFile(System.Byte[],System.IO.FileInfo,System.Boolean)">
+            <summary>
+            Uncompresses a file using gzip.
+            </summary>
+            <param name="bytes">The compressed data.</param>
+            <param name="file">The file to write to the uncompressed data</param>
+            <param name="overwrite">If true, overwrites the file if exists; otherwise false</param>
+            <returns>The file that contains the uncompressed data</returns>
+        </member>
+        <member name="M:Cauldron.Extensions.UnzipAsFile(System.Byte[],System.String,System.Boolean)">
+            <summary>
+            Uncompresses a file using gzip.
+            </summary>
+            <param name="bytes">The compressed data.</param>
+            <param name="path">The path and filename of the file to write to the uncompressed data</param>
+            <param name="overwrite">If true, overwrites the file if exists; otherwise false</param>
+            <returns>The file that contains the uncompressed data</returns>
+        </member>
+        <member name="M:Cauldron.Extensions.UnzipAsFileAsync(System.Byte[],System.IO.FileInfo,System.Boolean)">
+            <summary>
+            Uncompresses a file using gzip.
+            </summary>
+            <param name="bytes">The compressed data.</param>
+            <param name="file">The file to write to the uncompressed data</param>
+            <param name="overwrite">If true, overwrites the file if exists; otherwise false</param>
+            <returns>The file that contains the uncompressed data</returns>
+        </member>
+        <member name="M:Cauldron.Extensions.UnzipAsFileAsync(System.Byte[],System.String,System.Boolean)">
+            <summary>
+            Uncompresses a file using gzip.
+            </summary>
+            <param name="bytes">The compressed data.</param>
+            <param name="path">The path and filename of the file to write to the uncompressed data</param>
+            <param name="overwrite">If true, overwrites the file if exists; otherwise false</param>
+            <returns>The file that contains the uncompressed data</returns>
+        </member>
+        <member name="M:Cauldron.Extensions.UnzipAsStream(System.Byte[])">
+            <summary>
+            Uncompresses a file using gzip.
+            </summary>
+            <param name="bytes">The compressed data.</param>
+            <returns>The stream that contains the uncompressed data.</returns>
+        </member>
+        <member name="M:Cauldron.Extensions.UnzipAsStreamAsync(System.Byte[])">
+            <summary>
+            Uncompresses a file using gzip.
+            </summary>
+            <param name="bytes">The compressed data.</param>
+            <returns>The stream that contains the uncompressed data.</returns>
+        </member>
+        <member name="M:Cauldron.Extensions.UnzipAsString(System.Byte[])">
+            <summary>
+            Uncompresses data using gzip. The default encoding is <see cref="P:System.Text.Encoding.UTF8"/>.
+            </summary>
+            <param name="bytes">The compressed data.</param>
+            <returns>The uncompressed string</returns>
+        </member>
+        <member name="M:Cauldron.Extensions.UnzipAsString(System.Byte[],System.Text.Encoding)">
+            <summary>
+            Uncompresses data using gzip
+            </summary>
+            <param name="bytes">The compressed data.</param>
+            <param name="encoding">The encoding of the compressed string</param>
+            <returns>The uncompressed string</returns>
+        </member>
+        <member name="M:Cauldron.Extensions.UnzipAsStringAsync(System.Byte[])">
+            <summary>
+            Uncompresses data using gzip. The default encoding is <see cref="P:System.Text.Encoding.UTF8"/>.
+            </summary>
+            <param name="bytes">The compressed data.</param>
+            <returns>The uncompressed string</returns>
+        </member>
+        <member name="M:Cauldron.Extensions.UnzipAsStringAsync(System.Byte[],System.Text.Encoding)">
+            <summary>
+            Uncompresses data using gzip
+            </summary>
+            <param name="bytes">The compressed data.</param>
+            <param name="encoding">The encoding of the compressed string</param>
+            <returns>The uncompressed string</returns>
+        </member>
+        <member name="M:Cauldron.Extensions.UnzipAsString(System.String,System.Text.Encoding)">
+            <summary>
+            Uncompresses compressed string represented as base 64 string using gzip
+            </summary>
+            <param name="value">The base 64 string</param>
+            <param name="encoding">The encoding of the compressed string</param>
+            <returns>The uncompressed string</returns>
+        </member>
+        <member name="M:Cauldron.Extensions.UnzipAsStringAsync(System.String,System.Text.Encoding)">
+            <summary>
+            Uncompresses compressed string represented as base 64 string using gzip
+            </summary>
+            <param name="value">The base 64 string</param>
+            <param name="encoding">The encoding of the compressed string</param>
+            <returns>The uncompressed string</returns>
+        </member>
+        <member name="M:Cauldron.Extensions.Concat``1(``0[],``0)">
+            <summary>
+            Concats an item to an array creating a new array containing the original array and the item.
+            </summary>
+            <typeparam name="T">The element type of the array</typeparam>
+            <param name="arrayA">The array</param>
+            <param name="item">The item to add to the array</param>
+            <returns>A new array containing the original array and the item.</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="arrayA"/> is null</exception>
+            <exception cref="T:System.ArgumentNullException"><paramref name="item"/> is null</exception>
+        </member>
+        <member name="M:Cauldron.Extensions.Concat``1(``0[],``0[])">
+            <summary>
+            Concatenates two arrays together creating a new array containing both arrays
+            </summary>
+            <typeparam name="T">The element type of the array</typeparam>
+            <param name="arrayA">The first array</param>
+            <param name="arrayB">The second array</param>
+            <returns>A new array containing both arrays.</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="arrayA"/> is null</exception>
+            <exception cref="T:System.ArgumentNullException"><paramref name="arrayB"/> is null</exception>
+        </member>
+        <member name="M:Cauldron.Extensions.Copy``1(``0[])">
+            <summary>
+            Copies an array.
+            </summary>
+            <typeparam name="T">The element type of the array</typeparam>
+            <param name="array">The array</param>
+            <returns>A new array that contains the same elements as <paramref name="array"/></returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="array"/> is null</exception>
+        </member>
+        <member name="M:Cauldron.Extensions.Copy(System.String)">
+            <summary>
+            Creates a new instance of System.String with the same value as a specified System.String.
+            </summary>
+            <param name="value">The string to copy.</param>
+            <returns>A new string with the same value as str.</returns>
+        </member>
+        <member name="M:Cauldron.Extensions.Flatten``1(``0[][])">
+            <summary>
+            Flattens a jagged array to a one-dimensional array
+            </summary>
+            <typeparam name="T">The element type of the array</typeparam>
+            <param name="arrays">The jagged array</param>
+            <returns>An one dimensional array</returns>
+        </member>
+        <member name="M:Cauldron.Extensions.Foreach``1(System.Collections.Generic.IEnumerable{``0},System.Action{``0})">
+            <summary>
+            Performs the specified action on each element of the <see cref="T:System.Collections.Generic.IEnumerable`1"/>
+            </summary>
+            <typeparam name="T">The type that is contained in the <see cref="T:System.Collections.Generic.IEnumerable`1"/></typeparam>
+            <param name="collection">The collection to perform the action on</param>
+            <param name="action">
+            The <see cref="T:System.Action`1"/> delegate to perform on each element of the <see cref="T:System.Collections.Generic.IEnumerable`1"/>.
+            </param>
+            <returns>Returns <paramref name="collection"/></returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="action"/> is null</exception>
+        </member>
+        <member name="M:Cauldron.Extensions.GetBytes(System.Byte[],System.UInt32)">
+            <summary>
+            Gets a specified length of bytes.
+            <para/>
+            If the specified length <paramref name="length"/> is longer than the source array the
+            source array will be returned instead.
+            </summary>
+            <param name="target">The Array that contains the data to copy.</param>
+            <param name="length">A 32-bit integer that represents the number of elements to copy.</param>
+            <returns>Returns an array of bytes</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="target"/> is null</exception>
+            <exception cref="T:System.ArgumentException"><paramref name="length"/> is 0</exception>
+        </member>
+        <member name="M:Cauldron.Extensions.GetBytes(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            Gets a specified length of bytes
+            </summary>
+            <param name="target">The Array that contains the data to copy.</param>
+            <param name="startingPosition">
+            A 32-bit integer that represents the index in the sourceArray at which copying begins.
+            </param>
+            <param name="length">A 32-bit integer that represents the number of elements to copy.</param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+            Parameter <paramref name="startingPosition"/> and <paramref name="length"/> are out of range
+            </exception>
+        </member>
+        <member name="M:Cauldron.Extensions.GetLines(System.String)">
+            <summary>
+            Splits a string into lines
+            </summary>
+            <param name="value">The string to be slitted</param>
+            <returns>The lines of the string</returns>
+        </member>
+        <member name="M:Cauldron.Extensions.GetTarget``1(System.WeakReference{``0})">
+            <summary>
+            Retrieves the target object referenced by the current <see cref="T:System.WeakReference`1"/> object
+            <para/>
+            Returns null if the target is not available
+            </summary>
+            <typeparam name="T">The type of the object referenced.</typeparam>
+            <param name="weakReference">The current <see cref="T:System.WeakReference`1"/> object</param>
+            <returns>Contains the target object, if it is available; otherwise null</returns>
+        </member>
+        <member name="M:Cauldron.Extensions.GetTypes(System.Object[])">
+            <summary>
+            Retrieves the types of the object array
+            </summary>
+            <param name="objs">The object array to get the type from</param>
+            <returns>An array of types that represents the object array</returns>
+        </member>
+        <member name="M:Cauldron.Extensions.Interleave``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            Interleve combine two collections.
+            </summary>
+            <typeparam name="T">The type of the collection item.</typeparam>
+            <param name="first">The first collection.</param>
+            <param name="second">The second collection.</param>
+            <returns>The combined collection.</returns>
+        </member>
+        <member name="M:Cauldron.Extensions.IsNotNull``1(``0,System.Action{``0})">
+            <summary>
+            Checks if the value is null. If not, it will invoke <paramref name="action"/>
+            </summary>
+            <typeparam name="T">The type of the value</typeparam>
+            <param name="value">The value to check</param>
+            <param name="action">The action to invoke if <paramref name="value"/> is not null</param>
+            <returns>The instance of the value</returns>
+        </member>
+        <member name="M:Cauldron.Extensions.IsNotNull``2(``0,System.Func{``0,``1})">
+            <summary>
+            Checks if the value is null. If not, it will invoke <paramref name="func"/>
+            </summary>
+            <typeparam name="T">The type of the value</typeparam>
+            <typeparam name="TResult">The return type</typeparam>
+            <param name="value">The value to check</param>
+            <param name="func">The func to invoke if <paramref name="value"/> is not null</param>
+            <returns>The result of <paramref name="value"/></returns>
+        </member>
+        <member name="M:Cauldron.Extensions.Join(System.Collections.Generic.IEnumerable{System.String},System.String)">
+            <summary>
+            Concatenates the members of a constructed <see cref="T:System.Collections.Generic.IEnumerable`1"/> collection of type
+            <see cref="T:System.String"/>, using the specified <paramref name="separator"/> between each member.
+            </summary>
+            <param name="source">A collection that contains the strings to concatenate.</param>
+            <param name="separator">
+            The string to use as a <paramref name="separator"/>. <paramref name="separator"/> is
+            included in the returned string only if values has more than one element.
+            </param>
+            <returns>
+            A string that consists of the members of values delimited by the <paramref
+            name="separator"/> string. If values has no members, the method returns <see cref="F:System.String.Empty"/>.
+            </returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="source"/> is null.</exception>
+        </member>
+        <member name="M:Cauldron.Extensions.Join(System.Object[],System.String)">
+            <summary>
+            Concatenates the elements of an object array, using the specified <paramref
+            name="separator"/> between each element.
+            </summary>
+            <param name="source">An array that contains the elements to concatenate.</param>
+            <param name="separator">
+            The string to use as a <paramref name="separator"/>. <paramref name="separator"/> is
+            included in the returned string only if values has more than one element.
+            </param>
+            <returns>
+            A string that consists of the elements of values delimited by the <paramref
+            name="separator"/> string. If values is an empty array, the method returns <see cref="F:System.String.Empty"/>.
+            </returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="source"/> is null.</exception>
+        </member>
+        <member name="M:Cauldron.Extensions.Join``1(System.Collections.Generic.IEnumerable{``0},System.String)">
+            <summary>
+            Concatenates the members of a collection, using the specified <paramref
+            name="separator"/> between each member.
+            </summary>
+            <param name="source">A collection that contains the objects to concatenate.</param>
+            <param name="separator">
+            The string to use as a <paramref name="separator"/>. <paramref name="separator"/> is
+            included in the returned string only if values has more than one element.
+            </param>
+            <returns>
+            A string that consists of the members of values delimited by the <paramref
+            name="separator"/> string. If values has no members, the method returns <see cref="F:System.String.Empty"/>.
+            </returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="source"/> is null.</exception>
+        </member>
+        <member name="M:Cauldron.Extensions.Join(System.String[],System.String)">
+            <summary>
+            Concatenates all the elements of a string array, using the specified <paramref
+            name="separator"/> between each element.
+            </summary>
+            <param name="source">An array that contains the elements to concatenate.</param>
+            <param name="separator">
+            The string to use as a <paramref name="separator"/>. <paramref name="separator"/> is
+            included in the returned string only if values has more than one element.
+            </param>
+            <returns>
+            A string that consists of the elements in value delimited by the <paramref
+            name="separator"/> string. If value is an empty array, the method returns <see cref="F:System.String.Empty"/>.
+            </returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="source"/> is null.</exception>
+        </member>
+        <member name="M:Cauldron.Extensions.Left(System.String,System.Int32)">
+            <summary>
+            Returns a string containing a specified number of characters from the left side of a string.
+            </summary>
+            <param name="source">
+            <see cref="T:System.String"/> expression from which the leftmost characters are returned.
+            </param>
+            <param name="length">
+            Numeric expression indicating how many characters to return. If 0, a zero-length string (
+            <see cref="F:System.String.Empty"/>) is returned. If greater than or equal to the number of
+            characters in str, the entire string is returned.
+            </param>
+            <returns>
+            Returns a string containing a specified number of characters from the left side of a string.
+            </returns>
+        </member>
+        <member name="M:Cauldron.Extensions.MaxBy``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})">
+            <summary>
+            Returns the item with the maximum value in a sequence of values.
+            </summary>
+            <typeparam name="TSource">The type of the elements of source.</typeparam>
+            <typeparam name="TKey">The type of the elements of selector.</typeparam>
+            <param name="source">A sequence of values to determine the minimum value of.</param>
+            <param name="selector">A delegate used to select the values</param>
+            <returns>The maximum value in the sequence</returns>
+        </member>
+        <member name="M:Cauldron.Extensions.MaxBy``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1},System.Collections.Generic.IComparer{``1})">
+            <summary>
+            Returns the item with the maximum value in a sequence of values.
+            </summary>
+            <typeparam name="TSource">The type of the elements of source.</typeparam>
+            <typeparam name="TKey">The type of the elements of selector.</typeparam>
+            <param name="source">A sequence of values to determine the maximum value of.</param>
+            <param name="selector">A delegate used to select the values</param>
+            <param name="comparer">
+            A comparer used to compare the value defined by <typeparamref name="TKey"/>
+            </param>
+            <returns>The maximum value in the sequence</returns>
+        </member>
+        <member name="M:Cauldron.Extensions.MinBy``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})">
+            <summary>
+            Returns the item with the minimum value in a sequence of values.
+            </summary>
+            <typeparam name="TSource">The type of the elements of source.</typeparam>
+            <typeparam name="TKey">The type of the elements of selector.</typeparam>
+            <param name="source">A sequence of values to determine the minimum value of.</param>
+            <param name="selector">A delegate used to select the values</param>
+            <returns>The minimum value in the sequence</returns>
+        </member>
+        <member name="M:Cauldron.Extensions.MinBy``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1},System.Collections.Generic.IComparer{``1})">
+            <summary>
+            Returns the item with the minimum value in a sequence of values.
+            </summary>
+            <typeparam name="TSource">The type of the elements of source.</typeparam>
+            <typeparam name="TKey">The type of the elements of selector.</typeparam>
+            <param name="source">A sequence of values to determine the minimum value of.</param>
+            <param name="selector">A delegate used to select the values</param>
+            <param name="comparer">
+            A comparer used to compare the value defined by <typeparamref name="TKey"/>
+            </param>
+            <returns>The minimum value in the sequence</returns>
+        </member>
+        <member name="M:Cauldron.Extensions.Move``1(System.Collections.ObjectModel.ObservableCollection{``0},``0,System.Int32)">
+            <summary>
+            Moves the specified item to a new location in the collection
+            </summary>
+            <typeparam name="T">The Type of item contained in the collection</typeparam>
+            <param name="source">The source collection that contains the item</param>
+            <param name="entry">The item to move</param>
+            <param name="relativeIndex">The new position of the item relativ to its current position.</param>
+        </member>
+        <member name="M:Cauldron.Extensions.OrderBy``1(System.Array,System.Func{``0,System.Boolean})">
+            <summary>
+            Sorts the elements of a sequence in ascending order according to a key.
+            </summary>
+            <param name="array">A sequence of values to order.</param>
+            <typeparam name="TElements">Der Typ der Elemente von source.</typeparam>
+            <param name="keySelector">A function to extract a key from an element.</param>
+            <returns>
+            An <see cref="T:System.Linq.IOrderedEnumerable`1"/> whose elements are sorted according to a key.
+            </returns>
+        </member>
+        <member name="M:Cauldron.Extensions.PadOrCut(System.String,System.UInt16)">
+            <summary>
+            Shortens or extends a string to a specific length. The default position is <see cref="F:Cauldron.Position.Right"/>.
+            </summary>
+            <param name="string">The string to shorten or extend.</param>
+            <param name="newlength">The new length of the string.</param>
+            <returns>
+            A new string that is equivalent to this instance, but aligned to the left and padded or cropped on the right
+            with as many spaces as needed to create a length of <paramref name="newlength"/>. However, if <paramref name="newlength"/>
+            is equal to the length of this instance, the method returns a reference to the existing instance. If totalWidth is
+            0, the method returns <see cref="F:System.String.Empty"/>.
+            </returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="string"/> is null.</exception>
+        </member>
+        <member name="M:Cauldron.Extensions.PadOrCut(System.String,System.UInt16,Cauldron.Position)">
+            <summary>
+            Shortens or extends a string to a specific length.
+            </summary>
+            <param name="string">The string to shorten or extend.</param>
+            <param name="newlength">The new length of the string.</param>
+            <param name="position">Indicates on which position to modify the string.</param>
+            <returns>
+            A new string that is equivalent to this instance, but aligned to the left, right or center, depending
+            on the <paramref name="position"/> and padded or cropped on the left, right or both with as many paddingChar
+            characters as needed to create a length of <paramref name="newlength"/>. However, if <paramref name="newlength"/>
+            is equal to the length of this instance, the method returns a reference to the existing instance. If totalWidth is
+            0, the method returns <see cref="F:System.String.Empty"/>.
+            </returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="string"/> is null.</exception>
+        </member>
+        <member name="M:Cauldron.Extensions.PadOrCut(System.String,System.UInt16,Cauldron.Position,System.Char)">
+            <summary>
+            Shortens or extends a string to a specific length.
+            </summary>
+            <param name="string">The string to shorten or extend.</param>
+            <param name="newlength">The new length of the string.</param>
+            <param name="position">Indicates on which position to modify the string.</param>
+            <param name="paddingChar">A Unicode padding character.</param>
+            <returns>
+            A new string that is equivalent to this instance, but aligned to the left, right or center, depending
+            on the <paramref name="position"/> and padded or cropped on the left, right or both with as many paddingChar
+            characters as needed to create a length of <paramref name="newlength"/>. However, if <paramref name="newlength"/>
+            is equal to the length of this instance, the method returns a reference to the existing instance. If totalWidth is
+            0, the method returns <see cref="F:System.String.Empty"/>.
+            </returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="string"/> is null.</exception>
+        </member>
+        <member name="M:Cauldron.Extensions.ParseQueryString(System.Uri)">
+            <summary>
+            Parses a query string into a NameValueCollection using UTF8 encoding.
+            </summary>
+            <param name="uri">The uri to parse.</param>
+            <returns>A dictionary of query parameters and values.</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="uri"/> is null</exception>
+        </member>
+        <member name="M:Cauldron.Extensions.ReadToEnd(System.IO.Stream,System.Text.Encoding)">
+            <summary>
+            Reads all characters from the current position to the end of the stream.
+            </summary>
+            <param name="stream">The stream to read</param>
+            <param name="encoding">The character encoding to use.</param>
+            <returns>
+            The rest of the stream as a string, from the current position to the end. If the current
+            position is at the end of the stream, returns an empty string ("").
+            </returns>
+            <exception cref="T:System.OutOfMemoryException">
+            There is insufficient memory to allocate a buffer for the returned string.
+            </exception>
+            <exception cref="T:System.IO.IOException">An I/O error occurs.</exception>
+        </member>
+        <member name="M:Cauldron.Extensions.ReadToEnd(System.IO.Stream)">
+            <summary>
+            Reads all characters from the current position to the end of the stream.
+            </summary>
+            <param name="stream">The stream to read</param>
+            <returns>
+            The rest of the stream as a string, from the current position to the end. If the current
+            position is at the end of the stream, returns an empty string ("").
+            </returns>
+            <exception cref="T:System.OutOfMemoryException">
+            There is insufficient memory to allocate a buffer for the returned string.
+            </exception>
+            <exception cref="T:System.IO.IOException">An I/O error occurs.</exception>
+        </member>
+        <member name="M:Cauldron.Extensions.RemoveNull``1(``0[])">
+            <summary>
+            Removes all null elements from the array.
+            </summary>
+            <typeparam name="T">The element type of the array</typeparam>
+            <param name="array">The array</param>
+            <returns>A new array with all non null elements</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="array"/> is null</exception>
+        </member>
+        <member name="M:Cauldron.Extensions.Right(System.String,System.Int32)">
+            <summary>
+            Returns a string containing a specified number of characters from the right side of a string.
+            </summary>
+            <param name="source">
+            <see cref="T:System.String"/> expression from which the rightmost characters are returned.
+            </param>
+            <param name="length">
+            Numeric expression indicating how many characters to return. If 0, a zero-length string (
+            <see cref="F:System.String.Empty"/>) is returned. If greater than or equal to the number of
+            characters in str, the entire string is returned.
+            </param>
+            <returns>
+            Returns a string containing a specified number of characters from the right side of a string.
+            </returns>
+        </member>
+        <member name="M:Cauldron.Extensions.SliceColumn``1(``0[0:,0:],System.Int32)">
+            <summary>
+            Returns the elements of the first dimension of a multidimensional array
+            </summary>
+            <typeparam name="T">The type that is contained in the array</typeparam>
+            <param name="array">The array to get the dimension from</param>
+            <param name="column">The second dimension of the array</param>
+            <returns>The second dimension of the array depending on the <paramref name="column"/></returns>
+        </member>
+        <member name="M:Cauldron.Extensions.SliceRow``1(``0[0:,0:],System.Int32)">
+            <summary>
+            Returns the elements of the second dimension of a multidimensional array
+            </summary>
+            <typeparam name="T">The type that is contained in the array</typeparam>
+            <param name="array">The array to get the dimension from</param>
+            <param name="row">The first dimension of the array</param>
+            <returns>The second dimension of the array depending on the <paramref name="row"/></returns>
+        </member>
+        <member name="M:Cauldron.Extensions.Swap``1(System.Collections.Generic.IList{``0},``0,``0)">
+            <summary>
+            Swaps two elements in a collection
+            </summary>
+            <typeparam name="T">The type that is contained in the collection</typeparam>
+            <param name="collection">The collection where the elements should be swaped</param>
+            <param name="a">The first element to swap</param>
+            <param name="b">The second element to swap with</param>
+            <returns>The collection</returns>
+        </member>
+        <member name="M:Cauldron.Extensions.TryDispose(System.Object)">
+            <summary>
+            Tries to performs application-defined tasks associated with freeing, releasing, or
+            resetting unmanaged resources.
+            <para/>
+            This will dispose an object if it implements the <see cref="T:System.IDisposable"/> interface.
+            </summary>
+            <param name="context">The object to dispose</param>
+        </member>
+        <member name="M:Cauldron.Extensions.TryEncode(System.Byte[])">
+            <summary>
+            Tries to encode a byte array to a string by detecting its encoding.
+            <para/>
+            It will try to detect the encoding for for UTF-7, UTF-8/16/32 (bom, no bom, little and
+            big endian), and local default codepage, and potentially other codepages.
+            </summary>
+            <param name="data">The byte array that contains the string to be encoded</param>
+            <returns>The encoded string</returns>
+            <example>
+            <code>
+            var text = Assemblies.GetManifestResource("embedded-text.txt").TryEncode();
+            </code>
+            </example>
+        </member>
+        <member name="M:Cauldron.Extensions.With``2(``0,System.Func{``0,``1})">
+            <summary>
+            Makes it possible to modify or to check an object using a delegate.
+            </summary>
+            <typeparam name="TType">The type of the instance.</typeparam>
+            <typeparam name="TNew">The new type to return. Can be the same as <typeparamref name="TType"/>.</typeparam>
+            <param name="target">The instance of interest.</param>
+            <param name="predicate">The delegate that is used to modify or check the object.</param>
+            <returns>Any return value from the <paramref name="predicate"/></returns>
+        </member>
+        <member name="M:Cauldron.Extensions.ToStringEx(System.Object,System.String)">
+            <summary>
+            Converts the value of this instance to its equivalent string representation, using the
+            specified format.
+            <para/>
+            The following custom formatter are already added: <see cref="T:Cauldron.Core.Formatters.ByteSizeFormatter"/>, <see cref="T:Cauldron.Core.Formatters.MetricUnitFormatter"/>
+            </summary>
+            <param name="obj">The object to convert to string</param>
+            <param name="format">A standard or custom format string</param>
+            <returns>
+            The string representation of the value of this instance as specified by format.
+            </returns>
+        </member>
+        <member name="M:Cauldron.Extensions.ToStringEx(System.Object,System.String,System.Globalization.CultureInfo)">
+            <summary>
+            Converts the value of this instance to its equivalent string representation, using the
+            specified format.
+            <para/>
+            The following custom formatter are already added: <see cref="T:Cauldron.Core.Formatters.ByteSizeFormatter"/>, <see cref="T:Cauldron.Core.Formatters.MetricUnitFormatter"/>
+            </summary>
+            <param name="obj">The object to convert to string</param>
+            <param name="format">A standard or custom format string</param>
+            <param name="cultureInfo">An object that supplies culture-specific formatting information</param>
+            <returns>
+            The string representation of the value of this instance as specified by format.
+            </returns>
+        </member>
+        <member name="T:Cauldron.Net.UrlProtocol">
+            <summary>
+            Provides methods for handling the registration of an Application to a URI Scheme and helper methods
+            for handling the uri protocol
+            </summary>
+        </member>
+        <member name="M:Cauldron.Net.UrlProtocol.Register(System.String)">
+            <summary>
+            Registers the application to a URI scheme.
+            </summary>
+            <param name="urlProtocol">The application uri e.g. exampleApplication://</param>
+            <exception cref="T:System.UnauthorizedAccessException">Process elevation required</exception>
+        </member>
+        <member name="M:Cauldron.Net.UrlProtocol.RegisterElevated(System.String)">
+            <summary>
+            Registers the application to a URI scheme using runas to elevate the process if required.
+            Not that this can still throw a <see cref="T:System.UnauthorizedAccessException"/> if the elevated process is also not authorized.
+            </summary>
+            <param name="urlProtocol">The application uri e.g. exampleApplication://</param>
+            <exception cref="T:System.UnauthorizedAccessException">Process elevation required</exception>
+        </member>
+        <member name="M:Cauldron.Net.UrlProtocol.RequiresRegistration(System.String)">
+            <summary>
+            Returns true if the uri requires registration; otherwise false.
+            </summary>
+            <param name="urlProtocol">The application uri e.g. exampleApplication://</param>
+            <returns>Returns true if the uri requires registration; otherwise false.</returns>
+        </member>
+        <member name="T:Cauldron.Net.ConnectionGenerationTypes">
+            <summary>
+            Representing a list of connection types
+            </summary>
+        </member>
+        <member name="F:Cauldron.Net.ConnectionGenerationTypes.NotConnected">
+            <summary>
+            Not Connected
+            </summary>
+        </member>
+        <member name="F:Cauldron.Net.ConnectionGenerationTypes.Unknown">
+            <summary>
+            Unknown connection
+            </summary>
+        </member>
+        <member name="F:Cauldron.Net.ConnectionGenerationTypes._2G">
+            <summary>
+            2G
+            </summary>
+        </member>
+        <member name="F:Cauldron.Net.ConnectionGenerationTypes._3G">
+            <summary>
+            3G
+            </summary>
+        </member>
+        <member name="F:Cauldron.Net.ConnectionGenerationTypes._4G">
+            <summary>
+            LTE 4G
+            </summary>
+        </member>
+        <member name="F:Cauldron.Net.ConnectionGenerationTypes.WLAN">
+            <summary>
+            WLAN
+            </summary>
+        </member>
+        <member name="F:Cauldron.Net.ConnectionGenerationTypes.LAN">
+            <summary>
+            LAN
+            </summary>
+        </member>
+        <member name="T:Cauldron.Net.Network">
+            <summary>
+            Provides properties and methods useful for gathering information about the network
+            </summary>
+        </member>
+        <member name="P:Cauldron.Net.Network.ConnectionType">
+            <summary>
+            Detect the current connection type
+            </summary>
+            <returns>
+            2 for 2G, 3 for 3G, 4 for 4G
+            100 for WiFi
+            0 for unknown or not connected</returns>
+        </member>
+        <member name="P:Cauldron.Net.Network.HasInternetConnection">
+            <summary>
+            Gets a value that indicates if internet connection is available
+            </summary>
+        </member>
+        <member name="P:Cauldron.Net.Network.IsNetworkAvailable">
+            <summary>
+            Get a value that indicates whether any network connection is available.
+            <para/>
+            Returns true if a network connection is available, othwise false
+            </summary>
+        </member>
+        <member name="M:Cauldron.Net.Network.Ping(System.String,System.UInt32)">
+            <summary>
+            Allows an application to determine whether a remote computer is accessible over the network.
+            </summary>
+            <param name="hostname">The hostname of the remote computer</param>
+            <param name="port">The port to ping</param>
+            <returns>An object that represents the ping results</returns>
+        </member>
+        <member name="T:Cauldron.Net.PingResults">
+            <summary>
+            Represents ping result information
+            </summary>
+        </member>
+        <member name="F:Cauldron.Net.PingResults.localIpAddress">
+            <summary>
+            The local ip address
+            </summary>
+        </member>
+        <member name="F:Cauldron.Net.PingResults.localPort">
+            <summary>
+            The local port
+            </summary>
+        </member>
+        <member name="F:Cauldron.Net.PingResults.remoteIpAddress">
+            <summary>
+            The remote ip address
+            </summary>
+        </member>
+        <member name="F:Cauldron.Net.PingResults.remotePort">
+            <summary>
+            The remote port
+            </summary>
+        </member>
+        <member name="F:Cauldron.Net.PingResults.roundTripTimeMax">
+            <summary>
+            The max round trip time
+            </summary>
+        </member>
+        <member name="F:Cauldron.Net.PingResults.roundTripTimeMin">
+            <summary>
+            The min round trip time
+            </summary>
+        </member>
+        <member name="T:Cauldron.Net.Web">
+            <summary>
+            Provides functions for web operations
+            </summary>
+        </member>
+        <member name="M:Cauldron.Net.Web.DownloadFileAsync(System.Uri,System.IO.FileInfo)">
+            <summary>
+            Starts an asyncronous download operation
+            </summary>
+            <param name="uri">The uri of the file</param>
+            <param name="resultFile">The file that the response will be written to.</param>
+            <exception cref="T:Cauldron.Net.WebException">Response status code does not indicate success</exception>
+        </member>
+        <member name="T:Cauldron.Net.WebAuthenticationBrokerCallbackEventArgs">
+            <summary>
+            Contains data for the the <see cref="F:Cauldron.Net.WebAuthenticationBrokerWrapper.OnCallBack"/>
+            </summary>
+        </member>
+        <member name="P:Cauldron.Net.WebAuthenticationBrokerCallbackEventArgs.Handled">
+            <summary>
+            Gets or sets a value that marks the event as handled. A true value for Handled prevents most handlers along the event route from handling the same event again.
+            </summary>
+        </member>
+        <member name="P:Cauldron.Net.WebAuthenticationBrokerCallbackEventArgs.ResponseData">
+            <summary>
+            Contains the protocol data when the operation successfully completes.
+            </summary>
+        </member>
+        <member name="T:Cauldron.Net.WebAuthenticationBrokerWrapper">
+            <summary>
+            Provides a wrapper for the UWP WebAuthenticationBroker and the Desktop Authentication handling
+            </summary>
+            <summary>
+            Provides a wrapper for the UWP WebAuthenticationBroker and the Desktop Authentication handling
+            </summary>
+        </member>
+        <member name="M:Cauldron.Net.WebAuthenticationBrokerWrapper.AuthenticateAsync(System.Uri,System.Uri)">
+            <summary>
+            Starts the asynchronous authentication operation.
+            On Desktop the method has a timeout of 1 minute
+            </summary>
+            <param name="uri">The starting URI of the web service. This URI must be a secure address of https://.</param>
+            <param name="callbackUri">The callback uri of the authentification. This will be used to verify the result value.</param>
+            <returns>Contains the protocol data when the operation successfully completes.</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="uri"/> is null</exception>
+            <exception cref="T:System.ArgumentException"><paramref name="uri"/> is not a secure address</exception>
+        </member>
+        <member name="F:Cauldron.Net.WebAuthenticationBrokerWrapper.OnCallBack">
+            <summary>
+            Occures if the callback was invoked
+            </summary>
+        </member>
+        <member name="M:Cauldron.Net.WebAuthenticationBrokerWrapper.CallBack(System.String)">
+            <summary>
+            Invokes the <see cref="F:Cauldron.Net.WebAuthenticationBrokerWrapper.OnCallBack"/> event
+            </summary>
+            <param name="responseData">Contains the protocol data when the operation successfully completes.</param>
+            <returns>True if the event was handled, otherwise false</returns>
+        </member>
+        <member name="T:Cauldron.Net.WebException">
+            <summary>
+            Represents a exception that occures during Web operations
+            </summary>
+        </member>
+        <member name="P:Cauldron.Net.WebException.StatusCode">
+            <summary>
+            Gets the status code of the http request
+            </summary>
+        </member>
+        <member name="T:Cauldron.Comparer">
+            <summary>
+            Provides methods for comparing objects
+            </summary>
+        </member>
+        <member name="M:Cauldron.Comparer.Equals``2(``0,``0,System.Func{``0,``1})">
+            <summary>
+            Determines whether <paramref name="a"/> is equal to <paramref name="b"/>
+            </summary>
+            <typeparam name="T">The type of the objects to be compared</typeparam>
+            <typeparam name="TValue">The values of the object used to compare them (e.g. Hash)</typeparam>
+            <param name="a">The first object to compare</param>
+            <param name="b">The second object to compare</param>
+            <param name="selector">The value selector which will be used for the compare</param>
+            <returns>
+            true if <paramref name="a"/> is equal to <paramref name="b"/>; otherwise, false.
+            </returns>
+        </member>
+        <member name="M:Cauldron.Comparer.Equals(System.Object,System.Object)">
+            <summary>
+            Determines whether <paramref name="a"/> is equal to <paramref name="b"/>
+            <para/>
+            Checks reference equality first with <see cref="M:System.Object.ReferenceEquals(System.Object,System.Object)"/>. Then it checks all known types with the == operator, then with reflection on
+            'op_Equality' and as last resort uses <see cref="M:System.Object.Equals(System.Object,System.Object)"/> to
+            determine equality
+            </summary>
+            <param name="a">The first object to compare</param>
+            <param name="b">The second object to compare</param>
+            <returns>
+            true if <paramref name="a"/> is equal to <paramref name="b"/>; otherwise, false.
+            </returns>
+        </member>
+        <member name="M:Cauldron.Comparer.GreaterThan(System.Object,System.Object)">
+            <summary>
+            Determines whether <paramref name="a"/> is greater than <paramref name="b"/>
+            <para/>
+            Checks reference equality first with <see cref="M:System.Object.ReferenceEquals(System.Object,System.Object)"/>. Then it checks all known types with the &gt; operator, then with reflection
+            on 'op_GreaterThan'
+            </summary>
+            <param name="a">The first object to compare</param>
+            <param name="b">The second object to compare</param>
+            <returns>
+            true if <paramref name="a"/> is greater than <paramref name="b"/>; otherwise, false.
+            </returns>
+            <exception cref="T:System.ArgumentException">Greater than operator cannot be applied</exception>
+        </member>
+        <member name="M:Cauldron.Comparer.GreaterThanOrEqual(System.Object,System.Object)">
+            <summary>
+            Determines whether <paramref name="a"/> is greater than or equal to <paramref name="b"/>
+            <para/>
+            Checks reference equality first with <see cref="M:System.Object.ReferenceEquals(System.Object,System.Object)"/>. Then it checks all known types with the &gt;= operator, then with reflection
+            on 'op_GreaterThanOrEqual'
+            </summary>
+            <param name="a">The first object to compare</param>
+            <param name="b">The second object to compare</param>
+            <returns>
+            true if <paramref name="a"/> is greater than or equal to <paramref name="b"/>; otherwise, false.
+            </returns>
+            <exception cref="T:System.ArgumentException">Operator cannot be applied</exception>
+        </member>
+        <member name="M:Cauldron.Comparer.LessThan(System.Object,System.Object)">
+            <summary>
+            Determines whether <paramref name="a"/> is less than <paramref name="b"/>
+            <para/>
+            Checks reference equality first with <see cref="M:System.Object.ReferenceEquals(System.Object,System.Object)"/>. Then it checks all known types with the &lt; operator, then with reflection
+            on 'op_LessThan'
+            </summary>
+            <param name="a">The first object to compare</param>
+            <param name="b">The second object to compare</param>
+            <returns>
+            true if <paramref name="a"/> is less than <paramref name="b"/>; otherwise, false.
+            </returns>
+            <exception cref="T:System.ArgumentException">Lesser than operator cannot be applied</exception>
+        </member>
+        <member name="M:Cauldron.Comparer.LessThanOrEqual(System.Object,System.Object)">
+            <summary>
+            Determines whether <paramref name="a"/> is less than or equal to <paramref name="b"/>
+            <para/>
+            Checks reference equality first with <see cref="M:System.Object.ReferenceEquals(System.Object,System.Object)"/>. Then it checks all known types with the &lt;= operator, then with reflection
+            on 'op_LessThanOrEqual'
+            </summary>
+            <param name="a">The first object to compare</param>
+            <param name="b">The second object to compare</param>
+            <returns>
+            true if <paramref name="a"/> is less than or equal to <paramref name="b"/>; otherwise, false.
+            </returns>
+            <exception cref="T:System.ArgumentException">Operator cannot be applied</exception>
+        </member>
+        <member name="M:Cauldron.Comparer.UnEquals``2(``0,``0,System.Func{``0,``1})">
+            <summary>
+            Determines whether <paramref name="a"/> is unequal to <paramref name="b"/>
+            </summary>
+            <typeparam name="T">The type of the objects to be compared</typeparam>
+            <typeparam name="TValue">The values of the object used to compare them (e.g. Hash)</typeparam>
+            <param name="a">The first object to compare</param>
+            <param name="b">The second object to compare</param>
+            <param name="selector">The value selector which will be used for the compare</param>
+            <returns>
+            true if <paramref name="a"/> is unequal to <paramref name="b"/>; otherwise, false.
+            </returns>
+        </member>
+        <member name="M:Cauldron.Comparer.UnEquals(System.Object,System.Object)">
+            <summary>
+            Determines whether <paramref name="a"/> is unequal to <paramref name="b"/>
+            <para/>
+            Checks reference equality first with <see cref="M:System.Object.ReferenceEquals(System.Object,System.Object)"/>. Then it checks all known types with the != operator, then with reflection on
+            'op_Inequality' and as last resort uses <see cref="M:System.Object.Equals(System.Object,System.Object)"/> to
+            determine unequality
+            </summary>
+            <param name="a">The first object to compare</param>
+            <param name="b">The second object to compare</param>
+            <returns>
+            true if <paramref name="a"/> is unequal to <paramref name="b"/>; otherwise, false.
+            </returns>
+        </member>
+        <member name="T:Cauldron.DynamicEqualityComparer`1">
+            <summary>
+            Defines methods to support the comparison of objects for equality
+            </summary>
+            <typeparam name="T">The type of objects to compare</typeparam>
+        </member>
+        <member name="M:Cauldron.DynamicEqualityComparer`1.#ctor(System.Func{`0,`0,System.Boolean})">
+            <summary>
+            Initializes a new instance of <see cref="T:Cauldron.DynamicEqualityComparer`1"/>
+            </summary>
+            <param name="predicate">
+            An expression used to determines whether the specified object are equal
+            </param>
+        </member>
+        <member name="M:Cauldron.DynamicEqualityComparer`1.#ctor(System.Func{`0,`0,System.Boolean},System.Func{`0,System.Int32})">
+            <summary>
+            Initializes a new instance of <see cref="T:Cauldron.DynamicEqualityComparer`1"/>
+            </summary>
+            <param name="predicate">
+            An expression used to determines whether the specified object are equal
+            </param>
+            <param name="hashCode">An expression used to determin hash code for the specified object</param>
+        </member>
+        <member name="M:Cauldron.DynamicEqualityComparer`1.Equals(`0,`0)">
+            <summary>
+            Determines whether the specified object are equal
+            </summary>
+            <param name="x">The first object of type <typeparamref name="T"/> to compare</param>
+            <param name="y">The second object of type <typeparamref name="T"/> to compare</param>
+            <returns>True if the specified objects are equal; otherwise, false</returns>
+        </member>
+        <member name="M:Cauldron.DynamicEqualityComparer`1.GetHashCode(`0)">
+            <summary>
+            Returns a hash code for the specified object
+            </summary>
+            <param name="obj">The <see cref="T:System.Object"/> for which a hash code is to be returned.</param>
+            <returns>A hash code for the specified object</returns>
+        </member>
+        <member name="T:Cauldron.Encodings">
+            <summary>
+            Provides predefined encodings
+            </summary>
+        </member>
+        <member name="F:Cauldron.Encodings.ASCII">
+            <summary>
+             Encoding for the ASCII (7-bit) character set.
+            </summary>
+        </member>
+        <member name="F:Cauldron.Encodings.BigEndianUnicode">
+            <summary>
+            Encoding for the UTF-16 format that uses the big endian byte order.
+            </summary>
+        </member>
+        <member name="F:Cauldron.Encodings.Unicode">
+            <summary>
+            Encoding for the UTF-16 format using the little endian byte order.
+            </summary>
+        </member>
+        <member name="F:Cauldron.Encodings.UTF32">
+            <summary>
+            Encoding for the UTF-32 format using the little endian byte order.
+            </summary>
+        </member>
+        <member name="F:Cauldron.Encodings.ANSI">
+            <summary>
+            Encoding for the ISO-8859-1 format. Used by default in the legacy components of Microsoft Windows.
+            </summary>
+        </member>
+        <member name="F:Cauldron.Encodings.UTF7">
+            <summary>
+            Encoding for the UTF-7 format.
+            </summary>
+        </member>
+        <member name="F:Cauldron.Encodings.UTF8">
+            <summary>
+            Encoding for the UTF-8 format.
+            </summary>
+        </member>
+        <member name="F:Cauldron.Encodings.EBCDIC_IBM037">
+            <summary>
+            Encoding for the IBM EBCDIC format (US-Canada).
+            </summary>
+        </member>
+        <member name="F:Cauldron.Encodings.EBCDIC_IBM01047">
+            <summary>
+            Encoding for the IBM EBCDIC format (IBM Latin-1).
+            </summary>
+        </member>
+        <member name="F:Cauldron.Encodings.EBCDIC_IBM01140">
+            <summary>
+            Encoding for the IBM EBCDIC format (US-Canada-Euro).
+            </summary>
+        </member>
+        <member name="F:Cauldron.Encodings.EBCDIC_IBM01141">
+            <summary>
+            Encoding for the IBM EBCDIC format (Germany-Euro).
+            </summary>
+        </member>
+        <member name="T:Cauldron.ExtensionsConvertions">
+            <summary>
+            Provides usefull extension methods
+            </summary>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.As``1(System.Object)">
+             <summary>
+             Performs a cast between compatible reference types. If a convertion is not possible then
+             null is returned. As a last resort it will use <see
+             cref="M:System.Convert.ChangeType(System.Object,System.Type)"/>.
+             <para/>
+             Tries to use the implicit and explicit operators if exists when convertion with 'as'
+             returns null.
+             </summary>
+             <typeparam name="T">The <see cref="T:System.Type"/> to convert to</typeparam>
+             <param name="source">The object to convert</param>
+             <returns>The object casted to <typeparamref name="T"/></returns>
+             <example>
+             In the following code example, the 'As' extension is used to convert a returned object
+             via the implicit operator.
+             <code>
+             public interface IFoo
+             {
+                 string Name {get;}
+                 string Description {get;}
+             }
+            
+             public class Foo : IFoo
+             {
+                 public string Name {get; set;}
+                 public string Description {get; set;}
+             }
+            
+             public class Bar : BarBase
+             {
+                 private IFoo internalFoo;
+            
+                 private Bar(IFoo foo)
+                 {
+                     this.internalFoo = foo;
+                 }
+            
+                 public void DoSomeStuff()
+                 {
+                 }
+            
+                 public void DoSomeOtherStuff()
+                 {
+                 }
+            
+                 public static implicit operator Bar(Foo value) =&gt; new Boo(value);
+                 public static implicit operator Foo(Bar value) =&gt; value.internalFoo;
+             }
+            
+             public class SomeOtherClass
+             {
+                 public IFoo GetFooFromSomewhere(string fooId) =&gt; new Foo { Name = "A Foo", Description = "This is the foo you are looking for." };
+             }
+             </code>
+             The code can be called like following:
+             <code>
+             var bar = someOtherClassInstance.GetFooFromSomewhere("fooThatINeed").As&lt;Bar&gt;();
+             </code>
+             </example>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.As(System.Object,System.Type,System.Type)">
+             <summary>
+             Converts a type using the implicit or explicit operators. If both fails it will try to
+             convert the value with <see cref="M:System.Convert.ChangeType(System.Object,System.Type)"/>.
+             </summary>
+             <param name="source">The object to convert</param>
+             <param name="sourceType">The type of the object to convert</param>
+             <param name="targetType">The type to convert to</param>
+             <returns>A new instance of <paramref name="targetType"/>.</returns>
+             <example>
+             <code>
+             public class Bla
+             {
+                 public string Value { get; set; }
+            
+                 public static implicit operator Bla(string value) =&gt; new Bla { Value = value };
+            
+                 public static implicit operator Bla(int value) =&gt; new Bla { Value = value.ToString() };
+             }
+             </code>
+             The code can be called like following:
+             <code>
+             var bar = "Test Test".As(typeof(string), typeof(Bla));
+             </code>
+             </example>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.As(System.Object,System.Type)">
+             <summary>
+             Converts a type using the implicit or explicit operators. If both fails it will try to
+             convert the value with <see cref="M:System.Convert.ChangeType(System.Object,System.Type)"/>.
+             </summary>
+             <param name="source">The object to convert</param>
+             <param name="targetType">The type to convert to</param>
+             <returns>A new instance of <paramref name="targetType"/>.</returns>
+             <example>
+             <code>
+             public class Bla
+             {
+                 public string Value { get; set; }
+            
+                 public static implicit operator Bla(string value) =&gt; new Bla { Value = value };
+            
+                 public static implicit operator Bla(int value) =&gt; new Bla { Value = value.ToString() };
+             }
+             </code>
+             The code can be called like following:
+             <code>
+             var bar = "Test Test".As(typeof(Bla));
+             </code>
+             </example>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.AsReadOnly``2(System.Collections.Generic.IDictionary{``0,``1})">
+            <summary>
+            Converts a <see cref="T:System.Collections.Generic.IDictionary`2"/> to a <see
+            cref="T:System.Collections.ObjectModel.ReadOnlyDictionary`2"/>.
+            </summary>
+            <typeparam name="TKey">The type of keys in the dictionary.</typeparam>
+            <typeparam name="TValue">The type of values in the dictionary.</typeparam>
+            <param name="dictionary">The dictionary to wrap.</param>
+            <returns>A new instance of <see cref="T:System.Collections.ObjectModel.ReadOnlyDictionary`2"/></returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="dictionary"/> is null</exception>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.Convert``1(System.String)">
+            <summary>
+            Converts a string to the type defined by <typeparamref name="T"/>
+            </summary>
+            <typeparam name="T">The type to convert the string to</typeparam>
+            <param name="value">The string value to convert</param>
+            <returns>The converted value</returns>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.Convert``1(System.String,System.Globalization.NumberFormatInfo)">
+            <summary>
+            Converts a string to the type defined by <typeparamref name="T"/>
+            </summary>
+            <typeparam name="T">The type to convert the string to</typeparam>
+            <param name="value">The string value to convert</param>
+            <param name="numberformat">
+            An object that supplies culture-specific formatting information about <paramref name="value"/>.
+            </param>
+            <returns>The converted value</returns>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.Convert(System.String,System.Type)">
+            <summary>
+            Converts a string to the type defined by <paramref name="targetType"/>
+            </summary>
+            <param name="value">The string value to convert</param>
+            <param name="targetType">The type to convert the string to</param>
+            <returns>The converted value</returns>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.Convert(System.String,System.Type,System.Globalization.NumberFormatInfo)">
+            <summary>
+            Converts a string to the type defined by <paramref name="targetType"/>
+            </summary>
+            <param name="value">The string value to convert</param>
+            <param name="targetType">The type to convert the string to</param>
+            <param name="numberformat">
+            An object that supplies culture-specific formatting information about <paramref name="value"/>.
+            </param>
+            <returns>The converted value</returns>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.Convert(System.String,Cauldron.Encodings,Cauldron.Encodings)">
+            <summary>
+            Converts a string from a encoding to another encoding
+            </summary>
+            <param name="source">The string to convert</param>
+            <param name="from">The source strings encoding</param>
+            <param name="to">The target encoding</param>
+            <returns>The converted string</returns>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.Convert(System.Byte[],Cauldron.Encodings,Cauldron.Encodings)">
+            <summary>
+            Converts a string represented by a byte array from a encoding to another encoding
+            </summary>
+            <param name="source">The string to convert</param>
+            <param name="from">The source strings encoding</param>
+            <param name="to">The target encoding</param>
+            <returns>The converted string</returns>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ConvertEscapeSequences(System.String)">
+            <summary>
+            Converts the readable escaped chars in a string to its equivalent char. This includes
+            simple-escape-sequences such as \' \" \\ \0 \a \b \f \n \r \t \v
+            </summary>
+            <param name="source">The source string to convert</param>
+            <returns>The converted string</returns>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ConvertToBytes(System.String,Cauldron.Encodings,Cauldron.Encodings)">
+            <summary>
+            Converts a string from a encoding to another encoding
+            </summary>
+            <param name="source">The string to convert</param>
+            <param name="from">The source strings encoding</param>
+            <param name="to">The target encoding</param>
+            <returns>The converted string</returns>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ToArray(System.Collections.IEnumerable,System.Type)">
+            <summary>
+            Converts a <see cref="T:System.Collections.IEnumerable"/> to an array
+            </summary>
+            <param name="source">The <see cref="T:System.Collections.IEnumerable"/> to convert</param>
+            <param name="elementType">The element type contained in the <see cref="T:System.Collections.IEnumerable"/></param>
+            <returns>An array of <paramref name="elementType"/></returns>
+            <exception cref="T:System.ArgumentNullException">source is null</exception>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ToBase64String(System.String)">
+            <summary>
+            Converts a string to its equivalent string representation that is encoded with base-64 digits.
+            </summary>
+            <param name="source">The string to convert</param>
+            <returns>The string representation, in base 64</returns>
+            <exception cref="T:System.ArgumentNullException">source string is null</exception>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ToBool(System.String)">
+            <summary>
+            Converts a string to bool.
+            <para/>
+            This will first try to compare the string to "true" and then to "false". If both fails
+            then it will use <see cref="M:System.Boolean.TryParse(System.String,System.Boolean@)"/> to parse the string to
+            bool. If that also fails then the string will be compared to "1".
+            </summary>
+            <param name="target">The value to convert</param>
+            <returns>Returns true if the string is equivalent to true; otherwise false.</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="target"/> is null</exception>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ToByte(System.String)">
+            <summary>
+            Converts the value to a byte If convertion fails the value will always be 0
+            </summary>
+            <param name="target">The value to convert</param>
+            <returns>The byte value of the string</returns>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ToBytes(System.UInt32)">
+            <summary>
+            Converts the value to a byte array
+            </summary>
+            <param name="target">The value to convert</param>
+            <returns>The <paramref name="target"/> as an array of bytes</returns>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ToBytes(System.Int32)">
+            <summary>
+            Converts the value to a byte array
+            </summary>
+            <param name="target">The value to convert</param>
+            <returns>The <paramref name="target"/> as an array of bytes</returns>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ToBytes(System.Int64)">
+            <summary>
+            Converts the value to a byte array
+            </summary>
+            <param name="target">The value to convert</param>
+            <returns>The <paramref name="target"/> as an array of bytes</returns>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ToBytes(System.Double)">
+            <summary>
+            Converts the value to a byte array
+            </summary>
+            <param name="target">The value to convert</param>
+            <returns>The <paramref name="target"/> as an array of bytes</returns>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ToBytes(System.Single)">
+            <summary>
+            Converts the value to a byte array
+            </summary>
+            <param name="target">The value to convert</param>
+            <returns>The <paramref name="target"/> as an array of bytes</returns>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ToBytesAsync(System.IO.Stream)">
+            <summary>
+            Converts a <see cref="T:System.IO.Stream"/> to <see cref="T:System.Byte"/> array. If the stream is not
+            seekable, then this will use <see cref="M:System.IO.StreamReader.ReadToEndAsync"/> to get the stream.
+            </summary>
+            <param name="stream">The <see cref="T:System.IO.Stream"/> to convert</param>
+            <returns>An array of bytes</returns>
+            <exception cref="T:System.ArgumentNullException">
+            Parameter <paramref name="stream"/> is null
+            </exception>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ToChar(System.String)">
+            <summary>
+            Converts the value to a char If convertion fails the value will always be '\0'
+            </summary>
+            <param name="target">The value to convert</param>
+            <returns>The char value of the string</returns>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ToDecimal(System.String)">
+            <summary>
+            Tries to convert a <see cref="T:System.String"/> to an <see cref="T:System.Decimal"/>
+            </summary>
+            <param name="target">The string to convert</param>
+            <returns>Returns a decimal that represents the converted string</returns>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ToDecimal(System.String,System.Globalization.NumberFormatInfo)">
+            <summary>
+            Tries to convert a <see cref="T:System.String"/> to an <see cref="T:System.Decimal"/>
+            </summary>
+            <param name="target">The string to convert</param>
+            <returns>Returns a decimal that represents the converted string</returns>
+            <param name="numberformat">
+            An object that supplies culture-specific formatting information about <paramref name="target"/>.
+            </param>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ToDecimalUS(System.String)">
+            <summary>
+            Tries to convert a <see cref="T:System.String"/> to an <see cref="T:System.Decimal"/> using the en-US
+            number format
+            </summary>
+            <param name="target">The string to convert</param>
+            <returns>Returns a decimal that represents the converted string</returns>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ToDouble(System.String)">
+            <summary>
+            Converts the string representation of a number in a specified culture-specific format to
+            its double-precision floating-point number equivalent. if the string content is "nan"
+            then a <see cref="F:System.Double.NaN"/> is returned.
+            </summary>
+            <param name="target">A string that contains a number to convert.</param>
+            <returns>
+            A double-precision floating-point number that is equivalent to the numeric value or
+            symbol specified in <paramref name="target"/>.
+            </returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="target"/> is null</exception>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ToDouble(System.Byte[])">
+            <summary>
+            Returns a double-precision floating point number converted from eight bytes at a
+            specified position in a byte array.
+            </summary>
+            <param name="target">The byte array to convert to its double representation</param>
+            <returns>The double-precision floating point number value of the byte array</returns>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ToDouble(System.String,System.Globalization.NumberFormatInfo)">
+            <summary>
+            Converts the string representation of a number in a specified culture-specific format to
+            its double-precision floating-point number equivalent. if the string content is "nan"
+            then a <see cref="F:System.Double.NaN"/> is returned.
+            </summary>
+            <param name="target">A string that contains a number to convert.</param>
+            <param name="numberformat">
+            An object that supplies culture-specific formatting information about <paramref name="target"/>.
+            </param>
+            <returns>
+            A double-precision floating-point number that is equivalent to the numeric value or
+            symbol specified in <paramref name="target"/>.
+            </returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="target"/> is null</exception>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ToDoubleUS(System.String)">
+            <summary>
+            Converts the string representation of a number in the en-US format to its
+            double-precision floating-point number equivalent. if the string content is "nan" then a
+            <see cref="F:System.Double.NaN"/> is returned.
+            </summary>
+            <param name="target">A string that contains a number to convert.</param>
+            <returns>
+            A double-precision floating-point number that is equivalent to the numeric value or
+            symbol specified in <paramref name="target"/>.
+            </returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="target"/> is null</exception>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ToFloat(System.String)">
+            <summary>
+            Converts the string representation of a number in a specified style and culture-specific
+            format to its single-precision floating-point number equivalent. if the string content is
+            "nan" then a <see cref="F:System.Double.NaN"/> is returned.
+            </summary>
+            <param name="target">A string that contains a number to convert.</param>
+            <returns>
+            A single-precision floating-point number equivalent to the numeric value or symbol
+            specified in <paramref name="target"/>.
+            </returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="target"/> is null</exception>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ToFloat(System.Byte[])">
+            <summary>
+            Returns a single-precision floating point number converted from four bytes at a specified
+            position in a byte array.
+            </summary>
+            <param name="target">The byte array to convert</param>
+            <returns>The single-precision floating point number representaion of the byte array</returns>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ToFloat(System.String,System.Globalization.NumberFormatInfo)">
+            <summary>
+            Converts the string representation of a number in a specified style and culture-specific
+            format to its single-precision floating-point number equivalent. if the string content is
+            "nan" then a <see cref="F:System.Double.NaN"/> is returned.
+            </summary>
+            <param name="target">A string that contains a number to convert.</param>
+            <param name="numberformat">
+            An object that supplies culture-specific formatting information about <paramref name="target"/>.
+            </param>
+            <returns>
+            A single-precision floating-point number equivalent to the numeric value or symbol
+            specified in <paramref name="target"/>.
+            </returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="target"/> is null</exception>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ToFloatUS(System.String)">
+            <summary>
+            Converts the string representation of a number in a the en-US format format to its
+            single-precision floating-point number equivalent. if the string content is "nan" then a
+            <see cref="F:System.Double.NaN"/> is returned.
+            </summary>
+            <param name="target">A string that contains a number to convert.</param>
+            <returns>
+            A single-precision floating-point number equivalent to the numeric value or symbol
+            specified in <paramref name="target"/>.
+            </returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="target"/> is null</exception>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ToInteger(System.Byte[])">
+            <summary>
+            Returns a 32-bit signed integer converted from four bytes at a specified position in a
+            byte array.
+            </summary>
+            <param name="target">An array of bytes.</param>
+            <returns>A 32-bit signed integer formed by four bytes</returns>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ToInteger(System.String)">
+            <summary>
+            Tries to convert a <see cref="T:System.String"/> to an <see cref="T:System.Int32"/>
+            </summary>
+            <param name="target">The string to convert</param>
+            <returns>Returns an int that represents the converted string</returns>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ToInteger(System.String,System.Globalization.NumberFormatInfo)">
+            <summary>
+            Tries to convert a <see cref="T:System.String"/> to an <see cref="T:System.Int32"/>
+            </summary>
+            <param name="target">The string to convert</param>
+            <returns>Returns an int that represents the converted string</returns>
+            <param name="numberformat">
+            An object that supplies culture-specific formatting information about <paramref name="target"/>.
+            </param>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ToIntegerUS(System.String)">
+            <summary>
+            Tries to convert a <see cref="T:System.String"/> to an <see cref="T:System.Int32"/> using the en-US number format
+            </summary>
+            <param name="target">The string to convert</param>
+            <returns>Returns an int that represents the converted string</returns>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ToLong(System.Byte[])">
+            <summary>
+            Returns a long converted from eight bytes.
+            </summary>
+            <param name="target">An array of bytes.</param>
+            <returns>A long formed by eight bytes</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="target"/> is null</exception>
+            <exception cref="T:System.ArgumentException"><paramref name="target"/> has less than 8 bytes</exception>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ToLong(System.Object)">
+            <summary>
+            Tries to convert a <see cref="T:System.Object"/> to an <see cref="T:System.Int64"/>
+            </summary>
+            <param name="target">The object to convert</param>
+            <returns>Returns a long that represents the converted object</returns>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ToLong(System.String)">
+            <summary>
+            Tries to convert a <see cref="T:System.String"/> to an <see cref="T:System.Int64"/>
+            </summary>
+            <param name="target">The string to convert</param>
+            <returns>Returns a long that represents the converted string</returns>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ToLong(System.String,System.Globalization.NumberFormatInfo)">
+            <summary>
+            Tries to convert a <see cref="T:System.String"/> to an <see cref="T:System.Int64"/>
+            </summary>
+            <param name="target">The string to convert</param>
+            <returns>Returns a long that represents the converted string</returns>
+            <param name="numberformat">
+            An object that supplies culture-specific formatting information about <paramref name="target"/>.
+            </param>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ToLongUS(System.String)">
+            <summary>
+            Tries to convert a <see cref="T:System.String"/> to an <see cref="T:System.Int64"/> using the en-US number format
+            </summary>
+            <param name="target">The string to convert</param>
+            <returns>Returns a long that represents the converted string</returns>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ToOrdinalDate(System.DateTime)">
+            <summary>
+            Converts a <see cref="T:System.DateTime"/> to ordinal date.
+            An ordinal date is a calendar date typically consisting of a year and a day of year ranging between 1 and 366 (starting on January 1).
+            </summary>
+            <param name="date">The date to convert</param>
+            <returns>A ordinal formatted string representation of the date</returns>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ToShort(System.String)">
+            <summary>
+            Tries to convert a <see cref="T:System.String"/> to an <see cref="T:System.Int16"/>
+            </summary>
+            <param name="target">The string to convert</param>
+            <returns>Returns a short that represents the converted string</returns>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ToShort(System.String,System.Globalization.NumberFormatInfo)">
+            <summary>
+            Tries to convert a <see cref="T:System.String"/> to an <see cref="T:System.Int16"/>
+            </summary>
+            <param name="target">The string to convert</param>
+            <returns>Returns a short that represents the converted string</returns>
+            <param name="numberformat">
+            An object that supplies culture-specific formatting information about <paramref name="target"/>.
+            </param>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ToShortUS(System.String)">
+            <summary>
+            Tries to convert a <see cref="T:System.String"/> to an <see cref="T:System.Int16"/> using the en-US number format
+            </summary>
+            <param name="target">The string to convert</param>
+            <returns>Returns a short that represents the converted string</returns>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ToString(System.String,System.Object[])">
+            <summary>
+            Replaces the format item in a specified string with the string representation of a
+            corresponding object in a specified array. This also takes into account that <paramref
+            name="source"/> can be an inline text for the TextBlock. <see
+            cref="P:System.Globalization.CultureInfo.CurrentCulture"/> is used as <see cref="T:System.IFormatProvider"/>
+            </summary>
+            <param name="source">The formatted string</param>
+            <param name="args">An object array that contains zero or more objects to format.</param>
+            <returns>
+            A copy of format in which the format items have been replaced by the string
+            representation of the corresponding objects in <paramref name="args"/>.
+            </returns>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ToString(System.String,System.IFormatProvider,System.Object[])">
+            <summary>
+            Replaces the format item in a specified string with the string representation of a
+            corresponding object in a specified array. This also takes into account that <paramref
+            name="source"/> can be an inline text for the TextBlock
+            </summary>
+            <param name="source">The formatted string</param>
+            <param name="provider">An object that supplies culture-specific formatting information</param>
+            <param name="args">An object array that contains zero or more objects to format.</param>
+            <returns>
+            A copy of format in which the format items have been replaced by the string
+            representation of the corresponding objects in <paramref name="args"/>.
+            </returns>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ToUInteger(System.String)">
+            <summary>
+            Tries to convert a <see cref="T:System.String"/> to an <see cref="T:System.UInt32"/>
+            </summary>
+            <param name="target">The string to convert</param>
+            <returns>Returns an uint that represents the converted string</returns>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ToUInteger(System.String,System.Globalization.NumberFormatInfo)">
+            <summary>
+            Tries to convert a <see cref="T:System.String"/> to an <see cref="T:System.UInt32"/>
+            </summary>
+            <param name="target">The string to convert</param>
+            <returns>Returns an uint that represents the converted string</returns>
+            <param name="numberformat">
+            An object that supplies culture-specific formatting information about <paramref name="target"/>.
+            </param>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ToUIntegerUS(System.String)">
+            <summary>
+            Tries to convert a <see cref="T:System.String"/> to an <see cref="T:System.UInt32"/> using the en-US number format
+            </summary>
+            <param name="target">The string to convert</param>
+            <returns>Returns an uint that represents the converted string</returns>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ToULong(System.String)">
+            <summary>
+            Tries to convert a <see cref="T:System.String"/> to an <see cref="T:System.UInt64"/>
+            </summary>
+            <param name="target">The string to convert</param>
+            <returns>Returns a ulong that represents the converted string</returns>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ToULong(System.String,System.Globalization.NumberFormatInfo)">
+            <summary>
+            Tries to convert a <see cref="T:System.String"/> to an <see cref="T:System.UInt64"/>
+            </summary>
+            <param name="target">The string to convert</param>
+            <returns>Returns a ulong that represents the converted string</returns>
+            <param name="numberformat">
+            An object that supplies culture-specific formatting information about <paramref name="target"/>.
+            </param>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ToULongUS(System.String)">
+            <summary>
+            Tries to convert a <see cref="T:System.String"/> to an <see cref="T:System.UInt64"/> using the en-US number format
+            </summary>
+            <param name="target">The string to convert</param>
+            <returns>Returns a ulong that represents the converted string</returns>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ToUShort(System.Byte[])">
+            <summary>
+            Returns a 16-bit signed integer converted from four bytes at a specified position in a
+            byte array.
+            </summary>
+            <param name="target">An array of bytes.</param>
+            <returns>A 16-bit signed integer formed by four bytes</returns>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ToUShort(System.String)">
+            <summary>
+            Tries to convert a <see cref="T:System.String"/> to an <see cref="T:System.UInt16"/>
+            </summary>
+            <param name="target">The string to convert</param>
+            <returns>Returns a ushort that represents the converted string</returns>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ToUShort(System.String,System.Globalization.NumberFormatInfo)">
+            <summary>
+            Tries to convert a <see cref="T:System.String"/> to an <see cref="T:System.UInt16"/>
+            </summary>
+            <param name="target">The string to convert</param>
+            <returns>Returns a ushort that represents the converted string</returns>
+            <param name="numberformat">
+            An object that supplies culture-specific formatting information about <paramref name="target"/>.
+            </param>
+        </member>
+        <member name="M:Cauldron.ExtensionsConvertions.ToUShortUS(System.String)">
+            <summary>
+            Tries to convert a <see cref="T:System.String"/> to an <see cref="T:System.UInt16"/> using the en-US number format
+            </summary>
+            <param name="target">The string to convert</param>
+            <returns>Returns a ushort that represents the converted string</returns>
+        </member>
+        <member name="T:Cauldron.ExtensionAsync">
+            <summary>
+            Provides usefull extension methods
+            </summary>
+        </member>
+        <member name="M:Cauldron.ExtensionAsync.RunSync``1(System.Threading.Tasks.Task{``0})">
+            <summary>
+            Runs the <see cref="T:System.Threading.Tasks.Task"/> synchronously on the default <see cref="T:System.Threading.Tasks.TaskScheduler"/>.
+            </summary>
+            <typeparam name="TResult">The type of the result produced by this <see cref="T:System.Threading.Tasks.Task"/></typeparam>
+            <param name="task">The task instance</param>
+            <returns>The value returned by the function</returns>
+        </member>
+        <member name="M:Cauldron.ExtensionAsync.RunSync(System.Threading.Tasks.Task)">
+            <summary>
+            Runs the <see cref="T:System.Threading.Tasks.Task"/> synchronously on the default <see cref="T:System.Threading.Tasks.TaskScheduler"/>.
+            </summary>
+            <param name="task">The task instance</param>
+        </member>
+        <member name="T:Cauldron.ExtensionsDate">
+            <summary>
+            Provides usefull extension methods
+            </summary>
+        </member>
+        <member name="M:Cauldron.ExtensionsDate.GetWeeksInYear(System.DateTime)">
+            <summary>
+            Returns the maximum of the week of the given year
+            </summary>
+            <param name="dateTime">The year to get the maximum weeks.</param>
+            <returns>The maximum week of the given year</returns>
+        </member>
+        <member name="T:Cauldron.Core.Formatters.ByteSizeFormatter">
+            <summary>
+            Formats a numeric value to a human readable size.
+            <para/>
+            For example: The reformatted value of the number 2048 is 2KB
+            </summary>
+            <example>
+            <code>
+            var result = string.Format(new ByteSizeFormatter(), "The size is {0:byte}", value);
+            var result = string.Format(new ByteSizeFormatter(), "The size is {0:byte 0.###}", value);
+            </code>
+            </example>
+        </member>
+        <member name="M:Cauldron.Core.Formatters.ByteSizeFormatter.#ctor">
+            <summary>
+            Initializes a new instance of <see cref="T:Cauldron.Core.Formatters.ByteSizeFormatter"/>
+            </summary>
+        </member>
+        <member name="M:Cauldron.Core.Formatters.ByteSizeFormatter.#ctor(System.Globalization.CultureInfo)">
+            <summary>
+            Initializes a new instance of <see cref="T:Cauldron.Core.Formatters.ByteSizeFormatter"/>
+            </summary>
+            <param name="cultureInfo">An object that supplies culture-specific formatting information</param>
+        </member>
+        <member name="M:Cauldron.Core.Formatters.ByteSizeFormatter.OnFormat(System.String,System.Object,System.IFormatProvider)">
+            <summary>
+            Converts the value of a specified object to an equivalent string representation using
+            specified format and culture-specific formatting information.
+            </summary>
+            <param name="format">A format string containing formatting specifications.</param>
+            <param name="arg">An object to format.</param>
+            <param name="formatProvider">
+            An object that supplies format information about the current instance.
+            </param>
+            <returns>
+            The string representation of the value of arg, formatted as specified by format and formatProvider.
+            </returns>
+        </member>
+        <member name="T:Cauldron.Core.Formatters.Formatter">
+            <summary>
+            Represents an extensible format provider <see cref="T:System.IFormatProvider"/>
+            </summary>
+        </member>
+        <member name="M:Cauldron.Core.Formatters.Formatter.#ctor(System.Globalization.CultureInfo)">
+            <summary>
+            Initializes a new instance of <see cref="T:Cauldron.Core.Formatters.Formatter"/>
+            </summary>
+            <param name="cultureInfo">An object that supplies culture-specific formatting information.</param>
+        </member>
+        <member name="M:Cauldron.Core.Formatters.Formatter.#ctor">
+            <summary>
+            Initializes a new instance of <see cref="T:Cauldron.Core.Formatters.Formatter"/>
+            </summary>
+        </member>
+        <member name="M:Cauldron.Core.Formatters.Formatter.Add(System.ICustomFormatter)">
+            <summary>
+            Adds a new custom formatter to the collection
+            </summary>
+            <param name="customFormatter"></param>
+        </member>
+        <member name="M:Cauldron.Core.Formatters.Formatter.OnFormat(System.String,System.Object,System.IFormatProvider)">
+            <summary>
+            Converts the value of a specified object to an equivalent string representation using
+            specified format and culture-specific formatting information.
+            </summary>
+            <param name="format">A format string containing formatting specifications.</param>
+            <param name="arg">An object to format.</param>
+            <param name="formatProvider">
+            An object that supplies format information about the current instance.
+            </param>
+            <returns>
+            The string representation of the value of arg, formatted as specified by format and formatProvider.
+            </returns>
+        </member>
+        <member name="T:Cauldron.Core.Formatters.FormatterBase">
+            <summary>
+            Provides a base class for custom formatters
+            </summary>
+        </member>
+        <member name="M:Cauldron.Core.Formatters.FormatterBase.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Cauldron.Core.Formatters.FormatterBase"/>
+            </summary>
+        </member>
+        <member name="M:Cauldron.Core.Formatters.FormatterBase.Format(System.String,System.Object,System.IFormatProvider)">
+            <summary>
+            Converts the value of a specified object to an equivalent string representation using specified format and culture-specific formatting information.
+            </summary>
+            <param name="format">A format string containing formatting specifications. </param>
+            <param name="arg">An object to format. </param>
+            <param name="formatProvider">An object that supplies format information about the current instance. </param>
+            <returns>The string representation of the value of arg, formatted as specified by format and formatProvider.</returns>
+        </member>
+        <member name="M:Cauldron.Core.Formatters.FormatterBase.GetFormat(System.Type)">
+            <summary>
+            Returns an object that provides formatting services for the specified type.
+            </summary>
+            <param name="formatType">An object that specifies the type of format object to return.</param>
+            <returns>An instance of the object specified by formatType, if the IFormatProvider implementation can supply that type of object; otherwise, null.</returns>
+        </member>
+        <member name="M:Cauldron.Core.Formatters.FormatterBase.OnFormat(System.String,System.Object,System.IFormatProvider)">
+            <summary>
+            Converts the value of a specified object to an equivalent string representation using specified format and culture-specific formatting information.
+            </summary>
+            <param name="format">A format string containing formatting specifications. </param>
+            <param name="arg">An object to format. </param>
+            <param name="formatProvider">An object that supplies format information about the current instance. </param>
+            <returns>The string representation of the value of arg, formatted as specified by format and formatProvider.</returns>
+        </member>
+        <member name="T:Cauldron.Core.Formatters.MetricUnitFormatter">
+            <summary>
+            Formats a numeric value to a human readable metric number.
+            <para/>
+            For example: The reformatted value of the number 2400 is 2.4k
+            </summary>
+            <example>
+            <code>
+            var result = string.Format(new MetricUnitFormatter(), "The size is {0:metric}", value);
+            var result = string.Format(new MetricUnitFormatter(), "The size is {0:metric #0.00}", value);
+            </code>
+            </example>
+        </member>
+        <member name="M:Cauldron.Core.Formatters.MetricUnitFormatter.#ctor">
+            <summary>
+            Initializes a new instance of <see cref="T:Cauldron.Core.Formatters.MetricUnitFormatter"/>
+            </summary>
+        </member>
+        <member name="M:Cauldron.Core.Formatters.MetricUnitFormatter.#ctor(System.Globalization.CultureInfo)">
+            <summary>
+            Initializes a new instance of <see cref="T:Cauldron.Core.Formatters.MetricUnitFormatter"/>
+            </summary>
+            <param name="cultureInfo">An object that supplies culture-specific formatting information</param>
+        </member>
+        <member name="M:Cauldron.Core.Formatters.MetricUnitFormatter.OnFormat(System.String,System.Object,System.IFormatProvider)">
+            <summary>
+            Converts the value of a specified object to an equivalent string representation using
+            specified format and culture-specific formatting information.
+            </summary>
+            <param name="format">A format string containing formatting specifications.</param>
+            <param name="arg">An object to format.</param>
+            <param name="formatProvider">
+            An object that supplies format information about the current instance.
+            </param>
+            <returns>
+            The string representation of the value of arg, formatted as specified by format and formatProvider.
+            </returns>
+        </member>
+        <member name="T:Cauldron.CreationCollisionOption">
+            <summary>
+            Specifies what to do if a file or folder with the specified name already exists in the current folder when you create a new file or folder.
+            </summary>
+        </member>
+        <member name="F:Cauldron.CreationCollisionOption.GenerateUniqueName">
+            <summary>
+            Automatically append a number to the base of the specified name if the file or
+            folder already exists.For example, if MyFile.txt already exists, then the new
+            file is named MyFile (2).txt. If MyFolder already exists, then the new folder
+            is named MyFolder (2).
+            </summary>
+        </member>
+        <member name="F:Cauldron.CreationCollisionOption.ReplaceExisting">
+            <summary>
+            Replace the existing item if the file or folder already exists.
+            </summary>
+        </member>
+        <member name="F:Cauldron.CreationCollisionOption.FailIfExists">
+            <summary>
+            Raise an exception of type System.Exception if the file or folder already exists.Methods
+            that don't explicitly pass a value from the CreationCollisionOption enumeration
+            use the FailIfExists value as the default when you try to create, rename, copy,
+            or move a file or folder.
+            </summary>
+        </member>
+        <member name="F:Cauldron.CreationCollisionOption.OpenIfExists">
+            <summary>
+            Return the existing item if the file or folder already exists.
+            </summary>
+        </member>
+        <member name="T:Cauldron.ExtensionsDirectoryInfo">
+            <summary>
+            Provides usefull extension methods for the <see cref="T:System.IO.DirectoryInfo"/> class
+            </summary>
+        </member>
+        <member name="M:Cauldron.ExtensionsDirectoryInfo.Combine(System.IO.DirectoryInfo,System.String)">
+            <summary>
+            Combines a <see cref="T:System.IO.DirectoryInfo"/> and a string to a path
+            </summary>
+            <param name="directory">The first path to combine</param>
+            <param name="path">The second path to combine</param>
+            <returns>The combine path as <see cref="T:System.IO.DirectoryInfo"/></returns>
+            <exception cref="T:System.ArgumentException">
+            <paramref name="directory"/> or <paramref name="path"/> contains one or more of the
+            invalid characters defined in <see cref="M:System.IO.Path.GetInvalidPathChars"/>.
+            </exception>
+            <exception cref="T:System.ArgumentNullException">
+            <paramref name="directory"/> or <paramref name="path"/> is null.
+            </exception>
+        </member>
+        <member name="M:Cauldron.ExtensionsDirectoryInfo.Combine(System.IO.DirectoryInfo,System.String,System.String)">
+            <summary>
+            Combines a <see cref="T:System.IO.DirectoryInfo"/> and a string to a path
+            </summary>
+            <param name="directory">The first path to combine</param>
+            <param name="path1">The second path to combine</param>
+            <param name="path2">The third path to combine</param>
+            <returns>The combine path as <see cref="T:System.IO.DirectoryInfo"/></returns>
+            <exception cref="T:System.ArgumentException">
+            <paramref name="directory"/> or <paramref name="path1"/> or <paramref name="path2"/>
+            contains one or more of the invalid characters defined in <see cref="M:System.IO.Path.GetInvalidPathChars"/>.
+            </exception>
+            <exception cref="T:System.ArgumentNullException">
+            <paramref name="directory"/> or <paramref name="path1"/> or <paramref name="path2"/> is null.
+            </exception>
+        </member>
+        <member name="M:Cauldron.ExtensionsDirectoryInfo.Combine(System.IO.DirectoryInfo,System.String,System.String,System.String)">
+            <summary>
+            Combines a <see cref="T:System.IO.DirectoryInfo"/> and a string to a path
+            </summary>
+            <param name="directory">The first path to combine</param>
+            <param name="path1">The second path to combine</param>
+            <param name="path2">The third path to combine</param>
+            <param name="path3">The fourth path to combine</param>
+            <returns>The combine path as <see cref="T:System.IO.DirectoryInfo"/></returns>
+            <exception cref="T:System.ArgumentException">
+            <paramref name="directory"/> or <paramref name="path1"/> or <paramref name="path2"/> or
+            <paramref name="path3"/> contains one or more of the invalid characters defined in <see cref="M:System.IO.Path.GetInvalidPathChars"/>.
+            </exception>
+            <exception cref="T:System.ArgumentNullException">
+            <paramref name="directory"/> or <paramref name="path1"/> or <paramref name="path2"/> or
+            <paramref name="path3"/> is null.
+            </exception>
+        </member>
+        <member name="M:Cauldron.ExtensionsDirectoryInfo.Combine(System.IO.DirectoryInfo,System.String,System.String,System.String,System.String)">
+            <summary>
+            Combines a <see cref="T:System.IO.DirectoryInfo"/> and a string to a path
+            </summary>
+            <param name="directory">The first path to combine</param>
+            <param name="path1">The second path to combine</param>
+            <param name="path2">The third path to combine</param>
+            <param name="path3">The fourth path to combine</param>
+            <param name="path4">The fourth path to combine</param>
+            <returns>The combine path as <see cref="T:System.IO.DirectoryInfo"/></returns>
+            <exception cref="T:System.ArgumentException">
+            <paramref name="directory"/> or <paramref name="path1"/> or <paramref name="path2"/> or
+            <paramref name="path3"/> or <paramref name="path4"/> contains one or more of the invalid
+            characters defined in <see cref="M:System.IO.Path.GetInvalidPathChars"/>.
+            </exception>
+            <exception cref="T:System.ArgumentNullException">
+            <paramref name="directory"/> or <paramref name="path1"/> or <paramref name="path2"/> or
+            <paramref name="path3"/> or <paramref name="path4"/> is null.
+            </exception>
+        </member>
+        <member name="M:Cauldron.ExtensionsDirectoryInfo.CopyAsync(System.IO.FileInfo,System.IO.DirectoryInfo,System.String)">
+            <summary>
+            Creates a copy of the file in the specified folder and renames the copy.
+            </summary>
+            <param name="source">The file to be copied</param>
+            <param name="destinationFolder">
+            The destination folder where the copy of the file is created.
+            </param>
+            <param name="desiredNewName">
+            The new name for the copy of the file created in the <paramref name="destinationFolder"/>
+            </param>
+            <returns>
+            When this method completes, it returns a <see cref="T:System.IO.FileInfo"/> that represents the copy
+            of the file created in the <paramref name="destinationFolder"/>.
+            </returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="desiredNewName"/> is null</exception>
+            <exception cref="T:System.ArgumentException"><paramref name="desiredNewName"/> is empty</exception>
+        </member>
+        <member name="M:Cauldron.ExtensionsDirectoryInfo.CopyAsync(System.IO.FileInfo,System.IO.DirectoryInfo)">
+            <summary>
+            Creates a copy of the file in the specified folder.
+            </summary>
+            <param name="source">The file to be copied</param>
+            <param name="destinationFolder">
+            The destination folder where the copy of the file is created.
+            </param>
+            <returns>
+            When this method completes, it returns a <see cref="T:System.IO.FileInfo"/> that represents the copy
+            of the file created in the <paramref name="destinationFolder"/>.
+            </returns>
+            <exception cref="T:System.IO.IOException">If file already exists. Only on <see cref="F:Cauldron.NameCollisionOption.FailIfExists"/></exception>
+        </member>
+        <member name="M:Cauldron.ExtensionsDirectoryInfo.CopyAsync(System.IO.FileInfo,System.IO.DirectoryInfo,System.String,Cauldron.NameCollisionOption)">
+            <summary>
+            Creates a copy of the file in the specified folder and renames the copy. This method also
+            specifies what to do if a file with the same name already exists in the destination folder.
+            </summary>
+            <param name="source">The file to be copied</param>
+            <param name="destinationFolder">
+            The destination folder where the copy of the file is created.
+            </param>
+            <param name="desiredNewName">
+            The new name for the copy of the file created in the <paramref name="destinationFolder"/>.
+            </param>
+            <param name="option">
+            One of the enumeration values that determines how to handle the collision if a file with
+            the specified <paramref name="desiredNewName"/> already exists in the destination folder.
+            </param>
+            <returns>
+            When this method completes, it returns a <see cref="T:System.IO.FileInfo"/> that represents the copy
+            of the file created in the <paramref name="destinationFolder"/>.
+            </returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="desiredNewName"/> is null</exception>
+            <exception cref="T:System.ArgumentException"><paramref name="desiredNewName"/> is empty</exception>
+            <exception cref="T:System.IO.IOException">If file already exists. Only on <see cref="F:Cauldron.NameCollisionOption.FailIfExists"/></exception>
+        </member>
+        <member name="M:Cauldron.ExtensionsDirectoryInfo.CreateFileAsync(System.IO.DirectoryInfo,System.String,Cauldron.CreationCollisionOption)">
+            <summary>
+            Creates a new file in the current folder. This method also specifies what to do if a file
+            with the same name already exists in the current folder.
+            </summary>
+            <param name="directoryInfo">
+            The <see cref="T:System.IO.DirectoryInfo"/> representing the current folder
+            </param>
+            <param name="desiredName">The name of the new file to create in the current folder.</param>
+            <param name="options">
+            One of the enumeration values that determines how to handle the collision if a file with
+            the specified desiredName already exists in the current folder.
+            </param>
+            <returns>
+            When this method completes, it returns a <see cref="T:System.IO.FileInfo"/> that represents the new file.&gt;
+            </returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="desiredName"/> is null</exception>
+            <exception cref="T:System.ArgumentException"><paramref name="desiredName"/> is empty</exception>
+            <exception cref="T:System.IO.IOException">If file already exists. Only on <see cref="F:Cauldron.CreationCollisionOption.FailIfExists"/></exception>
+        </member>
+        <member name="M:Cauldron.ExtensionsDirectoryInfo.CreateFileAsync(System.IO.DirectoryInfo,System.String)">
+            <summary>
+            Creates a new file with the specified name in the current folder.
+            </summary>
+            <param name="directoryInfo">
+            The <see cref="T:System.IO.DirectoryInfo"/> representing the current folder
+            </param>
+            <param name="desiredName">The name of the new file to create in the current folder.</param>
+            <returns>
+            When this method completes, it returns a <see cref="T:System.IO.FileInfo"/> that represents the new file.&gt;
+            </returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="desiredName"/> is null</exception>
+            <exception cref="T:System.ArgumentException"><paramref name="desiredName"/> is empty</exception>
+        </member>
+        <member name="M:Cauldron.ExtensionsDirectoryInfo.CreateFolderAsync(System.IO.DirectoryInfo,System.String)">
+            <summary>
+            Creates a new subfolder with the specified name in the current folder.
+            </summary>
+            <param name="directoryInfo">
+            The <see cref="T:System.IO.DirectoryInfo"/> representing the current folder
+            </param>
+            <param name="desiredName">The name of the new subfolder to create in the current folder.</param>
+            <returns>
+            When this method completes, it returns a <see cref="T:System.IO.DirectoryInfo"/> that represents the
+            new subfolder.
+            </returns>
+        </member>
+        <member name="M:Cauldron.ExtensionsDirectoryInfo.CreateFolderAsync(System.IO.DirectoryInfo,System.String,Cauldron.CreationCollisionOption)">
+            <summary>
+            Creates a new subfolder with the specified name in the current folder. This method also
+            specifies what to do if a subfolder with the same name already exists in the current folder.
+            </summary>
+            <param name="directoryInfo">
+            The <see cref="T:System.IO.DirectoryInfo"/> representing the current folder
+            </param>
+            <param name="desiredName">The name of the new subfolder to create in the current folder.</param>
+            <param name="options">
+            One of the enumeration values that determines how to handle the collision if a subfolder
+            with the specified desiredName already exists in the current folder.
+            </param>
+            <returns>
+            When this method completes, it returns a <see cref="T:System.IO.DirectoryInfo"/> that represents the
+            new subfolder.
+            </returns>
+        </member>
+        <member name="M:Cauldron.ExtensionsDirectoryInfo.GetFileAsync(System.IO.DirectoryInfo,System.String)">
+            <summary>
+            Gets the file with the specified name from the current folder.
+            </summary>
+            <param name="directoryInfo">
+            The <see cref="T:System.IO.DirectoryInfo"/> representing the current folder
+            </param>
+            <param name="name">
+            The name (or path relative to the current folder) of the file to get.
+            </param>
+            <returns>
+            When this method completes successfully, it returns a <see cref="T:System.IO.FileInfo"/> that
+            represents the specified file.
+            </returns>
+        </member>
+        <member name="M:Cauldron.ExtensionsDirectoryInfo.GetUniqueDirectoryName(System.IO.DirectoryInfo)">
+            <summary>
+            Checks if the directory name exist. If the directory already exists, an indexer will be added to the directory name to make it unique.
+            </summary>
+            <param name="directory">The directory to check.</param>
+            <returns>A unique and valid path and filename.</returns>
+        </member>
+        <member name="M:Cauldron.ExtensionsDirectoryInfo.ToDirectoryInfo(System.String)">
+            <summary>
+            Converts a string to a <see cref="T:System.IO.DirectoryInfo"/>
+            </summary>
+            <param name="path">
+            A string specifying the <paramref name="path"/> on which to create the <see cref="T:System.IO.DirectoryInfo"/>.
+            </param>
+            <returns>An instance of <see cref="T:System.IO.DirectoryInfo"/></returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="path"/> is null.</exception>
+            <exception cref="T:System.Security.SecurityException">The caller does not have the required permission.</exception>
+            <exception cref="T:System.ArgumentException">
+            <paramref name="path"/> contains invalid characters such as ", &lt;, &gt;, or |.
+            </exception>
+            <exception cref="T:System.IO.PathTooLongException">
+            The specified path, file name, or both exceed the system-defined maximum length. For
+            example, on Windows-based platforms, paths must be less than 248 characters, and file
+            names must be less than 260 characters. The specified path, file name, or both are too long.
+            </exception>
+        </member>
+        <member name="M:Cauldron.ExtensionsDirectoryInfo.ToFileInfo(System.String)">
+            <summary>
+            Converts a string to a <see cref="T:System.IO.FileInfo"/>
+            </summary>
+            <param name="filename">
+            The fully qualified name of the new file, or the relative file name. Do not end the path
+            with the directory separator character.
+            </param>
+            <returns>An instance of <see cref="T:System.IO.FileInfo"/></returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="filename"/> is null.</exception>
+            <exception cref="T:System.Security.SecurityException">The caller does not have the required permission.</exception>
+            <exception cref="T:System.ArgumentException">
+            The file name is empty, contains only white spaces, or contains invalid characters.
+            </exception>
+            <exception cref="T:System.UnauthorizedAccessException">Access to fileName is denied.</exception>
+            <exception cref="T:System.IO.PathTooLongException">
+            The specified path, file name, or both exceed the system-defined maximum length. For
+            example, on Windows-based platforms, paths must be less than 248 characters, and file
+            names must be less than 260 characters.
+            </exception>
+            <exception cref="T:System.UnauthorizedAccessException">
+            <paramref name="filename"/> contains a colon (:) in the middle of the string.
+            </exception>
+        </member>
+        <member name="T:Cauldron.ExtensionsFileInfo">
+            <summary>
+            Provides usefull extension methods for the <see cref="T:System.IO.FileInfo"/> class
+            </summary>
+        </member>
+        <member name="M:Cauldron.ExtensionsFileInfo.DeleteAsync(System.IO.FileInfo)">
+            <summary>
+            Deletes the current file.
+            </summary>
+            <param name="file">The file to delete</param>
+            <returns>No object or value is returned by this method when it completes.</returns>
+        </member>
+        <member name="M:Cauldron.ExtensionsFileInfo.GetDateModifiedAsync(System.IO.FileInfo)">
+            <summary>
+            Gets the timestamp of the last time the file was modified. (Wrapper for <see
+            cref="P:System.IO.FileSystemInfo.LastAccessTime"/> to match with UWP)
+            </summary>
+            <param name="file">The file</param>
+            <returns>The timestamp.</returns>
+        </member>
+        <member name="M:Cauldron.ExtensionsFileInfo.GetUniqueFilename(System.IO.FileInfo)">
+            <summary>
+            Checks if the filename exist. If the file already exists, an indexer will be added to the filename to make it unique.
+            </summary>
+            <param name="file">The file to check.</param>
+            <returns>A unique and valid path and filename.</returns>
+        </member>
+        <member name="M:Cauldron.ExtensionsFileInfo.Rename(System.IO.FileInfo,System.String)">
+            <summary>
+            Renames a file.
+            </summary>
+            <param name="fileInfo">The file to rename.</param>
+            <param name="newName">The new name of the file.</param>
+            <returns>A new instance of <see cref="T:System.IO.FileInfo"/> representing the renamed file.</returns>
+            <exception cref="T:System.IO.FileNotFoundException"><paramref name="fileInfo"/> does not exist.</exception>
+            <exception cref="T:System.ArgumentNullException"><paramref name="newName"/> is null.</exception>
+            <exception cref="T:System.ArgumentException"><paramref name="newName"/> is empty, contains only white spaces, or contains invalid characters.</exception>
+            <exception cref="T:System.IO.IOException">An I/O error occurs, such as the destination file already exists or the destination device is not ready.</exception>
+            <exception cref="T:System.Security.SecurityException">The caller does not have the required permission.</exception>
+            <exception cref="T:System.UnauthorizedAccessException"><paramref name="newName"/> is read-only or is a directory.</exception>
+            <exception cref="T:System.IO.DirectoryNotFoundException">The specified path is invalid, such as being on an unmapped drive.</exception>
+            <exception cref="T:System.NotSupportedException"><paramref name="newName"/> contains a colon (:) in the middle of the string.</exception>
+            <exception cref="T:System.IO.PathTooLongException">
+            The specified path, file name, or both exceed the system-defined maximum length.
+            For example, on Windows-based platforms, paths must be less than 248 characters,
+            and file names must be less than 260 characters.
+            </exception>
+        </member>
+        <member name="M:Cauldron.ExtensionsFileInfo.WaitUntilFileIsAccessableAsync(System.IO.FileInfo)">
+            <summary>
+            Waits for a file to be accessable. The default waiting period is 1.5s.
+            </summary>
+            <param name="fileInfo">The path of the file</param>
+            <returns>true if successful, otherwise false</returns>
+        </member>
+        <member name="M:Cauldron.ExtensionsFileInfo.WaitUntilFileIsAccessableAsync(System.IO.FileInfo,System.UInt32)">
+            <summary>
+            Waits for a file to be accessable. The default waiting period is 1.5s.
+            </summary>
+            <param name="fileInfo">The path of the file</param>
+            <param name="tries">The total count of attempts to access the file</param>
+            <returns>true if successful, otherwise false</returns>
+        </member>
+        <member name="M:Cauldron.ExtensionsFileInfo.WaitUntilFileIsAccessableAsync(System.IO.FileInfo,System.UInt32,System.TimeSpan)">
+            <summary>
+            Waits for a file to be accessable.
+            </summary>
+            <param name="fileInfo">The path of the file</param>
+            <param name="tries">The total count of attempts to access the file</param>
+            <param name="timeBetweenTries">The amount of time to wait between attempts</param>
+            <returns>true if successful, otherwise false</returns>
+        </member>
+        <member name="T:Cauldron.ExtensionsFileIO">
+            <summary>
+            Provides helper methods for reading, writing and checking files in Windows Desktop applications and Universal Windows Plattform.
+            </summary>
+        </member>
+        <member name="M:Cauldron.ExtensionsFileIO.ExistsAsync(System.IO.DirectoryInfo,System.String)">
+            <summary>
+            Determines whether the specified file exists.
+            </summary>
+            <param name="folder">The folder where the file resides</param>
+            <param name="filename">The filename of the file to check.</param>
+            <returns>
+            When this method completes, it returns true if the file exists, otherwise false.
+            If the caller does not have sufficient
+            permissions to read the specified file, no exception is thrown and the method
+            returns false regardless of the existence of path.
+            </returns>
+        </member>
+        <member name="M:Cauldron.ExtensionsFileIO.ReadBytesAsync(System.IO.FileInfo)">
+            <summary>
+            Reads the contents of the specified file and returns a byte array.
+            </summary>
+            <param name="file">The file to read.</param>
+            <returns>When this method completes, it returns an array of bytes that represents the contents of the file.</returns>
+        </member>
+        <member name="M:Cauldron.ExtensionsFileIO.ReadTextAsync(System.IO.FileInfo)">
+            <summary>
+            Reads the contents of the specified file and returns text.
+            </summary>
+            <param name="file">The file to read.</param>
+            <returns>When this method completes successfully, it returns the contents of the file as a text string.</returns>
+        </member>
+        <member name="M:Cauldron.ExtensionsFileIO.ReadTextAsync(System.IO.FileInfo,System.Text.Encoding)">
+            <summary>
+            Reads the contents of the specified file and returns text.
+            </summary>
+            <param name="file">The file to read.</param>
+            <param name="encoding">The encoding applied to the contents of the file.</param>
+            <returns>When this method completes successfully, it returns the contents of the file as a text string.</returns>
+        </member>
+        <member name="M:Cauldron.ExtensionsFileIO.ReadTextAsync(System.IO.DirectoryInfo,System.String)">
+            <summary>
+            Reads the contents of the specified file and returns text.
+            </summary>
+            <param name="folder">The folder where the file resides</param>
+            <param name="filename">The name of the file to read.</param>
+            <returns>When this method completes successfully, it returns the contents of the file as a text string.</returns>
+        </member>
+        <member name="M:Cauldron.ExtensionsFileIO.ReadTextAsync(System.IO.DirectoryInfo,System.String,System.Text.Encoding)">
+            <summary>
+            Reads the contents of the specified file and returns text.
+            </summary>
+            <param name="folder">The folder where the file resides</param>
+            <param name="filename">The name of the file to read.</param>
+            <param name="encoding">The encoding applied to the contents of the file.</param>
+            <returns>When this method completes successfully, it returns the contents of the file as a text string.</returns>
+        </member>
+        <member name="M:Cauldron.ExtensionsFileIO.WriteBytesAsync(System.IO.FileInfo,System.Byte[])">
+            <summary>
+            Writes an array of bytes of data to the specified file.
+            </summary>
+            <param name="file">The file that the byte is written to.</param>
+            <param name="content">The array of bytes to write.</param>
+            <returns>No object or value is returned when this method completes.</returns>
+        </member>
+        <member name="M:Cauldron.ExtensionsFileIO.WriteTextAsync(System.IO.FileInfo,System.String)">
+            <summary>
+            Creates a new file, writes the specified string to the file, and then closes the file. If the target file already exists, it is overwritten.
+            </summary>
+            <param name="file">The file to write to.</param>
+            <param name="content">The string to write to the file.</param>
+            <returns>No object or value is returned when this method completes.</returns>
+        </member>
+        <member name="M:Cauldron.ExtensionsFileIO.WriteTextAsync(System.IO.FileInfo,System.String,System.Text.Encoding)">
+            <summary>
+            Creates a new file, writes the specified string to the file, and then closes the file. If the target file already exists, it is overwritten.
+            </summary>
+            <param name="file">The file to write to.</param>
+            <param name="content">The string to write to the file.</param>
+            <param name="encoding">The encoding applied to the contents of the file.</param>
+            <returns>No object or value is returned when this method completes.</returns>
+        </member>
+        <member name="T:Cauldron.NameCollisionOption">
+            <summary>
+            Specifies what to do if a file or folder with the specified name already exists in the current folder when you copy, move, or rename a file or folder.
+            </summary>
+        </member>
+        <member name="F:Cauldron.NameCollisionOption.GenerateUniqueName">
+            <summary>
+            Automatically append a number to the base of the specified name if the file or
+            folder already exists. For example, if MyFile.txt already exists, then the new
+            file is named MyFile (2).txt. If MyFolder already exists, then the new folder
+            is named MyFolder (2).
+            </summary>
+        </member>
+        <member name="F:Cauldron.NameCollisionOption.ReplaceExisting">
+            <summary>
+            Replace the existing item if the file or folder already exists.
+            </summary>
+        </member>
+        <member name="F:Cauldron.NameCollisionOption.FailIfExists">
+            <summary>
+            Raise an exception of type System.Exception if the file or folder already exists.Methods
+            that don't explicitly pass a value from the CreationCollisionOption enumeration
+            use the FailIfExists value as the default when you try to create, rename, copy,
+            or move a file or folder.
+            </summary>
+        </member>
+        <member name="M:Cauldron.Utils.GetUniqueDirectoryName(System.String)">
+            <summary>
+            Checks if the filename of <paramref name="path"/> exist. If the file already exists, an
+            indexer will be added to the filename to make it unique.
+            </summary>
+            <param name="path">The path and filename of a file</param>
+            <returns>A unique and valied path and filename</returns>
+        </member>
+        <member name="M:Cauldron.Utils.GetUniqueFilename(System.String)">
+            <summary>
+            Checks if the filename of <paramref name="path"/> exist. If the file already exists, an
+            indexer will be added to the filename to make it unique.
+            </summary>
+            <param name="path">The path and filename of a file</param>
+            <returns>A unique and valied path and filename</returns>
+        </member>
+        <member name="T:Cauldron.Java.JavaProperties">
+            <summary>
+            Reads and writes a java property file
+            </summary>
+        </member>
+        <member name="M:Cauldron.Java.JavaProperties.Read(System.String)">
+            <summary>
+            Parses the java property file from a string
+            </summary>
+            <param name="body">The content of the property file</param>
+            <returns>A new instance of <see cref="T:Cauldron.Java.JavaProperties"/></returns>
+        </member>
+        <member name="M:Cauldron.Java.JavaProperties.Read(System.IO.Stream)">
+            <summary>
+            Parses the java property file from a stream
+            </summary>
+            <param name="stream">The stream</param>
+            <returns>A new instance of <see cref="T:Cauldron.Java.JavaProperties"/></returns>
+        </member>
+        <member name="M:Cauldron.Java.JavaProperties.ReadAsync(System.IO.FileInfo)">
+            <summary>
+            Parses the java property file from a file
+            </summary>
+            <param name="file">The property file</param>
+            <returns>A new instance of <see cref="T:Cauldron.Java.JavaProperties"/></returns>
+        </member>
+        <member name="M:Cauldron.Java.JavaProperties.SaveAsync(System.IO.FileInfo)">
+            <summary>
+            Saves the <see cref="T:Cauldron.Java.JavaProperties"/> instance to a file
+            </summary>
+            <param name="file">The property file</param>
+            <returns>An awaitable task</returns>
+        </member>
+        <member name="M:Cauldron.Java.JavaProperties.ToString">
+            <summary>
+            Returns a string that represents the current object.
+            </summary>
+            <returns>A string that represents the current object.</returns>
+        </member>
+        <member name="M:Cauldron.Java.JavaProperties.GetKeyForItem(Cauldron.Java.PropertyLine)">
+            <summary>
+            When implemented in a derived class, extracts the key from the specified element.
+            </summary>
+            <param name="item">The element from which to extract the key.</param>
+            <returns>The key for the specified element.</returns>
+        </member>
+        <member name="T:Cauldron.Java.PropertyLine">
+            <summary>
+            Represents a line in the <see cref="T:Cauldron.Java.JavaProperties"/>
+            </summary>
+        </member>
+        <member name="M:Cauldron.Java.PropertyLine.#ctor(System.String,System.String)">
+            <summary>
+            Initializes a new instance of <see cref="T:Cauldron.Java.PropertyLine"/>
+            </summary>
+            <param name="key">The key of property</param>
+            <param name="value">The value of the property</param>
+        </member>
+        <member name="P:Cauldron.Java.PropertyLine.Key">
+            <summary>
+            Gets the key of the value
+            </summary>
+        </member>
+        <member name="P:Cauldron.Java.PropertyLine.Value">
+            <summary>
+            Gets or sets a value of ta value
+            </summary>
+        </member>
+        <member name="M:Cauldron.Java.PropertyLine.ToString">
+            <summary>
+            Returns a string that represents the current object.
+            </summary>
+            <returns>A string that represents the current object.</returns>
+        </member>
+        <member name="T:Cauldron.Position">
+            <summary>
+            Defines the position of the string modification.
+            </summary>
+        </member>
+        <member name="F:Cauldron.Position.Left">
+            <summary>
+            The left side of the string.
+            </summary>
+        </member>
+        <member name="F:Cauldron.Position.Right">
+            <summary>
+            The right side of the string.
+            </summary>
+        </member>
+        <member name="F:Cauldron.Position.Both">
+            <summary>
+            Both sides of the string.
+            </summary>
+        </member>
+        <member name="T:Cauldron.Utilities">
+            <summary>
+            Provides useful methods regarding <see cref="T:System.DateTime"/>
+            </summary>
+        </member>
+        <member name="M:Cauldron.Utilities.FirstDateOfWeekISO8601(System.Int32,System.Int32)">
+            <summary>
+            Returns the <see cref="T:System.DateTime"/> representation of the year and week of year
+            </summary>
+            <param name="year">The year to convert</param>
+            <param name="weekOfYear">The week of year to convert</param>
+            <exception cref="T:System.ArgumentOutOfRangeException">Argument <paramref name="weekOfYear"/> is more than the given year has weeks</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">Argument <paramref name="weekOfYear"/> is lower than 0</exception>
+            <returns></returns>
+        </member>
+        <member name="M:Cauldron.Utilities.GetWeeksInYear(System.Int32)">
+            <summary>
+            Returns the maximum of the week of the given year
+            </summary>
+            <param name="year">The year to get the maximum weeks</param>
+            <returns>The maximum week of the given year</returns>
+        </member>
+        <member name="T:Windows.Storage.KnownFolders">
+            <summary>
+            Provides access to common locations that contain user content.
+            </summary>
+        </member>
+        <member name="P:Windows.Storage.KnownFolders.CameraRoll">
+            <summary>
+            Gets the Camera Roll folder.
+            </summary>
+        </member>
+        <member name="P:Windows.Storage.KnownFolders.DocumentsLibrary">
+            <summary>
+            Gets the Documents library. The Documents library is not intended for general use.
+            </summary>
+        </member>
+        <member name="P:Windows.Storage.KnownFolders.MusicLibrary">
+            <summary>
+            Gets the Music library.
+            </summary>
+        </member>
+        <member name="P:Windows.Storage.KnownFolders.PictureLibrary">
+            <summary>
+            Gets the Pictures library.
+            </summary>
+        </member>
+        <member name="P:Windows.Storage.KnownFolders.VideosLibrary">
+            <summary>
+            Gets the Videos library.
+            </summary>
+        </member>
+        <member name="T:System.MathEx">
+            <summary>
+            Provides static methods for common mathematical functions.
+            </summary>
+        </member>
+        <member name="M:System.MathEx.Clamp(System.Double,System.Double,System.Double)">
+            <summary>
+            Clamps a value between a minimum and maximum value.
+            </summary>
+            <param name="value">The value to clamp</param>
+            <param name="min">The minimum value the parameter <paramref name="value"/> can have</param>
+            <param name="max">The maximum value the parameter <paramref name="value"/> can have</param>
+            <returns>The clamped value</returns>
+        </member>
+        <member name="M:System.MathEx.Clamp(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Clamps a value between a minimum and maximum value.
+            </summary>
+            <param name="value">The value to clamp</param>
+            <param name="min">The minimum value the parameter <paramref name="value"/> can have</param>
+            <param name="max">The maximum value the parameter <paramref name="value"/> can have</param>
+            <returns>The clamped value</returns>
+        </member>
+        <member name="M:System.MathEx.DegreesToRadians(System.Double)">
+            <summary>
+            Converts degrees to radians
+            </summary>
+            <param name="degrees"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.MathEx.RadiansToDegrees(System.Double)">
+            <summary>
+            Converts radians to degrees
+            </summary>
+            <param name="radians"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.MathEx.ValueOf(System.Double,System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            Calculates the percentage relationship of two values
+            </summary>
+            <param name="value">Current value of the systems</param>
+            <param name="valueMin">Minimum value of the current system</param>
+            <param name="valueMax">Maximum value of the current system</param>
+            <param name="targetValueMin">Minimum value of the target system</param>
+            <param name="targetValueMax">Maximum value of the target system</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.MathEx.ValueOf(System.Double,System.Double,System.Double)">
+            <summary>
+            Calculates the percentage relationship of two values
+            </summary>
+            <param name="value">Current value of the systems</param>
+            <param name="valueMax">Maximum value of the current system</param>
+            <param name="targetValueMax">Minimum value of the target system</param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

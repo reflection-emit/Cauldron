@@ -19,6 +19,20 @@
       2018.07.01 - [C] Now signed
       2018.05.04 - [C] Assemblies for Net45, Net451, Net452, Net46, Net461 and Net462 added
       2018.04.11 - [C] Fody version 3.0.0 update and minor bug fixes.
+      2018.06.02 - [A] contentFiles entry in nuget added.
+      2018.05.15 - [B] TimedCache weaver fixed for async methods part 2
+      2018.05.11 - [B] TimedCache weaver fixed for async methods
+      2018.05.04 - [C] Assemblies for Net45, Net451, Net452, Net46, Net461 and Net462 added
+      2018.04.24 - [C] Now bringing its own interceptor
+      2018.04.11 - [C] Fody version 3.0.0 update and minor bug fixes.
+      2017.12.31 - [C] InterceptorRule added to RegistryClassAttribute
+      2017.12.29 - [A] RegistryAttribute added
+      2017.12.23 - [A] PropertyOnSetAttribute added
+      2017.12.23 - [A] ExecutionTimeAttribute added
+      2017.12.22 - [A] ExceptionLoggerAttribute added
+      2017.12.22 - [A] PerformanceLoggerAttribute added
+      2017.12.22 - [A] Dependency to NLog added
+      2017.12.04 - [C] TimedCacheAttribute namespace changed to Cauldron.Core.Interceptors.
       2017.12.23 - [C] PropertyOnSetAttribute added
       2017.12.22 - [C] ExceptionLoggerAttribute removed
       2017.12.22 - [C] PerformanceLoggerAttribute removed
@@ -28,7 +42,19 @@
       <dependency id="Cauldron.Interception.Fody" version="3.0.22" />
       <dependency id="Fody" version="3.0.3" />
       <dependency id="Cauldron.BasicInterceptors" version="3.0.22" />
+      <dependency id="NLog" version="4.5.8" />
     </dependencies>
+    <contentFiles>
+      <files include="**/Interceptors/*.*" buildAction="None" />
+    </contentFiles>
+    <frameworkAssemblies>
+      <frameworkAssembly assemblyName="System.Runtime.Caching" targetFramework="net45" />
+      <frameworkAssembly assemblyName="System.Runtime.Caching" targetFramework="net451" />
+      <frameworkAssembly assemblyName="System.Runtime.Caching" targetFramework="net452" />
+      <frameworkAssembly assemblyName="System.Runtime.Caching" targetFramework="net46" />
+      <frameworkAssembly assemblyName="System.Runtime.Caching" targetFramework="net461" />
+      <frameworkAssembly assemblyName="System.Runtime.Caching" targetFramework="net462" />
+    </frameworkAssemblies>
   </metadata>
   <files>
     <file src="..\NetStandard\Cauldron.Interceptors\bin\Release\netstandard2.0\Cauldron.Interceptors.dll" target="lib\netstandard2.0" />
@@ -53,5 +79,13 @@
     <file src="..\Win32\Cauldron.Interceptors\bin\Release\Net462\Cauldron.Interceptors.xml" target="lib\net462" />
     <file src="..\Win32\Cauldron.Interceptors\bin\Release\Net462\Cauldron.Interceptors.pdb" target="lib\net462" />
     <file src="..\Shared\Cauldron.Interceptors\**\*.cs" target="src" />
+
+    <file src="..\Win32\Cauldron.Interceptors\InterceptorScripts\TimedCacheInterceptorWeaver.csx" target="Content\Interceptors" />
+    <file src="..\Win32\Cauldron.Interceptors\InterceptorScripts\TimedCacheInterceptorWeaver.csx" target="contentFiles\any\net45\Interceptors" />
+    <file src="..\Win32\Cauldron.Interceptors\InterceptorScripts\TimedCacheInterceptorWeaver.csx" target="contentFiles\any\net451\Interceptors" />
+    <file src="..\Win32\Cauldron.Interceptors\InterceptorScripts\TimedCacheInterceptorWeaver.csx" target="contentFiles\any\net452\Interceptors" />
+    <file src="..\Win32\Cauldron.Interceptors\InterceptorScripts\TimedCacheInterceptorWeaver.csx" target="contentFiles\any\net46\Interceptors" />
+    <file src="..\Win32\Cauldron.Interceptors\InterceptorScripts\TimedCacheInterceptorWeaver.csx" target="contentFiles\any\net461\Interceptors" />
+    <file src="..\Win32\Cauldron.Interceptors\InterceptorScripts\TimedCacheInterceptorWeaver.csx" target="contentFiles\any\net462\Interceptors" />
   </files>
 </package>

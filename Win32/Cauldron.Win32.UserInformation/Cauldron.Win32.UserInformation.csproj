@@ -109,5 +109,11 @@
     <Compile Include="User.cs" />
     <Compile Include="UserInformation.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Cauldron\Cauldron.csproj">
+      <Project>{d1be1727-87d4-4ca6-a537-7983cf7b2e4a}</Project>
+      <Name>Cauldron</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

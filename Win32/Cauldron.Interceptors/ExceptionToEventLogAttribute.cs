@@ -37,10 +37,7 @@ namespace Cauldron.Interceptors
         /// Initializes a new instance of <see cref="ExceptionToEventLogAttribute"/>.
         /// </summary>
         /// <param name="logname">The source name to register and use when writing to the event log.</param>
-        public ExceptionToEventLogAttribute(string logname)
-        {
-            this.logName = logname;
-        }
+        public ExceptionToEventLogAttribute(string logname) => this.logName = logname;
 
         /// <summary>
         /// Initializes a new instance of <see cref="ExceptionToEventLogAttribute"/>.
@@ -80,10 +77,7 @@ namespace Cauldron.Interceptors
         /// <summary>
         /// Initializes a new instance of <see cref="ExceptionToEventLogAttribute"/>.
         /// </summary>
-        public ExceptionToEventLogAttribute()
-        {
-            this.logName = LogName;
-        }
+        public ExceptionToEventLogAttribute() => this.logName = LogName;
 
         /// <summary>
         /// Gets or sets the default source name to register and use when writing to the event log.

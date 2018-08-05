@@ -6,7 +6,7 @@ namespace Cauldron
     /// <summary>
     /// Provides usefull extension methods for the <see cref="DirectoryInfo"/> and <see cref="FileInfo"/> class
     /// </summary>
-    public static class Extensions
+    public static partial class Extensions
     {
         /// <summary>
         /// Returns the short path format of the given path. e.g. C:\\Hello World converted to C:\\HelloWo~1
