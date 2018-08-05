@@ -61,9 +61,21 @@
       <Project>{13701490-ecb2-4f70-80c8-32897748ef05}</Project>
       <Name>Cauldron.Activator</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Win32\Cauldron.Collections\Cauldron.Collections.csproj">
+      <Project>{0584e5fa-bdf8-42e2-a20e-051dc4bee540}</Project>
+      <Name>Cauldron.Collections</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Win32\Cauldron.Interception\Cauldron.Interception.csproj">
       <Project>{cfc811eb-c500-4d1f-adf1-ecaf4433af2d}</Project>
       <Name>Cauldron.Interception</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Win32\Cauldron.Interceptors\Cauldron.Interceptors.csproj">
+      <Project>{b148f2a0-5bb6-4d9a-b9b8-915971b25bfe}</Project>
+      <Name>Cauldron.Interceptors</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Win32\Cauldron\Cauldron.csproj">
+      <Project>{d1be1727-87d4-4ca6-a537-7983cf7b2e4a}</Project>
+      <Name>Cauldron</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Shared\ActivatorExternalLibraryTest\UnitTest_ActivatorExternalLibraryTest.csproj">
       <Project>{a1846563-6684-455f-af9d-c31afaf4c526}</Project>

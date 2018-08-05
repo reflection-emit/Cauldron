@@ -56,6 +56,16 @@
   <ItemGroup>
     <None Include="FodyWeavers.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Win32\Cauldron.Activator\Cauldron.Activator.csproj">
+      <Project>{13701490-ecb2-4f70-80c8-32897748ef05}</Project>
+      <Name>Cauldron.Activator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Win32\Cauldron\Cauldron.csproj">
+      <Project>{d1be1727-87d4-4ca6-a537-7983cf7b2e4a}</Project>
+      <Name>Cauldron</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="..\..\Shared\UnitTest_ReflectionTests\UnitTest_ReflectionTests.projitems" Label="Shared" />
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

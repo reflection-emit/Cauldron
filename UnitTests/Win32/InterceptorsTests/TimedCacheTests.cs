@@ -1,4 +1,4 @@
-﻿using Cauldron.Core.Interceptors;
+﻿using Cauldron.Interceptors;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Diagnostics;

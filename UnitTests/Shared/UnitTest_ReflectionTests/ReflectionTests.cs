@@ -1,4 +1,4 @@
-﻿using Cauldron.Core.Reflection;
+﻿using Cauldron.Reflection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
 using System.Reflection;

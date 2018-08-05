@@ -141,9 +141,17 @@
       <Project>{a0e73415-c2c1-421e-b551-0aeb9181ceac}</Project>
       <Name>Cauldron.Activator</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\UWP\Cauldron.Collections\Cauldron.Collections.csproj">
+      <Project>{2aea8329-a246-496e-bce2-265e839391d6}</Project>
+      <Name>Cauldron.Collections</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\UWP\Cauldron.Interception\Cauldron.Interception.csproj">
       <Project>{38abf85c-9322-4333-be30-a1b37fa5cc52}</Project>
       <Name>Cauldron.Interception</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\UWP\Cauldron\Cauldron.csproj">
+      <Project>{9d2559da-62d9-4472-8e2f-9c8fe1c2b9cf}</Project>
+      <Name>Cauldron</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="..\..\Shared\UnitTest_ActivatorTests\UnitTest_ActivatorTests.projitems" Label="Shared" />

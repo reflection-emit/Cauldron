@@ -4,7 +4,7 @@ using System.Linq;
 using Cauldron.Activator;
 using System.Collections;
 using Cauldron;
-using Cauldron.Core.Collections;
+using Cauldron.Collections;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Activator_Tests

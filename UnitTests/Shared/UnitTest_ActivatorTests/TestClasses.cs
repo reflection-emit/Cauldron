@@ -1,5 +1,5 @@
 ﻿using Cauldron.Activator;
-using Cauldron.Core;
+using Cauldron;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
