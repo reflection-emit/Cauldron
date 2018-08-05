@@ -5,13 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Fody" Version="3.1.3" />
+    <PackageReference Include="Fody" Version="3.1.4" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\NetStandard\Cauldron.Activator\Cauldron.Activator.csproj" />
-    <ProjectReference Include="..\..\..\NetStandard\Cauldron.Core.Extensions\Cauldron.Core.Extensions.csproj" />
     <ProjectReference Include="..\..\..\NetStandard\Cauldron.Interception\Cauldron.Interception.csproj" />
+    <ProjectReference Include="..\..\..\NetStandard\Cauldron\Cauldron.csproj" />
   </ItemGroup>
 
 </Project>

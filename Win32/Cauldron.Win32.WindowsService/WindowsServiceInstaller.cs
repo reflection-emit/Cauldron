@@ -1,5 +1,5 @@
-﻿using Cauldron.Core.Reflection;
-using Cauldron.Localization;
+﻿using Cauldron.Localization;
+using Cauldron.Reflection;
 using Newtonsoft.Json;
 using System;
 using System.Collections;
