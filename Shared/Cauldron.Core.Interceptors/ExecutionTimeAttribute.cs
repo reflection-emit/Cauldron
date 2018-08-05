@@ -5,8 +5,6 @@ using System.Reflection;
 
 namespace Cauldron.Core.Interceptors
 {
-    using Cauldron.Core.Diagnostics;
-
     /// <summary>
     /// Provides a simple performance measurement of a code block
     /// </summary>

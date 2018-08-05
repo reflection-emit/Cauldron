@@ -2,11 +2,10 @@
 using System;
 using System.Diagnostics;
 using System.Reflection;
+using Cauldron.Diagnostics;
 
 namespace Cauldron.Interceptors
 {
-    using Cauldron.Diagnostics;
-
     /// <summary>
     /// Provides an interceptor that logs an exception to the Windows Event Log.
     /// </summary>

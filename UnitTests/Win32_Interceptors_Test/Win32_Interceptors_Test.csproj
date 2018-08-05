@@ -78,10 +78,6 @@
       <Project>{54d84f50-0b4b-40cb-a27d-5ccd84f5b1ee}</Project>
       <Name>Cauldron.Interception</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Win32\Cauldron.Win32.Interceptors\Cauldron.Win32.Interceptors.csproj">
-      <Project>{99cdfaca-8bfd-42e7-85d5-ab181df96656}</Project>
-      <Name>Cauldron.Win32.Interceptors</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="FodyWeavers.xml" />
