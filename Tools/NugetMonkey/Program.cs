@@ -20,7 +20,10 @@ namespace NugetMonkey
 
             try
             {
-                PackageNuspec(args.Where(x => string.Equals(Path.GetExtension(args[0]), ".nuspec")).ToArray());
+                if (args.Length == 1 && Directory.Exists(args[0]))
+                    PackageNuspec(Directory.GetFiles(args[0], "*.nuspec"));
+                else
+                    PackageNuspec(args.Where(x => string.Equals(Path.GetExtension(args[0]), ".nuspec")).ToArray());
             }
             catch (Exception e)
             {
