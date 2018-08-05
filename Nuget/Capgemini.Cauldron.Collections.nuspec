@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Capgemini.Cauldron.Collections</id>
+    <version>3.1.23</version>
+    <authors>Alexander Schunk, Capgemini Deutschland GmbH</authors>
+    <owners>Alexander Schunk, Capgemini Deutschland GmbH</owners>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <licenseUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/Capgemini/Cauldron</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/cauldron.png</iconUrl>
+    <description>
+      Contains specialized Dictionary implementations, that are 4x faster than the .NET default Dictionary.
+      Breaking changes in 3.1.x - See https://github.com/Capgemini/Cauldron for more information.
+    </description>
+    <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
+    <tags>Toolkit Capgemini Collections Dictionary</tags>
+    <releaseNotes>
+      2018.08.05 - [C] All dependencies removed.
+      2018.07.01 - [C] Now signed
+      2018.06.25 - [C] FastDictionary added.
+      2018.06.25 - [C] FastObservableCollection added.
+      2018.06.25 - [C] ConcurrentList removed and replaced by ConcurrentCollection.
+      2018.06.25 - [C] KeyedCollectionEx removed and replaced by FastKeyedCollection.
+      2018.06.25 - [C] Extension ToKeyedCollection removed and replaced by ToFastKeyedCollection.
+      2018.06.25 - [C] ConcurrentKeyedCollection removed with no replacement, because it is better to use ConcurrentDictionary.
+      2018.05.04 - [C] Assemblies for Net45, Net451, Net452, Net46, Net461 and Net462 added
+    </releaseNotes>
+    <dependencies>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="..\UWP\Cauldron.Collections\bin\Release\Cauldron.Collections.dll" target="lib\uap10.0" />
+    <file src="..\UWP\Cauldron.Collections\bin\Release\Cauldron.Collections.xml" target="lib\uap10.0" />
+    <file src="..\UWP\Cauldron.Collections\bin\Release\Cauldron.Collections.pdb" target="lib\uap10.0" />
+    <file src="..\UWP\Cauldron.Collections\bin\Release\Cauldron.Collections.pri" target="lib\uap10.0" />
+    <file src="..\NetStandard\Cauldron.Collections\bin\Release\netstandard2.0\Cauldron.Collections.dll" target="lib\netstandard2.0" />
+    <file src="..\NetStandard\Cauldron.Collections\bin\Release\netstandard2.0\Cauldron.Collections.xml" target="lib\netstandard2.0" />
+    <file src="..\NetStandard\Cauldron.Collections\bin\Release\netstandard2.0\Cauldron.Collections.pdb" target="lib\netstandard2.0" />
+    <file src="..\Win32\Cauldron.Collections\bin\Release\Net45\Cauldron.Collections.dll" target="lib\net45" />
+    <file src="..\Win32\Cauldron.Collections\bin\Release\Net45\Cauldron.Collections.xml" target="lib\net45" />
+    <file src="..\Win32\Cauldron.Collections\bin\Release\Net45\Cauldron.Collections.pdb" target="lib\net45" />
+    <file src="..\Win32\Cauldron.Collections\bin\Release\Net451\Cauldron.Collections.dll" target="lib\net451" />
+    <file src="..\Win32\Cauldron.Collections\bin\Release\Net451\Cauldron.Collections.xml" target="lib\net451" />
+    <file src="..\Win32\Cauldron.Collections\bin\Release\Net451\Cauldron.Collections.pdb" target="lib\net451" />
+    <file src="..\Win32\Cauldron.Collections\bin\Release\Net452\Cauldron.Collections.dll" target="lib\net452" />
+    <file src="..\Win32\Cauldron.Collections\bin\Release\Net452\Cauldron.Collections.xml" target="lib\net452" />
+    <file src="..\Win32\Cauldron.Collections\bin\Release\Net452\Cauldron.Collections.pdb" target="lib\net452" />
+    <file src="..\Win32\Cauldron.Collections\bin\Release\Net46\Cauldron.Collections.dll" target="lib\net46" />
+    <file src="..\Win32\Cauldron.Collections\bin\Release\Net46\Cauldron.Collections.xml" target="lib\net46" />
+    <file src="..\Win32\Cauldron.Collections\bin\Release\Net46\Cauldron.Collections.pdb" target="lib\net46" />
+    <file src="..\Win32\Cauldron.Collections\bin\Release\Net461\Cauldron.Collections.dll" target="lib\net461" />
+    <file src="..\Win32\Cauldron.Collections\bin\Release\Net461\Cauldron.Collections.xml" target="lib\net461" />
+    <file src="..\Win32\Cauldron.Collections\bin\Release\Net461\Cauldron.Collections.pdb" target="lib\net461" />
+    <file src="..\Win32\Cauldron.Collections\bin\Release\Net462\Cauldron.Collections.dll" target="lib\net462" />
+    <file src="..\Win32\Cauldron.Collections\bin\Release\Net462\Cauldron.Collections.xml" target="lib\net462" />
+    <file src="..\Win32\Cauldron.Collections\bin\Release\Net462\Cauldron.Collections.pdb" target="lib\net462" />
+    <file src="..\Shared\Cauldron.Collections\**\*.cs" target="src" />
+  </files>
+</package>

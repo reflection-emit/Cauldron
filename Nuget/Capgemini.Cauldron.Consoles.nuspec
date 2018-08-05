@@ -9,15 +9,20 @@
     <licenseUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/LICENSE</licenseUrl>
     <projectUrl>https://github.com/Capgemini/Cauldron</projectUrl>
     <iconUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/cauldron.png</iconUrl>
-    <description>Cauldron.Consoles is a Cauldron.Core based parameter parser which supports grouping of parameters in execution groups. It is also supports localization and has a nice parameter table :)</description>
+    <description>
+      Cauldron.Consoles is a Cauldron.Core based parameter parser which supports grouping of parameters in execution groups. It is also supports localization and has a nice parameter table :)
+      Breaking changes in 3.1.x - See https://github.com/Capgemini/Cauldron for more information.
+    </description>
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Console Parameter Parsing Argument Arguments Parameters Cauldron Command CommandLine Args</tags>
     <releaseNotes>
       2018.05.04 - [C] Assemblies for Net45, Net451, Net452, Net46, Net461 and Net462 added
     </releaseNotes>
     <dependencies>
-      <dependency id="Capgemini.Cauldron.Core.Extensions" version="3.0.22" />
-      <dependency id="Capgemini.Cauldron.Core.Randomizer" version="3.0.22" />
+      <dependency id="Capgemini.Cauldron" version="3.0.22" />
+      <dependency id="Capgemini.Cauldron.Activator" version="3.0.22" />
+      <dependency id="Capgemini.Cauldron.Localization" version="3.0.22" />
+      <dependency id="Capgemini.Cauldron.Randomizer" version="3.0.22" />
       <dependency id="Capgemini.Cauldron.Localization" version="3.0.22" />
     </dependencies>
   </metadata>

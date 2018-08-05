@@ -91,6 +91,12 @@
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <DocumentationFile>bin\Release\Net462\Cauldron.Consoles.xml</DocumentationFile>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>..\..\NetStandard\Cauldron.Consoles\Consoles.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -113,6 +119,19 @@
       <Project>{74759c69-9dd6-4096-96b9-4c38d2cfb4e6}</Project>
       <Name>Cauldron.Localization</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Cauldron.Randomizer\Cauldron.Randomizer.csproj">
+      <Project>{ad85b816-7080-4b07-9ad5-7dd4e9ba1750}</Project>
+      <Name>Cauldron.Randomizer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cauldron\Cauldron.csproj">
+      <Project>{d1be1727-87d4-4ca6-a537-7983cf7b2e4a}</Project>
+      <Name>Cauldron</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\NetStandard\Cauldron.Consoles\Consoles.snk">
+      <Link>Consoles.snk</Link>
+    </None>
   </ItemGroup>
   <Import Project="..\..\Shared\Cauldron.Consoles\Cauldron.Consoles.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

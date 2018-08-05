@@ -34,7 +34,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)IO\ExtensionsFileIO.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\NameCollisionOption.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Utils.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Java\JavaProperties.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)KnownFolders.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MathEx.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Net\ConnectionGenerationTypes.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Net\Network.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Net\PingResults.cs" />
@@ -45,5 +47,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Net\WebException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Position.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Java\" />
   </ItemGroup>
 </Project>

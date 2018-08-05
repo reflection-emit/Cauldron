@@ -1,5 +1,4 @@
-﻿using Cauldron.Core;
-using System;
+﻿using System;
 using System.Security;
 
 namespace Cauldron.Cryptography

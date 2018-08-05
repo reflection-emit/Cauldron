@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Capgemini.Cauldron.Core.Randomizer</id>
+    <version>3.1.23</version>
+    <authors>Alexander Schunk, Capgemini Deutschland GmbH</authors>
+    <owners>Alexander Schunk, Capgemini Deutschland GmbH</owners>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <licenseUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/Capgemini/Cauldron</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/cauldron.png</iconUrl>
+    <description>
+      Provides a randomizer that is cryptographically secure.
+      Breaking changes in 3.1.x - See https://github.com/Capgemini/Cauldron for more information.
+    </description>
+    <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
+    <tags>Toolkit Capgemini Cauldron Random Cryptographic</tags>
+    <releaseNotes>
+      2018.07.01 - [C] Now signed
+      2018.05.06 - [C] Assembly for UWP added
+      2018.05.04 - [C] Assemblies for Net45, Net451, Net452, Net46, Net461 and Net462 added
+      2017.12.24 - [C] Net461 DLLs removed because it causes a lot of issues on mixed solutions (NetCore and Net461)
+      2017.12.21 - [A] Added assemblies for NET45 and NET461
+    </releaseNotes>
+    <dependencies>
+      <group>
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="..\UWP\Cauldron.Randomizer\bin\Release\Cauldron.Randomizer.dll" target="lib\uap10.0" />
+    <file src="..\UWP\Cauldron.Randomizer\bin\Release\Cauldron.Randomizer.xml" target="lib\uap10.0" />
+    <file src="..\UWP\Cauldron.Randomizer\bin\Release\Cauldron.Randomizer.pdb" target="lib\uap10.0" />
+    <file src="..\UWP\Cauldron.Randomizer\bin\Release\Cauldron.Randomizer.pri" target="lib\uap10.0" />
+    <file src="..\NetStandard\Cauldron.Randomizer\bin\Release\netstandard2.0\Cauldron.Randomizer.dll" target="lib\netstandard2.0" />
+    <file src="..\NetStandard\Cauldron.Randomizer\bin\Release\netstandard2.0\Cauldron.Randomizer.xml" target="lib\netstandard2.0" />
+    <file src="..\NetStandard\Cauldron.Randomizer\bin\Release\netstandard2.0\Cauldron.Randomizer.pdb" target="lib\netstandard2.0" />
+    <file src="..\Win32\Cauldron.Randomizer\bin\Release\Net45\Cauldron.Randomizer.dll" target="lib\net45" />
+    <file src="..\Win32\Cauldron.Randomizer\bin\Release\Net45\Cauldron.Randomizer.xml" target="lib\net45" />
+    <file src="..\Win32\Cauldron.Randomizer\bin\Release\Net45\Cauldron.Randomizer.pdb" target="lib\net45" />
+    <file src="..\Win32\Cauldron.Randomizer\bin\Release\Net451\Cauldron.Randomizer.dll" target="lib\net451" />
+    <file src="..\Win32\Cauldron.Randomizer\bin\Release\Net451\Cauldron.Randomizer.xml" target="lib\net451" />
+    <file src="..\Win32\Cauldron.Randomizer\bin\Release\Net451\Cauldron.Randomizer.pdb" target="lib\net451" />
+    <file src="..\Win32\Cauldron.Randomizer\bin\Release\Net452\Cauldron.Randomizer.dll" target="lib\net452" />
+    <file src="..\Win32\Cauldron.Randomizer\bin\Release\Net452\Cauldron.Randomizer.xml" target="lib\net452" />
+    <file src="..\Win32\Cauldron.Randomizer\bin\Release\Net452\Cauldron.Randomizer.pdb" target="lib\net452" />
+    <file src="..\Win32\Cauldron.Randomizer\bin\Release\Net46\Cauldron.Randomizer.dll" target="lib\net46" />
+    <file src="..\Win32\Cauldron.Randomizer\bin\Release\Net46\Cauldron.Randomizer.xml" target="lib\net46" />
+    <file src="..\Win32\Cauldron.Randomizer\bin\Release\Net46\Cauldron.Randomizer.pdb" target="lib\net46" />
+    <file src="..\Win32\Cauldron.Randomizer\bin\Release\Net461\Cauldron.Randomizer.dll" target="lib\net461" />
+    <file src="..\Win32\Cauldron.Randomizer\bin\Release\Net461\Cauldron.Randomizer.xml" target="lib\net461" />
+    <file src="..\Win32\Cauldron.Randomizer\bin\Release\Net461\Cauldron.Randomizer.pdb" target="lib\net461" />
+    <file src="..\Win32\Cauldron.Randomizer\bin\Release\Net462\Cauldron.Randomizer.dll" target="lib\net462" />
+    <file src="..\Win32\Cauldron.Randomizer\bin\Release\Net462\Cauldron.Randomizer.xml" target="lib\net462" />
+    <file src="..\Win32\Cauldron.Randomizer\bin\Release\Net462\Cauldron.Randomizer.pdb" target="lib\net462" />
+    <file src="..\Shared\Cauldron.Randomizer\**\*.cs" target="src" />
+  </files>
+</package>

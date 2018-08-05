@@ -9,7 +9,10 @@
     <licenseUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/LICENSE</licenseUrl>
     <projectUrl>https://github.com/Capgemini/Cauldron</projectUrl>
     <iconUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/cauldron.png</iconUrl>
-    <description>A simple localization implementation that can work with different sources.</description>
+    <description>
+      A simple localization implementation that can work with different sources.
+      Breaking changes in 3.1.x - See https://github.com/Capgemini/Cauldron for more information.
+    </description>
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Cauldron Multisource Localization Language</tags>
     <releaseNotes>
@@ -19,14 +22,17 @@
     </releaseNotes>
     <dependencies>
       <dependency id="Capgemini.Cauldron.Activator" version="3.0.22" />
-      <dependency id="Capgemini.Cauldron.Core.Extensions" version="3.0.22" />
-      <dependency id="Capgemini.Cauldron.Core.Reflection" version="3.0.22" />
-      <dependency id="Capgemini.Cauldron.Core.Yaml" version="3.0.22" />
+      <dependency id="Capgemini.Cauldron" version="3.0.22" />
+      <dependency id="Capgemini.Cauldron.Yaml" version="3.0.22" />
       <dependency id="Newtonsoft.Json" version="11.0.2" />
       <dependency id="Fody" version="3.0.3" />
     </dependencies>
   </metadata>
   <files>
+    <file src="..\UWP\Cauldron.Localization\bin\Release\Cauldron.Localization.dll" target="lib\uap10.0" />
+    <file src="..\UWP\Cauldron.Localization\bin\Release\Cauldron.Localization.xml" target="lib\uap10.0" />
+    <file src="..\UWP\Cauldron.Localization\bin\Release\Cauldron.Localization.pdb" target="lib\uap10.0" />
+    <file src="..\UWP\Cauldron.Localization\bin\Release\Cauldron.Localization.pri" target="lib\uap10.0" />
     <file src="..\NetStandard\Cauldron.Localization\bin\Release\netstandard2.0\Cauldron.Localization.dll" target="lib\netstandard2.0" />
     <file src="..\NetStandard\Cauldron.Localization\bin\Release\netstandard2.0\Cauldron.Localization.xml" target="lib\netstandard2.0" />
     <file src="..\NetStandard\Cauldron.Localization\bin\Release\netstandard2.0\Cauldron.Localization.pdb" target="lib\netstandard2.0" />

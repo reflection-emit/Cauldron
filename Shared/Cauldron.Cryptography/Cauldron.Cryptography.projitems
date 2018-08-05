@@ -17,6 +17,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)HashAlgorithms.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)KeyMaterial.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)KeyPair.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MathEx.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PasswordScore.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Rsa.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)RsaAes.cs" />

@@ -204,10 +204,6 @@
       <Project>{13701490-ecb2-4f70-80c8-32897748ef05}</Project>
       <Name>Cauldron.Activator</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Cauldron.Core.Net\Cauldron.Core.Net.csproj">
-      <Project>{dbc9abb4-746a-4e9f-9ea8-6a52823470c0}</Project>
-      <Name>Cauldron.Core.Net</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Cauldron.Cryptography\Cauldron.Cryptography.csproj">
       <Project>{97d924b8-8fb2-4720-84e1-28502c2bae51}</Project>
       <Name>Cauldron.Cryptography</Name>
@@ -255,11 +251,11 @@
     <PreBuildEvent>
     </PreBuildEvent>
   </PropertyGroup>
-  <Import Project="..\..\packages\Fody.3.1.3\build\Fody.targets" Condition="Exists('..\..\packages\Fody.3.1.3\build\Fody.targets')" />
+  <Import Project="..\..\packages\Fody.3.1.4\build\Fody.targets" Condition="Exists('..\..\packages\Fody.3.1.4\build\Fody.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\..\packages\Fody.3.1.3\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Fody.3.1.3\build\Fody.targets'))" />
+    <Error Condition="!Exists('..\..\packages\Fody.3.1.4\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Fody.3.1.4\build\Fody.targets'))" />
   </Target>
 </Project>

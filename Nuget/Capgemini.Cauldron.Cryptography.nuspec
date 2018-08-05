@@ -9,7 +9,10 @@
     <licenseUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/LICENSE</licenseUrl>
     <projectUrl>https://github.com/Capgemini/Cauldron</projectUrl>
     <iconUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/cauldron.png</iconUrl>
-    <description>Contains typical implementations for AES, RSA and RSA-AES encryptions. It also contains extensions that helps working with SecureString.</description>
+    <description>
+      Contains typical implementations for AES, RSA and RSA-AES encryptions. It also contains extensions that helps working with SecureString.
+      Breaking changes in 3.1.x - See https://github.com/Capgemini/Cauldron for more information.
+    </description>
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Cauldron Cryptography AES RSA SecureString</tags>
     <releaseNotes>
@@ -19,6 +22,7 @@
       2018.05.04 - [C] Assemblies for Net45, Net451, Net452, Net46, Net461 and Net462 added
     </releaseNotes>
     <dependencies>
+      <dependency id="Capgemini.Cauldron.Randomizer" version="3.0.22" />
     </dependencies>
   </metadata>
   <files>

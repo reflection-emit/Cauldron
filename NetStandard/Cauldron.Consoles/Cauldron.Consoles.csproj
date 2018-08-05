@@ -17,6 +17,8 @@
     <PackageTags>Toolkit Capgemini Console Parameter Parsing Argument Arguments Parameters Cauldron Command CommandLine Args</PackageTags>
     <PackageId>Capgemini.Cauldron.Consoles</PackageId>
     <Configurations>Debug;Release;Release.Net45;Release.451</Configurations>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>Consoles.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -27,10 +29,12 @@
     <DocumentationFile>bin\Debug\netstandard2.0\Cauldron.Consoles.xml</DocumentationFile>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Cauldron.Core.Extensions\Cauldron.Core.Extensions.csproj" />
-    <ProjectReference Include="..\Cauldron.Localization\Cauldron.Localization.csproj" />
-  </ItemGroup>
-
   <Import Project="..\..\Shared\Cauldron.Consoles\Cauldron.Consoles.projitems" Label="Shared" />
+
+  <ItemGroup>
+    <ProjectReference Include="..\Cauldron.Activator\Cauldron.Activator.csproj" />
+    <ProjectReference Include="..\Cauldron.Localization\Cauldron.Localization.csproj" />
+    <ProjectReference Include="..\Cauldron.Randomizer\Cauldron.Randomizer.csproj" />
+    <ProjectReference Include="..\Cauldron\Cauldron.csproj" />
+  </ItemGroup>
 </Project>
