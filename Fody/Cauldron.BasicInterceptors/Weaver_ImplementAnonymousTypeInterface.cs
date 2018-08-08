@@ -16,7 +16,7 @@ public sealed class Weaver_ImplementAnonymousTypeInterface
     [Display("Anonymous Type To Interface")]
     public static void ImplementAnonymousTypeInterface(Builder builder)
     {
-        var cauldronCoreExtension = builder.GetType("Cauldron.Interception.Extensions");
+        var cauldronCoreExtension = builder.GetType("Cauldron.Interception.ExtensionsInterception");
         var createTypeMethod = cauldronCoreExtension.GetMethod("CreateType", 1).FindUsages().ToArray();
         var createdTypes = new Dictionary<string, BuilderType>();
 
