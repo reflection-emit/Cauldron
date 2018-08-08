@@ -20,7 +20,7 @@ using System.Security.Cryptography;
 
 namespace Cauldron.Core
 {
-    using Cauldron.Core.Diagnostics;
+    using Cauldron.Diagnostics;
 
     /// <summary>
     /// Provides method that helps with serializing and deserializing an object

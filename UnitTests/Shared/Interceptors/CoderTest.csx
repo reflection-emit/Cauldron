@@ -358,7 +358,7 @@ public class CoderTest
         var method = testType.CreateMethod(Modifiers.Public, nameof(LocalVariable_BinaryOperations_Implicit_Overriden_And), Type.EmptyTypes);
         method.CustomAttributes.Add(builder.GetType(TestMethodAttribute));
 
-        var testClassType = builder.GetType("CecilatorTestClasses.TestClass");
+        var testClassType = builder.GetType("UnitTests.Cecilator.TestClass");
         var var1 = method.GetOrCreateVariable(testClassType);
         var var2 = method.GetOrCreateVariable(BuilderTypes.Int32.BuilderType);
 

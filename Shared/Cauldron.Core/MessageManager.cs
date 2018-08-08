@@ -1,4 +1,4 @@
-﻿using Cauldron.Core.Collections;
+﻿using Cauldron.Collections;
 using System;
 using System.Collections.Generic;
 using System.Linq;

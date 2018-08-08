@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Globalization;
-using Cauldron.Core.Collections;
+using Cauldron.Collections;
 
 #if WINDOWS_UWP
 

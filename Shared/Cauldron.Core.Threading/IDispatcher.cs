@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace Cauldron.Core.Threading
+namespace Cauldron.Threading
 {
     /// <summary>
     /// Represents a dispatcher. Implementations of this interface are responsible for processing the window messages and dispatching the events to the client.

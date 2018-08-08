@@ -1,7 +1,6 @@
-﻿using Cauldron.Core;
+﻿using Cauldron;
 using System;
 using System.Collections.Generic;
-using Cauldron;
 using System.Linq;
 
 namespace Cauldron

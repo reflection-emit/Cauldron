@@ -1,7 +1,7 @@
 ﻿using Cauldron;
 using Cauldron.Activator;
-using Cauldron.Core.Reflection;
-using Cauldron.Core.Threading;
+using Cauldron.Reflection;
+using Cauldron.Threading;
 using Cauldron.Cryptography;
 using Cauldron.XAML.Navigation;
 using Cauldron.XAML.ViewModels;
@@ -18,8 +18,8 @@ using System.Windows.Media;
 
 namespace Cauldron.XAML
 {
-    using Cauldron.Core;
-    using Cauldron.Core.Diagnostics;
+    using Cauldron;
+    using Cauldron.Diagnostics;
     using Cauldron.Net;
     using Cauldron.XAML.Controls;
     using System.Collections.Generic;

@@ -1,7 +1,7 @@
 ﻿using Cauldron.Interception;
 using System;
 
-namespace Cauldron.Core.Interceptors
+namespace Cauldron.Interceptors
 {
     /// <summary>
     /// Provides an interceptor that can invoke a method of the type instance.<br/>

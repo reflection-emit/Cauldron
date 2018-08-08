@@ -1,12 +1,12 @@
 ﻿using Cauldron.Activator;
-using Cauldron.Core;
+using Cauldron;
 using System;
 using System.Collections.Concurrent;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using System.Linq;
-using Cauldron.Core.Reflection;
-using Cauldron.Core.Diagnostics;
+using Cauldron.Reflection;
+using Cauldron.Diagnostics;
 
 #if WINDOWS_UWP
 

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
 
-namespace Cauldron.Core.Formatters
+namespace Cauldron.Formatters
 {
     /// <summary>
     /// Formats a numeric value to a human readable metric number.

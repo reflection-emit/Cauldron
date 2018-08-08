@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Cauldron.Core.Extensions")]
+[assembly: AssemblyTitle("Cauldron.Extensions")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Alexander Schunk, Capgemini Deutschland GmbH")]
-[assembly: AssemblyProduct("Cauldron.Core.Extensions")]
+[assembly: AssemblyProduct("Cauldron.Extensions")]
 [assembly: AssemblyCopyright("Copyright (c) 2016 Capgemini Deutschland GmbH")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

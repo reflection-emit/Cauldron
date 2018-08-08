@@ -1,4 +1,4 @@
-﻿using Cauldron.Core.Formatters;
+﻿using Cauldron.Formatters;
 using System.Globalization;
 
 namespace Cauldron

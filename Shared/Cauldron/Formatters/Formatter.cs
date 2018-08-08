@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 
-namespace Cauldron.Core.Formatters
+namespace Cauldron.Formatters
 {
     /// <summary>
     /// Represents an extensible format provider <see cref="IFormatProvider"/>

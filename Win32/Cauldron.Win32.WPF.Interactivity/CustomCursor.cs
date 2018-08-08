@@ -1,5 +1,5 @@
-﻿using Cauldron.Core;
-using Cauldron.Core.Reflection;
+﻿using Cauldron;
+using Cauldron.Reflection;
 using System;
 using System.Linq;
 using System.Windows;

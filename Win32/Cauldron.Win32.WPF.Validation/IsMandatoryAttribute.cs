@@ -1,4 +1,4 @@
-﻿using Cauldron.Core.Collections;
+﻿using Cauldron.Collections;
 using Cauldron.XAML.ViewModels;
 using System;
 using System.Collections;

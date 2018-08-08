@@ -1,4 +1,4 @@
-﻿using Cauldron.Core.Extensions;
+﻿using Cauldron.Extensions;
 using Cauldron.XAML.Interactivity;
 using Cauldron.XAML.ViewModels;
 using System;

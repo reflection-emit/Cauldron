@@ -3,7 +3,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Threading.Tasks;
 
-namespace Cauldron.Core.Threading
+namespace Cauldron.Threading
 {
     /// <summary>
     /// Provides a class that insures that an action is only called once.

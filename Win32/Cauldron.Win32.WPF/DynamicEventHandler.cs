@@ -1,6 +1,6 @@
-﻿using Cauldron.Core;
-using Cauldron.Core.Diagnostics;
-using Cauldron.Core.Extensions;
+﻿using Cauldron;
+using Cauldron.Diagnostics;
+using Cauldron.Extensions;
 using System;
 using System.Reflection;
 

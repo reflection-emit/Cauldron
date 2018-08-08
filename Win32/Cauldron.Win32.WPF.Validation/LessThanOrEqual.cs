@@ -1,4 +1,4 @@
-﻿using Cauldron.Core;
+﻿using Cauldron;
 using Cauldron.XAML.ViewModels;
 using System;
 using System.Reflection;

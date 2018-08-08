@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Weavers VerifyAssembly="True" VerifyIgnoreCodes="0x801318F3">
+  <Cauldron.Interception Verbose="true">
+    <CustomInterceptors>
+      $(ProjectDir)..\..\..\Fody\Interceptors\Cauldron.BasicInterceptors*.dll
+      $(ProjectDir)..\..\..\Fody\Interceptors\Cauldron.ActivatorInterceptors*.dll
+      $(ProjectDir)..\..\..\Win32\Cauldron.Win32.Interceptors\InterceptorScripts\*.csx
+      $(ProjectDir)..\..\Shared\Interceptors\*.csx
+    </CustomInterceptors>
+  </Cauldron.Interception>
+</Weavers>

@@ -1,8 +1,8 @@
 ﻿using Cauldron.Activator;
-using Cauldron.Core;
-using Cauldron.Core.Collections;
-using Cauldron.Core.Diagnostics;
-using Cauldron.Core.Threading;
+using Cauldron;
+using Cauldron.Collections;
+using Cauldron.Diagnostics;
+using Cauldron.Threading;
 using Cauldron.Cryptography;
 using Cauldron.XAML.Interactivity;
 using System;

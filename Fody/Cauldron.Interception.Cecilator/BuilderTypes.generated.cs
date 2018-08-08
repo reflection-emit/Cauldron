@@ -555,13 +555,13 @@ namespace Cauldron.Interception.Cecilator
         private static BuilderTypeIDisposableObject _idisposableobject;
 		
         /// <summary>
-        /// Gets <see cref="BuilderType"/> representing <see cref="Cauldron.Core.IDisposableObject"/>. 
+        /// Gets <see cref="BuilderType"/> representing <see cref="Cauldron.IDisposableObject"/>. 
         /// </summary>
         public static BuilderTypeIDisposableObject IDisposableObject
         {
             get
             {
-                if (_idisposableobject == null) _idisposableobject = new BuilderTypeIDisposableObject(Builder.Current.GetType("Cauldron.Core.IDisposableObject").Import());
+                if (_idisposableobject == null) _idisposableobject = new BuilderTypeIDisposableObject(Builder.Current.GetType("Cauldron.IDisposableObject").Import());
                 return _idisposableobject;
 			}
         }
@@ -16190,7 +16190,7 @@ namespace Cauldron.Interception.Cecilator
 
 			
     /// <summary>
-    /// Provides a wrapper class for <see cref="Cauldron.Core.IDisposableObject"/>
+    /// Provides a wrapper class for <see cref="Cauldron.IDisposableObject"/>
     /// </summary>
     public partial class BuilderTypeIDisposableObject : TypeSystemExBase
 	{

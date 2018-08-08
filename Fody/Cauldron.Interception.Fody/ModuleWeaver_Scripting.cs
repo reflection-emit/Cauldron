@@ -95,12 +95,11 @@ namespace Cauldron.Interception.Fody
             var output = Path.Combine(tempDirectory, Path.GetFileNameWithoutExtension(path) + ".dll");
             var pdb = Path.Combine(tempDirectory, Path.GetFileNameWithoutExtension(path) + ".pdb");
 
-            if (File.Exists(output))
-                return output;
-
             Directory.CreateDirectory(tempDirectory);
 
             var additionalReferences = GetReferences(path, tempDirectory);
+            if (additionalReferences.Item3 && File.Exists(output))
+                return output;
 
             var arguments = new string[]
             {

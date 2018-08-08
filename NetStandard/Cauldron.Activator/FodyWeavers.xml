@@ -6,9 +6,9 @@
       $(ProjectDir)..\..\Fody\Interceptors\Cauldron.ProjectMinimizedReferences.dll
     </CustomInterceptors>
     <Minimize>
-      Cauldron.Core.Collections, all
+      Cauldron.Collections, all
       Cauldron
-      Cauldron.Core.Diagnostics, all
+      Cauldron.Diagnostics, all
       Cauldron.Core
     </Minimize>
   </Cauldron.Interception>

@@ -1,4 +1,4 @@
-﻿using Cauldron.Core.Extensions;
+﻿using Cauldron.Extensions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;

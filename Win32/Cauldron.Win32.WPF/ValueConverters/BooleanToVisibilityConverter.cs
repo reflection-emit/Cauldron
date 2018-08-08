@@ -1,4 +1,4 @@
-﻿using Cauldron.Core.Extensions;
+﻿using Cauldron.Extensions;
 using System;
 
 #if WINDOWS_UWP

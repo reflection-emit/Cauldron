@@ -1,5 +1,5 @@
 ﻿using Cauldron.Activator;
-using Cauldron.Core.Threading;
+using Cauldron.Threading;
 using Cauldron.XAML.Controls;
 using Cauldron.XAML.ViewModels;
 using System;

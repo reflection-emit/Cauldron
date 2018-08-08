@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>ac9cea5b-6214-4fbc-8e5a-50f57fad5fa9</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>MainTests</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)BasicInterceptors\AbstractTestClass.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BasicInterceptors\AssignMethodAttribute_Tests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BasicInterceptors\TestClass.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Comparing_Tests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Cryptography\EncryptionDecryptionTest.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\ExtensionTesting.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Activator\FactoryGenericSingletonTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Activator\FactoryTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Activator\Factory_ParallelCreation_Test.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Activator\Factory_ParallelCreation_Test_Resource.generated.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BasicInterceptors\Field_Interception_Code_Validation_Tests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Activator\GenericResolutionTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Cecilator\GetParametersArrayTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Activator\Inject_Test.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BasicInterceptors\ITestInterface.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Activator\ITestInterface2.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Cryptography\KeyMaterialTest.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Activator\MappingTest.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BasicInterceptors\Method_Interceptor_Code_Validation_Tests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interceptors\ChildRegisterTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interceptors\RegistryAttribute_Tests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interceptors\TimedCacheTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Reflection\ModuleLoadTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BasicInterceptors\ParameterPassedInterceptor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BasicInterceptors\Property_Interceptor_Code_Validation_Tests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Reflection\ReflectionTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Cryptography\SecureStringTest.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BasicInterceptors\SimpleMethod_Interceptor_Code_Validation_Tests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Cecilator\TestClass.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Activator\TestClasses.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BasicInterceptors\TestClass_Class.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Activator\TestComponent.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BasicInterceptors\TestStruct.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)XAML\ViewModelTest.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Cecilator\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Cryptography\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Extensions\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Reflection\" />
+  </ItemGroup>
+</Project>

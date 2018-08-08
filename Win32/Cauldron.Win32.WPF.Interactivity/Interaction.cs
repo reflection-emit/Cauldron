@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using Cauldron.Core.Collections;
+using Cauldron.Collections;
 
 #if WINDOWS_UWP
 

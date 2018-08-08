@@ -1,4 +1,4 @@
-﻿using Cauldron.Core.Threading;
+﻿using Cauldron.Threading;
 using Cauldron.Activator;
 
 #if WINDOWS_UWP

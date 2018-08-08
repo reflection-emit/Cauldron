@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<Weavers VerifyAssembly="True" VerifyIgnoreCodes="0x801318F3">
-  <Cauldron.Interception>
-    <CustomInterceptors>
-      $(ProjectDir)..\..\..\Fody\Interceptors\Cauldron.BasicInterceptors*.dll
-    </CustomInterceptors>
-  </Cauldron.Interception>
-</Weavers>

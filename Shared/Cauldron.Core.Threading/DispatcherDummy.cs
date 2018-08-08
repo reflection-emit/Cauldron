@@ -2,7 +2,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace Cauldron.Core.Threading
+namespace Cauldron.Threading
 {
     /// <summary>
     /// A dummy dispatcher that is used for Unit-tests

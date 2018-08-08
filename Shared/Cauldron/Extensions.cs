@@ -24,8 +24,8 @@ namespace Cauldron
     /// </summary>
     public static partial class Extensions
     {
-        // All unsafe methods here
-#if UNSAFE
+        private static readonly Regex _getLinesRegex = new Regex("\r\n|\r|\n", RegexOptions.Compiled);
+        private static readonly Regex _parseQueryRegex = new Regex(@"[?|&]([\w\.]+)=([^?|^&]+)", RegexOptions.Compiled);
 
         /// <summary>
         /// Replaces a series of chars <paramref name="oldChars"/> with a single char <paramref name="newChar"/>.
@@ -155,22 +155,6 @@ namespace Cauldron
                             *(chr + i) = newChar;
                 }
         }
-
-#endif
-    }
-
-    /// <summary>
-    /// Provides usefull extension methods
-    /// </summary>
-#if PUBLIC
-    public static partial class Extensions
-#else
-    internal static partial class ExtensionsInternal
-
-#endif
-    {
-        private static readonly Regex _getLinesRegex = new Regex("\r\n|\r|\n", RegexOptions.Compiled);
-        private static readonly Regex _parseQueryRegex = new Regex(@"[?|&]([\w\.]+)=([^?|^&]+)", RegexOptions.Compiled);
 
         /// <summary>
         /// Concats an item to an array creating a new array containing the original array and the item.

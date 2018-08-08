@@ -1,8 +1,8 @@
-﻿using Cauldron.Core;
+﻿using Cauldron;
 using System;
 using System.Linq;
 using System.Reflection;
-using Cauldron.Core.Threading;
+using Cauldron.Threading;
 using Cauldron.Activator;
 
 #if WINDOWS_UWP

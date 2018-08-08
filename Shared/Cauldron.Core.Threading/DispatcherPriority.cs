@@ -1,4 +1,4 @@
-﻿namespace Cauldron.Core.Threading
+﻿namespace Cauldron.Threading
 {
     /// <summary>
     /// Describes the priorities at which operations can be invoked

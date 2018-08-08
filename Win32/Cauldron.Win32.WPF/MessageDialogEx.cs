@@ -1,6 +1,6 @@
 ﻿using Cauldron.Activator;
-using Cauldron.Core;
-using Cauldron.Core.Threading;
+using Cauldron;
+using Cauldron.Threading;
 using Cauldron.Localization;
 using Cauldron.XAML.Navigation;
 using Cauldron.XAML.ViewModels;

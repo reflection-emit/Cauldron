@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Collections;
 using System.Reflection;
 using System.Linq;
-using Cauldron.Core.Threading;
+using Cauldron.Threading;
 
 #if WINDOWS_UWP
 

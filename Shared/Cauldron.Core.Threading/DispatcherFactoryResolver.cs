@@ -3,14 +3,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Cauldron.Core.Threading
+namespace Cauldron.Threading
 {
     /// <summary>
     /// Automatically selects the proper implementation of <see cref="IDispatcher"/>
     /// </summary>
     public sealed class DispatcherFactoryResolver : UnitTestAwareFactoryResolverBase
     {
-        private const string ContractName = "Cauldron.Core.Threading.IDispatcher";
+        private const string ContractName = "Cauldron.Threading.IDispatcher";
 
         private static IFactoryTypeInfo dispatcher;
 

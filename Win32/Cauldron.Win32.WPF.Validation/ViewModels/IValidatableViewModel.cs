@@ -1,4 +1,4 @@
-﻿using Cauldron.Core;
+﻿using Cauldron;
 using Cauldron.XAML.Validation;
 using System;
 using System.ComponentModel;

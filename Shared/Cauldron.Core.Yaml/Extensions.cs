@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Cauldron.Core.Yaml
+namespace Cauldron.Yaml
 {
     internal static class Extensions
     {

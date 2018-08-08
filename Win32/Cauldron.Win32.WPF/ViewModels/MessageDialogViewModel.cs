@@ -1,5 +1,5 @@
 ﻿using Cauldron.Activator;
-using Cauldron.Core.Reflection;
+using Cauldron.Reflection;
 using Cauldron.Localization;
 using Cauldron.XAML.Resources;
 using System.Collections.ObjectModel;

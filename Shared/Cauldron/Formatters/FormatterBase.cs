@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
 
-namespace Cauldron.Core.Formatters
+namespace Cauldron.Formatters
 {
     /// <summary>
     /// Provides a base class for custom formatters

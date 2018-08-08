@@ -1,4 +1,4 @@
-﻿using Cauldron.Core;
+﻿using Cauldron;
 using Cauldron.Interception;
 using System;
 using System.ComponentModel;

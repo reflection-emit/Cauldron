@@ -11,6 +11,7 @@
     <iconUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/cauldron.png</iconUrl>
     <description>
       The activator is a simple and fast dependency injection framework. It is based on attributes and does not require any configuration files for configuration. It also supports using static methods as component constructor.
+      This version is not compatible with Assemblies weaved by versions older than 3.1.0 of the Cauldron.Activator.
       Breaking changes in 3.1.x - See https://github.com/Capgemini/Cauldron for more information.
     </description>
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>

@@ -1,5 +1,5 @@
-﻿using Cauldron.Core;
-using Cauldron.Core.Collections;
+﻿using Cauldron;
+using Cauldron.Collections;
 using System;
 using System.IO;
 using System.Windows;

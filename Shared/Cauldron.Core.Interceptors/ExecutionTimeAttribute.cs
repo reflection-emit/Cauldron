@@ -3,7 +3,7 @@ using System;
 using System.Diagnostics;
 using System.Reflection;
 
-namespace Cauldron.Core.Interceptors
+namespace Cauldron.Interceptors
 {
     /// <summary>
     /// Provides a simple performance measurement of a code block

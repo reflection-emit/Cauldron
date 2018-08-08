@@ -1,4 +1,4 @@
-﻿using Cauldron.Core.Extensions;
+﻿using Cauldron.Extensions;
 using System;
 using System.Reflection;
 using System.Windows;
