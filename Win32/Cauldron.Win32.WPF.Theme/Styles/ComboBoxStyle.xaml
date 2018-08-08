@@ -5,8 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Cauldron.XAML.Theme.Styles"
              xmlns:t="clr-namespace:Cauldron.XAML.Theme"
-             xmlns:validation="clr-namespace:Cauldron.XAML.Validation;assembly=Cauldron.Win32.WPF.Validation"
-             xmlns:i="clr-namespace:Cauldron.XAML.Interactivity;assembly=Cauldron.Win32.WPF.Interactivity"
+             xmlns:validation="clr-namespace:Cauldron.XAML.Validation;assembly=Cauldron.Win32.WPF"
+             xmlns:i="clr-namespace:Cauldron.XAML.Interactivity;assembly=Cauldron.Win32.WPF"
              mc:Ignorable="d">
 
     <ControlTemplate x:Key="ComboBoxToggleButton" TargetType="ToggleButton">

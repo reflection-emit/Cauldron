@@ -94,6 +94,12 @@
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <DocumentationFile>bin\Release\Net462\Cauldron.XAML.Theme.xml</DocumentationFile>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>WPFTheme.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -226,10 +232,16 @@
       <Project>{9607b822-ba0f-46fd-b487-c431f3fd9eed}</Project>
       <Name>Cauldron.Win32.WPF</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Cauldron\Cauldron.csproj">
+      <Project>{d1be1727-87d4-4ca6-a537-7983cf7b2e4a}</Project>
+      <Name>Cauldron</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="WPFTheme.snk" />
   </ItemGroup>
+  <Import Project="..\..\Shared\Cauldron.Shared\Cauldron.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\packages\Fody.3.1.4\build\Fody.targets" Condition="Exists('..\..\packages\Fody.3.1.4\build\Fody.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

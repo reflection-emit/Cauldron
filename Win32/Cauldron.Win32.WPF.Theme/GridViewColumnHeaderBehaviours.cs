@@ -1,10 +1,9 @@
-﻿using Cauldron.Activator;
-using Cauldron;
-using Cauldron.Collections;
-using Cauldron.Diagnostics;
-using Cauldron.Threading;
+﻿using Cauldron;
+using Cauldron.Activator;
 using Cauldron.Cryptography;
+using Cauldron.Diagnostics;
 using Cauldron.XAML.Interactivity;
+using Cauldron.XAML.Threading;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,6 +13,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using Windows.Storage;
 
 namespace Cauldron.XAML.Theme
 {

@@ -94,6 +94,12 @@
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <DocumentationFile>bin\Release\Net462\Cauldron.Win32.WPF.Theme.VSLight.xml</DocumentationFile>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>..\Cauldron.Win32.WPF.Theme.VSDark\Theme.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -122,6 +128,10 @@
       <Project>{13701490-ecb2-4f70-80c8-32897748ef05}</Project>
       <Name>Cauldron.Activator</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Cauldron.Interception\Cauldron.Interception.csproj">
+      <Project>{cfc811eb-c500-4d1f-adf1-ecaf4433af2d}</Project>
+      <Name>Cauldron.Interception</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Cauldron.Win32.WPF.Theme\Cauldron.Win32.WPF.Theme.csproj">
       <Project>{6b057c59-d15c-4fad-a760-c1191781ae47}</Project>
       <Name>Cauldron.Win32.WPF.Theme</Name>
@@ -138,6 +148,9 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\Cauldron.Win32.WPF.Theme.VSDark\Theme.snk">
+      <Link>Theme.snk</Link>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

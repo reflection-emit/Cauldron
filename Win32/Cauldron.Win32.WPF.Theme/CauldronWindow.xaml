@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:behaviour="clr-namespace:Cauldron.XAML.Interactivity;assembly=Cauldron.Win32.WPF.Interactivity"
+             xmlns:behaviour="clr-namespace:Cauldron.XAML.Interactivity;assembly=Cauldron.Win32.WPF"
              xmlns:t="clr-namespace:Cauldron.XAML.Theme"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300"

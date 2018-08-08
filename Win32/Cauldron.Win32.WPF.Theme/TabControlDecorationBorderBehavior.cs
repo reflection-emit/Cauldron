@@ -1,5 +1,4 @@
-﻿using Cauldron.Extensions;
-using Cauldron.XAML.Interactivity;
+﻿using Cauldron.XAML.Interactivity;
 using System.Windows.Controls;
 using System.Windows.Shapes;
 

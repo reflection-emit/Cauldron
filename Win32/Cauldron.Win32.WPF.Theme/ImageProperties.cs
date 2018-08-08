@@ -1,5 +1,5 @@
 ﻿using Cauldron.Activator;
-using Cauldron.Threading;
+using Cauldron.XAML.Threading;
 using System;
 using System.Windows;
 using System.Windows.Controls;

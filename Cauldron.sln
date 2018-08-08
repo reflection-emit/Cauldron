@@ -33,12 +33,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Nuget", "Nuget", "{8675B75E
 		Nuget\Capgemini.Cauldron.Win32.MonitorInfo.nuspec = Nuget\Capgemini.Cauldron.Win32.MonitorInfo.nuspec
 		Nuget\Capgemini.Cauldron.Win32.UserInformation.nuspec = Nuget\Capgemini.Cauldron.Win32.UserInformation.nuspec
 		Nuget\Capgemini.Cauldron.Win32.WindowsService.nuspec = Nuget\Capgemini.Cauldron.Win32.WindowsService.nuspec
-		Nuget\Capgemini.Cauldron.Win32.WPF.Interactivity.nuspec = Nuget\Capgemini.Cauldron.Win32.WPF.Interactivity.nuspec
 		Nuget\Capgemini.Cauldron.Win32.WPF.nuspec = Nuget\Capgemini.Cauldron.Win32.WPF.nuspec
 		Nuget\Capgemini.Cauldron.Win32.WPF.ParameterPassing.nuspec = Nuget\Capgemini.Cauldron.Win32.WPF.ParameterPassing.nuspec
 		Nuget\Capgemini.Cauldron.Win32.WPF.Theme.VSDark.nuspec = Nuget\Capgemini.Cauldron.Win32.WPF.Theme.VSDark.nuspec
 		Nuget\Capgemini.Cauldron.Win32.WPF.Theme.VSLight.nuspec = Nuget\Capgemini.Cauldron.Win32.WPF.Theme.VSLight.nuspec
-		Nuget\Capgemini.Cauldron.Win32.WPF.Validation.nuspec = Nuget\Capgemini.Cauldron.Win32.WPF.Validation.nuspec
 		Nuget\Capgemini.Cauldron.Yaml.nuspec = Nuget\Capgemini.Cauldron.Yaml.nuspec
 		Nuget\Cauldron.BasicInterceptors.nuspec = Nuget\Cauldron.BasicInterceptors.nuspec
 		Nuget\Cauldron.Cecilator.nuspec = Nuget\Cauldron.Cecilator.nuspec
@@ -223,8 +221,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cauldron.Yaml", "NetStandar
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cauldron.Yaml", "UWP\Cauldron.Yaml\Cauldron.Yaml.csproj", "{AC4D7DE4-0A3B-4FF7-9993-5B1DBFF9FCAF}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "InProgress", "InProgress", "{9D010E9E-04AF-4A4B-BA9C-CE17BA4DFC62}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cauldron.Localization", "UWP\Cauldron.Localization\Cauldron.Localization.csproj", "{DE3FF89F-441E-487E-90F6-B936090D50C3}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cauldron.Interceptors", "NetStandard\Cauldron.Interceptors\Cauldron.Interceptors.csproj", "{9BE0BC9C-EE28-438F-A320-AB005B568BE2}"
@@ -256,6 +252,7 @@ Global
 		Shared\Cauldron.Localization\Cauldron.Localization.projitems*{407e657e-54c5-467e-b673-f6c900b7ffd6}*SharedItemsImports = 13
 		UnitTests\Fody_Assembly_Validation_Tests\Fody_Assembly_Validation_Tests.projitems*{4d5f3595-c9bd-4b9d-bcb3-93aa26dfc282}*SharedItemsImports = 4
 		Shared\Cauldron.Core.Collections\Cauldron.Core.Collections.projitems*{53427ba0-3122-4ea3-8042-3a450bfc4fc7}*SharedItemsImports = 13
+		Shared\Cauldron.Shared\Cauldron.Shared.projitems*{6b057c59-d15c-4fad-a760-c1191781ae47}*SharedItemsImports = 4
 		Shared\Cauldron.Core.Randomizer\Cauldron.Core.Randomizer.projitems*{6bd10ea8-a811-46eb-a8ba-ebb9e8abfc95}*SharedItemsImports = 4
 		UnitTests\Shared\Fody_Assembly_Validation_Tests\Fody_Assembly_Validation_Tests.projitems*{6fce7753-2343-4913-8a60-75ea4a7442bd}*SharedItemsImports = 13
 		Shared\Cauldron.Localization\Cauldron.Localization.projitems*{74759c69-9dd6-4096-96b9-4c38d2cfb4e6}*SharedItemsImports = 4
@@ -5325,9 +5322,9 @@ Global
 		{8372504D-9E36-4203-AACA-0D6859D486C8} = {A96D9056-C178-4AB9-A5DE-1C7E03A64F80}
 		{96E5EFDC-DA6A-485E-A42E-96CE0122F3F5} = {A96D9056-C178-4AB9-A5DE-1C7E03A64F80}
 		{E3EEF746-B9D3-4B89-960B-CD3532673EB4} = {A96D9056-C178-4AB9-A5DE-1C7E03A64F80}
-		{6B057C59-D15C-4FAD-A760-C1191781AE47} = {9D010E9E-04AF-4A4B-BA9C-CE17BA4DFC62}
-		{CA0E51C3-1991-4196-BB65-8E1B6027E388} = {9D010E9E-04AF-4A4B-BA9C-CE17BA4DFC62}
-		{159B4045-DC59-4542-B88D-C64FBE786BD0} = {9D010E9E-04AF-4A4B-BA9C-CE17BA4DFC62}
+		{6B057C59-D15C-4FAD-A760-C1191781AE47} = {E1A20339-CE10-4F28-BB52-AB7D56DB3F25}
+		{CA0E51C3-1991-4196-BB65-8E1B6027E388} = {E1A20339-CE10-4F28-BB52-AB7D56DB3F25}
+		{159B4045-DC59-4542-B88D-C64FBE786BD0} = {E1A20339-CE10-4F28-BB52-AB7D56DB3F25}
 		{3B240903-36CE-4ABE-AEB6-FEDDE9DC0565} = {0586FBD6-24EF-4D21-963D-90443676AB1F}
 		{3014E506-954A-4601-97A2-797E6306FDC4} = {0586FBD6-24EF-4D21-963D-90443676AB1F}
 		{53427BA0-3122-4EA3-8042-3A450BFC4FC7} = {0586FBD6-24EF-4D21-963D-90443676AB1F}
@@ -5366,7 +5363,6 @@ Global
 		{AD85B816-7080-4B07-9AD5-7DD4E9BA1750} = {E1A20339-CE10-4F28-BB52-AB7D56DB3F25}
 		{496957FC-211C-49BF-AB40-8E9B249E143B} = {D61DB804-8031-458B-841A-B9F79F4E56E0}
 		{AC4D7DE4-0A3B-4FF7-9993-5B1DBFF9FCAF} = {819B7C72-B9E8-4FA9-865A-8EA6C728AC92}
-		{9D010E9E-04AF-4A4B-BA9C-CE17BA4DFC62} = {E1A20339-CE10-4F28-BB52-AB7D56DB3F25}
 		{DE3FF89F-441E-487E-90F6-B936090D50C3} = {819B7C72-B9E8-4FA9-865A-8EA6C728AC92}
 		{9BE0BC9C-EE28-438F-A320-AB005B568BE2} = {D61DB804-8031-458B-841A-B9F79F4E56E0}
 		{B148F2A0-5BB6-4D9A-B9B8-915971B25BFE} = {E1A20339-CE10-4F28-BB52-AB7D56DB3F25}

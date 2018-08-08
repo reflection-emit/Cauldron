@@ -102,6 +102,12 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <DocumentationFile>bin\Release\Net462\Cauldron.Win32.WPF.xml</DocumentationFile>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>WPF.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -245,6 +251,7 @@
     <None Include="FodyWeavers.xml" />
     <EmbeddedResource Include="Resources\Text\7B5BE4E7E11D87C4E23B68589848BB2A.yaml" />
     <None Include="packages.config" />
+    <None Include="WPF.snk" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Cauldron.Activator\Cauldron.Activator.csproj">
