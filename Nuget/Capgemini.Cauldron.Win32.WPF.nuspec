@@ -36,7 +36,7 @@
       2017.12.04 - [B] Fixed a bug that caused the application to crash if there are no IMultiValueConverter in the application.
       2017.12.04 - [B] Bug in CauldronTemplateSelector regarding view orientation fixed.
       2017.12.04 - [B] Bug regarding auto-selection of views in the navigator fixed.
-      2017.12.04 - [B] Now picks the correct Window implementaion.
+      2017.12.04 - [B] Now picks the correct Window implementation.
       2017.12.04 - [A] Several information from ApplicationInfo added as static resources.
     </releaseNotes>
     <dependencies>
@@ -44,18 +44,10 @@
       <dependency id="Newtonsoft.Json" version="11.0.2" />
       <dependency id="PropertyChanged.Fody" version="2.5.3" />
       <dependency id="Cauldron.Interception.Fody" version="3.0.22" />
+      <dependency id="Cauldron.BasicInterceptors" version="3.0.22" />
+      <dependency id="Capgemini.Cauldron" version="3.0.22" />
       <dependency id="Capgemini.Cauldron.Activator" version="3.0.22" />
-      <dependency id="Capgemini.Cauldron.Core" version="3.0.22" />
-      <dependency id="Capgemini.Cauldron.Core.Collections" version="3.0.22" />
-      <dependency id="Capgemini.Cauldron.Core.MathExtensions" version="3.0.22" />
-      <dependency id="Capgemini.Cauldron.Core.Comparing" version="3.0.22" />
-      <dependency id="Capgemini.Cauldron.Core.Diagnostics" version="3.0.22" />
-      <dependency id="Capgemini.Cauldron.Core.Disposable" version="3.0.22" />
-      <dependency id="Capgemini.Cauldron.Core.Extensions" version="3.0.22" />
-      <dependency id="Capgemini.Cauldron.Core.Extensions.Convertions" version="3.0.22" />
-      <dependency id="Capgemini.Cauldron.Core.Reflection" version="3.0.22" />
-      <dependency id="Capgemini.Cauldron.Core.Threading" version="3.0.22" />
-      <dependency id="Capgemini.Cauldron.Core.Net" version="3.0.22" />
+      <dependency id="Capgemini.Cauldron.Collections" version="3.0.22" />
       <dependency id="Capgemini.Cauldron.Cryptography" version="3.0.22" />
       <dependency id="Capgemini.Cauldron.Localization" version="3.0.22" />
       <dependency id="Capgemini.Cauldron.Win32.MonitorInfo" version="3.0.22" />

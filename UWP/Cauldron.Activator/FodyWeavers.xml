@@ -9,7 +9,7 @@
       Cauldron.Collections, all
       Cauldron
       Cauldron.Diagnostics, all
-      Cauldron.Core
+      Cauldron
     </Minimize>
   </Cauldron.Interception>
 </Weavers>

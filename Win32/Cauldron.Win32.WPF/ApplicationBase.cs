@@ -1,8 +1,7 @@
 ﻿using Cauldron;
 using Cauldron.Activator;
-using Cauldron.Reflection;
-using Cauldron.Threading;
 using Cauldron.Cryptography;
+using Cauldron.Reflection;
 using Cauldron.XAML.Navigation;
 using Cauldron.XAML.ViewModels;
 using System;
@@ -22,6 +21,7 @@ namespace Cauldron.XAML
     using Cauldron.Diagnostics;
     using Cauldron.Net;
     using Cauldron.XAML.Controls;
+    using Cauldron.XAML.Threading;
     using System.Collections.Generic;
 
     /// <summary>

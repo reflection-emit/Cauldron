@@ -1,8 +1,7 @@
 ﻿using Cauldron.Activator;
-using Cauldron;
-using Cauldron.Threading;
 using Cauldron.Localization;
 using Cauldron.XAML.Navigation;
+using Cauldron.XAML.Threading;
 using Cauldron.XAML.ViewModels;
 using System;
 using System.ComponentModel;

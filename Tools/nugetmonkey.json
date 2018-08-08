@@ -199,6 +199,56 @@
       "priority": 100
     },
     {
+      "id": "Capgemini.Cauldron.Win32.Extension.Impersonation",
+      "projects": [
+        {
+          "path": "..\\Win32\\Cauldron.Win32.Extension.Impersonation\\Cauldron.Win32.Extension.Impersonation.csproj",
+          "build-config": [ "Release-Net45", "Release-Net451", "Release-Net452", "Release-Net46", "Release-Net461", "Release-Net462" ]
+        }
+      ],
+      "priority": 100
+    },
+    {
+      "id": "Capgemini.Cauldron.Win32.MonitorInfo",
+      "projects": [
+        {
+          "path": "..\\Win32\\Cauldron.Win32.MonitorInfo\\Cauldron.Win32.MonitorInfo.csproj",
+          "build-config": [ "Release-Net45", "Release-Net451", "Release-Net452", "Release-Net46", "Release-Net461", "Release-Net462" ]
+        }
+      ],
+      "priority": 100
+    },
+    {
+      "id": "Capgemini.Cauldron.Win32.UserInformation",
+      "projects": [
+        {
+          "path": "..\\Win32\\Cauldron.Win32.UserInformation\\Cauldron.Win32.UserInformation.csproj",
+          "build-config": [ "Release-Net45", "Release-Net451", "Release-Net452", "Release-Net46", "Release-Net461", "Release-Net462" ]
+        }
+      ],
+      "priority": 100
+    },
+    {
+      "id": "Capgemini.Cauldron.Win32.WindowsService",
+      "projects": [
+        {
+          "path": "..\\Win32\\Cauldron.Win32.WindowsService\\Cauldron.Win32.WindowsService.csproj",
+          "build-config": [ "Release-Net45", "Release-Net451", "Release-Net452", "Release-Net46", "Release-Net461", "Release-Net462" ]
+        }
+      ],
+      "priority": 100
+    },
+    {
+      "id": "Capgemini.Cauldron.Win32.WPF.ParameterPassing",
+      "projects": [
+        {
+          "path": "..\\Win32\\Cauldron.Win32.WPF.ParameterPassing\\Cauldron.Win32.WPF.ParameterPassing.csproj",
+          "build-config": [ "Release-Net45", "Release-Net451", "Release-Net452", "Release-Net46", "Release-Net461", "Release-Net462" ]
+        }
+      ],
+      "priority": 100
+    },
+    {
       "id": "Cauldron.Cecilator",
       "projects": [
         {

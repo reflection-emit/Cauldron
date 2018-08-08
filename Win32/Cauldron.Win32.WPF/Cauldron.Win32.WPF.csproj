@@ -135,9 +135,32 @@
     <Compile Include="IImageManager.cs" />
     <Compile Include="ImageManager.cs" />
     <Compile Include="IMessageDialog.cs" />
+    <Compile Include="Interactivity\Actions\ActionBase.cs" />
+    <Compile Include="Interactivity\Actions\ActionCollection.cs" />
+    <Compile Include="Interactivity\Actions\InvokeMethodAction.cs" />
+    <Compile Include="Interactivity\Attributes\BehaviourUsageAttribute.cs" />
+    <Compile Include="Interactivity\Behaviour.cs" />
+    <Compile Include="Interactivity\BehaviourCollection.cs" />
+    <Compile Include="Interactivity\BehaviourInvocation\BehaviourInvokeAwareBehaviourBase.cs" />
+    <Compile Include="Interactivity\BehaviourInvocation\InvocationTrigger.cs" />
+    <Compile Include="Interactivity\CustomCursor.cs" />
+    <Compile Include="Interactivity\EnterKeyToCommand.cs" />
+    <Compile Include="Interactivity\EventToCommand.cs" />
+    <Compile Include="Interactivity\EventTrigger.cs" />
+    <Compile Include="Interactivity\IBehaviour.cs" />
+    <Compile Include="Interactivity\Interaction.cs" />
+    <Compile Include="Interactivity\InteractionTemplate.cs" />
+    <Compile Include="Interactivity\Localized.cs" />
+    <Compile Include="Interactivity\PasswordBoxBinding.cs" />
+    <Compile Include="Interactivity\PropertyChangedTrigger.cs" />
+    <Compile Include="Interactivity\SetFocusOnLoad.cs" />
+    <Compile Include="Interactivity\StyleInteraction.cs" />
     <Compile Include="KeyRawValueDictionary.cs" />
     <Compile Include="MessageBoxImage.cs" />
     <Compile Include="MessageDialogEx.cs" />
+    <Compile Include="MessageManager.cs" />
+    <Compile Include="MessageObject.cs" />
+    <Compile Include="MessagingArgs.cs" />
     <Compile Include="Navigation\INavigator_Win32.cs" />
     <Compile Include="INotifyBehaviourInvocation.cs" />
     <Compile Include="IRelayCommand.cs" />
@@ -165,7 +188,31 @@
       <DependentUpon>StylesAndTemplates.xaml</DependentUpon>
     </Compile>
     <Compile Include="TextBlockInline.cs" />
+    <Compile Include="Threading\AsyncHelper.cs" />
+    <Compile Include="Threading\CallOnce.cs" />
+    <Compile Include="Threading\DispatcherDummy.cs" />
+    <Compile Include="Threading\DispatcherFactoryResolver.cs" />
+    <Compile Include="Threading\DispatcherPriority.cs" />
+    <Compile Include="Threading\IDispatcher.cs" />
     <Compile Include="UnsafeNative.cs" />
+    <Compile Include="Validation\EqualityAttribute.cs" />
+    <Compile Include="Validation\GreaterThanAttribute.cs" />
+    <Compile Include="Validation\GreaterThanOrEqualAttribute.cs" />
+    <Compile Include="Validation\IsMandatoryAttribute.cs" />
+    <Compile Include="Validation\LessThan.cs" />
+    <Compile Include="Validation\LessThanOrEqual.cs" />
+    <Compile Include="Validation\PasswordStrengthAttribute.cs" />
+    <Compile Include="Validation\StringLengthAttribute.cs" />
+    <Compile Include="Validation\UnEqualityAttribute.cs" />
+    <Compile Include="Validation\ValidationBehaviour.cs" />
+    <Compile Include="Validation\ValidationEventArgs.cs" />
+    <Compile Include="Validation\ValidationHandler.cs" />
+    <Compile Include="Validation\ValidationProperties.cs" />
+    <Compile Include="Validation\ValidatorAttributeBase.cs" />
+    <Compile Include="Validation\ValidatorCollection.cs" />
+    <Compile Include="Validation\ValidatorGroup.cs" />
+    <Compile Include="Validation\ViewModels\IValidatableViewModel.cs" />
+    <Compile Include="Validation\ViewModels\ValidatableViewModelBase.cs" />
     <Compile Include="ValueConverterBase.cs" />
     <Compile Include="ValueConverters\BooleanInvertConverter.cs" />
     <Compile Include="ValueConverters\BooleanToVisibilityConverter.cs" />
@@ -204,6 +251,10 @@
       <Project>{13701490-ecb2-4f70-80c8-32897748ef05}</Project>
       <Name>Cauldron.Activator</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Cauldron.Collections\Cauldron.Collections.csproj">
+      <Project>{0584e5fa-bdf8-42e2-a20e-051dc4bee540}</Project>
+      <Name>Cauldron.Collections</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Cauldron.Cryptography\Cauldron.Cryptography.csproj">
       <Project>{97d924b8-8fb2-4720-84e1-28502c2bae51}</Project>
       <Name>Cauldron.Cryptography</Name>
@@ -228,6 +279,10 @@
       <Project>{3b7c0640-5d31-46aa-97d2-689787409853}</Project>
       <Name>Cauldron.Win32.WPF.ParameterPassing</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Cauldron\Cauldron.csproj">
+      <Project>{d1be1727-87d4-4ca6-a537-7983cf7b2e4a}</Project>
+      <Name>Cauldron</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Images\error_red_32x32.png" />
@@ -246,6 +301,7 @@
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
+  <Import Project="..\..\Shared\Cauldron.Shared\Cauldron.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>

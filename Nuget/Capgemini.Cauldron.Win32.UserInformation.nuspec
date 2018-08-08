@@ -18,6 +18,7 @@
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Cauldron User information UserInformation</tags>
     <releaseNotes>
+      2018.08.08 - [C] Now signed
       2018.08.05 - [C] Dependencies cleaned
       2018.05.04 - [C] Assemblies for Net45, Net451, Net452, Net46, Net461 and Net462 added
       2017.12.21 - [C] Added a fallback if the user's account picture file was not found.

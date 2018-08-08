@@ -1,5 +1,7 @@
 ﻿using Cauldron;
 
+using Cauldron;
+
 namespace Cauldron.XAML
 {
     /// <summary>

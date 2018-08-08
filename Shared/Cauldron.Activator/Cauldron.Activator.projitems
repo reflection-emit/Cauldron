@@ -18,7 +18,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Collections\FastDictionaryEntry.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Disposable\DisposableBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Disposable\IDisposableObject.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Extensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ActivatorExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)GenericComponentAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ExtensionsCloning.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Factory.cs" />
@@ -41,6 +41,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Reflection\DisplayNameAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Reflection\Enum.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Reflection\ExtensionsReflection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Reflection\MathR.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Reflection\TypeIsInterfaceException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)RenameAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UnitTestAwareFactoryResolverBase.cs" />

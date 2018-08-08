@@ -15,6 +15,7 @@
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Cauldron Dispatcher</tags>
     <releaseNotes>
+      2018.08.08 - [C] Now signed
       2018.05.04 - [C] Assemblies for Net45, Net451, Net452, Net46, Net461 and Net462 added
       2018.01.04 - [C] Change COPYDATASTRUCT data to unicode.
       2017.12.22 - [C] Will now also invoke the callback delegate if there are no instances of the program running.

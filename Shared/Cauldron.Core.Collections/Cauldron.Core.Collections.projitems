@@ -10,7 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)ConcurrentCollection.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Extensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CollectionsExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)FastDictionaryEntry.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)FastDictionaryEnumerator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)FastKeyedCollection.cs" />

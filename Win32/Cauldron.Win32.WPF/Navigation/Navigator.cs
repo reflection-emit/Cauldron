@@ -1,9 +1,8 @@
 ﻿using Cauldron.Activator;
-using Cauldron;
 using Cauldron.Collections;
 using Cauldron.Diagnostics;
 using Cauldron.Reflection;
-using Cauldron.Threading;
+using Cauldron.XAML.Threading;
 using Cauldron.XAML.ViewModels;
 using System;
 using System.Linq;

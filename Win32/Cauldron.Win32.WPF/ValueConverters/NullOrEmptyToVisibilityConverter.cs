@@ -1,5 +1,4 @@
-﻿using Cauldron.Extensions;
-using System;
+﻿using System;
 
 #if NETFX_CORE
 using Windows.UI.Xaml;

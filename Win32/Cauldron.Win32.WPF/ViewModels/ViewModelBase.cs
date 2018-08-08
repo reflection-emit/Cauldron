@@ -1,7 +1,6 @@
 ﻿using Cauldron.Activator;
-using Cauldron;
-using Cauldron.Threading;
 using Cauldron.XAML.Navigation;
+using Cauldron.XAML.Threading;
 using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;

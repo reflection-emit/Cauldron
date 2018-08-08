@@ -1,6 +1,6 @@
 ﻿using Cauldron.Activator;
-using Cauldron.Threading;
 using Cauldron.XAML.Controls;
+using Cauldron.XAML.Threading;
 using Cauldron.XAML.ViewModels;
 using System;
 using System.ComponentModel;

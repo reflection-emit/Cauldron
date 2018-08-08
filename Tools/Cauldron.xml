@@ -20,9 +20,6 @@
             <summary>
             Provides usefull extension methods
             </summary>
-            <summary>
-            Provides usefull extension methods
-            </summary>
         </member>
         <member name="M:Cauldron.Extensions.GetShortPath(System.IO.DirectoryInfo)">
             <summary>
@@ -668,6 +665,72 @@
             <param name="encoding">The encoding of the compressed string</param>
             <returns>The uncompressed string</returns>
         </member>
+        <member name="M:Cauldron.Extensions.Replace(System.String,System.Char[],System.Char,System.Int32)">
+            <summary>
+            Replaces a series of chars <paramref name="oldChars"/> with a single char <paramref name="newChar"/>.
+            </summary>
+            <param name="value">The string with the chars to replace</param>
+            <param name="oldChars">The old chars to be replaced by <paramref name="newChar"/></param>
+            <param name="newChar">The new char that replaces the old chars</param>
+            <param name="startingIndex">The index where to start replacing chars</param>
+            <returns>
+            A copy of the original string with the chars defined by <paramref name="oldChars"/>
+            replaced by <paramref name="newChar"/>.
+            </returns>
+            <exception cref="T:System.ArgumentNullException">value is null</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+            <paramref name="startingIndex"/> is higher than <paramref name="value"/> length
+            </exception>
+        </member>
+        <member name="M:Cauldron.Extensions.LowerFirstCharacter(System.String)">
+            <summary>
+            Replaces the first char of a string against a lower cased char
+            </summary>
+            <param name="target">The string to replace</param>
+            <returns>Returns a new string with a lower cased first character</returns>
+        </member>
+        <member name="M:Cauldron.Extensions.Replace(System.String,System.UInt32,System.Char)">
+            <summary>
+            Replaces a char in the given index with <paramref name="newChar"/>
+            </summary>
+            <param name="value">The string to replace the char</param>
+            <param name="index">The index of the char</param>
+            <param name="newChar">The new char</param>
+            <exception cref="T:System.ArgumentNullException">value is null</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+            <paramref name="index"/> is higher than <paramref name="value"/> length
+            </exception>
+        </member>
+        <member name="M:Cauldron.Extensions.ReplaceMe(System.String,System.Char,System.Char,System.Int32)">
+            <summary>
+            Replaces a char <paramref name="oldChar"/> with the char <paramref name="newChar"/>.
+            <para/>
+            ATTENTION: The original string is the target of the manipulation.
+            </summary>
+            <param name="value">The string with the chars to replace</param>
+            <param name="oldChar">The old char to be replaced by <paramref name="newChar"/></param>
+            <param name="newChar">The new char that replaces the old chars</param>
+            <param name="startingIndex">The index where to start replacing chars</param>
+            <exception cref="T:System.ArgumentNullException">value is null</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+            <paramref name="startingIndex"/> is higher than <paramref name="value"/> length
+            </exception>
+        </member>
+        <member name="M:Cauldron.Extensions.ReplaceMe(System.String,System.Char[],System.Char,System.Int32)">
+            <summary>
+            Replaces a series of chars <paramref name="oldChars"/> with a single char <paramref name="newChar"/>.
+            <para/>
+            ATTENTION: The original string is the target of the manipulation.
+            </summary>
+            <param name="value">The string with the chars to replace</param>
+            <param name="oldChars">The old chars to be replaced by <paramref name="newChar"/></param>
+            <param name="newChar">The new char that replaces the old chars</param>
+            <param name="startingIndex">The index where to start replacing chars</param>
+            <exception cref="T:System.ArgumentNullException">value is null</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+            <paramref name="startingIndex"/> is higher than <paramref name="value"/> length
+            </exception>
+        </member>
         <member name="M:Cauldron.Extensions.Concat``1(``0[],``0)">
             <summary>
             Concats an item to an array creating a new array containing the original array and the item.
@@ -1127,7 +1190,7 @@
             Converts the value of this instance to its equivalent string representation, using the
             specified format.
             <para/>
-            The following custom formatter are already added: <see cref="T:Cauldron.Core.Formatters.ByteSizeFormatter"/>, <see cref="T:Cauldron.Core.Formatters.MetricUnitFormatter"/>
+            The following custom formatter are already added: <see cref="T:Cauldron.Formatters.ByteSizeFormatter"/>, <see cref="T:Cauldron.Formatters.MetricUnitFormatter"/>
             </summary>
             <param name="obj">The object to convert to string</param>
             <param name="format">A standard or custom format string</param>
@@ -1140,7 +1203,7 @@
             Converts the value of this instance to its equivalent string representation, using the
             specified format.
             <para/>
-            The following custom formatter are already added: <see cref="T:Cauldron.Core.Formatters.ByteSizeFormatter"/>, <see cref="T:Cauldron.Core.Formatters.MetricUnitFormatter"/>
+            The following custom formatter are already added: <see cref="T:Cauldron.Formatters.ByteSizeFormatter"/>, <see cref="T:Cauldron.Formatters.MetricUnitFormatter"/>
             </summary>
             <param name="obj">The object to convert to string</param>
             <param name="format">A standard or custom format string</param>
@@ -2225,7 +2288,7 @@
             <param name="dateTime">The year to get the maximum weeks.</param>
             <returns>The maximum week of the given year</returns>
         </member>
-        <member name="T:Cauldron.Core.Formatters.ByteSizeFormatter">
+        <member name="T:Cauldron.Formatters.ByteSizeFormatter">
             <summary>
             Formats a numeric value to a human readable size.
             <para/>
@@ -2238,18 +2301,18 @@
             </code>
             </example>
         </member>
-        <member name="M:Cauldron.Core.Formatters.ByteSizeFormatter.#ctor">
+        <member name="M:Cauldron.Formatters.ByteSizeFormatter.#ctor">
             <summary>
-            Initializes a new instance of <see cref="T:Cauldron.Core.Formatters.ByteSizeFormatter"/>
+            Initializes a new instance of <see cref="T:Cauldron.Formatters.ByteSizeFormatter"/>
             </summary>
         </member>
-        <member name="M:Cauldron.Core.Formatters.ByteSizeFormatter.#ctor(System.Globalization.CultureInfo)">
+        <member name="M:Cauldron.Formatters.ByteSizeFormatter.#ctor(System.Globalization.CultureInfo)">
             <summary>
-            Initializes a new instance of <see cref="T:Cauldron.Core.Formatters.ByteSizeFormatter"/>
+            Initializes a new instance of <see cref="T:Cauldron.Formatters.ByteSizeFormatter"/>
             </summary>
             <param name="cultureInfo">An object that supplies culture-specific formatting information</param>
         </member>
-        <member name="M:Cauldron.Core.Formatters.ByteSizeFormatter.OnFormat(System.String,System.Object,System.IFormatProvider)">
+        <member name="M:Cauldron.Formatters.ByteSizeFormatter.OnFormat(System.String,System.Object,System.IFormatProvider)">
             <summary>
             Converts the value of a specified object to an equivalent string representation using
             specified format and culture-specific formatting information.
@@ -2263,29 +2326,29 @@
             The string representation of the value of arg, formatted as specified by format and formatProvider.
             </returns>
         </member>
-        <member name="T:Cauldron.Core.Formatters.Formatter">
+        <member name="T:Cauldron.Formatters.Formatter">
             <summary>
             Represents an extensible format provider <see cref="T:System.IFormatProvider"/>
             </summary>
         </member>
-        <member name="M:Cauldron.Core.Formatters.Formatter.#ctor(System.Globalization.CultureInfo)">
+        <member name="M:Cauldron.Formatters.Formatter.#ctor(System.Globalization.CultureInfo)">
             <summary>
-            Initializes a new instance of <see cref="T:Cauldron.Core.Formatters.Formatter"/>
+            Initializes a new instance of <see cref="T:Cauldron.Formatters.Formatter"/>
             </summary>
             <param name="cultureInfo">An object that supplies culture-specific formatting information.</param>
         </member>
-        <member name="M:Cauldron.Core.Formatters.Formatter.#ctor">
+        <member name="M:Cauldron.Formatters.Formatter.#ctor">
             <summary>
-            Initializes a new instance of <see cref="T:Cauldron.Core.Formatters.Formatter"/>
+            Initializes a new instance of <see cref="T:Cauldron.Formatters.Formatter"/>
             </summary>
         </member>
-        <member name="M:Cauldron.Core.Formatters.Formatter.Add(System.ICustomFormatter)">
+        <member name="M:Cauldron.Formatters.Formatter.Add(System.ICustomFormatter)">
             <summary>
             Adds a new custom formatter to the collection
             </summary>
             <param name="customFormatter"></param>
         </member>
-        <member name="M:Cauldron.Core.Formatters.Formatter.OnFormat(System.String,System.Object,System.IFormatProvider)">
+        <member name="M:Cauldron.Formatters.Formatter.OnFormat(System.String,System.Object,System.IFormatProvider)">
             <summary>
             Converts the value of a specified object to an equivalent string representation using
             specified format and culture-specific formatting information.
@@ -2299,17 +2362,17 @@
             The string representation of the value of arg, formatted as specified by format and formatProvider.
             </returns>
         </member>
-        <member name="T:Cauldron.Core.Formatters.FormatterBase">
+        <member name="T:Cauldron.Formatters.FormatterBase">
             <summary>
             Provides a base class for custom formatters
             </summary>
         </member>
-        <member name="M:Cauldron.Core.Formatters.FormatterBase.#ctor">
+        <member name="M:Cauldron.Formatters.FormatterBase.#ctor">
             <summary>
-            Initializes a new instance of the <see cref="T:Cauldron.Core.Formatters.FormatterBase"/>
+            Initializes a new instance of the <see cref="T:Cauldron.Formatters.FormatterBase"/>
             </summary>
         </member>
-        <member name="M:Cauldron.Core.Formatters.FormatterBase.Format(System.String,System.Object,System.IFormatProvider)">
+        <member name="M:Cauldron.Formatters.FormatterBase.Format(System.String,System.Object,System.IFormatProvider)">
             <summary>
             Converts the value of a specified object to an equivalent string representation using specified format and culture-specific formatting information.
             </summary>
@@ -2318,14 +2381,14 @@
             <param name="formatProvider">An object that supplies format information about the current instance. </param>
             <returns>The string representation of the value of arg, formatted as specified by format and formatProvider.</returns>
         </member>
-        <member name="M:Cauldron.Core.Formatters.FormatterBase.GetFormat(System.Type)">
+        <member name="M:Cauldron.Formatters.FormatterBase.GetFormat(System.Type)">
             <summary>
             Returns an object that provides formatting services for the specified type.
             </summary>
             <param name="formatType">An object that specifies the type of format object to return.</param>
             <returns>An instance of the object specified by formatType, if the IFormatProvider implementation can supply that type of object; otherwise, null.</returns>
         </member>
-        <member name="M:Cauldron.Core.Formatters.FormatterBase.OnFormat(System.String,System.Object,System.IFormatProvider)">
+        <member name="M:Cauldron.Formatters.FormatterBase.OnFormat(System.String,System.Object,System.IFormatProvider)">
             <summary>
             Converts the value of a specified object to an equivalent string representation using specified format and culture-specific formatting information.
             </summary>
@@ -2334,7 +2397,7 @@
             <param name="formatProvider">An object that supplies format information about the current instance. </param>
             <returns>The string representation of the value of arg, formatted as specified by format and formatProvider.</returns>
         </member>
-        <member name="T:Cauldron.Core.Formatters.MetricUnitFormatter">
+        <member name="T:Cauldron.Formatters.MetricUnitFormatter">
             <summary>
             Formats a numeric value to a human readable metric number.
             <para/>
@@ -2347,18 +2410,18 @@
             </code>
             </example>
         </member>
-        <member name="M:Cauldron.Core.Formatters.MetricUnitFormatter.#ctor">
+        <member name="M:Cauldron.Formatters.MetricUnitFormatter.#ctor">
             <summary>
-            Initializes a new instance of <see cref="T:Cauldron.Core.Formatters.MetricUnitFormatter"/>
+            Initializes a new instance of <see cref="T:Cauldron.Formatters.MetricUnitFormatter"/>
             </summary>
         </member>
-        <member name="M:Cauldron.Core.Formatters.MetricUnitFormatter.#ctor(System.Globalization.CultureInfo)">
+        <member name="M:Cauldron.Formatters.MetricUnitFormatter.#ctor(System.Globalization.CultureInfo)">
             <summary>
-            Initializes a new instance of <see cref="T:Cauldron.Core.Formatters.MetricUnitFormatter"/>
+            Initializes a new instance of <see cref="T:Cauldron.Formatters.MetricUnitFormatter"/>
             </summary>
             <param name="cultureInfo">An object that supplies culture-specific formatting information</param>
         </member>
-        <member name="M:Cauldron.Core.Formatters.MetricUnitFormatter.OnFormat(System.String,System.Object,System.IFormatProvider)">
+        <member name="M:Cauldron.Formatters.MetricUnitFormatter.OnFormat(System.String,System.Object,System.IFormatProvider)">
             <summary>
             Converts the value of a specified object to an equivalent string representation using
             specified format and culture-specific formatting information.

@@ -18,7 +18,7 @@ namespace Cauldron.Interception
     /// <summary>
     /// Provides usefull extension methods
     /// </summary>
-    public static class Extensions
+    public static class ExtensionsInterception
     {
         /// <summary>
         /// Creates a new <see cref="Type"/> that implements the properties of an interface defined by <typeparamref name="T"/>

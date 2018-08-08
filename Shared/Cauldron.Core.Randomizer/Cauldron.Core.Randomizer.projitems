@@ -9,7 +9,7 @@
     <Import_RootNamespace>Cauldron.Core.Randomizer</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)Extensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)RandomizerExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Randomizer.cs" />
   </ItemGroup>
 </Project>

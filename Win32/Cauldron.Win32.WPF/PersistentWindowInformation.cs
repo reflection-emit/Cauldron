@@ -1,8 +1,7 @@
-﻿using Cauldron;
-using Cauldron.Collections;
-using System;
+﻿using System;
 using System.IO;
 using System.Windows;
+using Windows.Storage;
 
 namespace Cauldron.XAML
 {
