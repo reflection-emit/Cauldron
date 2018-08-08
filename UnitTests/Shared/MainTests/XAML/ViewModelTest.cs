@@ -1,11 +1,9 @@
-﻿using System;
-using Cauldron.Activator;
-using Cauldron.XAML.ViewModels;
-using PropertyChanged;
+﻿using Cauldron.Activator;
 using Cauldron.XAML;
+using Cauldron.XAML.ViewModels;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Cauldron.Threading;
-using System.Threading.Tasks;
+using PropertyChanged;
+using System;
 
 namespace Cauldron.Test
 {

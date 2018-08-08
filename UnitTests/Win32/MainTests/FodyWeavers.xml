@@ -4,6 +4,7 @@
     <CustomInterceptors>
       $(ProjectDir)..\..\..\Fody\Interceptors\Cauldron.BasicInterceptors*.dll
       $(ProjectDir)..\..\..\Fody\Interceptors\Cauldron.ActivatorInterceptors*.dll
+      $(ProjectDir)..\..\..\Fody\Interceptors\Cauldron.WPF.Interceptors*.dll
       $(ProjectDir)..\..\..\Win32\Cauldron.Win32.Interceptors\InterceptorScripts\*.csx
       $(ProjectDir)..\..\Shared\Interceptors\*.csx
     </CustomInterceptors>
