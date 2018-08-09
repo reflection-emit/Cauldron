@@ -14,6 +14,10 @@ namespace UnitTests.Activator
         [TestMethod]
         public void Create_Instance_Class()
         {
+            var ll = Factory.FactoryTypes;
+            var tt = Factory.RegisteredTypes;
+            var zz = Factory.Resolvers;
+
             MyClass.Current.Value = "Toast";
 
             var instance = Factory.Create<MyClass>();
