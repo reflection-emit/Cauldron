@@ -123,6 +123,6 @@
       <Link>Randomizer.snk</Link>
     </None>
   </ItemGroup>
-  <Import Project="..\..\Shared\Cauldron.Core.Randomizer\Cauldron.Core.Randomizer.projitems" Label="Shared" />
+  <Import Project="..\..\Shared\Cauldron.Randomizer\Cauldron.Randomizer.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

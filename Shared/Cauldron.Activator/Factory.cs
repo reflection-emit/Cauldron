@@ -1065,6 +1065,11 @@ namespace Cauldron.Activator
 
         private static void GetAndInitializeAllExtensions(IEnumerable<IFactoryTypeInfo> factoryTypeInfos)
         {
+            var ff = factoryInfoTypes
+                    .Where(x => x.ContractName.GetHashCode() == iFactoryExtensionName.GetHashCode() && x.ContractName == iFactoryExtensionName)
+                    .Distinct(new FactoryTypeInfoComparer())
+                    .Select(x => x.CreateInstance() as IFactoryExtension);
+
             foreach (var item in factoryInfoTypes
                     .Where(x => x.ContractName.GetHashCode() == iFactoryExtensionName.GetHashCode() && x.ContractName == iFactoryExtensionName)
                     .Distinct(new FactoryTypeInfoComparer())

@@ -133,7 +133,7 @@
       <Name>Cauldron</Name>
     </ProjectReference>
   </ItemGroup>
-  <Import Project="..\..\Shared\Cauldron.Core.Yaml\Cauldron.Core.Yaml.projitems" Label="Shared" />
+  <Import Project="..\..\Shared\Cauldron.Yaml\Cauldron.Yaml.projitems" Label="Shared" />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
@@ -144,7 +144,7 @@
     <AssemblyOriginatorKeyFile>..\..\NetStandard\Cauldron.Yaml\Yaml.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>

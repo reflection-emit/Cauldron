@@ -115,6 +115,6 @@
       <Link>Collections.snk</Link>
     </None>
   </ItemGroup>
-  <Import Project="..\..\Shared\Cauldron.Core.Collections\Cauldron.Core.Collections.projitems" Label="Shared" />
+  <Import Project="..\..\Shared\Cauldron.Collections\Cauldron.Collections.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

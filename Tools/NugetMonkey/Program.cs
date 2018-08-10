@@ -20,8 +20,9 @@ namespace NugetMonkey
 
             try
             {
-                if (args.Length == 1 && Directory.Exists(args[0]))
-                    PackageNuspec(Directory.GetFiles(args[0], "*.nuspec"));
+                var path = Path.GetFullPath(args[0]);
+                if (args.Length == 1 && Directory.Exists(path))
+                    PackageNuspec(Directory.GetFiles(path, "*.nuspec"));
                 else
                     PackageNuspec(args.Where(x => string.Equals(Path.GetExtension(args[0]), ".nuspec")).ToArray());
             }
@@ -159,7 +160,7 @@ namespace NugetMonkey
             {
                 var id = item.Attributes["id"].Value;
                 if (ProjectInfo.ProjectInfos.TryGetValue(id, out ProjectInfo info))
-                    item.Attributes["version"].Value = info.NugetVersion.Increment().ToString();
+                    item.Attributes["version"].Value = info.NugetVersion.Increment().ToString() + "-beta";
             }
 
             if (!string.IsNullOrEmpty(NugetMonkeyJson.Owners)) nuspec["package"]["metadata"]["owners"].InnerText = NugetMonkeyJson.Owners;
@@ -171,7 +172,7 @@ namespace NugetMonkey
             if (!string.IsNullOrEmpty(NugetMonkeyJson.Copyright)) nuspec["package"]["metadata"]["copyright"].InnerText = NugetMonkeyJson.Copyright;
 
             nuspec["package"]["metadata"]["id"].InnerText = Path.GetFileNameWithoutExtension(projectInfo.NuspecPath);
-            nuspec["package"]["metadata"]["version"].InnerText = projectInfo.NugetVersion.Increment().ToString();
+            nuspec["package"]["metadata"]["version"].InnerText = projectInfo.NugetVersion.Increment().ToString() + "-beta";
 
             nuspec.Save(projectInfo.NuspecPath);
         }

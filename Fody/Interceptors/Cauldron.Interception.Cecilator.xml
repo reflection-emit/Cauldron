@@ -642,6 +642,13 @@
             Cauldron.Activator.FactoryResolver get_Resolvers()<para/>
             </summary>
         </member>
+        <member name="M:Cauldron.Interception.Cecilator.BuilderTypeFactory.GetMethod_AddTypes">
+            <summary>
+            Represents the following method:
+            <para />
+            Void AddTypes(System.Collections.Generic.IEnumerable`1[Cauldron.Activator.IFactoryTypeInfo])<para/>
+            </summary>
+        </member>
         <member name="M:Cauldron.Interception.Cecilator.BuilderTypeFactory.GetMethod_Create(Mono.Cecil.TypeReference)">
             <summary>
             Represents the following method:
@@ -2109,9 +2116,9 @@
             Gets <see cref="T:Cauldron.Interception.Cecilator.BuilderType"/> representing <see cref="T:System.Exception"/>. 
             </summary>
         </member>
-        <member name="P:Cauldron.Interception.Cecilator.BuilderTypes.Extensions">
+        <member name="P:Cauldron.Interception.Cecilator.BuilderTypes.ExtensionsInterception">
             <summary>
-            Gets <see cref="T:Cauldron.Interception.Cecilator.BuilderType"/> representing <see cref="!:Cauldron.Interception.Extensions"/>. 
+            Gets <see cref="T:Cauldron.Interception.Cecilator.BuilderType"/> representing <see cref="!:Cauldron.Interception.ExtensionsInterception"/>. 
             </summary>
         </member>
         <member name="P:Cauldron.Interception.Cecilator.BuilderTypes.ExtensionsReflection">
@@ -2161,7 +2168,7 @@
         </member>
         <member name="P:Cauldron.Interception.Cecilator.BuilderTypes.IDisposableObject">
             <summary>
-            Gets <see cref="T:Cauldron.Interception.Cecilator.BuilderType"/> representing <see cref="!:Cauldron.Core.IDisposableObject"/>. 
+            Gets <see cref="T:Cauldron.Interception.Cecilator.BuilderType"/> representing <see cref="!:Cauldron.IDisposableObject"/>. 
             </summary>
         </member>
         <member name="P:Cauldron.Interception.Cecilator.BuilderTypes.IEnumerable">
@@ -3460,6 +3467,20 @@
         <member name="M:Cauldron.Interception.Cecilator.BuilderTypeChar.op_Implicit(Cauldron.Interception.Cecilator.BuilderTypeChar)~Mono.Cecil.TypeReference">
             <exclude />
         </member>
+        <member name="M:Cauldron.Interception.Cecilator.BuilderTypeChar.GetMethod_ToLower(Mono.Cecil.TypeReference,Mono.Cecil.TypeReference)">
+            <summary>
+            Represents the following method:
+            <para />
+            Char ToLower(Char, System.Globalization.CultureInfo)<para/>
+            </summary>
+        </member>
+        <member name="M:Cauldron.Interception.Cecilator.BuilderTypeChar.GetMethod_ToLower(Mono.Cecil.TypeReference)">
+            <summary>
+            Represents the following method:
+            <para />
+            Char ToLower(Char)<para/>
+            </summary>
+        </member>
         <member name="M:Cauldron.Interception.Cecilator.BuilderTypeChar.GetMethod_GetHashCode">
             <summary>
             Represents the following method:
@@ -3622,20 +3643,6 @@
             Represents the following method:
             <para />
             Char ToUpperInvariant(Char)<para/>
-            </summary>
-        </member>
-        <member name="M:Cauldron.Interception.Cecilator.BuilderTypeChar.GetMethod_ToLower(Mono.Cecil.TypeReference,Mono.Cecil.TypeReference)">
-            <summary>
-            Represents the following method:
-            <para />
-            Char ToLower(Char, System.Globalization.CultureInfo)<para/>
-            </summary>
-        </member>
-        <member name="M:Cauldron.Interception.Cecilator.BuilderTypeChar.GetMethod_ToLower(Mono.Cecil.TypeReference)">
-            <summary>
-            Represents the following method:
-            <para />
-            Char ToLower(Char)<para/>
             </summary>
         </member>
         <member name="M:Cauldron.Interception.Cecilator.BuilderTypeChar.GetMethod_ToLowerInvariant">
@@ -6132,53 +6139,53 @@
             Void .ctor(System.String, System.Exception)<para/>
             </summary>
         </member>
-        <member name="T:Cauldron.Interception.Cecilator.BuilderTypeExtensions">
+        <member name="T:Cauldron.Interception.Cecilator.BuilderTypeExtensionsInterception">
             <summary>
-            Provides a wrapper class for <see cref="!:Cauldron.Interception.Extensions"/>
+            Provides a wrapper class for <see cref="!:Cauldron.Interception.ExtensionsInterception"/>
             </summary>
         </member>
-        <member name="M:Cauldron.Interception.Cecilator.BuilderTypeExtensions.op_Implicit(Cauldron.Interception.Cecilator.BuilderTypeExtensions)~Cauldron.Interception.Cecilator.BuilderType">
+        <member name="M:Cauldron.Interception.Cecilator.BuilderTypeExtensionsInterception.op_Implicit(Cauldron.Interception.Cecilator.BuilderTypeExtensionsInterception)~Cauldron.Interception.Cecilator.BuilderType">
             <exclude />
         </member>
-        <member name="M:Cauldron.Interception.Cecilator.BuilderTypeExtensions.op_Implicit(Cauldron.Interception.Cecilator.BuilderTypeExtensions)~Mono.Cecil.TypeReference">
+        <member name="M:Cauldron.Interception.Cecilator.BuilderTypeExtensionsInterception.op_Implicit(Cauldron.Interception.Cecilator.BuilderTypeExtensionsInterception)~Mono.Cecil.TypeReference">
             <exclude />
         </member>
-        <member name="M:Cauldron.Interception.Cecilator.BuilderTypeExtensions.GetMethod_GetSHA256Hash">
+        <member name="M:Cauldron.Interception.Cecilator.BuilderTypeExtensionsInterception.GetMethod_GetSHA256Hash">
             <summary>
             Represents the following method:
             <para />
             System.String GetSHA256Hash(System.String)<para/>
             </summary>
         </member>
-        <member name="M:Cauldron.Interception.Cecilator.BuilderTypeExtensions.GetMethod_TryDisposeInternal">
+        <member name="M:Cauldron.Interception.Cecilator.BuilderTypeExtensionsInterception.GetMethod_TryDisposeInternal">
             <summary>
             Represents the following method:
             <para />
             Void TryDisposeInternal(System.Object)<para/>
             </summary>
         </member>
-        <member name="M:Cauldron.Interception.Cecilator.BuilderTypeExtensions.GetMethod_ToString">
+        <member name="M:Cauldron.Interception.Cecilator.BuilderTypeExtensionsInterception.GetMethod_ToString">
             <summary>
             Represents the following method:
             <para />
             System.String ToString()<para/>
             </summary>
         </member>
-        <member name="M:Cauldron.Interception.Cecilator.BuilderTypeExtensions.GetMethod_Equals">
+        <member name="M:Cauldron.Interception.Cecilator.BuilderTypeExtensionsInterception.GetMethod_Equals">
             <summary>
             Represents the following method:
             <para />
             Boolean Equals(System.Object)<para/>
             </summary>
         </member>
-        <member name="M:Cauldron.Interception.Cecilator.BuilderTypeExtensions.GetMethod_GetHashCode">
+        <member name="M:Cauldron.Interception.Cecilator.BuilderTypeExtensionsInterception.GetMethod_GetHashCode">
             <summary>
             Represents the following method:
             <para />
             Int32 GetHashCode()<para/>
             </summary>
         </member>
-        <member name="M:Cauldron.Interception.Cecilator.BuilderTypeExtensions.GetMethod_GetType">
+        <member name="M:Cauldron.Interception.Cecilator.BuilderTypeExtensionsInterception.GetMethod_GetType">
             <summary>
             Represents the following method:
             <para />
@@ -6377,6 +6384,13 @@
         <member name="M:Cauldron.Interception.Cecilator.BuilderTypeIDictionary.op_Implicit(Cauldron.Interception.Cecilator.BuilderTypeIDictionary)~Mono.Cecil.TypeReference">
             <exclude />
         </member>
+        <member name="M:Cauldron.Interception.Cecilator.BuilderTypeIDictionary.GetMethod_Add">
+            <summary>
+            Represents the following method:
+            <para />
+            Void Add(System.Object, System.Object)<para/>
+            </summary>
+        </member>
         <member name="M:Cauldron.Interception.Cecilator.BuilderTypeIDictionary.GetMethod_get_Item">
             <summary>
             Represents the following method:
@@ -6410,13 +6424,6 @@
             Represents the following method:
             <para />
             Boolean Contains(System.Object)<para/>
-            </summary>
-        </member>
-        <member name="M:Cauldron.Interception.Cecilator.BuilderTypeIDictionary.GetMethod_Add">
-            <summary>
-            Represents the following method:
-            <para />
-            Void Add(System.Object, System.Object)<para/>
             </summary>
         </member>
         <member name="M:Cauldron.Interception.Cecilator.BuilderTypeIDictionary.GetMethod_Clear">
@@ -6485,7 +6492,7 @@
         </member>
         <member name="T:Cauldron.Interception.Cecilator.BuilderTypeIDisposableObject">
             <summary>
-            Provides a wrapper class for <see cref="!:Cauldron.Core.IDisposableObject"/>
+            Provides a wrapper class for <see cref="!:Cauldron.IDisposableObject"/>
             </summary>
         </member>
         <member name="M:Cauldron.Interception.Cecilator.BuilderTypeIDisposableObject.op_Implicit(Cauldron.Interception.Cecilator.BuilderTypeIDisposableObject)~Cauldron.Interception.Cecilator.BuilderType">
@@ -7385,6 +7392,13 @@
         <member name="M:Cauldron.Interception.Cecilator.BuilderTypeObject.op_Implicit(Cauldron.Interception.Cecilator.BuilderTypeObject)~Mono.Cecil.TypeReference">
             <exclude />
         </member>
+        <member name="M:Cauldron.Interception.Cecilator.BuilderTypeObject.GetMethod_GetType">
+            <summary>
+            Represents the following method:
+            <para />
+            System.Type GetType()<para/>
+            </summary>
+        </member>
         <member name="M:Cauldron.Interception.Cecilator.BuilderTypeObject.GetMethod_ToString">
             <summary>
             Represents the following method:
@@ -7418,13 +7432,6 @@
             Represents the following method:
             <para />
             Int32 GetHashCode()<para/>
-            </summary>
-        </member>
-        <member name="M:Cauldron.Interception.Cecilator.BuilderTypeObject.GetMethod_GetType">
-            <summary>
-            Represents the following method:
-            <para />
-            System.Type GetType()<para/>
             </summary>
         </member>
         <member name="M:Cauldron.Interception.Cecilator.BuilderTypeObject.GetMethod_ctor">
@@ -8029,6 +8036,13 @@
         <member name="M:Cauldron.Interception.Cecilator.BuilderTypeString.op_Implicit(Cauldron.Interception.Cecilator.BuilderTypeString)~Mono.Cecil.TypeReference">
             <exclude />
         </member>
+        <member name="M:Cauldron.Interception.Cecilator.BuilderTypeString.GetMethod_get_Length">
+            <summary>
+            Represents the following method:
+            <para />
+            Int32 get_Length()<para/>
+            </summary>
+        </member>
         <member name="M:Cauldron.Interception.Cecilator.BuilderTypeString.GetMethod_Join(Mono.Cecil.TypeReference,Mono.Cecil.TypeReference)">
             <summary>
             Represents the following method:
@@ -8129,13 +8143,6 @@
             Represents the following method:
             <para />
             Int32 GetHashCode()<para/>
-            </summary>
-        </member>
-        <member name="M:Cauldron.Interception.Cecilator.BuilderTypeString.GetMethod_get_Length">
-            <summary>
-            Represents the following method:
-            <para />
-            Int32 get_Length()<para/>
             </summary>
         </member>
         <member name="M:Cauldron.Interception.Cecilator.BuilderTypeString.GetMethod_Split(Mono.Cecil.TypeReference)">
@@ -9299,6 +9306,13 @@
         <member name="M:Cauldron.Interception.Cecilator.BuilderTypeType.op_Implicit(Cauldron.Interception.Cecilator.BuilderTypeType)~Mono.Cecil.TypeReference">
             <exclude />
         </member>
+        <member name="M:Cauldron.Interception.Cecilator.BuilderTypeType.GetMethod_GetTypeFromHandle">
+            <summary>
+            Represents the following method:
+            <para />
+            System.Type GetTypeFromHandle(System.RuntimeTypeHandle)<para/>
+            </summary>
+        </member>
         <member name="M:Cauldron.Interception.Cecilator.BuilderTypeType.GetMethod_get_MemberType">
             <summary>
             Represents the following method:
@@ -9524,13 +9538,6 @@
             Represents the following method:
             <para />
             System.RuntimeTypeHandle GetTypeHandle(System.Object)<para/>
-            </summary>
-        </member>
-        <member name="M:Cauldron.Interception.Cecilator.BuilderTypeType.GetMethod_GetTypeFromHandle">
-            <summary>
-            Represents the following method:
-            <para />
-            System.Type GetTypeFromHandle(System.RuntimeTypeHandle)<para/>
             </summary>
         </member>
         <member name="M:Cauldron.Interception.Cecilator.BuilderTypeType.GetMethod_get_FullName">

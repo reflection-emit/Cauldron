@@ -184,10 +184,6 @@
       "id": "Capgemini.Cauldron.Interceptors",
       "projects": [
         {
-          "path": "..\\UWP\\Cauldron.Interceptors\\Cauldron.Interceptors.csproj",
-          "build-config": [ "Release" ]
-        },
-        {
           "path": "..\\NetStandard\\Cauldron.Interceptors\\Cauldron.Interceptors.csproj",
           "build-config": [ "Release" ]
         },
@@ -239,6 +235,16 @@
       "priority": 100
     },
     {
+      "id": "Capgemini.Cauldron.Win32.WPF",
+      "projects": [
+        {
+          "path": "..\\Win32\\Cauldron.Win32.WPF\\Cauldron.Win32.WPF.csproj",
+          "build-config": [ "Release-Net45", "Release-Net451", "Release-Net452", "Release-Net46", "Release-Net461", "Release-Net462" ]
+        }
+      ],
+      "priority": 100
+    },
+    {
       "id": "Capgemini.Cauldron.Win32.WPF.ParameterPassing",
       "projects": [
         {
@@ -249,10 +255,30 @@
       "priority": 100
     },
     {
+      "id": "Capgemini.Cauldron.Win32.WPF.Theme.VSDark",
+      "projects": [
+        {
+          "path": "..\\Win32\\Cauldron.Win32.WPF.Theme.VSDark\\Cauldron.Win32.WPF.Theme.VSDark.csproj",
+          "build-config": [ "Release-Net45", "Release-Net451", "Release-Net452", "Release-Net46", "Release-Net461", "Release-Net462" ]
+        }
+      ],
+      "priority": 100
+    },
+    {
+      "id": "Capgemini.Cauldron.Win32.WPF.Theme.VSLight",
+      "projects": [
+        {
+          "path": "..\\Win32\\Cauldron.Win32.WPF.Theme.VSLight\\Cauldron.Win32.WPF.Theme.VSLight.csproj",
+          "build-config": [ "Release-Net45", "Release-Net451", "Release-Net452", "Release-Net46", "Release-Net461", "Release-Net462" ]
+        }
+      ],
+      "priority": 100
+    },
+    {
       "id": "Cauldron.Cecilator",
       "projects": [
         {
-          "path": "..\\Fody\\Cauldron.Interception.Cecilator\\Cauldron.Interception.Cecilatorr.csproj",
+          "path": "..\\Fody\\Cauldron.Interception.Cecilator\\Cauldron.Interception.Cecilator.csproj",
           "build-config": [ "Release" ]
         }
       ],

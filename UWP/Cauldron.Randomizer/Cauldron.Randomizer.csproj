@@ -119,7 +119,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Properties\Cauldron.Core.Randomizer.rd.xml" />
+    <EmbeddedResource Include="Properties\Cauldron.Randomizer.rd.xml" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
@@ -131,12 +131,12 @@
       <Link>Randomizer.snk</Link>
     </None>
   </ItemGroup>
-  <Import Project="..\..\Shared\Cauldron.Core.Randomizer\Cauldron.Core.Randomizer.projitems" Label="Shared" />
+  <Import Project="..\..\Shared\Cauldron.Randomizer\Cauldron.Randomizer.projitems" Label="Shared" />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>

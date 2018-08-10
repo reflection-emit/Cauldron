@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyVersion>3.1.0.23</AssemblyVersion>
-    <FileVersion>3.1.0.23</FileVersion>
+    <AssemblyVersion>3.1.0.24</AssemblyVersion>
+    <FileVersion>3.1.0.24</FileVersion>
     <Authors>Alexander Schunk, Capgemini Deutschland GmbH</Authors>
     <Copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</Copyright>
     <Configurations>Debug;Release;Release.Net45;Release.451</Configurations>
@@ -31,5 +31,5 @@
     <DocumentationFile>bin\Release.451\netstandard2.0\Cauldron.Collections.xml</DocumentationFile>
   </PropertyGroup>
 
-  <Import Project="..\..\Shared\Cauldron.Core.Collections\Cauldron.Core.Collections.projitems" Label="Shared" />
+  <Import Project="..\..\Shared\Cauldron.Collections\Cauldron.Collections.projitems" Label="Shared" />
 </Project>

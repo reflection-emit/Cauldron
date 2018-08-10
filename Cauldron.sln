@@ -140,13 +140,13 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Cauldron.Activator", "Share
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Cauldron.Consoles", "Shared\Cauldron.Consoles\Cauldron.Consoles.shproj", "{3014E506-954A-4601-97A2-797E6306FDC4}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Cauldron.Collections", "Shared\Cauldron.Core.Collections\Cauldron.Collections.shproj", "{53427BA0-3122-4EA3-8042-3A450BFC4FC7}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Cauldron.Collections", "Shared\Cauldron.Collections\Cauldron.Collections.shproj", "{53427BA0-3122-4EA3-8042-3A450BFC4FC7}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Cauldron.Interceptors", "Shared\Cauldron.Core.Interceptors\Cauldron.Interceptors.shproj", "{FAE053B7-983C-40A0-848D-6ACDCF7E95F6}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Cauldron.Interceptors", "Shared\Cauldron.Interceptors\Cauldron.Interceptors.shproj", "{FAE053B7-983C-40A0-848D-6ACDCF7E95F6}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Cauldron.Randomizer", "Shared\Cauldron.Core.Randomizer\Cauldron.Randomizer.shproj", "{E4C35616-BB4B-45DB-8DEE-6C6A5F067CA7}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Cauldron.Randomizer", "Shared\Cauldron.Randomizer\Cauldron.Randomizer.shproj", "{E4C35616-BB4B-45DB-8DEE-6C6A5F067CA7}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Cauldron.Yaml", "Shared\Cauldron.Core.Yaml\Cauldron.Yaml.shproj", "{F4D5E072-FEAE-4367-9FEC-0A44D09F6357}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Cauldron.Yaml", "Shared\Cauldron.Yaml\Cauldron.Yaml.shproj", "{F4D5E072-FEAE-4367-9FEC-0A44D09F6357}"
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Cauldron.Cryptography", "Shared\Cauldron.Cryptography\Cauldron.Cryptography.shproj", "{BAE48BB4-5261-4BCB-B26F-048D2BE75A32}"
 EndProject
@@ -238,20 +238,20 @@ EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		UnitTests\Shared\TestInterceptors\TestInterceptors.projitems*{04e689e2-66b7-4f90-b185-cc402b0f72c1}*SharedItemsImports = 4
-		Shared\Cauldron.Core.Collections\Cauldron.Core.Collections.projitems*{0584e5fa-bdf8-42e2-a20e-051dc4bee540}*SharedItemsImports = 4
-		Shared\Cauldron.Core.Yaml\Cauldron.Core.Yaml.projitems*{0b37ec23-4e90-49d0-9298-d7a7a4b405f4}*SharedItemsImports = 4
+		Shared\Cauldron.Collections\Cauldron.Collections.projitems*{0584e5fa-bdf8-42e2-a20e-051dc4bee540}*SharedItemsImports = 4
+		Shared\Cauldron.Yaml\Cauldron.Yaml.projitems*{0b37ec23-4e90-49d0-9298-d7a7a4b405f4}*SharedItemsImports = 4
 		Shared\Cauldron.Activator\Cauldron.Activator.projitems*{13701490-ecb2-4f70-80c8-32897748ef05}*SharedItemsImports = 4
 		Shared\Cauldron.Shared\Cauldron.Shared.projitems*{13701490-ecb2-4f70-80c8-32897748ef05}*SharedItemsImports = 4
 		UnitTests\Resources\Fody_Interceptors\Fody_Interceptors.projitems*{1cc529ea-669f-498a-89b2-f6ccddea0b62}*SharedItemsImports = 13
-		Shared\Cauldron.Core.Collections\Cauldron.Core.Collections.projitems*{2aea8329-a246-496e-bce2-265e839391d6}*SharedItemsImports = 4
+		Shared\Cauldron.Collections\Cauldron.Collections.projitems*{2aea8329-a246-496e-bce2-265e839391d6}*SharedItemsImports = 4
 		Shared\Cauldron.Consoles\Cauldron.Consoles.projitems*{3014e506-954a-4601-97a2-797e6306fdc4}*SharedItemsImports = 13
 		Shared\Cauldron.Interception\Cauldron.Interception.projitems*{38abf85c-9322-4333-be30-a1b37fa5cc52}*SharedItemsImports = 4
 		Shared\Cauldron.Activator\Cauldron.Activator.projitems*{3b240903-36ce-4abe-aeb6-fedde9dc0565}*SharedItemsImports = 13
 		Shared\Cauldron.Localization\Cauldron.Localization.projitems*{407e657e-54c5-467e-b673-f6c900b7ffd6}*SharedItemsImports = 13
 		UnitTests\Fody_Assembly_Validation_Tests\Fody_Assembly_Validation_Tests.projitems*{4d5f3595-c9bd-4b9d-bcb3-93aa26dfc282}*SharedItemsImports = 4
-		Shared\Cauldron.Core.Collections\Cauldron.Core.Collections.projitems*{53427ba0-3122-4ea3-8042-3a450bfc4fc7}*SharedItemsImports = 13
+		Shared\Cauldron.Collections\Cauldron.Collections.projitems*{53427ba0-3122-4ea3-8042-3a450bfc4fc7}*SharedItemsImports = 13
 		Shared\Cauldron.Shared\Cauldron.Shared.projitems*{6b057c59-d15c-4fad-a760-c1191781ae47}*SharedItemsImports = 4
-		Shared\Cauldron.Core.Randomizer\Cauldron.Core.Randomizer.projitems*{6bd10ea8-a811-46eb-a8ba-ebb9e8abfc95}*SharedItemsImports = 4
+		Shared\Cauldron.Randomizer\Cauldron.Randomizer.projitems*{6bd10ea8-a811-46eb-a8ba-ebb9e8abfc95}*SharedItemsImports = 4
 		UnitTests\Shared\Fody_Assembly_Validation_Tests\Fody_Assembly_Validation_Tests.projitems*{6fce7753-2343-4913-8a60-75ea4a7442bd}*SharedItemsImports = 13
 		Shared\Cauldron.Localization\Cauldron.Localization.projitems*{74759c69-9dd6-4096-96b9-4c38d2cfb4e6}*SharedItemsImports = 4
 		Shared\Cauldron.Interception\Cauldron.Interception.projitems*{7cdfc895-265f-4cf1-8018-c24e1127225d}*SharedItemsImports = 13
@@ -263,10 +263,10 @@ Global
 		Shared\Cauldron\Cauldron.projitems*{9d2559da-62d9-4472-8e2f-9c8fe1c2b9cf}*SharedItemsImports = 4
 		Shared\Cauldron.Activator\Cauldron.Activator.projitems*{a0e73415-c2c1-421e-b551-0aeb9181ceac}*SharedItemsImports = 4
 		Shared\Cauldron.Shared\Cauldron.Shared.projitems*{a0e73415-c2c1-421e-b551-0aeb9181ceac}*SharedItemsImports = 4
-		Shared\Cauldron.Core.Yaml\Cauldron.Core.Yaml.projitems*{ac4d7de4-0a3b-4ff7-9993-5b1dbff9fcaf}*SharedItemsImports = 4
+		Shared\Cauldron.Yaml\Cauldron.Yaml.projitems*{ac4d7de4-0a3b-4ff7-9993-5b1dbff9fcaf}*SharedItemsImports = 4
 		UnitTests\Shared\MainTests\MainTests.projitems*{ac9cea5b-6214-4fbc-8e5a-50f57fad5fa9}*SharedItemsImports = 13
-		Shared\Cauldron.Core.Randomizer\Cauldron.Core.Randomizer.projitems*{ad85b816-7080-4b07-9ad5-7dd4e9ba1750}*SharedItemsImports = 4
-		Shared\Cauldron.Core.Interceptors\Cauldron.Core.Interceptors.projitems*{b148f2a0-5bb6-4d9a-b9b8-915971b25bfe}*SharedItemsImports = 4
+		Shared\Cauldron.Randomizer\Cauldron.Randomizer.projitems*{ad85b816-7080-4b07-9ad5-7dd4e9ba1750}*SharedItemsImports = 4
+		Shared\Cauldron.Interceptors\Cauldron.Interceptors.projitems*{b148f2a0-5bb6-4d9a-b9b8-915971b25bfe}*SharedItemsImports = 4
 		Shared\Cauldron.Shared\Cauldron.Shared.projitems*{b148f2a0-5bb6-4d9a-b9b8-915971b25bfe}*SharedItemsImports = 4
 		Shared\Cauldron.Shared\Cauldron.Shared.projitems*{b5c061b5-725a-4718-9448-5c1f5013fd15}*SharedItemsImports = 13
 		UnitTests\Fody_Assembly_Validation_Tests\Fody_Assembly_Validation_Tests.projitems*{b9855158-a040-40e1-9a2f-20ad91772c77}*SharedItemsImports = 4
@@ -279,11 +279,11 @@ Global
 		UnitTests\Resources\Fody_Interceptors\Fody_Interceptors.projitems*{d35a9e6b-93f6-4bdf-9823-e9b9bec6ab92}*SharedItemsImports = 4
 		UnitTests\Shared\MainTests\MainTests.projitems*{d69d4732-8e0b-4a4a-b3fb-df422438c49e}*SharedItemsImports = 4
 		Shared\Cauldron.Localization\Cauldron.Localization.projitems*{de3ff89f-441e-487e-90f6-b936090d50c3}*SharedItemsImports = 4
-		Shared\Cauldron.Core.Randomizer\Cauldron.Core.Randomizer.projitems*{e4c35616-bb4b-45db-8dee-6c6a5f067ca7}*SharedItemsImports = 13
+		Shared\Cauldron.Randomizer\Cauldron.Randomizer.projitems*{e4c35616-bb4b-45db-8dee-6c6a5f067ca7}*SharedItemsImports = 13
 		UnitTests\Shared\TestInterceptors\TestInterceptors.projitems*{edf40025-f06e-45ef-936e-5d6c675ff8cb}*SharedItemsImports = 13
-		Shared\Cauldron.Core.Yaml\Cauldron.Core.Yaml.projitems*{f4d5e072-feae-4367-9fec-0a44d09f6357}*SharedItemsImports = 13
+		Shared\Cauldron.Yaml\Cauldron.Yaml.projitems*{f4d5e072-feae-4367-9fec-0a44d09f6357}*SharedItemsImports = 13
 		UnitTests\Resources\Fody_Interceptors\Fody_Interceptors.projitems*{f61e1fe7-5df3-491c-a377-f68adae8706c}*SharedItemsImports = 4
-		Shared\Cauldron.Core.Interceptors\Cauldron.Core.Interceptors.projitems*{fae053b7-983c-40a0-848d-6acdcf7e95f6}*SharedItemsImports = 13
+		Shared\Cauldron.Interceptors\Cauldron.Interceptors.projitems*{fae053b7-983c-40a0-848d-6acdcf7e95f6}*SharedItemsImports = 13
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

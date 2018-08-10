@@ -140,7 +140,7 @@
   <ItemGroup>
     <None Include="FodyWeavers.xml" />
   </ItemGroup>
-  <Import Project="..\..\Shared\Cauldron.Core.Interceptors\Cauldron.Core.Interceptors.projitems" Label="Shared" />
+  <Import Project="..\..\Shared\Cauldron.Interceptors\Cauldron.Interceptors.projitems" Label="Shared" />
   <Import Project="..\..\Shared\Cauldron.Shared\Cauldron.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\packages\Fody.3.1.4\build\Fody.targets" Condition="Exists('..\..\packages\Fody.3.1.4\build\Fody.targets')" />
