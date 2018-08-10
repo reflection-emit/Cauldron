@@ -125,6 +125,6 @@
       <Name>Cauldron</Name>
     </ProjectReference>
   </ItemGroup>
-  <Import Project="..\..\Shared\Cauldron.Core.Yaml\Cauldron.Core.Yaml.projitems" Label="Shared" />
+  <Import Project="..\..\Shared\Cauldron.Yaml\Cauldron.Yaml.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
