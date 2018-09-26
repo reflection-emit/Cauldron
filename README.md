@@ -1,9 +1,13 @@
 ![Cauldron Logo](https://raw.githubusercontent.com/Capgemini/Cauldron/master/cauldron2.png)
 
 # Cauldron C# Toolkit
+
 ## ATTENTION Breaking change in version 3.0.0
 The interceptors (method, property, fields, constructor ...) from Cauldron.Interception.Fody were moved to Cauldron.BasicInterceptors and are now implemented as custom interceptors.
 Custom interceptors are "scripts" that are compiled and run by Cauldron during the build of your project. For more information check the wiki.
+
+## How to fix MSBUILD blocking a dll.
+https://github.com/Microsoft/msbuild/issues/1709
 
 ## Documentation
 ### Wiki
