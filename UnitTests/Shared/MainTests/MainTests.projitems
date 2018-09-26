@@ -11,6 +11,9 @@
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)BasicInterceptors\AbstractTestClass.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)BasicInterceptors\AssignMethodAttribute_Tests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BasicInterceptors\ConstructorInterceptor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BasicInterceptors\Constructor_Interception_Code_Validation_Tests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BasicInterceptors\Ctor_TestClasses.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)BasicInterceptors\TestClass.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Comparing_Tests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Cryptography\EncryptionDecryptionTest.cs" />
