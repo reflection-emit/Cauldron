@@ -69,7 +69,7 @@ namespace NugetMonkey
                     UseShellExecute = false,
                     WorkingDirectory = Path.GetDirectoryName(NugetMonkeyJson.Solutionpath),
                     FileName = NugetMonkeyJson.Msbuildpath,
-                    Arguments = string.Format("\"{0}\" /target:Clean;Rebuild /p:Configuration=" + build, project.Path),
+                    Arguments = $"\"{project.Path}\" /target:Clean;Rebuild /p:Configuration={build} /m:8 /nr:false",
                     CreateNoWindow = true,
                     RedirectStandardOutput = true,
                     RedirectStandardError = true

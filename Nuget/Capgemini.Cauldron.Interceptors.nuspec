@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>Capgemini.Cauldron.Interceptors</id>
-    <version>2.0.2-beta</version>
+    <version>2.0.3-beta</version>
     <authors>Alexander Schunk, Capgemini Deutschland GmbH</authors>
     <owners>Alexander Schunk, Capgemini Deutschland GmbH</owners>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
@@ -39,10 +39,10 @@
       2017.12.22 - [C] Dependency to NLog removed
     </releaseNotes>
     <dependencies>
-      <dependency id="Cauldron.Interception.Fody" version="3.0.22" />
-      <dependency id="Fody" version="3.0.3" />
-      <dependency id="Cauldron.BasicInterceptors" version="3.0.22" />
-      <dependency id="NLog" version="4.5.8" />
+      <dependency id="Cauldron.Interception.Fody" version="3.0.37-beta" />
+      <dependency id="Fody" version="3.2.4" />
+      <dependency id="Cauldron.BasicInterceptors" version="3.0.35-beta" />
+      <dependency id="NLog" version="4.5.10" />
     </dependencies>
     <contentFiles>
       <files include="**/Interceptors/*.*" buildAction="None" />
@@ -79,7 +79,6 @@
     <file src="..\Win32\Cauldron.Interceptors\bin\Release\Net462\Cauldron.Interceptors.xml" target="lib\net462" />
     <file src="..\Win32\Cauldron.Interceptors\bin\Release\Net462\Cauldron.Interceptors.pdb" target="lib\net462" />
     <file src="..\Shared\Cauldron.Interceptors\**\*.cs" target="src" />
-
     <file src="..\Win32\Cauldron.Interceptors\InterceptorScripts\TimedCacheInterceptorWeaver.csx" target="Content\Interceptors" />
     <file src="..\Win32\Cauldron.Interceptors\InterceptorScripts\TimedCacheInterceptorWeaver.csx" target="contentFiles\any\net45\Interceptors" />
     <file src="..\Win32\Cauldron.Interceptors\InterceptorScripts\TimedCacheInterceptorWeaver.csx" target="contentFiles\any\net451\Interceptors" />

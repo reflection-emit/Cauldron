@@ -17,7 +17,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cauldron.Cryptography", "Ne
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cauldron.Win32.WPF.ParameterPassing", "Win32\Cauldron.Win32.WPF.ParameterPassing\Cauldron.Win32.WPF.ParameterPassing.csproj", "{3B7C0640-5D31-46AA-97D2-689787409853}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cauldron.Win32.Extension.Impersonation", "Win32\Cauldron.Win32.Extension.Impersonation\Cauldron.Win32.Extension.Impersonation.csproj", "{B81222A8-9192-4EC4-A280-3298C4A72030}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cauldron.Win32.Impersonation", "Win32\Cauldron.Win32.Impersonation\Cauldron.Win32.Impersonation.csproj", "{B81222A8-9192-4EC4-A280-3298C4A72030}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Nuget", "Nuget", "{8675B75E-1FCE-47AA-91EB-00710F88A1A5}"
 	ProjectSection(SolutionItems) = preProject
@@ -29,7 +29,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Nuget", "Nuget", "{8675B75E
 		Nuget\Capgemini.Cauldron.Localization.nuspec = Nuget\Capgemini.Cauldron.Localization.nuspec
 		Nuget\Capgemini.Cauldron.nuspec = Nuget\Capgemini.Cauldron.nuspec
 		Nuget\Capgemini.Cauldron.Randomizer.nuspec = Nuget\Capgemini.Cauldron.Randomizer.nuspec
-		Nuget\Capgemini.Cauldron.Win32.Extension.Impersonation.nuspec = Nuget\Capgemini.Cauldron.Win32.Extension.Impersonation.nuspec
+		Nuget\Capgemini.Cauldron.Win32.Impersonation.nuspec = Nuget\Capgemini.Cauldron.Win32.Impersonation.nuspec
 		Nuget\Capgemini.Cauldron.Win32.MonitorInfo.nuspec = Nuget\Capgemini.Cauldron.Win32.MonitorInfo.nuspec
 		Nuget\Capgemini.Cauldron.Win32.UserInformation.nuspec = Nuget\Capgemini.Cauldron.Win32.UserInformation.nuspec
 		Nuget\Capgemini.Cauldron.Win32.WindowsService.nuspec = Nuget\Capgemini.Cauldron.Win32.WindowsService.nuspec

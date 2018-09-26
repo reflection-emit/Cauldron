@@ -3,11 +3,11 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageId>Capgemini.Cauldron.Core.Interceptors</PackageId>
-    <AssemblyVersion>3.1.0.23</AssemblyVersion>
-    <FileVersion>3.1.0.23</FileVersion>
+    <AssemblyVersion>3.1.0.35</AssemblyVersion>
+    <FileVersion>3.1.0.35</FileVersion>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <Version>3.1.0.23</Version>
+    <Version>3.1.0.35</Version>
     <Authors>Alexander Schunk, Capgemini Deutschland GmbH</Authors>
     <Copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</Copyright>
     <PackageLicenseUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/LICENSE</PackageLicenseUrl>
@@ -22,11 +22,19 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>bin\Release\netstandard2.0\Cauldron.Core.Interceptors.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\netstandard2.0\Cauldron.Interceptors.xml</DocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>bin\Debug\netstandard2.0\Cauldron.Core.Interceptors.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\netstandard2.0\Cauldron.Interceptors.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release.Net45|AnyCPU'">
+    <DocumentationFile>bin\Release\netstandard2.0\Cauldron.Interceptors.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release.451|AnyCPU'">
+    <DocumentationFile>bin\Release\netstandard2.0\Cauldron.Interceptors.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -34,8 +42,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Fody" Version="3.1.4" />
-    <PackageReference Include="NLog" Version="4.5.8" />
+    <PackageReference Include="Fody" Version="3.2.4">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="NLog" Version="4.5.10" />
   </ItemGroup>
 
   <ItemGroup>

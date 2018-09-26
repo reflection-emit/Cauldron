@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>Capgemini.Cauldron.Consoles</id>
-    <version>3.0.21-beta</version>
+    <version>3.0.22-beta</version>
     <authors>Alexander Schunk, Capgemini Deutschland GmbH</authors>
     <owners>Alexander Schunk, Capgemini Deutschland GmbH</owners>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
@@ -19,10 +19,10 @@
       2018.05.04 - [C] Assemblies for Net45, Net451, Net452, Net46, Net461 and Net462 added
     </releaseNotes>
     <dependencies>
-      <dependency id="Capgemini.Cauldron" version="3.1.35-beta" />
-      <dependency id="Capgemini.Cauldron.Activator" version="3.0.33-beta" />
-      <dependency id="Capgemini.Cauldron.Localization" version="3.0.21-beta" />
-      <dependency id="Capgemini.Cauldron.Randomizer" version="3.1.26-beta" />
+      <dependency id="Capgemini.Cauldron" version="3.1.36-beta" />
+      <dependency id="Capgemini.Cauldron.Activator" version="3.0.34-beta" />
+      <dependency id="Capgemini.Cauldron.Localization" version="3.0.22-beta" />
+      <dependency id="Capgemini.Cauldron.Randomizer" version="3.1.27-beta" />
     </dependencies>
   </metadata>
   <files>

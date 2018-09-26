@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>Cauldron.Cecilator</id>
-    <version>2.0.0</version>
+    <version>3.0.23-beta</version>
     <title>Capgemini Cauldron Interception for Fody</title>
     <authors>Alexander Schunk, Capgemini Deutschland GmbH</authors>
     <owners>Alexander Schunk, Capgemini Deutschland GmbH</owners>
@@ -43,7 +43,7 @@
       2018.04.11 - [C] Fody version 3.0.0 update and minor bug fixes.
     </releaseNotes>
     <dependencies>
-      <dependency id="Fody" version="3.0.3" />
+      <dependency id="Fody" version="3.2.4" />
       <dependency id="FodyHelpers" version="3.0.3" />
       <dependency id="Mono.Cecil" version="0.10.0" />
     </dependencies>
