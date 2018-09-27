@@ -1,18 +1,15 @@
 ﻿using Cauldron.Activator;
-using Cauldron.XAML.Threading;
 using System;
+using System.Security.Permissions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
-using System.Security.Permissions;
 
-namespace Cauldron.XAML
+namespace Cauldron.XAML.Threading
 {
-    using Cauldron.XAML.Threading;
-
     /// <exclude />
     [Component(typeof(IDispatcher), FactoryCreationPolicy.Singleton, 10)]
-    public sealed class DispatcherWPF
+    public sealed class DispatcherWPF : IDispatcher
     {
         private static volatile DispatcherWPF current;
         private static object syncRoot = new object();
@@ -20,10 +17,7 @@ namespace Cauldron.XAML
 
         /// <exclude />
         [ComponentConstructor]
-        public DispatcherWPF()
-        {
-            this.dispatcher = (Application.Current as Application).Dispatcher;
-        }
+        internal DispatcherWPF() => this.dispatcher = (Application.Current as Application).Dispatcher;
 
         /// <summary>
         /// Gets the current instance of <see cref="DispatcherWPF"/>
@@ -53,7 +47,7 @@ namespace Cauldron.XAML
             get
             {
                 if (this.dispatcher != null)
-                    return dispatcher.CheckAccess();
+                    return this.dispatcher.CheckAccess();
 
                 return true;
             }

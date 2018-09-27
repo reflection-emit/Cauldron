@@ -188,7 +188,7 @@ namespace Cauldron.Collections
             lock (this.syncRoot)
             {
                 result = this.data
-                    .Where(x => x.item != null)
+                    .Where(x => x != null && x.item != null)
                     .Select(x => x.item)
                     .ToArray();
             }
@@ -317,7 +317,7 @@ namespace Cauldron.Collections
         {
             int freePosition()
             {
-                for (int i = lastposition; i < this.data.Length; i++)
+                for (int i = this.lastposition; i < this.data.Length; i++)
                 {
                     if (this.data[i] == null)
                         return i;
@@ -328,23 +328,23 @@ namespace Cauldron.Collections
 
             var result = freePosition();
 
-            if (result < 0 && lastposition != 0)
+            if (result < 0 && this.lastposition != 0)
             {
-                lastposition = 0;
+                this.lastposition = 0;
                 result = freePosition();
             }
 
             if (result < 0)
             {
                 this.Resize();
-                return count;
+                return this.count;
             }
 
-            lastposition = result + 1;
+            this.lastposition = result + 1;
             return result;
         }
 
-        private void Resize() => Resize(this.data.Length + InitialSize);
+        private void Resize() => this.Resize(this.data.Length + InitialSize);
 
         private void Resize(int newSize)
         {
@@ -355,7 +355,7 @@ namespace Cauldron.Collections
 
         private class ConcurrentCollectionEnumerator : IEnumerator<T>, IEnumerator
         {
-            private int currentIndex = -1;
+            private volatile int currentIndex = -1;
             private T[] items;
 
             public ConcurrentCollectionEnumerator(T[] items) => this.items = items;
@@ -367,9 +367,12 @@ namespace Cauldron.Collections
 
             public bool MoveNext()
             {
-                while (this.currentIndex < this.items.Length && this.items[++this.currentIndex] == null)
+                do
                 {
+                    this.currentIndex++;
                 }
+                while (this.currentIndex < this.items.Length && this.items[this.currentIndex] == null);
+
                 return this.currentIndex < this.items.Length;
             }
 

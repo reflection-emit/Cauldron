@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>Capgemini.Cauldron.Win32.WPF.Theme.VSLight</id>
-    <version>3.0.21-beta</version>
+    <version>3.0.21</version>
     <title>Cauldron.Win32.WPF</title>
     <authors>Alexander Schunk, Capgemini Deutschland GmbH</authors>
     <owners>Alexander Schunk, Capgemini Deutschland GmbH</owners>
@@ -14,21 +14,22 @@
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Cauldron XAML WPF MVVM Framework Theme Visual Studio Dark</tags>
     <releaseNotes>
+      2018.09.27 - [B] Styles not loaded - fixed
       2018.08.08 - [C] Now signed
       2018.05.04 - [C] Assemblies for Net45, Net451, Net452, Net46, Net461 and Net462 added
       2018.01.24 - [A] Beta release.
     </releaseNotes>
     <dependencies>
       <dependency id="Fody" version="3.2.4" />
-      <dependency id="Cauldron.Interception.Fody" version="3.0.37-beta" />
-      <dependency id="Cauldron.BasicInterceptors" version="3.0.35-beta" />
-      <dependency id="Capgemini.Cauldron" version="3.1.36-beta" />
-      <dependency id="Capgemini.Cauldron.Activator" version="3.0.34-beta" />
-      <dependency id="Capgemini.Cauldron.Cryptography" version="3.0.23-beta" />
-      <dependency id="Capgemini.Cauldron.Localization" version="3.0.22-beta" />
-      <dependency id="Capgemini.Cauldron.Win32.MonitorInfo" version="3.0.21-beta" />
-      <dependency id="Capgemini.Cauldron.Win32.UserInformation" version="3.0.21-beta" />
-      <dependency id="Capgemini.Cauldron.Win32.WPF" version="3.0.21-beta" />
+      <dependency id="Cauldron.Interception.Fody" version="3.0.37" />
+      <dependency id="Cauldron.BasicInterceptors" version="3.0.35" />
+      <dependency id="Capgemini.Cauldron" version="3.1.36" />
+      <dependency id="Capgemini.Cauldron.Activator" version="3.0.34" />
+      <dependency id="Capgemini.Cauldron.Cryptography" version="3.0.23" />
+      <dependency id="Capgemini.Cauldron.Localization" version="3.0.22" />
+      <dependency id="Capgemini.Cauldron.Win32.MonitorInfo" version="3.0.21" />
+      <dependency id="Capgemini.Cauldron.Win32.UserInformation" version="3.0.21" />
+      <dependency id="Capgemini.Cauldron.Win32.WPF" version="3.0.21" />
     </dependencies>
     <frameworkAssemblies>
       <frameworkAssembly assemblyName="PresentationCore" />

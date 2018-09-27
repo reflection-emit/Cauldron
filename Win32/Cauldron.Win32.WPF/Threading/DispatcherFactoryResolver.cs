@@ -10,9 +10,17 @@ namespace Cauldron.XAML.Threading
     /// </summary>
     public sealed class DispatcherFactoryResolver : UnitTestAwareFactoryResolverBase
     {
-        private const string ContractName = "Cauldron.Threading.IDispatcher";
+        private static readonly string ContractName ;
 
         private static IFactoryTypeInfo dispatcher;
+
+        static DispatcherFactoryResolver() => ContractName = typeof(IDispatcher).FullName;
+
+        /// <exclude />
+        [ComponentConstructor]
+        internal DispatcherFactoryResolver()
+        {
+        }
 
         /// <summary>
         /// Called during the initialization of the Factory.

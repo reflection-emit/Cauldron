@@ -67,7 +67,7 @@ namespace NugetMonkey
 
         public IEnumerable<ProjectInfo> GetDependencies()
         {
-            var dependencies = nuspec["package"]["metadata"]["dependencies"];
+            var dependencies = this.nuspec["package"]["metadata"]["dependencies"];
 
             foreach (XmlElement item in dependencies.Contains("group") ? dependencies["group"] : dependencies)
             {

@@ -10,6 +10,12 @@ namespace Cauldron.XAML.Threading
     [Component(typeof(IDispatcher), FactoryCreationPolicy.Singleton)]
     public sealed class DispatcherDummy : IDispatcher
     {
+        /// <exclude />
+        [ComponentConstructor]
+        internal DispatcherDummy()
+        {
+        }
+
         /// <summary>
         /// Is always true
         /// </summary>

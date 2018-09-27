@@ -1111,8 +1111,6 @@ namespace Cauldron.Activator
             componentsNamed = new FastDictionary<string, FactoryDictionaryValue>(components.Length);
             foreach (var item in components)
                 componentsNamed.Add(item.Key, new FactoryDictionaryValue().SetValues(item.Items));
-            // Get all factory extensions
-            GetAndInitializeAllExtensions(factoryInfoTypes);
 
             if (componentsNamed.Count == 0)
                 Debug.WriteLine($"ERROR: Unable to find any components. Please check if FodyWeavers.xml has an entry for Cauldron.Interception");

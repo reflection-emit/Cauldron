@@ -135,7 +135,7 @@
     <Compile Include="Common.cs" />
     <Compile Include="Controls\NavigationFrame.cs" />
     <Compile Include="DependencyPropertyInfo.cs" />
-    <Compile Include="DispatcherWPF.cs" />
+    <Compile Include="Threading\DispatcherWPF.cs" />
     <Compile Include="DynamicEventHandler.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="IImageManager.cs" />

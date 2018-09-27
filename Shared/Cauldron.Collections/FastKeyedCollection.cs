@@ -61,7 +61,7 @@ namespace Cauldron.Collections
         /// <summary>
         /// Gets the number of key/value pairs contained in the <see cref="FastKeyedCollection{TKey, TValue}"/>.
         /// </summary>
-        public int Count => nextfree;
+        public int Count => this.nextfree;
 
         /// <summary>
         /// Gets a value indicating whether the <see cref="ICollection"/> is read-only.
@@ -90,14 +90,14 @@ namespace Cauldron.Collections
         {
             get
             {
-                int nextpos = unchecked(buckets[key.GetHashCode() & this.bucketLength]);
+                int nextpos = unchecked(this.buckets[key.GetHashCode() & this.bucketLength]);
 
                 if (nextpos < 0)
                     return null;
 
                 while (true)
                 {
-                    var entry = unchecked(entries[nextpos]);
+                    var entry = unchecked(this.entries[nextpos]);
 
                     if (object.ReferenceEquals(key, entry.key) || object.Equals(key, entry.key))
                         return entry.value;
@@ -107,7 +107,7 @@ namespace Cauldron.Collections
                         return null;
                 }
             }
-            set => Add(key, value, true);
+            set => this.Add(key, value, true);
         }
 
         /// <summary>
@@ -116,7 +116,7 @@ namespace Cauldron.Collections
         /// <param name="item">The value of the element to add. The value can be null for reference types.</param>
         /// <exception cref="ArgumentNullException">key is null.</exception>
         /// <exception cref="ArgumentException">An element with the same key already exists in the <see cref="FastKeyedCollection{TKey, TValue}"/>.</exception>
-        public void Add(TItem item) => Add(this.keySelector(item), item, false);
+        public void Add(TItem item) => this.Add(this.keySelector(item), item, false);
 
         /// <summary>
         /// Removes all keys and values from the <see cref="FastKeyedCollection{TKey, TValue}"/>.
@@ -141,7 +141,7 @@ namespace Cauldron.Collections
 
             while (true)
             {
-                var entry = entries[nextpos];
+                var entry = this.entries[nextpos];
 
                 if (object.ReferenceEquals(key, entry.key) || object.Equals(key, entry.key))
                     return true;
@@ -210,7 +210,7 @@ namespace Cauldron.Collections
 
             while (true)
             {
-                var entry = entries[nextpos];
+                var entry = this.entries[nextpos];
 
                 if (object.ReferenceEquals(key, entry.key) || object.Equals(key, entry.key))
                 {
@@ -248,7 +248,7 @@ namespace Cauldron.Collections
         {
             var result = this[key];
             value = result;
-            return result == null;
+            return result != null;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -257,12 +257,12 @@ namespace Cauldron.Collections
             if (key == null)
                 throw new ArgumentNullException(nameof(key));
 
-            if (this.nextfree >= entries.Length)
-                Resize();
+            if (this.nextfree >= this.entries.Length)
+                this.Resize();
 
             int hash = key.GetHashCode();
             int hashPos = hash & this.bucketLength;
-            int entryLocation = buckets[hashPos];
+            int entryLocation = this.buckets[hashPos];
             int storePos = this.nextfree;
 
             if (entryLocation < 0)
@@ -273,7 +273,7 @@ namespace Cauldron.Collections
 
                 while (true)
                 {
-                    var entry = entries[currEntryPos];
+                    var entry = this.entries[currEntryPos];
 
                     if (object.ReferenceEquals(key, entry.key) || object.Equals(key, entry.key))
                         if (overwrite)
@@ -294,8 +294,8 @@ namespace Cauldron.Collections
                 }
             }
 
-            buckets[hashPos] = storePos;
-            entries[storePos] = new FastDictionaryEntry<TKey, TItem>
+            this.buckets[hashPos] = storePos;
+            this.entries[storePos] = new FastDictionaryEntry<TKey, TItem>
             {
                 next = entryLocation,
                 key = key,
@@ -307,9 +307,9 @@ namespace Cauldron.Collections
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private IEnumerable<TKey> GetKeys()
         {
-            for (int i = 0; i < entries.Length; i++)
-                if (entries[i] != null)
-                    yield return entries[i].key;
+            for (int i = 0; i < this.entries.Length; i++)
+                if (this.entries[i] != null)
+                    yield return this.entries[i].key;
         }
 
         private int GetRoughSize(int roughSize)
@@ -333,9 +333,9 @@ namespace Cauldron.Collections
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private IEnumerable<TItem> GetValues()
         {
-            for (int i = 0; i < entries.Length; i++)
-                if (entries[i] != null)
-                    yield return entries[i].value;
+            for (int i = 0; i < this.entries.Length; i++)
+                if (this.entries[i] != null)
+                    yield return this.entries[i].value;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -345,10 +345,10 @@ namespace Cauldron.Collections
             this.bucketLength = this.buckets.Length - 1;
             this.entries = new FastDictionaryEntry<TKey, TItem>[roughSize];
 
-            nextfree = 0;
+            this.nextfree = 0;
 
-            for (int i = 0; i < entries.Length; i++)
-                buckets[i] = -1;
+            for (int i = 0; i < this.entries.Length; i++)
+                this.buckets[i] = -1;
         }
 
         private void Resize()
@@ -358,12 +358,12 @@ namespace Cauldron.Collections
             var newentries = new FastDictionaryEntry<TKey, TItem>[newsize];
 
             this.bucketLength = this.buckets.Length - 1;
-            Array.Copy(entries, newentries, nextfree);
+            Array.Copy(this.entries, newentries, this.nextfree);
 
             for (int i = 0; i < newsize; i++)
                 newhashes[i] = -1;
 
-            for (int i = 0; i < nextfree; i++)
+            for (int i = 0; i < this.nextfree; i++)
             {
                 var pos = newentries[i].hashcode & this.bucketLength;
                 var prevpos = newhashes[pos];
