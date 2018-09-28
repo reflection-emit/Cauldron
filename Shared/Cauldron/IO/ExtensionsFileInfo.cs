@@ -72,6 +72,30 @@ namespace Cauldron
         }
 
         /// <summary>
+        /// Converts a string to a <see cref="FileInfo"/>
+        /// </summary>
+        /// <param name="filename">
+        /// The fully qualified name of the new file, or the relative file name. Do not end the path
+        /// with the directory separator character.
+        /// </param>
+        /// <returns>An instance of <see cref="FileInfo"/></returns>
+        /// <exception cref="ArgumentNullException"><paramref name="filename"/> is null.</exception>
+        /// <exception cref="SecurityException">The caller does not have the required permission.</exception>
+        /// <exception cref="ArgumentException">
+        /// The file name is empty, contains only white spaces, or contains invalid characters.
+        /// </exception>
+        /// <exception cref="UnauthorizedAccessException">Access to fileName is denied.</exception>
+        /// <exception cref="PathTooLongException">
+        /// The specified path, file name, or both exceed the system-defined maximum length. For
+        /// example, on Windows-based platforms, paths must be less than 248 characters, and file
+        /// names must be less than 260 characters.
+        /// </exception>
+        /// <exception cref="UnauthorizedAccessException">
+        /// <paramref name="filename"/> contains a colon (:) in the middle of the string.
+        /// </exception>
+        public static FileInfo ToFileInfo(this string filename) => new FileInfo(filename);
+        
+        /// <summary>
         /// Waits for a file to be accessable. The default waiting period is 1.5s.
         /// </summary>
         /// <param name="fileInfo">The path of the file</param>
