@@ -64,6 +64,35 @@
         /// <param name="targetValueMin">Minimum value of the target system</param>
         /// <param name="targetValueMax">Maximum value of the target system</param>
         /// <returns></returns>
+        public static float ValueOf(float value, float valueMin, float valueMax, float targetValueMin, float targetValueMax)
+        {
+            var offsetValue = value - valueMin;
+            var offsetMax = valueMax - valueMin;
+            var offsetTargetMax = targetValueMax - targetValueMin;
+
+            var result = offsetValue * offsetTargetMax / offsetMax;
+
+            return result + targetValueMin;
+        }
+
+        /// <summary>
+        /// Calculates the percentage relationship of two values
+        /// </summary>
+        /// <param name="value">Current value of the systems</param>
+        /// <param name="valueMax">Maximum value of the current system</param>
+        /// <param name="targetValueMax">Minimum value of the target system</param>
+        /// <returns></returns>
+        public static float ValueOf(float value, float valueMax, float targetValueMax) => value * targetValueMax / valueMax;
+
+        /// <summary>
+        /// Calculates the percentage relationship of two values
+        /// </summary>
+        /// <param name="value">Current value of the systems</param>
+        /// <param name="valueMin">Minimum value of the current system</param>
+        /// <param name="valueMax">Maximum value of the current system</param>
+        /// <param name="targetValueMin">Minimum value of the target system</param>
+        /// <param name="targetValueMax">Maximum value of the target system</param>
+        /// <returns></returns>
         public static double ValueOf(double value, double valueMin, double valueMax, double targetValueMin, double targetValueMax)
         {
             var offsetValue = value - valueMin;
@@ -83,5 +112,63 @@
         /// <param name="targetValueMax">Minimum value of the target system</param>
         /// <returns></returns>
         public static double ValueOf(double value, double valueMax, double targetValueMax) => value * targetValueMax / valueMax;
+
+        /// <summary>
+        /// Calculates the percentage relationship of two values
+        /// </summary>
+        /// <param name="value">Current value of the systems</param>
+        /// <param name="valueMin">Minimum value of the current system</param>
+        /// <param name="valueMax">Maximum value of the current system</param>
+        /// <param name="targetValueMin">Minimum value of the target system</param>
+        /// <param name="targetValueMax">Maximum value of the target system</param>
+        /// <returns></returns>
+        public static long ValueOf(long value, long valueMin, long valueMax, long targetValueMin, long targetValueMax)
+        {
+            var offsetValue = value - valueMin;
+            var offsetMax = valueMax - valueMin;
+            var offsetTargetMax = targetValueMax - targetValueMin;
+
+            var result = offsetValue * offsetTargetMax / offsetMax;
+
+            return result + targetValueMin;
+        }
+
+        /// <summary>
+        /// Calculates the percentage relationship of two values
+        /// </summary>
+        /// <param name="value">Current value of the systems</param>
+        /// <param name="valueMax">Maximum value of the current system</param>
+        /// <param name="targetValueMax">Minimum value of the target system</param>
+        /// <returns></returns>
+        public static long ValueOf(long value, long valueMax, long targetValueMax) => value * targetValueMax / valueMax;
+
+        /// <summary>
+        /// Calculates the percentage relationship of two values
+        /// </summary>
+        /// <param name="value">Current value of the systems</param>
+        /// <param name="valueMin">Minimum value of the current system</param>
+        /// <param name="valueMax">Maximum value of the current system</param>
+        /// <param name="targetValueMin">Minimum value of the target system</param>
+        /// <param name="targetValueMax">Maximum value of the target system</param>
+        /// <returns></returns>
+        public static int ValueOf(int value, int valueMin, int valueMax, int targetValueMin, int targetValueMax)
+        {
+            var offsetValue = value - valueMin;
+            var offsetMax = valueMax - valueMin;
+            var offsetTargetMax = targetValueMax - targetValueMin;
+
+            var result = offsetValue * offsetTargetMax / offsetMax;
+
+            return result + targetValueMin;
+        }
+
+        /// <summary>
+        /// Calculates the percentage relationship of two values
+        /// </summary>
+        /// <param name="value">Current value of the systems</param>
+        /// <param name="valueMax">Maximum value of the current system</param>
+        /// <param name="targetValueMax">Minimum value of the target system</param>
+        /// <returns></returns>
+        public static int ValueOf(int value, int valueMax, int targetValueMax) => value * targetValueMax / valueMax;
     }
 }
