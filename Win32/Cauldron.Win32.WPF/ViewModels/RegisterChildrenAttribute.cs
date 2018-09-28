@@ -1,5 +1,5 @@
-﻿using Cauldron.Core;
-using Cauldron.Core.Diagnostics;
+﻿using Cauldron;
+using Cauldron.Diagnostics;
 using Cauldron.Interception;
 using System;
 using System.Collections;

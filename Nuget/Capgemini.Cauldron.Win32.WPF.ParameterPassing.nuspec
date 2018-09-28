@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>Capgemini.Cauldron.Win32.WPF.ParameterPassing</id>
-    <version>2.0.0</version>
+    <version>3.2.0</version>
     <title>Cauldron.Win32.WPF.ParameterPassing</title>
     <authors>Alexander Schunk, Capgemini Deutschland GmbH</authors>
     <owners>Alexander Schunk, Capgemini Deutschland GmbH</owners>
@@ -15,6 +15,7 @@
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Cauldron Dispatcher</tags>
     <releaseNotes>
+      2018.08.08 - [C] Now signed
       2018.05.04 - [C] Assemblies for Net45, Net451, Net452, Net46, Net461 and Net462 added
       2018.01.04 - [C] Change COPYDATASTRUCT data to unicode.
       2017.12.22 - [C] Will now also invoke the callback delegate if there are no instances of the program running.
@@ -31,12 +32,6 @@
     </frameworkAssemblies>
   </metadata>
   <files>
-    <file src="..\Win32\Cauldron.Win32.WPF.ParameterPassing\bin\Release\Net45\Cauldron.Win32.WPF.ParameterPassing.dll" target="lib\net45" />
-    <file src="..\Win32\Cauldron.Win32.WPF.ParameterPassing\bin\Release\Net45\Cauldron.Win32.WPF.ParameterPassing.xml" target="lib\net45" />
-    <file src="..\Win32\Cauldron.Win32.WPF.ParameterPassing\bin\Release\Net45\Cauldron.Win32.WPF.ParameterPassing.pdb" target="lib\net45" />
-    <file src="..\Win32\Cauldron.Win32.WPF.ParameterPassing\bin\Release\Net451\Cauldron.Win32.WPF.ParameterPassing.dll" target="lib\net451" />
-    <file src="..\Win32\Cauldron.Win32.WPF.ParameterPassing\bin\Release\Net451\Cauldron.Win32.WPF.ParameterPassing.xml" target="lib\net451" />
-    <file src="..\Win32\Cauldron.Win32.WPF.ParameterPassing\bin\Release\Net451\Cauldron.Win32.WPF.ParameterPassing.pdb" target="lib\net451" />
     <file src="..\Win32\Cauldron.Win32.WPF.ParameterPassing\bin\Release\Net452\Cauldron.Win32.WPF.ParameterPassing.dll" target="lib\net452" />
     <file src="..\Win32\Cauldron.Win32.WPF.ParameterPassing\bin\Release\Net452\Cauldron.Win32.WPF.ParameterPassing.xml" target="lib\net452" />
     <file src="..\Win32\Cauldron.Win32.WPF.ParameterPassing\bin\Release\Net452\Cauldron.Win32.WPF.ParameterPassing.pdb" target="lib\net452" />

@@ -1,5 +1,5 @@
-﻿using Cauldron.Core.Reflection;
-using Cauldron.Core.Yaml;
+﻿using Cauldron.Reflection;
+using Cauldron.Yaml;
 using System.Collections.Generic;
 
 namespace Cauldron.Localization
@@ -25,10 +25,8 @@ namespace Cauldron.Localization
         /// Initializes a new instance of <see cref="YamlLocalizationSourceBase{T}"/>
         /// </summary>
         /// <param name="filename">The filename of the json file the contains the localization.</param>
-        public YamlLocalizationSourceBase(string filename)
-        {
+        public YamlLocalizationSourceBase(string filename) =>
             this.localizations = YamlConvert.DeserializeObject<T>(Assemblies.GetManifestResource(filename).TryEncode());
-        }
 
         /// <summary>
         /// Returns all key values pair of the localization source

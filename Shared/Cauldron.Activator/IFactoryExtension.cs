@@ -1,4 +1,4 @@
-﻿using Cauldron.Core.Reflection;
+﻿using Cauldron.Reflection;
 using System.Collections.Generic;
 
 namespace Cauldron.Activator
@@ -8,6 +8,11 @@ namespace Cauldron.Activator
     /// </summary>
     public interface IFactoryExtension
     {
+        /// <summary>
+        /// Gets a value indicating that the extension is already loaded or not.
+        /// </summary>
+        bool IsInitialized { get; }
+
         /// <summary>
         /// Called after Factory initialization. It is also called if <see cref="Assemblies.LoadedAssemblyChanged"/> has been executed.
         /// This will be only called one time per extension only.

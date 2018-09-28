@@ -44,9 +44,9 @@ namespace Cauldron.XAML.Theme
         public CauldronWindow()
         {
             this.InitializeComponent();
-            this.SourceInitialized += LightWindow_SourceInitialized;
-            this.Activated += LightWindow_Activated;
-            this.Deactivated += LightWindow_Deactivated;
+            this.SourceInitialized += this.LightWindow_SourceInitialized;
+            this.Activated += this.LightWindow_Activated;
+            this.Deactivated += this.LightWindow_Deactivated;
         }
 
         #region Dependency Property WindowToolbarTemplate
@@ -61,8 +61,8 @@ namespace Cauldron.XAML.Theme
         /// </summary>
         internal ControlTemplate WindowToolbarTemplate
         {
-            get { return (ControlTemplate)this.GetValue(WindowToolbarTemplateProperty); }
-            set { this.SetValue(WindowToolbarTemplateProperty, value); }
+            get => (ControlTemplate)this.GetValue(WindowToolbarTemplateProperty);
+            set => this.SetValue(WindowToolbarTemplateProperty, value);
         }
 
         #endregion Dependency Property WindowToolbarTemplate
@@ -79,8 +79,8 @@ namespace Cauldron.XAML.Theme
         /// </summary>
         public bool CanGoBack
         {
-            get { return (bool)this.GetValue(CanGoBackProperty); }
-            set { this.SetValue(CanGoBackProperty, value); }
+            get => (bool)this.GetValue(CanGoBackProperty);
+            set => this.SetValue(CanGoBackProperty, value);
         }
 
         #endregion Dependency Property CanGoBack
@@ -317,7 +317,7 @@ namespace Cauldron.XAML.Theme
             if (!this.disposed)
             {
                 // Note disposing has been done.
-                disposed = true;
+                this.disposed = true;
 
                 // If disposing equals true, dispose all managed and unmanaged resources.
                 if (disposing)

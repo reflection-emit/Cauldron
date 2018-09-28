@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>Capgemini.Cauldron.Win32.UserInformation</id>
-    <version>2.0.0</version>
+    <version>3.2.0</version>
     <title>Cauldron.Win32.UserInformation</title>
     <authors>Alexander Schunk, Capgemini Deutschland GmbH</authors>
     <owners>Alexander Schunk, Capgemini Deutschland GmbH</owners>
@@ -10,20 +10,22 @@
     <projectUrl>https://github.com/Capgemini/Cauldron</projectUrl>
     <iconUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/cauldron.png</iconUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
-    <description>Consolidates methods for getting user information (profile picture, email address, home directory ect.) to a single class.</description>
+    <description>
+      Consolidates methods for getting user information (profile picture, email address, home directory ect.) to a single class.
+      Breaking changes in 3.1.x - See https://github.com/Capgemini/Cauldron for more information.
+    </description>
     <summary>Consolidates methods for getting user information (profile picture, email address, home directory ect.) to a single class.</summary>
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Cauldron User information UserInformation</tags>
     <releaseNotes>
+      2018.08.08 - [C] Now signed
+      2018.08.05 - [C] Dependencies cleaned
       2018.05.04 - [C] Assemblies for Net45, Net451, Net452, Net46, Net461 and Net462 added
       2017.12.21 - [C] Added a fallback if the user's account picture file was not found.
       2017.12.19 - [A] WTSClientName added to User and CurrentUser. WTSClientName returns the Windows Terminal Session client name.
     </releaseNotes>
     <dependencies>
-      <dependency id="Capgemini.Cauldron.Core.Comparing" version="3.0.22" />
-      <dependency id="Capgemini.Cauldron.Core.Extensions" version="3.0.22" />
-      <dependency id="Capgemini.Cauldron.Core.Net" version="3.0.22" />
-      <dependency id="Capgemini.Cauldron.Core.Extensions.Convertions" version="3.0.22" />
+      <dependency id="Capgemini.Cauldron" version="3.2.0" />
     </dependencies>
     <frameworkAssemblies>
       <frameworkAssembly assemblyName="System.DirectoryServices" />

@@ -1,4 +1,4 @@
-﻿using Cauldron.Core.Reflection;
+﻿using Cauldron.Reflection;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -16,6 +16,13 @@ namespace Cauldron.Activator
         };
 
         private bool? _isUnitTest;
+
+        private volatile bool isInitialized = false;
+
+        /// <summary>
+        /// Gets a value indicating that the extension is already loaded or not.
+        /// </summary>
+        public bool IsInitialized => this.isInitialized;
 
         /// <summary>
         /// Gets a value that indicates if the code is running in a unit test.
@@ -36,7 +43,14 @@ namespace Cauldron.Activator
         /// Called during the initialization of the Factory.
         /// </summary>
         /// <param name="factoryInfoTypes">A collection of known factory types.</param>
-        public void Initialize(IEnumerable<IFactoryTypeInfo> factoryInfoTypes) => this.OnInitialize(factoryInfoTypes);
+        public void Initialize(IEnumerable<IFactoryTypeInfo> factoryInfoTypes)
+        {
+            if (this.isInitialized)
+                return;
+
+            this.OnInitialize(factoryInfoTypes);
+            this.isInitialized = true;
+        }
 
         /// <summary>
         /// Called during the initialization of the Factory.

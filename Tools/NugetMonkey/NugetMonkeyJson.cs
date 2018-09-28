@@ -15,7 +15,9 @@ namespace NugetMonkey
             ProjectInfo = rootobject.Projects.ToDictionary(x => x.Id, x => x);
         }
 
+        public static Dictionary<string, Project> ProjectInfo { get; }
         public static string Authors => rootobject.Authors;
+        public static string BasicVersion => rootobject.BasicVersion;
         public static string Copyright => rootobject.Copyright;
         public static string IconUrl => rootobject.IconUrl;
         public static string LicenseUrl => rootobject.LicenseUrl;
@@ -23,7 +25,6 @@ namespace NugetMonkey
         public static string NugetOutputPath => rootobject.NugetOutputPath;
         public static string Nugetpath => rootobject.Nugetpath;
         public static string Owners => rootobject.Owners;
-        public static Dictionary<string, Project> ProjectInfo { get; }
         public static Project[] Projects => rootobject.Projects;
         public static string ProjectUrl => rootobject.ProjectUrl;
         public static bool? RequireLicenseAcceptance => rootobject.RequireLicenseAcceptance;
@@ -53,7 +54,7 @@ namespace NugetMonkey
         public string Path
         {
             get => this._path;
-            set => _path = System.IO.Path.GetFullPath(value);
+            set => this._path = System.IO.Path.GetFullPath(value);
         }
     }
 
@@ -68,6 +69,9 @@ namespace NugetMonkey
         [JsonProperty("authors")]
         public string Authors { get; set; }
 
+        [JsonProperty("basic-version")]
+        public string BasicVersion { get; set; }
+
         [JsonProperty("copyright")]
         public string Copyright { get; set; }
 
@@ -81,21 +85,21 @@ namespace NugetMonkey
         public string Msbuildpath
         {
             get => this._msbuildpath;
-            set => _msbuildpath = System.IO.Path.GetFullPath(value);
+            set => this._msbuildpath = System.IO.Path.GetFullPath(value);
         }
 
         [JsonProperty("nuget-output-path")]
         public string NugetOutputPath
         {
             get => this._nugetOutputPath;
-            set => _nugetOutputPath = System.IO.Path.GetFullPath(value);
+            set => this._nugetOutputPath = System.IO.Path.GetFullPath(value);
         }
 
         [JsonProperty("nuget-path")]
         public string Nugetpath
         {
             get => this._nugetpath;
-            set => _nugetpath = System.IO.Path.GetFullPath(value);
+            set => this._nugetpath = System.IO.Path.GetFullPath(value);
         }
 
         [JsonProperty("owners")]
@@ -114,7 +118,7 @@ namespace NugetMonkey
         public string Solutionpath
         {
             get => this._solutionPath;
-            set => _solutionPath = System.IO.Path.GetFullPath(value);
+            set => this._solutionPath = System.IO.Path.GetFullPath(value);
         }
     }
 }

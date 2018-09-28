@@ -2,7 +2,7 @@
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace Cauldron.Core
+namespace Cauldron
 {
     internal static class UnsafeNative
     {

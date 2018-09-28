@@ -1,7 +1,8 @@
-﻿using Cauldron.Core.Reflection;
+﻿using Cauldron.Reflection;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
+using Cauldron;
 
 namespace Cauldron.Localization
 {
@@ -32,10 +33,8 @@ namespace Cauldron.Localization
         /// Initializes a new instance of <see cref="JsonLocalizationSourceBase{T}"/>
         /// </summary>
         /// <param name="filename">The filename of the json file the contains the localization.</param>
-        public JsonLocalizationSourceBase(string filename)
-        {
+        public JsonLocalizationSourceBase(string filename) =>
             this.localizations = JsonConvert.DeserializeObject<List<T>>(Assemblies.GetManifestResource(filename).TryEncode()).Cast<ILocalizationKeyValue>().ToArray();
-        }
 
         /// <summary>
         /// Returns all key values pair of the localization source

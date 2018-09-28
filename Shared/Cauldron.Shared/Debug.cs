@@ -17,20 +17,14 @@ using System.Security.Cryptography;
 
 #endif
 
-namespace Cauldron.Core.Diagnostics
+namespace Cauldron.Diagnostics
 {
     /// <summary>
     /// Provides a set of methods that helps debug code.
     /// <para/>
     /// These methods are not DEBUG conditional and will stay in Release build. Use them with care.
     /// </summary>
-#if PUBLIC
-    public static class Debug
-#else
-
     internal static class Debug
-
-#endif
     {
         /// <summary>
         /// Returns a string that can be used to identify the hardware

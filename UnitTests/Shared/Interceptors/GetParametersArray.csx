@@ -11,7 +11,8 @@ public static class GetParametersArray
 {
     public static void Implement(Builder builder)
     {
-        var attribute = builder.GetType("CecilatorTestClasses.GetParametersArrayTestsAttribute");
+        var attribute = builder.GetType("UnitTests.Cecilator.GetParametersArrayTestsAttribute");
+
         var writeLineMethod = attribute.GetMethod("Assert", 1, true);
         var attributedMethods = builder.FindMethodsByAttribute(attribute);
 
@@ -23,6 +24,7 @@ public static class GetParametersArray
 
             // We dont need the attribute on the method anymore... So lets get rid of it.
             attributedMethod.Attribute.Remove();
+            Console.WriteLine("");
         }
     }
 }

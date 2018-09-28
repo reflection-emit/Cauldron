@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>edf40025-f06e-45ef-936e-5d6c675ff8cb</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>TestInterceptors</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)CreateATypeInterceptorAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EnumPropertyInterceptorAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ExternalLockableMethodAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ExternalLockablePropertyInterceptorAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ExternalMethodInterceptorAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)InterceptorWithoutInstanceAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)InterceptorWithSyncRootAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LogEnterExitAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MethodInterceptorOnExitAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SimpleMethodInterceptors.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TestEnum.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TestMethodInterceptorAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TestMethodInterceptorWithParameter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TestPropertyInterceptorAttribute.cs" />
+  </ItemGroup>
+</Project>

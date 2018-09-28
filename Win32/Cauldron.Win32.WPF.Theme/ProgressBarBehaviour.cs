@@ -1,4 +1,4 @@
-﻿using Cauldron.Core;
+﻿using Cauldron;
 using Cauldron.XAML.Interactivity;
 using System;
 using System.Windows;

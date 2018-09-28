@@ -1,7 +1,11 @@
-﻿using System;
+﻿using Cauldron;
+using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Xml;
@@ -12,6 +16,12 @@ namespace NugetMonkey
     {
         public static void Main(string[] args)
         {
+            if (args != null && args.Length == 2 && args[0] == "u")
+            {
+                UnlistPackagesAsync(args[1]).RunSync();
+                return;
+            }
+
             if (args == null || args.Length == 0)
             {
                 Console.WriteLine("This tool automagically retrieve all required nuget dependencies from the passed nuspec. It will clean rebuild all required projects, change version, pack and publish them.");
@@ -20,7 +30,11 @@ namespace NugetMonkey
 
             try
             {
-                PackageNuspec(args.Where(x => string.Equals(Path.GetExtension(args[0]), ".nuspec")).ToArray());
+                var path = Path.GetFullPath(args[0]);
+                if (args.Length == 1 && Directory.Exists(path))
+                    PackageNuspec(Directory.GetFiles(path, "*.nuspec"));
+                else
+                    PackageNuspec(args.Where(x => string.Equals(Path.GetExtension(args[0]), ".nuspec")).ToArray());
             }
             catch (Exception e)
             {
@@ -65,7 +79,7 @@ namespace NugetMonkey
                     UseShellExecute = false,
                     WorkingDirectory = Path.GetDirectoryName(NugetMonkeyJson.Solutionpath),
                     FileName = NugetMonkeyJson.Msbuildpath,
-                    Arguments = string.Format("\"{0}\" /target:Clean;Rebuild /p:Configuration=" + build, project.Path),
+                    Arguments = $"\"{project.Path}\" /target:Clean;Rebuild /p:Configuration={build} /m:8 /nr:false",
                     CreateNoWindow = true,
                     RedirectStandardOutput = true,
                     RedirectStandardError = true
@@ -254,5 +268,49 @@ namespace NugetMonkey
             Console.WriteLine(text);
             Console.ResetColor();
         }
+
+        #region Unlister by JGauffin http://blog.gauffin.org/2016/09/how-to-remove-a-package-from-nuget-org/
+
+        private static async Task<IEnumerable<string>> GetListedPackageVersionsAsync(string packageID)
+        {
+            using (var client = new HttpClient())
+            {
+                var response = await client.GetStringAsync($"https://api.nuget.org/v3/registration3/{packageID.ToLower()}/index.json");
+                return JsonConvert.DeserializeObject<CatalogRoot>(response)
+                    .Items
+                    .SelectMany(x => x.Items)
+                    .Select(x => x.CatalogEntry)
+                    .Select(x => x.Version)
+                    .Distinct();
+            }
+        }
+
+        private static string UnlistPackage(string packageId, string packageVersion)
+        {
+            var arguments = $"delete {packageId} {packageVersion} -NonInteractive -Source https://www.nuget.org/api/v2/package";
+            var processInfo = new ProcessStartInfo(NugetMonkeyJson.Nugetpath, arguments)
+            {
+                RedirectStandardOutput = true,
+                WorkingDirectory = AppDomain.CurrentDomain.BaseDirectory,
+                UseShellExecute = false
+            };
+            var process = Process.Start(processInfo);
+            Console.WriteLine(arguments);
+            process.WaitForExit();
+            return process.StandardOutput.ReadToEnd();
+        }
+
+        private static async Task UnlistPackagesAsync(string packageId)
+        {
+            var versions = await GetListedPackageVersionsAsync(packageId);
+
+            foreach (var version in versions)
+            {
+                var output = UnlistPackage(packageId, version);
+                Console.WriteLine(output);
+            }
+        }
+
+        #endregion Unlister by JGauffin http://blog.gauffin.org/2016/09/how-to-remove-a-package-from-nuget-org/
     }
 }

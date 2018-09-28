@@ -1,5 +1,5 @@
 ﻿using Cauldron.Activator;
-using Cauldron.Core.Reflection;
+using Cauldron.Reflection;
 using Cauldron.XAML.Navigation;
 using Cauldron.XAML.ViewModels;
 using System;

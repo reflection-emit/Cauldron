@@ -94,6 +94,12 @@
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <DocumentationFile>bin\Release\Net462\Cauldron.Win32.WindowsService.xml</DocumentationFile>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>WindowsService.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -117,7 +123,7 @@
     </None>
     <Compile Include="AccessTokenException.cs" />
     <None Include="Content\LocaleSource.cs" />
-    <Compile Include="Extensions.cs" />
+    <Compile Include="ExtensionsWindowsService.cs" />
     <Compile Include="FailureActions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RecoveryAction.cs" />
@@ -129,6 +135,7 @@
       <SubType>Component</SubType>
     </Compile>
     <None Include="packages.config" />
+    <None Include="WindowsService.snk" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Content\configuration.json" />
@@ -147,10 +154,6 @@
       <Project>{bba46e04-a223-4ea3-b3a5-fd52835be7bf}</Project>
       <Name>Cauldron.Consoles</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Cauldron.Core.Extensions\Cauldron.Core.Extensions.csproj">
-      <Project>{d1be1727-87d4-4ca6-a537-7983cf7b2e4a}</Project>
-      <Name>Cauldron.Core.Extensions</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Cauldron.Cryptography\Cauldron.Cryptography.csproj">
       <Project>{97d924b8-8fb2-4720-84e1-28502c2bae51}</Project>
       <Name>Cauldron.Cryptography</Name>
@@ -159,17 +162,21 @@
       <Project>{74759c69-9dd6-4096-96b9-4c38d2cfb4e6}</Project>
       <Name>Cauldron.Localization</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Cauldron\Cauldron.csproj">
+      <Project>{d1be1727-87d4-4ca6-a537-7983cf7b2e4a}</Project>
+      <Name>Cauldron</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>
     </PreBuildEvent>
   </PropertyGroup>
-  <Import Project="..\..\packages\Fody.3.1.3\build\Fody.targets" Condition="Exists('..\..\packages\Fody.3.1.3\build\Fody.targets')" />
+  <Import Project="..\..\packages\Fody.3.2.4\build\Fody.targets" Condition="Exists('..\..\packages\Fody.3.2.4\build\Fody.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\..\packages\Fody.3.1.3\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Fody.3.1.3\build\Fody.targets'))" />
+    <Error Condition="!Exists('..\..\packages\Fody.3.2.4\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Fody.3.2.4\build\Fody.targets'))" />
   </Target>
 </Project>
