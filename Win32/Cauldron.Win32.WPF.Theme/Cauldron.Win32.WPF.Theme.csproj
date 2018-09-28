@@ -117,6 +117,7 @@
   <ItemGroup>
     <Compile Include="ButtonProperties.cs" />
     <Compile Include="CauldronTheme.cs" />
+    <Compile Include="CauldronThemeInit.cs" />
     <Compile Include="CauldronWindow.xaml.cs">
       <DependentUpon>CauldronWindow.xaml</DependentUpon>
     </Compile>

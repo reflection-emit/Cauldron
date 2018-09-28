@@ -19,23 +19,20 @@ namespace Cauldron.Interception.Cecilator
         internal readonly TypeReference typeReference;
 
         private BuilderType childType;
-        public AssemblyDefinition Assembly => this.typeDefinition.Module.Assembly;
         public Builder Builder { get; private set; }
 
         public BuilderType ChildType
         {
             get
             {
-                if (childType == null)
-                    childType = (new BuilderType(this.Builder, this.moduleDefinition.GetChildrenType(this.typeReference).Item1));
+                if (this.childType == null)
+                    this.childType = (new BuilderType(this.Builder, this.moduleDefinition.GetChildrenType(this.typeReference).Item1));
 
-                return childType.Import();
+                return this.childType.Import();
             }
         }
 
         public BuilderCustomAttributeCollection CustomAttributes => new BuilderCustomAttributeCollection(this.Builder, this.typeDefinition);
-
-        public BuilderType DeclaringType => this.typeReference.DeclaringType.ToBuilderType();
 
         public object DefaultValue
         {
@@ -90,16 +87,11 @@ namespace Cauldron.Interception.Cecilator
         }
 
         public bool IsAbstract => this.typeDefinition.Attributes.HasFlag(TypeAttributes.Abstract);
-        public bool IsArray => this.typeDefinition != null && (this.typeDefinition.IsArray || this.typeReference.FullName.EndsWith("[]") || this.typeDefinition.FullName.EndsWith("[]"));
         public bool IsAsyncStateMachine => this.Implements("System.Runtime.CompilerServices.IAsyncStateMachine", false);
         public bool IsByReference { get; private set; }
-        public bool IsDelegate => this.typeDefinition.IsDelegate();
-        public bool IsEnum => this.typeDefinition.IsEnum;
         public bool IsEnumerable => BuilderTypes.IEnumerable.BuilderType.AreReferenceAssignable(this) || this.IsArray;
         public bool IsForeign => this.moduleDefinition.Assembly == this.typeDefinition.Module.Assembly;
         public bool IsGenerated => this.typeDefinition.FullName.IndexOf('<') >= 0 || this.typeDefinition.FullName.IndexOf('>') >= 0;
-        public bool IsGenericInstance => this.typeReference.IsGenericInstance;
-        public bool IsGenericParameter => this.typeReference.IsGenericParameter;
         public bool IsGenericType => this.typeDefinition == null || this.typeReference.Resolve() == null;
         public bool IsInterface => this.typeDefinition == null ? false : this.typeDefinition.Attributes.HasFlag(TypeAttributes.Interface);
 
@@ -122,34 +114,19 @@ namespace Cauldron.Interception.Cecilator
             }
         }
 
-        public bool IsNested =>
-            this.typeDefinition.Attributes.HasFlag(TypeAttributes.NestedFamily) ||
-            this.typeDefinition.Attributes.HasFlag(TypeAttributes.NestedAssembly) ||
-            this.typeDefinition.Attributes.HasFlag(TypeAttributes.NestedPrivate) ||
-            this.typeDefinition.Attributes.HasFlag(TypeAttributes.NestedPublic);
-
         public bool IsNestedFamily => this.typeDefinition.Attributes.HasFlag(TypeAttributes.NestedFamily);
-        public bool IsNestedPrivate => this.typeDefinition.Attributes.HasFlag(TypeAttributes.NestedPrivate);
-        public bool IsNestedPublic => this.typeDefinition.Attributes.HasFlag(TypeAttributes.NestedPublic);
-        public bool IsNullable => this.typeDefinition.AreEqual(BuilderTypes.Nullable1.BuilderType.typeDefinition);
 
-        public bool IsPrimitive => this.typeDefinition?.IsPrimitive ?? this.typeReference?.IsPrimitive ?? false;
+        public bool IsNestedPublic => this.typeDefinition.Attributes.HasFlag(TypeAttributes.NestedPublic);
+
+        public bool IsNullable => this.typeDefinition.AreEqual(BuilderTypes.Nullable1.BuilderType.typeDefinition);
 
         public bool IsPrivate => !this.IsPublic && this.IsNestedPrivate;
 
         public bool IsPublic => this.typeDefinition.Attributes.HasFlag(TypeAttributes.Public) && !this.IsNestedPrivate;
 
-        public bool IsSealed => this.typeDefinition.Attributes.HasFlag(TypeAttributes.Sealed);
-
         public bool IsStatic => this.IsAbstract && this.IsSealed;
 
-        public bool IsUsed => InstructionBucket.IsUsed(this.typeReference);
-
-        public bool IsValueType => this.typeDefinition == null ? this.typeReference == null ? false : this.typeReference.IsValueType : this.typeDefinition.IsValueType;
-
         public bool IsVoid => this.typeDefinition.FullName == "System.Void";
-
-        public string Name => this.typeDefinition == null ? this.typeReference.Name : this.typeDefinition.Name;
 
         public string Namespace
         {
@@ -169,6 +146,34 @@ namespace Cauldron.Interception.Cecilator
                 return this.typeDefinition.Namespace;
             }
         }
+
+        public AssemblyDefinition Assembly => this.typeDefinition.Module.Assembly;
+
+        public BuilderType DeclaringType => this.typeReference.DeclaringType.ToBuilderType();
+
+        public bool IsArray => this.typeDefinition != null && (this.typeDefinition.IsArray || this.typeReference.FullName.EndsWith("[]") || this.typeDefinition.FullName.EndsWith("[]"));
+
+        public bool IsDelegate => this.typeDefinition.IsDelegate();
+
+        public bool IsEnum => this.typeDefinition.IsEnum;
+
+        public bool IsGenericInstance => this.typeReference.IsGenericInstance;
+
+        public bool IsGenericParameter => this.typeReference.IsGenericParameter;
+
+        public bool IsNested =>
+                                                                                                                                                                                                                                                            this.typeDefinition.Attributes.HasFlag(TypeAttributes.NestedFamily) ||
+            this.typeDefinition.Attributes.HasFlag(TypeAttributes.NestedAssembly) ||
+            this.typeDefinition.Attributes.HasFlag(TypeAttributes.NestedPrivate) ||
+            this.typeDefinition.Attributes.HasFlag(TypeAttributes.NestedPublic);
+
+        public bool IsNestedPrivate => this.typeDefinition.Attributes.HasFlag(TypeAttributes.NestedPrivate);
+        public bool IsPrimitive => this.typeDefinition?.IsPrimitive ?? this.typeReference?.IsPrimitive ?? false;
+        public bool IsSealed => this.typeDefinition.Attributes.HasFlag(TypeAttributes.Sealed);
+        public bool IsUsed => InstructionBucket.IsUsed(this.typeReference);
+
+        public bool IsValueType => this.typeDefinition == null ? this.typeReference == null ? false : this.typeReference.IsValueType : this.typeDefinition.IsValueType;
+        public string Name => this.typeDefinition == null ? this.typeReference.Name : this.typeDefinition.Name;
 
         /// <summary>
         /// Writes the names of the methods in the current type to the build output.
@@ -231,7 +236,7 @@ namespace Cauldron.Interception.Cecilator
             }
         }
 
-        public bool Inherits(Type type) => this.Inherits(typeDefinition.FullName);
+        public bool Inherits(Type type) => this.Inherits(this.typeDefinition.FullName);
 
         public bool Inherits(string typename) => this.BaseClasses.Any(x =>
             (x.typeReference != null && x.typeReference.FullName.GetHashCode() == typename.GetHashCode() && x.typeReference.FullName == typename) ||
@@ -294,6 +299,8 @@ namespace Cauldron.Interception.Cecilator
         public IEnumerable<BuilderType> NestedTypes =>
             this.typeReference.GetNestedTypes().Select(x => new BuilderType(this, x)).Distinct(new BuilderTypeEqualityComparer());
 
+        public BuilderType BaseType => new BuilderType(this, this.typeDefinition.BaseType);
+
         #endregion Interfaces Base classes and nested types
 
         #region Actions
@@ -347,7 +354,8 @@ namespace Cauldron.Interception.Cecilator
             this.typeDefinition.Methods.Add(method);
 
             var result = new Method(this, method);
-            result.NewCoder().Call(BuilderTypes.Object.BuilderType.ParameterlessContructor.Import()).Return().Replace();
+            // result.NewCoder().Call(BuilderTypes.Object.BuilderType.ParameterlessContructor.Import()).Return().Replace();
+            result.NewCoder().Call(this.BaseType.ParameterlessContructor.Import()).Return().Replace();
             return result;
         }
 
@@ -411,7 +419,7 @@ namespace Cauldron.Interception.Cecilator
 
         public BuilderType MakeGeneric(params BuilderType[] typeReference) => new BuilderType(this.Builder, this.typeDefinition.MakeGenericInstanceType(typeReference.Select(x => x.typeReference).ToArray()));
 
-        public BuilderType MakeGeneric(params Type[] type) => MakeGeneric(type.Select(x => this.Builder.GetType(x)).ToArray());
+        public BuilderType MakeGeneric(params Type[] type) => this.MakeGeneric(type.Select(x => this.Builder.GetType(x)).ToArray());
 
         public BuilderType MakeGeneric(params TypeReference[] typeReference) => new BuilderType(this.Builder, this.typeDefinition.MakeGenericInstanceType(typeReference));
 
@@ -609,13 +617,13 @@ namespace Cauldron.Interception.Cecilator
             this.CreateMethod(modifier, this.Builder.GetType(returnType), name, parameters.Select(x => this.Builder.GetType(x)).ToArray());
 
         public Method CreateMethod(Modifiers modifier, BuilderType returnType, string name, params BuilderType[] parameters) =>
-            CreateMethodInternal(modifier, returnType, name, parameters);
+            this.CreateMethodInternal(modifier, returnType, name, parameters);
 
         public Method CreateMethod(Modifiers modifier, string name, params Type[] parameters) =>
             this.CreateMethod(modifier, name, parameters.Select(x => x.ToBuilderType()).ToArray());
 
         public Method CreateMethod(Modifiers modifier, string name, params BuilderType[] parameters) =>
-            CreateMethodInternal(modifier, null, name, parameters);
+            this.CreateMethodInternal(modifier, null, name, parameters);
 
         public Method CreateMethodImplicitInterface(Method methodToOverride)
         {
@@ -748,7 +756,7 @@ namespace Cauldron.Interception.Cecilator
             if (method != null)
                 return method;
 
-            return CreateMethod(modifier, returnType, name, parameters);
+            return this.CreateMethod(modifier, returnType, name, parameters);
         }
 
         private Method GetMethodInternal(

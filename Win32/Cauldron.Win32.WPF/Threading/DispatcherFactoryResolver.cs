@@ -10,11 +10,7 @@ namespace Cauldron.XAML.Threading
     /// </summary>
     public sealed class DispatcherFactoryResolver : UnitTestAwareFactoryResolverBase
     {
-        private static readonly string ContractName ;
-
         private static IFactoryTypeInfo dispatcher;
-
-        static DispatcherFactoryResolver() => ContractName = typeof(IDispatcher).FullName;
 
         /// <exclude />
         [ComponentConstructor]
@@ -28,7 +24,7 @@ namespace Cauldron.XAML.Threading
         /// <param name="factoryInfoTypes">A collection of known factory types.</param>
         protected override void OnInitialize(IEnumerable<IFactoryTypeInfo> factoryInfoTypes)
         {
-            Factory.Resolvers.Add(ContractName, new Func<Type, IFactoryTypeInfo[], IFactoryTypeInfo>((callingType, ambigiousTypes) =>
+            Factory.Resolvers.Add(typeof(IDispatcher), new Func<Type, IFactoryTypeInfo[], IFactoryTypeInfo>((callingType, ambigiousTypes) =>
              {
                  if (dispatcher != null)
                      return dispatcher;
@@ -36,7 +32,7 @@ namespace Cauldron.XAML.Threading
                  if (this.IsUnitTest)
                      dispatcher = ambigiousTypes.FirstOrDefault(x => x.Type == typeof(DispatcherDummy));
                  else
-                     dispatcher = ambigiousTypes.Where(x => x.ContractName == ContractName).MaxBy(x => x.Priority);
+                     dispatcher = ambigiousTypes.Where(x => x.ContractType == typeof(IDispatcher)).MaxBy(x => x.Priority);
 
                  return dispatcher;
              }));

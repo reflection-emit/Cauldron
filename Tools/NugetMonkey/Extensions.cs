@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Cauldron;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Xml;
@@ -66,15 +67,46 @@ namespace NugetMonkey
 
         public static Version Increment(this Version version)
         {
-            var build = version.Build;
-            var revision = version.Revision + 1;
+            var defaultVersion =  NugetMonkeyJson.BasicVersion.SplitVersion();
+
+            var major = version.Major > defaultVersion.Item1? version.Major : defaultVersion.Item1;
+            var minor = version.Minor > defaultVersion.Item2? version.Minor : defaultVersion.Item2;
+            var revision = defaultVersion.Item3 < 0 ? 0 : version.Revision + 1;
+
             if (revision >= 100)
             {
-                build++;
+                minor++;
                 revision = 0;
             }
 
-            return new Version(version.Major, version.Minor, build, revision);
+            return new Version(major, minor, 0, revision);
+        }
+
+        public static Tuple<int, int, int, bool> SplitVersion(this string versionString)
+        {
+            var splitted = versionString.Split('.');
+
+            var major = "1";
+            var minor = "0";
+            var revision = "0";
+            var isBeta = false;
+
+            if (splitted.Length == 3)
+            {
+                major = splitted[0];
+                minor = splitted[1];
+
+                if (splitted[2].IndexOf('-') >= 0)
+                {
+                    var revisionBeta = splitted[2].Split('-');
+                    revision = revisionBeta[0];
+                    isBeta = revisionBeta[1].ToBool();
+                }
+                else
+                    revision = splitted[2];
+            }
+
+            return new Tuple<int, int, int, bool>(major.ToInteger(), minor.ToInteger(), revision.ToInteger(), isBeta);
         }
     }
 }

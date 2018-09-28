@@ -8,15 +8,15 @@
           "build-config": [ "Release" ]
         },
         {
-          "path": "..\\Fody\\Cauldron.ProjectMinimizedReferences\\Cauldron.ProjectMinimizedReferences.csproj",
-          "build-config": [ "Release" ]
-        },
-        {
           "path": "..\\Fody\\Cauldron.ActivatorInterceptors\\Cauldron.ActivatorInterceptors.csproj",
           "build-config": [ "Release" ]
         },
         {
           "path": "..\\Fody\\Cauldron.BasicInterceptors\\Cauldron.BasicInterceptors.csproj",
+          "build-config": [ "Release" ]
+        },
+        {
+          "path": "..\\Fody\\Cauldron.WPF.Interceptors\\Cauldron.WPF.Interceptors.csproj",
           "build-config": [ "Release" ]
         }
       ],
@@ -296,5 +296,6 @@
   "projectUrl": "https://github.com/Capgemini/Cauldron",
   "copyright": "Copyright (c) 2016 Capgemini Deutschland GmbH",
   "iconUrl": "https://raw.githubusercontent.com/Capgemini/Cauldron/master/cauldron.png",
-  "requireLicenseAcceptance": true
+  "requireLicenseAcceptance": true,
+  "basic-version": "3.2.-1"
 }

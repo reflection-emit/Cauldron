@@ -14,7 +14,12 @@ namespace Cauldron.Interception.Fody
     public sealed partial class ModuleWeaver
     {
         private string cscPath;
+
         private List<string> referencedDlls = new List<string>();
+
+        static ModuleWeaver()
+        {
+        }
 
         public void ExecuteInterceptionScripts(Builder builder)
         {
@@ -65,7 +70,9 @@ namespace Cauldron.Interception.Fody
                             })
                             .OrderBy(x => x.Priority))
                 {
-                    using (new StopwatchLog(this, scriptBinary.Name))
+                    var speed = new StopwatchLog(this, scriptBinary.Name);
+
+                    try
                     {
                         this.Log(LogTypes.Info, ">> Executing custom interceptors in: " + scriptBinary.Name);
                         var config = scriptBinary.Type.GetProperty("Config", BindingFlags.Static | BindingFlags.Public);
@@ -81,6 +88,22 @@ namespace Cauldron.Interception.Fody
                             this.Log(LogTypes.Info, "   Executing custom interceptor: " + name);
                             method.MethodInfo.Invoke(null, new object[] { builder });
                         }
+                    }
+                    catch (ArgumentException e)
+                    {
+                        throw new Exception("Unable to execute the script. Possible wrong version.", e);
+                    }
+                    catch (InvalidCastException e)
+                    {
+                        throw new Exception("Unable to execute the script. Possible wrong version.", e);
+                    }
+                    catch
+                    {
+                        throw;
+                    }
+                    finally
+                    {
+                        speed.Dispose();
                     }
                 }
             }

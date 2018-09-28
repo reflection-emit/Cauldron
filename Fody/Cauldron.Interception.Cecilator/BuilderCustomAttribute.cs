@@ -22,17 +22,16 @@ namespace Cauldron.Interception.Cecilator
             this.Type = new BuilderType(builder, attribute.AttributeType);
         }
 
+        public string Fullname => this.attribute.AttributeType.FullName;
+
+        public BuilderType Type { get; private set; }
+
         public CustomAttributeArgument[] ConstructorArguments => this.attribute.HasConstructorArguments ?
-            this.attribute.ConstructorArguments.ToArray() :
+                            this.attribute.ConstructorArguments.ToArray() :
             new CustomAttributeArgument[0];
 
         public IReadOnlyDictionary<string, CustomAttributeArgument> Fields => this.attribute.HasFields ? this.attribute.Fields.ToDictionary(x => x.Name, x => x.Argument) : new Dictionary<string, CustomAttributeArgument>();
-
-        public string Fullname => this.attribute.AttributeType.FullName;
-
         public IReadOnlyDictionary<string, CustomAttributeArgument> Properties => this.attribute.HasProperties ? this.attribute.Properties.ToDictionary(x => x.Name, x => x.Argument) : new Dictionary<string, CustomAttributeArgument>();
-
-        public BuilderType Type { get; private set; }
 
         public static BuilderCustomAttribute Create(BuilderType attributeType, IEnumerable<CustomAttributeArgument> attributeArguments) =>
             CreateInternal(attributeType, () => attributeArguments.Select(x => new Tuple<TypeReference, object>(x.Type, x.Value)).ToArray());
@@ -56,25 +55,25 @@ namespace Cauldron.Interception.Cecilator
         public void MoveTo(Property property)
         {
             this.Remove();
-            property.propertyDefinition.CustomAttributes.Add(attribute);
+            property.propertyDefinition.CustomAttributes.Add(this.attribute);
         }
 
         public void MoveTo(Field field)
         {
             this.Remove();
-            field.fieldDef.CustomAttributes.Add(attribute);
+            field.fieldDef.CustomAttributes.Add(this.attribute);
         }
 
         public void MoveTo(BuilderType type)
         {
             this.Remove();
-            type.typeDefinition.CustomAttributes.Add(attribute);
+            type.typeDefinition.CustomAttributes.Add(this.attribute);
         }
 
         public void MoveTo(Method method)
         {
             this.Remove();
-            method.methodDefinition.CustomAttributes.Add(attribute);
+            method.methodDefinition.CustomAttributes.Add(this.attribute);
         }
 
         public void Remove() => this.customAttributeProvider?.CustomAttributes.Remove(this.attribute);
@@ -112,7 +111,7 @@ namespace Cauldron.Interception.Cecilator
 
                     for (int i = 0; i < @param.Length; i++)
                     {
-                        var parameterType = parameters[i] == null ? null : parameters[i].Item1;
+                        var parameterType = parameters[i]?.Item1;
                         if (!@param[i].typeReference.AreReferenceAssignable(parameterType))
                             return false;
                     }

@@ -3,10 +3,12 @@ using Cauldron.Interception.Cecilator.Coders;
 using Cauldron.Interception.Fody;
 using Cauldron.Interception.Fody.HelperTypes;
 using Mono.Cecil;
+using System.Collections.Concurrent;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 
 public static class Weaver_WPF
 {
@@ -136,9 +138,9 @@ public static class Weaver_WPF
 
         // First we have to find every InitializeComponent method so that we can remove bamls that are already initialized.
         var allInitializeComponentMethods = builder.FindMethodsByName(SearchContext.Module, "InitializeComponent", 0).Where(x => !x.IsAbstract);
-        var ldStrs = new System.Collections.Concurrent.ConcurrentBag<string>();
+        var ldStrs = new ConcurrentBag<string>();
 
-        System.Threading.Tasks.Parallel.ForEach(allInitializeComponentMethods, methods =>
+        Parallel.ForEach(allInitializeComponentMethods, methods =>
         {
             foreach (var str in methods.GetLoadStrings())
                 ldStrs.Add(str);
@@ -155,8 +157,7 @@ public static class Weaver_WPF
                     var dashPosition = x.LastIndexOf('-') + 1;
                     var pointPosition = x.IndexOf('.', dashPosition);
 
-                    uint result;
-                    if (uint.TryParse(x.Substring(dashPosition, pointPosition > dashPosition ? pointPosition - dashPosition : x.Length - dashPosition), out result))
+                    if (uint.TryParse(x.Substring(dashPosition, pointPosition > dashPosition ? pointPosition - dashPosition : x.Length - dashPosition), out uint result))
                         index = result;
                 }
 
@@ -166,32 +167,39 @@ public static class Weaver_WPF
             .ThenBy(x => x.Item)
             .ToArray();
 
-        var resourceDictionaryMergerClass = builder.CreateType("XamlGeneratedNamespace", TypeAttributes.Public | TypeAttributes.Class | TypeAttributes.Sealed, "<>_generated_resourceDictionary_Loader");
-        resourceDictionaryMergerClass.CustomAttributes.Add(BuilderTypes.ComponentAttribute.BuilderType, __ResourceDictionary.Type.Fullname);
+        var resourceDictionaryMergerClass = builder.CreateType(
+            "XamlGeneratedNamespace",
+            TypeAttributes.Public | TypeAttributes.Class | TypeAttributes.Sealed,
+            "<>_generated_resourceDictionary_Loader",
+            BuilderTypes.ResourceDictionary);
+        resourceDictionaryMergerClass.CustomAttributes.Add(builder.GetType("Cauldron.Activator.ComponentAttribute"), __ResourceDictionary.Type.Fullname);
         resourceDictionaryMergerClass.CustomAttributes.AddEditorBrowsableAttribute(EditorBrowsableState.Never);
         resourceDictionaryMergerClass.CustomAttributes.AddCompilerGeneratedAttribute();
 
         //var method = resourceDictionaryMergerClass.CreateMethod(Modifiers.Private, "AddToDictionary", typeof(string));
         resourceDictionaryMergerClass.CreateConstructor().NewCoder().Context(context =>
         {
-            var resourceDick = context.AssociatedMethod.GetOrCreateVariable(BuilderTypes.ICollection1.BuilderType.MakeGeneric(__ResourceDictionary.Type));
-            context
-                .SetValue(resourceDick, x =>
-                    x.Call(BuilderTypes.Application.GetMethod_get_Current())
-                    .Call(BuilderTypes.Application.GetMethod_get_Resources())
-                    .Call(resourceDictionary.MergedDictionaries));
-
-            var resourceDictionaryInstance = context.AssociatedMethod.GetOrCreateVariable(__ResourceDictionary.Type);
-
-            foreach (var item in xamlThatRequiredInitializers)
+            if (xamlThatRequiredInitializers.Length > 0)
             {
-                builder.Log(LogTypes.Info, $"- Adding XAML '{item.Item}' with index '{item.Index}' to the Application's MergeDictionary");
-                context.SetValue(resourceDictionaryInstance, x => x.NewObj(resourceDictionary.Ctor));
-                context.Load(resourceDictionaryInstance)
-                    .Call(resourceDictionary.SetSource,
-                        x => x.NewObj(BuilderTypes.Uri.GetMethod_ctor(), $"pack://application:,,,/{Path.GetFileNameWithoutExtension(builder.Name)};component/{item.Item}"));
-                context.Load(resourceDick)
-                    .Call(BuilderTypes.ICollection1.GetMethod_Add().MakeGeneric(__ResourceDictionary.Type), resourceDictionaryInstance);
+                var resourceDick = context.AssociatedMethod.GetOrCreateVariable(BuilderTypes.ICollection1.BuilderType.MakeGeneric(__ResourceDictionary.Type));
+                context
+                    .SetValue(resourceDick, x =>
+                        x.Call(BuilderTypes.Application.GetMethod_get_Current())
+                        .Call(BuilderTypes.Application.GetMethod_get_Resources())
+                        .Call(resourceDictionary.MergedDictionaries));
+
+                var resourceDictionaryInstance = context.AssociatedMethod.GetOrCreateVariable(__ResourceDictionary.Type);
+
+                foreach (var item in xamlThatRequiredInitializers)
+                {
+                    builder.Log(LogTypes.Info, $"- Adding XAML '{item.Item}' with index '{item.Index}' to the Application's MergeDictionary");
+                    context.SetValue(resourceDictionaryInstance, x => x.NewObj(resourceDictionary.Ctor));
+                    context.Load(resourceDictionaryInstance)
+                        .Call(resourceDictionary.SetSource,
+                            x => x.NewObj(BuilderTypes.Uri.GetMethod_ctor(), $"pack://application:,,,/{Path.GetFileNameWithoutExtension(builder.Name)};component/{item.Item}"));
+                    context.Load(resourceDick)
+                        .Call(BuilderTypes.ICollection1.GetMethod_Add().MakeGeneric(__ResourceDictionary.Type), resourceDictionaryInstance);
+                }
             }
 
             return context;
@@ -199,8 +207,11 @@ public static class Weaver_WPF
         .Return()
         .Replace();
 
-        // Let us look for ResourceDictionaries without a InitializeComponent in their ctor
-        // TODO
+        // Let us look for ResourceDictionaries without a InitializeComponent in their ctor and it
+        foreach (var method in allInitializeComponentMethods)
+            foreach (var ctor in method.DeclaringType.GetRelevantConstructors().Where(x => x.Name == ".ctor"))
+                if (!ctor.HasMethodCall(method))
+                    ctor.NewCoder().Call(method).End.Insert(InsertionPosition.Beginning);
 
         resourceDictionaryMergerClass.ParameterlessContructor.CustomAttributes.AddEditorBrowsableAttribute(EditorBrowsableState.Never);
         resourceDictionaryMergerClass.ParameterlessContructor.CustomAttributes.Add(BuilderTypes.ComponentConstructorAttribute.BuilderType);
