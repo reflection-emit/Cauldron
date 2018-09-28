@@ -21,7 +21,7 @@ namespace Cauldron.XAML.Theme
 
             this.IsInitialized = true;
 
-            if (!ApplicationBase.Current.Resources.Contains(CauldronTheme.AccentColor))
+            if (ApplicationBase.Current != null && !ApplicationBase.Current.Resources.Contains(CauldronTheme.AccentColor))
                 ApplicationBase.Current.Resources.Add(CauldronTheme.AccentColor, Colors.LightSteelBlue);
         }
     }
