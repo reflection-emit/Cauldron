@@ -141,7 +141,7 @@ namespace Cauldron.XAML.ViewModels
                          ButtonCommand = new RelayCommand(() =>
                          {
                              item.Invoke();
-                             Navigator.TryClose(this);
+                             this.Navigator.TryClose(this);
                          })
                      });
                  }

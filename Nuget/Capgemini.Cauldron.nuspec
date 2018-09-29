@@ -25,6 +25,8 @@
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Cauldron Extensions MaxBy MinBy Encode Formatters Comparing Ping Java Properties</tags>
     <releaseNotes>
+      2018.09.29 - [A] Directory Combine extensions added.
+      2018.09.29 - [A] Added MathEx methods: ValueOf for int, long and float.
       2018.07.02 - [A] Debug class added
       2018.07.01 - [C] Now signed
       2018.07.01 - [C] All extension packages merged
