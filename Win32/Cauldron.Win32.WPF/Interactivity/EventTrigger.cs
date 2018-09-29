@@ -9,8 +9,6 @@ using Windows.UI.Xaml;
 #else
 
 using System.Windows.Markup;
-using System.Windows.Data;
-using System.Windows.Controls;
 using System.Windows;
 
 #endif
@@ -27,7 +25,7 @@ namespace Cauldron.XAML.Interactivity
     [ContentProperty(Name = nameof(Actions))]
 #else
 
-    [ContentProperty(nameof(Actions))]
+    [ContentProperty("Actions")]
 #endif
     public sealed class EventTrigger : Behaviour<FrameworkElement>, IBehaviour
     {
@@ -43,8 +41,8 @@ namespace Cauldron.XAML.Interactivity
         /// </summary>
         public string EventName
         {
-            get { return (string)this.GetValue(EventNameProperty); }
-            set { this.SetValue(EventNameProperty, value); }
+            get => this.GetValue(EventNameProperty) as string;
+            set => this.SetValue(EventNameProperty, value);
         }
 
         private static void OnEventNameChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs args)
@@ -59,7 +57,7 @@ namespace Cauldron.XAML.Interactivity
 
         #endregion Dependency Property EventName
 
-        private ActionCollection _Actions;
+        private ActionCollection actions;
         private DynamicEventHandler eventHandler;
 
         /// <summary>
@@ -69,10 +67,10 @@ namespace Cauldron.XAML.Interactivity
         {
             get
             {
-                if (null == this._Actions)
-                    this._Actions = new ActionCollection(this.AssociatedObject);
+                if (this.actions == null)
+                    this.actions = new ActionCollection(this.AssociatedObject);
 
-                return this._Actions;
+                return this.actions;
             }
         }
 

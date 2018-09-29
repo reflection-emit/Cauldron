@@ -63,7 +63,7 @@ namespace Cauldron
         /// </summary>
         /// <param name="target">The string to replace</param>
         /// <returns>Returns a new string with a lower cased first character</returns>
-        public unsafe static string LowerFirstCharacter(this string target)
+        public static unsafe string LowerFirstCharacter(this string target)
         {
             if (target == null)
                 return null;
@@ -92,7 +92,7 @@ namespace Cauldron
         /// <exception cref="ArgumentOutOfRangeException">
         /// <paramref name="index"/> is higher than <paramref name="value"/> length
         /// </exception>
-        public unsafe static void Replace(this string value, uint index, char newChar)
+        public static unsafe void Replace(this string value, uint index, char newChar)
         {
             if (value == null)
                 throw new ArgumentNullException(nameof(value));
@@ -120,7 +120,7 @@ namespace Cauldron
         /// <exception cref="ArgumentOutOfRangeException">
         /// <paramref name="startingIndex"/> is higher than <paramref name="value"/> length
         /// </exception>
-        public unsafe static void ReplaceMe(this string value, char oldChar, char newChar, int startingIndex = 0) => value.ReplaceMe(new char[] { oldChar }, newChar, startingIndex);
+        public static unsafe void ReplaceMe(this string value, char oldChar, char newChar, int startingIndex = 0) => value.ReplaceMe(new char[] { oldChar }, newChar, startingIndex);
 
         /// <summary>
         /// Replaces a series of chars <paramref name="oldChars"/> with a single char <paramref name="newChar"/>.
@@ -135,7 +135,7 @@ namespace Cauldron
         /// <exception cref="ArgumentOutOfRangeException">
         /// <paramref name="startingIndex"/> is higher than <paramref name="value"/> length
         /// </exception>
-        public unsafe static void ReplaceMe(this string value, char[] oldChars, char newChar, int startingIndex = 0)
+        public static unsafe void ReplaceMe(this string value, char[] oldChars, char newChar, int startingIndex = 0)
         {
             if (value == null)
                 throw new ArgumentNullException(nameof(value));
@@ -154,6 +154,27 @@ namespace Cauldron
                         if (valueChar == oldChars[x])
                             *(chr + i) = newChar;
                 }
+        }
+
+        /// <summary>
+        /// Concatenates an item into a sequences.
+        /// </summary>
+        /// <typeparam name="TSource">The type of the elements of the input sequences.</typeparam>
+        /// <param name="first">The first sequence to concatenate.</param>
+        /// <param name="second">The item to concat into the sequence.</param>
+        /// <returns>An <see cref="IEnumerable{T}"/> that contains the concatenated elements of the two input sequences.</returns>
+        public static IEnumerable<TSource> Append<TSource>(this IEnumerable<TSource> first, TSource second)
+        {
+            if (first == null)
+                throw new ArgumentNullException(nameof(first));
+
+            if (second == null)
+                throw new ArgumentNullException(nameof(second));
+
+            foreach (TSource element in first)
+                yield return element;
+
+            yield return second;
         }
 
         /// <summary>

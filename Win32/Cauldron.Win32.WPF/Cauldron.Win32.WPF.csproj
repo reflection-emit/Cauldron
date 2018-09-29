@@ -135,6 +135,8 @@
     <Compile Include="Common.cs" />
     <Compile Include="Controls\NavigationFrame.cs" />
     <Compile Include="DependencyPropertyInfo.cs" />
+    <Compile Include="Interactivity\Actions\StoryboardBeginAnimationAction.cs" />
+    <Compile Include="Interactivity\DataTrigger.cs" />
     <Compile Include="Threading\DispatcherWPF.cs" />
     <Compile Include="DynamicEventHandler.cs" />
     <Compile Include="Extensions.cs" />

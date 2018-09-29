@@ -1,5 +1,4 @@
 ﻿using Cauldron.XAML.Interactivity.Actions;
-using System.ComponentModel;
 
 #if WINDOWS_UWP
 
@@ -16,19 +15,20 @@ using System.Windows;
 #endif
 
 namespace Cauldron.XAML.Interactivity
-{    /// <summary>
-     /// Provides a <see cref="Behaviour{T}"/> that can invoke <see cref="ActionBase"/> behaviours if a property changes
-     /// </summary>
+{
+    /// <summary>
+    /// Provides a <see cref="Behaviour{T}"/> that can invoke <see cref="ActionBase"/> behaviours if a property changes
+    /// </summary>
 #if WINDOWS_UWP
 
     [ContentProperty(Name = nameof(Actions))]
 #else
 
-    [ContentProperty(nameof(Actions))]
+    [ContentProperty("Actions")]
 #endif
     public sealed class PropertyChangedTrigger : Behaviour<FrameworkElement>
     {
-        private ActionCollection _Actions;
+        private ActionCollection actions;
 
         #region Dependency Property Property
 
@@ -42,18 +42,14 @@ namespace Cauldron.XAML.Interactivity
         /// </summary>
         public DependencyProperty Property
         {
-            get { return (DependencyProperty)this.GetValue(PropertyProperty); }
-            set { this.SetValue(PropertyProperty, value); }
+            get => this.GetValue(PropertyProperty) as DependencyProperty;
+            set => this.SetValue(PropertyProperty, value);
         }
 
         private static void OnPropertyChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs args)
         {
-            var d = dependencyObject as PropertyChangedTrigger;
-
-            if (d == null)
-                return;
-
-            d.GetBindedProperty();
+            if (dependencyObject is PropertyChangedTrigger propertyChangedTrigger)
+                propertyChangedTrigger.GetBindedProperty();
         }
 
         #endregion Dependency Property Property
@@ -67,10 +63,10 @@ namespace Cauldron.XAML.Interactivity
         {
             get
             {
-                if (null == this._Actions)
-                    this._Actions = new ActionCollection(this.AssociatedObject);
+                if (null == this.actions)
+                    this.actions = new ActionCollection(this.AssociatedObject);
 
-                return this._Actions;
+                return this.actions;
             }
         }
 

@@ -1,5 +1,4 @@
 ﻿using System;
-using Cauldron;
 
 #if WINDOWS_UWP
 
@@ -36,13 +35,13 @@ namespace Cauldron.XAML.Interactivity.BehaviourInvocation
         /// </summary>
         protected override void OnDataContextChanged()
         {
-            if (this.AssociatedObject.DataContext != oldDataContext && oldDataContext != null)
-                (oldDataContext as INotifyBehaviourInvocation).IsNotNull(x => x.BehaviourInvoke -= BehaviourInvoke);
+            if (this.AssociatedObject.DataContext != this.oldDataContext && this.oldDataContext != null)
+                (this.oldDataContext as INotifyBehaviourInvocation).IsNotNull(x => x.BehaviourInvoke -= this.BehaviourInvoke);
 
-            if (this.AssociatedObject.DataContext != oldDataContext)
+            if (this.AssociatedObject.DataContext != this.oldDataContext)
             {
-                oldDataContext = this.AssociatedObject.DataContext;
-                (this.AssociatedObject.DataContext as INotifyBehaviourInvocation).IsNotNull(x => x.BehaviourInvoke += BehaviourInvoke);
+                this.oldDataContext = this.AssociatedObject.DataContext;
+                (this.AssociatedObject.DataContext as INotifyBehaviourInvocation).IsNotNull(x => x.BehaviourInvoke += this.BehaviourInvoke);
             }
         }
 
@@ -51,7 +50,7 @@ namespace Cauldron.XAML.Interactivity.BehaviourInvocation
         /// </summary>
         protected override void OnDetach()
         {
-            (this.AssociatedObject.DataContext as INotifyBehaviourInvocation).IsNotNull(x => x.BehaviourInvoke -= BehaviourInvoke);
+            (this.AssociatedObject.DataContext as INotifyBehaviourInvocation).IsNotNull(x => x.BehaviourInvoke -= this.BehaviourInvoke);
             this.oldDataContext = null;
         }
 
