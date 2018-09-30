@@ -357,7 +357,7 @@ namespace Cauldron
         /// names must be less than 260 characters. The specified path, file name, or both are too long.
         /// </exception>
         public static DirectoryInfo ToDirectoryInfo(this string path) => new DirectoryInfo(path);
-                
+
         /// <summary>
         /// Converts a string to a <see cref="FileInfo"/>
         /// </summary>
@@ -383,7 +383,6 @@ namespace Cauldron
         /// <exception cref="UnauthorizedAccessException">
         /// <paramref name="filename"/> contains a colon (:) in the middle of the string.
         /// </exception>
-        public static FileInfo ToFileInfo(this DirectoryInfo directoryInfo, string filename) => new FileInfo(Path.Combine(directory.FullName, filename));
-
+        public static FileInfo ToFileInfo(this DirectoryInfo directoryInfo, string filename) => new FileInfo(Path.Combine(directoryInfo.FullName, filename));
     }
 }
