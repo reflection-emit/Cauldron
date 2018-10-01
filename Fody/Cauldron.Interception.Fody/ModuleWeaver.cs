@@ -58,9 +58,9 @@ namespace Cauldron.Interception.Fody
             var voidMain = builder.GetMain();
 
             // Add the Entrance Assembly and referenced assemblies hack for UWP
-            if (builder.TypeExists("Cauldron.Core.Reflection.AssembliesCore"))
+            if (builder.TypeExists("Cauldron.Reflection.AssembliesCore"))
             {
-                var assemblies = builder.GetType("Cauldron.Core.Reflection.AssembliesCore").Import().With(y => new
+                var assemblies = builder.GetType("Cauldron.Reflection.AssembliesCore").Import().With(y => new
                 {
                     Type = y,
                     SetEntryAssembly = y.GetMethod("SetEntryAssembly", 1).Import(),

@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>Cauldron.Interception.Fody</id>
-    <version>3.0.34</version>
+    <version>3.2.0</version>
     <title>Capgemini Cauldron Interception for Fody</title>
     <authors>Alexander Schunk, Capgemini Deutschland GmbH</authors>
     <owners>Alexander Schunk, Capgemini Deutschland GmbH</owners>
@@ -74,7 +74,7 @@
       2017.12.04 - [R] Useless method cache removed from weaver.
     </releaseNotes>
     <dependencies>
-      <dependency id="Fody" version="3.0.3" />
+      <dependency id="Fody" version="3.2.4" />
     </dependencies>
   </metadata>
   <files>

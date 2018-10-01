@@ -1,6 +1,4 @@
-﻿using Cauldron.Core;
-using Cauldron.Core.Diagnostics;
-using Cauldron.Core.Extensions;
+﻿using Cauldron.Diagnostics;
 using System;
 using System.Reflection;
 
@@ -12,7 +10,6 @@ using System.Runtime.InteropServices.WindowsRuntime;
 #else
 
 using System.Windows;
-using System.Windows.Markup;
 
 #endif
 

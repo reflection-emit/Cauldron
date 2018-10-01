@@ -2,17 +2,22 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>Capgemini.Cauldron.Activator</id>
-    <version>3.0.32</version>
+    <version>3.2.0</version>
     <authors>Alexander Schunk, Capgemini Deutschland GmbH</authors>
     <owners>Alexander Schunk, Capgemini Deutschland GmbH</owners>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <licenseUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/LICENSE</licenseUrl>
     <projectUrl>https://github.com/Capgemini/Cauldron</projectUrl>
     <iconUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/cauldron.png</iconUrl>
-    <description>The activator is a simple and fast dependency injection framework. It is based on attributes and does not require any configuration files for configuration. It also supports using static methods as component constructor.</description>
+    <description>
+      The activator is a simple and fast dependency injection framework. It is based on attributes and does not require any configuration files for configuration. It also supports using static methods as component constructor.
+      This version is not compatible with Assemblies weaved by versions older than 3.1.0 of the Cauldron.Activator.
+      Breaking changes in 3.1.x - See https://github.com/Capgemini/Cauldron for more information.
+    </description>
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Activator Dependency Injection Factory Cauldron</tags>
     <releaseNotes>
+      2018.08.05 - [C] Fody dependency updated to 3.1.4
       2018.07.03 - [B] RunSync was ambigious... It is supposed to be in Cauldron.Core.Extensions... Not in Activator.
       2018.07.02 - [C] Fody dependency updated to 3.1.3
       2018.07.01 - [C] Now signed
@@ -47,7 +52,8 @@
       2017.12.04 - [A] CreateFirst method added to the Factory. This will auto-pick the implementation with the highest priority if multiple implementations are available.
     </releaseNotes>
     <dependencies>
-      <dependency id="Fody" version="3.1.3" />
+      <dependency id="Cauldron.Interception.Fody" version="3.2.0" />
+      <dependency id="Fody" version="3.1.4" />
     </dependencies>
     <contentFiles>
       <files include="**/Interceptors/*.dll" buildAction="None" />

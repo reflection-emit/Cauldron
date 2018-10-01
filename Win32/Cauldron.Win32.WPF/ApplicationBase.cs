@@ -1,8 +1,7 @@
 ﻿using Cauldron;
 using Cauldron.Activator;
-using Cauldron.Core.Reflection;
-using Cauldron.Core.Threading;
 using Cauldron.Cryptography;
+using Cauldron.Reflection;
 using Cauldron.XAML.Navigation;
 using Cauldron.XAML.ViewModels;
 using System;
@@ -18,10 +17,11 @@ using System.Windows.Media;
 
 namespace Cauldron.XAML
 {
-    using Cauldron.Core;
-    using Cauldron.Core.Diagnostics;
+    using Cauldron;
+    using Cauldron.Diagnostics;
     using Cauldron.Net;
     using Cauldron.XAML.Controls;
+    using Cauldron.XAML.Threading;
     using System.Collections.Generic;
 
     /// <summary>
@@ -44,7 +44,7 @@ namespace Cauldron.XAML
         /// </summary>
         public ApplicationBase()
         {
-            this.Startup += ApplicationBase_Startup;
+            this.Startup += this.ApplicationBase_Startup;
 
             this.OnConstruction();
             this.ShutdownMode = ShutdownMode.OnMainWindowClose;
@@ -126,7 +126,7 @@ namespace Cauldron.XAML
         public ImageSource ApplicationSplash { get; set; }
 
         /// <summary>
-        /// Gets the <see cref="Dispatcher"/> this <see cref="DispatcherEx "/> is associated with.
+        /// Gets the <see cref="Dispatcher"/> this <see cref="Object"/> is associated with.
         /// </summary>
         public new IDispatcher Dispatcher
         {

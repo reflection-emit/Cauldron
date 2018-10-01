@@ -381,18 +381,18 @@ namespace Cauldron.Interception.Cecilator
 
 		#endregion
 				
-		#region Extensions
-        private static BuilderTypeExtensions _extensions;
+		#region ExtensionsInterception
+        private static BuilderTypeExtensionsInterception _extensionsinterception;
 		
         /// <summary>
-        /// Gets <see cref="BuilderType"/> representing <see cref="Cauldron.Interception.Extensions"/>. 
+        /// Gets <see cref="BuilderType"/> representing <see cref="Cauldron.Interception.ExtensionsInterception"/>. 
         /// </summary>
-        public static BuilderTypeExtensions Extensions
+        public static BuilderTypeExtensionsInterception ExtensionsInterception
         {
             get
             {
-                if (_extensions == null) _extensions = new BuilderTypeExtensions(Builder.Current.GetType("Cauldron.Interception.Extensions").Import());
-                return _extensions;
+                if (_extensionsinterception == null) _extensionsinterception = new BuilderTypeExtensionsInterception(Builder.Current.GetType("Cauldron.Interception.ExtensionsInterception").Import());
+                return _extensionsinterception;
 			}
         }
 
@@ -555,13 +555,13 @@ namespace Cauldron.Interception.Cecilator
         private static BuilderTypeIDisposableObject _idisposableobject;
 		
         /// <summary>
-        /// Gets <see cref="BuilderType"/> representing <see cref="Cauldron.Core.IDisposableObject"/>. 
+        /// Gets <see cref="BuilderType"/> representing <see cref="Cauldron.IDisposableObject"/>. 
         /// </summary>
         public static BuilderTypeIDisposableObject IDisposableObject
         {
             get
             {
-                if (_idisposableobject == null) _idisposableobject = new BuilderTypeIDisposableObject(Builder.Current.GetType("Cauldron.Core.IDisposableObject").Import());
+                if (_idisposableobject == null) _idisposableobject = new BuilderTypeIDisposableObject(Builder.Current.GetType("Cauldron.IDisposableObject").Import());
                 return _idisposableobject;
 			}
         }
@@ -4004,6 +4004,42 @@ namespace Cauldron.Interception.Cecilator
 		public static implicit operator TypeReference(BuilderTypeChar value) => Builder.Current.Import((TypeReference)value.builderType);
 			
 				
+		private Method var_tolower_0_2;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// Char ToLower(Char, System.Globalization.CultureInfo)<para/>
+		/// </summary>
+		public Method GetMethod_ToLower(TypeReference pc, TypeReference pculture)
+		{
+						
+						
+			if(this.var_tolower_0_2 == null)
+				this.var_tolower_0_2 = this.builderType.GetMethod("ToLower", true, pc, pculture);
+			
+			return this.var_tolower_0_2.Import();
+						
+		}
+						
+		private Method var_tolower_0_1;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// Char ToLower(Char)<para/>
+		/// </summary>
+		public Method GetMethod_ToLower(TypeReference pc)
+		{
+						
+						
+			if(this.var_tolower_0_1 == null)
+				this.var_tolower_0_1 = this.builderType.GetMethod("ToLower", true, pc);
+			
+			return this.var_tolower_0_1.Import();
+						
+		}
+						
 		private Method var_gethashcode_0_0;
 		
 		/// <summary>
@@ -4455,42 +4491,6 @@ namespace Cauldron.Interception.Cecilator
 				this.var_toupperinvariant_0_1 = this.builderType.GetMethod("ToUpperInvariant", 1, true);
 
 			return this.var_toupperinvariant_0_1.Import();
-		}
-						
-		private Method var_tolower_0_2;
-		
-		/// <summary>
-		/// Represents the following method:
-		/// <para />
-		/// Char ToLower(Char, System.Globalization.CultureInfo)<para/>
-		/// </summary>
-		public Method GetMethod_ToLower(TypeReference pc, TypeReference pculture)
-		{
-						
-						
-			if(this.var_tolower_0_2 == null)
-				this.var_tolower_0_2 = this.builderType.GetMethod("ToLower", true, pc, pculture);
-			
-			return this.var_tolower_0_2.Import();
-						
-		}
-						
-		private Method var_tolower_0_1;
-		
-		/// <summary>
-		/// Represents the following method:
-		/// <para />
-		/// Char ToLower(Char)<para/>
-		/// </summary>
-		public Method GetMethod_ToLower(TypeReference pc)
-		{
-						
-						
-			if(this.var_tolower_0_1 == null)
-				this.var_tolower_0_1 = this.builderType.GetMethod("ToLower", true, pc);
-			
-			return this.var_tolower_0_1.Import();
-						
 		}
 						
 		private Method var_tolowerinvariant_0_1;
@@ -14301,19 +14301,19 @@ namespace Cauldron.Interception.Cecilator
 
 			
     /// <summary>
-    /// Provides a wrapper class for <see cref="Cauldron.Interception.Extensions"/>
+    /// Provides a wrapper class for <see cref="Cauldron.Interception.ExtensionsInterception"/>
     /// </summary>
-    public partial class BuilderTypeExtensions : TypeSystemExBase
+    public partial class BuilderTypeExtensionsInterception : TypeSystemExBase
 	{
-        internal BuilderTypeExtensions(BuilderType builderType) : base(builderType)
+        internal BuilderTypeExtensionsInterception(BuilderType builderType) : base(builderType)
 		{
 		}
 
 		/// <exclude />
-		public static implicit operator BuilderType(BuilderTypeExtensions value) => value.builderType.Import();
+		public static implicit operator BuilderType(BuilderTypeExtensionsInterception value) => value.builderType.Import();
 		
 		/// <exclude />
-		public static implicit operator TypeReference(BuilderTypeExtensions value) => Builder.Current.Import((TypeReference)value.builderType);
+		public static implicit operator TypeReference(BuilderTypeExtensionsInterception value) => Builder.Current.Import((TypeReference)value.builderType);
 			
 				
 		private Method var_getsha256hash_0_1;
@@ -14950,6 +14950,21 @@ namespace Cauldron.Interception.Cecilator
 				this.var_get_resolvers_0_0 = this.builderType.GetMethod("get_Resolvers", 0, true);
 
 			return this.var_get_resolvers_0_0.Import();
+		}
+						
+		private Method var_addtypes_0_1;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// Void AddTypes(System.Collections.Generic.IEnumerable`1[Cauldron.Activator.IFactoryTypeInfo])<para/>
+		/// </summary>
+		public Method GetMethod_AddTypes()
+		{
+			if(this.var_addtypes_0_1 == null)
+				this.var_addtypes_0_1 = this.builderType.GetMethod("AddTypes", 1, true);
+
+			return this.var_addtypes_0_1.Import();
 		}
 						
 		private Method var_create_0_1;
@@ -15971,6 +15986,21 @@ namespace Cauldron.Interception.Cecilator
 		public static implicit operator TypeReference(BuilderTypeIDictionary value) => Builder.Current.Import((TypeReference)value.builderType);
 			
 				
+		private Method var_add_0_2;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// Void Add(System.Object, System.Object)<para/>
+		/// </summary>
+		public Method GetMethod_Add()
+		{
+			if(this.var_add_0_2 == null)
+				this.var_add_0_2 = this.builderType.GetMethod("Add", 2, true);
+
+			return this.var_add_0_2.Import();
+		}
+						
 		private Method var_get_item_0_1;
 		
 		/// <summary>
@@ -16044,21 +16074,6 @@ namespace Cauldron.Interception.Cecilator
 				this.var_contains_0_1 = this.builderType.GetMethod("Contains", 1, true);
 
 			return this.var_contains_0_1.Import();
-		}
-						
-		private Method var_add_0_2;
-		
-		/// <summary>
-		/// Represents the following method:
-		/// <para />
-		/// Void Add(System.Object, System.Object)<para/>
-		/// </summary>
-		public Method GetMethod_Add()
-		{
-			if(this.var_add_0_2 == null)
-				this.var_add_0_2 = this.builderType.GetMethod("Add", 2, true);
-
-			return this.var_add_0_2.Import();
 		}
 						
 		private Method var_clear_0_0;
@@ -16190,7 +16205,7 @@ namespace Cauldron.Interception.Cecilator
 
 			
     /// <summary>
-    /// Provides a wrapper class for <see cref="Cauldron.Core.IDisposableObject"/>
+    /// Provides a wrapper class for <see cref="Cauldron.IDisposableObject"/>
     /// </summary>
     public partial class BuilderTypeIDisposableObject : TypeSystemExBase
 	{
@@ -20119,6 +20134,21 @@ namespace Cauldron.Interception.Cecilator
 		public static implicit operator TypeReference(BuilderTypeObject value) => Builder.Current.Import((TypeReference)value.builderType);
 			
 				
+		private Method var_gettype_0_0;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// System.Type GetType()<para/>
+		/// </summary>
+		public Method GetMethod_GetType()
+		{
+			if(this.var_gettype_0_0 == null)
+				this.var_gettype_0_0 = this.builderType.GetMethod("GetType", 0, true);
+
+			return this.var_gettype_0_0.Import();
+		}
+						
 		private Method var_tostring_0_0;
 		
 		/// <summary>
@@ -20198,21 +20228,6 @@ namespace Cauldron.Interception.Cecilator
 				this.var_gethashcode_0_0 = this.builderType.GetMethod("GetHashCode", 0, true);
 
 			return this.var_gethashcode_0_0.Import();
-		}
-						
-		private Method var_gettype_0_0;
-		
-		/// <summary>
-		/// Represents the following method:
-		/// <para />
-		/// System.Type GetType()<para/>
-		/// </summary>
-		public Method GetMethod_GetType()
-		{
-			if(this.var_gettype_0_0 == null)
-				this.var_gettype_0_0 = this.builderType.GetMethod("GetType", 0, true);
-
-			return this.var_gettype_0_0.Import();
 		}
 						
 		private Method var_ctor_0_0;
@@ -21636,6 +21651,21 @@ namespace Cauldron.Interception.Cecilator
 		public static implicit operator TypeReference(BuilderTypeString value) => Builder.Current.Import((TypeReference)value.builderType);
 			
 				
+		private Method var_get_length_0_0;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// Int32 get_Length()<para/>
+		/// </summary>
+		public Method GetMethod_get_Length()
+		{
+			if(this.var_get_length_0_0 == null)
+				this.var_get_length_0_0 = this.builderType.GetMethod("get_Length", 0, true);
+
+			return this.var_get_length_0_0.Import();
+		}
+						
 		private Method var_join_0_2;
 				
 		private Method var_join_1_2;
@@ -21924,21 +21954,6 @@ namespace Cauldron.Interception.Cecilator
 				this.var_gethashcode_0_0 = this.builderType.GetMethod("GetHashCode", 0, true);
 
 			return this.var_gethashcode_0_0.Import();
-		}
-						
-		private Method var_get_length_0_0;
-		
-		/// <summary>
-		/// Represents the following method:
-		/// <para />
-		/// Int32 get_Length()<para/>
-		/// </summary>
-		public Method GetMethod_get_Length()
-		{
-			if(this.var_get_length_0_0 == null)
-				this.var_get_length_0_0 = this.builderType.GetMethod("get_Length", 0, true);
-
-			return this.var_get_length_0_0.Import();
 		}
 						
 		private Method var_split_0_1;
@@ -25426,6 +25441,21 @@ namespace Cauldron.Interception.Cecilator
 		public static implicit operator TypeReference(BuilderTypeType value) => Builder.Current.Import((TypeReference)value.builderType);
 			
 				
+		private Method var_gettypefromhandle_0_1;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// System.Type GetTypeFromHandle(System.RuntimeTypeHandle)<para/>
+		/// </summary>
+		public Method GetMethod_GetTypeFromHandle()
+		{
+			if(this.var_gettypefromhandle_0_1 == null)
+				this.var_gettypefromhandle_0_1 = this.builderType.GetMethod("GetTypeFromHandle", 1, true);
+
+			return this.var_gettypefromhandle_0_1.Import();
+		}
+						
 		private Method var_get_membertype_0_0;
 		
 		/// <summary>
@@ -26006,21 +26036,6 @@ namespace Cauldron.Interception.Cecilator
 				this.var_gettypehandle_0_1 = this.builderType.GetMethod("GetTypeHandle", 1, true);
 
 			return this.var_gettypehandle_0_1.Import();
-		}
-						
-		private Method var_gettypefromhandle_0_1;
-		
-		/// <summary>
-		/// Represents the following method:
-		/// <para />
-		/// System.Type GetTypeFromHandle(System.RuntimeTypeHandle)<para/>
-		/// </summary>
-		public Method GetMethod_GetTypeFromHandle()
-		{
-			if(this.var_gettypefromhandle_0_1 == null)
-				this.var_gettypefromhandle_0_1 = this.builderType.GetMethod("GetTypeFromHandle", 1, true);
-
-			return this.var_gettypefromhandle_0_1.Import();
 		}
 						
 		private Method var_get_fullname_0_0;

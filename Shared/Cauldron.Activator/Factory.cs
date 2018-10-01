@@ -1,18 +1,16 @@
-﻿using Cauldron.Core;
-using Cauldron.Core.Reflection;
+﻿using Cauldron.Collections;
+using Cauldron.Diagnostics;
+using Cauldron.Reflection;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
-using Cauldron.Core.Collections;
 using System.Runtime.CompilerServices;
 
 namespace Cauldron.Activator
 {
-    using Cauldron.Core.Diagnostics;
-
     /// <summary>
     /// Provides methods for creating and destroying object instances
     /// </summary>
@@ -1067,7 +1065,15 @@ namespace Cauldron.Activator
 
         private static void GetAndInitializeAllExtensions(IEnumerable<IFactoryTypeInfo> factoryTypeInfos)
         {
-            foreach (var item in factoryInfoTypes.Where(x => x.ContractName.GetHashCode() == iFactoryExtensionName.GetHashCode() && x.ContractName == iFactoryExtensionName).Select(x => x.CreateInstance() as IFactoryExtension))
+            var ff = factoryInfoTypes
+                    .Where(x => x.ContractName.GetHashCode() == iFactoryExtensionName.GetHashCode() && x.ContractName == iFactoryExtensionName)
+                    .Distinct(new FactoryTypeInfoComparer())
+                    .Select(x => x.CreateInstance() as IFactoryExtension);
+
+            foreach (var item in factoryInfoTypes
+                    .Where(x => x.ContractName.GetHashCode() == iFactoryExtensionName.GetHashCode() && x.ContractName == iFactoryExtensionName)
+                    .Distinct(new FactoryTypeInfoComparer())
+                    .Select(x => x.CreateInstance() as IFactoryExtension))
                 item.Initialize(factoryTypeInfos);
         }
 
@@ -1105,8 +1111,6 @@ namespace Cauldron.Activator
             componentsNamed = new FastDictionary<string, FactoryDictionaryValue>(components.Length);
             foreach (var item in components)
                 componentsNamed.Add(item.Key, new FactoryDictionaryValue().SetValues(item.Items));
-            // Get all factory extensions
-            GetAndInitializeAllExtensions(factoryInfoTypes);
 
             if (componentsNamed.Count == 0)
                 Debug.WriteLine($"ERROR: Unable to find any components. Please check if FodyWeavers.xml has an entry for Cauldron.Interception");

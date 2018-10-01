@@ -2,7 +2,7 @@
 using System.IO;
 using System.Security.Principal;
 
-namespace Cauldron.Core
+namespace Cauldron
 {
     /// <summary>
     /// Represents information about the current user, such as name and account picture.

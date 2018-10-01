@@ -1,6 +1,6 @@
 using Cauldron;
-using Cauldron.Core.Diagnostics;
 using Cauldron.Cryptography;
+using Cauldron.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;

@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Capgemini.Cauldron</id>
+    <version>3.2.0</version>
+    <authors>Alexander Schunk, Capgemini Deutschland GmbH</authors>
+    <owners>Alexander Schunk, Capgemini Deutschland GmbH</owners>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <licenseUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/Capgemini/Cauldron</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/cauldron.png</iconUrl>
+    <description>
+      Provides usefull extension methods.
+      This assembly contains all funtions of the following packages:
+      Capgemini.Cauldron.Core.Comparing
+      Capgemini.Cauldron.Core.Extensions
+      Capgemini.Cauldron.Core.Extensions.Compression
+      Capgemini.Cauldron.Core.Extensions.Convertions
+      Capgemini.Cauldron.Core.Extensions.IO
+      Capgemini.Cauldron.Core.Formatters
+      Capgemini.Cauldron.Core.Net
+
+      Breaking changes in 3.1.x - See https://github.com/Capgemini/Cauldron for more information.
+    </description>
+    <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
+    <tags>Toolkit Capgemini Cauldron Extensions MaxBy MinBy Encode Formatters Comparing Ping Java Properties</tags>
+    <releaseNotes>
+      2018.09.29 - [A] Append extension added. Works like NET471 LINQ version.
+      2018.09.29 - [A] Directory Combine extensions added.
+      2018.09.29 - [A] Added MathEx methods: ValueOf for int, long and float.
+      2018.07.02 - [A] Debug class added
+      2018.07.01 - [C] Now signed
+      2018.07.01 - [C] All extension packages merged
+      2018.07.01 - [C] Cauldron.Comparing merged with Cauldron.Core.Extension
+      2018.05.06 - [C] Assembly for UWP added
+      2018.05.04 - [C] Assemblies for Net45, Net451, Net452, Net46, Net461 and Net462 added
+      2018.01.05 - [C] Concat&lt;T&gt;(this T[][] arrays) renamed to Flatten&lt;T&gt;(this T[][] arrays)
+      2017.12.19 - [A] PadOrCut extension method added. It allows to pad chars or cut the string to a specific length.
+    </releaseNotes>
+    <dependencies>
+      <group>
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="..\UWP\Cauldron\bin\Release\Cauldron.dll" target="lib\uap10.0" />
+    <file src="..\UWP\Cauldron\bin\Release\Cauldron.xml" target="lib\uap10.0" />
+    <file src="..\UWP\Cauldron\bin\Release\Cauldron.pdb" target="lib\uap10.0" />
+    <file src="..\UWP\Cauldron\bin\Release\Cauldron.pri" target="lib\uap10.0" />
+    <file src="..\NetStandard\Cauldron\bin\Release\netstandard2.0\Cauldron.dll" target="lib\netstandard2.0" />
+    <file src="..\NetStandard\Cauldron\bin\Release\netstandard2.0\Cauldron.xml" target="lib\netstandard2.0" />
+    <file src="..\NetStandard\Cauldron\bin\Release\netstandard2.0\Cauldron.pdb" target="lib\netstandard2.0" />
+    <file src="..\Win32\Cauldron\bin\Release\Net45\Cauldron.dll" target="lib\net45" />
+    <file src="..\Win32\Cauldron\bin\Release\Net45\Cauldron.xml" target="lib\net45" />
+    <file src="..\Win32\Cauldron\bin\Release\Net45\Cauldron.pdb" target="lib\net45" />
+    <file src="..\Win32\Cauldron\bin\Release\Net451\Cauldron.dll" target="lib\net451" />
+    <file src="..\Win32\Cauldron\bin\Release\Net451\Cauldron.xml" target="lib\net451" />
+    <file src="..\Win32\Cauldron\bin\Release\Net451\Cauldron.pdb" target="lib\net451" />
+    <file src="..\Win32\Cauldron\bin\Release\Net452\Cauldron.dll" target="lib\net452" />
+    <file src="..\Win32\Cauldron\bin\Release\Net452\Cauldron.xml" target="lib\net452" />
+    <file src="..\Win32\Cauldron\bin\Release\Net452\Cauldron.pdb" target="lib\net452" />
+    <file src="..\Win32\Cauldron\bin\Release\Net46\Cauldron.dll" target="lib\net46" />
+    <file src="..\Win32\Cauldron\bin\Release\Net46\Cauldron.xml" target="lib\net46" />
+    <file src="..\Win32\Cauldron\bin\Release\Net46\Cauldron.pdb" target="lib\net46" />
+    <file src="..\Win32\Cauldron\bin\Release\Net461\Cauldron.dll" target="lib\net461" />
+    <file src="..\Win32\Cauldron\bin\Release\Net461\Cauldron.xml" target="lib\net461" />
+    <file src="..\Win32\Cauldron\bin\Release\Net461\Cauldron.pdb" target="lib\net461" />
+    <file src="..\Win32\Cauldron\bin\Release\Net462\Cauldron.dll" target="lib\net462" />
+    <file src="..\Win32\Cauldron\bin\Release\Net462\Cauldron.xml" target="lib\net462" />
+    <file src="..\Win32\Cauldron\bin\Release\Net462\Cauldron.pdb" target="lib\net462" />
+    <file src="..\Shared\Cauldron\**\*.cs" target="src" />
+  </files>
+</package>

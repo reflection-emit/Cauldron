@@ -1,5 +1,5 @@
 ﻿using Cauldron.Activator;
-using Cauldron.Core.Reflection;
+using Cauldron.Reflection;
 using Cauldron.Localization;
 using Cauldron.XAML.Resources;
 using System.Collections.ObjectModel;
@@ -141,7 +141,7 @@ namespace Cauldron.XAML.ViewModels
                          ButtonCommand = new RelayCommand(() =>
                          {
                              item.Invoke();
-                             Navigator.TryClose(this);
+                             this.Navigator.TryClose(this);
                          })
                      });
                  }

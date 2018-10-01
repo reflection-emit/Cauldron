@@ -1,5 +1,4 @@
-﻿using Cauldron;
-using System;
+﻿using System;
 
 namespace NugetMonkey
 {
@@ -7,22 +6,11 @@ namespace NugetMonkey
     {
         public NugetVersion(string version)
         {
-            var splitted = version.Split('.');
-
-            if (splitted.Length == 3)
-            {
-                this.Major = splitted[0].ToInteger();
-                this.Minor = splitted[1].ToInteger();
-
-                if (splitted[2].IndexOf('-') >= 0)
-                {
-                    var revisionBeta = splitted[2].Split('-');
-                    this.Revision = revisionBeta[0].ToInteger();
-                    this.IsBeta = revisionBeta[1].ToBool();
-                }
-                else
-                    this.Revision = splitted[2].ToInteger();
-            }
+            var result = version.SplitVersion();
+            this.Major = result.Item1;
+            this.Minor = result.Item2;
+            this.Revision = result.Item3;
+            this.IsBeta = result.Item4;
         }
 
         public NugetVersion(int major, int minor, int revision) : this(major, minor, revision, false)
@@ -39,12 +27,15 @@ namespace NugetMonkey
             this.Major = major;
             this.Minor = minor;
             this.Revision = revision;
-            this.IsBeta = IsBeta;
+            this.IsBeta = this.IsBeta;
         }
 
         public bool IsBeta { get; set; }
+
         public int Major { get; set; }
+
         public int Minor { get; set; }
+
         public int Revision { get; set; }
 
         public static implicit operator NugetVersion(string value) => new NugetVersion(value);
@@ -53,15 +44,20 @@ namespace NugetMonkey
 
         public NugetVersion Increment()
         {
-            var minor = this.Minor;
-            var revision = this.Revision + 1;
+            var defaultVersion =  NugetMonkeyJson.BasicVersion.SplitVersion();
+
+            var major = this.Major > defaultVersion.Item1? this.Major : defaultVersion.Item1;
+            var minor = this.Minor > defaultVersion.Item2? this.Minor : defaultVersion.Item2;
+            var revision = defaultVersion.Item3 < 0 ? 0 : this.Revision + 1;
+            var isBeta = defaultVersion.Item4;
+
             if (revision >= 100)
             {
                 minor++;
                 revision = 0;
             }
 
-            return new NugetVersion(this.Major, minor, revision, this.IsBeta);
+            return new NugetVersion(major, minor, revision, isBeta);
         }
 
         public override string ToString() =>

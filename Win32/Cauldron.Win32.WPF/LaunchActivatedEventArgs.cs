@@ -1,4 +1,6 @@
-﻿using Cauldron.Core;
+﻿using Cauldron;
+
+using Cauldron;
 
 namespace Cauldron.XAML
 {

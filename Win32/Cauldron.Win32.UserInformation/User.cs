@@ -1,4 +1,4 @@
-﻿using Cauldron.Core.Net;
+﻿using Cauldron.Net;
 using System;
 using System.DirectoryServices;
 using System.DirectoryServices.AccountManagement;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace Cauldron.Core
+namespace Cauldron
 {
     /// <summary>
     /// Represents information about the user, such as name and account picture.

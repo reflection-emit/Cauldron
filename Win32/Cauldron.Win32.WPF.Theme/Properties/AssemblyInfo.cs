@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Cauldron.Core.Win32.Randomizer")]
+[assembly: AssemblyTitle("Cauldron.Win32.Randomizer")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Alexander Schunk, Capgemini Deutschland GmbH")]
-[assembly: AssemblyProduct("Cauldron.Core.Win32.Randomizer")]
+[assembly: AssemblyProduct("Cauldron.Win32.Randomizer")]
 [assembly: AssemblyCopyright("Copyright (c) 2016 Capgemini Deutschland GmbH")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -31,5 +31,5 @@ using System.Runtime.InteropServices;
 //
 // You can specify all the values or you can default the Build and Revision Numbers
 // by using the '*' as shown below:
-[assembly: AssemblyVersion("3.0.0.22")]
-[assembly: AssemblyFileVersion("3.0.0.22")]
+[assembly: AssemblyVersion("3.1.0.22")]
+[assembly: AssemblyFileVersion("3.1.0.22")]

@@ -1,4 +1,4 @@
-﻿using Cauldron.Core.Threading;
+﻿using Cauldron.XAML.Threading;
 using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;

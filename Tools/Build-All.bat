@@ -1,1 +1,1 @@
-NugetMonkey.exe "..\Nuget\Capgemini.Cauldron.Activator.nuspec" "..\Nuget\Cauldron.BasicInterceptors.nuspec" "..\Nuget\Capgemini.Cauldron.Core.Collections.nuspec" "..\Nuget\Capgemini.Cauldron.Core.Extensions.nuspec" "..\Nuget\Capgemini.Cauldron.Core.Randomizer.nuspec" "..\Nuget\Capgemini.Cauldron.Cryptography.nuspec"
+NugetMonkey.exe ..\Nuget

@@ -92,6 +92,12 @@
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <DocumentationFile>bin\Release\Net462\Cauldron.Win32.WPF.ParameterPassing.xml</DocumentationFile>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>ParameterPassing.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -107,16 +113,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ParamPassing.cs" />
-    <Compile Include="Extensions.cs" />
+    <Compile Include="ExtensionsParameterPassing.cs" />
     <Compile Include="ParameterPassingConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UnsafeNative.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Cauldron.Core.Randomizer\Cauldron.Core.Randomizer.csproj">
+    <ProjectReference Include="..\Cauldron.Randomizer\Cauldron.Randomizer.csproj">
       <Project>{ad85b816-7080-4b07-9ad5-7dd4e9ba1750}</Project>
-      <Name>Cauldron.Core.Randomizer</Name>
+      <Name>Cauldron.Randomizer</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ParameterPassing.snk" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

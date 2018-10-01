@@ -2,7 +2,7 @@
 
 namespace Cauldron.Interception.Fody.HelperTypes
 {
-    [HelperTypeName("Cauldron.Core.Interceptors.TimedCacheAttribute")]
+    [HelperTypeName("Cauldron.Interceptors.TimedCacheAttribute")]
     public sealed class __TimedCacheAttribute : HelperTypeBase<__TimedCacheAttribute>
     {
         [HelperTypeMethod("CreateKey", 2)]

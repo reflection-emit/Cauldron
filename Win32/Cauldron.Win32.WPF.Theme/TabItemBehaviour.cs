@@ -1,8 +1,5 @@
-﻿using Cauldron.Core.Extensions;
-using Cauldron.XAML.Interactivity;
+﻿using Cauldron.XAML.Interactivity;
 using Cauldron.XAML.ViewModels;
-using System;
-using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;

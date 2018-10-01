@@ -3,9 +3,7 @@
 <#@ assembly name="WindowsBase" #>
 <#@ assembly name="PresentationFramework" #>
 <#@ assembly name="$(SolutionDir)Win32\\Cauldron.Activator\\bin\\Release\\Cauldron.Activator.dll" #>
-<#@ assembly name="$(SolutionDir)Win32\\Cauldron.Core.Disposable\\bin\\Release\\Cauldron.Core.Disposable.dll" #>
 <#@ assembly name="$(SolutionDir)Win32\\Cauldron.Interception\\bin\\Release\\Cauldron.Interception.dll" #>
-<#@ assembly name="$(SolutionDir)Win32\\Cauldron.Core.Reflection\\bin\\Release\\Cauldron.Core.Reflection.dll" #>
 <#@ import namespace="System" #>
 <#@ import namespace="System.Collections" #>
 <#@ import namespace="System.Collections.Generic" #>
@@ -68,13 +66,13 @@
 		typeof(Uri),
 		typeof(Cauldron.Activator.ComponentConstructorAttribute),
 		typeof(Cauldron.Activator.ComponentAttribute),
-		typeof(Cauldron.Core.IDisposableObject),
+		typeof(Cauldron.IDisposableObject),
 		typeof(Cauldron.Activator.IFactoryTypeInfo),
 		typeof(Cauldron.Activator.IFactoryExtension),
 		typeof(Cauldron.Activator.GenericComponentAttribute),
 		typeof(System.Windows.Application),
 		typeof(System.Windows.ResourceDictionary),
-		typeof(Cauldron.Interception.Extensions),
+		typeof(Cauldron.Interception.ExtensionsInterception),
 		typeof(Cauldron.ExtensionsReflection),
 		typeof(Cauldron.Activator.Factory),
 		typeof(Cauldron.Activator.Factory<>),

@@ -1,6 +1,7 @@
-﻿using Cauldron.Activator;
-using Cauldron.Core.Reflection;
+﻿using Cauldron;
+using Cauldron.Activator;
 using Cauldron.Localization;
+using Cauldron.Reflection;
 using System;
 using System.Collections.Generic;
 using System.IO;

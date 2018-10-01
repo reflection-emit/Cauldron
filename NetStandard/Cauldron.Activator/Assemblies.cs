@@ -1,14 +1,13 @@
-﻿using System;
+﻿using Cauldron.Diagnostics;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 
-namespace Cauldron.Core.Reflection
+namespace Cauldron.Reflection
 {
-    using Cauldron.Core.Diagnostics;
-
     /// <summary>
     /// Contains methods and properties that helps to manage and gather <see cref="Assembly"/> information
     /// </summary>

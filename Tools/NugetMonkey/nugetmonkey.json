@@ -8,15 +8,15 @@
           "build-config": [ "Release" ]
         },
         {
-          "path": "..\\Fody\\Cauldron.ProjectMinimizedReferences\\Cauldron.ProjectMinimizedReferences.csproj",
-          "build-config": [ "Release" ]
-        },
-        {
           "path": "..\\Fody\\Cauldron.ActivatorInterceptors\\Cauldron.ActivatorInterceptors.csproj",
           "build-config": [ "Release" ]
         },
         {
           "path": "..\\Fody\\Cauldron.BasicInterceptors\\Cauldron.BasicInterceptors.csproj",
+          "build-config": [ "Release" ]
+        },
+        {
+          "path": "..\\Fody\\Cauldron.WPF.Interceptors\\Cauldron.WPF.Interceptors.csproj",
           "build-config": [ "Release" ]
         }
       ],
@@ -36,7 +36,7 @@
         {
           "path": "..\\Win32\\Cauldron.Activator\\Cauldron.Activator.csproj",
           "build-config": [ "Release-Net45", "Release-Net451", "Release-Net452", "Release-Net46", "Release-Net461", "Release-Net462" ]
-        },
+        }
       ],
       "priority": 2
     },
@@ -54,59 +54,109 @@
         {
           "path": "..\\Win32\\Cauldron.Interception\\Cauldron.Interception.csproj",
           "build-config": [ "Release-Net45", "Release-Net451", "Release-Net452", "Release-Net46", "Release-Net461", "Release-Net462" ]
-        },
+        }
       ],
       "priority": 2
     },
     {
-      "id": "Capgemini.Cauldron.Core.Extensions",
+      "id": "Capgemini.Cauldron",
       "projects": [
         {
-          "path": "..\\UWP\\Cauldron.Core.Extensions\\Cauldron.Core.Extensions.csproj",
+          "path": "..\\UWP\\Cauldron\\Cauldron.csproj",
           "build-config": [ "Release" ]
         },
         {
-          "path": "..\\NetStandard\\Cauldron.Core.Extensions\\Cauldron.Core.Extensions.csproj",
+          "path": "..\\NetStandard\\Cauldron\\Cauldron.csproj",
           "build-config": [ "Release" ]
         },
         {
-          "path": "..\\Win32\\Cauldron.Core.Extensions\\Cauldron.Core.Extensions.csproj",
+          "path": "..\\Win32\\Cauldron\\Cauldron.csproj",
           "build-config": [ "Release-Net45", "Release-Net451", "Release-Net452", "Release-Net46", "Release-Net461", "Release-Net462" ]
         }
       ],
       "priority": 100
     },
     {
-      "id": "Capgemini.Cauldron.Core.Collections",
+      "id": "Capgemini.Cauldron.Yaml",
       "projects": [
         {
-          "path": "..\\UWP\\Cauldron.Core.Collections\\Cauldron.Core.Collections.csproj",
+          "path": "..\\UWP\\Cauldron.Yaml\\Cauldron.Yaml.csproj",
           "build-config": [ "Release" ]
         },
         {
-          "path": "..\\NetStandard\\Cauldron.Core.Collections\\Cauldron.Core.Collections.csproj",
+          "path": "..\\NetStandard\\Cauldron.Yaml\\Cauldron.Yaml.csproj",
           "build-config": [ "Release" ]
         },
         {
-          "path": "..\\Win32\\Cauldron.Core.Collections\\Cauldron.Core.Collections.csproj",
+          "path": "..\\Win32\\Cauldron.Yaml\\Cauldron.Yaml.csproj",
           "build-config": [ "Release-Net45", "Release-Net451", "Release-Net452", "Release-Net46", "Release-Net461", "Release-Net462" ]
         }
       ],
       "priority": 100
     },
     {
-      "id": "Capgemini.Cauldron.Core.Randomizer",
+      "id": "Capgemini.Cauldron.Localization",
       "projects": [
         {
-          "path": "..\\UWP\\Cauldron.Core.Randomizer\\Cauldron.Core.Randomizer.csproj",
+          "path": "..\\UWP\\Cauldron.Localization\\Cauldron.Localization.csproj",
           "build-config": [ "Release" ]
         },
         {
-          "path": "..\\NetStandard\\Cauldron.Core.Randomizer\\Cauldron.Core.Randomizer.csproj",
+          "path": "..\\NetStandard\\Cauldron.Localization\\Cauldron.Localization.csproj",
           "build-config": [ "Release" ]
         },
         {
-          "path": "..\\Win32\\Cauldron.Core.Randomizer\\Cauldron.Core.Randomizer.csproj",
+          "path": "..\\Win32\\Cauldron.Localization\\Cauldron.Localization.csproj",
+          "build-config": [ "Release-Net45", "Release-Net451", "Release-Net452", "Release-Net46", "Release-Net461", "Release-Net462" ]
+        }
+      ],
+      "priority": 100
+    },
+    {
+      "id": "Capgemini.Cauldron.Consoles",
+      "projects": [
+        {
+          "path": "..\\NetStandard\\Cauldron.Consoles\\Cauldron.Consoles.csproj",
+          "build-config": [ "Release" ]
+        },
+        {
+          "path": "..\\Win32\\Cauldron.Consoles\\Cauldron.Consoles.csproj",
+          "build-config": [ "Release-Net45", "Release-Net451", "Release-Net452", "Release-Net46", "Release-Net461", "Release-Net462" ]
+        }
+      ],
+      "priority": 100
+    },
+    {
+      "id": "Capgemini.Cauldron.Collections",
+      "projects": [
+        {
+          "path": "..\\UWP\\Cauldron.Collections\\Cauldron.Collections.csproj",
+          "build-config": [ "Release" ]
+        },
+        {
+          "path": "..\\NetStandard\\Cauldron.Collections\\Cauldron.Collections.csproj",
+          "build-config": [ "Release" ]
+        },
+        {
+          "path": "..\\Win32\\Cauldron.Collections\\Cauldron.Collections.csproj",
+          "build-config": [ "Release-Net45", "Release-Net451", "Release-Net452", "Release-Net46", "Release-Net461", "Release-Net462" ]
+        }
+      ],
+      "priority": 100
+    },
+    {
+      "id": "Capgemini.Cauldron.Randomizer",
+      "projects": [
+        {
+          "path": "..\\UWP\\Cauldron.Randomizer\\Cauldron.Randomizer.csproj",
+          "build-config": [ "Release" ]
+        },
+        {
+          "path": "..\\NetStandard\\Cauldron.Randomizer\\Cauldron.Randomizer.csproj",
+          "build-config": [ "Release" ]
+        },
+        {
+          "path": "..\\Win32\\Cauldron.Randomizer\\Cauldron.Randomizer.csproj",
           "build-config": [ "Release-Net45", "Release-Net451", "Release-Net452", "Release-Net46", "Release-Net461", "Release-Net462" ]
         }
       ],
@@ -131,10 +181,104 @@
       "priority": 100
     },
     {
+      "id": "Capgemini.Cauldron.Interceptors",
+      "projects": [
+        {
+          "path": "..\\NetStandard\\Cauldron.Interceptors\\Cauldron.Interceptors.csproj",
+          "build-config": [ "Release" ]
+        },
+        {
+          "path": "..\\Win32\\Cauldron.Interceptors\\Cauldron.Interceptors.csproj",
+          "build-config": [ "Release-Net45", "Release-Net451", "Release-Net452", "Release-Net46", "Release-Net461", "Release-Net462" ]
+        }
+      ],
+      "priority": 100
+    },
+    {
+      "id": "Capgemini.Cauldron.Win32.Impersonation",
+      "projects": [
+        {
+          "path": "..\\Win32\\Cauldron.Win32.Impersonation\\Cauldron.Win32.Impersonation.csproj",
+          "build-config": [ "Release-Net45", "Release-Net451", "Release-Net452", "Release-Net46", "Release-Net461", "Release-Net462" ]
+        }
+      ],
+      "priority": 100
+    },
+    {
+      "id": "Capgemini.Cauldron.Win32.MonitorInfo",
+      "projects": [
+        {
+          "path": "..\\Win32\\Cauldron.Win32.MonitorInfo\\Cauldron.Win32.MonitorInfo.csproj",
+          "build-config": [ "Release-Net45", "Release-Net451", "Release-Net452", "Release-Net46", "Release-Net461", "Release-Net462" ]
+        }
+      ],
+      "priority": 100
+    },
+    {
+      "id": "Capgemini.Cauldron.Win32.UserInformation",
+      "projects": [
+        {
+          "path": "..\\Win32\\Cauldron.Win32.UserInformation\\Cauldron.Win32.UserInformation.csproj",
+          "build-config": [ "Release-Net45", "Release-Net451", "Release-Net452", "Release-Net46", "Release-Net461", "Release-Net462" ]
+        }
+      ],
+      "priority": 100
+    },
+    {
+      "id": "Capgemini.Cauldron.Win32.WindowsService",
+      "projects": [
+        {
+          "path": "..\\Win32\\Cauldron.Win32.WindowsService\\Cauldron.Win32.WindowsService.csproj",
+          "build-config": [ "Release-Net45", "Release-Net451", "Release-Net452", "Release-Net46", "Release-Net461", "Release-Net462" ]
+        }
+      ],
+      "priority": 100
+    },
+    {
+      "id": "Capgemini.Cauldron.Win32.WPF",
+      "projects": [
+        {
+          "path": "..\\Win32\\Cauldron.Win32.WPF\\Cauldron.Win32.WPF.csproj",
+          "build-config": [ "Release-Net45", "Release-Net451", "Release-Net452", "Release-Net46", "Release-Net461", "Release-Net462" ]
+        }
+      ],
+      "priority": 100
+    },
+    {
+      "id": "Capgemini.Cauldron.Win32.WPF.ParameterPassing",
+      "projects": [
+        {
+          "path": "..\\Win32\\Cauldron.Win32.WPF.ParameterPassing\\Cauldron.Win32.WPF.ParameterPassing.csproj",
+          "build-config": [ "Release-Net45", "Release-Net451", "Release-Net452", "Release-Net46", "Release-Net461", "Release-Net462" ]
+        }
+      ],
+      "priority": 100
+    },
+    {
+      "id": "Capgemini.Cauldron.Win32.WPF.Theme.VSDark",
+      "projects": [
+        {
+          "path": "..\\Win32\\Cauldron.Win32.WPF.Theme.VSDark\\Cauldron.Win32.WPF.Theme.VSDark.csproj",
+          "build-config": [ "Release-Net45", "Release-Net451", "Release-Net452", "Release-Net46", "Release-Net461", "Release-Net462" ]
+        }
+      ],
+      "priority": 100
+    },
+    {
+      "id": "Capgemini.Cauldron.Win32.WPF.Theme.VSLight",
+      "projects": [
+        {
+          "path": "..\\Win32\\Cauldron.Win32.WPF.Theme.VSLight\\Cauldron.Win32.WPF.Theme.VSLight.csproj",
+          "build-config": [ "Release-Net45", "Release-Net451", "Release-Net452", "Release-Net46", "Release-Net461", "Release-Net462" ]
+        }
+      ],
+      "priority": 100
+    },
+    {
       "id": "Cauldron.Cecilator",
       "projects": [
         {
-          "path": "..\\Fody\\Cauldron.Interception.Cecilator\\Cauldron.Interception.Cecilatorr.csproj",
+          "path": "..\\Fody\\Cauldron.Interception.Cecilator\\Cauldron.Interception.Cecilator.csproj",
           "build-config": [ "Release" ]
         }
       ],
@@ -152,5 +296,6 @@
   "projectUrl": "https://github.com/Capgemini/Cauldron",
   "copyright": "Copyright (c) 2016 Capgemini Deutschland GmbH",
   "iconUrl": "https://raw.githubusercontent.com/Capgemini/Cauldron/master/cauldron.png",
-  "requireLicenseAcceptance": true
+  "requireLicenseAcceptance": true,
+  "basic-version": "3.2.-1"
 }

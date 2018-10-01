@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Collections;
 using System.Reflection;
 using System.Linq;
-using Cauldron.Core.Threading;
+using Cauldron.XAML.Threading;
 
 #if WINDOWS_UWP
 
@@ -286,12 +286,27 @@ namespace Cauldron.XAML
 
         /// <summary>
         /// Returns the parent object of the specified object by processing the visual tree.
+        /// The difference to <see cref="FindVisualParent(DependencyObject, Type)"/> is that this also consider sub-classes.
+        /// <para/>
+        ///
         /// </summary>
         /// <typeparam name="T">The type of the parent to find</typeparam>
         /// <param name="element">The object to find the parent object for. This is expected to be either a <see cref="FrameworkElement"/> or a FrameworkContentElement.</param>
         /// <returns>The requested parent object.</returns>
-        public static T FindVisualParent<T>(this DependencyObject element) where T : DependencyObject =>
-            element.FindVisualParent(typeof(T)) as T;
+        public static T FindVisualParent<T>(this DependencyObject element) where T : DependencyObject
+        {
+            if (element == null)
+                return null;
+
+            var parent = VisualTreeHelper.GetParent(element);
+
+            if (parent == null)
+                return null;
+            if (parent is T result)
+                return result;
+            else
+                return FindVisualParent<T>(parent);
+        }
 
         /// <summary>
         /// Climbs up the visual tree and returns the top most visual parent

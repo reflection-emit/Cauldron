@@ -104,7 +104,7 @@ public static class Weaver_Constructor
                 .Finally(x =>
                 {
                     for (int i = 0; i < constructor.Items.Length; i++)
-                        x.Load(localVariables[i]).Call(constructor.Items[i].Interface.GetMethod_OnException());
+                        x.Load(localVariables[i]).Call(constructor.Items[i].Interface.GetMethod_OnExit());
                     return x;
                 })
                 .EndTry()

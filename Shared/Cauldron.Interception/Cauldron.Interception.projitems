@@ -10,7 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)AssignMethodAttribute.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Extensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ExtensionsInterception.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IConstructorInterceptor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IInterceptor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IMethodInterceptor.cs" />

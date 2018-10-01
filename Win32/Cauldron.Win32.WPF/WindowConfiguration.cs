@@ -1,4 +1,4 @@
-﻿using Cauldron.Core.Reflection;
+﻿using Cauldron.Reflection;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Media;

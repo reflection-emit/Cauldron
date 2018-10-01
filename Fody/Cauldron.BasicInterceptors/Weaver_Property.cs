@@ -505,8 +505,8 @@ public static class Weaver_Property
         // Only this if the property implements idisposable
         if (propertyType.Implements(typeof(IDisposable)))
             CodeMe(
-                field => setterCode.Call(BuilderTypes.Extensions.GetMethod_TryDisposeInternal(), x => x.Load(field)),
-                property => setterCode.Call(BuilderTypes.Extensions.GetMethod_TryDisposeInternal(), x => x.Call(property.Getter)));
+                field => setterCode.Call(BuilderTypes.ExtensionsInterception.GetMethod_TryDisposeInternal(), x => x.Load(field)),
+                property => setterCode.Call(BuilderTypes.ExtensionsInterception.GetMethod_TryDisposeInternal(), x => x.Call(property.Getter)));
 
         setterCode.If(x => x.Load(CodeBlocks.GetParameter(0)).IsNull(), then =>
         {

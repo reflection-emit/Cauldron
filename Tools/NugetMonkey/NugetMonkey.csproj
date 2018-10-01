@@ -60,6 +60,11 @@
     </None>
     <None Include="packages.config" />
   </ItemGroup>
-  <Import Project="..\..\Shared\Cauldron.Core.Extensions.Convertions\Cauldron.Core.Extensions.Convertions.projitems" Label="Shared" />
+  <ItemGroup>
+    <ProjectReference Include="..\..\Win32\Cauldron\Cauldron.csproj">
+      <Project>{d1be1727-87d4-4ca6-a537-7983cf7b2e4a}</Project>
+      <Name>Cauldron</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

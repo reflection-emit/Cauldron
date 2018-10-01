@@ -3,7 +3,6 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -15,7 +14,12 @@ namespace Cauldron.Interception.Fody
     public sealed partial class ModuleWeaver
     {
         private string cscPath;
+
         private List<string> referencedDlls = new List<string>();
+
+        static ModuleWeaver()
+        {
+        }
 
         public void ExecuteInterceptionScripts(Builder builder)
         {
@@ -25,11 +29,11 @@ namespace Cauldron.Interception.Fody
             {
                 var scriptBinaries = new List<Assembly>();
                 var interceptorDirectory = Path.Combine(this.ProjectDirectoryPath, "Interceptors");
-                var scripts = GetCustomInterceptorList();
+                var scripts = this.GetCustomInterceptorList();
 
-                cscPath = Path.Combine(this.AddinDirectoryPath, "csc\\csc.exe");
-                referencedDlls.AddRange(Directory.GetFiles(this.AddinDirectoryPath, "*.dll"));
-                referencedDlls.AddRange(typeof(ModuleWeaver).Assembly.GetReferencedAssemblies().Select(x => Assembly.Load(x).Location?.Trim()).Where(x => !string.IsNullOrEmpty(x)));
+                this.cscPath = Path.Combine(this.AddinDirectoryPath, "csc\\csc.exe");
+                this.referencedDlls.AddRange(Directory.GetFiles(this.AddinDirectoryPath, "*.dll"));
+                this.referencedDlls.AddRange(typeof(ModuleWeaver).Assembly.GetReferencedAssemblies().Select(x => Assembly.Load(x).Location?.Trim()).Where(x => !string.IsNullOrEmpty(x)));
 
                 if (Directory.Exists(interceptorDirectory))
                     scripts = scripts
@@ -37,10 +41,10 @@ namespace Cauldron.Interception.Fody
                         .Concat(Directory.GetFiles(interceptorDirectory, "*.dll", SearchOption.AllDirectories));
 
                 scripts = scripts
-                    .Concat(GetNugetPropsInterceptorPaths())
-                    .Concat(GetNugetJsonInterceptorPaths())
+                    .Concat(this.GetNugetPropsInterceptorPaths())
+                    .Concat(this.GetNugetJsonInterceptorPaths())
                     .Distinct(new ScriptNameEqualityComparer());
-                scriptBinaries.AddRange(scripts.Select(x => LoadScript(x)));
+                scriptBinaries.AddRange(scripts.Select(x => this.LoadScript(x)));
 
                 builder.Log(LogTypes.Info, "Found Custom interceptors");
                 foreach (var interceptorPath in scripts)
@@ -60,13 +64,15 @@ namespace Cauldron.Interception.Fody
                                         MethodInfo = y,
                                         Parameters = y.GetParameters()
                                     })
-                                    .Where(y => y.Parameters.Length == 1 && y.Parameters[0].ParameterType == typeof(Builder))
+                                    .Where(y => y.Parameters.Length == 1 && y.Parameters[0].ParameterType.FullName == typeof(Builder).FullName)
                                     .OrderBy(y => y.MethodInfo.Name)
                                     .ToArray()
                             })
                             .OrderBy(x => x.Priority))
                 {
-                    using (new StopwatchLog(this, scriptBinary.Name))
+                    var speed = new StopwatchLog(this, scriptBinary.Name);
+
+                    try
                     {
                         this.Log(LogTypes.Info, ">> Executing custom interceptors in: " + scriptBinary.Name);
                         var config = scriptBinary.Type.GetProperty("Config", BindingFlags.Static | BindingFlags.Public);
@@ -83,6 +89,22 @@ namespace Cauldron.Interception.Fody
                             method.MethodInfo.Invoke(null, new object[] { builder });
                         }
                     }
+                    catch (ArgumentException e)
+                    {
+                        throw new Exception("Unable to execute the script. Possible wrong version.", e);
+                    }
+                    catch (InvalidCastException e)
+                    {
+                        throw new Exception("Unable to execute the script. Possible wrong version.", e);
+                    }
+                    catch
+                    {
+                        throw;
+                    }
+                    finally
+                    {
+                        speed.Dispose();
+                    }
                 }
             }
         }
@@ -95,12 +117,11 @@ namespace Cauldron.Interception.Fody
             var output = Path.Combine(tempDirectory, Path.GetFileNameWithoutExtension(path) + ".dll");
             var pdb = Path.Combine(tempDirectory, Path.GetFileNameWithoutExtension(path) + ".pdb");
 
-            if (File.Exists(output))
-                return output;
-
             Directory.CreateDirectory(tempDirectory);
 
-            var additionalReferences = GetReferences(path, tempDirectory);
+            var additionalReferences = this.GetReferences(path, tempDirectory);
+            if (additionalReferences.Item3 && File.Exists(output))
+                return output;
 
             var arguments = new string[]
             {
@@ -112,7 +133,7 @@ namespace Cauldron.Interception.Fody
                 $"/r:{string.Join(",", references.Concat(additionalReferences.Item1).Select(x => "\"" + x + "\""))}"
             };
 
-            if (ExecuteExternalApplication(compiler, arguments, tempDirectory) != 0)
+            if (this.ExecuteExternalApplication(compiler, arguments, tempDirectory) != 0)
                 throw new Exception($"An error has occured while compiling '{additionalReferences.Item2}'");
 
             return output;
@@ -127,7 +148,7 @@ namespace Cauldron.Interception.Fody
 
             foreach (var item in element.Value.Split(new[] { "\r\n", "\n", ", ", " " }, StringSplitOptions.RemoveEmptyEntries))
             {
-                var path = GetFullPath(item);
+                var path = this.GetFullPath(item);
 
                 if (string.IsNullOrEmpty(path))
                     continue;
@@ -263,7 +284,7 @@ namespace Cauldron.Interception.Fody
             switch (Path.GetExtension(path))
             {
                 case ".csx":
-                case ".CSX": return AppDomain.CurrentDomain.Load(File.ReadAllBytes(CompileScript(cscPath, path, referencedDlls)));
+                case ".CSX": return AppDomain.CurrentDomain.Load(File.ReadAllBytes(this.CompileScript(this.cscPath, path, this.referencedDlls)));
                 case ".dll":
                 case ".DLL": return AppDomain.CurrentDomain.Load(File.ReadAllBytes(path));
             }

@@ -1,9 +1,30 @@
 ![Cauldron Logo](https://raw.githubusercontent.com/Capgemini/Cauldron/master/cauldron2.png)
 
 # Cauldron C# Toolkit
-## ATTENTION Breaking change in version 3.0.0
+
+## List of breaking changes
+## Version 3.1.x
+All Cauldron.Core namespaces were renamed to Cauldron.
+### Packages that were merged or renamed
+Old packages                               | Merged to
+------------------------------------------ | ------------------
+Capgemini.Cauldron.Core.Reflection<br/>Capgemini.Cauldron.Core.Disposable<br/>Capgemini.Cauldron.Activator | Capgemini.Cauldron.Activator
+Capgemini.Cauldron.Core.Comparing<br/>Capgemini.Cauldron.Core.Extensions<br/>Capgemini.Cauldron.Core.Extensions.Compression<br/>Capgemini.Cauldron.Core.Extensions.Convertions<br/>Capgemini.Cauldron.Core.Extensions.IO<br/>Capgemini.Cauldron.Core.Formatters<br/>Capgemini.Cauldron.Core.Net | Capgemini.Cauldron
+Capgemini.Cauldron.Core.Collections | Capgemini.Cauldron.Collections
+Capgemini.Cauldron.Core.Randomizer | Capgemini.Cauldron.Randomizer
+Capgemini.Cauldron.Core.Yaml | Capgemini.Cauldron.Yaml
+Capgemini.Cauldron.Core.Interceptors | Capgemini.Cauldron.Interceptors
+Capgemini.Cauldron.Core.Collections | Capgemini.Cauldron.Collections
+Capgemini.Cauldron.Win32.WPF<br/>Capgemini.Cauldron.Win32.WPF.Interactivity<br/>Capgemini.Cauldron.Win32.WPF.Validation | Capgemini.Cauldron.Win32.WPF
+Capgemini.Cauldron.Interceptors<br/>Capgemini.Cauldron.Win32.Interceptors | Capgemini.Cauldron.Interceptors
+
+
+
+
+## Version 3.0.0
 The interceptors (method, property, fields, constructor ...) from Cauldron.Interception.Fody were moved to Cauldron.BasicInterceptors and are now implemented as custom interceptors.
 Custom interceptors are "scripts" that are compiled and run by Cauldron during the build of your project. For more information check the wiki.
+
 
 ## Documentation
 ### Wiki

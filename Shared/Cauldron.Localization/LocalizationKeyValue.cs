@@ -1,5 +1,4 @@
-﻿using System;
-using Cauldron.Core.Yaml;
+﻿using Cauldron.Yaml;
 using Newtonsoft.Json;
 
 namespace Cauldron.Localization
