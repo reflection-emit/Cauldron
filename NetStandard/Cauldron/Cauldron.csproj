@@ -51,4 +51,8 @@
   </PropertyGroup>
 
   <Import Project="..\..\Shared\Cauldron\Cauldron.projitems" Label="Shared" />
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+  </ItemGroup>
 </Project>

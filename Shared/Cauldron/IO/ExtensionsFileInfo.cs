@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Security;
 using System.Threading.Tasks;
 
 namespace Cauldron
@@ -94,7 +95,7 @@ namespace Cauldron
         /// <paramref name="filename"/> contains a colon (:) in the middle of the string.
         /// </exception>
         public static FileInfo ToFileInfo(this string filename) => new FileInfo(filename);
-        
+
         /// <summary>
         /// Waits for a file to be accessable. The default waiting period is 1.5s.
         /// </summary>

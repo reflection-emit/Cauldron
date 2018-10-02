@@ -35,6 +35,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)IO\NameCollisionOption.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Utils.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Java\JavaProperties.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)JsonConverters\MinutesToTimeSpan.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)KnownFolders.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MathEx.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Net\ConnectionGenerationTypes.cs" />

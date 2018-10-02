@@ -14,6 +14,7 @@
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Cauldron XAML WPF MVVM Framework ViewModels</tags>
     <releaseNotes>
+      2018.10.02 - [A] ColorHexToSolidColorBrush Json Converter added.
       2018.09.29 - [A] VisibilityAnimation behaviour added
       2018.09.29 - [A] StoryboardBeginAnimationAction action added
       2018.09.29 - [A] DataTrigger behaviour added

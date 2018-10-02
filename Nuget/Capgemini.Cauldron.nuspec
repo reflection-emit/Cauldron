@@ -25,6 +25,8 @@
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Cauldron Extensions MaxBy MinBy Encode Formatters Comparing Ping Java Properties</tags>
     <releaseNotes>
+      2018.10.02 - [B] Several small fixes in the XML comments
+      2018.10.02 - [A] MinutesToTimeSpan Json Converter added.
       2018.09.29 - [A] Append extension added. Works like NET471 LINQ version.
       2018.09.29 - [A] Directory Combine extensions added.
       2018.09.29 - [A] Added MathEx methods: ValueOf for int, long and float.
@@ -38,8 +40,7 @@
       2017.12.19 - [A] PadOrCut extension method added. It allows to pad chars or cut the string to a specific length.
     </releaseNotes>
     <dependencies>
-      <group>
-      </group>
+      <dependency id="Newtonsoft.Json" version="11.0.2" />
     </dependencies>
   </metadata>
   <files>
