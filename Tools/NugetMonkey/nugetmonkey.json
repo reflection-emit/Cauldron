@@ -297,5 +297,5 @@
   "copyright": "Copyright (c) 2016 Capgemini Deutschland GmbH",
   "iconUrl": "https://raw.githubusercontent.com/Capgemini/Cauldron/master/cauldron.png",
   "requireLicenseAcceptance": true,
-  "basic-version": "3.2.-1"
+  "basic-version": "3.2.0"
 }
