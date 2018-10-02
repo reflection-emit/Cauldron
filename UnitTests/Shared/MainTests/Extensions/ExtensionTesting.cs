@@ -1,4 +1,5 @@
 ﻿using Cauldron;
+using MainTests.Extensions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
 
@@ -62,6 +63,23 @@ namespace UnitTests.Extensions
 
             Assert.AreEqual(4, result.Length);
             Assert.AreEqual("Test String", result[2]);
+        }
+
+        [TestMethod]
+        public void As_ValueType()
+        {
+            object test = new TestStruct();
+            var value = test.As(typeof(int));
+
+            Assert.AreEqual(22, (int)value);
+        }
+        [TestMethod]
+        public void As_Class()
+        {
+            object test = new TestClass();
+            var value = test.As(typeof(int));
+
+            Assert.AreEqual(22, (int)value);
         }
     }
 }
