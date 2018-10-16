@@ -76,9 +76,12 @@ namespace Cauldron.Interception.Fody
                     {
                         this.Log(LogTypes.Info, ">> Executing custom interceptors in: " + scriptBinary.Name);
                         var config = scriptBinary.Type.GetProperty("Config", BindingFlags.Static | BindingFlags.Public);
+                        var projectDirectoryPath = scriptBinary.Type.GetProperty("ProjectDirectoryPath", BindingFlags.Static | BindingFlags.Public);
+                        var solutionDirectoryPath = scriptBinary.Type.GetProperty("SolutionDirectoryPath", BindingFlags.Static | BindingFlags.Public);
 
-                        if (config != null)
-                            config.SetValue(null, this.Config);
+                        if (config != null) config.SetValue(null, this.Config);
+                        if (projectDirectoryPath != null) projectDirectoryPath.SetValue(null, this.ProjectDirectoryPath);
+                        if (solutionDirectoryPath != null) solutionDirectoryPath.SetValue(null, this.SolutionDirectoryPath);
 
                         foreach (var method in scriptBinary.Implement)
                         {

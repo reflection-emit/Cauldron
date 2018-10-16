@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>Capgemini.Cauldron.Win32.UserInformation</id>
-    <version>3.2.0</version>
+    <version>3.2.2</version>
     <title>Cauldron.Win32.UserInformation</title>
     <authors>Alexander Schunk, Capgemini Deutschland GmbH</authors>
     <owners>Alexander Schunk, Capgemini Deutschland GmbH</owners>
@@ -25,7 +25,7 @@
       2017.12.19 - [A] WTSClientName added to User and CurrentUser. WTSClientName returns the Windows Terminal Session client name.
     </releaseNotes>
     <dependencies>
-      <dependency id="Capgemini.Cauldron" version="3.2.0" />
+      <dependency id="Capgemini.Cauldron" version="3.2.2" />
     </dependencies>
     <frameworkAssemblies>
       <frameworkAssembly assemblyName="System.DirectoryServices" />

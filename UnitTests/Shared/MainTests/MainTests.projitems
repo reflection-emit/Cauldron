@@ -11,6 +11,7 @@
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)BasicInterceptors\AbstractTestClass.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)BasicInterceptors\AssignMethodAttribute_Tests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BasicInterceptors\Bug67_Async_Method_Validation_Tests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)BasicInterceptors\ConstructorInterceptor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)BasicInterceptors\Constructor_Interception_Code_Validation_Tests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)BasicInterceptors\Ctor_TestClasses.cs" />
@@ -31,6 +32,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Cryptography\KeyMaterialTest.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Activator\MappingTest.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)BasicInterceptors\Method_Interceptor_Code_Validation_Tests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\TestClass.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\TestStruct.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interceptors\ChildRegisterTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interceptors\RegistryAttribute_Tests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interceptors\TimedCacheTests.cs" />
@@ -50,7 +53,6 @@
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Cecilator\" />
     <Folder Include="$(MSBuildThisFileDirectory)Cryptography\" />
-    <Folder Include="$(MSBuildThisFileDirectory)Extensions\" />
     <Folder Include="$(MSBuildThisFileDirectory)Reflection\" />
   </ItemGroup>
 </Project>

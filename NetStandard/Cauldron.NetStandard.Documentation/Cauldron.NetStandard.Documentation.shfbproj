@@ -55,28 +55,16 @@
     <IncludeFavorites>False</IncludeFavorites>
     <BinaryTOC>True</BinaryTOC>
     <DocumentationSources>
-      <DocumentationSource sourceFile="..\Cauldron.Localization\Cauldron.Localization.csproj" xmlns="" />
-      <DocumentationSource sourceFile="..\Cauldron.Core.Interceptors\Cauldron.Core.Interceptors.csproj" xmlns="" />
-      <DocumentationSource sourceFile="..\Cauldron.Core.MathExtensions\Cauldron.Core.MathExtensions.csproj" xmlns="" />
-      <DocumentationSource sourceFile="..\Cauldron.Core.Net\Cauldron.Core.Net.csproj" xmlns="" />
-      <DocumentationSource sourceFile="..\Cauldron.Core.Randomizer\Cauldron.Core.Randomizer.csproj" xmlns="" />
-      <DocumentationSource sourceFile="..\Cauldron.Core.Reflection\Cauldron.Core.Reflection.csproj" xmlns="" />
-      <DocumentationSource sourceFile="..\Cauldron.Core.Threading\Cauldron.Core.Threading.csproj" xmlns="" />
-      <DocumentationSource sourceFile="..\Cauldron.Core.Yaml\Cauldron.Core.Yaml.csproj" xmlns="" />
-      <DocumentationSource sourceFile="..\Cauldron.Cryptography\Cauldron.Cryptography.csproj" xmlns="" />
-      <DocumentationSource sourceFile="..\Cauldron.Interception\Cauldron.Interception.csproj" xmlns="" />
-      <DocumentationSource sourceFile="..\Cauldron.Core.Comparing\Cauldron.Core.Comparing.csproj" xmlns="" />
-      <DocumentationSource sourceFile="..\Cauldron.Core.Diagnostics\Cauldron.Core.Diagnostics.csproj" xmlns="" />
-      <DocumentationSource sourceFile="..\Cauldron.Core.Disposable\Cauldron.Core.Disposable.csproj" xmlns="" />
-      <DocumentationSource sourceFile="..\Cauldron.Core.Extensions.Compression\Cauldron.Core.Extensions.Compression.csproj" xmlns="" />
-      <DocumentationSource sourceFile="..\Cauldron.Core.Extensions.Convertions\Cauldron.Core.Extensions.Convertions.csproj" xmlns="" />
-      <DocumentationSource sourceFile="..\Cauldron.Core.Extensions\Cauldron.Core.Extensions.csproj" xmlns="" />
-      <DocumentationSource sourceFile="..\Cauldron.Core.Extensions.IO\Cauldron.Core.Extensions.IO.csproj" xmlns="" />
-      <DocumentationSource sourceFile="..\Cauldron.Core.Formatters\Cauldron.Core.Formatters.csproj" xmlns="" />
-      <DocumentationSource sourceFile="..\Cauldron.Activator\Cauldron.Activator.csproj" xmlns="" />
-      <DocumentationSource sourceFile="..\Cauldron.Consoles\Cauldron.Consoles.csproj" xmlns="" />
-      <DocumentationSource sourceFile="..\Cauldron.Core.Collections\Cauldron.Core.Collections.csproj" xmlns="" />
-      <DocumentationSource sourceFile="..\Cauldron.Core\Cauldron.Core.csproj" xmlns="" />
+      <DocumentationSource sourceFile="..\Cauldron.Yaml\Cauldron.Yaml.csproj" />
+      <DocumentationSource sourceFile="..\Cauldron.Randomizer\Cauldron.Randomizer.csproj" />
+      <DocumentationSource sourceFile="..\Cauldron\Cauldron.csproj" />
+      <DocumentationSource sourceFile="..\Cauldron.Localization\Cauldron.Localization.csproj" />
+      <DocumentationSource sourceFile="..\Cauldron.Interceptors\Cauldron.Interceptors.csproj" />
+      <DocumentationSource sourceFile="..\Cauldron.Cryptography\Cauldron.Cryptography.csproj" />
+      <DocumentationSource sourceFile="..\Cauldron.Consoles\Cauldron.Consoles.csproj" />
+      <DocumentationSource sourceFile="..\Cauldron.Collections\Cauldron.Collections.csproj" />
+      <DocumentationSource sourceFile="..\Cauldron.Interception\Cauldron.Interception.csproj" />
+      <DocumentationSource sourceFile="..\Cauldron.Activator\Cauldron.Activator.csproj" />
     </DocumentationSources>
     <VisibleItems>Attributes, ExplicitInterfaceImplementations, InheritedMembers, Protected, SealedProtected, ProtectedInternalAsProtected, EditorBrowsableNever, NonBrowsable</VisibleItems>
     <MissingTags>Summary, Parameter, Returns, Value, AutoDocumentCtors, TypeParameter, AutoDocumentDispose</MissingTags>

@@ -31,39 +31,25 @@
       <Argument Key="requestExampleUrl" Value="" />
     </TransformComponentArguments>
     <DocumentationSources>
-      <DocumentationSource sourceFile="..\Cauldron.Win32.Extension.Impersonation\Cauldron.Win32.Extension.Impersonation.csproj" />
-      <DocumentationSource sourceFile="..\Cauldron.Win32.Interceptors\Cauldron.Win32.Interceptors.csproj" />
-      <DocumentationSource sourceFile="..\Cauldron.Win32.MonitorInfo\Cauldron.Win32.MonitorInfo.csproj" />
-      <DocumentationSource sourceFile="..\Cauldron.Win32.UserInformation\Cauldron.Win32.UserInformation.csproj" />
-      <DocumentationSource sourceFile="..\Cauldron.Win32.WindowsService\Cauldron.Win32.WindowsService.csproj" />
       <DocumentationSource sourceFile="..\Cauldron.Win32.WPF\Cauldron.Win32.WPF.csproj" />
-      <DocumentationSource sourceFile="..\Cauldron.Win32.WPF.Interactivity\Cauldron.Win32.WPF.Interactivity.csproj" />
-      <DocumentationSource sourceFile="..\Cauldron.Win32.WPF.ParameterPassing\Cauldron.Win32.WPF.ParameterPassing.csproj" />
-      <DocumentationSource sourceFile="..\Cauldron.Win32.WPF.Validation\Cauldron.Win32.WPF.Validation.csproj" />
-      <DocumentationSource sourceFile="..\..\Fody\Cauldron.Interception.Cecilator\Cauldron.Interception.Cecilator.csproj" />
-      <DocumentationSource sourceFile="..\Cauldron.Activator\Cauldron.Activator.csproj" />
-      <DocumentationSource sourceFile="..\Cauldron.Consoles\Cauldron.Consoles.csproj" />
-      <DocumentationSource sourceFile="..\Cauldron.Core\Cauldron.Core.csproj" />
-      <DocumentationSource sourceFile="..\Cauldron.Core.Collections\Cauldron.Core.Collections.csproj" />
-      <DocumentationSource sourceFile="..\Cauldron.Core.Comparing\Cauldron.Core.Comparing.csproj" />
-      <DocumentationSource sourceFile="..\Cauldron.Core.Diagnostics\Cauldron.Core.Diagnostics.csproj" />
-      <DocumentationSource sourceFile="..\Cauldron.Core.Disposable\Cauldron.Core.Disposable.csproj" />
-      <DocumentationSource sourceFile="..\Cauldron.Core.Extensions\Cauldron.Core.Extensions.csproj" />
-      <DocumentationSource sourceFile="..\Cauldron.Core.Extensions.Compression\Cauldron.Core.Extensions.Compression.csproj" />
-      <DocumentationSource sourceFile="..\Cauldron.Core.Extensions.Convertions\Cauldron.Core.Extensions.Convertions.csproj" />
-      <DocumentationSource sourceFile="..\Cauldron.Core.Extensions.IO\Cauldron.Core.Extensions.IO.csproj" />
-      <DocumentationSource sourceFile="..\Cauldron.Core.Formatters\Cauldron.Core.Formatters.csproj" />
-      <DocumentationSource sourceFile="..\Cauldron.Core.Interceptors\Cauldron.Core.Interceptors.csproj" />
-      <DocumentationSource sourceFile="..\Cauldron.Core.MathExtensions\Cauldron.Core.MathExtensions.csproj" />
-      <DocumentationSource sourceFile="..\Cauldron.Core.Net\Cauldron.Core.Net.csproj" />
-      <DocumentationSource sourceFile="..\Cauldron.Core.Randomizer\Cauldron.Core.Randomizer.csproj" />
-      <DocumentationSource sourceFile="..\Cauldron.Core.Reflection\Cauldron.Core.Reflection.csproj" />
-      <DocumentationSource sourceFile="..\Cauldron.Core.Threading\Cauldron.Core.Threading.csproj" />
-      <DocumentationSource sourceFile="..\Cauldron.Core.Yaml\Cauldron.Core.Yaml.csproj" />
-      <DocumentationSource sourceFile="..\Cauldron.Cryptography\Cauldron.Cryptography.csproj" />
-      <DocumentationSource sourceFile="..\Cauldron.Interception\Cauldron.Interception.csproj" />
-      <DocumentationSource sourceFile="..\Cauldron.Localization\Cauldron.Localization.csproj" />
+      <DocumentationSource sourceFile="..\Cauldron\Cauldron.csproj" />
+      <DocumentationSource sourceFile="..\Cauldron.Yaml\Cauldron.Yaml.csproj" />
+      <DocumentationSource sourceFile="..\Cauldron.Win32.WindowsService\Cauldron.Win32.WindowsService.csproj" />
       <DocumentationSource sourceFile="..\Cauldron.Win32.WPF.Theme\Cauldron.Win32.WPF.Theme.csproj" />
+      <DocumentationSource sourceFile="..\Cauldron.Win32.WPF.Theme.VSLight\Cauldron.Win32.WPF.Theme.VSLight.csproj" />
+      <DocumentationSource sourceFile="..\Cauldron.Win32.WPF.Theme.VSDark\Cauldron.Win32.WPF.Theme.VSDark.csproj" />
+      <DocumentationSource sourceFile="..\Cauldron.Win32.WPF.ParameterPassing\Cauldron.Win32.WPF.ParameterPassing.csproj" />
+      <DocumentationSource sourceFile="..\Cauldron.Win32.UserInformation\Cauldron.Win32.UserInformation.csproj" />
+      <DocumentationSource sourceFile="..\Cauldron.Win32.MonitorInfo\Cauldron.Win32.MonitorInfo.csproj" />
+      <DocumentationSource sourceFile="..\Cauldron.Win32.Impersonation\Cauldron.Win32.Impersonation.csproj" />
+      <DocumentationSource sourceFile="..\Cauldron.Randomizer\Cauldron.Randomizer.csproj" />
+      <DocumentationSource sourceFile="..\Cauldron.Localization\Cauldron.Localization.csproj" />
+      <DocumentationSource sourceFile="..\Cauldron.Interceptors\Cauldron.Interceptors.csproj" />
+      <DocumentationSource sourceFile="..\Cauldron.Cryptography\Cauldron.Cryptography.csproj" />
+      <DocumentationSource sourceFile="..\Cauldron.Consoles\Cauldron.Consoles.csproj" />
+      <DocumentationSource sourceFile="..\Cauldron.Collections\Cauldron.Collections.csproj" />
+      <DocumentationSource sourceFile="..\Cauldron.Activator\Cauldron.Activator.csproj" />
+      <DocumentationSource sourceFile="..\Cauldron.Interception\Cauldron.Interception.csproj" />
     </DocumentationSources>
     <SaveComponentCacheCapacity>100</SaveComponentCacheCapacity>
     <BuildAssemblerVerbosity>OnlyWarningsAndErrors</BuildAssemblerVerbosity>

@@ -425,7 +425,7 @@ namespace Cauldron.Interception.Cecilator
                 return new Tuple<TypeReference, bool>(module.ImportReference(result), true);
 
             // We just don't know :(
-            return new Tuple<TypeReference, bool>(module.ImportReference((TypeReference)BuilderTypes.Object), false);
+            return new Tuple<TypeReference, bool>(module.ImportReference(typeof(object)), false);
         }
 
         public static IReadOnlyDictionary<string, TypeReference> GetGenericResolvedTypeName(this GenericInstanceType type)
@@ -521,7 +521,7 @@ namespace Cauldron.Interception.Cecilator
                 }
                 catch (Exception e)
                 {
-                    Builder.Current.Log(LogTypes.Info, e.GetStackTrace());
+                    Builder.Current.Log(LogTypes.Info, $"Error in getting interfaces of '{type}'\r\n" + e.GetStackTrace());
                     break;
                 }
             };
@@ -1417,6 +1417,9 @@ namespace Cauldron.Interception.Cecilator
             while (stack.Count != 0)
             {
                 var current = stack.Pop();
+
+                if (current == null)
+                    Builder.Current.Log(LogTypes.Info, $"-------------------> '{root}'\r\n");
 
                 foreach (var child in children(current))
                     stack.Push(child);

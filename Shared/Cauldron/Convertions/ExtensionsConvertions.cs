@@ -143,6 +143,9 @@ namespace Cauldron
         /// </example>
         public static object As(this object source, Type sourceType, Type targetType)
         {
+            if (source == null)
+                return null;
+
             var method = ImplicitExplicitConvertionCache.Get(sourceType, targetType);
             if (method != null)
                 return method(source);
@@ -182,23 +185,21 @@ namespace Cauldron
         /// </example>
         public static object As(this object source, Type targetType)
         {
-            if (source != null)
-            {
-                var method = ImplicitExplicitConvertionCache.Get(source.GetType(), targetType);
-                if (method != null)
-                    return method(source);
+            if (source == null)
+                return null;
+
+            var method = ImplicitExplicitConvertionCache.Get(source.GetType(), targetType);
+            if (method != null)
+                return method(source);
 
 #if NETFX_CORE
-                if (targetType.GetTypeInfo().IsEnum && source != null)
+            if (targetType.GetTypeInfo().IsEnum && source != null)
 #else
                 if (targetType.IsEnum && source != null)
 #endif
-                    return Enum.Parse(targetType, source.ToString());
+                return Enum.Parse(targetType, source.ToString());
 
-                return System.Convert.ChangeType(source, targetType);
-            }
-
-            return null;
+            return System.Convert.ChangeType(source, targetType);
         }
 
         /// <summary>
@@ -293,8 +294,8 @@ namespace Cauldron
             if (targetType == typeof(uint)) return value.ToUInteger(numberformat);
             if (targetType == typeof(long)) return value.ToLong(numberformat);
             if (targetType == typeof(ulong)) return value.ToULong(numberformat);
-            if (targetType == typeof(byte)) return value == "" ? (byte)0 : (byte)value[0];
-            if (targetType == typeof(sbyte)) return value == "" ? (sbyte)0 : (sbyte)value[0];
+            if (targetType == typeof(byte)) return value == "" ? 0 : (byte)value[0];
+            if (targetType == typeof(sbyte)) return value == "" ? 0 : (sbyte)value[0];
             if (targetType == typeof(float)) return value.ToFloat(numberformat);
             if (targetType == typeof(double)) return value.ToDouble(numberformat);
             if (targetType == typeof(decimal)) return value.ToDecimal(numberformat);
@@ -468,7 +469,7 @@ namespace Cauldron
         /// <summary>
         /// Converts a string to bool.
         /// <para/>
-        /// This will first try to compare the string to "true" and then to "false". If both fails
+        /// This will first try to compare the string to "true" or "y" and then to "false" or "n". If both fails
         /// then it will use <see cref="bool.TryParse(string, out bool)"/> to parse the string to
         /// bool. If that also fails then the string will be compared to "1".
         /// </summary>
@@ -585,7 +586,7 @@ namespace Cauldron
         }
 
         /// <summary>
-        /// Converts the value to a char If convertion fails the value will always be '\0'
+        /// Converts the value to a char. If convertion fails the value will always be '\0'
         /// </summary>
         /// <param name="target">The value to convert</param>
         /// <returns>The char value of the string</returns>
@@ -598,7 +599,8 @@ namespace Cauldron
         }
 
         /// <summary>
-        /// Tries to convert a <see cref="string"/> to an <see cref="decimal"/>
+        /// Tries to convert a <see cref="string"/> to an <see cref="decimal"/>.
+        /// Returns <see cref="decimal.MinusOne"/> if <paramref name="target"/> cannot be parsed.
         /// </summary>
         /// <param name="target">The string to convert</param>
         /// <returns>Returns a decimal that represents the converted string</returns>
@@ -606,7 +608,8 @@ namespace Cauldron
             target.ToDecimal(cultureInfo.NumberFormat);
 
         /// <summary>
-        /// Tries to convert a <see cref="string"/> to an <see cref="decimal"/>
+        /// Tries to convert a <see cref="string"/> to an <see cref="decimal"/>.
+        /// Returns <see cref="decimal.MinusOne"/> if <paramref name="target"/> cannot be parsed.
         /// </summary>
         /// <param name="target">The string to convert</param>
         /// <returns>Returns a decimal that represents the converted string</returns>
@@ -623,7 +626,8 @@ namespace Cauldron
 
         /// <summary>
         /// Tries to convert a <see cref="string"/> to an <see cref="decimal"/> using the en-US
-        /// number format
+        /// number format.
+        /// Returns 0 if <paramref name="target"/> cannot be parsed.
         /// </summary>
         /// <param name="target">The string to convert</param>
         /// <returns>Returns a decimal that represents the converted string</returns>
@@ -634,6 +638,7 @@ namespace Cauldron
         /// Converts the string representation of a number in a specified culture-specific format to
         /// its double-precision floating-point number equivalent. if the string content is "nan"
         /// then a <see cref="double.NaN"/> is returned.
+        /// Returns 0 if <paramref name="target"/> cannot be parsed.
         /// </summary>
         /// <param name="target">A string that contains a number to convert.</param>
         /// <returns>
@@ -655,6 +660,7 @@ namespace Cauldron
         /// Converts the string representation of a number in a specified culture-specific format to
         /// its double-precision floating-point number equivalent. if the string content is "nan"
         /// then a <see cref="double.NaN"/> is returned.
+        /// Returns 0 if <paramref name="target"/> cannot be parsed.
         /// </summary>
         /// <param name="target">A string that contains a number to convert.</param>
         /// <param name="numberformat">
@@ -673,20 +679,17 @@ namespace Cauldron
             if (target.Equals("nan", StringComparison.CurrentCultureIgnoreCase))
                 return double.NaN;
 
-            try
-            {
-                return double.Parse(target, NumberStyles.Any, numberformat);
-            }
-            catch
-            {
-                return 0;
-            }
+            if (double.TryParse(target, NumberStyles.Any, numberformat, out double result))
+                return result;
+
+            return 0;
         }
 
         /// <summary>
         /// Converts the string representation of a number in the en-US format to its
         /// double-precision floating-point number equivalent. if the string content is "nan" then a
         /// <see cref="double.NaN"/> is returned.
+        /// Returns 0 if <paramref name="target"/> cannot be parsed.
         /// </summary>
         /// <param name="target">A string that contains a number to convert.</param>
         /// <returns>
@@ -700,6 +703,7 @@ namespace Cauldron
         /// Converts the string representation of a number in a specified style and culture-specific
         /// format to its single-precision floating-point number equivalent. if the string content is
         /// "nan" then a <see cref="double.NaN"/> is returned.
+        /// Returns 0 if <paramref name="target"/> cannot be parsed.
         /// </summary>
         /// <param name="target">A string that contains a number to convert.</param>
         /// <returns>
@@ -721,6 +725,7 @@ namespace Cauldron
         /// Converts the string representation of a number in a specified style and culture-specific
         /// format to its single-precision floating-point number equivalent. if the string content is
         /// "nan" then a <see cref="double.NaN"/> is returned.
+        /// Returns 0 if <paramref name="target"/> cannot be parsed.
         /// </summary>
         /// <param name="target">A string that contains a number to convert.</param>
         /// <param name="numberformat">
@@ -739,20 +744,17 @@ namespace Cauldron
             if (target.Equals("nan", StringComparison.CurrentCultureIgnoreCase))
                 return float.NaN;
 
-            try
-            {
-                return float.Parse(target, NumberStyles.Any, numberformat);
-            }
-            catch
-            {
-                return 0;
-            }
+            if (float.TryParse(target, NumberStyles.Any, numberformat, out float result))
+                return result;
+
+            return 0;
         }
 
         /// <summary>
         /// Converts the string representation of a number in a the en-US format format to its
         /// single-precision floating-point number equivalent. if the string content is "nan" then a
         /// <see cref="double.NaN"/> is returned.
+        /// Returns 0 if <paramref name="target"/> cannot be parsed.
         /// </summary>
         /// <param name="target">A string that contains a number to convert.</param>
         /// <returns>
@@ -771,14 +773,16 @@ namespace Cauldron
         public static int ToInteger(this byte[] target) => BitConverter.ToInt32(target, 0);
 
         /// <summary>
-        /// Tries to convert a <see cref="string"/> to an <see cref="int"/>
+        /// Tries to convert a <see cref="string"/> to an <see cref="int"/>.
+        /// Returns <see cref="int.MinValue"/> if <paramref name="target"/> cannot be parsed.
         /// </summary>
         /// <param name="target">The string to convert</param>
         /// <returns>Returns an int that represents the converted string</returns>
         public static int ToInteger(this string target) => target.ToInteger(cultureInfo.NumberFormat);
 
         /// <summary>
-        /// Tries to convert a <see cref="string"/> to an <see cref="int"/>
+        /// Tries to convert a <see cref="string"/> to an <see cref="int"/>.
+        /// Returns <see cref="int.MinValue"/> if <paramref name="target"/> cannot be parsed.
         /// </summary>
         /// <param name="target">The string to convert</param>
         /// <returns>Returns an int that represents the converted string</returns>
@@ -794,7 +798,8 @@ namespace Cauldron
         }
 
         /// <summary>
-        /// Tries to convert a <see cref="string"/> to an <see cref="int"/> using the en-US number format
+        /// Tries to convert a <see cref="string"/> to an <see cref="int"/> using the en-US number format.
+        /// Returns <see cref="int.MinValue"/> if <paramref name="target"/> cannot be parsed.
         /// </summary>
         /// <param name="target">The string to convert</param>
         /// <returns>Returns an int that represents the converted string</returns>
@@ -819,7 +824,8 @@ namespace Cauldron
         }
 
         /// <summary>
-        /// Tries to convert a <see cref="object"/> to an <see cref="long"/>
+        /// Tries to convert a <see cref="object"/> to an <see cref="long"/>.
+        /// Returns <see cref="long.MinValue"/> if <paramref name="target"/> cannot be parsed.
         /// </summary>
         /// <param name="target">The object to convert</param>
         /// <returns>Returns a long that represents the converted object</returns>
@@ -832,14 +838,16 @@ namespace Cauldron
         }
 
         /// <summary>
-        /// Tries to convert a <see cref="string"/> to an <see cref="long"/>
+        /// Tries to convert a <see cref="string"/> to an <see cref="long"/>.
+        /// Returns <see cref="long.MinValue"/> if <paramref name="target"/> cannot be parsed.
         /// </summary>
         /// <param name="target">The string to convert</param>
         /// <returns>Returns a long that represents the converted string</returns>
         public static long ToLong(this string target) => target.ToLong(cultureInfo.NumberFormat);
 
         /// <summary>
-        /// Tries to convert a <see cref="string"/> to an <see cref="long"/>
+        /// Tries to convert a <see cref="string"/> to an <see cref="long"/>.
+        /// Returns <see cref="long.MinValue"/> if <paramref name="target"/> cannot be parsed.
         /// </summary>
         /// <param name="target">The string to convert</param>
         /// <returns>Returns a long that represents the converted string</returns>
@@ -853,11 +861,12 @@ namespace Cauldron
             if (long.TryParse(target, NumberStyles.Any, numberformat, out result))
                 return result;
 
-            return -1;
+            return long.MinValue;
         }
 
         /// <summary>
-        /// Tries to convert a <see cref="string"/> to an <see cref="long"/> using the en-US number format
+        /// Tries to convert a <see cref="string"/> to an <see cref="long"/> using the en-US number format.
+        /// Returns <see cref="long.MinValue"/> if <paramref name="target"/> cannot be parsed.
         /// </summary>
         /// <param name="target">The string to convert</param>
         /// <returns>Returns a long that represents the converted string</returns>
@@ -872,7 +881,8 @@ namespace Cauldron
         public static string ToOrdinalDate(this DateTime date) => $"{date.ToString("yyyy")}{ date.DayOfYear.ToString("000")}";
 
         /// <summary>
-        /// Tries to convert a <see cref="string"/> to an <see cref="short"/>
+        /// Tries to convert a <see cref="string"/> to an <see cref="short"/>.
+        /// Returns <see cref="short.MinValue"/> if <paramref name="target"/> cannot be parsed.
         /// </summary>
         /// <param name="target">The string to convert</param>
         /// <returns>Returns a short that represents the converted string</returns>
@@ -880,7 +890,8 @@ namespace Cauldron
             target.ToShort(cultureInfo.NumberFormat);
 
         /// <summary>
-        /// Tries to convert a <see cref="string"/> to an <see cref="short"/>
+        /// Tries to convert a <see cref="string"/> to an <see cref="short"/>.
+        /// Returns <see cref="short.MinValue"/> if <paramref name="target"/> cannot be parsed.
         /// </summary>
         /// <param name="target">The string to convert</param>
         /// <returns>Returns a short that represents the converted string</returns>
@@ -896,7 +907,8 @@ namespace Cauldron
         }
 
         /// <summary>
-        /// Tries to convert a <see cref="string"/> to an <see cref="short"/> using the en-US number format
+        /// Tries to convert a <see cref="string"/> to an <see cref="short"/> using the en-US number format.
+        /// Returns <see cref="short.MinValue"/> if <paramref name="target"/> cannot be parsed.
         /// </summary>
         /// <param name="target">The string to convert</param>
         /// <returns>Returns a short that represents the converted string</returns>
@@ -950,14 +962,16 @@ namespace Cauldron
         }
 
         /// <summary>
-        /// Tries to convert a <see cref="string"/> to an <see cref="uint"/>
+        /// Tries to convert a <see cref="string"/> to an <see cref="uint"/>.
+        /// Returns <see cref="uint.MinValue"/> if <paramref name="target"/> cannot be parsed.
         /// </summary>
         /// <param name="target">The string to convert</param>
         /// <returns>Returns an uint that represents the converted string</returns>
         public static uint ToUInteger(this string target) => target.ToUInteger(cultureInfo.NumberFormat);
 
         /// <summary>
-        /// Tries to convert a <see cref="string"/> to an <see cref="uint"/>
+        /// Tries to convert a <see cref="string"/> to an <see cref="uint"/>.
+        /// Returns <see cref="uint.MinValue"/> if <paramref name="target"/> cannot be parsed.
         /// </summary>
         /// <param name="target">The string to convert</param>
         /// <returns>Returns an uint that represents the converted string</returns>
@@ -973,14 +987,16 @@ namespace Cauldron
         }
 
         /// <summary>
-        /// Tries to convert a <see cref="string"/> to an <see cref="uint"/> using the en-US number format
+        /// Tries to convert a <see cref="string"/> to an <see cref="uint"/> using the en-US number format.
+        /// Returns <see cref="uint.MinValue"/> if <paramref name="target"/> cannot be parsed.
         /// </summary>
         /// <param name="target">The string to convert</param>
         /// <returns>Returns an uint that represents the converted string</returns>
         public static uint ToUIntegerUS(this string target) => target.ToUInteger(numberFormatInfoEnUs);
 
         /// <summary>
-        /// Tries to convert a <see cref="string"/> to an <see cref="ulong"/>
+        /// Tries to convert a <see cref="string"/> to an <see cref="ulong"/>.
+        /// Returns <see cref="ulong.MinValue"/> if <paramref name="target"/> cannot be parsed.
         /// </summary>
         /// <param name="target">The string to convert</param>
         /// <returns>Returns a ulong that represents the converted string</returns>
@@ -988,7 +1004,8 @@ namespace Cauldron
             target.ToULong(cultureInfo.NumberFormat);
 
         /// <summary>
-        /// Tries to convert a <see cref="string"/> to an <see cref="ulong"/>
+        /// Tries to convert a <see cref="string"/> to an <see cref="ulong"/>.
+        /// Returns <see cref="ulong.MinValue"/> if <paramref name="target"/> cannot be parsed.
         /// </summary>
         /// <param name="target">The string to convert</param>
         /// <returns>Returns a ulong that represents the converted string</returns>
@@ -1004,7 +1021,8 @@ namespace Cauldron
         }
 
         /// <summary>
-        /// Tries to convert a <see cref="string"/> to an <see cref="ulong"/> using the en-US number format
+        /// Tries to convert a <see cref="string"/> to an <see cref="ulong"/> using the en-US number format.
+        /// Returns <see cref="ulong.MinValue"/> if <paramref name="target"/> cannot be parsed.
         /// </summary>
         /// <param name="target">The string to convert</param>
         /// <returns>Returns a ulong that represents the converted string</returns>
@@ -1020,7 +1038,8 @@ namespace Cauldron
         public static ushort ToUShort(this byte[] target) => BitConverter.ToUInt16(target, 0);
 
         /// <summary>
-        /// Tries to convert a <see cref="string"/> to an <see cref="ushort"/>
+        /// Tries to convert a <see cref="string"/> to an <see cref="ushort"/>.
+        /// Returns <see cref="ushort.MinValue"/> if <paramref name="target"/> cannot be parsed.
         /// </summary>
         /// <param name="target">The string to convert</param>
         /// <returns>Returns a ushort that represents the converted string</returns>
@@ -1028,7 +1047,8 @@ namespace Cauldron
             target.ToUShort(cultureInfo.NumberFormat);
 
         /// <summary>
-        /// Tries to convert a <see cref="string"/> to an <see cref="ushort"/>
+        /// Tries to convert a <see cref="string"/> to an <see cref="ushort"/>.
+        /// Returns <see cref="ushort.MinValue"/> if <paramref name="target"/> cannot be parsed.
         /// </summary>
         /// <param name="target">The string to convert</param>
         /// <returns>Returns a ushort that represents the converted string</returns>
@@ -1044,7 +1064,8 @@ namespace Cauldron
         }
 
         /// <summary>
-        /// Tries to convert a <see cref="string"/> to an <see cref="ushort"/> using the en-US number format
+        /// Tries to convert a <see cref="string"/> to an <see cref="ushort"/> using the en-US number format.
+        /// Returns <see cref="ushort.MinValue"/> if <paramref name="target"/> cannot be parsed.
         /// </summary>
         /// <param name="target">The string to convert</param>
         /// <returns>Returns a ushort that represents the converted string</returns>

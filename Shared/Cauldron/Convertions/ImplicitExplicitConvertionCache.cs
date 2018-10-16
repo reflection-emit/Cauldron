@@ -32,10 +32,23 @@ namespace Cauldron.Convertions
             var param = Expression.Parameter(typeof(object), "param");
             var argsExp = Expression.Convert(param, source);
             var callExp = Expression.Call(method, argsExp);
-            var lambda = Expression.Lambda(typeof(ImplicitExplicit), callExp, param);
 
-            result = lambda.Compile() as ImplicitExplicit;
-            cache.TryAdd(key, result);
+#if NETFX_CORE
+            if (target.GetTypeInfo().IsValueType)
+#else
+            if (target.IsValueType)
+#endif
+                CompileAndCacheExpression(Expression.Convert(callExp, typeof(object)));
+            else
+                CompileAndCacheExpression(callExp);
+
+            void CompileAndCacheExpression(Expression expression)
+            {
+                var lambda = Expression.Lambda(typeof(ImplicitExplicit), expression, param);
+
+                result = lambda.Compile() as ImplicitExplicit;
+                cache.TryAdd(key, result);
+            }
 
             return result;
         }

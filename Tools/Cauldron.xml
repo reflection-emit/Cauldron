@@ -731,6 +731,15 @@
             <paramref name="startingIndex"/> is higher than <paramref name="value"/> length
             </exception>
         </member>
+        <member name="M:Cauldron.Extensions.Append``1(System.Collections.Generic.IEnumerable{``0},``0)">
+            <summary>
+            Concatenates an item into a sequences.
+            </summary>
+            <typeparam name="TSource">The type of the elements of the input sequences.</typeparam>
+            <param name="first">The first sequence to concatenate.</param>
+            <param name="second">The item to concat into the sequence.</param>
+            <returns>An <see cref="T:System.Collections.Generic.IEnumerable`1"/> that contains the concatenated elements of the two input sequences.</returns>
+        </member>
         <member name="M:Cauldron.Extensions.Concat``1(``0[],``0)">
             <summary>
             Concats an item to an array creating a new array containing the original array and the item.
@@ -1852,7 +1861,7 @@
             <summary>
             Converts a string to bool.
             <para/>
-            This will first try to compare the string to "true" and then to "false". If both fails
+            This will first try to compare the string to "true" or "y" and then to "false" or "n". If both fails
             then it will use <see cref="M:System.Boolean.TryParse(System.String,System.Boolean@)"/> to parse the string to
             bool. If that also fails then the string will be compared to "1".
             </summary>
@@ -1915,21 +1924,23 @@
         </member>
         <member name="M:Cauldron.ExtensionsConvertions.ToChar(System.String)">
             <summary>
-            Converts the value to a char If convertion fails the value will always be '\0'
+            Converts the value to a char. If convertion fails the value will always be '\0'
             </summary>
             <param name="target">The value to convert</param>
             <returns>The char value of the string</returns>
         </member>
         <member name="M:Cauldron.ExtensionsConvertions.ToDecimal(System.String)">
             <summary>
-            Tries to convert a <see cref="T:System.String"/> to an <see cref="T:System.Decimal"/>
+            Tries to convert a <see cref="T:System.String"/> to an <see cref="T:System.Decimal"/>.
+            Returns <see cref="F:System.Decimal.MinusOne"/> if <paramref name="target"/> cannot be parsed.
             </summary>
             <param name="target">The string to convert</param>
             <returns>Returns a decimal that represents the converted string</returns>
         </member>
         <member name="M:Cauldron.ExtensionsConvertions.ToDecimal(System.String,System.Globalization.NumberFormatInfo)">
             <summary>
-            Tries to convert a <see cref="T:System.String"/> to an <see cref="T:System.Decimal"/>
+            Tries to convert a <see cref="T:System.String"/> to an <see cref="T:System.Decimal"/>.
+            Returns <see cref="F:System.Decimal.MinusOne"/> if <paramref name="target"/> cannot be parsed.
             </summary>
             <param name="target">The string to convert</param>
             <returns>Returns a decimal that represents the converted string</returns>
@@ -1940,7 +1951,8 @@
         <member name="M:Cauldron.ExtensionsConvertions.ToDecimalUS(System.String)">
             <summary>
             Tries to convert a <see cref="T:System.String"/> to an <see cref="T:System.Decimal"/> using the en-US
-            number format
+            number format.
+            Returns 0 if <paramref name="target"/> cannot be parsed.
             </summary>
             <param name="target">The string to convert</param>
             <returns>Returns a decimal that represents the converted string</returns>
@@ -1950,6 +1962,7 @@
             Converts the string representation of a number in a specified culture-specific format to
             its double-precision floating-point number equivalent. if the string content is "nan"
             then a <see cref="F:System.Double.NaN"/> is returned.
+            Returns 0 if <paramref name="target"/> cannot be parsed.
             </summary>
             <param name="target">A string that contains a number to convert.</param>
             <returns>
@@ -1971,6 +1984,7 @@
             Converts the string representation of a number in a specified culture-specific format to
             its double-precision floating-point number equivalent. if the string content is "nan"
             then a <see cref="F:System.Double.NaN"/> is returned.
+            Returns 0 if <paramref name="target"/> cannot be parsed.
             </summary>
             <param name="target">A string that contains a number to convert.</param>
             <param name="numberformat">
@@ -1987,6 +2001,7 @@
             Converts the string representation of a number in the en-US format to its
             double-precision floating-point number equivalent. if the string content is "nan" then a
             <see cref="F:System.Double.NaN"/> is returned.
+            Returns 0 if <paramref name="target"/> cannot be parsed.
             </summary>
             <param name="target">A string that contains a number to convert.</param>
             <returns>
@@ -2000,6 +2015,7 @@
             Converts the string representation of a number in a specified style and culture-specific
             format to its single-precision floating-point number equivalent. if the string content is
             "nan" then a <see cref="F:System.Double.NaN"/> is returned.
+            Returns 0 if <paramref name="target"/> cannot be parsed.
             </summary>
             <param name="target">A string that contains a number to convert.</param>
             <returns>
@@ -2021,6 +2037,7 @@
             Converts the string representation of a number in a specified style and culture-specific
             format to its single-precision floating-point number equivalent. if the string content is
             "nan" then a <see cref="F:System.Double.NaN"/> is returned.
+            Returns 0 if <paramref name="target"/> cannot be parsed.
             </summary>
             <param name="target">A string that contains a number to convert.</param>
             <param name="numberformat">
@@ -2037,6 +2054,7 @@
             Converts the string representation of a number in a the en-US format format to its
             single-precision floating-point number equivalent. if the string content is "nan" then a
             <see cref="F:System.Double.NaN"/> is returned.
+            Returns 0 if <paramref name="target"/> cannot be parsed.
             </summary>
             <param name="target">A string that contains a number to convert.</param>
             <returns>
@@ -2055,14 +2073,16 @@
         </member>
         <member name="M:Cauldron.ExtensionsConvertions.ToInteger(System.String)">
             <summary>
-            Tries to convert a <see cref="T:System.String"/> to an <see cref="T:System.Int32"/>
+            Tries to convert a <see cref="T:System.String"/> to an <see cref="T:System.Int32"/>.
+            Returns <see cref="F:System.Int32.MinValue"/> if <paramref name="target"/> cannot be parsed.
             </summary>
             <param name="target">The string to convert</param>
             <returns>Returns an int that represents the converted string</returns>
         </member>
         <member name="M:Cauldron.ExtensionsConvertions.ToInteger(System.String,System.Globalization.NumberFormatInfo)">
             <summary>
-            Tries to convert a <see cref="T:System.String"/> to an <see cref="T:System.Int32"/>
+            Tries to convert a <see cref="T:System.String"/> to an <see cref="T:System.Int32"/>.
+            Returns <see cref="F:System.Int32.MinValue"/> if <paramref name="target"/> cannot be parsed.
             </summary>
             <param name="target">The string to convert</param>
             <returns>Returns an int that represents the converted string</returns>
@@ -2072,7 +2092,8 @@
         </member>
         <member name="M:Cauldron.ExtensionsConvertions.ToIntegerUS(System.String)">
             <summary>
-            Tries to convert a <see cref="T:System.String"/> to an <see cref="T:System.Int32"/> using the en-US number format
+            Tries to convert a <see cref="T:System.String"/> to an <see cref="T:System.Int32"/> using the en-US number format.
+            Returns <see cref="F:System.Int32.MinValue"/> if <paramref name="target"/> cannot be parsed.
             </summary>
             <param name="target">The string to convert</param>
             <returns>Returns an int that represents the converted string</returns>
@@ -2088,21 +2109,24 @@
         </member>
         <member name="M:Cauldron.ExtensionsConvertions.ToLong(System.Object)">
             <summary>
-            Tries to convert a <see cref="T:System.Object"/> to an <see cref="T:System.Int64"/>
+            Tries to convert a <see cref="T:System.Object"/> to an <see cref="T:System.Int64"/>.
+            Returns <see cref="F:System.Int64.MinValue"/> if <paramref name="target"/> cannot be parsed.
             </summary>
             <param name="target">The object to convert</param>
             <returns>Returns a long that represents the converted object</returns>
         </member>
         <member name="M:Cauldron.ExtensionsConvertions.ToLong(System.String)">
             <summary>
-            Tries to convert a <see cref="T:System.String"/> to an <see cref="T:System.Int64"/>
+            Tries to convert a <see cref="T:System.String"/> to an <see cref="T:System.Int64"/>.
+            Returns <see cref="F:System.Int64.MinValue"/> if <paramref name="target"/> cannot be parsed.
             </summary>
             <param name="target">The string to convert</param>
             <returns>Returns a long that represents the converted string</returns>
         </member>
         <member name="M:Cauldron.ExtensionsConvertions.ToLong(System.String,System.Globalization.NumberFormatInfo)">
             <summary>
-            Tries to convert a <see cref="T:System.String"/> to an <see cref="T:System.Int64"/>
+            Tries to convert a <see cref="T:System.String"/> to an <see cref="T:System.Int64"/>.
+            Returns <see cref="F:System.Int64.MinValue"/> if <paramref name="target"/> cannot be parsed.
             </summary>
             <param name="target">The string to convert</param>
             <returns>Returns a long that represents the converted string</returns>
@@ -2112,7 +2136,8 @@
         </member>
         <member name="M:Cauldron.ExtensionsConvertions.ToLongUS(System.String)">
             <summary>
-            Tries to convert a <see cref="T:System.String"/> to an <see cref="T:System.Int64"/> using the en-US number format
+            Tries to convert a <see cref="T:System.String"/> to an <see cref="T:System.Int64"/> using the en-US number format.
+            Returns <see cref="F:System.Int64.MinValue"/> if <paramref name="target"/> cannot be parsed.
             </summary>
             <param name="target">The string to convert</param>
             <returns>Returns a long that represents the converted string</returns>
@@ -2127,14 +2152,16 @@
         </member>
         <member name="M:Cauldron.ExtensionsConvertions.ToShort(System.String)">
             <summary>
-            Tries to convert a <see cref="T:System.String"/> to an <see cref="T:System.Int16"/>
+            Tries to convert a <see cref="T:System.String"/> to an <see cref="T:System.Int16"/>.
+            Returns <see cref="F:System.Int16.MinValue"/> if <paramref name="target"/> cannot be parsed.
             </summary>
             <param name="target">The string to convert</param>
             <returns>Returns a short that represents the converted string</returns>
         </member>
         <member name="M:Cauldron.ExtensionsConvertions.ToShort(System.String,System.Globalization.NumberFormatInfo)">
             <summary>
-            Tries to convert a <see cref="T:System.String"/> to an <see cref="T:System.Int16"/>
+            Tries to convert a <see cref="T:System.String"/> to an <see cref="T:System.Int16"/>.
+            Returns <see cref="F:System.Int16.MinValue"/> if <paramref name="target"/> cannot be parsed.
             </summary>
             <param name="target">The string to convert</param>
             <returns>Returns a short that represents the converted string</returns>
@@ -2144,7 +2171,8 @@
         </member>
         <member name="M:Cauldron.ExtensionsConvertions.ToShortUS(System.String)">
             <summary>
-            Tries to convert a <see cref="T:System.String"/> to an <see cref="T:System.Int16"/> using the en-US number format
+            Tries to convert a <see cref="T:System.String"/> to an <see cref="T:System.Int16"/> using the en-US number format.
+            Returns <see cref="F:System.Int16.MinValue"/> if <paramref name="target"/> cannot be parsed.
             </summary>
             <param name="target">The string to convert</param>
             <returns>Returns a short that represents the converted string</returns>
@@ -2179,14 +2207,16 @@
         </member>
         <member name="M:Cauldron.ExtensionsConvertions.ToUInteger(System.String)">
             <summary>
-            Tries to convert a <see cref="T:System.String"/> to an <see cref="T:System.UInt32"/>
+            Tries to convert a <see cref="T:System.String"/> to an <see cref="T:System.UInt32"/>.
+            Returns <see cref="F:System.UInt32.MinValue"/> if <paramref name="target"/> cannot be parsed.
             </summary>
             <param name="target">The string to convert</param>
             <returns>Returns an uint that represents the converted string</returns>
         </member>
         <member name="M:Cauldron.ExtensionsConvertions.ToUInteger(System.String,System.Globalization.NumberFormatInfo)">
             <summary>
-            Tries to convert a <see cref="T:System.String"/> to an <see cref="T:System.UInt32"/>
+            Tries to convert a <see cref="T:System.String"/> to an <see cref="T:System.UInt32"/>.
+            Returns <see cref="F:System.UInt32.MinValue"/> if <paramref name="target"/> cannot be parsed.
             </summary>
             <param name="target">The string to convert</param>
             <returns>Returns an uint that represents the converted string</returns>
@@ -2196,21 +2226,24 @@
         </member>
         <member name="M:Cauldron.ExtensionsConvertions.ToUIntegerUS(System.String)">
             <summary>
-            Tries to convert a <see cref="T:System.String"/> to an <see cref="T:System.UInt32"/> using the en-US number format
+            Tries to convert a <see cref="T:System.String"/> to an <see cref="T:System.UInt32"/> using the en-US number format.
+            Returns <see cref="F:System.UInt32.MinValue"/> if <paramref name="target"/> cannot be parsed.
             </summary>
             <param name="target">The string to convert</param>
             <returns>Returns an uint that represents the converted string</returns>
         </member>
         <member name="M:Cauldron.ExtensionsConvertions.ToULong(System.String)">
             <summary>
-            Tries to convert a <see cref="T:System.String"/> to an <see cref="T:System.UInt64"/>
+            Tries to convert a <see cref="T:System.String"/> to an <see cref="T:System.UInt64"/>.
+            Returns <see cref="F:System.UInt64.MinValue"/> if <paramref name="target"/> cannot be parsed.
             </summary>
             <param name="target">The string to convert</param>
             <returns>Returns a ulong that represents the converted string</returns>
         </member>
         <member name="M:Cauldron.ExtensionsConvertions.ToULong(System.String,System.Globalization.NumberFormatInfo)">
             <summary>
-            Tries to convert a <see cref="T:System.String"/> to an <see cref="T:System.UInt64"/>
+            Tries to convert a <see cref="T:System.String"/> to an <see cref="T:System.UInt64"/>.
+            Returns <see cref="F:System.UInt64.MinValue"/> if <paramref name="target"/> cannot be parsed.
             </summary>
             <param name="target">The string to convert</param>
             <returns>Returns a ulong that represents the converted string</returns>
@@ -2220,7 +2253,8 @@
         </member>
         <member name="M:Cauldron.ExtensionsConvertions.ToULongUS(System.String)">
             <summary>
-            Tries to convert a <see cref="T:System.String"/> to an <see cref="T:System.UInt64"/> using the en-US number format
+            Tries to convert a <see cref="T:System.String"/> to an <see cref="T:System.UInt64"/> using the en-US number format.
+            Returns <see cref="F:System.UInt64.MinValue"/> if <paramref name="target"/> cannot be parsed.
             </summary>
             <param name="target">The string to convert</param>
             <returns>Returns a ulong that represents the converted string</returns>
@@ -2235,14 +2269,16 @@
         </member>
         <member name="M:Cauldron.ExtensionsConvertions.ToUShort(System.String)">
             <summary>
-            Tries to convert a <see cref="T:System.String"/> to an <see cref="T:System.UInt16"/>
+            Tries to convert a <see cref="T:System.String"/> to an <see cref="T:System.UInt16"/>.
+            Returns <see cref="F:System.UInt16.MinValue"/> if <paramref name="target"/> cannot be parsed.
             </summary>
             <param name="target">The string to convert</param>
             <returns>Returns a ushort that represents the converted string</returns>
         </member>
         <member name="M:Cauldron.ExtensionsConvertions.ToUShort(System.String,System.Globalization.NumberFormatInfo)">
             <summary>
-            Tries to convert a <see cref="T:System.String"/> to an <see cref="T:System.UInt16"/>
+            Tries to convert a <see cref="T:System.String"/> to an <see cref="T:System.UInt16"/>.
+            Returns <see cref="F:System.UInt16.MinValue"/> if <paramref name="target"/> cannot be parsed.
             </summary>
             <param name="target">The string to convert</param>
             <returns>Returns a ushort that represents the converted string</returns>
@@ -2252,7 +2288,8 @@
         </member>
         <member name="M:Cauldron.ExtensionsConvertions.ToUShortUS(System.String)">
             <summary>
-            Tries to convert a <see cref="T:System.String"/> to an <see cref="T:System.UInt16"/> using the en-US number format
+            Tries to convert a <see cref="T:System.String"/> to an <see cref="T:System.UInt16"/> using the en-US number format.
+            Returns <see cref="F:System.UInt16.MinValue"/> if <paramref name="target"/> cannot be parsed.
             </summary>
             <param name="target">The string to convert</param>
             <returns>Returns a ushort that represents the converted string</returns>
@@ -2702,10 +2739,13 @@
             names must be less than 260 characters. The specified path, file name, or both are too long.
             </exception>
         </member>
-        <member name="M:Cauldron.ExtensionsDirectoryInfo.ToFileInfo(System.String)">
+        <member name="M:Cauldron.ExtensionsDirectoryInfo.ToFileInfo(System.IO.DirectoryInfo,System.String)">
             <summary>
             Converts a string to a <see cref="T:System.IO.FileInfo"/>
             </summary>
+            <param name="directoryInfo">
+            The <see cref="T:System.IO.DirectoryInfo"/> representing the current folder
+            </param>
             <param name="filename">
             The fully qualified name of the new file, or the relative file name. Do not end the path
             with the directory separator character.
@@ -2772,6 +2812,30 @@
             The specified path, file name, or both exceed the system-defined maximum length.
             For example, on Windows-based platforms, paths must be less than 248 characters,
             and file names must be less than 260 characters.
+            </exception>
+        </member>
+        <member name="M:Cauldron.ExtensionsFileInfo.ToFileInfo(System.String)">
+            <summary>
+            Converts a string to a <see cref="T:System.IO.FileInfo"/>
+            </summary>
+            <param name="filename">
+            The fully qualified name of the new file, or the relative file name. Do not end the path
+            with the directory separator character.
+            </param>
+            <returns>An instance of <see cref="T:System.IO.FileInfo"/></returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="filename"/> is null.</exception>
+            <exception cref="T:System.Security.SecurityException">The caller does not have the required permission.</exception>
+            <exception cref="T:System.ArgumentException">
+            The file name is empty, contains only white spaces, or contains invalid characters.
+            </exception>
+            <exception cref="T:System.UnauthorizedAccessException">Access to fileName is denied.</exception>
+            <exception cref="T:System.IO.PathTooLongException">
+            The specified path, file name, or both exceed the system-defined maximum length. For
+            example, on Windows-based platforms, paths must be less than 248 characters, and file
+            names must be less than 260 characters.
+            </exception>
+            <exception cref="T:System.UnauthorizedAccessException">
+            <paramref name="filename"/> contains a colon (:) in the middle of the string.
             </exception>
         </member>
         <member name="M:Cauldron.ExtensionsFileInfo.WaitUntilFileIsAccessableAsync(System.IO.FileInfo)">
@@ -2996,6 +3060,20 @@
             </summary>
             <returns>A string that represents the current object.</returns>
         </member>
+        <member name="T:Cauldron.JsonConverters.MinutesToTimeSpan">
+            <summary>
+            Converts a <see cref="T:System.Int64"/> representing minutes to and from JSON as <see cref="T:System.TimeSpan"/>.
+            </summary>
+        </member>
+        <member name="M:Cauldron.JsonConverters.MinutesToTimeSpan.CanConvert(System.Type)">
+            <exclude/>
+        </member>
+        <member name="M:Cauldron.JsonConverters.MinutesToTimeSpan.ReadJson(Newtonsoft.Json.JsonReader,System.Type,System.Object,Newtonsoft.Json.JsonSerializer)">
+            <exclude/>
+        </member>
+        <member name="M:Cauldron.JsonConverters.MinutesToTimeSpan.WriteJson(Newtonsoft.Json.JsonWriter,System.Object,Newtonsoft.Json.JsonSerializer)">
+            <exclude/>
+        </member>
         <member name="T:Cauldron.Position">
             <summary>
             Defines the position of the string modification.
@@ -3105,6 +3183,26 @@
             <param name="radians"></param>
             <returns></returns>
         </member>
+        <member name="M:System.MathEx.ValueOf(System.Single,System.Single,System.Single,System.Single,System.Single)">
+            <summary>
+            Calculates the percentage relationship of two values
+            </summary>
+            <param name="value">Current value of the systems</param>
+            <param name="valueMin">Minimum value of the current system</param>
+            <param name="valueMax">Maximum value of the current system</param>
+            <param name="targetValueMin">Minimum value of the target system</param>
+            <param name="targetValueMax">Maximum value of the target system</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.MathEx.ValueOf(System.Single,System.Single,System.Single)">
+            <summary>
+            Calculates the percentage relationship of two values
+            </summary>
+            <param name="value">Current value of the systems</param>
+            <param name="valueMax">Maximum value of the current system</param>
+            <param name="targetValueMax">Minimum value of the target system</param>
+            <returns></returns>
+        </member>
         <member name="M:System.MathEx.ValueOf(System.Double,System.Double,System.Double,System.Double,System.Double)">
             <summary>
             Calculates the percentage relationship of two values
@@ -3117,6 +3215,46 @@
             <returns></returns>
         </member>
         <member name="M:System.MathEx.ValueOf(System.Double,System.Double,System.Double)">
+            <summary>
+            Calculates the percentage relationship of two values
+            </summary>
+            <param name="value">Current value of the systems</param>
+            <param name="valueMax">Maximum value of the current system</param>
+            <param name="targetValueMax">Minimum value of the target system</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.MathEx.ValueOf(System.Int64,System.Int64,System.Int64,System.Int64,System.Int64)">
+            <summary>
+            Calculates the percentage relationship of two values
+            </summary>
+            <param name="value">Current value of the systems</param>
+            <param name="valueMin">Minimum value of the current system</param>
+            <param name="valueMax">Maximum value of the current system</param>
+            <param name="targetValueMin">Minimum value of the target system</param>
+            <param name="targetValueMax">Maximum value of the target system</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.MathEx.ValueOf(System.Int64,System.Int64,System.Int64)">
+            <summary>
+            Calculates the percentage relationship of two values
+            </summary>
+            <param name="value">Current value of the systems</param>
+            <param name="valueMax">Maximum value of the current system</param>
+            <param name="targetValueMax">Minimum value of the target system</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.MathEx.ValueOf(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Calculates the percentage relationship of two values
+            </summary>
+            <param name="value">Current value of the systems</param>
+            <param name="valueMin">Minimum value of the current system</param>
+            <param name="valueMax">Maximum value of the current system</param>
+            <param name="targetValueMin">Minimum value of the target system</param>
+            <param name="targetValueMax">Maximum value of the target system</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.MathEx.ValueOf(System.Int32,System.Int32,System.Int32)">
             <summary>
             Calculates the percentage relationship of two values
             </summary>
