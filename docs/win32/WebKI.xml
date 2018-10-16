@@ -211,7 +211,6 @@
     <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_AsyncHelper.htm" />
   </HelpKINode>
   <HelpKINode Title="AsyncHelper.NullGuard method" Url="html/Overload_Cauldron_AsyncHelper_NullGuard.htm" />
-  <HelpKINode Title="AsyncHelper.RunSync method" Url="html/Overload_Cauldron_AsyncHelper_RunSync.htm" />
   <HelpKINode Title="Attach method" Url="html/M_Cauldron_XAML_Interactivity_IBehaviour_Attach.htm" />
   <HelpKINode Title="AuthenticateAsync method" Url="html/M_Cauldron_Net_WebAuthenticationBrokerWrapper_AuthenticateAsync.htm" />
   <HelpKINode Title="Back enumeration member" Url="html/T_Windows_UI_Xaml_Navigation_NavigationMode.htm" />
@@ -486,15 +485,6 @@
   <HelpKINode Title="Cauldron.Consoles.RequiredParametersMissingException class" Url="html/T_Cauldron_Consoles_RequiredParametersMissingException.htm" />
   <HelpKINode Title="Cauldron.Consoles.RequiredValuesMissingException class" Url="html/T_Cauldron_Consoles_RequiredValuesMissingException.htm" />
   <HelpKINode Title="Cauldron.Consoles.UnknownParameterException class" Url="html/T_Cauldron_Consoles_UnknownParameterException.htm" />
-  <HelpKINode Title="Cauldron.Core.Interceptors namespace" Url="html/N_Cauldron_Core_Interceptors.htm" />
-  <HelpKINode Title="Cauldron.Core.Interceptors.ExceptionLoggerAttribute class" Url="html/T_Cauldron_Core_Interceptors_ExceptionLoggerAttribute.htm" />
-  <HelpKINode Title="Cauldron.Core.Interceptors.ExceptionToEventLogAttribute class" Url="html/T_Cauldron_Core_Interceptors_ExceptionToEventLogAttribute.htm" />
-  <HelpKINode Title="Cauldron.Core.Interceptors.PerformanceLoggerAttribute class" Url="html/T_Cauldron_Core_Interceptors_PerformanceLoggerAttribute.htm" />
-  <HelpKINode Title="Cauldron.Core.Interceptors.RegistryAttribute class" Url="html/T_Cauldron_Core_Interceptors_RegistryAttribute.htm" />
-  <HelpKINode Title="Cauldron.Core.Interceptors.RegistryClassAttribute class" Url="html/T_Cauldron_Core_Interceptors_RegistryClassAttribute.htm" />
-  <HelpKINode Title="Cauldron.Core.Interceptors.RegistryClassDoNotInterceptAttribute class" Url="html/T_Cauldron_Core_Interceptors_RegistryClassDoNotInterceptAttribute.htm" />
-  <HelpKINode Title="Cauldron.Core.Interceptors.TimedCacheAttribute class" Url="html/T_Cauldron_Core_Interceptors_TimedCacheAttribute.htm" />
-  <HelpKINode Title="Cauldron.Core.Interceptors.TimedCacheChangeMonitor class" Url="html/T_Cauldron_Core_Interceptors_TimedCacheChangeMonitor.htm" />
   <HelpKINode Title="Cauldron.CreationCollisionOption enumeration" Url="html/T_Cauldron_CreationCollisionOption.htm" />
   <HelpKINode Title="Cauldron.Cryptography namespace" Url="html/N_Cauldron_Cryptography.htm" />
   <HelpKINode Title="Cauldron.Cryptography.Aes class" Url="html/T_Cauldron_Cryptography_Aes.htm" />
@@ -524,7 +514,6 @@
   <HelpKINode Title="Cauldron.ExtensionsParameterPassing class" Url="html/T_Cauldron_ExtensionsParameterPassing.htm" />
   <HelpKINode Title="Cauldron.ExtensionsReflection class" Url="html/T_Cauldron_ExtensionsReflection.htm" />
   <HelpKINode Title="Cauldron.ExtensionsSecureString class" Url="html/T_Cauldron_ExtensionsSecureString.htm" />
-  <HelpKINode Title="Cauldron.ExtensionsWindowsService class" Url="html/T_Cauldron_ExtensionsWindowsService.htm" />
   <HelpKINode Title="Cauldron.Formatters namespace" Url="html/N_Cauldron_Formatters.htm" />
   <HelpKINode Title="Cauldron.Formatters.ByteSizeFormatter class" Url="html/T_Cauldron_Formatters_ByteSizeFormatter.htm" />
   <HelpKINode Title="Cauldron.Formatters.Formatter class" Url="html/T_Cauldron_Formatters_Formatter.htm" />
@@ -708,6 +697,8 @@
   <HelpKINode Title="Cauldron.XAML.Theme.TextBoxProperties class" Url="html/T_Cauldron_XAML_Theme_TextBoxProperties.htm" />
   <HelpKINode Title="Cauldron.XAML.Theme.TextBoxStyle class" Url="html/T_Cauldron_XAML_Theme_TextBoxStyle.htm" />
   <HelpKINode Title="Cauldron.XAML.Theme.ValidationDisplay class" Url="html/T_Cauldron_XAML_Theme_ValidationDisplay.htm" />
+  <HelpKINode Title="Cauldron.XAML.Theme.VSLight namespace" Url="html/N_Cauldron_XAML_Theme_VSLight.htm" />
+  <HelpKINode Title="Cauldron.XAML.Theme.VSLight.ColorsAndBrushes class" Url="html/T_Cauldron_XAML_Theme_VSLight_ColorsAndBrushes.htm" />
   <HelpKINode Title="Cauldron.XAML.Theme.WindowToolbar class" Url="html/T_Cauldron_XAML_Theme_WindowToolbar.htm" />
   <HelpKINode Title="Cauldron.XAML.Threading namespace" Url="html/N_Cauldron_XAML_Threading.htm" />
   <HelpKINode Title="Cauldron.XAML.Threading.CallOnce class" Url="html/T_Cauldron_XAML_Threading_CallOnce.htm" />
@@ -808,13 +799,9 @@
     <HelpKINode Title="ConcurrentCollection(T).Clear Method " Url="html/M_Cauldron_Collections_ConcurrentCollection_1_Clear.htm" />
     <HelpKINode Title="FastDictionary(TKey, TValue).Clear Method " Url="html/M_Cauldron_Collections_FastDictionary_2_Clear.htm" />
     <HelpKINode Title="FastKeyedCollection(TKey, TItem).Clear Method " Url="html/M_Cauldron_Collections_FastKeyedCollection_2_Clear.htm" />
-    <HelpKINode Title="TimedCacheChangeMonitor.Clear Method " Url="html/M_Cauldron_Core_Interceptors_TimedCacheChangeMonitor_Clear.htm" />
     <HelpKINode Title="TimedCacheChangeMonitor.Clear Method " Url="html/M_Cauldron_Interceptors_TimedCacheChangeMonitor_Clear.htm" />
   </HelpKINode>
-  <HelpKINode Title="ClearCache event">
-    <HelpKINode Title="TimedCacheChangeMonitor.ClearCache Event" Url="html/E_Cauldron_Core_Interceptors_TimedCacheChangeMonitor_ClearCache.htm" />
-    <HelpKINode Title="TimedCacheChangeMonitor.ClearCache Event" Url="html/E_Cauldron_Interceptors_TimedCacheChangeMonitor_ClearCache.htm" />
-  </HelpKINode>
+  <HelpKINode Title="ClearCache event" Url="html/E_Cauldron_Interceptors_TimedCacheChangeMonitor_ClearCache.htm" />
   <HelpKINode Title="ClearStack method" Url="html/M_Cauldron_XAML_Controls_NavigationFrame_ClearStack.htm" />
   <HelpKINode Title="Clone method" Url="html/M_Cauldron_XAML_Validation_ValidationBehaviour_Clone.htm" />
   <HelpKINode Title="Clone(Of T) method" Url="html/M_Cauldron_XAML_Extensions_Clone__1.htm" />
@@ -841,6 +828,14 @@
     <HelpKINode Title="properties" Url="html/Properties_T_Cauldron_JsonConverters_ColorHexToSolidColorBrush.htm" />
   </HelpKINode>
   <HelpKINode Title="ColorHexToSolidColorBrush.ColorHexToSolidColorBrush constructor" Url="html/M_Cauldron_JsonConverters_ColorHexToSolidColorBrush__ctor.htm" />
+  <HelpKINode Title="ColorsAndBrushes class">
+    <HelpKINode Title="ColorsAndBrushes Class" Url="html/T_Cauldron_XAML_Theme_VSLight_ColorsAndBrushes.htm" />
+    <HelpKINode Title="constructor" Url="html/M_Cauldron_XAML_Theme_VSLight_ColorsAndBrushes__ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_XAML_Theme_VSLight_ColorsAndBrushes.htm" />
+  </HelpKINode>
+  <HelpKINode Title="ColorsAndBrushes.ColorsAndBrushes constructor" Url="html/M_Cauldron_XAML_Theme_VSLight_ColorsAndBrushes__ctor.htm" />
+  <HelpKINode Title="ColorsAndBrushes.IComponentConnector.Connect explicitly implemented method" Url="html/M_Cauldron_XAML_Theme_VSLight_ColorsAndBrushes_System_Windows_Markup_IComponentConnector_Connect.htm" />
+  <HelpKINode Title="ColorsAndBrushes.InitializeComponent method" Url="html/M_Cauldron_XAML_Theme_VSLight_ColorsAndBrushes_InitializeComponent.htm" />
   <HelpKINode Title="ColumnAlignment enumeration" Url="html/T_Cauldron_Consoles_ColumnAlignment.htm" />
   <HelpKINode Title="Combine method" Url="html/Overload_Cauldron_ExtensionsDirectoryInfo_Combine.htm" />
   <HelpKINode Title="ComboBoxProperties class">
@@ -1326,35 +1321,19 @@
   <HelpKINode Title="EventTrigger.OnDetach method" Url="html/M_Cauldron_XAML_Interactivity_EventTrigger_OnDetach.htm" />
   <HelpKINode Title="Except method" Url="html/M_Cauldron_Collections_IEnumerableExtensions_Except.htm" />
   <HelpKINode Title="ExceptionLoggerAttribute class">
-    <HelpKINode Title="ExceptionLoggerAttribute Class" Url="html/T_Cauldron_Core_Interceptors_ExceptionLoggerAttribute.htm" />
     <HelpKINode Title="ExceptionLoggerAttribute Class" Url="html/T_Cauldron_Interceptors_ExceptionLoggerAttribute.htm" />
-    <HelpKINode Title="constructor" Url="html/M_Cauldron_Core_Interceptors_ExceptionLoggerAttribute__ctor.htm" />
     <HelpKINode Title="constructor" Url="html/M_Cauldron_Interceptors_ExceptionLoggerAttribute__ctor.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Interceptors_ExceptionLoggerAttribute.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Core_Interceptors_ExceptionLoggerAttribute.htm" />
   </HelpKINode>
-  <HelpKINode Title="ExceptionLoggerAttribute.ExceptionLoggerAttribute constructor">
-    <HelpKINode Title="ExceptionLoggerAttribute Constructor " Url="html/M_Cauldron_Interceptors_ExceptionLoggerAttribute__ctor.htm" />
-    <HelpKINode Title="ExceptionLoggerAttribute Constructor " Url="html/M_Cauldron_Core_Interceptors_ExceptionLoggerAttribute__ctor.htm" />
-  </HelpKINode>
+  <HelpKINode Title="ExceptionLoggerAttribute.ExceptionLoggerAttribute constructor" Url="html/M_Cauldron_Interceptors_ExceptionLoggerAttribute__ctor.htm" />
   <HelpKINode Title="ExceptionToEventLogAttribute class">
-    <HelpKINode Title="ExceptionToEventLogAttribute Class" Url="html/T_Cauldron_Core_Interceptors_ExceptionToEventLogAttribute.htm" />
     <HelpKINode Title="ExceptionToEventLogAttribute Class" Url="html/T_Cauldron_Interceptors_ExceptionToEventLogAttribute.htm" />
     <HelpKINode Title="constructor" Url="html/Overload_Cauldron_Interceptors_ExceptionToEventLogAttribute__ctor.htm" />
-    <HelpKINode Title="constructor" Url="html/Overload_Cauldron_Core_Interceptors_ExceptionToEventLogAttribute__ctor.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Interceptors_ExceptionToEventLogAttribute.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Core_Interceptors_ExceptionToEventLogAttribute.htm" />
-    <HelpKINode Title="properties" Url="html/Properties_T_Cauldron_Core_Interceptors_ExceptionToEventLogAttribute.htm" />
     <HelpKINode Title="properties" Url="html/Properties_T_Cauldron_Interceptors_ExceptionToEventLogAttribute.htm" />
   </HelpKINode>
-  <HelpKINode Title="ExceptionToEventLogAttribute.ExceptionToEventLogAttribute constructor">
-    <HelpKINode Title="ExceptionToEventLogAttribute Constructor " Url="html/Overload_Cauldron_Interceptors_ExceptionToEventLogAttribute__ctor.htm" />
-    <HelpKINode Title="ExceptionToEventLogAttribute Constructor " Url="html/Overload_Cauldron_Core_Interceptors_ExceptionToEventLogAttribute__ctor.htm" />
-  </HelpKINode>
-  <HelpKINode Title="ExceptionToEventLogAttribute.LogName property">
-    <HelpKINode Title="ExceptionToEventLogAttribute.LogName Property " Url="html/P_Cauldron_Core_Interceptors_ExceptionToEventLogAttribute_LogName.htm" />
-    <HelpKINode Title="ExceptionToEventLogAttribute.LogName Property " Url="html/P_Cauldron_Interceptors_ExceptionToEventLogAttribute_LogName.htm" />
-  </HelpKINode>
+  <HelpKINode Title="ExceptionToEventLogAttribute.ExceptionToEventLogAttribute constructor" Url="html/Overload_Cauldron_Interceptors_ExceptionToEventLogAttribute__ctor.htm" />
+  <HelpKINode Title="ExceptionToEventLogAttribute.LogName property" Url="html/P_Cauldron_Interceptors_ExceptionToEventLogAttribute_LogName.htm" />
   <HelpKINode Title="Exclamation enumeration member" Url="html/T_Cauldron_XAML_MessageBoxImage.htm" />
   <HelpKINode Title="Execute method">
     <HelpKINode Title="IExecutionGroup.Execute Method " Url="html/M_Cauldron_Consoles_IExecutionGroup_Execute.htm" />
@@ -1396,11 +1375,11 @@
   </HelpKINode>
   <HelpKINode Title="ExtensionAsync.RunSync method" Url="html/Overload_Cauldron_ExtensionAsync_RunSync.htm" />
   <HelpKINode Title="Extensions class">
+    <HelpKINode Title="Extensions Class" Url="html/T_Cauldron_Collections_Extensions.htm" />
     <HelpKINode Title="Extensions Class" Url="html/T_Cauldron_XAML_Extensions.htm" />
     <HelpKINode Title="Extensions Class" Url="html/T_Cauldron_Extensions.htm" />
-    <HelpKINode Title="Extensions Class" Url="html/T_Cauldron_Collections_Extensions.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Collections_Extensions.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_XAML_Extensions.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Collections_Extensions.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Extensions.htm" />
   </HelpKINode>
   <HelpKINode Title="Extensions.Append(Of TSource) method" Url="html/M_Cauldron_Extensions_Append__1.htm" />
@@ -1476,6 +1455,8 @@
   <HelpKINode Title="Extensions.TryClose method" Url="html/M_Cauldron_XAML_Extensions_TryClose.htm" />
   <HelpKINode Title="Extensions.TryDispose method" Url="html/M_Cauldron_Extensions_TryDispose.htm" />
   <HelpKINode Title="Extensions.TryEncode method" Url="html/M_Cauldron_Extensions_TryEncode.htm" />
+  <HelpKINode Title="Extensions.TryStartService method" Url="html/Overload_Cauldron_Extensions_TryStartService.htm" />
+  <HelpKINode Title="Extensions.TryStopService method" Url="html/Overload_Cauldron_Extensions_TryStopService.htm" />
   <HelpKINode Title="Extensions.UnzipAsBytes method" Url="html/Overload_Cauldron_Extensions_UnzipAsBytes.htm" />
   <HelpKINode Title="Extensions.UnzipAsBytesAsync method" Url="html/Overload_Cauldron_Extensions_UnzipAsBytesAsync.htm" />
   <HelpKINode Title="Extensions.UnzipAsFile method" Url="html/Overload_Cauldron_Extensions_UnzipAsFile.htm" />
@@ -1632,12 +1613,6 @@
   <HelpKINode Title="ExtensionsSecureString.GetBytes method" Url="html/M_Cauldron_ExtensionsSecureString_GetBytes.htm" />
   <HelpKINode Title="ExtensionsSecureString.GetString method" Url="html/M_Cauldron_ExtensionsSecureString_GetString.htm" />
   <HelpKINode Title="ExtensionsSecureString.IsEqualTo method" Url="html/M_Cauldron_ExtensionsSecureString_IsEqualTo.htm" />
-  <HelpKINode Title="ExtensionsWindowsService class">
-    <HelpKINode Title="ExtensionsWindowsService Class" Url="html/T_Cauldron_ExtensionsWindowsService.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_ExtensionsWindowsService.htm" />
-  </HelpKINode>
-  <HelpKINode Title="ExtensionsWindowsService.TryStartService method" Url="html/Overload_Cauldron_ExtensionsWindowsService_TryStartService.htm" />
-  <HelpKINode Title="ExtensionsWindowsService.TryStopService method" Url="html/Overload_Cauldron_ExtensionsWindowsService_TryStopService.htm" />
   <HelpKINode Title="Factory class">
     <HelpKINode Title="Factory Class" Url="html/T_Cauldron_Activator_Factory.htm" />
     <HelpKINode Title="events" Url="html/Events_T_Cauldron_Activator_Factory.htm" />
@@ -2177,6 +2152,7 @@
   <HelpKINode Title="ICloseAwareViewModel.Close method" Url="html/M_Cauldron_XAML_ViewModels_ICloseAwareViewModel_Close.htm" />
   <HelpKINode Title="IComponentConnector.Connect explicitly implemented method">
     <HelpKINode Title="ButtonStyle.IComponentConnector.Connect Method " Url="html/M_Cauldron_XAML_Theme_ButtonStyle_System_Windows_Markup_IComponentConnector_Connect.htm" />
+    <HelpKINode Title="ColorsAndBrushes.IComponentConnector.Connect Method " Url="html/M_Cauldron_XAML_Theme_VSLight_ColorsAndBrushes_System_Windows_Markup_IComponentConnector_Connect.htm" />
     <HelpKINode Title="ComboBoxStyle.IComponentConnector.Connect Method " Url="html/M_Cauldron_XAML_Theme_ComboBoxStyle_System_Windows_Markup_IComponentConnector_Connect.htm" />
     <HelpKINode Title="ExpanderStyle.IComponentConnector.Connect Method " Url="html/M_Cauldron_XAML_Theme_ExpanderStyle_System_Windows_Markup_IComponentConnector_Connect.htm" />
     <HelpKINode Title="ListBoxStyle.IComponentConnector.Connect Method " Url="html/M_Cauldron_XAML_Theme_ListBoxStyle_System_Windows_Markup_IComponentConnector_Connect.htm" />
@@ -2407,6 +2383,7 @@
   </HelpKINode>
   <HelpKINode Title="InitializeComponent method">
     <HelpKINode Title="ButtonStyle.InitializeComponent Method " Url="html/M_Cauldron_XAML_Theme_ButtonStyle_InitializeComponent.htm" />
+    <HelpKINode Title="ColorsAndBrushes.InitializeComponent Method " Url="html/M_Cauldron_XAML_Theme_VSLight_ColorsAndBrushes_InitializeComponent.htm" />
     <HelpKINode Title="ComboBoxStyle.InitializeComponent Method " Url="html/M_Cauldron_XAML_Theme_ComboBoxStyle_InitializeComponent.htm" />
     <HelpKINode Title="ExpanderStyle.InitializeComponent Method " Url="html/M_Cauldron_XAML_Theme_ExpanderStyle_InitializeComponent.htm" />
     <HelpKINode Title="ListBoxStyle.InitializeComponent Method " Url="html/M_Cauldron_XAML_Theme_ListBoxStyle_InitializeComponent.htm" />
@@ -2932,10 +2909,7 @@
   <HelpKINode Title="LocalizedText attached property" Url="html/P_Cauldron_XAML_Interactivity_Localized_LocalizedText.htm" />
   <HelpKINode Title="LocalizedTextProperty field" Url="html/F_Cauldron_XAML_Interactivity_Localized_LocalizedTextProperty.htm" />
   <HelpKINode Title="localPort field" Url="html/F_Cauldron_Net_PingResults_localPort.htm" />
-  <HelpKINode Title="LogName property">
-    <HelpKINode Title="ExceptionToEventLogAttribute.LogName Property " Url="html/P_Cauldron_Interceptors_ExceptionToEventLogAttribute_LogName.htm" />
-    <HelpKINode Title="ExceptionToEventLogAttribute.LogName Property " Url="html/P_Cauldron_Core_Interceptors_ExceptionToEventLogAttribute_LogName.htm" />
-  </HelpKINode>
+  <HelpKINode Title="LogName property" Url="html/P_Cauldron_Interceptors_ExceptionToEventLogAttribute_LogName.htm" />
   <HelpKINode Title="LogonType enumeration" Url="html/T_Cauldron_LogonType.htm" />
   <HelpKINode Title="Low enumeration member" Url="html/T_Cauldron_XAML_Threading_DispatcherPriority.htm" />
   <HelpKINode Title="LowerFirstCharacter method" Url="html/M_Cauldron_Extensions_LowerFirstCharacter.htm" />
@@ -3502,17 +3476,11 @@
   <HelpKINode Title="PasswordStrengthAttribute.OnValidateAsync method" Url="html/M_Cauldron_XAML_Validation_PasswordStrengthAttribute_OnValidateAsync.htm" />
   <HelpKINode Title="PasswordStrengthAttribute.PasswordStrengthAttribute constructor" Url="html/M_Cauldron_XAML_Validation_PasswordStrengthAttribute__ctor.htm" />
   <HelpKINode Title="PerformanceLoggerAttribute class">
-    <HelpKINode Title="PerformanceLoggerAttribute Class" Url="html/T_Cauldron_Core_Interceptors_PerformanceLoggerAttribute.htm" />
     <HelpKINode Title="PerformanceLoggerAttribute Class" Url="html/T_Cauldron_Interceptors_PerformanceLoggerAttribute.htm" />
-    <HelpKINode Title="constructor" Url="html/M_Cauldron_Core_Interceptors_PerformanceLoggerAttribute__ctor.htm" />
     <HelpKINode Title="constructor" Url="html/M_Cauldron_Interceptors_PerformanceLoggerAttribute__ctor.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Interceptors_PerformanceLoggerAttribute.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Core_Interceptors_PerformanceLoggerAttribute.htm" />
   </HelpKINode>
-  <HelpKINode Title="PerformanceLoggerAttribute.PerformanceLoggerAttribute constructor">
-    <HelpKINode Title="PerformanceLoggerAttribute Constructor " Url="html/M_Cauldron_Core_Interceptors_PerformanceLoggerAttribute__ctor.htm" />
-    <HelpKINode Title="PerformanceLoggerAttribute Constructor " Url="html/M_Cauldron_Interceptors_PerformanceLoggerAttribute__ctor.htm" />
-  </HelpKINode>
+  <HelpKINode Title="PerformanceLoggerAttribute.PerformanceLoggerAttribute constructor" Url="html/M_Cauldron_Interceptors_PerformanceLoggerAttribute__ctor.htm" />
   <HelpKINode Title="PictureLibrary property" Url="html/P_Windows_Storage_KnownFolders_PictureLibrary.htm" />
   <HelpKINode Title="Ping method" Url="html/M_Cauldron_Net_Network_Ping.htm" />
   <HelpKINode Title="PingResults structure">
@@ -3709,41 +3677,23 @@
   <HelpKINode Title="RegisterElevated method" Url="html/M_Cauldron_Net_UrlProtocol_RegisterElevated.htm" />
   <HelpKINode Title="RegisterUrlProtocols method" Url="html/M_Cauldron_XAML_ApplicationBase_RegisterUrlProtocols.htm" />
   <HelpKINode Title="RegistryAttribute class">
-    <HelpKINode Title="RegistryAttribute Class" Url="html/T_Cauldron_Core_Interceptors_RegistryAttribute.htm" />
     <HelpKINode Title="RegistryAttribute Class" Url="html/T_Cauldron_Interceptors_RegistryAttribute.htm" />
     <HelpKINode Title="constructor" Url="html/Overload_Cauldron_Interceptors_RegistryAttribute__ctor.htm" />
-    <HelpKINode Title="constructor" Url="html/Overload_Cauldron_Core_Interceptors_RegistryAttribute__ctor.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Interceptors_RegistryAttribute.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Core_Interceptors_RegistryAttribute.htm" />
   </HelpKINode>
-  <HelpKINode Title="RegistryAttribute.RegistryAttribute constructor">
-    <HelpKINode Title="RegistryAttribute Constructor " Url="html/Overload_Cauldron_Core_Interceptors_RegistryAttribute__ctor.htm" />
-    <HelpKINode Title="RegistryAttribute Constructor " Url="html/Overload_Cauldron_Interceptors_RegistryAttribute__ctor.htm" />
-  </HelpKINode>
+  <HelpKINode Title="RegistryAttribute.RegistryAttribute constructor" Url="html/Overload_Cauldron_Interceptors_RegistryAttribute__ctor.htm" />
   <HelpKINode Title="RegistryClassAttribute class">
-    <HelpKINode Title="RegistryClassAttribute Class" Url="html/T_Cauldron_Core_Interceptors_RegistryClassAttribute.htm" />
     <HelpKINode Title="RegistryClassAttribute Class" Url="html/T_Cauldron_Interceptors_RegistryClassAttribute.htm" />
     <HelpKINode Title="constructor" Url="html/Overload_Cauldron_Interceptors_RegistryClassAttribute__ctor.htm" />
-    <HelpKINode Title="constructor" Url="html/Overload_Cauldron_Core_Interceptors_RegistryClassAttribute__ctor.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Interceptors_RegistryClassAttribute.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Core_Interceptors_RegistryClassAttribute.htm" />
   </HelpKINode>
-  <HelpKINode Title="RegistryClassAttribute.RegistryClassAttribute constructor">
-    <HelpKINode Title="RegistryClassAttribute Constructor " Url="html/Overload_Cauldron_Interceptors_RegistryClassAttribute__ctor.htm" />
-    <HelpKINode Title="RegistryClassAttribute Constructor " Url="html/Overload_Cauldron_Core_Interceptors_RegistryClassAttribute__ctor.htm" />
-  </HelpKINode>
+  <HelpKINode Title="RegistryClassAttribute.RegistryClassAttribute constructor" Url="html/Overload_Cauldron_Interceptors_RegistryClassAttribute__ctor.htm" />
   <HelpKINode Title="RegistryClassDoNotInterceptAttribute class">
     <HelpKINode Title="RegistryClassDoNotInterceptAttribute Class" Url="html/T_Cauldron_Interceptors_RegistryClassDoNotInterceptAttribute.htm" />
-    <HelpKINode Title="RegistryClassDoNotInterceptAttribute Class" Url="html/T_Cauldron_Core_Interceptors_RegistryClassDoNotInterceptAttribute.htm" />
     <HelpKINode Title="constructor" Url="html/M_Cauldron_Interceptors_RegistryClassDoNotInterceptAttribute__ctor.htm" />
-    <HelpKINode Title="constructor" Url="html/M_Cauldron_Core_Interceptors_RegistryClassDoNotInterceptAttribute__ctor.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Interceptors_RegistryClassDoNotInterceptAttribute.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Core_Interceptors_RegistryClassDoNotInterceptAttribute.htm" />
   </HelpKINode>
-  <HelpKINode Title="RegistryClassDoNotInterceptAttribute.RegistryClassDoNotInterceptAttribute constructor">
-    <HelpKINode Title="RegistryClassDoNotInterceptAttribute Constructor " Url="html/M_Cauldron_Core_Interceptors_RegistryClassDoNotInterceptAttribute__ctor.htm" />
-    <HelpKINode Title="RegistryClassDoNotInterceptAttribute Constructor " Url="html/M_Cauldron_Interceptors_RegistryClassDoNotInterceptAttribute__ctor.htm" />
-  </HelpKINode>
+  <HelpKINode Title="RegistryClassDoNotInterceptAttribute.RegistryClassDoNotInterceptAttribute constructor" Url="html/M_Cauldron_Interceptors_RegistryClassDoNotInterceptAttribute__ctor.htm" />
   <HelpKINode Title="RelayCommand class">
     <HelpKINode Title="RelayCommand Class" Url="html/T_Cauldron_XAML_RelayCommand.htm" />
     <HelpKINode Title="constructor" Url="html/Overload_Cauldron_XAML_RelayCommand__ctor.htm" />
@@ -3862,10 +3812,7 @@
   </HelpKINode>
   <HelpKINode Title="RunCommand enumeration member" Url="html/T_Cauldron_WindowsService_RecoveryAction.htm" />
   <HelpKINode Title="RunDispatcherAsync method" Url="html/M_Cauldron_XAML_Extensions_RunDispatcherAsync.htm" />
-  <HelpKINode Title="RunSync method">
-    <HelpKINode Title="AsyncHelper.RunSync Method " Url="html/Overload_Cauldron_AsyncHelper_RunSync.htm" />
-    <HelpKINode Title="ExtensionAsync.RunSync Method " Url="html/Overload_Cauldron_ExtensionAsync_RunSync.htm" />
-  </HelpKINode>
+  <HelpKINode Title="RunSync method" Url="html/Overload_Cauldron_ExtensionAsync_RunSync.htm" />
   <HelpKINode Title="Salt property" Url="html/P_Cauldron_Cryptography_KeyMaterial_Salt.htm" />
   <HelpKINode Title="SaveAsync method" Url="html/M_Cauldron_Java_JavaProperties_SaveAsync.htm" />
   <HelpKINode Title="SaveVisualAsPngAsync method" Url="html/M_Cauldron_XAML_Extensions_SaveVisualAsPngAsync.htm" />
@@ -4181,38 +4128,19 @@
   <HelpKINode Title="TextRight enumeration member" Url="html/T_Cauldron_XAML_Theme_GridViewColumnFormatting.htm" />
   <HelpKINode Title="TimedCacheAttribute class">
     <HelpKINode Title="TimedCacheAttribute Class" Url="html/T_Cauldron_Interceptors_TimedCacheAttribute.htm" />
-    <HelpKINode Title="TimedCacheAttribute Class" Url="html/T_Cauldron_Core_Interceptors_TimedCacheAttribute.htm" />
     <HelpKINode Title="constructor" Url="html/Overload_Cauldron_Interceptors_TimedCacheAttribute__ctor.htm" />
-    <HelpKINode Title="constructor" Url="html/Overload_Cauldron_Core_Interceptors_TimedCacheAttribute__ctor.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Interceptors_TimedCacheAttribute.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Core_Interceptors_TimedCacheAttribute.htm" />
   </HelpKINode>
-  <HelpKINode Title="TimedCacheAttribute.TimedCacheAttribute constructor">
-    <HelpKINode Title="TimedCacheAttribute Constructor " Url="html/Overload_Cauldron_Core_Interceptors_TimedCacheAttribute__ctor.htm" />
-    <HelpKINode Title="TimedCacheAttribute Constructor " Url="html/Overload_Cauldron_Interceptors_TimedCacheAttribute__ctor.htm" />
-  </HelpKINode>
+  <HelpKINode Title="TimedCacheAttribute.TimedCacheAttribute constructor" Url="html/Overload_Cauldron_Interceptors_TimedCacheAttribute__ctor.htm" />
   <HelpKINode Title="TimedCacheChangeMonitor class">
     <HelpKINode Title="TimedCacheChangeMonitor Class" Url="html/T_Cauldron_Interceptors_TimedCacheChangeMonitor.htm" />
-    <HelpKINode Title="TimedCacheChangeMonitor Class" Url="html/T_Cauldron_Core_Interceptors_TimedCacheChangeMonitor.htm" />
     <HelpKINode Title="events" Url="html/Events_T_Cauldron_Interceptors_TimedCacheChangeMonitor.htm" />
-    <HelpKINode Title="events" Url="html/Events_T_Cauldron_Core_Interceptors_TimedCacheChangeMonitor.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Interceptors_TimedCacheChangeMonitor.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Core_Interceptors_TimedCacheChangeMonitor.htm" />
     <HelpKINode Title="properties" Url="html/Properties_T_Cauldron_Interceptors_TimedCacheChangeMonitor.htm" />
-    <HelpKINode Title="properties" Url="html/Properties_T_Cauldron_Core_Interceptors_TimedCacheChangeMonitor.htm" />
   </HelpKINode>
-  <HelpKINode Title="TimedCacheChangeMonitor.Clear method">
-    <HelpKINode Title="TimedCacheChangeMonitor.Clear Method " Url="html/M_Cauldron_Interceptors_TimedCacheChangeMonitor_Clear.htm" />
-    <HelpKINode Title="TimedCacheChangeMonitor.Clear Method " Url="html/M_Cauldron_Core_Interceptors_TimedCacheChangeMonitor_Clear.htm" />
-  </HelpKINode>
-  <HelpKINode Title="TimedCacheChangeMonitor.ClearCache event">
-    <HelpKINode Title="TimedCacheChangeMonitor.ClearCache Event" Url="html/E_Cauldron_Core_Interceptors_TimedCacheChangeMonitor_ClearCache.htm" />
-    <HelpKINode Title="TimedCacheChangeMonitor.ClearCache Event" Url="html/E_Cauldron_Interceptors_TimedCacheChangeMonitor_ClearCache.htm" />
-  </HelpKINode>
-  <HelpKINode Title="TimedCacheChangeMonitor.UniqueId property">
-    <HelpKINode Title="TimedCacheChangeMonitor.UniqueId Property " Url="html/P_Cauldron_Interceptors_TimedCacheChangeMonitor_UniqueId.htm" />
-    <HelpKINode Title="TimedCacheChangeMonitor.UniqueId Property " Url="html/P_Cauldron_Core_Interceptors_TimedCacheChangeMonitor_UniqueId.htm" />
-  </HelpKINode>
+  <HelpKINode Title="TimedCacheChangeMonitor.Clear method" Url="html/M_Cauldron_Interceptors_TimedCacheChangeMonitor_Clear.htm" />
+  <HelpKINode Title="TimedCacheChangeMonitor.ClearCache event" Url="html/E_Cauldron_Interceptors_TimedCacheChangeMonitor_ClearCache.htm" />
+  <HelpKINode Title="TimedCacheChangeMonitor.UniqueId property" Url="html/P_Cauldron_Interceptors_TimedCacheChangeMonitor_UniqueId.htm" />
   <HelpKINode Title="Title attached property" Url="html/P_Cauldron_XAML_WindowConfiguration_Title.htm" />
   <HelpKINode Title="Title property" Url="html/P_Cauldron_XAML_ViewModels_IDialogViewModel_Title.htm" />
   <HelpKINode Title="TitleProperty field" Url="html/F_Cauldron_XAML_WindowConfiguration_TitleProperty.htm" />
@@ -4302,8 +4230,8 @@
     <HelpKINode Title="FastDictionary(TKey, TValue).TryGetValue Method " Url="html/M_Cauldron_Collections_FastDictionary_2_TryGetValue.htm" />
     <HelpKINode Title="FastKeyedCollection(TKey, TItem).TryGetValue Method " Url="html/M_Cauldron_Collections_FastKeyedCollection_2_TryGetValue.htm" />
   </HelpKINode>
-  <HelpKINode Title="TryStartService method" Url="html/Overload_Cauldron_ExtensionsWindowsService_TryStartService.htm" />
-  <HelpKINode Title="TryStopService method" Url="html/Overload_Cauldron_ExtensionsWindowsService_TryStopService.htm" />
+  <HelpKINode Title="TryStartService method" Url="html/Overload_Cauldron_Extensions_TryStartService.htm" />
+  <HelpKINode Title="TryStopService method" Url="html/Overload_Cauldron_Extensions_TryStopService.htm" />
   <HelpKINode Title="Type property" Url="html/P_Cauldron_Activator_IFactoryTypeInfo_Type.htm" />
   <HelpKINode Title="TypeIsInterfaceException class">
     <HelpKINode Title="TypeIsInterfaceException Class" Url="html/T_Cauldron_TypeIsInterfaceException.htm" />
@@ -4324,10 +4252,7 @@
   <HelpKINode Title="Unicode enumeration member" Url="html/T_Cauldron_Encodings.htm" />
   <HelpKINode Title="Uninstall method" Url="html/M_Cauldron_WindowsService_WindowsServiceInstaller_Uninstall.htm" />
   <HelpKINode Title="UnInstall property" Url="html/P_Cauldron_WindowsService_ServiceExecutionGroup_1_UnInstall.htm" />
-  <HelpKINode Title="UniqueId property">
-    <HelpKINode Title="TimedCacheChangeMonitor.UniqueId Property " Url="html/P_Cauldron_Interceptors_TimedCacheChangeMonitor_UniqueId.htm" />
-    <HelpKINode Title="TimedCacheChangeMonitor.UniqueId Property " Url="html/P_Cauldron_Core_Interceptors_TimedCacheChangeMonitor_UniqueId.htm" />
-  </HelpKINode>
+  <HelpKINode Title="UniqueId property" Url="html/P_Cauldron_Interceptors_TimedCacheChangeMonitor_UniqueId.htm" />
   <HelpKINode Title="UnitTestAwareFactoryResolverBase class">
     <HelpKINode Title="UnitTestAwareFactoryResolverBase Class" Url="html/T_Cauldron_Activator_UnitTestAwareFactoryResolverBase.htm" />
     <HelpKINode Title="constructor" Url="html/M_Cauldron_Activator_UnitTestAwareFactoryResolverBase__ctor.htm" />

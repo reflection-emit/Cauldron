@@ -41,7 +41,6 @@
       <DocumentationSource sourceFile="..\Cauldron.Win32.WPF.ParameterPassing\Cauldron.Win32.WPF.ParameterPassing.csproj" />
       <DocumentationSource sourceFile="..\Cauldron.Win32.UserInformation\Cauldron.Win32.UserInformation.csproj" />
       <DocumentationSource sourceFile="..\Cauldron.Win32.MonitorInfo\Cauldron.Win32.MonitorInfo.csproj" />
-      <DocumentationSource sourceFile="..\Cauldron.Win32.Interceptors\Cauldron.Win32.Interceptors.csproj" />
       <DocumentationSource sourceFile="..\Cauldron.Win32.Impersonation\Cauldron.Win32.Impersonation.csproj" />
       <DocumentationSource sourceFile="..\Cauldron.Randomizer\Cauldron.Randomizer.csproj" />
       <DocumentationSource sourceFile="..\Cauldron.Localization\Cauldron.Localization.csproj" />

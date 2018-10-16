@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>Capgemini.Cauldron.Randomizer</id>
-    <version>3.2.1</version>
+    <version>3.2.2</version>
     <authors>Alexander Schunk, Capgemini Deutschland GmbH</authors>
     <owners>Alexander Schunk, Capgemini Deutschland GmbH</owners>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
