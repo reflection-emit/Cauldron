@@ -48,7 +48,7 @@ namespace Cauldron.Interception.Cecilator
                     return result;
                 }
 
-                return (object)CodeBlocks.This;
+                return CodeBlocks.This;
             }
         }
 
@@ -134,14 +134,14 @@ namespace Cauldron.Interception.Cecilator
         }
 
         /// <summary>
-        /// Gets the type that inherited the async method.
-        /// </summary>
-        public BuilderType OriginType => this.Method.OriginType;
-
-        /// <summary>
         /// Returns the variable that contains the current state of the async state machine
         /// </summary>
         public LocalVariable StateVariable => this.MoveNextMethod?.GetVariable(0);
+
+        /// <summary>
+        /// Gets the type that inherited the async method.
+        /// </summary>
+        public BuilderType OriginType => this.Method.OriginType;
 
         public Tuple<Positions, ExceptionHandler> GetAsyncStateMachineExceptionBlock()
         {
@@ -187,7 +187,7 @@ namespace Cauldron.Interception.Cecilator
         /// <returns></returns>
         public Position GetAsyncStateMachineLastGetResult()
         {
-            var lastGetResult = this.MoveNextMethod.methodDefinition.Body.Instructions.Last(x =>
+            var lastGetResult = this.MoveNextMethod.methodDefinition.Body.Instructions.LastOrDefault(x =>
             {
                 if (x.OpCode == OpCodes.Call)
                 {
@@ -211,7 +211,7 @@ namespace Cauldron.Interception.Cecilator
         /// <returns></returns>
         public Position GetAsyncStateMachineLastSetResult()
         {
-            var lastSetResult = this.MoveNextMethod.methodDefinition.Body.Instructions.Last(x =>
+            var lastSetResult = this.MoveNextMethod.methodDefinition.Body.Instructions.LastOrDefault(x =>
             {
                 if (x.OpCode == OpCodes.Call)
                 {
@@ -265,7 +265,7 @@ namespace Cauldron.Interception.Cecilator
         }
 
         public Field InsertFieldToAsyncStateMachine(string fieldName, BuilderType fieldType, Func<Coder, object> setCoder) =>
-            InsertFieldToAsyncStateMachine(fieldName, fieldType.typeReference, setCoder);
+            this.InsertFieldToAsyncStateMachine(fieldName, fieldType.typeReference, setCoder);
 
         public Field InsertFieldToAsyncStateMachine(string fieldName, TypeReference fieldType, Func<Coder, object> setCoder)
         {
