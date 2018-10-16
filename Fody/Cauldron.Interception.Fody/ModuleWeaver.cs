@@ -91,7 +91,7 @@ namespace Cauldron.Interception.Fody
                 }
             }
 
-            CreateAssemblyListingArray(builder, referencedAssembliesMethod, assembly.Type, builder.ReferencedAssemblies);
+            this.CreateAssemblyListingArray(builder, referencedAssembliesMethod, assembly.Type, builder.ReferencedAssemblies);
         }
 
         private void CreateAssemblyListingArray(Builder builder, Method method, BuilderType assemblyType, IEnumerable<AssemblyDefinition> assembliesToList)
