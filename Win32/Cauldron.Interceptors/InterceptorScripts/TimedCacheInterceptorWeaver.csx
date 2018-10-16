@@ -1,4 +1,4 @@
-﻿#r "System.Security"
+﻿//css_reference "System.Security"
 
 using System;
 using System.Text;
@@ -30,7 +30,7 @@ public static class TimedCacheInterceptorWeaver
         {
             var targetMethod = method.AsyncMethod ?? method.Method;
 
-            builder.Log(LogTypes.Info, $"Implementing TimedCache in method {method.Method.Name}");
+            builder.Log(LogTypes.Info, "Implementing TimedCache in method" + method.Method.Name);
 
             if (method.Method.ReturnType.Fullname == "System.Void")
             {
@@ -40,7 +40,7 @@ public static class TimedCacheInterceptorWeaver
 
             if (method.AsyncMethod == null && method.Method.ReturnType.Inherits(BuilderTypes.Task.BuilderType.Fullname))
             {
-                builder.Log(LogTypes.Error, method.Method, $"- TimedCacheAttribute for method {method.Method.Name} will not be implemented. Methods that returns 'Task' without async are not supported.");
+                builder.Log(LogTypes.Error, method.Method, "- TimedCacheAttribute for method" + method.Method.Name + " will not be implemented. Methods that returns 'Task' without async are not supported.");
                 continue;
             }
 

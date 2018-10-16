@@ -17,6 +17,7 @@
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Cauldron Interception interceptor interception AOP Fody Cecil CIL ILWeaving aspect decorator boundary invocation</tags>
     <releaseNotes>
+      2018.10.16 - [C] Now using CS-Script to compile csx files.
       2018.08.02 - [B] Multiple execution of OnEnter on async methods bug is fixed
       2018.08.01 - [B] GetParametersArray was still broken - now fixed
       2018.06.29 - [B] Scripting build bug that caused Cauldron not to rebuild changed scripts, solved
@@ -78,6 +79,7 @@
     </dependencies>
   </metadata>
   <files>
+    <file src="..\Fody\Cauldron.Interception.Fody\bin\Release\CSScriptLibrary.dll" target="netclassicweaver" />
     <file src="..\Fody\Cauldron.Interception.Fody\bin\Release\Cauldron.Interception.Cecilator.dll" target="netclassicweaver" />
     <file src="..\Fody\Cauldron.Interception.Fody\bin\Release\Cauldron.Interception.Cecilator.pdb" target="netclassicweaver" />
     <file src="..\Fody\Cauldron.Interception.Fody\bin\Release\Cauldron.Interception.Fody.dll" target="netclassicweaver" />

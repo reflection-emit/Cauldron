@@ -36,6 +36,9 @@
     <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CSScriptLibrary, Version=3.28.7.0, Culture=neutral, PublicKeyToken=70fcc3d18c749033, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\CS-Script.lib.3.28.7\lib\CSScriptLibrary.dll</HintPath>
+    </Reference>
     <Reference Include="FodyHelpers, Version=3.2.4.0, Culture=neutral, PublicKeyToken=1ca091877d12ca03, processorArchitecture=MSIL">
       <HintPath>..\..\packages\FodyHelpers.3.2.4\lib\net46\FodyHelpers.dll</HintPath>
     </Reference>
