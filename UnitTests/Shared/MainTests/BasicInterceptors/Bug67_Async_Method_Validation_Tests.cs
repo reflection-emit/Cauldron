@@ -71,12 +71,12 @@ namespace MainTests.BasicInterceptors
             }
             catch (Exception)
             {
-                await Task.Delay(1000);
+                await Task.Delay(1);
             }
             finally
             {
-                await Task.Delay(1000);
-                await Task.Delay(1000);
+                await Task.Delay(1);
+                await Task.Delay(1);
             }
         }
 
@@ -88,12 +88,12 @@ namespace MainTests.BasicInterceptors
             }
             catch (Exception)
             {
-                await Task.Delay(1000);
-                await Task.Delay(1000);
+                await Task.Delay(1);
+                await Task.Delay(1);
             }
             finally
             {
-                await Task.Delay(1000);
+                await Task.Delay(1);
             }
         }
 
@@ -102,15 +102,15 @@ namespace MainTests.BasicInterceptors
         {
             try
             {
-                await Task.Delay(1000);
+                await Task.Delay(1);
             }
             catch (Exception)
             {
-                await Task.Delay(1000);
+                await Task.Delay(1);
             }
             finally
             {
-                await Task.Delay(1000);
+                await Task.Delay(1);
             }
         }
 
@@ -119,15 +119,15 @@ namespace MainTests.BasicInterceptors
         {
             try
             {
-                await Task.Delay(1000);
+                await Task.Delay(1);
             }
             catch (Exception)
             {
             }
             finally
             {
-                await Task.Delay(1000);
-                await Task.Delay(1000);
+                await Task.Delay(1);
+                await Task.Delay(1);
             }
         }
 
@@ -136,12 +136,12 @@ namespace MainTests.BasicInterceptors
         {
             try
             {
-                await Task.Delay(1000);
+                await Task.Delay(1);
             }
             catch (Exception)
             {
-                await Task.Delay(1000);
-                await Task.Delay(1000);
+                await Task.Delay(1);
+                await Task.Delay(1);
             }
         }
 
@@ -150,15 +150,15 @@ namespace MainTests.BasicInterceptors
         {
             try
             {
-                await Task.Delay(1000);
-                await Task.Delay(1000);
+                await Task.Delay(1);
+                await Task.Delay(1);
             }
             catch (Exception)
             {
             }
             finally
             {
-                await Task.Delay(1000);
+                await Task.Delay(1);
             }
         }
 
@@ -167,12 +167,12 @@ namespace MainTests.BasicInterceptors
         {
             try
             {
-                await Task.Delay(1000);
-                await Task.Delay(1000);
+                await Task.Delay(1);
+                await Task.Delay(1);
             }
             catch (Exception)
             {
-                await Task.Delay(1000);
+                await Task.Delay(1);
             }
         }
 
@@ -187,9 +187,9 @@ namespace MainTests.BasicInterceptors
             }
             finally
             {
-                await Task.Delay(1000);
-                await Task.Delay(1000);
-                await Task.Delay(1000);
+                await Task.Delay(1);
+                await Task.Delay(1);
+                await Task.Delay(1);
             }
         }
 
@@ -201,9 +201,9 @@ namespace MainTests.BasicInterceptors
             }
             catch (Exception)
             {
-                await Task.Delay(1000);
-                await Task.Delay(1000);
-                await Task.Delay(1000);
+                await Task.Delay(1);
+                await Task.Delay(1);
+                await Task.Delay(1);
             }
         }
 
@@ -212,9 +212,9 @@ namespace MainTests.BasicInterceptors
         {
             try
             {
-                await Task.Delay(1000);
-                await Task.Delay(1000);
-                await Task.Delay(1000);
+                await Task.Delay(1);
+                await Task.Delay(1);
+                await Task.Delay(1);
             }
             catch (Exception)
             {
@@ -224,58 +224,58 @@ namespace MainTests.BasicInterceptors
         [TestingAnnotation]
         public async Task Case_10_Test_MethodAsync()
         {
-            await Task.Delay(1000);
+            await Task.Delay(1);
 
             try
             {
             }
             catch (Exception)
             {
-                await Task.Delay(1000);
+                await Task.Delay(1);
             }
             finally
             {
-                await Task.Delay(1000);
+                await Task.Delay(1);
             }
         }
 
         [TestingAnnotation]
         public async Task Case_9_Test_MethodAsync()
         {
-            await Task.Delay(1000);
+            await Task.Delay(1);
 
             try
             {
-                await Task.Delay(1000);
+                await Task.Delay(1);
             }
             catch (Exception)
             {
             }
             finally
             {
-                await Task.Delay(1000);
+                await Task.Delay(1);
             }
         }
 
         [TestingAnnotation]
         public async Task Case_8_Test_MethodAsync()
         {
-            await Task.Delay(1000);
+            await Task.Delay(1);
 
             try
             {
-                await Task.Delay(1000);
+                await Task.Delay(1);
             }
             catch (Exception)
             {
-                await Task.Delay(1000);
+                await Task.Delay(1);
             }
         }
 
         [TestingAnnotation]
         public async Task Case_7_Test_MethodAsync()
         {
-            await Task.Delay(1000);
+            await Task.Delay(1);
 
             try
             {
@@ -285,35 +285,35 @@ namespace MainTests.BasicInterceptors
             }
             finally
             {
-                await Task.Delay(1000);
-                await Task.Delay(1000);
+                await Task.Delay(1);
+                await Task.Delay(1);
             }
         }
 
         [TestingAnnotation]
         public async Task Case_6_Test_MethodAsync()
         {
-            await Task.Delay(1000);
+            await Task.Delay(1);
 
             try
             {
             }
             catch (Exception)
             {
-                await Task.Delay(1000);
-                await Task.Delay(1000);
+                await Task.Delay(1);
+                await Task.Delay(1);
             }
         }
 
         [TestingAnnotation]
         public async Task Case_5_Test_MethodAsync()
         {
-            await Task.Delay(1000);
+            await Task.Delay(1);
 
             try
             {
-                await Task.Delay(1000);
-                await Task.Delay(1000);
+                await Task.Delay(1);
+                await Task.Delay(1);
             }
             catch (Exception)
             {
@@ -323,8 +323,8 @@ namespace MainTests.BasicInterceptors
         [TestingAnnotation]
         public async Task Case_4_Test_MethodAsync()
         {
-            await Task.Delay(1000);
-            await Task.Delay(1000);
+            await Task.Delay(1);
+            await Task.Delay(1);
 
             try
             {
@@ -334,35 +334,35 @@ namespace MainTests.BasicInterceptors
             }
             finally
             {
-                await Task.Delay(1000);
+                await Task.Delay(1);
             }
         }
 
         [TestingAnnotation]
         public async Task Case_3_Test_MethodAsync()
         {
-            await Task.Delay(1000);
-            await Task.Delay(1000);
+            await Task.Delay(1);
+            await Task.Delay(1);
 
             try
             {
-                await Task.Delay(1000);
+                await Task.Delay(1);
             }
             catch (Exception)
             {
-                await Task.Delay(1000);
+                await Task.Delay(1);
             }
         }
 
         [TestingAnnotation]
         public async Task Case_2_Test_MethodAsync()
         {
-            await Task.Delay(1000);
-            await Task.Delay(1000);
+            await Task.Delay(1);
+            await Task.Delay(1);
 
             try
             {
-                await Task.Delay(1000);
+                await Task.Delay(1);
             }
             catch (Exception)
             {
@@ -372,9 +372,9 @@ namespace MainTests.BasicInterceptors
         [TestingAnnotation]
         public async Task Case_1_Test_MethodAsync()
         {
-            await Task.Delay(1000);
-            await Task.Delay(1000);
-            await Task.Delay(1000);
+            await Task.Delay(1);
+            await Task.Delay(1);
+            await Task.Delay(1);
 
             try
             {

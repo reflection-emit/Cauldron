@@ -34,7 +34,7 @@ public class CoderTest
 
     public static void Arg_BinaryOperations(Builder builder)
     {
-        var name = nameof(Arg_BinaryOperations);
+        var name = "Arg_BinaryOperations";
 
         var method = testType.CreateMethod(Modifiers.Public, name, Type.EmptyTypes);
         method.CustomAttributes.Add(builder.GetType(TestMethodAttribute));
@@ -55,7 +55,7 @@ public class CoderTest
 
     public static void Arg_NewObj(Builder builder)
     {
-        var name = nameof(Arg_NewObj);
+        var name = "Arg_NewObj";
 
         var method = testType.CreateMethod(Modifiers.Public, name, Type.EmptyTypes);
         method.CustomAttributes.Add(builder.GetType(TestMethodAttribute));
@@ -84,7 +84,7 @@ public class CoderTest
 
     public static void Arg_Nullable(Builder builder)
     {
-        var name = nameof(Arg_Nullable);
+        var name = "Arg_Nullable";
 
         var method = testType.CreateMethod(Modifiers.Public, name, Type.EmptyTypes);
         method.CustomAttributes.Add(builder.GetType(TestMethodAttribute));
@@ -106,7 +106,7 @@ public class CoderTest
 
     public static void Default_Type_Value(Builder builder)
     {
-        var method = testType.CreateMethod(Modifiers.Public, nameof(Default_Type_Value), Type.EmptyTypes);
+        var method = testType.CreateMethod(Modifiers.Public, "Default_Type_Value", Type.EmptyTypes);
         method.CustomAttributes.Add(builder.GetType(TestMethodAttribute));
 
         method.NewCoder()
@@ -119,7 +119,7 @@ public class CoderTest
 
     public static void Field_As_Call(Builder builder)
     {
-        var name = nameof(Field_As_Call);
+        var name = "Field_As_Call";
 
         var method = testType.CreateMethod(Modifiers.Public, name, Type.EmptyTypes);
         method.CustomAttributes.Add(builder.GetType(TestMethodAttribute));
@@ -139,7 +139,7 @@ public class CoderTest
 
     public static void Field_As_Load(Builder builder)
     {
-        var method = testType.CreateMethod(Modifiers.Public, nameof(Field_As_Load), Type.EmptyTypes);
+        var method = testType.CreateMethod(Modifiers.Public, "Field_As_Load", Type.EmptyTypes);
         method.CustomAttributes.Add(builder.GetType(TestMethodAttribute));
 
         method.NewCoder()
@@ -152,7 +152,7 @@ public class CoderTest
 
     public static void Field_BinaryOperations(Builder builder)
     {
-        var method = testType.CreateMethod(Modifiers.Public, nameof(Field_BinaryOperations), Type.EmptyTypes);
+        var method = testType.CreateMethod(Modifiers.Public, "Field_BinaryOperations", Type.EmptyTypes);
         method.CustomAttributes.Add(builder.GetType(TestMethodAttribute));
 
         method.NewCoder()
@@ -167,7 +167,7 @@ public class CoderTest
 
     public static void Field_Load_Set(Builder builder)
     {
-        var method = testType.CreateMethod(Modifiers.Public, nameof(Field_Load_Set), Type.EmptyTypes);
+        var method = testType.CreateMethod(Modifiers.Public, "Field_Load_Set", Type.EmptyTypes);
         method.CustomAttributes.Add(builder.GetType(TestMethodAttribute));
 
         method.NewCoder()
@@ -179,7 +179,7 @@ public class CoderTest
 
     public static void Field_NewObj(Builder builder)
     {
-        var method = testType.CreateMethod(Modifiers.Public, nameof(Field_NewObj), Type.EmptyTypes);
+        var method = testType.CreateMethod(Modifiers.Public, "Field_NewObj", Type.EmptyTypes);
         method.CustomAttributes.Add(builder.GetType(TestMethodAttribute));
 
         method.NewCoder()
@@ -192,7 +192,7 @@ public class CoderTest
 
     public static void GetChildrenType_Nullable_Tests(Builder builder)
     {
-        var method = testType.CreateMethod(Modifiers.Public, nameof(GetChildrenType_Nullable_Tests), Type.EmptyTypes);
+        var method = testType.CreateMethod(Modifiers.Public, "GetChildrenType_Nullable_Tests", Type.EmptyTypes);
         var type = BuilderTypes.Nullable1.BuilderType.MakeGeneric(typeof(int));
         method.CustomAttributes.Add(builder.GetType(TestMethodAttribute));
 
@@ -204,7 +204,7 @@ public class CoderTest
 
     public static void GetChildrenType_Dictionary_Tests(Builder builder)
     {
-        var method = testType.CreateMethod(Modifiers.Public, nameof(GetChildrenType_Dictionary_Tests), Type.EmptyTypes);
+        var method = testType.CreateMethod(Modifiers.Public, "GetChildrenType_Dictionary_Tests", Type.EmptyTypes);
         var type = BuilderTypes.Dictionary2.BuilderType.MakeGeneric(typeof(int), typeof(string));
         method.CustomAttributes.Add(builder.GetType(TestMethodAttribute));
 
@@ -216,7 +216,7 @@ public class CoderTest
 
     public static void GetChildrenType_IEnumerable_Tests(Builder builder)
     {
-        var method = testType.CreateMethod(Modifiers.Public, nameof(GetChildrenType_IEnumerable_Tests), Type.EmptyTypes);
+        var method = testType.CreateMethod(Modifiers.Public, "GetChildrenType_IEnumerable_Tests", Type.EmptyTypes);
         var type = BuilderTypes.IEnumerable1.BuilderType.MakeGeneric(typeof(int));
         method.CustomAttributes.Add(builder.GetType(TestMethodAttribute));
 
@@ -228,10 +228,10 @@ public class CoderTest
 
     public static void Field_NewObj_Load_Delegate(Builder builder)
     {
-        var field1Name = "field_1" + nameof(Field_NewObj_Load_Delegate);
-        var field2Name = "field_2" + nameof(Field_NewObj_Load_Delegate);
+        var field1Name = "field_1" + "Field_NewObj_Load_Delegate";
+        var field2Name = "field_2" + "Field_NewObj_Load_Delegate";
 
-        var method = testType.CreateMethod(Modifiers.Public, nameof(Field_NewObj_Load_Delegate), Type.EmptyTypes);
+        var method = testType.CreateMethod(Modifiers.Public, "Field_NewObj_Load_Delegate", Type.EmptyTypes);
         method.CustomAttributes.Add(builder.GetType(TestMethodAttribute));
         method.CreateField(testType, field1Name);
         method.CreateField(BuilderTypes.Object.BuilderType, field2Name);
@@ -246,7 +246,7 @@ public class CoderTest
 
     public static void Field_Nullable(Builder builder)
     {
-        var method = testType.CreateMethod(Modifiers.Public, nameof(Field_Nullable), Type.EmptyTypes);
+        var method = testType.CreateMethod(Modifiers.Public, "Field_Nullable", Type.EmptyTypes);
         method.CustomAttributes.Add(builder.GetType(TestMethodAttribute));
 
         var nullableField = testType.CreateField(Modifiers.Internal, BuilderTypes.Nullable1.BuilderType.MakeGeneric(BuilderTypes.Int32.BuilderType), "nullable_field");
@@ -260,7 +260,7 @@ public class CoderTest
 
     public static void Field_Return(Builder builder)
     {
-        var name = nameof(Field_Return);
+        var name = "Field_Return";
 
         var method = testType.CreateMethod(Modifiers.Public, name, Type.EmptyTypes);
         method.CustomAttributes.Add(builder.GetType(TestMethodAttribute));
@@ -280,7 +280,7 @@ public class CoderTest
 
     public static void Field_Set_With_Call(Builder builder)
     {
-        var name = nameof(Field_Set_With_Call);
+        var name = "Field_Set_With_Call";
 
         var method = testType.CreateMethod(Modifiers.Public, name, Type.EmptyTypes);
         method.CustomAttributes.Add(builder.GetType(TestMethodAttribute));
@@ -300,7 +300,7 @@ public class CoderTest
 
     public static void LocalVariable_As_Call(Builder builder)
     {
-        var name = nameof(LocalVariable_As_Call);
+        var name = "LocalVariable_As_Call";
 
         var method = testType.CreateMethod(Modifiers.Public, name, Type.EmptyTypes);
         method.CustomAttributes.Add(builder.GetType(TestMethodAttribute));
@@ -322,7 +322,7 @@ public class CoderTest
 
     public static void LocalVariable_As_Load(Builder builder)
     {
-        var method = testType.CreateMethod(Modifiers.Public, nameof(LocalVariable_As_Load), Type.EmptyTypes);
+        var method = testType.CreateMethod(Modifiers.Public, "LocalVariable_As_Load", Type.EmptyTypes);
         method.CustomAttributes.Add(builder.GetType(TestMethodAttribute));
 
         var var1 = method.GetOrCreateVariable(typeof(object));
@@ -337,7 +337,7 @@ public class CoderTest
 
     public static void LocalVariable_BinaryOperations(Builder builder)
     {
-        var method = testType.CreateMethod(Modifiers.Public, nameof(LocalVariable_BinaryOperations), Type.EmptyTypes);
+        var method = testType.CreateMethod(Modifiers.Public, "LocalVariable_BinaryOperations", Type.EmptyTypes);
         method.CustomAttributes.Add(builder.GetType(TestMethodAttribute));
 
         var var1 = method.GetOrCreateVariable(typeof(int));
@@ -355,7 +355,7 @@ public class CoderTest
 
     public static void LocalVariable_BinaryOperations_Implicit_Overriden_And(Builder builder)
     {
-        var method = testType.CreateMethod(Modifiers.Public, nameof(LocalVariable_BinaryOperations_Implicit_Overriden_And), Type.EmptyTypes);
+        var method = testType.CreateMethod(Modifiers.Public, "LocalVariable_BinaryOperations_Implicit_Overriden_And", Type.EmptyTypes);
         method.CustomAttributes.Add(builder.GetType(TestMethodAttribute));
 
         var testClassType = builder.GetType("UnitTests.Cecilator.TestClass");
@@ -372,7 +372,7 @@ public class CoderTest
 
     public static void LocalVariable_NewObj(Builder builder)
     {
-        var method = testType.CreateMethod(Modifiers.Public, nameof(LocalVariable_NewObj), Type.EmptyTypes);
+        var method = testType.CreateMethod(Modifiers.Public, "LocalVariable_NewObj", Type.EmptyTypes);
         method.CustomAttributes.Add(builder.GetType(TestMethodAttribute));
 
         method.NewCoder()
@@ -385,7 +385,7 @@ public class CoderTest
 
     public static void LocalVariable_Nullable(Builder builder)
     {
-        var method = testType.CreateMethod(Modifiers.Public, nameof(LocalVariable_Nullable), Type.EmptyTypes);
+        var method = testType.CreateMethod(Modifiers.Public, "LocalVariable_Nullable", Type.EmptyTypes);
         method.CustomAttributes.Add(builder.GetType(TestMethodAttribute));
 
         var var1 = method.GetOrCreateVariable(BuilderTypes.Nullable1.BuilderType.MakeGeneric(BuilderTypes.Int32.BuilderType));
@@ -399,7 +399,7 @@ public class CoderTest
 
     public static void Rethrow_Try_Catch(Builder builder)
     {
-        var name = nameof(Rethrow_Try_Catch);
+        var name = "Rethrow_Try_Catch";
 
         var method = testType.CreateMethod(Modifiers.Public, name, Type.EmptyTypes);
         method.CustomAttributes.Add(builder.GetType(TestMethodAttribute));
@@ -415,7 +415,7 @@ public class CoderTest
 
     public static void Simple_Try_Catch(Builder builder)
     {
-        var name = nameof(Simple_Try_Catch);
+        var name = "Simple_Try_Catch";
 
         var method = testType.CreateMethod(Modifiers.Public, name, Type.EmptyTypes);
         method.CustomAttributes.Add(builder.GetType(TestMethodAttribute));
@@ -430,7 +430,7 @@ public class CoderTest
 
     public static void ThrowNew_Try_Catch(Builder builder)
     {
-        var name = nameof(ThrowNew_Try_Catch);
+        var name = "ThrowNew_Try_Catch";
 
         var method = testType.CreateMethod(Modifiers.Public, name, Type.EmptyTypes);
         method.CustomAttributes.Add(builder.GetType(TestMethodAttribute));

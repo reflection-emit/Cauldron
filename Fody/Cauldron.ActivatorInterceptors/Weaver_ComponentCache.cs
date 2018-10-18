@@ -1,4 +1,5 @@
-﻿using Cauldron.Interception.Cecilator;
+﻿using Cauldron.ActivatorInterceptors;
+using Cauldron.Interception.Cecilator;
 using Cauldron.Interception.Cecilator.Coders;
 using Cauldron.Interception.Fody;
 using Mono.Cecil;
@@ -632,10 +633,12 @@ public static class Weaver_ComponentCache
         var objectArray = (TypeReference)BuilderTypes.Object.BuilderType.MakeArray().Import();
 
         if (
-            !injectAttributeValues.ForceDontCreateMany &&
-            (BuilderTypes.IEnumerable.BuilderType.AreReferenceAssignable(property.ReturnType) || property.ReturnType.IsArray) &&
-            !property.ReturnType.Implements(BuilderTypes.IDictionary) &&
-            (injectAttributeValues.Arguments == null || injectAttributeValues.Arguments.Length == 0) && !injectAttributeValues.NoPreloading)
+            injectAttributeValues.ForceDontCreateMany            /**/  == false /**/ &&
+            property.ReturnType.IsIEnumerable()                  /**/  == true  /**/ &&
+            property.ReturnType.IsIDictionary()                  /**/  == false /**/ &&
+            injectAttributeValues.IsParameterless()              /**/  == true  /**/ &&
+            injectAttributeValues.NoPreloading                   /**/  == false
+            )
         {
             // Special case for parameterless injections - preloading stuff in .cctor
             var injectorField = CreateInjectorField(property, true);
@@ -655,9 +658,14 @@ public static class Weaver_ComponentCache
                     BuilderTypes.Factory.GetMethod_GetFactoryTypeInfoManyOrdered() :
                     BuilderTypes.Factory.GetMethod_GetFactoryTypeInfoMany());
         }
-        else if (
-            !injectAttributeValues.ForceDontCreateMany && property.ReturnType.IsEnumerable && !property.ReturnType.Implements(BuilderTypes.IDictionary) &&
-            (injectAttributeValues.Arguments == null || injectAttributeValues.Arguments.Length == 0))
+        else
+        if (
+            injectAttributeValues.ForceDontCreateMany            /**/  == false /**/ &&
+            property.ReturnType.IsIEnumerable()                  /**/  == true  /**/ &&
+            property.ReturnType.IsIDictionary()                  /**/  == false /**/ &&
+            injectAttributeValues.IsParameterless()              /**/  == true  /**/ &&
+            injectAttributeValues.NoPreloading                   /**/  == true
+            )
         {
             if (string.IsNullOrEmpty(injectAttributeValues.ContractName) && injectAttributeValues.ContractType == null)
                 then.SetValue(property.BackingField, x => x.Call(injectAttributeValues.IsOrdered ?
@@ -672,8 +680,13 @@ public static class Weaver_ComponentCache
                                                                     BuilderTypes.Factory.GetMethod_CreateManyOrdered(BuilderTypes.String) :
                                                                     BuilderTypes.Factory.GetMethod_CreateMany(BuilderTypes.String), injectAttributeValues.ContractName));
         }
-        else if (
-            !injectAttributeValues.ForceDontCreateMany && property.ReturnType.IsEnumerable && !property.ReturnType.Implements(BuilderTypes.IDictionary))
+        if (
+            injectAttributeValues.ForceDontCreateMany            /**/  == false /**/ &&
+            property.ReturnType.IsIEnumerable()                  /**/  == true  /**/ &&
+            property.ReturnType.IsIDictionary()                  /**/  == false /**/ &&
+            injectAttributeValues.IsParameterless()              /**/  == false /**/ &&
+            injectAttributeValues.NoPreloading                   /**/  == true
+            )
         {
             if (string.IsNullOrEmpty(injectAttributeValues.ContractName) && injectAttributeValues.ContractType == null)
                 then.SetValue(property.BackingField, x => x.Call(injectAttributeValues.IsOrdered ?
@@ -957,6 +970,32 @@ public static class Weaver_ComponentCache
     }
     */
 
+    internal class InjectAttributeValues
+    {
+        public InjectAttributeValues(BuilderCustomAttribute builderCustomAttribute)
+        {
+            if (builderCustomAttribute.ConstructorArguments != null && builderCustomAttribute.ConstructorArguments.Length > 0)
+                this.Arguments = builderCustomAttribute.ConstructorArguments[0].Value as CustomAttributeArgument[];
+
+            if (builderCustomAttribute.Properties.ContainsKey("ContractType")) this.ContractType = (builderCustomAttribute.Properties["ContractType"].Value as TypeReference)?.ToBuilderType();
+            if (builderCustomAttribute.Properties.ContainsKey("ContractName")) this.ContractName = builderCustomAttribute.Properties["ContractName"].Value as string;
+            if (builderCustomAttribute.Properties.ContainsKey("InjectFirst")) this.InjectFirst = (bool)builderCustomAttribute.Properties["InjectFirst"].Value;
+            if (builderCustomAttribute.Properties.ContainsKey("IsOrdered")) this.IsOrdered = (bool)builderCustomAttribute.Properties["IsOrdered"].Value;
+            if (builderCustomAttribute.Properties.ContainsKey("MakeThreadSafe")) this.MakeThreadSafe = (bool)builderCustomAttribute.Properties["MakeThreadSafe"].Value;
+            if (builderCustomAttribute.Properties.ContainsKey("ForceDontCreateMany")) this.ForceDontCreateMany = (bool)builderCustomAttribute.Properties["ForceDontCreateMany"].Value;
+            if (builderCustomAttribute.Properties.ContainsKey("NoPreloading")) this.NoPreloading = (bool)builderCustomAttribute.Properties["NoPreloading"].Value;
+        }
+
+        public CustomAttributeArgument[] Arguments { get; }
+        public string ContractName { get; }
+        public BuilderType ContractType { get; }
+        public bool ForceDontCreateMany { get; }
+        public bool InjectFirst { get; }
+        public bool IsOrdered { get; }
+        public bool MakeThreadSafe { get; }
+        public bool NoPreloading { get; }
+    }
+
     private class ComponentAttributeValues
     {
         public ComponentAttributeValues(AttributedType attributedType)
@@ -990,31 +1029,5 @@ public static class Weaver_ComponentCache
         public bool InvokeOnObjectCreationEvent { get; }
         public int Policy { get; }
         public uint Priority { get; }
-    }
-
-    private class InjectAttributeValues
-    {
-        public InjectAttributeValues(BuilderCustomAttribute builderCustomAttribute)
-        {
-            if (builderCustomAttribute.ConstructorArguments != null && builderCustomAttribute.ConstructorArguments.Length > 0)
-                this.Arguments = builderCustomAttribute.ConstructorArguments[0].Value as CustomAttributeArgument[];
-
-            if (builderCustomAttribute.Properties.ContainsKey("ContractType")) this.ContractType = (builderCustomAttribute.Properties["ContractType"].Value as TypeReference)?.ToBuilderType();
-            if (builderCustomAttribute.Properties.ContainsKey("ContractName")) this.ContractName = builderCustomAttribute.Properties["ContractName"].Value as string;
-            if (builderCustomAttribute.Properties.ContainsKey("InjectFirst")) this.InjectFirst = (bool)builderCustomAttribute.Properties["InjectFirst"].Value;
-            if (builderCustomAttribute.Properties.ContainsKey("IsOrdered")) this.IsOrdered = (bool)builderCustomAttribute.Properties["IsOrdered"].Value;
-            if (builderCustomAttribute.Properties.ContainsKey("MakeThreadSafe")) this.MakeThreadSafe = (bool)builderCustomAttribute.Properties["MakeThreadSafe"].Value;
-            if (builderCustomAttribute.Properties.ContainsKey("ForceDontCreateMany")) this.ForceDontCreateMany = (bool)builderCustomAttribute.Properties["ForceDontCreateMany"].Value;
-            if (builderCustomAttribute.Properties.ContainsKey("NoPreloading")) this.NoPreloading = (bool)builderCustomAttribute.Properties["NoPreloading"].Value;
-        }
-
-        public CustomAttributeArgument[] Arguments { get; }
-        public string ContractName { get; }
-        public BuilderType ContractType { get; }
-        public bool ForceDontCreateMany { get; }
-        public bool InjectFirst { get; }
-        public bool IsOrdered { get; }
-        public bool MakeThreadSafe { get; }
-        public bool NoPreloading { get; }
     }
 }

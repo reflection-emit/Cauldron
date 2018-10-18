@@ -24,7 +24,6 @@ public static class GetParametersArray
 
             // We dont need the attribute on the method anymore... So lets get rid of it.
             attributedMethod.Attribute.Remove();
-            Console.WriteLine("");
         }
     }
 }
