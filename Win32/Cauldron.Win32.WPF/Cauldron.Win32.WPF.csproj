@@ -130,6 +130,7 @@
     <Compile Include="BehaviourInvocationArgs.cs" />
     <Compile Include="BitmapImageEx.cs" />
     <Compile Include="CauldronTemplateSelector.cs" />
+    <Compile Include="ICauldronUICommand.cs" />
     <Compile Include="CauldronUICommand.cs" />
     <Compile Include="CauldronUICommandCollection.cs" />
     <Compile Include="Common.cs" />

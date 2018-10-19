@@ -60,7 +60,7 @@ namespace Cauldron.XAML
         /// dialog actionable.
         /// </param>
         /// <returns>An object that represents the asynchronous operation.</returns>
-        public async Task ShowAsync(string title, string content, CauldronUICommand command1, CauldronUICommand command2)
+        public async Task ShowAsync(string title, string content, ICauldronUICommand command1, ICauldronUICommand command2)
         {
             await this.ShowAsync(title, content, 0, 1, new CauldronUICommandCollection()
                     {
@@ -105,7 +105,7 @@ namespace Cauldron.XAML
         /// dialog actionable.
         /// </param>
         /// <returns>An object that represents the asynchronous operation.</returns>
-        public async Task ShowAsync(string title, string content, MessageBoxImage messageBoxImage, CauldronUICommand command1, CauldronUICommand command2)
+        public async Task ShowAsync(string title, string content, MessageBoxImage messageBoxImage, ICauldronUICommand command1, ICauldronUICommand command2)
         {
             await this.ShowAsync(title, content, 0, 1, messageBoxImage, new CauldronUICommandCollection()
                     {
