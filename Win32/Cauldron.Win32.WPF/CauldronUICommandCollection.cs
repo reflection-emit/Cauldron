@@ -3,9 +3,9 @@
 namespace Cauldron.XAML
 {
     /// <summary>
-    /// Contains a collection of <see cref="CauldronUICommand"/>
+    /// Contains a collection of <see cref="ICauldronUICommand"/>
     /// </summary>
-    public sealed class CauldronUICommandCollection : Collection<CauldronUICommand>
+    public sealed class CauldronUICommandCollection : Collection<ICauldronUICommand>
     {
     }
 }
