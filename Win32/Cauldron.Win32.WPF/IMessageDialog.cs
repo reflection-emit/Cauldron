@@ -16,7 +16,7 @@ namespace Cauldron.XAML
         /// <param name="command1">A command that appear in the command bar of the message dialog. This command makes the dialog actionable.</param>
         /// <param name="command2">A command that appear in the command bar of the message dialog. This command makes the dialog actionable.</param>
         /// <returns>An object that represents the asynchronous operation.</returns>
-        Task ShowAsync(string title, string content, CauldronUICommand command1, CauldronUICommand command2);
+        Task ShowAsync(string title, string content, ICauldronUICommand command1, ICauldronUICommand command2);
 
         /// <summary>
         /// Begins an asynchronous operation showing a dialog.
@@ -39,7 +39,7 @@ namespace Cauldron.XAML
         /// <param name="command1">A command that appear in the command bar of the message dialog. This command makes the dialog actionable.</param>
         /// <param name="command2">A command that appear in the command bar of the message dialog. This command makes the dialog actionable.</param>
         /// <returns>An object that represents the asynchronous operation.</returns>
-        Task ShowAsync(string title, string content, MessageBoxImage messageBoxImage, CauldronUICommand command1, CauldronUICommand command2);
+        Task ShowAsync(string title, string content, MessageBoxImage messageBoxImage, ICauldronUICommand command1, ICauldronUICommand command2);
 
         /// <summary>
         /// Begins an asynchronous operation showing a dialog.

@@ -13,7 +13,7 @@ namespace Cauldron.XAML
     /// <summary>
     /// Represents a command in the MessageDialog and ContentDialog
     /// </summary>
-    public sealed class CauldronUICommand
+    public sealed class CauldronUICommand : ICauldronUICommand
     {
         private Action command;
 
