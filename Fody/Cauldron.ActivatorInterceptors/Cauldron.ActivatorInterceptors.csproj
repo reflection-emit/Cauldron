@@ -64,9 +64,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ComponentAttributeValues.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="FactoryCreateUsages.cs" />
-    <Compile Include="Weaver_ComponentCache.cs" />
+    <Compile Include="ComponentCacheWeaver.cs" />
+    <Compile Include="InjectAttributeValues.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

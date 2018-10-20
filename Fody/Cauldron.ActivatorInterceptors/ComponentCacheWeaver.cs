@@ -10,7 +10,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 
-public static class Weaver_ComponentCache
+public static class ComponentCacheWeaver
 {
     public const string NoIDisposableObjectExceptionText = "An object with creation policy 'Singleton' with an implemented 'IDisposable' must also implement the 'IDisposableObject' interface.";
     public const string UnknownConstructor = "There is no defined constructor that matches the passed parameters for component ";
@@ -953,65 +953,4 @@ public static class Weaver_ComponentCache
         return context;
     }
     */
-
-    internal class InjectAttributeValues
-    {
-        public InjectAttributeValues(BuilderCustomAttribute builderCustomAttribute)
-        {
-            if (builderCustomAttribute.ConstructorArguments != null && builderCustomAttribute.ConstructorArguments.Length > 0)
-                this.Arguments = builderCustomAttribute.ConstructorArguments[0].Value as CustomAttributeArgument[];
-
-            if (builderCustomAttribute.Properties.ContainsKey("ContractType")) this.ContractType = (builderCustomAttribute.Properties["ContractType"].Value as TypeReference)?.ToBuilderType();
-            if (builderCustomAttribute.Properties.ContainsKey("ContractName")) this.ContractName = builderCustomAttribute.Properties["ContractName"].Value as string;
-            if (builderCustomAttribute.Properties.ContainsKey("InjectFirst")) this.InjectFirst = (bool)builderCustomAttribute.Properties["InjectFirst"].Value;
-            if (builderCustomAttribute.Properties.ContainsKey("IsOrdered")) this.IsOrdered = (bool)builderCustomAttribute.Properties["IsOrdered"].Value;
-            if (builderCustomAttribute.Properties.ContainsKey("MakeThreadSafe")) this.MakeThreadSafe = (bool)builderCustomAttribute.Properties["MakeThreadSafe"].Value;
-            if (builderCustomAttribute.Properties.ContainsKey("ForceDontCreateMany")) this.ForceDontCreateMany = (bool)builderCustomAttribute.Properties["ForceDontCreateMany"].Value;
-            if (builderCustomAttribute.Properties.ContainsKey("NoPreloading")) this.NoPreloading = (bool)builderCustomAttribute.Properties["NoPreloading"].Value;
-        }
-
-        public CustomAttributeArgument[] Arguments { get; }
-        public string ContractName { get; }
-        public BuilderType ContractType { get; }
-        public bool ForceDontCreateMany { get; }
-        public bool InjectFirst { get; }
-        public bool IsOrdered { get; }
-        public bool MakeThreadSafe { get; }
-        public bool NoPreloading { get; }
-    }
-
-    private class ComponentAttributeValues
-    {
-        public ComponentAttributeValues(AttributedType attributedType)
-        {
-            if (attributedType.Attribute.Properties.ContainsKey("InvokeOnObjectCreationEvent")) this.InvokeOnObjectCreationEvent = (bool)attributedType.Attribute.Properties["InvokeOnObjectCreationEvent"].Value;
-            foreach (var item in attributedType.Attribute.ConstructorArguments)
-            {
-                switch (item.Type.FullName)
-                {
-                    case "System.String":
-                        this.ContractName = item.Value as string;
-                        break;
-
-                    case "System.Type":
-                        this.ContractType = (item.Value as TypeReference)?.ToBuilderType() ?? item.Value as BuilderType ?? Builder.Current.Import(item.Value as Type)?.ToBuilderType();
-                        break;
-
-                    case "System.UInt32":
-                        this.Priority = (uint)item.Value;
-                        break;
-
-                    case "Cauldron.Activator.FactoryCreationPolicy":
-                        this.Policy = (int)item.Value;
-                        break;
-                }
-            }
-        }
-
-        public string ContractName { get; }
-        public BuilderType ContractType { get; }
-        public bool InvokeOnObjectCreationEvent { get; }
-        public int Policy { get; }
-        public uint Priority { get; }
-    }
 }

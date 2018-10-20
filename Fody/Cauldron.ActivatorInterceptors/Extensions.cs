@@ -1,6 +1,6 @@
 ﻿using Cauldron.Interception.Cecilator;
 using System.Collections;
-using static Weaver_ComponentCache;
+using static ComponentCacheWeaver;
 
 namespace Cauldron.ActivatorInterceptors
 {
