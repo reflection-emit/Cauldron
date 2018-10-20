@@ -21,7 +21,7 @@ namespace Cauldron.XAML.Navigation
     /// Handles creation of a new <see cref="Window"/> and association of the viewmodel
     /// </summary>
     [Component(typeof(INavigator), FactoryCreationPolicy.Singleton)]
-    public sealed class Navigator : Factory<INavigator>, INavigator
+    public sealed class Navigator : INavigator
     {
         private static readonly object SplashScreenWindowTag = new object();
 
@@ -32,7 +32,7 @@ namespace Cauldron.XAML.Navigation
 
         /// <exclude/>
         [ComponentConstructor]
-        public Navigator()
+        internal Navigator()
         {
         }
 

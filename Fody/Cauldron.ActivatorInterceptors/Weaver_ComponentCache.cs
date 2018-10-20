@@ -1,4 +1,5 @@
-﻿using Cauldron.Interception.Cecilator;
+﻿using Cauldron.ActivatorInterceptors;
+using Cauldron.Interception.Cecilator;
 using Cauldron.Interception.Cecilator.Coders;
 using Cauldron.Interception.Fody;
 using Mono.Cecil;
@@ -37,17 +38,6 @@ public static class Weaver_ComponentCache
         // Before we start let us find all factoryextensions and add a component attribute to them
         var factoryResolverInterface = (BuilderType)BuilderTypes.IFactoryExtension;
         AddComponentAttribute(builder, builder.FindTypesByInterface(factoryResolverInterface), x => factoryResolverInterface);
-        // Also the same to all types that inherits from Factory<>
-        var factoryGeneric = (BuilderType)BuilderTypes.Factory1;
-        AddComponentAttribute(builder, builder.FindTypesByBaseClass(factoryGeneric), type =>
-        {
-            var factoryBase = type.BaseClasses.FirstOrDefault(x => x.Fullname.StartsWith("Cauldron.Activator.Factory"));
-
-            if (factoryBase == null)
-                return type;
-
-            return factoryBase.GetGenericArgument(0);
-        });
 
         int counter = 0;
 
@@ -103,6 +93,10 @@ public static class Weaver_ComponentCache
             var componentType = builder.CreateType("", TypeAttributes.NotPublic | TypeAttributes.Sealed | TypeAttributes.BeforeFieldInit, "<>f__IFactoryTypeInfo_" + component.Type.Name.GetValidName() + "_" + counter++);
             componentType.AddInterface(BuilderTypes.IFactoryTypeInfo);
             componentType.CustomAttributes.AddDebuggerDisplayAttribute(component.Type.Name + " ({ContractName})");
+
+            if (component.Type.HasGenericArguments)
+                componentType.ToGenericInstance(component.Type.GenericArguments);
+
             componentTypes.Add(componentType);
 
             // Create ctor
@@ -864,54 +858,45 @@ public static class Weaver_ComponentCache
 
     private static void ReplaceFactoryCreate(Builder builder)
     {
-        var objectArray = BuilderTypes.Object.BuilderType.MakeArray();
-
-        var createMethodUsages = BuilderTypes.Factory.GetMethod_Create().FindUsages();
-        var createTypeMethodUsages = BuilderTypes.Factory.GetMethod_Create(BuilderTypes.Type).FindUsages();
-        var createStringMethodUsages = BuilderTypes.Factory.GetMethod_Create(BuilderTypes.String).FindUsages();
-        var createGenericMethodUsages = BuilderTypes.Factory.GetMethod_Create_Generic().FindUsages();
-        var createTypeTypeMethodUsages = BuilderTypes.Factory.GetMethod_Create(BuilderTypes.Type, (TypeReference)objectArray).FindUsages();
-        var createStringTypeMethodUsages = BuilderTypes.Factory.GetMethod_Create(BuilderTypes.String, (TypeReference)objectArray).FindUsages();
-
-        foreach (var item in createMethodUsages)
+        foreach (var item in FactoryCreateUsages.createMethodUsages)
         {
             Builder.Current.Log(LogTypes.Info, $"{item}");
             ((Instruction)item).Operand = Builder.Current.Import((MethodReference)BuilderTypes.Factory.GetMethod_____Create().MakeGeneric(item.GetGenericArgument(0)));
             item.HostMethod.NewCoder().Load(item.HostMethod.DeclaringType).End.Insert(InsertionAction.Before, item.Position);
         }
 
-        foreach (var item in createTypeMethodUsages)
+        foreach (var item in FactoryCreateUsages.createTypeMethodUsages)
         {
             Builder.Current.Log(LogTypes.Info, $"{item}");
             item.Replace(BuilderTypes.Factory.GetMethod_____Create(BuilderTypes.Type, BuilderTypes.Type));
             item.HostMethod.NewCoder().Load(item.HostMethod.DeclaringType).End.Insert(InsertionAction.Before, item.Position);
         }
 
-        foreach (var item in createStringMethodUsages)
+        foreach (var item in FactoryCreateUsages.createStringMethodUsages)
         {
             Builder.Current.Log(LogTypes.Info, $"{item}");
             item.Replace(BuilderTypes.Factory.GetMethod_____Create(BuilderTypes.String, BuilderTypes.Type));
             item.HostMethod.NewCoder().Load(item.HostMethod.DeclaringType).End.Insert(InsertionAction.Before, item.Position);
         }
 
-        foreach (var item in createGenericMethodUsages)
+        foreach (var item in FactoryCreateUsages.createGenericMethodUsages)
         {
             Builder.Current.Log(LogTypes.Info, $"{item}");
             ((Instruction)item).Operand = Builder.Current.Import((MethodReference)BuilderTypes.Factory.GetMethod_____Create_Generic().MakeGeneric(item.GetGenericArgument(0)));
             item.HostMethod.NewCoder().Load(item.HostMethod.DeclaringType).End.Insert(InsertionAction.Before, item.Position);
         }
 
-        foreach (var item in createTypeTypeMethodUsages)
+        foreach (var item in FactoryCreateUsages.createTypeTypeMethodUsages)
         {
             Builder.Current.Log(LogTypes.Info, $"{item}");
-            item.Replace(BuilderTypes.Factory.GetMethod_____Create(BuilderTypes.Type, (TypeReference)objectArray, BuilderTypes.Type));
+            item.Replace(BuilderTypes.Factory.GetMethod_____Create(BuilderTypes.Type, FactoryCreateUsages.objectArray, BuilderTypes.Type));
             item.HostMethod.NewCoder().Load(item.HostMethod.DeclaringType).End.Insert(InsertionAction.Before, item.Position);
         }
 
-        foreach (var item in createStringTypeMethodUsages)
+        foreach (var item in FactoryCreateUsages.createStringTypeMethodUsages)
         {
             Builder.Current.Log(LogTypes.Info, $"{item}");
-            item.Replace(BuilderTypes.Factory.GetMethod_____Create(BuilderTypes.String, (TypeReference)objectArray, BuilderTypes.Type));
+            item.Replace(BuilderTypes.Factory.GetMethod_____Create(BuilderTypes.String, FactoryCreateUsages.objectArray, BuilderTypes.Type));
             item.HostMethod.NewCoder().Load(item.HostMethod.DeclaringType).End.Insert(InsertionAction.Before, item.Position);
         }
     }

@@ -14,14 +14,14 @@ namespace Cauldron.XAML.Navigation
     /// Handles creation of a new <see cref="Page"/> and association of the viewmodel
     /// </summary>
     [Component(typeof(INavigator), FactoryCreationPolicy.Singleton)]
-    public sealed class NavigatorSinglePage : Factory<INavigator>, INavigator
+    public sealed class NavigatorSinglePage :  INavigator
     {
         private IDispatcher _dispatcher;
         private NavigationFrame rootFrame;
 
         /// <exclude/>
         [ComponentConstructor]
-        public NavigatorSinglePage()
+        internal NavigatorSinglePage()
         {
             this.rootFrame = Application.Current.MainWindow.Content as NavigationFrame;
             this.rootFrame.Navigated += RootFrame_Navigated;

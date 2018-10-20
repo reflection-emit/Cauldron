@@ -611,9 +611,7 @@ namespace Cauldron
             var result = EnumEx.GetDisplayNames<TEnum>().FirstOrDefault(x => x.Value == value);
             if (string.IsNullOrEmpty(result.Value))
             {
-                TEnum tEnum;
-
-                if (Enum.TryParse(value, out tEnum))
+                if (Enum.TryParse(value, out TEnum tEnum))
                     return tEnum;
                 else
                     return default(TEnum);

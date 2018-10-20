@@ -110,7 +110,7 @@ public sealed class AssignMethodAttributeInfo
     private static BuilderType GetDelegateType(BuilderType type)
     {
         if (type != null && type.IsGenericInstance && type.Fullname.StartsWith("System.Func"))
-            return type.GenericArguments().Last();
+            return type.GetGenericArguments().Last();
 
         return type.Builder.GetType("System.Void");
     }
@@ -119,11 +119,11 @@ public sealed class AssignMethodAttributeInfo
     {
         if (type != null && type.IsGenericInstance && type.Fullname.StartsWith("System.Func"))
         {
-            var args = type.GenericArguments().ToArray();
+            var args = type.GetGenericArguments().ToArray();
             return args.Take(args.Length - 1).ToArray();
         }
         else if (type != null && type.IsGenericInstance)
-            return type.GenericArguments().ToArray();
+            return type.GetGenericArguments().ToArray();
 
         return new BuilderType[0];
     }

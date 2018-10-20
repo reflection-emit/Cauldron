@@ -8,6 +8,7 @@ using System.Linq;
 [module: GenericComponent(typeof(UnitTests.Activator.ClassWithGeneric<int, string>), "toast-me")]
 [module: GenericComponent(typeof(UnitTests.Activator.ClassWithGeneric<int, string>), "toast-me")]
 [module: GenericComponent(typeof(UnitTests.Activator.GenericClassWithStaticCtor<UnitTests.Activator.TestClass>), typeof(UnitTests.Activator.IGenericClassWithStaticCtor<UnitTests.Activator.TestClass>))]
+
 namespace UnitTests.Activator
 {
     public interface IGenericClassWithStaticCtor<T>
@@ -15,6 +16,7 @@ namespace UnitTests.Activator
         T Item { get; }
     }
 
+    [Component(typeof(ClassWithGeneric<,>))]
     public class ClassWithGeneric<T1, T2>
     {
         public ClassWithGeneric()

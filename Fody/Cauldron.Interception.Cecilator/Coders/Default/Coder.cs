@@ -73,7 +73,7 @@ namespace Cauldron.Interception.Cecilator.Coders
                 var defaultValue = this.instructions.associatedMethod.ReturnType.DefaultValue;
 
                 this.instructions.Append(InstructionBlock.CreateCode(this.instructions,
-                    this.instructions.associatedMethod.ReturnType.GenericArguments().Any() ?
+                    this.instructions.associatedMethod.ReturnType.GetGenericArguments().Any() ?
                        this.instructions.associatedMethod.ReturnType.GetGenericArgument(0) :
                        this.instructions.associatedMethod.ReturnType, defaultValue));
             }

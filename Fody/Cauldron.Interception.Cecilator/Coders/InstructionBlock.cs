@@ -103,9 +103,11 @@ namespace Cauldron.Interception.Cecilator.Coders
                     return true;
                 }
 
-                if (!castToType.typeReference.IsValueType && castToType.typeReference.BetterResolve().With(x => x.IsInterface || x.IsClass) && !castToType.typeReference.IsArray)
+                if (!castToType.typeReference.IsValueType && !castToType.typeReference.IsArray)
                 {
-                    if (!castToType.typeReference.AreEqual((TypeReference)BuilderTypes.Object))
+                    var resolved = castToType.typeReference.BetterResolve();
+
+                    if(resolved != null && (resolved.IsInterface || resolved.IsClass) && !castToType.typeReference.AreEqual((TypeReference)BuilderTypes.Object))
                         instructionBlock.Emit(OpCodes.Isinst, Builder.Current.Import(castToType.typeReference));
 
                     return true;
@@ -353,7 +355,7 @@ namespace Cauldron.Interception.Cecilator.Coders
                     }
                     else
                         result.Append(InstructionBlock.CreateCode(result,
-                            value.builderType.GenericArguments().Any() ? value.builderType.GetGenericArgument(0) : value.builderType, defaultValue));
+                            value.builderType.GetGenericArguments().Any() ? value.builderType.GetGenericArgument(0) : value.builderType, defaultValue));
 
                     break;
 
@@ -1567,7 +1569,7 @@ namespace Cauldron.Interception.Cecilator.Coders
                 if (!childType.AreEqual(Builder.Current.GetChildrenType(instructionBlock.ResultingType).Item1))
                     instructionBlock.Emit(OpCodes.Call, castMethod);
                 instructionBlock.Emit(OpCodes.Call, toList);
-                instructionBlock.Emit(OpCodes.Newobj, Builder.Current.Import(ctorCollection.MakeHostInstanceGeneric(targetType.GenericArguments().Select(x => x.typeReference))));
+                instructionBlock.Emit(OpCodes.Newobj, Builder.Current.Import(ctorCollection.MakeHostInstanceGeneric(targetType.GetGenericArguments().Select(x => x.typeReference))));
                 return;
             }
 
@@ -1584,7 +1586,7 @@ namespace Cauldron.Interception.Cecilator.Coders
 
                 if (!childType.AreEqual(Builder.Current.GetChildrenType(instructionBlock.ResultingType).Item1))
                     instructionBlock.Emit(OpCodes.Call, castMethod);
-                instructionBlock.Emit(OpCodes.Newobj, Builder.Current.Import(ctorCollection.MakeHostInstanceGeneric(targetType.GenericArguments().Select(x => x.typeReference))));
+                instructionBlock.Emit(OpCodes.Newobj, Builder.Current.Import(ctorCollection.MakeHostInstanceGeneric(targetType.GetGenericArguments().Select(x => x.typeReference))));
                 return;
             }
 

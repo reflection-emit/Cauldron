@@ -148,14 +148,14 @@ namespace Cauldron.Activator
             var contractType = typeof(T);
             var factoryInfos = componentsTyped[contractType];
             if (factoryInfos == null)
-                return ThrowExceptionOrReturnNull(contractType) as T;
+                return CreateTypeOrThrowExceptionOrReturnNull(contractType) as T;
 
             if (factoryInfos.isSingle)
                 return factoryInfos.single.CreateInstance() as T;
 
             var result = ResolveAmbiguousMatch(callingType, contractType, factoryInfos.factoryTypeInfos);
             if (result == null)
-                return ThrowExceptionOrReturnNull(contractType) as T;
+                return CreateTypeOrThrowExceptionOrReturnNull(contractType) as T;
 
             return result.CreateInstance() as T;
         }
@@ -227,14 +227,14 @@ namespace Cauldron.Activator
         {
             var factoryInfos = componentsTyped[contractType];
             if (factoryInfos == null)
-                return ThrowExceptionOrReturnNull(contractType);
+                return CreateTypeOrThrowExceptionOrReturnNull(contractType);
 
             if (factoryInfos.isSingle)
                 return factoryInfos.single.CreateInstance();
 
             var result = ResolveAmbiguousMatch(callingType, contractType, factoryInfos.factoryTypeInfos);
             if (result == null)
-                return ThrowExceptionOrReturnNull(contractType);
+                return CreateTypeOrThrowExceptionOrReturnNull(contractType);
 
             return result.CreateInstance();
         }
@@ -280,7 +280,7 @@ namespace Cauldron.Activator
         {
             var factoryInfos = componentsTyped[contractType];
             if (factoryInfos == null)
-                return ThrowExceptionOrReturnNull(contractType);
+                return CreateTypeOrThrowExceptionOrReturnNull(contractType);
 
             return factoryInfos.createFirst.CreateInstance();
         }
@@ -357,7 +357,7 @@ namespace Cauldron.Activator
         {
             var factoryInfos = componentsTyped[contractType];
             if (factoryInfos == null)
-                return ThrowExceptionOrReturnNull(contractType) as IEnumerable;
+                return CreateTypeOrThrowExceptionOrReturnNull(contractType) as IEnumerable;
 
             var result = new object[factoryInfos.factoryTypeInfos.Length];
             for (int i = 0; i < factoryInfos.factoryTypeInfos.Length; i++)
@@ -384,7 +384,7 @@ namespace Cauldron.Activator
         {
             var factoryInfos = componentsTyped[typeof(T)];
             if (factoryInfos == null)
-                return ThrowExceptionOrReturnNull(typeof(T)) as IEnumerable<T>;
+                return CreateTypeOrThrowExceptionOrReturnNull(typeof(T)) as IEnumerable<T>;
 
             var result = new T[factoryInfos.factoryTypeInfos.Length];
             for (int i = 0; i < factoryInfos.factoryTypeInfos.Length; i++)
@@ -444,7 +444,7 @@ namespace Cauldron.Activator
         {
             var factoryInfos = componentsTyped[contractType];
             if (factoryInfos == null)
-                return ThrowExceptionOrReturnNull(contractType) as IEnumerable;
+                return CreateTypeOrThrowExceptionOrReturnNull(contractType) as IEnumerable;
 
             var result = new object[factoryInfos.factoryTypeInfos.Length];
             for (int i = 0; i < factoryInfos.factoryTypeInfos.Length; i++)
@@ -472,7 +472,7 @@ namespace Cauldron.Activator
         {
             var factoryInfos = componentsTyped[typeof(T)];
             if (factoryInfos == null)
-                return ThrowExceptionOrReturnNull(typeof(T)) as IEnumerable<T>;
+                return CreateTypeOrThrowExceptionOrReturnNull(typeof(T)) as IEnumerable<T>;
 
             var result = new T[factoryInfos.factoryTypeInfos.Length];
             for (int i = 0; i < factoryInfos.factoryTypeInfos.Length; i++)
@@ -517,14 +517,14 @@ namespace Cauldron.Activator
             var contractType = typeof(T);
             var factoryInfos = componentsTyped[contractType];
             if (factoryInfos == null)
-                return ThrowExceptionOrReturnNull(contractType, parameters) as T;
+                return CreateTypeOrThrowExceptionOrReturnNull(contractType, parameters) as T;
 
             if (factoryInfos.isSingle)
                 return factoryInfos.single.CreateInstance(parameters) as T;
 
             var result = ResolveAmbiguousMatch(callingType, contractType.FullName, factoryInfos.factoryTypeInfos);
             if (result == null)
-                return ThrowExceptionOrReturnNull(contractType, parameters) as T;
+                return CreateTypeOrThrowExceptionOrReturnNull(contractType, parameters) as T;
 
             return result.CreateInstance(parameters) as T;
         }
@@ -606,14 +606,14 @@ namespace Cauldron.Activator
         {
             var factoryInfos = componentsTyped[contractType];
             if (factoryInfos == null)
-                return ThrowExceptionOrReturnNull(contractType, parameters);
+                return CreateTypeOrThrowExceptionOrReturnNull(contractType, parameters);
 
             if (factoryInfos.isSingle)
                 return factoryInfos.single.CreateInstance(parameters);
 
             var result = ResolveAmbiguousMatch(callingType, contractType.FullName, factoryInfos.factoryTypeInfos);
             if (result == null)
-                return ThrowExceptionOrReturnNull(contractType, parameters);
+                return CreateTypeOrThrowExceptionOrReturnNull(contractType, parameters);
 
             return result.CreateInstance(parameters);
         }
@@ -669,7 +669,7 @@ namespace Cauldron.Activator
         {
             var factoryInfos = componentsTyped[contractType];
             if (factoryInfos == null)
-                return ThrowExceptionOrReturnNull(contractType, parameters);
+                return CreateTypeOrThrowExceptionOrReturnNull(contractType, parameters);
 
             return factoryInfos.createFirst.CreateInstance(parameters);
         }
@@ -761,7 +761,7 @@ namespace Cauldron.Activator
         {
             var factoryInfos = componentsTyped[contractType];
             if (factoryInfos == null)
-                return ThrowExceptionOrReturnNull(contractType, parameters) as IEnumerable;
+                return CreateTypeOrThrowExceptionOrReturnNull(contractType, parameters) as IEnumerable;
 
             var result = new object[factoryInfos.factoryTypeInfos.Length];
             for (int i = 0; i < factoryInfos.factoryTypeInfos.Length; i++)
@@ -793,7 +793,7 @@ namespace Cauldron.Activator
         {
             var factoryInfos = componentsTyped[typeof(T)];
             if (factoryInfos == null)
-                return ThrowExceptionOrReturnNull(typeof(T), parameters) as IEnumerable<T>;
+                return CreateTypeOrThrowExceptionOrReturnNull(typeof(T), parameters) as IEnumerable<T>;
 
             var result = new T[factoryInfos.factoryTypeInfos.Length];
             for (int i = 0; i < factoryInfos.factoryTypeInfos.Length; i++)
@@ -863,7 +863,7 @@ namespace Cauldron.Activator
         {
             var factoryInfos = componentsTyped[contractType];
             if (factoryInfos == null)
-                return ThrowExceptionOrReturnNull(contractType, parameters) as IEnumerable;
+                return CreateTypeOrThrowExceptionOrReturnNull(contractType, parameters) as IEnumerable;
 
             var result = new object[factoryInfos.factoryTypeInfos.Length];
             for (int i = 0; i < factoryInfos.factoryTypeInfos.Length; i++)
@@ -896,7 +896,7 @@ namespace Cauldron.Activator
         {
             var factoryInfos = componentsTyped[typeof(T)];
             if (factoryInfos == null)
-                return ThrowExceptionOrReturnNull(typeof(T), parameters) as IEnumerable<T>;
+                return CreateTypeOrThrowExceptionOrReturnNull(typeof(T), parameters) as IEnumerable<T>;
 
             var result = new T[factoryInfos.factoryTypeInfos.Length];
             for (int i = 0; i < factoryInfos.factoryTypeInfos.Length; i++)
@@ -1063,6 +1063,46 @@ namespace Cauldron.Activator
             InitializeFactory();
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static object CreateTypeOrThrowExceptionOrReturnNull(Type contractType)
+        {
+#if NETFX_CORE
+            if (contractType.GetTypeInfo().IsInterface)
+#else
+            if (contractType.IsInterface)
+#endif
+            {
+                if (CanRaiseExceptions)
+                    throw new NotImplementedException($"Unable to create an instance from the interface '{contractType.FullName}'");
+                else
+                    Debug.WriteLine($"ERROR: Unable to create an instance from the interface '{contractType.FullName}'");
+
+                return null;
+            }
+
+            return contractType.CreateInstance();
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static object CreateTypeOrThrowExceptionOrReturnNull(Type contractType, object[] parameters)
+        {
+#if NETFX_CORE
+            if (contractType.GetTypeInfo().IsInterface)
+#else
+            if (contractType.IsInterface)
+#endif
+            {
+                if (CanRaiseExceptions)
+                    throw new NotImplementedException($"Unable to create an instance from the interface '{contractType.FullName}'");
+                else
+                    Debug.WriteLine($"ERROR: Unable to create an instance from the interface '{contractType.FullName}'");
+
+                return null;
+            }
+
+            return contractType.CreateInstance(parameters);
+        }
+
         private static void GetAndInitializeAllExtensions(IEnumerable<IFactoryTypeInfo> factoryTypeInfos)
         {
             var ff = factoryInfoTypes
@@ -1140,46 +1180,6 @@ namespace Cauldron.Activator
             factoryDictionaryValue.isSingle = items.Length == 1;
 
             return factoryDictionaryValue;
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static object ThrowExceptionOrReturnNull(Type contractType, object[] parameters)
-        {
-#if NETFX_CORE
-            if (contractType.GetTypeInfo().IsInterface)
-#else
-            if (contractType.IsInterface)
-#endif
-            {
-                if (CanRaiseExceptions)
-                    throw new NotImplementedException($"Unable to create an instance from the interface '{contractType.FullName}'");
-                else
-                    Debug.WriteLine($"ERROR: Unable to create an instance from the interface '{contractType.FullName}'");
-
-                return null;
-            }
-
-            return contractType.CreateInstance(parameters);
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static object ThrowExceptionOrReturnNull(Type contractType)
-        {
-#if NETFX_CORE
-            if (contractType.GetTypeInfo().IsInterface)
-#else
-            if (contractType.IsInterface)
-#endif
-            {
-                if (CanRaiseExceptions)
-                    throw new NotImplementedException($"Unable to create an instance from the interface '{contractType.FullName}'");
-                else
-                    Debug.WriteLine($"ERROR: Unable to create an instance from the interface '{contractType.FullName}'");
-
-                return null;
-            }
-
-            return contractType.CreateInstance();
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

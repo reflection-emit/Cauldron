@@ -24,20 +24,14 @@ namespace Cauldron.XAML.Theme
         /// </summary>
         /// <param name="obj"><see cref="DependencyObject" /> with the attached property</param>
         /// <returns>The value of the attached property</returns>
-        public static bool GetAnimateOpacity(DependencyObject obj)
-        {
-            return (bool)obj.GetValue(AnimateOpacityProperty);
-        }
+        public static bool GetAnimateOpacity(DependencyObject obj) => (bool)obj.GetValue(AnimateOpacityProperty);
 
         /// <summary>
         /// Sets the value of the AnimateOpacity attached property
         /// </summary>
         /// <param name="obj"><see cref="DependencyObject" /> with the attached property</param>
         /// <param name="value">The new value to set</param>
-        public static void SetAnimateOpacity(DependencyObject obj, bool value)
-        {
-            obj.SetValue(AnimateOpacityProperty, value);
-        }
+        public static void SetAnimateOpacity(DependencyObject obj, bool value) => obj.SetValue(AnimateOpacityProperty, value);
 
         #endregion Dependency Attached Property AnimateOpacity
 
@@ -53,20 +47,18 @@ namespace Cauldron.XAML.Theme
         /// </summary>
         /// <param name="obj"><see cref="DependencyObject" /> with the attached property</param>
         /// <returns>The value of the attached property</returns>
-        public static string GetImageKey(DependencyObject obj)
-        {
-            return (string)obj.GetValue(ImageKeyProperty);
-        }
+        public static string GetImageKey(DependencyObject obj) => (string)obj.GetValue(ImageKeyProperty);
 
         /// <summary>
         /// Sets the value of the ImageKey attached property
         /// </summary>
         /// <param name="obj"><see cref="DependencyObject" /> with the attached property</param>
         /// <param name="value">The new value to set</param>
-        public static void SetImageKey(DependencyObject obj, string value)
-        {
-            obj.SetValue(ImageKeyProperty, value);
-        }
+        public static void SetImageKey(DependencyObject obj, string value) => obj.SetValue(ImageKeyProperty, value);
+
+
+        [Inject]
+        private readonly static IImageManager imageManager = null;
 
         private static async void OnImageKeyChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs args)
         {
@@ -102,7 +94,7 @@ namespace Cauldron.XAML.Theme
                 opacityStoryboard.AutoReverse = false;
             }
 
-            var bitmapImage = await ImageManager.Current.GetImageAsync(args.NewValue as string);
+            var bitmapImage = await imageManager.GetImageAsync(args.NewValue as string);
             await Factory.Create<IDispatcher>().RunAsync(DispatcherPriority.High, () =>
             {
                 image.Source = bitmapImage;

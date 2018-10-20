@@ -9,20 +9,23 @@ using System.Reflection;
 
 namespace Cauldron.Collections
 {
+#if !NETFX_CORE
+
     /// <summary>
     /// Represents a dynamic data collection that provides notifications when items get added, removed, or when the whole list is refreshed.
     /// </summary>
     /// <typeparam name="T">The type of elements in the collection.</typeparam>
-#if !NETFX_CORE
-
     [Serializable]
 #else
 
     using System.Runtime.Serialization;
 
+    /// <summary>
+    /// Represents a dynamic data collection that provides notifications when items get added, removed, or when the whole list is refreshed.
+    /// </summary>
+    /// <typeparam name="T">The type of elements in the collection.</typeparam>
     [DataContract]
 #endif
-
     public class FastObservableCollection<T> : Collection<T>, INotifyCollectionChanged, INotifyPropertyChanged, IEquatable<ObservableCollection<T>>, IEquatable<FastObservableCollection<T>>
     {
         private const string IndexerName = "Item[]";
@@ -97,7 +100,7 @@ namespace Cauldron.Collections
                 list.Add(item);
             }
 
-            OnPropertyChanged(nameof(Count));
+            OnPropertyChanged(nameof(this.Count));
             OnPropertyChanged(IndexerName);
 
             OnCollectionChanged(NotifyCollectionChangedAction.Add, list);
@@ -212,7 +215,7 @@ namespace Cauldron.Collections
             foreach (var item in leftItems)
                 base.InsertItem(index++, item);
 
-            OnPropertyChanged(nameof(Count));
+            OnPropertyChanged(nameof(this.Count));
             OnPropertyChanged(IndexerName);
 
             OnCollectionChanged(NotifyCollectionChangedAction.Remove, collection.ToList());
@@ -232,7 +235,7 @@ namespace Cauldron.Collections
         protected override void ClearItems()
         {
             base.ClearItems();
-            OnPropertyChanged(nameof(Count));
+            OnPropertyChanged(nameof(this.Count));
             OnPropertyChanged(IndexerName);
             OnCollectionReset();
         }
@@ -242,7 +245,7 @@ namespace Cauldron.Collections
         {
             base.InsertItem(index, item);
 
-            OnPropertyChanged(nameof(Count));
+            OnPropertyChanged(nameof(this.Count));
             OnPropertyChanged(IndexerName);
             OnCollectionChanged(NotifyCollectionChangedAction.Add, item, index);
         }
@@ -278,7 +281,7 @@ namespace Cauldron.Collections
 
             base.RemoveItem(index);
 
-            OnPropertyChanged(nameof(Count));
+            OnPropertyChanged(nameof(this.Count));
             OnPropertyChanged(IndexerName);
             OnCollectionChanged(NotifyCollectionChangedAction.Remove, removedItem, index);
         }

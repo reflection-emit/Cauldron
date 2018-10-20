@@ -75,7 +75,6 @@
 		typeof(Cauldron.Interception.ExtensionsInterception),
 		typeof(Cauldron.ExtensionsReflection),
 		typeof(Cauldron.Activator.Factory),
-		typeof(Cauldron.Activator.Factory<>),
 		typeof(Cauldron.Interception.IConstructorInterceptor),
 		typeof(Cauldron.Interception.IMethodInterceptor),
 		typeof(Cauldron.Interception.InterceptionRuleAttribute),

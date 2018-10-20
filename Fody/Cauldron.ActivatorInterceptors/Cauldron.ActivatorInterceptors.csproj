@@ -65,6 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions.cs" />
+    <Compile Include="FactoryCreateUsages.cs" />
     <Compile Include="Weaver_ComponentCache.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
