@@ -8,6 +8,7 @@ using System.Collections;
 using System.Reflection;
 using System.Linq;
 using Cauldron.XAML.Threading;
+using Cauldron.Activator;
 
 #if WINDOWS_UWP
 
@@ -677,7 +678,7 @@ namespace Cauldron.XAML
         /// <param name="viewModel">The viewmodel to that was assigned to the window's data context</param>
         /// <returns>Returns true if successfully closed, otherwise false</returns>
         /// <exception cref="ArgumentNullException">Parameter <paramref name="viewModel"/> is null</exception>
-        public static bool TryClose(this IDialogViewModel viewModel) => Navigator.Current.TryClose(viewModel);
+        public static bool TryClose(this IDialogViewModel viewModel) => Factory.Create<INavigator>().TryClose(viewModel);
 
         private static void FindVisualChildren<T>(Func<FrameworkElement, bool> predicate, FrameworkElement element, bool skipChildren, List<T> list) where T : FrameworkElement
         {

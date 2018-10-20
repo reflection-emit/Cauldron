@@ -13,7 +13,7 @@ namespace Cauldron.XAML
     /// <summary>
     /// Represents a command in the MessageDialog and ContentDialog
     /// </summary>
-    public sealed class CauldronUICommand
+    public sealed class CauldronUICommand : ICauldronUICommand
     {
         private Action command;
 
@@ -34,40 +34,35 @@ namespace Cauldron.XAML
         /// </summary>
         /// <param name="label">The label of the command button</param>
         /// <param name="command">The action that will be invoke if the command is executed</param>
-        public CauldronUICommand(string label, Action command) : this(label)
-        {
-            this.command = command;
-        }
+        public CauldronUICommand(string label, Action command) : this(label) => this.command = command;
 
         /// <summary>
         /// Gets or sets the label of the command button
         /// </summary>
         public string Label { get; private set; }
 
-        //#if WINDOWS_UWP
+#if WINDOWS_UWP
 
-        //        /// <summary>
-        //        /// Converts a <see cref="CauldronUICommand"/> to a <see cref="UICommand"/>
-        //        /// </summary>
-        //        /// <returns></returns>
-        //        public UICommand ToUICommand()
-        //        {
-        //            if (this.command == null)
-        //                return new UICommand(this.Label);
-        //            else
-        //                return new UICommand(this.Label, new UICommandInvokedHandler(x => this.command()));
-        //        }
+        /// <summary>
+        /// Converts a <see cref="CauldronUICommand"/> to a <see cref="UICommand"/>
+        /// </summary>
+        /// <returns></returns>
+        public UICommand ToUICommand()
+        {
+            if (this.command == null)
+                return new UICommand(this.Label);
+            else
+                return new UICommand(this.Label, new UICommandInvokedHandler(x => this.command()));
+        }
 
-        //#else
+        public static explicit operator UICommand(CauldronUICommand uicommand) => uicommand.ToUICommand();
+#else
+
         /// <summary>
         /// Executes the command
         /// </summary>
-        public void Invoke()
-        {
-            if (this.command != null)
-                this.command();
-        }
+        public void Invoke() => this.command?.Invoke();
 
-        //#endif
+#endif
     }
 }

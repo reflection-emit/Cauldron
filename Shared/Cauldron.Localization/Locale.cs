@@ -15,15 +15,17 @@ namespace Cauldron.Localization
     /// https://github.com/Capgemini/Cauldron/wiki/Localization
     /// </summary>
     [Component(typeof(Locale), FactoryCreationPolicy.Singleton)]
-    public sealed class Locale : Factory<Locale>
+    public sealed class Locale
     {
         private const string LocalizationSource = "Cauldron.Localization.ILocalizationSource";
+        private static Locale current;
+        private static object syncRoot = new object();
         private CultureInfo cultureInfo;
         private Dictionary<string, ILocalizationKeyValue> source = new Dictionary<string, ILocalizationKeyValue>();
 
         /// <exclude/>
         [ComponentConstructor]
-        public Locale()
+        internal Locale()
         {
             Assemblies.LoadedAssemblyChanged += (s, e) =>
             {
@@ -65,11 +67,31 @@ namespace Cauldron.Localization
         }
 
         /// <summary>
+        /// Gets the current instance of <see cref="Locale"/>.
+        /// </summary>
+        public static Locale Current
+        {
+            get
+            {
+                if (current == null)
+                {
+                    lock (syncRoot)
+                    {
+                        if (current == null)
+                            current = Factory.Create<Locale>();
+                    }
+                }
+
+                return current;
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the culture used for the localization. Default is <see cref="CultureInfo.CurrentCulture"/> in Windows desktop and the UI language in UWP
         /// </summary>
         public CultureInfo CultureInfo
         {
-            get { return this.cultureInfo; }
+            get => this.cultureInfo;
             set
             {
                 this.cultureInfo = value;

@@ -13,6 +13,12 @@ namespace Cauldron.Interception.Cecilator
 {
     public static class Extension
     {
+        public static void AddRange<T>(this Mono.Collections.Generic.Collection<T> typeReferences, IEnumerable<T> genericTypes)
+        {
+            foreach (var item in genericTypes)
+                typeReferences.Add(item);
+        }
+
         public static bool AreEqual(this Type a, ModuleDefinition b) => a?.Assembly.GetName().Name.AreEqual(b?.Assembly.Name.Name) ?? false;
 
         public static bool AreEqual(this Type a, Type b) => a?.Assembly.FullName.AreEqual(b?.Assembly.FullName) ?? false;

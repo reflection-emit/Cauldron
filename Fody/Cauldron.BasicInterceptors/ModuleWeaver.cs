@@ -55,7 +55,7 @@ internal static class ModuleWeaver
             var delegateCtor = item.AttributeField.FieldType.IsGenericInstance ?
                 item.AttributeField.FieldType
                     .GetMethod(".ctor", true, new Type[] { typeof(object), typeof(IntPtr) })
-                    .MakeGeneric(item.AttributeField.FieldType.GenericArguments().ToArray())
+                    .MakeGeneric(item.AttributeField.FieldType.GetGenericArguments().ToArray())
                     .Import() :
                 item.AttributeField.FieldType
                     .GetMethod(".ctor", true, new Type[] { typeof(object), typeof(IntPtr) })

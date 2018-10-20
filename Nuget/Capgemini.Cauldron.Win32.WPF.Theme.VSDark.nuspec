@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>Capgemini.Cauldron.Win32.WPF.Theme.VSDark</id>
-    <version>3.2.1</version>
+    <version>3.2.2</version>
     <title>Cauldron.Win32.WPF</title>
     <authors>Alexander Schunk, Capgemini Deutschland GmbH</authors>
     <owners>Alexander Schunk, Capgemini Deutschland GmbH</owners>
@@ -21,15 +21,15 @@
     </releaseNotes>
     <dependencies>
       <dependency id="Fody" version="3.2.4" />
-      <dependency id="Cauldron.Interception.Fody" version="3.2.1" />
-      <dependency id="Cauldron.BasicInterceptors" version="3.2.1" />
-      <dependency id="Capgemini.Cauldron" version="3.2.1" />
-      <dependency id="Capgemini.Cauldron.Activator" version="3.2.1" />
-      <dependency id="Capgemini.Cauldron.Cryptography" version="3.2.1" />
-      <dependency id="Capgemini.Cauldron.Localization" version="3.2.1" />
-      <dependency id="Capgemini.Cauldron.Win32.MonitorInfo" version="3.2.1" />
-      <dependency id="Capgemini.Cauldron.Win32.UserInformation" version="3.2.1" />
-      <dependency id="Capgemini.Cauldron.Win32.WPF" version="3.2.1" />
+      <dependency id="Cauldron.Interception.Fody" version="3.2.2" />
+      <dependency id="Cauldron.BasicInterceptors" version="3.2.2" />
+      <dependency id="Capgemini.Cauldron" version="3.2.2" />
+      <dependency id="Capgemini.Cauldron.Activator" version="3.2.2" />
+      <dependency id="Capgemini.Cauldron.Cryptography" version="3.2.2" />
+      <dependency id="Capgemini.Cauldron.Localization" version="3.2.2" />
+      <dependency id="Capgemini.Cauldron.Win32.MonitorInfo" version="3.2.2" />
+      <dependency id="Capgemini.Cauldron.Win32.UserInformation" version="3.2.2" />
+      <dependency id="Capgemini.Cauldron.Win32.WPF" version="3.2.2" />
     </dependencies>
     <frameworkAssemblies>
       <frameworkAssembly assemblyName="PresentationCore" />

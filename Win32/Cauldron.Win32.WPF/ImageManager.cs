@@ -26,13 +26,13 @@ namespace Cauldron.XAML
     /// Provides retrieving and caching of embedded images
     /// </summary>
     [Component(typeof(IImageManager), FactoryCreationPolicy.Singleton)]
-    public sealed class ImageManager : Factory<IImageManager>, IImageManager, IDisposableObject
+    public sealed class ImageManager : IImageManager, IDisposableObject
     {
         private ConcurrentDictionary<string, BitmapImage> cache = new ConcurrentDictionary<string, BitmapImage>();
 
         /// <exclude/>
         [ComponentConstructor]
-        public ImageManager()
+        internal ImageManager()
         {
         }
 
