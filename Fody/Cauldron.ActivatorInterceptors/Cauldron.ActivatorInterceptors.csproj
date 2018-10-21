@@ -69,6 +69,7 @@
     <Compile Include="FactoryTypeInfoWeaver.cs" />
     <Compile Include="FactoryTypeInfoWeaverBase.cs" />
     <Compile Include="FactoryTypeInfoWeaverDefault.cs" />
+    <Compile Include="FactoryTypeInfoWeaverGeneric.cs" />
     <Compile Include="InjectAttributeValues.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

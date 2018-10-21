@@ -1,20 +1,20 @@
 ﻿using Cauldron.Interception.Cecilator;
 using Cauldron.Interception.Cecilator.Coders;
 using Mono.Cecil;
-using System.Collections.Generic;
 using System.ComponentModel;
 
 namespace Cauldron.ActivatorInterceptors
 {
     internal static class FactoryTypeInfoWeaver
     {
-        public static readonly List<BuilderType> componentTypes = new List<BuilderType>();
+        public const string UnknownConstructor = "There is no defined constructor that matches the passed parameters for component ";
+        public static readonly BuilderType cauldronInterceptionHelper;
+        public static readonly Field unknownConstructorText;
 
         /// <summary>
         /// Used to make implementations unique even with the same name
         /// </summary>
         private static volatile int counter = 0;
-        private static readonly BuilderType cauldronInterceptionHelper;
 
         static FactoryTypeInfoWeaver()
         {
@@ -23,9 +23,13 @@ namespace Cauldron.ActivatorInterceptors
             unknownConstructorText = cauldronInterceptionHelper.CreateField(Modifiers.PublicStatic, (BuilderType)BuilderTypes.String, "UnknownConstructorText");
             unknownConstructorText.CustomAttributes.AddCompilerGeneratedAttribute();
             unknownConstructorText.CustomAttributes.AddEditorBrowsableAttribute(EditorBrowsableState.Never);
-        }
 
-        public static readonly Field unknownConstructorText;
+            cauldronInterceptionHelper
+                .CreateStaticConstructor()
+                .NewCoder()
+                .SetValue(unknownConstructorText, UnknownConstructor)
+                .Insert(InsertionPosition.Beginning);
+        }
 
         public static FactoryTypeInfoWeaverBase Create(AttributedType component)
         {
@@ -49,18 +53,12 @@ namespace Cauldron.ActivatorInterceptors
             if (component.Type.HasGenericArguments)
                 componentType.ToGenericInstance(component.Type.GenericArguments);
 
-            componentTypes.Add(componentType);
-
             FactoryTypeInfoWeaverBase result;
 
             if (component.Type.IsGenericType)
                 result = null;
             else
                 result = new FactoryTypeInfoWeaverBase(componentAttributeValue, componentType, componentType.CreateConstructor().NewCoder(), childType);
-
-            // Implement the methods
-            AddCreateInstanceMethod(builder, cauldron, BuilderTypes.IFactoryTypeInfo.GetMethod_CreateInstance_1(), component, componentAttributeValue, componentType).Replace();
-            AddCreateInstanceMethod(builder, cauldron, BuilderTypes.IFactoryTypeInfo.GetMethod_CreateInstance(), component, componentAttributeValue, componentType).Replace();
 
             ImplementProperties(result);
 

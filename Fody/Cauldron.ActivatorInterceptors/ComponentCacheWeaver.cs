@@ -12,11 +12,9 @@ using System.Linq;
 
 public static class ComponentCacheWeaver
 {
-    public const string UnknownConstructor = "There is no defined constructor that matches the passed parameters for component ";
+    public static readonly List<BuilderType> componentTypes = new List<BuilderType>();
     public static string Name = "Activator Component Cache (Dependency Injection)";
     public static int Priority = int.MaxValue;
-    public static Field unknownConstructorText;
-    private static int indexer = 0;
 
     [Display("Creating Component Cache and Inject Attribute")]
     public static void Implement(Builder builder)
@@ -26,19 +24,10 @@ public static class ComponentCacheWeaver
         var cauldron = builder.GetType("CauldronInterceptionHelper", SearchContext.Module);
         var componentAttribute = BuilderTypes.ComponentAttribute;
         var genericComponentAttribute = BuilderTypes.GenericComponentAttribute;
-        unknownConstructorText = cauldron.CreateField(Modifiers.PublicStatic, (BuilderType)BuilderTypes.String, "UnknownConstructorText");
-        unknownConstructorText.CustomAttributes.AddCompilerGeneratedAttribute();
-        unknownConstructorText.CustomAttributes.AddEditorBrowsableAttribute(EditorBrowsableState.Never);
-
-        cauldron.CreateStaticConstructor().NewCoder()
-            .SetValue(unknownConstructorText, UnknownConstructor)
-            .Insert(InsertionPosition.Beginning);
 
         // Before we start let us find all factoryextensions and add a component attribute to them
         var factoryResolverInterface = (BuilderType)BuilderTypes.IFactoryExtension;
         AddComponentAttribute(builder, builder.FindTypesByInterface(factoryResolverInterface), x => factoryResolverInterface);
-
-        int counter = 0;
 
         // Get all Components
         var componentTypes = new List<BuilderType>();
@@ -78,109 +67,8 @@ public static class ComponentCacheWeaver
 
         foreach (var component in components)
         {
-            builder.Log(LogTypes.Info, "Hardcoding component factory .ctor: " + component.Type.Fullname);
-
-            var componentAttributeValue = new ComponentAttributeValues(component);
-            var childType = Builder.Current.GetChildrenType((TypeReference)component.Type);
-
-            /*
-                Check for IDisposable
-            */
-            if (componentAttributeValue.Policy == 1 && component.Type.Implements(BuilderTypes.IDisposable) && !component.Type.Implements(BuilderTypes.IDisposableObject))
-                builder.Log(LogTypes.Error, component.Type, NoIDisposableObjectExceptionText);
-
-            var componentType = builder.CreateType("", TypeAttributes.NotPublic | TypeAttributes.Sealed | TypeAttributes.BeforeFieldInit, "<>f__IFactoryTypeInfo_" + component.Type.Name.GetValidName() + "_" + counter++);
-            componentType.AddInterface(BuilderTypes.IFactoryTypeInfo);
-            componentType.CustomAttributes.AddDebuggerDisplayAttribute(component.Type.Name + " ({ContractName})");
-
-            if (component.Type.HasGenericArguments)
-                componentType.ToGenericInstance(component.Type.GenericArguments);
-
-            componentTypes.Add(componentType);
-
-            // Create ctor
-            var componentTypeCtor = componentType
-               .CreateConstructor()
-               .NewCoder();
-
-            // Implement the methods
-            AddCreateInstanceMethod(builder, cauldron, BuilderTypes.IFactoryTypeInfo.GetMethod_CreateInstance_1(), component, componentAttributeValue, componentType).Replace();
-            AddCreateInstanceMethod(builder, cauldron, BuilderTypes.IFactoryTypeInfo.GetMethod_CreateInstance(), component, componentAttributeValue, componentType).Replace();
-
-            // Implement the properties
-            foreach (var property in BuilderTypes.IFactoryTypeInfo.BuilderType.Properties)
-            {
-                var propertyResult = componentType.CreateProperty(Modifiers.Public | Modifiers.Overrides, property.ReturnType, property.Name,
-                    property.Setter == null ? PropertySetterCreationOption.DontCreateSetter : PropertySetterCreationOption.AlwaysCreate);
-
-                switch (property.Name)
-                {
-                    case "ContractName":
-
-                        if (string.IsNullOrEmpty(componentAttributeValue.ContractName))
-                            componentTypeCtor.SetValue(propertyResult.BackingField, x =>
-                                x.Load(componentAttributeValue.ContractType).Call(BuilderTypes.Type.GetMethod_get_FullName()));
-                        else
-                        {
-                            propertyResult.BackingField.Remove();
-                            propertyResult.Getter.NewCoder().Load(componentAttributeValue.ContractName).Return().Replace();
-                        }
-                        break;
-
-                    case "ContractType":
-                        propertyResult.BackingField.Remove();
-                        if (componentAttributeValue.ContractType == null)
-                            propertyResult.Getter.NewCoder().Load(value: null).Return().Replace();
-                        else
-                            propertyResult.Getter.NewCoder().Load(componentAttributeValue.ContractType).Return().Replace();
-                        break;
-
-                    case "CreationPolicy":
-                        propertyResult.BackingField.Remove();
-                        propertyResult.Getter.NewCoder().Load(componentAttributeValue.Policy).Return().Replace();
-                        break;
-
-                    case "Priority":
-                        propertyResult.BackingField.Remove();
-                        propertyResult.Getter.NewCoder().Load(componentAttributeValue.Priority).Return().Replace();
-                        break;
-
-                    case "Type":
-                        propertyResult.BackingField.Remove();
-                        propertyResult.Getter.NewCoder().Load(component.Type).Return().Replace();
-                        break;
-
-                    case "IsEnumerable":
-                        propertyResult.BackingField.Remove();
-                        propertyResult.Getter.NewCoder().Load(childType.Item2).Return().Replace();
-                        break;
-
-                    case "ChildType":
-                        propertyResult.BackingField.Remove();
-                        propertyResult.Getter.NewCoder().Load(childType.Item2 ? childType.Item1 : null).Return().Replace();
-                        break;
-
-                    case "Instance":
-                        propertyResult.BackingField.Remove();
-                        if (componentAttributeValue.Policy == 0)
-                        {
-                            propertyResult.Getter.NewCoder().Load(value: null).Return().Replace();
-                            propertyResult.Setter.NewCoder().Return().Replace();
-                        }
-                        else
-                        {
-                            var instanceFieldName = $"<{component.Type}>_componentInstance";
-                            var instanceField = cauldron.GetField(instanceFieldName, false) ?? cauldron.CreateField(Modifiers.InternalStatic, (BuilderType)BuilderTypes.Object, instanceFieldName);
-                            propertyResult.Getter.NewCoder().Load(instanceField).Return().Replace();
-                            propertyResult.Setter.NewCoder().SetValue(instanceField, CodeBlocks.GetParameter(0)).Return().Replace();
-                        }
-                        break;
-                }
-            }
-
-            componentTypeCtor.Return().Replace();
-            // Also remove the component attribute
-            component.Attribute.Remove();
+            var factoryType =  FactoryTypeInfoWeaver.Create(component);
+            componentTypes.Add(factoryType);
         }
 
         builder.Log(LogTypes.Info, "Adding component IFactoryCache Interface");
@@ -268,170 +156,6 @@ public static class ComponentCacheWeaver
         }
     }
 
-    private static Coder AddContext(Builder builder, Coder context, AttributedType component)
-    {
-        var componentAttributeValues = new ComponentAttributeValues(component);
-        var ctors = GetComponentConstructors(component).ToArray();
-
-        if (ctors.Length > 0 && context.AssociatedMethod.Parameters.Length > 0)
-        {
-            var parameterlessCtorAlreadyHandled = false;
-
-            for (int index = 0; index < ctors.Length; index++)
-            {
-                builder.Log(LogTypes.Info, "- " + ctors[index].Fullname);
-
-                var ctor = ctors[index];
-                // add a EditorBrowsable attribute
-                ctor.CustomAttributes.AddEditorBrowsableAttribute(EditorBrowsableState.Never);
-                var ctorParameters = ctor.Parameters;
-
-                if (ctorParameters.Length > 0)
-                {
-                    // In this case we have to find a parameterless constructor first
-                    if (component.Type.ParameterlessContructor != null && !parameterlessCtorAlreadyHandled && component.Type.ParameterlessContructor.IsPublicOrInternal)
-                    {
-                        context.If(x => x.Load(CodeBlocks.GetParameter(0)).IsNull().OrOr(y => y.Load(CodeBlocks.GetParameter(0)).Call(BuilderTypes.Array.GetMethod_get_Length()).Is(0)), then =>
-                        {
-                            then.NewObj(component.Type.ParameterlessContructor);
-
-                            if (componentAttributeValues.InvokeOnObjectCreationEvent)
-                                then.Duplicate().Call(BuilderTypes.Factory.GetMethod_OnObjectCreation(), CodeBlocks.This);
-
-                            return then.Return();
-                        });
-                        parameterlessCtorAlreadyHandled = true;
-                    }
-
-                    context.If(@if =>
-                    {
-                        var resultCoder = @if.Load(CodeBlocks.GetParameter(0)).Call(BuilderTypes.Array.GetMethod_get_Length()).Is(ctorParameters.Length);
-                        for (int i = 0; i < ctorParameters.Length; i++)
-                            resultCoder = resultCoder.AndAnd(x => x.Load(CodeBlocks.GetParameter(0)).ArrayElement(i).Is(ctorParameters[i]));
-
-                        return resultCoder;
-                    }, @then =>
-                    {
-                        if (ctor.Name == ".ctor")
-                        {
-                            then.NewObj(ctor, CodeBlocks.GetParameter(0).ArrayElements());
-
-                            if (componentAttributeValues.InvokeOnObjectCreationEvent)
-                                then.Duplicate().Call(BuilderTypes.Factory.GetMethod_OnObjectCreation(), CodeBlocks.This);
-                        }
-                        else
-                        {
-                            then.Call(ctor, CodeBlocks.GetParameter(0).ArrayElements());
-
-                            if (componentAttributeValues.InvokeOnObjectCreationEvent)
-                                then.Duplicate().Call(BuilderTypes.Factory.GetMethod_OnObjectCreation(), CodeBlocks.This);
-                        }
-
-                        return then.Return();
-                    });
-                }
-                else if (ctorParameters.Length == 0)
-                {
-                    CreateComponentParameterlessCtor(context, ctor, componentAttributeValues);
-                    parameterlessCtorAlreadyHandled = true;
-                }
-            }
-
-            context.ThrowNew(typeof(NotImplementedException), x =>
-                x.Call(BuilderTypes.String.GetMethod_Concat(BuilderTypes.String, BuilderTypes.String), unknownConstructorText,
-                    x.NewCoder().Call(BuilderTypes.IFactoryTypeInfo.GetMethod_get_ContractName())).End);
-        }
-        else if (ctors.Length > 0)
-        {
-            var ctor = ctors.FirstOrDefault(x => x.Parameters.Length == 0);
-            if (ctor == null)
-                context.ThrowNew(typeof(NotImplementedException), x =>
-                    x.Call(BuilderTypes.String.GetMethod_Concat(BuilderTypes.String, BuilderTypes.String), unknownConstructorText,
-                        x.NewCoder().Call(BuilderTypes.IFactoryTypeInfo.GetMethod_get_ContractName())).End);
-            else
-            {
-                ctor.CustomAttributes.AddEditorBrowsableAttribute(EditorBrowsableState.Never);
-                CreateComponentParameterlessCtor(context, ctor, componentAttributeValues);
-            }
-        }
-        else
-        {
-            context.ThrowNew(typeof(NotImplementedException), x =>
-                x.Call(BuilderTypes.String.GetMethod_Concat(BuilderTypes.String, BuilderTypes.String), unknownConstructorText,
-                    x.NewCoder().Call(BuilderTypes.IFactoryTypeInfo.GetMethod_get_ContractName())).End);
-
-            builder.Log(LogTypes.Error, component.Type, $"The component '{component.Type.Fullname}' has no ComponentConstructor attribute or the constructor is not public or internal");
-        }
-
-        return context;
-    }
-
-    private static Coder AddCreateInstanceMethod(Builder builder, BuilderType cauldron, Method createInstanceInterfaceMethod, AttributedType component, ComponentAttributeValues componentAttributeValue, BuilderType componentType)
-    {
-        var instanceFieldName = $"<{component.Type}>_componentInstance";
-        return componentType.CreateMethod(Modifiers.Public | Modifiers.Overrides, createInstanceInterfaceMethod.ReturnType, createInstanceInterfaceMethod.Name, createInstanceInterfaceMethod.Parameters)
-            .NewCoder()
-            .Context(x =>
-            {
-                if (componentAttributeValue.Policy == 1)
-                {
-                    var instanceSyncObjectName = $"<{component.Type}>_componentInstanceSyncObject";
-                    var instanceField = cauldron.GetField(instanceFieldName, false) ?? cauldron.CreateField(Modifiers.InternalStatic, (BuilderType)BuilderTypes.Object, instanceFieldName);
-                    var instanceFieldSyncObject = cauldron.GetField(instanceSyncObjectName, false) ?? cauldron.CreateField(Modifiers.InternalStatic, (BuilderType)BuilderTypes.Object, instanceSyncObjectName);
-                    var instancedCreator = componentType.CreateMethod(Modifiers.Private, createInstanceInterfaceMethod.ReturnType, $"<{component.Type.Fullname}>__CreateInstance_{indexer++}", createInstanceInterfaceMethod.Parameters);
-                    var lockTaken = instancedCreator.GetOrCreateVariable((BuilderType)BuilderTypes.Boolean);
-                    instancedCreator.NewCoder()
-                        .SetValue(lockTaken, false)
-                        .Try(@try => @try
-                            .Call(BuilderTypes.Monitor.GetMethod_Enter(), instanceFieldSyncObject, lockTaken).End
-                            .If(@if => @if.Load(instanceField).IsNull(),
-                                then => AddContext(builder, then, component),
-                                @else => @else.Load(instanceField)))
-                        .Finally(@finally => @finally.If(@if => @if.Load(lockTaken).Is(true), then => @then.Call(BuilderTypes.Monitor.GetMethod_Exit(), instanceFieldSyncObject)))
-                        .EndTry()
-                        .Return()
-                        .Replace();
-                    cauldron.CreateStaticConstructor().NewCoder().SetValue(instanceFieldSyncObject, y => y.NewObj(BuilderTypes.Object.GetMethod_ctor())).Insert(InsertionPosition.Beginning);
-
-                    x.If(@if => @if.Load(instanceField).IsNotNull(), then => then.Load(instanceField).Return());
-                    if (createInstanceInterfaceMethod.Parameters.Length == 0)
-                        x.SetValue(instanceField, m => m.Call(instancedCreator));
-                    else
-                        x.SetValue(instanceField, m => m.Call(instancedCreator, CodeBlocks.GetParameters()));
-                    // every singleton that implements the idisposable interface has also to
-                    // implement the IDisposableObject interface this is because we want to know if
-                    // an instance was disposed (somehow)
-                    if (component.Type.Implements(BuilderTypes.IDisposable))
-                    {
-                        if (!component.Type.Implements(BuilderTypes.IDisposableObject))
-                            builder.Log(LogTypes.Info, component.Type + " : " + NoIDisposableObjectExceptionText);
-                        else
-                        {
-                            // Create an event handler method
-                            var eventHandlerMethod =
-                                componentType.GetMethod($"<IDisposableObject>_Handler", 2, false) ??
-                                componentType.CreateMethod(Modifiers.Private, $"<IDisposableObject>_Handler", BuilderTypes.Object, BuilderTypes.EventArgs);
-                            eventHandlerMethod.NewCoder()
-                                .If(ehIf => ehIf.Load(CodeBlocks.GetParameter(0)).IsNotNull(), ehThen => ehThen.Load(CodeBlocks.GetParameter(0)).As(BuilderTypes.IDisposable).Call(BuilderTypes.IDisposable.GetMethod_Dispose()))
-                                .SetValue(instanceField, null)
-                                .If(@if => @if.Load(instanceField).IsNotNull(), @then => @then
-                                    .Load(instanceField).As(BuilderTypes.IDisposableObject).Call(BuilderTypes.IDisposableObject.GetMethod_remove_Disposed(), o => o.NewObj(BuilderTypes.EventHandler.GetConstructor(), CodeBlocks.This, eventHandlerMethod)))
-                                .Return()
-                                .Replace();
-
-                            x.Load(instanceField).As(BuilderTypes.IDisposableObject).Call(BuilderTypes.IDisposableObject.GetMethod_add_Disposed(), o => o.NewObj(BuilderTypes.EventHandler.GetConstructor(), CodeBlocks.This, eventHandlerMethod));
-                        }
-                    }
-
-                    x.Load(instanceField).Return();
-                }
-                else
-                    AddContext(builder, x, component);
-
-                return x;
-            });
-    }
-
     private static Method AddFactoryRebuiltHandler(InjectAttributeValues injectAttributeValues, Property property, Field injectorField, Method factoryTypeInfoGet)
     {
         var declaringType = property.DeclaringType;
@@ -479,35 +203,6 @@ public static class ComponentCacheWeaver
         }
     }
 
-    private static void CreateComponentParameterlessCtor(Coder context, Method contructor, ComponentAttributeValues componentAttributeValues)
-    {
-        if (context.AssociatedMethod.Parameters.Length > 0)
-            context.If(x => x.Load(CodeBlocks.GetParameter(0)).IsNull().OrOr(y => y.Load(CodeBlocks.GetParameter(0)).Call(BuilderTypes.Array.GetMethod_get_Length()).Is(0)), then =>
-            {
-                if (contructor.Name == ".ctor")
-                    then.NewObj(contructor);
-                else
-                    then.Call(contructor);
-
-                if (componentAttributeValues.InvokeOnObjectCreationEvent)
-                    then.Duplicate().Call(BuilderTypes.Factory.GetMethod_OnObjectCreation(), CodeBlocks.This);
-
-                return then.Return();
-            });
-        else
-        {
-            if (contructor.Name == ".ctor")
-                context.NewObj(contructor);
-            else
-                context.Call(contructor);
-
-            if (componentAttributeValues.InvokeOnObjectCreationEvent)
-                context.Duplicate().Call(BuilderTypes.Factory.GetMethod_OnObjectCreation(), CodeBlocks.This);
-
-            context.Return();
-        }
-    }
-
     private static Field CreateInjectorField(Property property, bool isMultiple = false)
     {
         var injectorField = property.DeclaringType.CreateField(Modifiers.PrivateStatic, isMultiple ?
@@ -518,63 +213,6 @@ public static class ComponentCacheWeaver
         injectorField.CustomAttributes.AddDebuggerBrowsableAttribute(DebuggerBrowsableState.Never);
         injectorField.CustomAttributes.AddNonSerializedAttribute();
         return injectorField;
-    }
-
-    private static IEnumerable<Method> GetComponentConstructors(AttributedType component)
-    {
-        var methods = component.Type.GetMethods().OrderBy(x => x.Parameters.Length);
-
-        // First all ctors with component Attribute
-        foreach (var item in methods)
-        {
-            if (item.Name != ".ctor")
-                continue;
-
-            if (item.IsPublicOrInternal && item.CustomAttributes.HasAttribute(BuilderTypes.ComponentConstructorAttribute))
-                yield return item;
-        }
-
-        // Get all properties with component attribute
-        foreach (var item in component.Type.GetAllProperties())
-        {
-            if (item.Getter == null)
-                continue;
-
-            if (item.IsStatic && item.Getter.IsPublicOrInternal && item.CustomAttributes.HasAttribute(BuilderTypes.ComponentConstructorAttribute))
-                yield return item.Getter;
-        }
-
-        // Then all static methods with component attribute
-        foreach (var item in methods)
-        {
-            if (!item.IsStatic)
-                continue;
-
-            if (item.Name == ".cctor")
-                continue;
-
-            if (item.Name.StartsWith("set_"))
-                continue;
-
-            if (item.Name.StartsWith("get_"))
-                continue;
-
-            if (item.IsPublicOrInternal && item.CustomAttributes.HasAttribute(BuilderTypes.ComponentConstructorAttribute))
-                yield return item;
-        }
-
-        // At last all ctors without component Attribute
-        foreach (var item in methods)
-        {
-            if (item.Name != ".ctor")
-                continue;
-
-            if (item.DeclaringType != component.Type)
-                continue;
-
-            if (item.IsPublicOrInternal && !item.CustomAttributes.HasAttribute(BuilderTypes.ComponentConstructorAttribute))
-                yield return item;
-        }
     }
 
     private static void ImplementGetterValueSet(InjectAttributeValues injectAttributeValues, Property property, Coder then)

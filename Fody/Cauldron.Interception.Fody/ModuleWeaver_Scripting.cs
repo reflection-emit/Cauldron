@@ -13,8 +13,6 @@ namespace Cauldron.Interception.Fody
 {
     public sealed partial class ModuleWeaver
     {
-        private string cscPath;
-
         private List<string> referencedDlls = new List<string>();
 
         public void ExecuteInterceptionScripts(Builder builder)
@@ -25,7 +23,6 @@ namespace Cauldron.Interception.Fody
                 var interceptorDirectory = Path.Combine(this.ProjectDirectoryPath, "Interceptors");
                 var scripts = this.GetCustomInterceptorList();
 
-                this.cscPath = Path.Combine(this.AddinDirectoryPath, "csc\\csc.exe");
                 this.referencedDlls.AddRange(Directory.GetFiles(this.AddinDirectoryPath, "*.dll"));
                 this.referencedDlls.AddRange(typeof(ModuleWeaver).Assembly.GetReferencedAssemblies().Select(x => Assembly.Load(x).Location?.Trim()).Where(x => !string.IsNullOrEmpty(x)));
 

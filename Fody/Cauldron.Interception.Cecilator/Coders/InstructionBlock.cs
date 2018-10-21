@@ -33,7 +33,6 @@ namespace Cauldron.Interception.Cecilator.Coders
             this.instructions.Changed += Changed;
         }
 
-        public int Count => this.instructions.Count;
         public Instruction First => this.instructions.Count == 0 ? null : this.instructions[0];
         public Instruction Last => this.instructions.Count == 0 ? null : this.instructions[this.instructions.Count - 1];
 
@@ -57,6 +56,8 @@ namespace Cauldron.Interception.Cecilator.Coders
                     this.resultingType = value;
             }
         }
+
+        public int Count => this.instructions.Count;
 
         public Instruction this[int index]
         {
@@ -107,7 +108,7 @@ namespace Cauldron.Interception.Cecilator.Coders
                 {
                     var resolved = castToType.typeReference.BetterResolve();
 
-                    if(resolved != null && (resolved.IsInterface || resolved.IsClass) && !castToType.typeReference.AreEqual((TypeReference)BuilderTypes.Object))
+                    if (resolved != null && (resolved.IsInterface || resolved.IsClass) && !castToType.typeReference.AreEqual((TypeReference)BuilderTypes.Object))
                         instructionBlock.Emit(OpCodes.Isinst, Builder.Current.Import(castToType.typeReference));
 
                     return true;
@@ -676,9 +677,9 @@ namespace Cauldron.Interception.Cecilator.Coders
 
         public void Clear()
         {
-            exceptionHandlers.Clear();
-            instructions.Clear();
-            resultingType = null;
+            this.exceptionHandlers.Clear();
+            this.instructions.Clear();
+            this.resultingType = null;
         }
 
         public void Display()
@@ -810,8 +811,6 @@ namespace Cauldron.Interception.Cecilator.Coders
 
         public IEnumerator<Instruction> GetEnumerator() => this.instructions.GetEnumerator();
 
-        IEnumerator IEnumerable.GetEnumerator() => this.instructions.GetEnumerator();
-
         public override int GetHashCode() => this.associatedMethod.GetHashCode() ^ this.ilprocessor.GetHashCode();
 
         /// <summary>
@@ -927,6 +926,8 @@ namespace Cauldron.Interception.Cecilator.Coders
                 sb.AppendLine($"IL_{item.Offset.ToString("X4")}: {item.OpCode.ToString()} { (item.Operand is Instruction ? "IL_" + (item.Operand as Instruction).Offset.ToString("X4") : item.Operand?.ToString())} ");
             return sb.ToString();
         }
+
+        IEnumerator IEnumerable.GetEnumerator() => this.instructions.GetEnumerator();
 
         internal static bool AddBinaryOperation(InstructionBlock instructionBlock, OpCode opCode, BuilderType a, BuilderType b, object valueB)
         {

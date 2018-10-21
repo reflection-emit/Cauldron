@@ -18,8 +18,8 @@ namespace Cauldron.Interception.Fody
 
             var result = path
                 .Trim()
-                .Replace("$(SolutionPath)", this.SolutionDirectoryPath)
-                .Replace("$(ProjectDir)", this.ProjectDirectoryPath);
+                .Replace("$(SolutionPath)", this.SolutionDirectoryPath.AddBackslash())
+                .Replace("$(ProjectDir)", this.ProjectDirectoryPath.AddBackslash());
 
             if (result.IndexOfAny(Path.GetInvalidPathChars()) >= 0)
                 return result;

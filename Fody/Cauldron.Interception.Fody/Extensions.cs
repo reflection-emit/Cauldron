@@ -8,6 +8,17 @@ namespace Cauldron.Interception.Fody
 {
     public static class Extensions
     {
+        public static string AddBackslash(this string value)
+        {
+            if (string.IsNullOrEmpty(value))
+                return value;
+
+            if (value[value.Length - 1] == '\\')
+                return value;
+
+            return value + "\\";
+        }
+
         public static string EnclosedIn(this string target, string start = "<", string end = ">")
         {
             if (string.IsNullOrEmpty(target))

@@ -27,7 +27,7 @@ namespace Cauldron.Interception.Cecilator
             get
             {
                 if (this.childType == null)
-                    this.childType = (new BuilderType(this.Builder, this.moduleDefinition.GetChildrenType(this.typeReference).Item1));
+                    this.childType = (new BuilderType(this.Builder, this.moduleDefinition.GetChildrenType(this.typeReference).childType));
 
                 return this.childType.Import();
             }
@@ -115,14 +115,8 @@ namespace Cauldron.Interception.Cecilator
             }
         }
 
-        public bool IsNested => this.typeDefinition.Attributes.HasFlag(TypeAttributes.NestedFamily) ||
-                                                                                                                                                                                                                                                                                    this.typeDefinition.Attributes.HasFlag(TypeAttributes.NestedAssembly) ||
-            this.typeDefinition.Attributes.HasFlag(TypeAttributes.NestedPrivate) ||
-            this.typeDefinition.Attributes.HasFlag(TypeAttributes.NestedPublic);
-
         public bool IsNestedFamily => this.typeDefinition.Attributes.HasFlag(TypeAttributes.NestedFamily);
 
-        public bool IsNestedPrivate => this.typeDefinition.Attributes.HasFlag(TypeAttributes.NestedPrivate);
         public bool IsNestedPublic => this.typeDefinition.Attributes.HasFlag(TypeAttributes.NestedPublic);
 
         public bool IsNullable => this.typeDefinition.AreEqual(BuilderTypes.Nullable1.BuilderType.typeDefinition);
@@ -131,7 +125,6 @@ namespace Cauldron.Interception.Cecilator
 
         public bool IsPublic => this.typeDefinition.Attributes.HasFlag(TypeAttributes.Public) && !this.IsNestedPrivate;
 
-        public bool IsSealed => this.typeDefinition.Attributes.HasFlag(TypeAttributes.Sealed);
         public bool IsStatic => this.IsAbstract && this.IsSealed;
 
         public bool IsVoid => this.typeDefinition.FullName == "System.Void";
@@ -172,7 +165,15 @@ namespace Cauldron.Interception.Cecilator
         public bool IsGenericInstance => this.typeReference.IsGenericInstance;
 
         public bool IsGenericParameter => this.typeReference.IsGenericParameter;
+
+        public bool IsNested => this.typeDefinition.Attributes.HasFlag(TypeAttributes.NestedFamily) ||
+                                                                                                                                                                                                                                                                                                                                                                                                                            this.typeDefinition.Attributes.HasFlag(TypeAttributes.NestedAssembly) ||
+            this.typeDefinition.Attributes.HasFlag(TypeAttributes.NestedPrivate) ||
+            this.typeDefinition.Attributes.HasFlag(TypeAttributes.NestedPublic);
+
+        public bool IsNestedPrivate => this.typeDefinition.Attributes.HasFlag(TypeAttributes.NestedPrivate);
         public bool IsPrimitive => this.typeDefinition?.IsPrimitive ?? this.typeReference?.IsPrimitive ?? false;
+        public bool IsSealed => this.typeDefinition.Attributes.HasFlag(TypeAttributes.Sealed);
         public bool IsUsed => InstructionBucket.IsUsed(this.typeReference);
 
         public bool IsValueType => this.typeDefinition == null ? this.typeReference == null ? false : this.typeReference.IsValueType : this.typeDefinition.IsValueType;
