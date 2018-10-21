@@ -394,10 +394,10 @@ namespace Cauldron.Interception.Cecilator
         /// If the child type was successfully extracted, then <see cref="Tuple{T1, T2}.Item2"/> is true; otherwise false.
         /// <see cref="Tuple{T1, T2}.Item1"/> contains the child type; otherwise always <see cref="Object"/>
         /// </returns>
-        public static Tuple<TypeReference, bool> GetChildrenType(this ModuleDefinition module, TypeReference type)
+        public static (TypeReference childType, bool isSuccessful) GetChildrenType(this ModuleDefinition module, TypeReference type)
         {
             if (type.IsArray)
-                return new Tuple<TypeReference, bool>(module.ImportReference(type.GetElementType()), true);
+                return (module.ImportReference(type.GetElementType()), true);
 
             TypeReference getIEnumerableInterfaceChild(TypeReference typeReference)
             {
@@ -428,10 +428,10 @@ namespace Cauldron.Interception.Cecilator
             var result = getIEnumerableInterfaceChild(type);
 
             if (result != null)
-                return new Tuple<TypeReference, bool>(module.ImportReference(result), true);
+                return (module.ImportReference(result), true);
 
             // We just don't know :(
-            return new Tuple<TypeReference, bool>(module.ImportReference(typeof(object)), false);
+            return (module.ImportReference(typeof(object)), false);
         }
 
         public static IReadOnlyDictionary<string, TypeReference> GetGenericResolvedTypeName(this GenericInstanceType type)

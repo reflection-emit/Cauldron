@@ -34,28 +34,26 @@
     </DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="FodyHelpers, Version=3.2.4.0, Culture=neutral, PublicKeyToken=1ca091877d12ca03, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\FodyHelpers.3.2.4\lib\net46\FodyHelpers.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="FodyHelpers, Version=3.2.12.0, Culture=neutral, PublicKeyToken=1ca091877d12ca03, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\FodyHelpers.3.2.12\lib\net46\FodyHelpers.dll</HintPath>
     </Reference>
     <Reference Include="Mono.Cecil, Version=0.10.0.0, Culture=neutral, PublicKeyToken=1ca091877d12ca03, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\FodyHelpers.3.2.4\lib\net46\Mono.Cecil.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>..\..\packages\FodyHelpers.3.2.12\lib\net46\Mono.Cecil.dll</HintPath>
     </Reference>
     <Reference Include="Mono.Cecil.Mdb, Version=0.10.0.0, Culture=neutral, PublicKeyToken=1ca091877d12ca03, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\FodyHelpers.3.2.4\lib\net46\Mono.Cecil.Mdb.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>..\..\packages\FodyHelpers.3.2.12\lib\net46\Mono.Cecil.Mdb.dll</HintPath>
     </Reference>
     <Reference Include="Mono.Cecil.Pdb, Version=0.10.0.0, Culture=neutral, PublicKeyToken=1ca091877d12ca03, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\FodyHelpers.3.2.4\lib\net46\Mono.Cecil.Pdb.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>..\..\packages\FodyHelpers.3.2.12\lib\net46\Mono.Cecil.Pdb.dll</HintPath>
     </Reference>
     <Reference Include="Mono.Cecil.Rocks, Version=0.10.0.0, Culture=neutral, PublicKeyToken=1ca091877d12ca03, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\FodyHelpers.3.2.4\lib\net46\Mono.Cecil.Rocks.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>..\..\packages\FodyHelpers.3.2.12\lib\net46\Mono.Cecil.Rocks.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.ValueTuple.4.5.0\lib\net461\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -68,6 +66,9 @@
     <Compile Include="Extensions.cs" />
     <Compile Include="FactoryCreateUsages.cs" />
     <Compile Include="ComponentCacheWeaver.cs" />
+    <Compile Include="FactoryTypeInfoWeaver.cs" />
+    <Compile Include="FactoryTypeInfoWeaverBase.cs" />
+    <Compile Include="FactoryTypeInfoWeaverDefault.cs" />
     <Compile Include="InjectAttributeValues.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

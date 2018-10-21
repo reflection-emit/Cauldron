@@ -76,16 +76,17 @@
       2017.12.04 - [R] Useless method cache removed from weaver.
     </releaseNotes>
     <dependencies>
-      <dependency id="Fody" version="3.2.4" />
+      <dependency id="Fody" version="3.2.12" />
     </dependencies>
   </metadata>
   <files>
+    <file src="..\Fody\Cauldron.Interception.Fody\bin\Release\Newtonsoft.Json.dll" target="netclassicweaver" />
+    <file src="..\Fody\Cauldron.Interception.Fody\bin\Release\System.ValueTuple.dll" target="netclassicweaver" />
     <file src="..\Fody\Cauldron.Interception.Fody\bin\Release\CSScriptLibrary.dll" target="netclassicweaver" />
     <file src="..\Fody\Cauldron.Interception.Fody\bin\Release\Cauldron.Interception.Cecilator.dll" target="netclassicweaver" />
     <file src="..\Fody\Cauldron.Interception.Fody\bin\Release\Cauldron.Interception.Cecilator.pdb" target="netclassicweaver" />
     <file src="..\Fody\Cauldron.Interception.Fody\bin\Release\Cauldron.Interception.Fody.dll" target="netclassicweaver" />
     <file src="..\Fody\Cauldron.Interception.Fody\bin\Release\Cauldron.Interception.Fody.pdb" target="netclassicweaver" />
-    <file src="..\Fody\Cauldron.Interception.Fody\bin\Release\Newtonsoft.Json.dll" target="netclassicweaver" />
     <file src="..\NetStandard\Cauldron.Interception\**\*.cs" target="src" />
     <file src="Fody\**" target="tools" />
   </files>

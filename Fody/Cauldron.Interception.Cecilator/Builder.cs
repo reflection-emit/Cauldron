@@ -31,7 +31,7 @@ namespace Cauldron.Interception.Cecilator
         /// If the child type was successfully extracted, then <see cref="Tuple{T1, T2}.Item2"/> is true; otherwise false.
         /// <see cref="Tuple{T1, T2}.Item1"/> contains the child type; otherwise always <see cref="Object"/>
         /// </returns>
-        public Tuple<TypeReference, bool> GetChildrenType(TypeReference type) => this.moduleDefinition.GetChildrenType(type);
+        public (TypeReference childType, bool isSuccessful) GetChildrenType(TypeReference type) => this.moduleDefinition.GetChildrenType(type);
 
         public override int GetHashCode() => this.moduleDefinition.Assembly.FullName.GetHashCode();
 
@@ -160,7 +160,7 @@ namespace Cauldron.Interception.Cecilator
 
         public IEnumerable<AttributedField> FindFieldsByAttribute(Type attributeType) => this.FindFieldsByAttribute(SearchContext.Module, attributeType);
 
-        public IEnumerable<AttributedField> FindFieldsByAttribute(SearchContext searchContext, Type attributeType) => FindFieldsByAttribute(searchContext, attributeType.FullName);
+        public IEnumerable<AttributedField> FindFieldsByAttribute(SearchContext searchContext, Type attributeType) => this.FindFieldsByAttribute(searchContext, attributeType.FullName);
 
         public IEnumerable<AttributedField> FindFieldsByAttribute(string attributeName) => this.FindFieldsByAttribute(SearchContext.Module, attributeName);
 
@@ -233,7 +233,7 @@ namespace Cauldron.Interception.Cecilator
 
             Parallel.ForEach(this.GetTypes(searchContext), type =>
             {
-                var abstractProperties = GetAbtractPropertiesWithCustomAttributes(type).ToArray();
+                var abstractProperties = this.GetAbtractPropertiesWithCustomAttributes(type).ToArray();
 
                 foreach (var property in type.Properties)
                 {
@@ -301,7 +301,7 @@ namespace Cauldron.Interception.Cecilator
 
             Parallel.ForEach(this.GetTypes(searchContext), type =>
             {
-                var abstractMethods = GetAbtractMethodsWithCustomAttributes(type).ToArray();
+                var abstractMethods = this.GetAbtractMethodsWithCustomAttributes(type).ToArray();
                 foreach (var method in type.Methods)
                 {
                     if (method.IsOverride)
@@ -349,7 +349,7 @@ namespace Cauldron.Interception.Cecilator
 
             Parallel.ForEach(this.GetTypes(searchContext), type =>
             {
-                var abstractMethods = GetAbtractMethodsWithCustomAttributes(type).ToArray();
+                var abstractMethods = this.GetAbtractMethodsWithCustomAttributes(type).ToArray();
 
                 foreach (var method in type.Methods)
                 {
@@ -406,11 +406,11 @@ namespace Cauldron.Interception.Cecilator
 
         public IEnumerable<BuilderType> FindAttributesInModule()
         {
-            if (findAttributesInModuleCache == null)
+            if (this.findAttributesInModuleCache == null)
             {
                 var stopwatch = Stopwatch.StartNew();
 
-                findAttributesInModuleCache = this.GetTypesInternal(SearchContext.Module)
+                this.findAttributesInModuleCache = this.GetTypesInternal(SearchContext.Module)
                    .SelectMany(x =>
                    {
                        var type = x.Resolve();
@@ -428,10 +428,10 @@ namespace Cauldron.Interception.Cecilator
                 stopwatch.Stop();
                 this.Log(LogTypes.Info, $"Finding attributes took {stopwatch.Elapsed.TotalMilliseconds}ms");
 
-                findAttributesInModuleCache = findAttributesInModuleCache.OrderBy(x => x.ToString()).Distinct(new BuilderTypeEqualityComparer()).ToArray();
+                this.findAttributesInModuleCache = this.findAttributesInModuleCache.OrderBy(x => x.ToString()).Distinct(new BuilderTypeEqualityComparer()).ToArray();
             }
 
-            return findAttributesInModuleCache;
+            return this.findAttributesInModuleCache;
         }
 
         #endregion Attribute Finders
@@ -496,7 +496,7 @@ namespace Cauldron.Interception.Cecilator
 
         public bool TypeExists(string typeName, SearchContext searchContext) => searchContext == SearchContext.AllReferencedModules ? this.allTypes.Get(typeName) != null : this.moduleDefinition.Types.Get(typeName) != null;
 
-        internal IEnumerable<TypeReference> GetTypesInternal() => GetTypesInternal(SearchContext.Module);
+        internal IEnumerable<TypeReference> GetTypesInternal() => this.GetTypesInternal(SearchContext.Module);
 
         internal IEnumerable<TypeReference> GetTypesInternal(SearchContext searchContext)
         {

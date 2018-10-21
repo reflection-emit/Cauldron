@@ -12,7 +12,6 @@ using System.Linq;
 
 public static class ComponentCacheWeaver
 {
-    public const string NoIDisposableObjectExceptionText = "An object with creation policy 'Singleton' with an implemented 'IDisposable' must also implement the 'IDisposableObject' interface.";
     public const string UnknownConstructor = "There is no defined constructor that matches the passed parameters for component ";
     public static string Name = "Activator Component Cache (Dependency Injection)";
     public static int Priority = int.MaxValue;

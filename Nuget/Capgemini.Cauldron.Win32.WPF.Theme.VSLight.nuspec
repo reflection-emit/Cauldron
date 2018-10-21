@@ -20,7 +20,7 @@
       2018.01.24 - [A] Beta release.
     </releaseNotes>
     <dependencies>
-      <dependency id="Fody" version="3.2.4" />
+      <dependency id="Fody" version="3.2.12" />
       <dependency id="Cauldron.Interception.Fody" version="3.2.2" />
       <dependency id="Cauldron.BasicInterceptors" version="3.2.2" />
       <dependency id="Capgemini.Cauldron" version="3.2.2" />
