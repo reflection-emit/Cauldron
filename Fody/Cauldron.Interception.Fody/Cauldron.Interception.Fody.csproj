@@ -39,20 +39,20 @@
     <Reference Include="CSScriptLibrary, Version=3.28.7.0, Culture=neutral, PublicKeyToken=70fcc3d18c749033, processorArchitecture=MSIL">
       <HintPath>..\..\packages\CS-Script.lib.3.28.7\lib\CSScriptLibrary.dll</HintPath>
     </Reference>
-    <Reference Include="FodyHelpers, Version=3.2.12.0, Culture=neutral, PublicKeyToken=1ca091877d12ca03, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\FodyHelpers.3.2.12\lib\net46\FodyHelpers.dll</HintPath>
+    <Reference Include="FodyHelpers, Version=3.2.13.0, Culture=neutral, PublicKeyToken=1ca091877d12ca03, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\FodyHelpers.3.2.13\lib\net46\FodyHelpers.dll</HintPath>
     </Reference>
     <Reference Include="Mono.Cecil, Version=0.10.0.0, Culture=neutral, PublicKeyToken=1ca091877d12ca03, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\FodyHelpers.3.2.12\lib\net46\Mono.Cecil.dll</HintPath>
+      <HintPath>..\..\packages\FodyHelpers.3.2.13\lib\net46\Mono.Cecil.dll</HintPath>
     </Reference>
     <Reference Include="Mono.Cecil.Mdb, Version=0.10.0.0, Culture=neutral, PublicKeyToken=1ca091877d12ca03, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\FodyHelpers.3.2.12\lib\net46\Mono.Cecil.Mdb.dll</HintPath>
+      <HintPath>..\..\packages\FodyHelpers.3.2.13\lib\net46\Mono.Cecil.Mdb.dll</HintPath>
     </Reference>
     <Reference Include="Mono.Cecil.Pdb, Version=0.10.0.0, Culture=neutral, PublicKeyToken=1ca091877d12ca03, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\FodyHelpers.3.2.12\lib\net46\Mono.Cecil.Pdb.dll</HintPath>
+      <HintPath>..\..\packages\FodyHelpers.3.2.13\lib\net46\Mono.Cecil.Pdb.dll</HintPath>
     </Reference>
     <Reference Include="Mono.Cecil.Rocks, Version=0.10.0.0, Culture=neutral, PublicKeyToken=1ca091877d12ca03, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\FodyHelpers.3.2.12\lib\net46\Mono.Cecil.Rocks.dll</HintPath>
+      <HintPath>..\..\packages\FodyHelpers.3.2.13\lib\net46\Mono.Cecil.Rocks.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>

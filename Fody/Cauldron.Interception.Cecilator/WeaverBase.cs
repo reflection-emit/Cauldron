@@ -21,8 +21,6 @@ namespace Cauldron.Interception.Cecilator
             .With(x => x.Substring(x.LastIndexOf('\\', this.ProjectDirectoryPath.Length - 2) + 1))
             .Replace("\\", "");
 
-        public override bool ShouldCleanReference => false;
-
         public override void AfterWeaving()
         {
             AllTypes = null;
