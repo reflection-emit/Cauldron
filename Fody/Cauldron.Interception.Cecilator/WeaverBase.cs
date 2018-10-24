@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
 
 namespace Cauldron.Interception.Cecilator
@@ -21,6 +20,8 @@ namespace Cauldron.Interception.Cecilator
         public string ProjectName => this.ProjectDirectoryPath
             .With(x => x.Substring(x.LastIndexOf('\\', this.ProjectDirectoryPath.Length - 2) + 1))
             .Replace("\\", "");
+
+        public override bool ShouldCleanReference => false;
 
         public override void AfterWeaving()
         {
@@ -97,7 +98,7 @@ namespace Cauldron.Interception.Cecilator
         public IEnumerable<AssemblyDefinition> GetAllReferencedAssemblies(IEnumerable<AssemblyDefinition> assemblyDefinitions)
         {
             foreach (var item in assemblyDefinitions)
-                foreach (var result in GetAllReferencedAssemblies(item))
+                foreach (var result in this.GetAllReferencedAssemblies(item))
                     yield return result;
         }
 
@@ -193,7 +194,7 @@ namespace Cauldron.Interception.Cecilator
             this.Log(logTypes, methodDefinition, arg);
         }
 
-        public void Log(LogTypes logTypes, MethodDefinition method, object arg) => Log(logTypes, method.GetSequencePoint(), arg);
+        public void Log(LogTypes logTypes, MethodDefinition method, object arg) => this.Log(logTypes, method.GetSequencePoint(), arg);
 
         public void Log(LogTypes logTypes, SequencePoint sequencePoint, object arg)
         {
