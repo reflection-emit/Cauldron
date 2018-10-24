@@ -53,7 +53,7 @@
     </releaseNotes>
     <dependencies>
       <dependency id="Cauldron.Interception.Fody" version="3.2.2" />
-      <dependency id="Fody" version="3.1.4" />
+      <dependency id="Fody" version="3.2.10" />
     </dependencies>
     <contentFiles>
       <files include="**/Interceptors/*.dll" buildAction="None" />
