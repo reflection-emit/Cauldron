@@ -31,7 +31,6 @@ namespace Cauldron.Interception.Cecilator
             this.LogInfo = null;
             this.LogWarningPoint = null;
             this.LogWarning = null;
-            this.ReferenceCopyLocalPaths.Clear();
             this.ModuleDefinition.Dispose();
             this.ModuleDefinition = null;
         }
