@@ -6,10 +6,16 @@ namespace Cauldron.ActivatorInterceptors
 {
     internal class FactoryTypeInfoWeaverGeneric : FactoryTypeInfoWeaverBase
     {
-        internal FactoryTypeInfoWeaverGeneric(ComponentAttributeValues componentAttributeValue, BuilderType componentType, Coder componentTypeCtor, (TypeReference childType, bool isSuccessful) childType) : base(componentAttributeValue, componentType, componentTypeCtor, childType)
+        internal FactoryTypeInfoWeaverGeneric(ComponentAttributeValues componentAttributeValue, BuilderType componentInfoType, Coder componentTypeCtor, BuilderType componentType, (TypeReference childType, bool isSuccessful) childType) : base(componentAttributeValue, componentInfoType, componentTypeCtor, componentType, childType)
         {
         }
 
-        protected override Coder AddCreateInstanceMethod(Method createInstanceInterfaceMethod) => null;
+        protected override Coder AddCreateInstanceMethod(Method createInstanceInterfaceMethod)
+        {
+            return this.componentInfoType.CreateMethod(Modifiers.Public | Modifiers.Overrides, createInstanceInterfaceMethod.ReturnType, createInstanceInterfaceMethod.Name, createInstanceInterfaceMethod.Parameters)
+                 .NewCoder()
+                 .Load(value: null)
+                 .Return();
+        }
     }
 }

@@ -8,11 +8,12 @@ using System.Linq;
 
 namespace Cauldron.ActivatorInterceptors
 {
-    internal class FactoryTypeInfoWeaverBase
+    internal abstract class FactoryTypeInfoWeaverBase
     {
         public const string NoIDisposableObjectExceptionText = "An object with creation policy 'Singleton' with an implemented 'IDisposable' must also implement the 'IDisposableObject' interface.";
         public readonly TypeReference childType;
         public readonly ComponentAttributeValues componentAttributeValue;
+        public readonly BuilderType componentInfoType;
         public readonly BuilderType componentType;
         public readonly Coder componentTypeCtor;
         public readonly bool isIEnumerable;
@@ -24,27 +25,28 @@ namespace Cauldron.ActivatorInterceptors
 
         private readonly Builder builder;
 
-        internal FactoryTypeInfoWeaverBase(ComponentAttributeValues componentAttributeValue, BuilderType componentType, Coder componentTypeCtor, (TypeReference childType, bool isSuccessful) childType)
+        internal FactoryTypeInfoWeaverBase(ComponentAttributeValues componentAttributeValue, BuilderType componentInfoType, Coder componentTypeCtor, BuilderType componentType, (TypeReference childType, bool isSuccessful) childType)
         {
             this.builder = Builder.Current;
 
             this.componentType = componentType;
+            this.componentInfoType = componentInfoType;
             this.componentAttributeValue = componentAttributeValue;
             this.componentTypeCtor = componentTypeCtor;
             this.childType = childType.childType;
             this.isIEnumerable = childType.isSuccessful;
 
             // Implement the methods
-            AddCreateInstanceMethod(BuilderTypes.IFactoryTypeInfo.GetMethod_CreateInstance_1())?.Replace();
-            AddCreateInstanceMethod(BuilderTypes.IFactoryTypeInfo.GetMethod_CreateInstance())?.Replace();
+            this.AddCreateInstanceMethod(BuilderTypes.IFactoryTypeInfo.GetMethod_CreateInstance_1())?.Replace();
+            this.AddCreateInstanceMethod(BuilderTypes.IFactoryTypeInfo.GetMethod_CreateInstance())?.Replace();
         }
 
-        public static implicit operator BuilderType(FactoryTypeInfoWeaverBase factoryType) => factoryType.componentType;
+        public static implicit operator BuilderType(FactoryTypeInfoWeaverBase factoryType) => factoryType.componentInfoType;
 
         protected virtual Coder AddCreateInstanceMethod(Method createInstanceInterfaceMethod)
         {
-            var instanceFieldName = $"<{this.componentType}>_componentInstance";
-            return this.componentType.CreateMethod(Modifiers.Public | Modifiers.Overrides, createInstanceInterfaceMethod.ReturnType, createInstanceInterfaceMethod.Name, createInstanceInterfaceMethod.Parameters)
+            var instanceFieldName = $"<{this.componentInfoType}>_componentInstance";
+            return this.componentInfoType.CreateMethod(Modifiers.Public | Modifiers.Overrides, createInstanceInterfaceMethod.ReturnType, createInstanceInterfaceMethod.Name, createInstanceInterfaceMethod.Parameters)
                   .NewCoder()
                   .Context(x =>
                   {
@@ -53,7 +55,7 @@ namespace Cauldron.ActivatorInterceptors
                           var instanceSyncObjectName = $"<{this.componentType}>_componentInstanceSyncObject";
                           var instanceField = FactoryTypeInfoWeaver.cauldronInterceptionHelper.GetField(instanceFieldName, false) ?? FactoryTypeInfoWeaver.cauldronInterceptionHelper.CreateField(Modifiers.InternalStatic, (BuilderType)BuilderTypes.Object, instanceFieldName);
                           var instanceFieldSyncObject = FactoryTypeInfoWeaver.cauldronInterceptionHelper.GetField(instanceSyncObjectName, false) ?? FactoryTypeInfoWeaver.cauldronInterceptionHelper.CreateField(Modifiers.InternalStatic, (BuilderType)BuilderTypes.Object, instanceSyncObjectName);
-                          var instancedCreator = this.componentType.CreateMethod(Modifiers.Private, createInstanceInterfaceMethod.ReturnType, $"<{this.componentType.Fullname}>__CreateInstance_{indexer++}", createInstanceInterfaceMethod.Parameters);
+                          var instancedCreator = this.componentInfoType.CreateMethod(Modifiers.Private, createInstanceInterfaceMethod.ReturnType, $"<{this.componentType.Fullname.GetValidName()}>__CreateInstance_{indexer++}", createInstanceInterfaceMethod.Parameters);
                           var lockTaken = instancedCreator.GetOrCreateVariable((BuilderType)BuilderTypes.Boolean);
                           instancedCreator.NewCoder()
                               .SetValue(lockTaken, false)
@@ -84,8 +86,8 @@ namespace Cauldron.ActivatorInterceptors
                               {
                                   // Create an event handler method
                                   var eventHandlerMethod =
-                                    this.componentType.GetMethod($"<IDisposableObject>_Handler", 2, false) ??
-                                    this.componentType.CreateMethod(Modifiers.Private, $"<IDisposableObject>_Handler", BuilderTypes.Object, BuilderTypes.EventArgs);
+                                    this.componentInfoType.GetMethod($"<IDisposableObject>_Handler", 2, false) ??
+                                    this.componentInfoType.CreateMethod(Modifiers.Private, $"<IDisposableObject>_Handler", BuilderTypes.Object, BuilderTypes.EventArgs);
                                   eventHandlerMethod.NewCoder()
                                       .If(ehIf => ehIf.Load(CodeBlocks.GetParameter(0)).IsNotNull(), ehThen => ehThen.Load(CodeBlocks.GetParameter(0)).As(BuilderTypes.IDisposable).Call(BuilderTypes.IDisposable.GetMethod_Dispose()))
                                       .SetValue(instanceField, null)
@@ -109,7 +111,7 @@ namespace Cauldron.ActivatorInterceptors
 
         private Coder AddContext(Coder context)
         {
-            var ctors = GetComponentConstructors().ToArray();
+            var ctors = this.GetComponentConstructors().ToArray();
 
             if (ctors.Length > 0 && context.AssociatedMethod.Parameters.Length > 0)
             {
@@ -170,7 +172,7 @@ namespace Cauldron.ActivatorInterceptors
                     }
                     else if (ctorParameters.Length == 0)
                     {
-                        CreateComponentParameterlessCtor(context, ctor);
+                        this.CreateComponentParameterlessCtor(context, ctor);
                         parameterlessCtorAlreadyHandled = true;
                     }
                 }
@@ -189,7 +191,7 @@ namespace Cauldron.ActivatorInterceptors
                 else
                 {
                     ctor.CustomAttributes.AddEditorBrowsableAttribute(EditorBrowsableState.Never);
-                    CreateComponentParameterlessCtor(context, ctor);
+                    this.CreateComponentParameterlessCtor(context, ctor);
                 }
             }
             else

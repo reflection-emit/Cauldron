@@ -46,19 +46,19 @@ namespace Cauldron.ActivatorInterceptors
             if (componentAttributeValue.Policy == 1 && component.Type.Implements(BuilderTypes.IDisposable) && !component.Type.Implements(BuilderTypes.IDisposableObject))
                 builder.Log(LogTypes.Error, component.Type, FactoryTypeInfoWeaverBase.NoIDisposableObjectExceptionText);
 
-            var componentType = builder.CreateType("", TypeAttributes.NotPublic | TypeAttributes.Sealed | TypeAttributes.BeforeFieldInit, "<>f__IFactoryTypeInfo_" + component.Type.Name.GetValidName() + "_" + counter++);
-            componentType.AddInterface(BuilderTypes.IFactoryTypeInfo);
-            componentType.CustomAttributes.AddDebuggerDisplayAttribute(component.Type.Name + " ({ContractName})");
+            var componentInfoType = builder.CreateType("", TypeAttributes.NotPublic | TypeAttributes.Sealed | TypeAttributes.BeforeFieldInit, "<>f__IFactoryTypeInfo_" + component.Type.Name.GetValidName() + "_" + counter++);
+            componentInfoType.AddInterface(BuilderTypes.IFactoryTypeInfo);
+            componentInfoType.CustomAttributes.AddDebuggerDisplayAttribute(component.Type.Name + " ({ContractName})");
 
             if (component.Type.HasGenericArguments)
-                componentType.ToGenericInstance(component.Type.GenericArguments);
+                componentInfoType.ToGenericInstance(component.Type.GenericArguments);
 
             FactoryTypeInfoWeaverBase result;
 
             if (component.Type.IsGenericType)
-                result = null;
+                result = new FactoryTypeInfoWeaverGeneric(componentAttributeValue, componentInfoType, componentInfoType.CreateConstructor().NewCoder(), component.Type, childType);
             else
-                result = new FactoryTypeInfoWeaverBase(componentAttributeValue, componentType, componentType.CreateConstructor().NewCoder(), childType);
+                result = new FactoryTypeInfoWeaverDefault(componentAttributeValue, componentInfoType, componentInfoType.CreateConstructor().NewCoder(), component.Type, childType);
 
             ImplementProperties(result);
 
@@ -73,7 +73,7 @@ namespace Cauldron.ActivatorInterceptors
         {
             foreach (var property in BuilderTypes.IFactoryTypeInfo.BuilderType.Properties)
             {
-                var propertyResult = factoryTypeInfoWeaver.componentType.CreateProperty(Modifiers.Public | Modifiers.Overrides, property.ReturnType, property.Name,
+                var propertyResult = factoryTypeInfoWeaver.componentInfoType.CreateProperty(Modifiers.Public | Modifiers.Overrides, property.ReturnType, property.Name,
                     property.Setter == null ? PropertySetterCreationOption.DontCreateSetter : PropertySetterCreationOption.AlwaysCreate);
 
                 switch (property.Name)

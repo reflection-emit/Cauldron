@@ -14,15 +14,11 @@ namespace UnitTests.Activator
         [TestMethod]
         public void Create_Instance_Class()
         {
-            var ll = Factory.FactoryTypes;
-            var tt = Factory.RegisteredTypes;
-            var zz = Factory.Resolvers;
-
             Factory.Create<MyClass>().Value = "Toast";
 
             var instance = Factory.Create<MyClass>();
 
-            Assert.AreNotEqual(Factory.Create<MyClass>().Value, instance.Value);
+            Assert.AreEqual(Factory.Create<MyClass>().Value, instance.Value);
         }
 
         [TestMethod]
@@ -32,7 +28,7 @@ namespace UnitTests.Activator
 
             var instance = Factory.Create<IMyClass>();
 
-            Assert.AreNotEqual(Factory.Create<IMyClass>().Value, instance.Value);
+            Assert.AreEqual(Factory.Create<IMyClass>().Value, instance.Value);
         }
 
         [Component(typeof(MyClass), FactoryCreationPolicy.Singleton)]

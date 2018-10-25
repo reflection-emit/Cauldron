@@ -6,7 +6,6 @@ using Mono.Cecil;
 using Mono.Cecil.Cil;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 
@@ -310,6 +309,7 @@ public static class ComponentCacheWeaver
                                                                     BuilderTypes.Factory.GetMethod_CreateManyOrdered(BuilderTypes.String) :
                                                                     BuilderTypes.Factory.GetMethod_CreateMany(BuilderTypes.String), injectAttributeValues.ContractName));
         }
+        else
         if (
             injectAttributeValues.ForceDontCreateMany            /**/  == false /**/ &&
             property.ReturnType.IsIEnumerable()                  /**/  == true  /**/ &&

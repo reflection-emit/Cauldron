@@ -36,10 +36,6 @@ namespace Cauldron.Interception.Fody
 
         protected override void OnExecute()
         {
-        }
-
-        protected void OnfExecute()
-        {
             var versionAttribute = typeof(ModuleWeaver)
                 .Assembly
                 .GetCustomAttributes(typeof(System.Reflection.AssemblyFileVersionAttribute), true)
