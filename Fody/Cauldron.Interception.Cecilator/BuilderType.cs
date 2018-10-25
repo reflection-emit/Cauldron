@@ -93,6 +93,7 @@ namespace Cauldron.Interception.Cecilator
         public bool IsEnumerable => BuilderTypes.IEnumerable.BuilderType.AreReferenceAssignable(this) || this.IsArray;
         public bool IsForeign => this.moduleDefinition.Assembly == this.typeDefinition.Module.Assembly;
         public bool IsGenerated => this.typeDefinition.FullName.IndexOf('<') >= 0 || this.typeDefinition.FullName.IndexOf('>') >= 0;
+
         public bool IsGenericType => this.typeDefinition == null || this.typeReference.Resolve() == null;
         public bool IsInterface => this.typeDefinition == null ? false : this.typeDefinition.Attributes.HasFlag(TypeAttributes.Interface);
 
@@ -115,14 +116,8 @@ namespace Cauldron.Interception.Cecilator
             }
         }
 
-        public bool IsNested => this.typeDefinition.Attributes.HasFlag(TypeAttributes.NestedFamily) ||
-                                                                                                                                                                                                                                                                                                                                                                                                                            this.typeDefinition.Attributes.HasFlag(TypeAttributes.NestedAssembly) ||
-            this.typeDefinition.Attributes.HasFlag(TypeAttributes.NestedPrivate) ||
-            this.typeDefinition.Attributes.HasFlag(TypeAttributes.NestedPublic);
-
         public bool IsNestedFamily => this.typeDefinition.Attributes.HasFlag(TypeAttributes.NestedFamily);
 
-        public bool IsNestedPrivate => this.typeDefinition.Attributes.HasFlag(TypeAttributes.NestedPrivate);
         public bool IsNestedPublic => this.typeDefinition.Attributes.HasFlag(TypeAttributes.NestedPublic);
 
         public bool IsNullable => this.typeDefinition.AreEqual(BuilderTypes.Nullable1.BuilderType.typeDefinition);
@@ -131,7 +126,6 @@ namespace Cauldron.Interception.Cecilator
 
         public bool IsPublic => this.typeDefinition.Attributes.HasFlag(TypeAttributes.Public) && !this.IsNestedPrivate;
 
-        public bool IsSealed => this.typeDefinition.Attributes.HasFlag(TypeAttributes.Sealed);
         public bool IsStatic => this.IsAbstract && this.IsSealed;
 
         public bool IsVoid => this.typeDefinition.FullName == "System.Void";
@@ -161,7 +155,11 @@ namespace Cauldron.Interception.Cecilator
 
         public Collection<TypeReference> GenericArguments => (this.typeReference as GenericInstanceType)?.GenericArguments;
 
+        public Collection<GenericParameter> GenericParameters => this.typeDefinition.GenericParameters;
+
         public bool HasGenericArguments => (this.typeReference as GenericInstanceType)?.HasGenericArguments ?? false;
+
+        public bool HasGenericParameters => this.typeReference.HasGenericParameters;
 
         public bool IsArray => this.typeDefinition != null && (this.typeDefinition.IsArray || this.typeReference.FullName.EndsWith("[]") || this.typeDefinition.FullName.EndsWith("[]"));
 
@@ -172,7 +170,15 @@ namespace Cauldron.Interception.Cecilator
         public bool IsGenericInstance => this.typeReference.IsGenericInstance;
 
         public bool IsGenericParameter => this.typeReference.IsGenericParameter;
+
+        public bool IsNested => this.typeDefinition.Attributes.HasFlag(TypeAttributes.NestedFamily) ||
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    this.typeDefinition.Attributes.HasFlag(TypeAttributes.NestedAssembly) ||
+            this.typeDefinition.Attributes.HasFlag(TypeAttributes.NestedPrivate) ||
+            this.typeDefinition.Attributes.HasFlag(TypeAttributes.NestedPublic);
+
+        public bool IsNestedPrivate => this.typeDefinition.Attributes.HasFlag(TypeAttributes.NestedPrivate);
         public bool IsPrimitive => this.typeDefinition?.IsPrimitive ?? this.typeReference?.IsPrimitive ?? false;
+        public bool IsSealed => this.typeDefinition.Attributes.HasFlag(TypeAttributes.Sealed);
         public bool IsUsed => InstructionBucket.IsUsed(this.typeReference);
 
         public bool IsValueType => this.typeDefinition == null ? this.typeReference == null ? false : this.typeReference.IsValueType : this.typeDefinition.IsValueType;
@@ -246,11 +252,14 @@ namespace Cauldron.Interception.Cecilator
             (x.typeReference != null && x.typeReference.FullName.GetHashCode() == typename.GetHashCode() && x.typeReference.FullName == typename) ||
             (x.typeDefinition != null && x.typeDefinition.FullName.GetHashCode() == typename.GetHashCode() && x.typeDefinition.FullName == typename));
 
-        public BuilderType ToGenericInstance(params BuilderType[] genericArguments) => this.ToGenericInstance(genericArguments);
+        public BuilderType ToGenericInstance(params BuilderType[] genericArguments) =>
+            this.ToGenericInstance(genericArguments.Select(x => x.typeReference ?? x.typeDefinition));
 
-        public BuilderType ToGenericInstance(IEnumerable<BuilderType> genericArguments) => this.ToGenericInstance(genericArguments);
+        public BuilderType ToGenericInstance(IEnumerable<BuilderType> genericArguments) =>
+            this.ToGenericInstance(genericArguments.Select(x => x.typeReference ?? x.typeDefinition));
 
-        public BuilderType ToGenericInstance(params TypeReference[] genericArguments) => this.ToGenericInstance(genericArguments);
+        public BuilderType ToGenericInstance(params TypeReference[] genericArguments) =>
+            this.ToGenericInstance(genericArguments.Select(x => x));
 
         public BuilderType ToGenericInstance(IEnumerable<TypeReference> genericArguments)
         {

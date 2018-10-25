@@ -313,6 +313,14 @@ namespace Cauldron.Interception.Cecilator
             }
         }
 
+        public static GenericParameter Clone(this GenericParameter genericParameter, TypeDefinition typeDefinition)
+        {
+            var result = new GenericParameter(typeDefinition);
+            result.Attributes = genericParameter.Attributes;
+            result.Name = genericParameter.Name;
+            return result;
+        }
+
         public static Builder CreateBuilder(this WeaverBase weaver)
         {
             if (weaver == null)

@@ -30,7 +30,7 @@ namespace Cauldron.Interception.Cecilator.Coders
             this.ilprocessor = this.associatedMethod.GetILProcessor();
             this.associatedMethod.methodDefinition.Body.SimplifyMacros();
 
-            this.instructions.Changed += Changed;
+            this.instructions.Changed += this.Changed;
         }
 
         public Instruction First => this.instructions.Count == 0 ? null : this.instructions[0];
@@ -693,55 +693,55 @@ namespace Cauldron.Interception.Cecilator.Coders
             }
         }
 
-        public void Emit(OpCode opcode, ParameterDefinition parameter) => this.instructions.Add(ilprocessor.Create(opcode, parameter));
+        public void Emit(OpCode opcode, ParameterDefinition parameter) => this.instructions.Add(this.ilprocessor.Create(opcode, parameter));
 
-        public void Emit(OpCode opcode, ParametersCodeBlock parameter) => this.instructions.Add(ilprocessor.Create(opcode, parameter.GetTargetType(this.associatedMethod).Item3));
+        public void Emit(OpCode opcode, ParametersCodeBlock parameter) => this.instructions.Add(this.ilprocessor.Create(opcode, parameter.GetTargetType(this.associatedMethod).Item3));
 
-        public void Emit(OpCode opcode, VariableDefinition variable) => this.instructions.Add(ilprocessor.Create(opcode, variable));
+        public void Emit(OpCode opcode, VariableDefinition variable) => this.instructions.Add(this.ilprocessor.Create(opcode, variable));
 
-        public void Emit(OpCode opcode, LocalVariable variable) => this.instructions.Add(ilprocessor.Create(opcode, variable.variable));
+        public void Emit(OpCode opcode, LocalVariable variable) => this.instructions.Add(this.ilprocessor.Create(opcode, variable.variable));
 
-        public void Emit(OpCode opcode, Instruction[] targets) => this.instructions.Add(ilprocessor.Create(opcode, targets));
+        public void Emit(OpCode opcode, Instruction[] targets) => this.instructions.Add(this.ilprocessor.Create(opcode, targets));
 
-        public void Emit(OpCode opcode, Instruction target) => this.instructions.Add(ilprocessor.Create(opcode, target));
+        public void Emit(OpCode opcode, Instruction target) => this.instructions.Add(this.ilprocessor.Create(opcode, target));
 
-        public void Emit(OpCode opcode, double value) => this.instructions.Add(ilprocessor.Create(opcode, value));
+        public void Emit(OpCode opcode, double value) => this.instructions.Add(this.ilprocessor.Create(opcode, value));
 
-        public void Emit(OpCode opcode, float value) => this.instructions.Add(ilprocessor.Create(opcode, value));
+        public void Emit(OpCode opcode, float value) => this.instructions.Add(this.ilprocessor.Create(opcode, value));
 
-        public void Emit(OpCode opcode, long value) => this.instructions.Add(ilprocessor.Create(opcode, value));
+        public void Emit(OpCode opcode, long value) => this.instructions.Add(this.ilprocessor.Create(opcode, value));
 
-        public void Emit(OpCode opcode, ulong value) => this.instructions.Add(ilprocessor.Create(opcode, unchecked((long)value)));
+        public void Emit(OpCode opcode, ulong value) => this.instructions.Add(this.ilprocessor.Create(opcode, unchecked((long)value)));
 
-        public void Emit(OpCode opcode) => this.instructions.Add(ilprocessor.Create(opcode));
+        public void Emit(OpCode opcode) => this.instructions.Add(this.ilprocessor.Create(opcode));
 
-        public void Emit(OpCode opcode, byte value) => this.instructions.Add(ilprocessor.Create(opcode, value));
+        public void Emit(OpCode opcode, byte value) => this.instructions.Add(this.ilprocessor.Create(opcode, value));
 
-        public void Emit(OpCode opcode, sbyte value) => this.instructions.Add(ilprocessor.Create(opcode, value));
+        public void Emit(OpCode opcode, sbyte value) => this.instructions.Add(this.ilprocessor.Create(opcode, value));
 
-        public void Emit(OpCode opcode, string value) => this.instructions.Add(ilprocessor.Create(opcode, value));
+        public void Emit(OpCode opcode, string value) => this.instructions.Add(this.ilprocessor.Create(opcode, value));
 
-        public void Emit(OpCode opcode, FieldReference field) => this.instructions.Add(ilprocessor.Create(opcode, field));
+        public void Emit(OpCode opcode, FieldReference field) => this.instructions.Add(this.ilprocessor.Create(opcode, field));
 
-        public void Emit(OpCode opcode, Field field) => this.instructions.Add(ilprocessor.Create(opcode, field.fieldRef));
+        public void Emit(OpCode opcode, Field field) => this.instructions.Add(this.ilprocessor.Create(opcode, field.fieldRef));
 
-        public void Emit(OpCode opcode, MethodReference method) => this.instructions.Add(ilprocessor.Create(opcode, Builder.Current.Import(method)));
+        public void Emit(OpCode opcode, MethodReference method) => this.instructions.Add(this.ilprocessor.Create(opcode, Builder.Current.Import(method)));
 
-        public void Emit(OpCode opcode, Method method) => this.instructions.Add(ilprocessor.Create(opcode, Builder.Current.Import(method.methodReference)));
+        public void Emit(OpCode opcode, Method method) => this.instructions.Add(this.ilprocessor.Create(opcode, Builder.Current.Import(method.methodReference)));
 
-        public void Emit(OpCode opcode, CallSite site) => this.instructions.Add(ilprocessor.Create(opcode, site));
+        public void Emit(OpCode opcode, CallSite site) => this.instructions.Add(this.ilprocessor.Create(opcode, site));
 
-        public void Emit(OpCode opcode, TypeReference type) => this.instructions.Add(ilprocessor.Create(opcode, Builder.Current.Import(type)));
+        public void Emit(OpCode opcode, TypeReference type) => this.instructions.Add(this.ilprocessor.Create(opcode, Builder.Current.Import(type)));
 
-        public void Emit(OpCode opcode, BuilderType type) => this.instructions.Add(ilprocessor.Create(opcode, Builder.Current.Import(type.typeReference)));
+        public void Emit(OpCode opcode, BuilderType type) => this.instructions.Add(this.ilprocessor.Create(opcode, Builder.Current.Import(type.typeReference)));
 
-        public void Emit(OpCode opcode, short value) => this.instructions.Add(ilprocessor.Create(opcode, value));
+        public void Emit(OpCode opcode, short value) => this.instructions.Add(this.ilprocessor.Create(opcode, value));
 
-        public void Emit(OpCode opcode, ushort value) => this.instructions.Add(ilprocessor.Create(opcode, unchecked((short)value)));
+        public void Emit(OpCode opcode, ushort value) => this.instructions.Add(this.ilprocessor.Create(opcode, unchecked((short)value)));
 
-        public void Emit(OpCode opcode, int value) => this.instructions.Add(ilprocessor.Create(opcode, value));
+        public void Emit(OpCode opcode, int value) => this.instructions.Add(this.ilprocessor.Create(opcode, value));
 
-        public void Emit(OpCode opcode, uint value) => this.instructions.Add(ilprocessor.Create(opcode, unchecked((int)value)));
+        public void Emit(OpCode opcode, uint value) => this.instructions.Add(this.ilprocessor.Create(opcode, unchecked((int)value)));
 
         public void Emit_LdNull() => this.Emit(OpCodes.Ldnull);
 
@@ -1490,14 +1490,14 @@ namespace Cauldron.Interception.Cecilator.Coders
             }
             else if ((instructionBlock.ResultingType.AreEqual((TypeReference)BuilderTypes.Object) || instructionBlock.ResultingType.AreEqual((TypeReference)BuilderTypes.IEnumerable)) && (targetType.IsArray || targetType == BuilderTypes.IEnumerable1))
             {
-                var childType = Builder.Current.GetChildrenType(targetType.typeReference).Item1;
+                var childType = Builder.Current.GetChildrenType(targetType.typeReference).childType;
                 var castMethod = BuilderTypes.Enumerable.GetMethod_Cast(childType).Import();
                 var toArrayMethod = BuilderTypes.Enumerable.GetMethod_ToArray(childType).Import();
 
                 if (instructionBlock.ResultingType.AreEqual((TypeReference)BuilderTypes.Object))
                     instructionBlock.Emit(OpCodes.Isinst, (TypeReference)BuilderTypes.IEnumerable);
 
-                if (!childType.AreEqual(Builder.Current.GetChildrenType(instructionBlock.ResultingType).Item1))
+                if (!childType.AreEqual(Builder.Current.GetChildrenType(instructionBlock.ResultingType).childType))
                     instructionBlock.Emit(OpCodes.Call, castMethod);
 
                 if (targetType.IsArray)
@@ -1505,14 +1505,14 @@ namespace Cauldron.Interception.Cecilator.Coders
             }
             else if ((instructionBlock.ResultingType.AreEqual((TypeReference)BuilderTypes.Object) || instructionBlock.ResultingType.AreEqual((TypeReference)BuilderTypes.IEnumerable) || instructionBlock.ResultingType.IsArray) && targetType == BuilderTypes.List1)
             {
-                var childType = Builder.Current.GetChildrenType(targetType.typeReference).Item1;
+                var childType = Builder.Current.GetChildrenType(targetType.typeReference).childType;
                 var castMethod = BuilderTypes.Enumerable.GetMethod_Cast(childType).Import();
                 var toList = BuilderTypes.Enumerable.GetMethod_ToList(childType).Import();
 
                 if (instructionBlock.ResultingType.AreEqual((TypeReference)BuilderTypes.Object))
                     instructionBlock.Emit(OpCodes.Isinst, (TypeReference)BuilderTypes.IEnumerable);
 
-                if (!childType.AreEqual(Builder.Current.GetChildrenType(instructionBlock.ResultingType).Item1))
+                if (!childType.AreEqual(Builder.Current.GetChildrenType(instructionBlock.ResultingType).childType))
                     instructionBlock.Emit(OpCodes.Call, castMethod);
                 instructionBlock.Emit(OpCodes.Call, toList);
             }

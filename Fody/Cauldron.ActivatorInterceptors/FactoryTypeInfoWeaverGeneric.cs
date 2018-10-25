@@ -8,6 +8,13 @@ namespace Cauldron.ActivatorInterceptors
     {
         internal FactoryTypeInfoWeaverGeneric(ComponentAttributeValues componentAttributeValue, BuilderType componentInfoType, Coder componentTypeCtor, BuilderType componentType, (TypeReference childType, bool isSuccessful) childType) : base(componentAttributeValue, componentInfoType, componentTypeCtor, componentType, childType)
         {
+            var factoryType = FactoryTypeInfoWeaver.Create("", this.componentType, this.componentAttributeValue, @params =>
+            {
+                return new FactoryTypeInfoWeaverDefault(componentAttributeValue, @params.componentInfoType, @params.componentInfoType.CreateConstructor().NewCoder(), componentType, @params.childType);
+            });
+
+            foreach (var item in componentType.GenericParameters)
+                factoryType.componentInfoType.GenericParameters.Add(item.Clone((TypeDefinition)componentInfoType));
         }
 
         protected override Coder AddCreateInstanceMethod(Method createInstanceInterfaceMethod)

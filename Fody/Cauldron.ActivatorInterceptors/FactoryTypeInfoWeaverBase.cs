@@ -39,6 +39,8 @@ namespace Cauldron.ActivatorInterceptors
             // Implement the methods
             this.AddCreateInstanceMethod(BuilderTypes.IFactoryTypeInfo.GetMethod_CreateInstance_1())?.Replace();
             this.AddCreateInstanceMethod(BuilderTypes.IFactoryTypeInfo.GetMethod_CreateInstance())?.Replace();
+
+            this.ImplementProperties();
         }
 
         public static implicit operator BuilderType(FactoryTypeInfoWeaverBase factoryType) => factoryType.componentInfoType;
@@ -107,6 +109,74 @@ namespace Cauldron.ActivatorInterceptors
 
                       return x;
                   });
+        }
+
+        protected virtual void OnChildTypeSet(Property propertyResult)
+        {
+            propertyResult.BackingField.Remove();
+            propertyResult.Getter.NewCoder().Load(this.isIEnumerable ? this.childType : null).Return().Replace();
+        }
+
+        protected virtual void OnContractNameSet(Property propertyResult)
+        {
+            if (string.IsNullOrEmpty(this.componentAttributeValue.ContractName))
+                this.componentTypeCtor.SetValue(propertyResult.BackingField, x =>
+                    x.Load(this.componentAttributeValue.ContractType).Call(BuilderTypes.Type.GetMethod_get_FullName()));
+            else
+            {
+                propertyResult.BackingField.Remove();
+                propertyResult.Getter.NewCoder().Load(this.componentAttributeValue.ContractName).Return().Replace();
+            }
+        }
+
+        protected virtual void OnContractTypeSet(Property propertyResult)
+        {
+            propertyResult.BackingField.Remove();
+            if (this.componentAttributeValue.ContractType == null)
+                propertyResult.Getter.NewCoder().Load(value: null).Return().Replace();
+            else
+                propertyResult.Getter.NewCoder().Load(this.componentAttributeValue.ContractType).Return().Replace();
+        }
+
+        protected virtual void OnCreationPolicySet(Property propertyResult)
+        {
+            propertyResult.BackingField.Remove();
+            propertyResult.Getter.NewCoder().Load(this.componentAttributeValue.Policy).Return().Replace();
+        }
+
+        protected virtual void OnInstanceSet(Property propertyResult)
+        {
+            propertyResult.BackingField.Remove();
+            if (this.componentAttributeValue.Policy == 0)
+            {
+                propertyResult.Getter.NewCoder().Load(value: null).Return().Replace();
+                propertyResult.Setter.NewCoder().Return().Replace();
+            }
+            else
+            {
+                var instanceFieldName = $"<{this.componentType}>_componentInstance";
+                var instanceField = FactoryTypeInfoWeaver.cauldronInterceptionHelper.GetField(instanceFieldName, false) ?? FactoryTypeInfoWeaver.cauldronInterceptionHelper.CreateField(Modifiers.InternalStatic, (BuilderType)BuilderTypes.Object, instanceFieldName);
+                propertyResult.Getter.NewCoder().Load(instanceField).Return().Replace();
+                propertyResult.Setter.NewCoder().SetValue(instanceField, CodeBlocks.GetParameter(0)).Return().Replace();
+            }
+        }
+
+        protected virtual void OnIsEnumerableSet(Property propertyResult)
+        {
+            propertyResult.BackingField.Remove();
+            propertyResult.Getter.NewCoder().Load(this.isIEnumerable).Return().Replace();
+        }
+
+        protected virtual void OnPrioritySet(Property propertyResult)
+        {
+            propertyResult.BackingField.Remove();
+            propertyResult.Getter.NewCoder().Load(this.componentAttributeValue.Priority).Return().Replace();
+        }
+
+        protected virtual void OnTypeSet(Property propertyResult)
+        {
+            propertyResult.BackingField.Remove();
+            propertyResult.Getter.NewCoder().Load(this.componentType).Return().Replace();
         }
 
         private Coder AddContext(Coder context)
@@ -289,6 +359,50 @@ namespace Cauldron.ActivatorInterceptors
 
                 if (item.IsPublicOrInternal && !item.CustomAttributes.HasAttribute(BuilderTypes.ComponentConstructorAttribute))
                     yield return item;
+            }
+        }
+
+        private void ImplementProperties()
+        {
+            foreach (var property in BuilderTypes.IFactoryTypeInfo.BuilderType.Properties)
+            {
+                var propertyResult = this.componentInfoType.CreateProperty(Modifiers.Public | Modifiers.Overrides, property.ReturnType, property.Name,
+                    property.Setter == null ? PropertySetterCreationOption.DontCreateSetter : PropertySetterCreationOption.AlwaysCreate);
+
+                switch (property.Name)
+                {
+                    case "ContractName":
+                        this.OnContractNameSet(propertyResult);
+                        break;
+
+                    case "ContractType":
+                        this.OnContractTypeSet(propertyResult);
+                        break;
+
+                    case "CreationPolicy":
+                        this.OnCreationPolicySet(propertyResult);
+                        break;
+
+                    case "Priority":
+                        this.OnPrioritySet(propertyResult);
+                        break;
+
+                    case "Type":
+                        this.OnTypeSet(propertyResult);
+                        break;
+
+                    case "IsEnumerable":
+                        this.OnIsEnumerableSet(propertyResult);
+                        break;
+
+                    case "ChildType":
+                        this.OnChildTypeSet(propertyResult);
+                        break;
+
+                    case "Instance":
+                        this.OnInstanceSet(propertyResult);
+                        break;
+                }
             }
         }
     }

@@ -1,6 +1,7 @@
 ﻿using Cauldron.Interception.Cecilator;
 using Cauldron.Interception.Cecilator.Coders;
 using Mono.Cecil;
+using System;
 using System.ComponentModel;
 
 namespace Cauldron.ActivatorInterceptors
@@ -33,39 +34,46 @@ namespace Cauldron.ActivatorInterceptors
 
         public static FactoryTypeInfoWeaverBase Create(AttributedType component)
         {
+            var result = Create(component.Type, new ComponentAttributeValues(component));
+            component.Attribute.Remove();
+            return result;
+        }
+
+        public static FactoryTypeInfoWeaverBase Create(BuilderType componentType, ComponentAttributeValues componentAttributeValue) =>
+            Create("", componentType, componentAttributeValue, @params =>
+            {
+                if (@params.componentType.HasGenericParameters)
+                    return new FactoryTypeInfoWeaverGeneric(componentAttributeValue, @params.componentInfoType, @params.componentInfoType.CreateConstructor().NewCoder(), componentType, @params.childType);
+                else
+                    return new FactoryTypeInfoWeaverDefault(componentAttributeValue, @params.componentInfoType, @params.componentInfoType.CreateConstructor().NewCoder(), componentType, @params.childType);
+            });
+
+        public static FactoryTypeInfoWeaverBase Create(
+            string @namespace,
+            BuilderType componentType,
+            ComponentAttributeValues componentAttributeValue,
+            Func<(ComponentAttributeValues componentAttributeValue, BuilderType componentInfoType, BuilderType componentType, (TypeReference childType, bool isSuccessful) childType), FactoryTypeInfoWeaverBase> typeInfoWeaver)
+        {
             var builder = Builder.Current;
 
-            builder.Log(LogTypes.Info, "Hardcoding component factory .ctor: " + component.Type.Fullname);
-
-            var componentAttributeValue = new ComponentAttributeValues(component);
-            var childType = Builder.Current.GetChildrenType((TypeReference)component.Type);
+            builder.Log(LogTypes.Info, "Hardcoding component factory .ctor: " + componentType.Fullname);
 
             /*
                 Check for IDisposable
             */
-            if (componentAttributeValue.Policy == 1 && component.Type.Implements(BuilderTypes.IDisposable) && !component.Type.Implements(BuilderTypes.IDisposableObject))
-                builder.Log(LogTypes.Error, component.Type, FactoryTypeInfoWeaverBase.NoIDisposableObjectExceptionText);
+            if (componentAttributeValue.Policy == 1 && componentType.Implements(BuilderTypes.IDisposable) && !componentType.Implements(BuilderTypes.IDisposableObject))
+                builder.Log(LogTypes.Error, componentType, FactoryTypeInfoWeaverBase.NoIDisposableObjectExceptionText);
 
-            var componentInfoType = builder.CreateType("", TypeAttributes.NotPublic | TypeAttributes.Sealed | TypeAttributes.BeforeFieldInit, "<>f__IFactoryTypeInfo_" + component.Type.Name.GetValidName() + "_" + counter++);
+            var componentInfoType = builder.CreateType(@namespace, TypeAttributes.NotPublic | TypeAttributes.Sealed | TypeAttributes.BeforeFieldInit, "<>f__IFactoryTypeInfo_" + componentType.Name.GetValidName() + "_" + counter++);
             componentInfoType.AddInterface(BuilderTypes.IFactoryTypeInfo);
-            componentInfoType.CustomAttributes.AddDebuggerDisplayAttribute(component.Type.Name + " ({ContractName})");
+            componentInfoType.CustomAttributes.AddDebuggerDisplayAttribute(componentType.Name + " ({ContractName})");
 
-            if (component.Type.HasGenericArguments)
-                componentInfoType.ToGenericInstance(component.Type.GenericArguments);
+            var childType = Builder.Current.GetChildrenType((TypeReference)componentType);
+            var result = typeInfoWeaver(( componentAttributeValue, componentInfoType, componentType, childType ));
 
-            FactoryTypeInfoWeaverBase result;
-
-            if (component.Type.IsGenericType)
-                result = new FactoryTypeInfoWeaverGeneric(componentAttributeValue, componentInfoType, componentInfoType.CreateConstructor().NewCoder(), component.Type, childType);
-            else
-                result = new FactoryTypeInfoWeaverDefault(componentAttributeValue, componentInfoType, componentInfoType.CreateConstructor().NewCoder(), component.Type, childType);
-
-            ImplementProperties(result);
+            //ImplementProperties(result);
 
             result.componentTypeCtor.Return().Replace();
-            // Also remove the component attribute
-            component.Attribute.Remove();
-
             return result;
         }
 
