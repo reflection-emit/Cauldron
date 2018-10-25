@@ -177,7 +177,7 @@ namespace Cauldron.Interceptors
             {
                 using (var subKey = registryKey.CreateSubKey(this.subKey))
                 {
-                    var result = ConvertToSystemType(subKey.GetValue(this.name ?? propertyInterceptionInfo.PropertyName,
+                    var result = this.ConvertToSystemType(subKey.GetValue(this.name ?? propertyInterceptionInfo.PropertyName,
                         this.defaultValue,
                         RegistryValueOptions.None), propertyInterceptionInfo.PropertyType);
 
@@ -195,13 +195,13 @@ namespace Cauldron.Interceptors
             {
                 using (var subKey = registryKey.CreateSubKey(this.subKey))
                 {
-                    var result = ConvertToSystemType(subKey.GetValue(this.name ?? propertyInterceptionInfo.PropertyName,
+                    var result = this.ConvertToSystemType(subKey.GetValue(this.name ?? propertyInterceptionInfo.PropertyName,
                         this.defaultValue,
                         RegistryValueOptions.None), propertyInterceptionInfo.PropertyType);
 
                     subKey.SetValue(this.name ?? propertyInterceptionInfo.PropertyName,
-                        ConvertToRegistryValue(newValue, propertyInterceptionInfo.PropertyType),
-                        GetValueKind(propertyInterceptionInfo.PropertyType));
+                        this.ConvertToRegistryValue(newValue, propertyInterceptionInfo.PropertyType),
+                        this.GetValueKind(propertyInterceptionInfo.PropertyType));
                 }
             }
 
@@ -234,10 +234,10 @@ namespace Cauldron.Interceptors
                 return new byte[0];
 
             if (dataType == typeof(DirectoryInfo))
-                return ReplacePathWithEnvironmentVariables((value as DirectoryInfo)?.FullName);
+                return this.ReplacePathWithEnvironmentVariables((value as DirectoryInfo)?.FullName);
 
             if (dataType == typeof(FileInfo))
-                return ReplacePathWithEnvironmentVariables((value as FileInfo)?.FullName);
+                return this.ReplacePathWithEnvironmentVariables((value as FileInfo)?.FullName);
 
             if (dataType == typeof(ulong))
                 return unchecked((long)(ulong)value + long.MinValue);
@@ -253,11 +253,11 @@ namespace Cauldron.Interceptors
             if (this.registryValueKind.HasValue)
                 value = Convert.ChangeType(value, dataType);
 
-            if (dataType == typeof(ulong))
-                return unchecked((ulong)((long)value - long.MinValue));
+            if (dataType == typeof(ulong) && value is long longValue)
+                return unchecked((ulong)(longValue - long.MinValue));
 
-            if (dataType == typeof(uint))
-                return unchecked((uint)((int)value - int.MinValue));
+            if (dataType == typeof(uint) && value is int intValue)
+                return unchecked((uint)(intValue - int.MinValue));
 
             if (dataType == typeof(DirectoryInfo) && value is string path)
                 try
@@ -285,7 +285,7 @@ namespace Cauldron.Interceptors
         private RegistryValueKind GetValueKind(Type type)
         {
             if (this.registryValueKind.HasValue)
-                return registryValueKind.Value;
+                return this.registryValueKind.Value;
 
             if (type == typeof(string))
                 return RegistryValueKind.String;
@@ -368,7 +368,7 @@ namespace Cauldron.Interceptors
     /// If you do not wish to intercept a property decorate it with the <see cref="RegistryClassDoNotInterceptAttribute"/>.
     /// </summary>
     [InterceptionRule(InterceptionRuleOptions.DoNotInterceptIfDecorated, typeof(RegistryClassDoNotInterceptAttribute))]
-    [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = false)]
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Property, AllowMultiple = false, Inherited = false)]
     public sealed class RegistryClassAttribute : RegistryAttribute
     {
         /// <summary>

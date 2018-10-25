@@ -47,7 +47,7 @@ namespace Win32_Interceptors_Test
             testClass.DirectoryInfoProperty = new DirectoryInfo(Path.GetTempPath());
 
             var checkClass = new RegistryAttributeTestClass();
-            Assert.AreEqual(new DirectoryInfo(Path.GetTempPath()).FullName, testClass.DirectoryInfoProperty.FullName);
+            Assert.AreEqual(new DirectoryInfo(Path.GetTempPath()).FullName, checkClass.DirectoryInfoProperty.FullName);
         }
 
         [TestMethod]
@@ -58,7 +58,7 @@ namespace Win32_Interceptors_Test
             testClass.FileInfoProperty = new FileInfo(filename);
 
             var checkClass = new RegistryAttributeTestClass();
-            Assert.AreEqual(new FileInfo(filename).FullName, testClass.FileInfoProperty.FullName);
+            Assert.AreEqual(new FileInfo(filename).FullName, checkClass.FileInfoProperty.FullName);
         }
 
         [TestMethod]
