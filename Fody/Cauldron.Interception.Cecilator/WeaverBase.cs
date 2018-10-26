@@ -31,8 +31,6 @@ namespace Cauldron.Interception.Cecilator
             this.LogInfo = null;
             this.LogWarningPoint = null;
             this.LogWarning = null;
-            this.ModuleDefinition.Dispose();
-            this.ModuleDefinition = null;
         }
 
         public override void Execute()
