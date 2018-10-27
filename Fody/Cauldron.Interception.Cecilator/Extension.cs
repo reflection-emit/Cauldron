@@ -321,6 +321,12 @@ namespace Cauldron.Interception.Cecilator
             return result;
         }
 
+        public static IEnumerable<GenericParameter> Clone(this Mono.Collections.Generic.Collection<GenericParameter> genericParameters, TypeDefinition typeDefinition)
+        {
+            for (int i = 0; i < genericParameters.Count; i++)
+                yield return genericParameters[i].Clone(typeDefinition);
+        }
+
         public static Builder CreateBuilder(this WeaverBase weaver)
         {
             if (weaver == null)

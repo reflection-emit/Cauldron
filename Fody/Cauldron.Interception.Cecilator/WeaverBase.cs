@@ -7,9 +7,11 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
 
 namespace Cauldron.Interception.Cecilator
 {
+    /// <exclude/>
     public abstract class WeaverBase : BaseModuleWeaver, ICecilatorObject
     {
         [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
@@ -17,10 +19,14 @@ namespace Cauldron.Interception.Cecilator
 
         public Builder Builder { get; private set; }
 
+        /// <summary>
+        /// Gets the project name based on the project directory path.
+        /// </summary>
         public string ProjectName => this.ProjectDirectoryPath
             .With(x => x.Substring(x.LastIndexOf('\\', this.ProjectDirectoryPath.Length - 2) + 1))
             .Replace("\\", "");
 
+        /// <exclude/>
         public override void AfterWeaving()
         {
             AllTypes = null;
@@ -33,17 +39,39 @@ namespace Cauldron.Interception.Cecilator
             this.LogWarning = null;
         }
 
+        /// <exclude/>
+        public override void Cancel()
+        {
+            base.Cancel();
+            CecilatorCancellationToken.Current.Cancel();
+        }
+
+        /// <exclude/>
         public override void Execute()
         {
-            if (bool.TryParse(this.Config.Attribute("Verbose")?.Value?.ToString() ?? "true", out bool result))
-                IsVerbose = result;
-            else
-                IsVerbose = true;
+            try
+            {
+                if (bool.TryParse(this.Config.Attribute("Verbose")?.Value?.ToString() ?? "true", out bool result))
+                    IsVerbose = result;
+                else
+                    IsVerbose = true;
 
-            this.Initialize(this.LogInfo, this.LogWarning, this.LogWarningPoint, this.LogError, this.LogErrorPoint);
+                this.Initialize(this.LogInfo, this.LogWarning, this.LogWarningPoint, this.LogError, this.LogErrorPoint);
 
-            this.Builder = this.CreateBuilder();
-            this.OnExecute();
+                this.Builder = this.CreateBuilder();
+                this.OnExecute();
+            }
+            catch (TargetInvocationException e) when (e.GetBaseException().GetType() == typeof(OperationCanceledException))
+            {
+            }
+            catch (TargetInvocationException e) when (e.GetBaseException().GetType() == typeof(ObjectDisposedException))
+            {
+                this.Log(LogTypes.Error, "An Error has occured.");
+            }
+            catch
+            {
+                throw;
+            }
         }
 
         /// <summary>
@@ -97,6 +125,7 @@ namespace Cauldron.Interception.Cecilator
                     yield return result;
         }
 
+        /// <exclude/>
         public override IEnumerable<string> GetAssembliesForScanning()
         {
             yield break;
@@ -134,6 +163,7 @@ namespace Cauldron.Interception.Cecilator
             }
         }
 
+        /// <exclude/>
         protected abstract void OnExecute();
 
         #region Implementation from CecilatorObject due to breaking changes in FOdy 3.0.0
@@ -153,6 +183,7 @@ namespace Cauldron.Interception.Cecilator
         [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private Action<string, SequencePoint> logWarningPoint;
 
+        /// <exclude/>
         public static bool IsVerbose { get; private set; }
 
         public void Log(LogTypes logTypes, Instruction instruction, MethodDefinition methodDefinition, object arg)

@@ -84,6 +84,12 @@ namespace Cauldron.Interception.Cecilator.Coders
             if (castToType == null)
                 return;
 
+            if (castToType.typeReference is GenericParameter genericParameter)
+            {
+                CastOrBoxValuesInternal(instructionBlock, genericParameter);
+                return;
+            }
+
             bool GetCodeBlockFromLastType(TypeReference typeReference)
             {
                 if (typeReference == null)

@@ -181,7 +181,7 @@ namespace Cauldron.ActivatorInterceptors
 
         private Coder AddContext(Coder context)
         {
-            var ctors = this.GetComponentConstructors().ToArray();
+            var ctors = this.GetComponentConstructors().OrderByDescending(x=> x.GenericParameters?.Count ?? 0).ToArray();
 
             if (ctors.Length > 0 && context.AssociatedMethod.Parameters.Length > 0)
             {
@@ -240,7 +240,7 @@ namespace Cauldron.ActivatorInterceptors
                             return then.Return();
                         });
                     }
-                    else if (ctorParameters.Length == 0)
+                    else if (ctorParameters.Length == 0 && !parameterlessCtorAlreadyHandled)
                     {
                         this.CreateComponentParameterlessCtor(context, ctor);
                         parameterlessCtorAlreadyHandled = true;

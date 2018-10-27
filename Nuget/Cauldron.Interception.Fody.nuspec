@@ -17,6 +17,7 @@
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Cauldron Interception interceptor interception AOP Fody Cecil CIL ILWeaving aspect decorator boundary invocation</tags>
     <releaseNotes>
+      2018.10.27 - [C] Builds now cancels without delay.
       2018.10.16 - [B] Switches were not copied correctly in methods
       2018.10.16 - [C] Now using CS-Script to compile csx files.
       2018.08.02 - [B] Multiple execution of OnEnter on async methods bug is fixed

@@ -115,7 +115,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Fody">
-      <Version>3.2.10</Version>
+      <Version>3.2.13</Version>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>

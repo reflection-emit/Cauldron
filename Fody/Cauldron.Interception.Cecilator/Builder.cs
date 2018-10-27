@@ -82,7 +82,7 @@ namespace Cauldron.Interception.Cecilator
         {
             var result = new ConcurrentBag<AttributedType>();
 
-            Parallel.ForEach(this.GetTypes(searchContext), type =>
+            Parallel.ForEach(this.GetTypes(searchContext), CecilatorCancellationToken.Current, type =>
             {
                 for (int i = 0; i < type.typeDefinition.CustomAttributes.Count; i++)
                 {
@@ -90,6 +90,7 @@ namespace Cauldron.Interception.Cecilator
                     if (attributeType.Fullname.GetHashCode() == name.GetHashCode() && attributeType.Fullname == name)
                         result.Add(new AttributedType(type, type.typeDefinition.CustomAttributes[i]));
                 }
+                CecilatorCancellationToken.Current.ThrowIfCancellationRequested();
             });
 
             return result;
@@ -102,13 +103,14 @@ namespace Cauldron.Interception.Cecilator
             var result = new ConcurrentBag<AttributedType>();
             var attributes = types.Select(x => x.Fullname).ToList();
 
-            Parallel.ForEach(this.GetTypes(searchContext), type =>
+            Parallel.ForEach(this.GetTypes(searchContext), CecilatorCancellationToken.Current, type =>
             {
                 for (int i = 0; i < type.typeDefinition.CustomAttributes.Count; i++)
                 {
                     if (attributes.Contains(type.typeDefinition.CustomAttributes[i].AttributeType.Resolve().FullName))
                         result.Add(new AttributedType(type, type.typeDefinition.CustomAttributes[i]));
                 }
+                CecilatorCancellationToken.Current.ThrowIfCancellationRequested();
             });
 
             return result;
@@ -168,7 +170,7 @@ namespace Cauldron.Interception.Cecilator
         {
             var result = new ConcurrentBag<AttributedField>();
 
-            Parallel.ForEach(this.GetTypes(searchContext), type =>
+            Parallel.ForEach(this.GetTypes(searchContext), CecilatorCancellationToken.Current, type =>
             {
                 foreach (var field in type.Fields.Where(x => x.fieldDef.HasCustomAttributes))
                 {
@@ -179,6 +181,7 @@ namespace Cauldron.Interception.Cecilator
                             result.Add(new AttributedField(field, field.fieldDef.CustomAttributes[i]));
                     }
                 }
+                CecilatorCancellationToken.Current.ThrowIfCancellationRequested();
             });
 
             return result;
@@ -191,7 +194,7 @@ namespace Cauldron.Interception.Cecilator
             var result = new ConcurrentBag<AttributedField>();
             var attributes = types.Select(x => x.Fullname).ToList();
 
-            Parallel.ForEach(this.GetTypes(searchContext), type =>
+            Parallel.ForEach(this.GetTypes(searchContext), CecilatorCancellationToken.Current, type =>
             {
                 foreach (var field in type.Fields.Where(x => x.fieldDef.HasCustomAttributes))
                 {
@@ -201,6 +204,7 @@ namespace Cauldron.Interception.Cecilator
                             result.Add(new AttributedField(field, field.fieldDef.CustomAttributes[i]));
                     }
                 }
+                CecilatorCancellationToken.Current.ThrowIfCancellationRequested();
             });
 
             return result;
@@ -231,7 +235,7 @@ namespace Cauldron.Interception.Cecilator
                 }
             }
 
-            Parallel.ForEach(this.GetTypes(searchContext), type =>
+            Parallel.ForEach(this.GetTypes(searchContext), CecilatorCancellationToken.Current, type =>
             {
                 var abstractProperties = this.GetAbtractPropertiesWithCustomAttributes(type).ToArray();
 
@@ -252,6 +256,7 @@ namespace Cauldron.Interception.Cecilator
                     foreach (var item in getRelevantAttributes(property, property))
                         result.Add(item);
                 }
+                CecilatorCancellationToken.Current.ThrowIfCancellationRequested();
             });
 
             return result;
@@ -299,7 +304,7 @@ namespace Cauldron.Interception.Cecilator
                 }
             }
 
-            Parallel.ForEach(this.GetTypes(searchContext), type =>
+            Parallel.ForEach(this.GetTypes(searchContext), CecilatorCancellationToken.Current, type =>
             {
                 var abstractMethods = this.GetAbtractMethodsWithCustomAttributes(type).ToArray();
                 foreach (var method in type.Methods)
@@ -320,6 +325,7 @@ namespace Cauldron.Interception.Cecilator
                     foreach (var item in getRelevantAttributes(method, method))
                         result.Add(item);
                 }
+                CecilatorCancellationToken.Current.ThrowIfCancellationRequested();
             });
 
             return result;
@@ -347,7 +353,7 @@ namespace Cauldron.Interception.Cecilator
                 }
             }
 
-            Parallel.ForEach(this.GetTypes(searchContext), type =>
+            Parallel.ForEach(this.GetTypes(searchContext), CecilatorCancellationToken.Current, type =>
             {
                 var abstractMethods = this.GetAbtractMethodsWithCustomAttributes(type).ToArray();
 
@@ -369,6 +375,7 @@ namespace Cauldron.Interception.Cecilator
                     foreach (var item in getRelevantAttributes(method, method))
                         result.Add(item);
                 }
+                CecilatorCancellationToken.Current.ThrowIfCancellationRequested();
             });
 
             return result;
@@ -520,7 +527,7 @@ namespace Cauldron.Interception.Cecilator
                     break;
             }
 
-            Parallel.ForEach(types, type =>
+            Parallel.ForEach(types, CecilatorCancellationToken.Current, type =>
             {
                 if (type.HasNestedTypes)
                 {
@@ -529,6 +536,8 @@ namespace Cauldron.Interception.Cecilator
                 }
                 else
                     result.Add(type);
+
+                CecilatorCancellationToken.Current.ThrowIfCancellationRequested();
             });
 
             return result.Distinct(new TypeReferenceEqualityComparer());

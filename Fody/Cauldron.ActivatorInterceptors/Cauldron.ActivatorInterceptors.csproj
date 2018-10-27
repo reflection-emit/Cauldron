@@ -34,20 +34,20 @@
     </DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="FodyHelpers, Version=3.2.10.0, Culture=neutral, PublicKeyToken=1ca091877d12ca03, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\FodyHelpers.3.2.10\lib\net46\FodyHelpers.dll</HintPath>
+    <Reference Include="FodyHelpers, Version=3.2.13.0, Culture=neutral, PublicKeyToken=1ca091877d12ca03, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\FodyHelpers.3.2.13\lib\net46\FodyHelpers.dll</HintPath>
     </Reference>
     <Reference Include="Mono.Cecil, Version=0.10.0.0, Culture=neutral, PublicKeyToken=1ca091877d12ca03, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\FodyHelpers.3.2.10\lib\net46\Mono.Cecil.dll</HintPath>
+      <HintPath>..\..\packages\FodyHelpers.3.2.13\lib\net46\Mono.Cecil.dll</HintPath>
     </Reference>
     <Reference Include="Mono.Cecil.Mdb, Version=0.10.0.0, Culture=neutral, PublicKeyToken=1ca091877d12ca03, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\FodyHelpers.3.2.10\lib\net46\Mono.Cecil.Mdb.dll</HintPath>
+      <HintPath>..\..\packages\FodyHelpers.3.2.13\lib\net46\Mono.Cecil.Mdb.dll</HintPath>
     </Reference>
     <Reference Include="Mono.Cecil.Pdb, Version=0.10.0.0, Culture=neutral, PublicKeyToken=1ca091877d12ca03, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\FodyHelpers.3.2.10\lib\net46\Mono.Cecil.Pdb.dll</HintPath>
+      <HintPath>..\..\packages\FodyHelpers.3.2.13\lib\net46\Mono.Cecil.Pdb.dll</HintPath>
     </Reference>
     <Reference Include="Mono.Cecil.Rocks, Version=0.10.0.0, Culture=neutral, PublicKeyToken=1ca091877d12ca03, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\FodyHelpers.3.2.10\lib\net46\Mono.Cecil.Rocks.dll</HintPath>
+      <HintPath>..\..\packages\FodyHelpers.3.2.13\lib\net46\Mono.Cecil.Rocks.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
