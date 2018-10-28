@@ -22,6 +22,7 @@ namespace Cauldron.Activator
         private static List<IFactoryTypeInfo> customTypes = new List<IFactoryTypeInfo>();
         private static IFactoryTypeInfo[] factoryInfoTypes;
         private static IFactoryTypeInfo[] singletons;
+        private static readonly object componentSyncRoot = new object();
 
         static Factory()
         {
@@ -146,7 +147,7 @@ namespace Cauldron.Activator
         public static T Create<T>(Type callingType) where T : class
         {
             var contractType = typeof(T);
-            var factoryInfos = componentsTyped[contractType];
+            var factoryInfos = componentsTyped[contractType] ?? CheckForGenericAndAdd(contractType, callingType);
             if (factoryInfos == null)
                 return CreateTypeOrThrowExceptionOrReturnNull(contractType) as T;
 
@@ -225,7 +226,8 @@ namespace Cauldron.Activator
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static object Create(Type contractType, Type callingType)
         {
-            var factoryInfos = componentsTyped[contractType];
+            var factoryInfos = componentsTyped[contractType] ?? CheckForGenericAndAdd(contractType, callingType);
+
             if (factoryInfos == null)
                 return CreateTypeOrThrowExceptionOrReturnNull(contractType);
 
@@ -278,7 +280,7 @@ namespace Cauldron.Activator
         /// </exception>
         public static object CreateFirst(Type contractType)
         {
-            var factoryInfos = componentsTyped[contractType];
+            var factoryInfos = componentsTyped[contractType] ?? CheckForGenericAndAdd(contractType);
             if (factoryInfos == null)
                 return CreateTypeOrThrowExceptionOrReturnNull(contractType);
 
@@ -355,7 +357,7 @@ namespace Cauldron.Activator
         /// </exception>
         public static IEnumerable CreateMany(Type contractType)
         {
-            var factoryInfos = componentsTyped[contractType];
+            var factoryInfos = componentsTyped[contractType] ?? CheckForGenericAndAdd(contractType);
             if (factoryInfos == null)
                 return CreateTypeOrThrowExceptionOrReturnNull(contractType) as IEnumerable;
 
@@ -382,7 +384,7 @@ namespace Cauldron.Activator
         /// </exception>
         public static IEnumerable<T> CreateMany<T>() where T : class
         {
-            var factoryInfos = componentsTyped[typeof(T)];
+            var factoryInfos = componentsTyped[typeof(T)] ?? CheckForGenericAndAdd(typeof(T));
             if (factoryInfos == null)
                 return CreateTypeOrThrowExceptionOrReturnNull(typeof(T)) as IEnumerable<T>;
 
@@ -442,7 +444,7 @@ namespace Cauldron.Activator
         /// </exception>
         public static IEnumerable CreateManyOrdered(Type contractType)
         {
-            var factoryInfos = componentsTyped[contractType];
+            var factoryInfos = componentsTyped[contractType] ?? CheckForGenericAndAdd(contractType);
             if (factoryInfos == null)
                 return CreateTypeOrThrowExceptionOrReturnNull(contractType) as IEnumerable;
 
@@ -470,7 +472,7 @@ namespace Cauldron.Activator
         /// </exception>
         public static IEnumerable<T> CreateManyOrdered<T>() where T : class
         {
-            var factoryInfos = componentsTyped[typeof(T)];
+            var factoryInfos = componentsTyped[typeof(T)] ?? CheckForGenericAndAdd(typeof(T));
             if (factoryInfos == null)
                 return CreateTypeOrThrowExceptionOrReturnNull(typeof(T)) as IEnumerable<T>;
 
@@ -515,7 +517,7 @@ namespace Cauldron.Activator
         public static T Create<T>(object[] parameters, Type callingType) where T : class
         {
             var contractType = typeof(T);
-            var factoryInfos = componentsTyped[contractType];
+            var factoryInfos = componentsTyped[contractType] ?? CheckForGenericAndAdd(contractType, callingType);
             if (factoryInfos == null)
                 return CreateTypeOrThrowExceptionOrReturnNull(contractType, parameters) as T;
 
@@ -604,7 +606,7 @@ namespace Cauldron.Activator
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static object Create(Type contractType, object[] parameters, Type callingType)
         {
-            var factoryInfos = componentsTyped[contractType];
+            var factoryInfos = componentsTyped[contractType] ?? CheckForGenericAndAdd(contractType, callingType);
             if (factoryInfos == null)
                 return CreateTypeOrThrowExceptionOrReturnNull(contractType, parameters);
 
@@ -667,7 +669,7 @@ namespace Cauldron.Activator
         /// </exception>
         public static object CreateFirst(Type contractType, params object[] parameters)
         {
-            var factoryInfos = componentsTyped[contractType];
+            var factoryInfos = componentsTyped[contractType] ?? CheckForGenericAndAdd(contractType);
             if (factoryInfos == null)
                 return CreateTypeOrThrowExceptionOrReturnNull(contractType, parameters);
 
@@ -759,7 +761,7 @@ namespace Cauldron.Activator
         /// </exception>
         public static IEnumerable CreateMany(Type contractType, params object[] parameters)
         {
-            var factoryInfos = componentsTyped[contractType];
+            var factoryInfos = componentsTyped[contractType] ?? CheckForGenericAndAdd(contractType);
             if (factoryInfos == null)
                 return CreateTypeOrThrowExceptionOrReturnNull(contractType, parameters) as IEnumerable;
 
@@ -791,7 +793,7 @@ namespace Cauldron.Activator
         /// </exception>
         public static IEnumerable<T> CreateMany<T>(params object[] parameters) where T : class
         {
-            var factoryInfos = componentsTyped[typeof(T)];
+            var factoryInfos = componentsTyped[typeof(T)] ?? CheckForGenericAndAdd(typeof(T));
             if (factoryInfos == null)
                 return CreateTypeOrThrowExceptionOrReturnNull(typeof(T), parameters) as IEnumerable<T>;
 
@@ -861,7 +863,7 @@ namespace Cauldron.Activator
         /// </exception>
         public static IEnumerable CreateManyOrdered(Type contractType, params object[] parameters)
         {
-            var factoryInfos = componentsTyped[contractType];
+            var factoryInfos = componentsTyped[contractType] ?? CheckForGenericAndAdd(contractType);
             if (factoryInfos == null)
                 return CreateTypeOrThrowExceptionOrReturnNull(contractType, parameters) as IEnumerable;
 
@@ -894,7 +896,7 @@ namespace Cauldron.Activator
         /// </exception>
         public static IEnumerable<T> CreateManyOrdered<T>(params object[] parameters) where T : class
         {
-            var factoryInfos = componentsTyped[typeof(T)];
+            var factoryInfos = componentsTyped[typeof(T)] ?? CheckForGenericAndAdd(typeof(T));
             if (factoryInfos == null)
                 return CreateTypeOrThrowExceptionOrReturnNull(typeof(T), parameters) as IEnumerable<T>;
 
@@ -1165,6 +1167,57 @@ namespace Cauldron.Activator
             GetAndInitializeAllExtensions(factoryInfoTypes);
 
             Rebuilt?.Invoke(null, EventArgs.Empty);
+        }
+
+        private static FactoryDictionaryValue CheckForGenericAndAdd(Type contractType, Type callingType = null)
+        {
+#if NETFX_CORE
+            if (!contractType.GetTypeInfo().IsGenericType)
+#else
+            if (!contractType.IsGenericType)
+#endif
+                return null;
+
+            lock (componentSyncRoot)
+            {
+                var factoryInfos = componentsTyped[contractType];
+
+                if (factoryInfos != null)
+                    return factoryInfos;
+
+                factoryInfos = componentsTyped[contractType.GetGenericTypeDefinition()];
+
+                if (factoryInfos == null)
+                    return null;
+
+                FactoryDictionaryValue Add(IFactoryTypeInfo factoryTypeInfo)
+                {
+                    var newComponent = System.Activator.CreateInstance( factoryTypeInfo.Type.MakeGenericType(contractType.GenericTypeArguments)) as IFactoryTypeInfo;
+                    var value = new FactoryDictionaryValue
+                    {
+                        createFirst = newComponent,
+                        factoryTypeInfos = new IFactoryTypeInfo[] { newComponent },
+                        factoryTypeInfosOrdered = new IFactoryTypeInfo[] { newComponent },
+                        isSingle = true,
+                        single = newComponent
+                    };
+                    componentsTyped.Add(contractType, value);
+                    componentsNamed.Add(contractType.FullName, value);
+                    return value;
+                }
+
+                if (factoryInfos.isSingle)
+                    return Add(factoryInfos.single);
+
+                if (callingType == null)
+                    return null;
+
+                var result = ResolveAmbiguousMatch(callingType, contractType, factoryInfos.factoryTypeInfos);
+                if (result == null)
+                    return null;
+
+                return Add(result);
+            }
         }
 
         private static IFactoryTypeInfo ResolveAmbiguousMatch(Type callingType, string contractName, IFactoryTypeInfo[] ambigiousTypes) => Resolvers.SelectAmbiguousMatch(callingType, contractName, ambigiousTypes);

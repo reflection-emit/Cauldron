@@ -172,7 +172,7 @@ namespace Cauldron.Interception.Cecilator
         public bool IsGenericParameter => this.typeReference.IsGenericParameter;
 
         public bool IsNested => this.typeDefinition.Attributes.HasFlag(TypeAttributes.NestedFamily) ||
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            this.typeDefinition.Attributes.HasFlag(TypeAttributes.NestedAssembly) ||
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    this.typeDefinition.Attributes.HasFlag(TypeAttributes.NestedAssembly) ||
             this.typeDefinition.Attributes.HasFlag(TypeAttributes.NestedPrivate) ||
             this.typeDefinition.Attributes.HasFlag(TypeAttributes.NestedPublic);
 
@@ -347,9 +347,9 @@ namespace Cauldron.Interception.Cecilator
                     return null;
 
                 if (this.typeReference is GenericInstanceType genericInstance)
-                    return new Method(this, ctor.MakeHostInstanceGeneric(genericInstance.GenericArguments.ToArray()), ctor.Resolve());
+                    return new Method(this, ctor.MakeHostInstanceGeneric(genericInstance.GenericArguments.ToArray()), ctor);
 
-                return new Method(this, ctor, ctor.Resolve());
+                return new Method(this, ctor, ctor);
             }
         }
 

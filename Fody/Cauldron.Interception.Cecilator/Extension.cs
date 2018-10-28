@@ -244,13 +244,30 @@ namespace Cauldron.Interception.Cecilator
 
             TypeDefinition resolve()
             {
-                var name = value.FullName.Substring(0, value.FullName.IndexOf('<').With(x => x < 0 ? value.FullName.Length : x));
-                return WeaverBase.AllTypes.FirstOrDefault(x => x.FullName.StartsWith(name));
+                var position = value.FullName.IndexOf('<');
+                var name = value.FullName.Substring(0, position < 0 ? value.FullName.Length : position);
+                var result = WeaverBase.AllTypes.FirstOrDefault(x => x.FullName.StartsWith(name));
+                return result;
+            }
+
+            TypeDefinition threadSafeResolve()
+            {
+                lock (value.Module)
+                {
+                    try
+                    {
+                        return value.Resolve();
+                    }
+                    catch
+                    {
+                        return null;
+                    }
+                }
             }
 
             try
             {
-                return value.Resolve() ?? resolve();
+                return value.Resolve() ?? threadSafeResolve() ?? resolve();
             }
             catch
             {
@@ -531,7 +548,7 @@ namespace Cauldron.Interception.Cecilator
                         result.AddRange(
                             type
                                 .Recursive(x =>
-                                    x.BetterResolve()
+                                    x.BetterResolve()?
                                         .Interfaces
                                         .Select(y => y.InterfaceType))
                                     .Select(x => x.ResolveType(type)));
@@ -1441,8 +1458,11 @@ namespace Cauldron.Interception.Cecilator
                 if (current == null)
                     Builder.Current.Log(LogTypes.Info, $"-------------------> '{root}'\r\n");
 
-                foreach (var child in children(current))
-                    stack.Push(child);
+                var childrenOfCurrent = children(current);
+
+                if (childrenOfCurrent != null)
+                    foreach (var child in childrenOfCurrent)
+                        stack.Push(child);
 
                 yield return current;
             }

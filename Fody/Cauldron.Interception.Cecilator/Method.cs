@@ -119,13 +119,9 @@ namespace Cauldron.Interception.Cecilator
 
         public bool IsInternal => this.methodDefinition.Attributes.HasFlag(MethodAttributes.Assembly);
         public bool IsOverride => this.methodDefinition.IsVirtual && this.methodDefinition.IsHideBySig && !this.methodDefinition.IsStatic;
-
         public bool IsPropertyGetterSetter => (this.methodDefinition.Name.StartsWith("get_") || this.methodDefinition.Name.StartsWith("set_")) && this.methodDefinition.IsSpecialName;
-
         public bool IsProtected => this.methodDefinition.Attributes.HasFlag(MethodAttributes.Family);
-
         public bool IsPublicOrInternal => this.IsPublic || this.IsInternal;
-
         public bool IsVoid => this.methodDefinition.ReturnType.FullName == "System.Void";
 
         public Modifiers Modifiers
@@ -143,7 +139,6 @@ namespace Cauldron.Interception.Cecilator
         }
 
         public string Name { get => this.methodDefinition.Name; set => this.methodDefinition.Name = value; }
-
         public int ParametersCount => this.methodReference.Parameters.Count;
 
         /// <summary>

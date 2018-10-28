@@ -17,6 +17,9 @@
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Activator Dependency Injection Factory Cauldron</tags>
     <releaseNotes>
+      2018.10.28 - [C] Factory singleton base class removed.
+      2018.10.28 - [C] Injection of generic types is dynamic now.
+      2018.10.28 - [C] Fody dependency updated to 3.2.10
       2018.08.05 - [C] Fody dependency updated to 3.1.4
       2018.07.03 - [B] RunSync was ambigious... It is supposed to be in Cauldron.Core.Extensions... Not in Activator.
       2018.07.02 - [C] Fody dependency updated to 3.1.3

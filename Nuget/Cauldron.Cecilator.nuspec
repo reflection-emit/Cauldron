@@ -16,6 +16,7 @@
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Cauldron Interception interceptor interception AOP Fody Cecil CIL ILWeaving</tags>
     <releaseNotes>
+      2018.10.28 - [B] Minor bugs in resolving types fixed.
       2018.10.21 - [C] GetChildrenType is now using ValueTuples instead of classic Tuple.
       2018.10.21 - [C] Minor code optimizations.
       2018.10.21 - [A] Reference to System.ValueTuple added.

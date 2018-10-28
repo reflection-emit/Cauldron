@@ -36,6 +36,8 @@ namespace Cauldron.ActivatorInterceptors
             this.childType = childType.childType;
             this.isIEnumerable = childType.isSuccessful;
 
+            this.OnInitialize();
+
             // Implement the methods
             this.AddCreateInstanceMethod(BuilderTypes.IFactoryTypeInfo.GetMethod_CreateInstance_1())?.Replace();
             this.AddCreateInstanceMethod(BuilderTypes.IFactoryTypeInfo.GetMethod_CreateInstance())?.Replace();
@@ -144,6 +146,10 @@ namespace Cauldron.ActivatorInterceptors
             propertyResult.Getter.NewCoder().Load(this.componentAttributeValue.Policy).Return().Replace();
         }
 
+        protected virtual void OnInitialize()
+        {
+        }
+
         protected virtual void OnInstanceSet(Property propertyResult)
         {
             propertyResult.BackingField.Remove();
@@ -201,9 +207,14 @@ namespace Cauldron.ActivatorInterceptors
                         // In this case we have to find a parameterless constructor first
                         if (this.componentType.ParameterlessContructor != null && !parameterlessCtorAlreadyHandled && this.componentType.ParameterlessContructor.IsPublicOrInternal)
                         {
+                            var paramlessCtor =
+                                this.componentType.HasGenericParameters && !this.componentType.ParameterlessContructor.HasGenericParameters ?
+                                this.componentType.ParameterlessContructor.MakeGeneric(this.componentType.GenericParameters.ToArray()) :
+                                this.componentType.ParameterlessContructor;
+
                             context.If(x => x.Load(CodeBlocks.GetParameter(0)).IsNull().OrOr(y => y.Load(CodeBlocks.GetParameter(0)).Call(BuilderTypes.Array.GetMethod_get_Length()).Is(0)), then =>
                             {
-                                then.NewObj(this.componentType.ParameterlessContructor);
+                                then.NewObj(paramlessCtor);
 
                                 if (this.componentAttributeValue.InvokeOnObjectCreationEvent)
                                     then.Duplicate().Call(BuilderTypes.Factory.GetMethod_OnObjectCreation(), CodeBlocks.This);
