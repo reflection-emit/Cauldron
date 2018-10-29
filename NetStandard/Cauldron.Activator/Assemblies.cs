@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 
 namespace Cauldron.Reflection
 {
@@ -63,17 +62,32 @@ namespace Cauldron.Reflection
 
         private static void GetAllAssemblies()
         {
-            AppDomain.CurrentDomain.ReflectionOnlyAssemblyResolve += ResolveAssembly;
-            AppDomain.CurrentDomain.AssemblyResolve += ResolveAssembly;
+            void addAssemblies()
+            {
+                for (int i = 0; i < AssembliesCore._referencedAssemblies.Length; i++)
+                    AddAssembly(AssembliesCore._referencedAssemblies[i], false);
+            }
 
             AddAssembly(EntryAssembly, false);
 
             if (AssembliesCore._referencedAssemblies == null)
             {
+                var cauldronHelper = EntryAssembly.GetType("CauldronInterceptionHelper")?.GetMethod("GetReferencedAssemblies", BindingFlags.Public | BindingFlags.Static);
+
+                if (cauldronHelper != null)
+                {
+                    if (cauldronHelper.Invoke(null, null) is Assembly[] refAssemblies && refAssemblies.Length > 0)
+                    {
+                        AssembliesCore._referencedAssemblies = refAssemblies;
+                        addAssemblies();
+                        return;
+                    }
+                }
+
                 var assemblies = new List<Assembly>();
                 var allAssemblies = AppDomain.CurrentDomain.GetAssemblies();
 
-                Parallel.For(0, allAssemblies.Length, i =>
+                for (int i = 0; i < allAssemblies.Length; i++)
                 {
                     var assembly = allAssemblies[i];
                     if (AddAssembly(assembly, false) != null)
@@ -82,13 +96,12 @@ namespace Cauldron.Reflection
                         for (int c = 0; c < referencedAssemblies.Length; c++)
                             LoadAssembly(referencedAssemblies[c]);
                     }
-                });
+                };
 
                 return;
             }
 
-            for (int i = 0; i < AssembliesCore._referencedAssemblies.Length; i++)
-                AddAssembly(AssembliesCore._referencedAssemblies[i], false);
+            addAssemblies();
         }
 
         private static Assembly ResolveAssembly(object sender, ResolveEventArgs e)

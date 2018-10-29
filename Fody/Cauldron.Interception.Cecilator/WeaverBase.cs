@@ -14,6 +14,8 @@ namespace Cauldron.Interception.Cecilator
     /// <exclude/>
     public abstract class WeaverBase : BaseModuleWeaver, ICecilatorObject
     {
+        private IAssemblyResolver resolver = new DotNetCoreAssemblyResolver();
+
         [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public static IEnumerable<TypeDefinition> AllTypes { get; internal set; }
 
@@ -128,7 +130,11 @@ namespace Cauldron.Interception.Cecilator
         /// <exclude/>
         public override IEnumerable<string> GetAssembliesForScanning()
         {
-            yield break;
+            yield return "netstandard";
+            yield return "mscorlib";
+            yield return "System";
+            yield return "System.Runtime";
+            yield return "System.Core";
         }
 
         /// <summary>

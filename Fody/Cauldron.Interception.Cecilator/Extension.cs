@@ -459,7 +459,14 @@ namespace Cauldron.Interception.Cecilator
             var result = getIEnumerableInterfaceChild(type);
 
             if (result != null)
-                return (module.ImportReference(result), true);
+                try
+                {
+                    return (module.ImportReference(result), true);
+                }
+                catch (Exception e)
+                {
+                    throw new Exception($"An error has occured while trying to import the type '{result.FullName}'", e);
+                }
 
             // We just don't know :(
             return (module.ImportReference(typeof(object)), false);

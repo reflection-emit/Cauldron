@@ -39,6 +39,10 @@ namespace Cauldron.Activator
             };
         }
 
+        /// <exclude/>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static void Rebuild() => InitializeFactory();
+
         /// <summary>
         /// Occures if an object was created. This will only be invoked if the created object has set its <see cref="ComponentAttribute.InvokeOnObjectCreationEvent"/> to true.
         /// </summary>

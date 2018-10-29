@@ -34,9 +34,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)BasicInterceptors\Method_Interceptor_Code_Validation_Tests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\TestClass.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\TestStruct.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Interceptors\ChildRegisterTests.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Interceptors\RegistryAttribute_Tests.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Interceptors\TimedCacheTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Reflection\ModuleLoadTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)BasicInterceptors\ParameterPassedInterceptor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)BasicInterceptors\Property_Interceptor_Code_Validation_Tests.cs" />
@@ -48,7 +45,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)BasicInterceptors\TestClass_Class.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Activator\TestComponent.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)BasicInterceptors\TestStruct.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)XAML\ViewModelTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Cecilator\" />
