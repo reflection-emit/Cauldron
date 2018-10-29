@@ -14,8 +14,6 @@ namespace Cauldron.Interception.Cecilator
     /// <exclude/>
     public abstract class WeaverBase : BaseModuleWeaver, ICecilatorObject
     {
-        private IAssemblyResolver resolver = new DotNetCoreAssemblyResolver();
-
         [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public static IEnumerable<TypeDefinition> AllTypes { get; internal set; }
 
