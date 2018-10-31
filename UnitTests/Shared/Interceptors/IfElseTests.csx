@@ -34,7 +34,7 @@ public class IfElseTests
 
     public static void If_Field_AndAnd_Field(Builder builder)
     {
-        var method = testType.CreateMethod(Modifiers.Public, nameof(If_Field_AndAnd_Field), Type.EmptyTypes);
+        var method = testType.CreateMethod(Modifiers.Public, "If_Field_AndAnd_Field", Type.EmptyTypes);
         method.CustomAttributes.Add(builder.GetType(TestMethodAttribute));
 
         method.NewCoder()
@@ -49,7 +49,7 @@ public class IfElseTests
 
     public static void If_Field_Call_Bool(Builder builder)
     {
-        var name = nameof(If_Field_Call_Bool);
+        var name = "If_Field_Call_Bool";
 
         var method = testType.CreateMethod(Modifiers.Public, name, Type.EmptyTypes);
         method.CustomAttributes.Add(builder.GetType(TestMethodAttribute));
@@ -71,7 +71,7 @@ public class IfElseTests
 
     public static void If_Field_Call_Int(Builder builder)
     {
-        var name = nameof(If_Field_Call_Int);
+        var name = "If_Field_Call_Int";
 
         var method = testType.CreateMethod(Modifiers.Public, name, Type.EmptyTypes);
         method.CustomAttributes.Add(builder.GetType(TestMethodAttribute));
@@ -93,7 +93,7 @@ public class IfElseTests
 
     public static void If_Field_Call_Object(Builder builder)
     {
-        var name = nameof(If_Field_Call_Object);
+        var name = "If_Field_Call_Object";
 
         var method = testType.CreateMethod(Modifiers.Public, name, Type.EmptyTypes);
         method.CustomAttributes.Add(builder.GetType(TestMethodAttribute));
@@ -115,7 +115,7 @@ public class IfElseTests
 
     public static void If_Field_Equal_Not_Equal(Builder builder)
     {
-        var method = testType.CreateMethod(Modifiers.Public, nameof(If_Field_Equal_Not_Equal), Type.EmptyTypes);
+        var method = testType.CreateMethod(Modifiers.Public, "If_Field_Equal_Not_Equal", Type.EmptyTypes);
         method.CustomAttributes.Add(builder.GetType(TestMethodAttribute));
 
         method.NewCoder()
@@ -133,7 +133,7 @@ public class IfElseTests
 
     public static void If_Field_Inverted_IsTrue_IsFalse(Builder builder)
     {
-        var method = testType.CreateMethod(Modifiers.Public, nameof(If_Field_Inverted_IsTrue_IsFalse), Type.EmptyTypes);
+        var method = testType.CreateMethod(Modifiers.Public, "If_Field_Inverted_IsTrue_IsFalse", Type.EmptyTypes);
         method.CustomAttributes.Add(builder.GetType(TestMethodAttribute));
 
         method.NewCoder()
@@ -152,7 +152,7 @@ public class IfElseTests
     {
         // This should actually generate the same code like If_Field_Inverted_IsTrue_IsFalse
 
-        var method = testType.CreateMethod(Modifiers.Public, nameof(If_Field_Inverted_IsTrue_IsFalse_WithEquals), Type.EmptyTypes);
+        var method = testType.CreateMethod(Modifiers.Public, "If_Field_Inverted_IsTrue_IsFalse_WithEquals", Type.EmptyTypes);
         method.CustomAttributes.Add(builder.GetType(TestMethodAttribute));
 
         method.NewCoder()
@@ -169,7 +169,7 @@ public class IfElseTests
 
     public static void If_Field_Is(Builder builder)
     {
-        var method = testType.CreateMethod(Modifiers.Public, nameof(If_Field_Is), Type.EmptyTypes);
+        var method = testType.CreateMethod(Modifiers.Public, "If_Field_Is", Type.EmptyTypes);
         method.CustomAttributes.Add(builder.GetType(TestMethodAttribute));
 
         method.NewCoder()
@@ -183,7 +183,7 @@ public class IfElseTests
 
     public static void If_Field_IsNull_IsNotNull(Builder builder)
     {
-        var method = testType.CreateMethod(Modifiers.Public, nameof(If_Field_IsNull_IsNotNull), Type.EmptyTypes);
+        var method = testType.CreateMethod(Modifiers.Public, "If_Field_IsNull_IsNotNull", Type.EmptyTypes);
         method.CustomAttributes.Add(builder.GetType(TestMethodAttribute));
 
         var coder = method.NewCoder();
@@ -201,7 +201,7 @@ public class IfElseTests
 
     public static void If_Field_IsTrue_IsFalse(Builder builder)
     {
-        var method = testType.CreateMethod(Modifiers.Public, nameof(If_Field_IsTrue_IsFalse), Type.EmptyTypes);
+        var method = testType.CreateMethod(Modifiers.Public, "If_Field_IsTrue_IsFalse", Type.EmptyTypes);
         method.CustomAttributes.Add(builder.GetType(TestMethodAttribute));
 
         method.NewCoder()
@@ -218,7 +218,7 @@ public class IfElseTests
 
     public static void If_Field_Negated(Builder builder)
     {
-        var method = testType.CreateMethod(Modifiers.Public, nameof(If_Field_Negated), Type.EmptyTypes);
+        var method = testType.CreateMethod(Modifiers.Public, "If_Field_Negated", Type.EmptyTypes);
         method.CustomAttributes.Add(builder.GetType(TestMethodAttribute));
 
         method.NewCoder()
@@ -232,7 +232,7 @@ public class IfElseTests
 
     public static void If_Field_OrOr_Field(Builder builder)
     {
-        var method = testType.CreateMethod(Modifiers.Public, nameof(If_Field_OrOr_Field), Type.EmptyTypes);
+        var method = testType.CreateMethod(Modifiers.Public, "If_Field_OrOr_Field", Type.EmptyTypes);
         method.CustomAttributes.Add(builder.GetType(TestMethodAttribute));
 
         method.NewCoder()
@@ -248,10 +248,10 @@ public class IfElseTests
 
     public static void If_NullableArg_Is_NullableArg(Builder builder)
     {
-        var method = testType.CreateMethod(Modifiers.Public, nameof(If_NullableArg_Is_NullableArg), Type.EmptyTypes);
+        var method = testType.CreateMethod(Modifiers.Public, "If_NullableArg_Is_NullableArg", Type.EmptyTypes);
         method.CustomAttributes.Add(builder.GetType(TestMethodAttribute));
 
-        var method2 = testType.CreateMethod(Modifiers.Private, nameof(If_NullableArg_Is_NullableArg) + "_toast", BuilderTypes.Nullable1.BuilderType.MakeGeneric(BuilderTypes.Int32.BuilderType), BuilderTypes.Nullable1.BuilderType.MakeGeneric(BuilderTypes.Int32.BuilderType));
+        var method2 = testType.CreateMethod(Modifiers.Private, "If_NullableArg_Is_NullableArg" + "_toast", BuilderTypes.Nullable1.BuilderType.MakeGeneric(BuilderTypes.Int32.BuilderType), BuilderTypes.Nullable1.BuilderType.MakeGeneric(BuilderTypes.Int32.BuilderType));
         method2
             .NewCoder()
             .If(x => x.Load(CodeBlocks.GetParameter(0)).Is(CodeBlocks.GetParameter(1)),
@@ -269,10 +269,10 @@ public class IfElseTests
 
     public static void If_NullableArg_Is_Primitiv(Builder builder)
     {
-        var method = testType.CreateMethod(Modifiers.Public, nameof(If_NullableArg_Is_Primitiv), Type.EmptyTypes);
+        var method = testType.CreateMethod(Modifiers.Public, "If_NullableArg_Is_Primitiv", Type.EmptyTypes);
         method.CustomAttributes.Add(builder.GetType(TestMethodAttribute));
 
-        var method2 = testType.CreateMethod(Modifiers.Private, nameof(If_NullableArg_Is_Primitiv) + "_toast", BuilderTypes.Nullable1.BuilderType.MakeGeneric(BuilderTypes.Int32.BuilderType));
+        var method2 = testType.CreateMethod(Modifiers.Private, "If_NullableArg_Is_Primitiv" + "_toast", BuilderTypes.Nullable1.BuilderType.MakeGeneric(BuilderTypes.Int32.BuilderType));
         method2
             .NewCoder()
             .If(x => x.Load(CodeBlocks.GetParameter(0)).Is(22),
@@ -290,11 +290,11 @@ public class IfElseTests
 
     public static void If_NullableField_Is_NullableField(Builder builder)
     {
-        var method = testType.CreateMethod(Modifiers.Public, nameof(If_NullableField_Is_NullableField), Type.EmptyTypes);
+        var method = testType.CreateMethod(Modifiers.Public, "If_NullableField_Is_NullableField", Type.EmptyTypes);
         method.CustomAttributes.Add(builder.GetType(TestMethodAttribute));
 
-        var field1 = testType.CreateField(Modifiers.Private, BuilderTypes.Nullable1.BuilderType.MakeGeneric(BuilderTypes.Int32.BuilderType), nameof(If_NullableField_Is_NullableField) + "__1");
-        var field2 = testType.CreateField(Modifiers.Private, BuilderTypes.Nullable1.BuilderType.MakeGeneric(BuilderTypes.Int32.BuilderType), nameof(If_NullableField_Is_NullableField) + "__2");
+        var field1 = testType.CreateField(Modifiers.Private, BuilderTypes.Nullable1.BuilderType.MakeGeneric(BuilderTypes.Int32.BuilderType), "If_NullableField_Is_NullableField" + "__1");
+        var field2 = testType.CreateField(Modifiers.Private, BuilderTypes.Nullable1.BuilderType.MakeGeneric(BuilderTypes.Int32.BuilderType), "If_NullableField_Is_NullableField" + "__2");
 
         method.NewCoder()
             .SetValue(field1, 22)
@@ -308,10 +308,10 @@ public class IfElseTests
 
     public static void If_NullableField_Is_Primitiv(Builder builder)
     {
-        var method = testType.CreateMethod(Modifiers.Public, nameof(If_NullableField_Is_Primitiv), Type.EmptyTypes);
+        var method = testType.CreateMethod(Modifiers.Public, "If_NullableField_Is_Primitiv", Type.EmptyTypes);
         method.CustomAttributes.Add(builder.GetType(TestMethodAttribute));
 
-        var field1 = testType.CreateField(Modifiers.Private, BuilderTypes.Nullable1.BuilderType.MakeGeneric(BuilderTypes.Int32.BuilderType), nameof(If_NullableField_Is_Primitiv) + "__1");
+        var field1 = testType.CreateField(Modifiers.Private, BuilderTypes.Nullable1.BuilderType.MakeGeneric(BuilderTypes.Int32.BuilderType), "If_NullableField_Is_Primitiv" + "__1");
 
         method.NewCoder()
             .SetValue(field1, 22)
@@ -324,7 +324,7 @@ public class IfElseTests
 
     public static void If_NullableVariable_Is_NullableVariable(Builder builder)
     {
-        var method = testType.CreateMethod(Modifiers.Public, nameof(If_NullableVariable_Is_NullableVariable), Type.EmptyTypes);
+        var method = testType.CreateMethod(Modifiers.Public, "If_NullableVariable_Is_NullableVariable", Type.EmptyTypes);
         method.CustomAttributes.Add(builder.GetType(TestMethodAttribute));
 
         var var1 = method.GetOrCreateVariable(BuilderTypes.Nullable1.BuilderType.MakeGeneric(BuilderTypes.Int32.BuilderType));
@@ -342,7 +342,7 @@ public class IfElseTests
 
     public static void If_NullableVariable_Is_Primitiv(Builder builder)
     {
-        var method = testType.CreateMethod(Modifiers.Public, nameof(If_NullableVariable_Is_Primitiv), Type.EmptyTypes);
+        var method = testType.CreateMethod(Modifiers.Public, "If_NullableVariable_Is_Primitiv", Type.EmptyTypes);
         method.CustomAttributes.Add(builder.GetType(TestMethodAttribute));
 
         var var1 = method.GetOrCreateVariable(BuilderTypes.Nullable1.BuilderType.MakeGeneric(BuilderTypes.Int32.BuilderType));
@@ -358,10 +358,10 @@ public class IfElseTests
 
     public static void If_Primitiv_Is_NullableArgv(Builder builder)
     {
-        var method = testType.CreateMethod(Modifiers.Public, nameof(If_Primitiv_Is_NullableArgv), Type.EmptyTypes);
+        var method = testType.CreateMethod(Modifiers.Public, "If_Primitiv_Is_NullableArgv", Type.EmptyTypes);
         method.CustomAttributes.Add(builder.GetType(TestMethodAttribute));
 
-        var method2 = testType.CreateMethod(Modifiers.Private, nameof(If_Primitiv_Is_NullableArgv) + "_toast", BuilderTypes.Nullable1.BuilderType.MakeGeneric(BuilderTypes.Int32.BuilderType));
+        var method2 = testType.CreateMethod(Modifiers.Private, "If_Primitiv_Is_NullableArgv" + "_toast", BuilderTypes.Nullable1.BuilderType.MakeGeneric(BuilderTypes.Int32.BuilderType));
         var var1 = method2.GetOrCreateVariable(BuilderTypes.Int32.BuilderType);
         method2
             .NewCoder()
@@ -381,10 +381,10 @@ public class IfElseTests
 
     public static void If_Primitiv_Is_NullableField(Builder builder)
     {
-        var method = testType.CreateMethod(Modifiers.Public, nameof(If_Primitiv_Is_NullableField), Type.EmptyTypes);
+        var method = testType.CreateMethod(Modifiers.Public, "If_Primitiv_Is_NullableField", Type.EmptyTypes);
         method.CustomAttributes.Add(builder.GetType(TestMethodAttribute));
 
-        var field2 = testType.CreateField(Modifiers.Private, BuilderTypes.Nullable1.BuilderType.MakeGeneric(BuilderTypes.Int32.BuilderType), nameof(If_Primitiv_Is_NullableField) + "__2");
+        var field2 = testType.CreateField(Modifiers.Private, BuilderTypes.Nullable1.BuilderType.MakeGeneric(BuilderTypes.Int32.BuilderType), "If_Primitiv_Is_NullableField" + "__2");
         var var1 = method.GetOrCreateVariable(BuilderTypes.Int32.BuilderType);
 
         method.NewCoder()
@@ -399,7 +399,7 @@ public class IfElseTests
 
     public static void If_Variable_AndAnd_Variable(Builder builder)
     {
-        var method = testType.CreateMethod(Modifiers.Public, nameof(If_Variable_AndAnd_Variable), Type.EmptyTypes);
+        var method = testType.CreateMethod(Modifiers.Public, "If_Variable_AndAnd_Variable", Type.EmptyTypes);
         method.CustomAttributes.Add(builder.GetType(TestMethodAttribute));
 
         var var1 = method.GetOrCreateVariable(BuilderTypes.Boolean.BuilderType);

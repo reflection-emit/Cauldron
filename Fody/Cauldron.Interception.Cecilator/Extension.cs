@@ -13,6 +13,12 @@ namespace Cauldron.Interception.Cecilator
 {
     public static class Extension
     {
+        public static void AddRange<T>(this Mono.Collections.Generic.Collection<T> typeReferences, IEnumerable<T> genericTypes)
+        {
+            foreach (var item in genericTypes)
+                typeReferences.Add(item);
+        }
+
         public static bool AreEqual(this Type a, ModuleDefinition b) => a?.Assembly.GetName().Name.AreEqual(b?.Assembly.Name.Name) ?? false;
 
         public static bool AreEqual(this Type a, Type b) => a?.Assembly.FullName.AreEqual(b?.Assembly.FullName) ?? false;
@@ -238,13 +244,30 @@ namespace Cauldron.Interception.Cecilator
 
             TypeDefinition resolve()
             {
-                var name = value.FullName.Substring(0, value.FullName.IndexOf('<').With(x => x < 0 ? value.FullName.Length : x));
-                return WeaverBase.AllTypes.FirstOrDefault(x => x.FullName.StartsWith(name));
+                var position = value.FullName.IndexOf('<');
+                var name = value.FullName.Substring(0, position < 0 ? value.FullName.Length : position);
+                var result = WeaverBase.AllTypes.FirstOrDefault(x => x.FullName.StartsWith(name));
+                return result;
+            }
+
+            TypeDefinition threadSafeResolve()
+            {
+                lock (value.Module)
+                {
+                    try
+                    {
+                        return value.Resolve();
+                    }
+                    catch
+                    {
+                        return null;
+                    }
+                }
             }
 
             try
             {
-                return value.Resolve() ?? resolve();
+                return value.Resolve() ?? threadSafeResolve() ?? resolve();
             }
             catch
             {
@@ -305,6 +328,20 @@ namespace Cauldron.Interception.Cecilator
             {
                 return resolve();
             }
+        }
+
+        public static GenericParameter Clone(this GenericParameter genericParameter, TypeDefinition typeDefinition)
+        {
+            var result = new GenericParameter(typeDefinition);
+            result.Attributes = genericParameter.Attributes;
+            result.Name = genericParameter.Name;
+            return result;
+        }
+
+        public static IEnumerable<GenericParameter> Clone(this Mono.Collections.Generic.Collection<GenericParameter> genericParameters, TypeDefinition typeDefinition)
+        {
+            for (int i = 0; i < genericParameters.Count; i++)
+                yield return genericParameters[i].Clone(typeDefinition);
         }
 
         public static Builder CreateBuilder(this WeaverBase weaver)
@@ -388,10 +425,10 @@ namespace Cauldron.Interception.Cecilator
         /// If the child type was successfully extracted, then <see cref="Tuple{T1, T2}.Item2"/> is true; otherwise false.
         /// <see cref="Tuple{T1, T2}.Item1"/> contains the child type; otherwise always <see cref="Object"/>
         /// </returns>
-        public static Tuple<TypeReference, bool> GetChildrenType(this ModuleDefinition module, TypeReference type)
+        public static (TypeReference childType, bool isSuccessful) GetChildrenType(this ModuleDefinition module, TypeReference type)
         {
             if (type.IsArray)
-                return new Tuple<TypeReference, bool>(module.ImportReference(type.GetElementType()), true);
+                return (module.ImportReference(type.GetElementType()), true);
 
             TypeReference getIEnumerableInterfaceChild(TypeReference typeReference)
             {
@@ -422,10 +459,17 @@ namespace Cauldron.Interception.Cecilator
             var result = getIEnumerableInterfaceChild(type);
 
             if (result != null)
-                return new Tuple<TypeReference, bool>(module.ImportReference(result), true);
+                try
+                {
+                    return (module.ImportReference(result), true);
+                }
+                catch (Exception e)
+                {
+                    throw new Exception($"An error has occured while trying to import the type '{result.FullName}'", e);
+                }
 
             // We just don't know :(
-            return new Tuple<TypeReference, bool>(module.ImportReference(typeof(object)), false);
+            return (module.ImportReference(typeof(object)), false);
         }
 
         public static IReadOnlyDictionary<string, TypeReference> GetGenericResolvedTypeName(this GenericInstanceType type)
@@ -511,7 +555,7 @@ namespace Cauldron.Interception.Cecilator
                         result.AddRange(
                             type
                                 .Recursive(x =>
-                                    x.BetterResolve()
+                                    x.BetterResolve()?
                                         .Interfaces
                                         .Select(y => y.InterfaceType))
                                     .Select(x => x.ResolveType(type)));
@@ -1421,8 +1465,11 @@ namespace Cauldron.Interception.Cecilator
                 if (current == null)
                     Builder.Current.Log(LogTypes.Info, $"-------------------> '{root}'\r\n");
 
-                foreach (var child in children(current))
-                    stack.Push(child);
+                var childrenOfCurrent = children(current);
+
+                if (childrenOfCurrent != null)
+                    foreach (var child in childrenOfCurrent)
+                        stack.Push(child);
 
                 yield return current;
             }

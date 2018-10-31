@@ -61,7 +61,7 @@ namespace System /* Make this prominent ... side by side with Enum */
 #if !WINDOWS_UWP
                 .Where(x => x.MemberType == MemberTypes.Field)
 #endif
-                .Select(x => new { Attribute = x.GetCustomAttribute<DisplayNameAttribute>(), Name = x.Name })
+                .Select(x => new { Attribute = x.GetCustomAttribute<DisplayNameAttribute>(), x.Name })
                 .Where(x => x.Attribute != null)
                 .ToDictionary(x => (TEnum)System.Enum.Parse(enumType, x.Name), x => x.Attribute.DisplayName));
         }
@@ -78,7 +78,7 @@ namespace System /* Make this prominent ... side by side with Enum */
 #if !WINDOWS_UWP
                 .Where(x => x.MemberType == MemberTypes.Field)
 #endif
-                .Select(x => new { Attribute = x.GetCustomAttribute<DisplayNameAttribute>(), Name = x.Name })
+                .Select(x => new { Attribute = x.GetCustomAttribute<DisplayNameAttribute>(), x.Name })
                 .FirstOrDefault(x => x.Attribute != null && value.Equals(Enum.Parse(enumType, x.Name)))?.Attribute.DisplayName;
         }
     }

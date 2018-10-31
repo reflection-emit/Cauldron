@@ -1,7 +1,10 @@
 ﻿using Cauldron.Activator;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 [module: GenericComponent(typeof(UnitTests.Activator.ClassWithGeneric<int, string>), typeof(UnitTests.Activator.ClassWithGeneric<int, string>))]
 [module: GenericComponent(typeof(UnitTests.Activator.ClassWithGeneric<int, string>), "toast-me")]
@@ -15,7 +18,14 @@ namespace UnitTests.Activator
         T Item { get; }
     }
 
-    public class ClassWithGeneric<T1, T2>
+    public interface IClassWithGeneric<T1, T2>
+    {
+        T1 Property1 { get; }
+        T2 Property2 { get; }
+    }
+
+    [Component(typeof(IClassWithGeneric<,>))]
+    public class ClassWithGeneric<T1, T2> : IClassWithGeneric<T1, T2>
     {
         public ClassWithGeneric()
         {
@@ -56,6 +66,126 @@ namespace UnitTests.Activator
     [TestClass]
     public class GenericResolutionTests
     {
+        [TestMethod]
+        public void Generic_Auto_Resolution()
+        {
+            var o = Factory.Create<IClassWithGeneric<string,long>>("Hello", 777L);
+
+            Assert.AreEqual("Hello", o.Property1);
+            Assert.AreEqual(777L, o.Property2);
+        }
+
+        [TestMethod]
+        public void Generic_Auto_Multiple_Resolution_Async()
+        {
+            var actions = new List<Action>();
+            IClassWithGeneric<string,long> o1 = null;
+            IClassWithGeneric<string,int> o2 = null;
+            IClassWithGeneric<int,int> o3 = null;
+            IClassWithGeneric<long,int> o4 = null;
+            IClassWithGeneric<double,double> o5 = null;
+            IClassWithGeneric<long,long> o6 = null;
+            IClassWithGeneric<string,string> o7 = null;
+
+            actions.Add(new Action(() =>
+            {
+                Thread.Sleep(1000);
+                o1 = Factory.Create<IClassWithGeneric<string, long>>("Hello", 777L);
+            }));
+            actions.Add(new Action(() =>
+            {
+                Thread.Sleep(1000);
+                o2 = Factory.Create<IClassWithGeneric<string, int>>("Hello", 33);
+            }));
+            actions.Add(new Action(() =>
+            {
+                Thread.Sleep(1000);
+                o3 = Factory.Create<IClassWithGeneric<int, int>>(88, 88);
+            }));
+            actions.Add(new Action(() =>
+            {
+                Thread.Sleep(1000);
+                o4 = Factory.Create<IClassWithGeneric<long, int>>(23L, 565);
+            }));
+            actions.Add(new Action(() =>
+            {
+                Thread.Sleep(1000);
+                o5 = Factory.Create<IClassWithGeneric<double, double>>(34.5, 22.3);
+            }));
+            actions.Add(new Action(() =>
+            {
+                Thread.Sleep(1000);
+                o6 = Factory.Create<IClassWithGeneric<long, long>>(99L, 22L);
+            }));
+            actions.Add(new Action(() =>
+            {
+                Thread.Sleep(1000);
+                o7 = Factory.Create<IClassWithGeneric<string, string>>("Hello", "Lop");
+            }));
+
+            Parallel.ForEach(actions, x => x());
+
+            Assert.AreEqual("Hello", o1.Property1);
+            Assert.AreEqual(777L, o1.Property2);
+
+            Assert.AreEqual("Hello", o2.Property1);
+            Assert.AreEqual(33, o2.Property2);
+
+            Assert.AreEqual(88, o3.Property1);
+            Assert.AreEqual(88, o3.Property2);
+
+            Assert.AreEqual(23L, o4.Property1);
+            Assert.AreEqual(565, o4.Property2);
+
+            Assert.AreEqual(34.5, o5.Property1);
+            Assert.AreEqual(22.3, o5.Property2);
+
+            Assert.AreEqual(99L, o6.Property1);
+            Assert.AreEqual(22L, o6.Property2);
+
+            Assert.AreEqual("Hello", o7.Property1);
+            Assert.AreEqual("Lop", o7.Property2);
+        }
+
+        [TestCleanup]
+        public void Clean()
+        {
+            Factory.Rebuild();
+        }
+
+        [TestMethod]
+        public void Generic_Auto_Multiple_Resolution()
+        {
+            var o1 = Factory.Create<IClassWithGeneric<string,long>>("Hello", 777L);
+            var o2 = Factory.Create<IClassWithGeneric<string,int>>("Hello", 33);
+            var o3 = Factory.Create<IClassWithGeneric<int,int>>(88, 88);
+            var o4 = Factory.Create<IClassWithGeneric<long,int>>(23L, 565);
+            var o5 = Factory.Create<IClassWithGeneric<double,double>>(34.5, 22.3);
+            var o6 = Factory.Create<IClassWithGeneric<long,long>>(99L, 22L);
+            var o7 = Factory.Create<IClassWithGeneric<string,string>>("Hello", "Lop");
+
+            Assert.AreEqual("Hello", o1.Property1);
+            Assert.AreEqual(777L, o1.Property2);
+
+            Assert.AreEqual("Hello", o2.Property1);
+            Assert.AreEqual(33, o2.Property2);
+
+            Assert.AreEqual(88, o3.Property1);
+            Assert.AreEqual(88, o3.Property2);
+
+            Assert.AreEqual(23L, o4.Property1);
+            Assert.AreEqual(565, o4.Property2);
+
+            Assert.AreEqual(34.5, o5.Property1);
+            Assert.AreEqual(22.3, o5.Property2);
+
+            Assert.AreEqual(99L, o6.Property1);
+            Assert.AreEqual(22L, o6.Property2);
+
+            Assert.AreEqual("Hello", o7.Property1);
+            Assert.AreEqual("Lop", o7.Property2);
+        }
+
         [TestMethod]
         public void Generic_Class_With_Static_Constructor()
         {

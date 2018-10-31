@@ -22,6 +22,7 @@ namespace Cauldron.Activator
         private static List<IFactoryTypeInfo> customTypes = new List<IFactoryTypeInfo>();
         private static IFactoryTypeInfo[] factoryInfoTypes;
         private static IFactoryTypeInfo[] singletons;
+        private static readonly object componentSyncRoot = new object();
 
         static Factory()
         {
@@ -37,6 +38,10 @@ namespace Cauldron.Activator
                 InitializeFactory(factoryInfoTypes);
             };
         }
+
+        /// <exclude/>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static void Rebuild() => InitializeFactory();
 
         /// <summary>
         /// Occures if an object was created. This will only be invoked if the created object has set its <see cref="ComponentAttribute.InvokeOnObjectCreationEvent"/> to true.
@@ -146,16 +151,16 @@ namespace Cauldron.Activator
         public static T Create<T>(Type callingType) where T : class
         {
             var contractType = typeof(T);
-            var factoryInfos = componentsTyped[contractType];
+            var factoryInfos = componentsTyped[contractType] ?? CheckForGenericAndAdd(contractType, callingType);
             if (factoryInfos == null)
-                return ThrowExceptionOrReturnNull(contractType) as T;
+                return CreateTypeOrThrowExceptionOrReturnNull(contractType) as T;
 
             if (factoryInfos.isSingle)
                 return factoryInfos.single.CreateInstance() as T;
 
             var result = ResolveAmbiguousMatch(callingType, contractType, factoryInfos.factoryTypeInfos);
             if (result == null)
-                return ThrowExceptionOrReturnNull(contractType) as T;
+                return CreateTypeOrThrowExceptionOrReturnNull(contractType) as T;
 
             return result.CreateInstance() as T;
         }
@@ -225,16 +230,17 @@ namespace Cauldron.Activator
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static object Create(Type contractType, Type callingType)
         {
-            var factoryInfos = componentsTyped[contractType];
+            var factoryInfos = componentsTyped[contractType] ?? CheckForGenericAndAdd(contractType, callingType);
+
             if (factoryInfos == null)
-                return ThrowExceptionOrReturnNull(contractType);
+                return CreateTypeOrThrowExceptionOrReturnNull(contractType);
 
             if (factoryInfos.isSingle)
                 return factoryInfos.single.CreateInstance();
 
             var result = ResolveAmbiguousMatch(callingType, contractType, factoryInfos.factoryTypeInfos);
             if (result == null)
-                return ThrowExceptionOrReturnNull(contractType);
+                return CreateTypeOrThrowExceptionOrReturnNull(contractType);
 
             return result.CreateInstance();
         }
@@ -278,9 +284,9 @@ namespace Cauldron.Activator
         /// </exception>
         public static object CreateFirst(Type contractType)
         {
-            var factoryInfos = componentsTyped[contractType];
+            var factoryInfos = componentsTyped[contractType] ?? CheckForGenericAndAdd(contractType);
             if (factoryInfos == null)
-                return ThrowExceptionOrReturnNull(contractType);
+                return CreateTypeOrThrowExceptionOrReturnNull(contractType);
 
             return factoryInfos.createFirst.CreateInstance();
         }
@@ -355,9 +361,9 @@ namespace Cauldron.Activator
         /// </exception>
         public static IEnumerable CreateMany(Type contractType)
         {
-            var factoryInfos = componentsTyped[contractType];
+            var factoryInfos = componentsTyped[contractType] ?? CheckForGenericAndAdd(contractType);
             if (factoryInfos == null)
-                return ThrowExceptionOrReturnNull(contractType) as IEnumerable;
+                return CreateTypeOrThrowExceptionOrReturnNull(contractType) as IEnumerable;
 
             var result = new object[factoryInfos.factoryTypeInfos.Length];
             for (int i = 0; i < factoryInfos.factoryTypeInfos.Length; i++)
@@ -382,9 +388,9 @@ namespace Cauldron.Activator
         /// </exception>
         public static IEnumerable<T> CreateMany<T>() where T : class
         {
-            var factoryInfos = componentsTyped[typeof(T)];
+            var factoryInfos = componentsTyped[typeof(T)] ?? CheckForGenericAndAdd(typeof(T));
             if (factoryInfos == null)
-                return ThrowExceptionOrReturnNull(typeof(T)) as IEnumerable<T>;
+                return CreateTypeOrThrowExceptionOrReturnNull(typeof(T)) as IEnumerable<T>;
 
             var result = new T[factoryInfos.factoryTypeInfos.Length];
             for (int i = 0; i < factoryInfos.factoryTypeInfos.Length; i++)
@@ -442,9 +448,9 @@ namespace Cauldron.Activator
         /// </exception>
         public static IEnumerable CreateManyOrdered(Type contractType)
         {
-            var factoryInfos = componentsTyped[contractType];
+            var factoryInfos = componentsTyped[contractType] ?? CheckForGenericAndAdd(contractType);
             if (factoryInfos == null)
-                return ThrowExceptionOrReturnNull(contractType) as IEnumerable;
+                return CreateTypeOrThrowExceptionOrReturnNull(contractType) as IEnumerable;
 
             var result = new object[factoryInfos.factoryTypeInfos.Length];
             for (int i = 0; i < factoryInfos.factoryTypeInfos.Length; i++)
@@ -470,9 +476,9 @@ namespace Cauldron.Activator
         /// </exception>
         public static IEnumerable<T> CreateManyOrdered<T>() where T : class
         {
-            var factoryInfos = componentsTyped[typeof(T)];
+            var factoryInfos = componentsTyped[typeof(T)] ?? CheckForGenericAndAdd(typeof(T));
             if (factoryInfos == null)
-                return ThrowExceptionOrReturnNull(typeof(T)) as IEnumerable<T>;
+                return CreateTypeOrThrowExceptionOrReturnNull(typeof(T)) as IEnumerable<T>;
 
             var result = new T[factoryInfos.factoryTypeInfos.Length];
             for (int i = 0; i < factoryInfos.factoryTypeInfos.Length; i++)
@@ -515,16 +521,16 @@ namespace Cauldron.Activator
         public static T Create<T>(object[] parameters, Type callingType) where T : class
         {
             var contractType = typeof(T);
-            var factoryInfos = componentsTyped[contractType];
+            var factoryInfos = componentsTyped[contractType] ?? CheckForGenericAndAdd(contractType, callingType);
             if (factoryInfos == null)
-                return ThrowExceptionOrReturnNull(contractType, parameters) as T;
+                return CreateTypeOrThrowExceptionOrReturnNull(contractType, parameters) as T;
 
             if (factoryInfos.isSingle)
                 return factoryInfos.single.CreateInstance(parameters) as T;
 
             var result = ResolveAmbiguousMatch(callingType, contractType.FullName, factoryInfos.factoryTypeInfos);
             if (result == null)
-                return ThrowExceptionOrReturnNull(contractType, parameters) as T;
+                return CreateTypeOrThrowExceptionOrReturnNull(contractType, parameters) as T;
 
             return result.CreateInstance(parameters) as T;
         }
@@ -604,16 +610,16 @@ namespace Cauldron.Activator
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static object Create(Type contractType, object[] parameters, Type callingType)
         {
-            var factoryInfos = componentsTyped[contractType];
+            var factoryInfos = componentsTyped[contractType] ?? CheckForGenericAndAdd(contractType, callingType);
             if (factoryInfos == null)
-                return ThrowExceptionOrReturnNull(contractType, parameters);
+                return CreateTypeOrThrowExceptionOrReturnNull(contractType, parameters);
 
             if (factoryInfos.isSingle)
                 return factoryInfos.single.CreateInstance(parameters);
 
             var result = ResolveAmbiguousMatch(callingType, contractType.FullName, factoryInfos.factoryTypeInfos);
             if (result == null)
-                return ThrowExceptionOrReturnNull(contractType, parameters);
+                return CreateTypeOrThrowExceptionOrReturnNull(contractType, parameters);
 
             return result.CreateInstance(parameters);
         }
@@ -667,9 +673,9 @@ namespace Cauldron.Activator
         /// </exception>
         public static object CreateFirst(Type contractType, params object[] parameters)
         {
-            var factoryInfos = componentsTyped[contractType];
+            var factoryInfos = componentsTyped[contractType] ?? CheckForGenericAndAdd(contractType);
             if (factoryInfos == null)
-                return ThrowExceptionOrReturnNull(contractType, parameters);
+                return CreateTypeOrThrowExceptionOrReturnNull(contractType, parameters);
 
             return factoryInfos.createFirst.CreateInstance(parameters);
         }
@@ -759,9 +765,9 @@ namespace Cauldron.Activator
         /// </exception>
         public static IEnumerable CreateMany(Type contractType, params object[] parameters)
         {
-            var factoryInfos = componentsTyped[contractType];
+            var factoryInfos = componentsTyped[contractType] ?? CheckForGenericAndAdd(contractType);
             if (factoryInfos == null)
-                return ThrowExceptionOrReturnNull(contractType, parameters) as IEnumerable;
+                return CreateTypeOrThrowExceptionOrReturnNull(contractType, parameters) as IEnumerable;
 
             var result = new object[factoryInfos.factoryTypeInfos.Length];
             for (int i = 0; i < factoryInfos.factoryTypeInfos.Length; i++)
@@ -791,9 +797,9 @@ namespace Cauldron.Activator
         /// </exception>
         public static IEnumerable<T> CreateMany<T>(params object[] parameters) where T : class
         {
-            var factoryInfos = componentsTyped[typeof(T)];
+            var factoryInfos = componentsTyped[typeof(T)] ?? CheckForGenericAndAdd(typeof(T));
             if (factoryInfos == null)
-                return ThrowExceptionOrReturnNull(typeof(T), parameters) as IEnumerable<T>;
+                return CreateTypeOrThrowExceptionOrReturnNull(typeof(T), parameters) as IEnumerable<T>;
 
             var result = new T[factoryInfos.factoryTypeInfos.Length];
             for (int i = 0; i < factoryInfos.factoryTypeInfos.Length; i++)
@@ -861,9 +867,9 @@ namespace Cauldron.Activator
         /// </exception>
         public static IEnumerable CreateManyOrdered(Type contractType, params object[] parameters)
         {
-            var factoryInfos = componentsTyped[contractType];
+            var factoryInfos = componentsTyped[contractType] ?? CheckForGenericAndAdd(contractType);
             if (factoryInfos == null)
-                return ThrowExceptionOrReturnNull(contractType, parameters) as IEnumerable;
+                return CreateTypeOrThrowExceptionOrReturnNull(contractType, parameters) as IEnumerable;
 
             var result = new object[factoryInfos.factoryTypeInfos.Length];
             for (int i = 0; i < factoryInfos.factoryTypeInfos.Length; i++)
@@ -894,9 +900,9 @@ namespace Cauldron.Activator
         /// </exception>
         public static IEnumerable<T> CreateManyOrdered<T>(params object[] parameters) where T : class
         {
-            var factoryInfos = componentsTyped[typeof(T)];
+            var factoryInfos = componentsTyped[typeof(T)] ?? CheckForGenericAndAdd(typeof(T));
             if (factoryInfos == null)
-                return ThrowExceptionOrReturnNull(typeof(T), parameters) as IEnumerable<T>;
+                return CreateTypeOrThrowExceptionOrReturnNull(typeof(T), parameters) as IEnumerable<T>;
 
             var result = new T[factoryInfos.factoryTypeInfos.Length];
             for (int i = 0; i < factoryInfos.factoryTypeInfos.Length; i++)
@@ -1063,12 +1069,52 @@ namespace Cauldron.Activator
             InitializeFactory();
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static object CreateTypeOrThrowExceptionOrReturnNull(Type contractType)
+        {
+#if NETFX_CORE
+            if (contractType.GetTypeInfo().IsInterface)
+#else
+            if (contractType.IsInterface)
+#endif
+            {
+                if (CanRaiseExceptions)
+                    throw new NotImplementedException($"Unable to create an instance from the interface '{contractType.FullName}'");
+                else
+                    Debug.WriteLine($"ERROR: Unable to create an instance from the interface '{contractType.FullName}'");
+
+                return null;
+            }
+
+            return contractType.CreateInstance();
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static object CreateTypeOrThrowExceptionOrReturnNull(Type contractType, object[] parameters)
+        {
+#if NETFX_CORE
+            if (contractType.GetTypeInfo().IsInterface)
+#else
+            if (contractType.IsInterface)
+#endif
+            {
+                if (CanRaiseExceptions)
+                    throw new NotImplementedException($"Unable to create an instance from the interface '{contractType.FullName}'");
+                else
+                    Debug.WriteLine($"ERROR: Unable to create an instance from the interface '{contractType.FullName}'");
+
+                return null;
+            }
+
+            return contractType.CreateInstance(parameters);
+        }
+
         private static void GetAndInitializeAllExtensions(IEnumerable<IFactoryTypeInfo> factoryTypeInfos)
         {
             var ff = factoryInfoTypes
                     .Where(x => x.ContractName.GetHashCode() == iFactoryExtensionName.GetHashCode() && x.ContractName == iFactoryExtensionName)
                     .Distinct(new FactoryTypeInfoComparer())
-                    .Select(x => x.CreateInstance() as IFactoryExtension);
+                    .Select(x => x.CreateInstance().GetType());
 
             foreach (var item in factoryInfoTypes
                     .Where(x => x.ContractName.GetHashCode() == iFactoryExtensionName.GetHashCode() && x.ContractName == iFactoryExtensionName)
@@ -1127,6 +1173,57 @@ namespace Cauldron.Activator
             Rebuilt?.Invoke(null, EventArgs.Empty);
         }
 
+        private static FactoryDictionaryValue CheckForGenericAndAdd(Type contractType, Type callingType = null)
+        {
+#if NETFX_CORE
+            if (!contractType.GetTypeInfo().IsGenericType)
+#else
+            if (!contractType.IsGenericType)
+#endif
+                return null;
+
+            lock (componentSyncRoot)
+            {
+                var factoryInfos = componentsTyped[contractType];
+
+                if (factoryInfos != null)
+                    return factoryInfos;
+
+                factoryInfos = componentsTyped[contractType.GetGenericTypeDefinition()];
+
+                if (factoryInfos == null)
+                    return null;
+
+                FactoryDictionaryValue Add(IFactoryTypeInfo factoryTypeInfo)
+                {
+                    var newComponent = System.Activator.CreateInstance( factoryTypeInfo.Type.MakeGenericType(contractType.GenericTypeArguments)) as IFactoryTypeInfo;
+                    var value = new FactoryDictionaryValue
+                    {
+                        createFirst = newComponent,
+                        factoryTypeInfos = new IFactoryTypeInfo[] { newComponent },
+                        factoryTypeInfosOrdered = new IFactoryTypeInfo[] { newComponent },
+                        isSingle = true,
+                        single = newComponent
+                    };
+                    componentsTyped.Add(contractType, value);
+                    componentsNamed.Add(contractType.FullName, value);
+                    return value;
+                }
+
+                if (factoryInfos.isSingle)
+                    return Add(factoryInfos.single);
+
+                if (callingType == null)
+                    return null;
+
+                var result = ResolveAmbiguousMatch(callingType, contractType, factoryInfos.factoryTypeInfos);
+                if (result == null)
+                    return null;
+
+                return Add(result);
+            }
+        }
+
         private static IFactoryTypeInfo ResolveAmbiguousMatch(Type callingType, string contractName, IFactoryTypeInfo[] ambigiousTypes) => Resolvers.SelectAmbiguousMatch(callingType, contractName, ambigiousTypes);
 
         private static IFactoryTypeInfo ResolveAmbiguousMatch(Type callingType, Type contractType, IFactoryTypeInfo[] ambigiousTypes) => Resolvers.SelectAmbiguousMatch(callingType, contractType, ambigiousTypes);
@@ -1140,46 +1237,6 @@ namespace Cauldron.Activator
             factoryDictionaryValue.isSingle = items.Length == 1;
 
             return factoryDictionaryValue;
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static object ThrowExceptionOrReturnNull(Type contractType, object[] parameters)
-        {
-#if NETFX_CORE
-            if (contractType.GetTypeInfo().IsInterface)
-#else
-            if (contractType.IsInterface)
-#endif
-            {
-                if (CanRaiseExceptions)
-                    throw new NotImplementedException($"Unable to create an instance from the interface '{contractType.FullName}'");
-                else
-                    Debug.WriteLine($"ERROR: Unable to create an instance from the interface '{contractType.FullName}'");
-
-                return null;
-            }
-
-            return contractType.CreateInstance(parameters);
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static object ThrowExceptionOrReturnNull(Type contractType)
-        {
-#if NETFX_CORE
-            if (contractType.GetTypeInfo().IsInterface)
-#else
-            if (contractType.IsInterface)
-#endif
-            {
-                if (CanRaiseExceptions)
-                    throw new NotImplementedException($"Unable to create an instance from the interface '{contractType.FullName}'");
-                else
-                    Debug.WriteLine($"ERROR: Unable to create an instance from the interface '{contractType.FullName}'");
-
-                return null;
-            }
-
-            return contractType.CreateInstance();
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

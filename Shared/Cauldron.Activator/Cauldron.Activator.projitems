@@ -9,6 +9,7 @@
     <Import_RootNamespace>Cauldron</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Reflection\ActivatorKey.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ApplicationData.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CloneIgnoreAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Collections\FastDictionaryEnumerator.cs" />
@@ -24,11 +25,11 @@
     <Compile Include="$(MSBuildThisFileDirectory)Factory.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)FactoryCore.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)FactoryCreationPolicy.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)FactoryGeneric.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)FactoryObjectCreatedEventArgs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)FactoryResolver.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)FactoryTypeInfoComparer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)FactoryTypeInfoInternal.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)GenericResolver.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IFactoryExtension.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IFactoryTypeInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)InjectAttribute.cs" />
@@ -40,6 +41,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Reflection\AssemblyResource.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Reflection\DisplayNameAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Reflection\Enum.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Reflection\ExpressionActivator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Reflection\ExtensionsReflection.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Reflection\MathR.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Reflection\TypeIsInterfaceException.cs" />

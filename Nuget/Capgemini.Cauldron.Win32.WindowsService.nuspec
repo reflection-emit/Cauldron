@@ -27,7 +27,7 @@
       <dependency id="Capgemini.Cauldron.Consoles" version="3.2.2" />
       <dependency id="Capgemini.Cauldron.Cryptography" version="3.2.2" />
       <dependency id="Capgemini.Cauldron.Localization" version="3.2.2" />
-      <dependency id="Fody" version="3.2.4" />
+      <dependency id="Fody" version="3.2.10" />
     </dependencies>
     <contentFiles>
       <files include="cs/**/*.*" buildAction="Compile" />

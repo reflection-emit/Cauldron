@@ -36,7 +36,7 @@ namespace Cauldron.Interception.Cecilator
             this.propertyDefinition = propertyDefinition;
             this.customAttributeProvider = propertyDefinition;
 
-            this.innerCollection.AddRange(customAttributeProvider.CustomAttributes.Select(x => new BuilderCustomAttribute(builder, customAttributeProvider, x)));
+            this.innerCollection.AddRange(this.customAttributeProvider.CustomAttributes.Select(x => new BuilderCustomAttribute(builder, this.customAttributeProvider, x)));
 
             if (propertyDefinition.GetMethod != null)
                 this.innerCollection.AddRange(propertyDefinition.GetMethod.CustomAttributes.Select(x => new BuilderCustomAttribute(builder, propertyDefinition.GetMethod, x)));
@@ -114,8 +114,6 @@ namespace Cauldron.Interception.Cecilator
 
         public IEnumerator<BuilderCustomAttribute> GetEnumerator() => this.innerCollection.GetEnumerator();
 
-        IEnumerator IEnumerable.GetEnumerator() => this.innerCollection.GetEnumerator();
-
         public bool HasAttribute(BuilderType type)
         {
             if (this.customAttributeProvider != null)
@@ -155,6 +153,8 @@ namespace Cauldron.Interception.Cecilator
                 .ToArray();
             this.Remove(attributesToRemove);
         }
+
+        IEnumerator IEnumerable.GetEnumerator() => this.innerCollection.GetEnumerator();
 
         private bool DonotApply(TypeReference customAttributeType)
         {

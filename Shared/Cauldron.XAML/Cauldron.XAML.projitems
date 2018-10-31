@@ -1,0 +1,138 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>ce800e1b-e8a9-49ac-a5a9-7b7881129dca</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>Cauldron.XAML</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)BehaviourInvocationArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BitmapImageEx.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CauldronUICommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CauldronUICommandCollection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\NavigationFrame.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DependencyPropertyInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DynamicEventHandler.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ICauldronUICommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IImageManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ImageManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IMessageDialog.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)INotifyBehaviourInvocation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interactivity\Actions\ActionBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interactivity\Actions\ActionCollection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interactivity\Actions\InvokeMethodAction.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interactivity\Actions\StoryboardBeginAnimationAction.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interactivity\Attributes\BehaviourUsageAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interactivity\Behaviour.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interactivity\BehaviourCollection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interactivity\BehaviourInvocation\BehaviourInvokeAwareBehaviourBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interactivity\BehaviourInvocation\InvocationTrigger.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interactivity\CustomCursor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interactivity\DataTrigger.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interactivity\EnterKeyToCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interactivity\EventToCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interactivity\EventTrigger.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interactivity\IBehaviour.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interactivity\Interaction.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interactivity\InteractionTemplate.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interactivity\Localized.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interactivity\PasswordBoxBinding.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interactivity\PropertyChangedTrigger.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interactivity\SetFocusOnLoad.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interactivity\StyleInteraction.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interactivity\VisibilityAnimation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IRelayCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)JsonConverters\ColorHexToSolidColorBrush.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)KeyRawValueDictionary.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LaunchActivatedEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MessageBoxImage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MessageDialogEx.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MessageManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MessageObject.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MessagingArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Navigation\CauldronBackRequestedEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Navigation\INavigator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Navigation\INavigator_Win32.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Navigation\NavigatingInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Navigation\NavigationInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Navigation\NavigationMode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Navigation\NavigationType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Navigation\Navigator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Navigation\NavigatorSinglePage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Navigation\PageStackEntry.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)NavigatorSelectorFactoryResolver.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PersistentWindowInformation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PersistentWindowProperties.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PropertyIsChangedEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)RelayCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Resources\LocalizationSource.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TextBlockInline.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Threading\AsyncHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Threading\CallOnce.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Threading\DispatcherDummy.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Threading\DispatcherFactoryResolver.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Threading\DispatcherPriority.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Threading\DispatcherWPF.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Threading\IDispatcher.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnsafeNative.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Validation\EqualityAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Validation\GreaterThanAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Validation\GreaterThanOrEqualAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Validation\IsMandatoryAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Validation\LessThan.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Validation\LessThanOrEqual.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Validation\PasswordStrengthAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Validation\StringLengthAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Validation\UnEqualityAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Validation\ValidationBehaviour.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Validation\ValidationEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Validation\ValidationHandler.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Validation\ValidationProperties.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Validation\ValidatorAttributeBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Validation\ValidatorCollection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Validation\ValidatorGroup.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Validation\ViewModels\IValidatableViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Validation\ViewModels\ValidatableViewModelBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ValueConverterBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ValueConverters\BooleanInvertConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ValueConverters\BooleanToVisibilityConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ValueConverters\KeyToLocalizedStringConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ValueConverters\NullOrEmptyToVisibilityConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ValueConverters\ObjectToBooleanConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ValueConverters\ObjectToVisibilityConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ValueConverters\VisibilityToBooleanConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\IChangeAwareViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ICloseAwareViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\IDialogViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\IFrameAware.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\INavigable.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\IPrelaunchAware.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ISizeAware.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\IViewAware.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\IViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MessageDialogCommandViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MessageDialogViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\RaisePropertyChangeAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\RegisterChildrenAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ViewModelBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WindowConfiguration.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WindowType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)XAMLHelper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\Images\error_red_32x32.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\Images\Information(Help)_7833.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\Images\Information_6227_32x.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\Images\Warning_yellow_7231_31x32.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\Text\7B5BE4E7E11D87C4E23B68589848BB2A.yaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="$(MSBuildThisFileDirectory)Resources\Images\Readme.txt" />
+  </ItemGroup>
+</Project>

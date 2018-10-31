@@ -1,4 +1,5 @@
 ﻿using Cauldron.Interception.Cecilator;
+using CSScriptLibrary;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -6,32 +7,22 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Xml;
 
 namespace Cauldron.Interception.Fody
 {
     public sealed partial class ModuleWeaver
     {
-        private string cscPath;
-
         private List<string> referencedDlls = new List<string>();
-
-        static ModuleWeaver()
-        {
-        }
 
         public void ExecuteInterceptionScripts(Builder builder)
         {
-            this.GetCustomInterceptorList();
-
             using (new StopwatchLog(this, "custom interceptors"))
             {
                 var scriptBinaries = new List<Assembly>();
                 var interceptorDirectory = Path.Combine(this.ProjectDirectoryPath, "Interceptors");
                 var scripts = this.GetCustomInterceptorList();
 
-                this.cscPath = Path.Combine(this.AddinDirectoryPath, "csc\\csc.exe");
                 this.referencedDlls.AddRange(Directory.GetFiles(this.AddinDirectoryPath, "*.dll"));
                 this.referencedDlls.AddRange(typeof(ModuleWeaver).Assembly.GetReferencedAssemblies().Select(x => Assembly.Load(x).Location?.Trim()).Where(x => !string.IsNullOrEmpty(x)));
 
@@ -44,11 +35,12 @@ namespace Cauldron.Interception.Fody
                     .Concat(this.GetNugetPropsInterceptorPaths())
                     .Concat(this.GetNugetJsonInterceptorPaths())
                     .Distinct(new ScriptNameEqualityComparer());
-                scriptBinaries.AddRange(scripts.Select(x => this.LoadScript(x)));
 
                 builder.Log(LogTypes.Info, "Found Custom interceptors");
                 foreach (var interceptorPath in scripts)
                     builder.Log(LogTypes.Info, "- " + interceptorPath);
+
+                scriptBinaries.AddRange(scripts.Select(x => this.LoadScript(x)));
 
                 foreach (var scriptBinary in scriptBinaries
                             .SelectMany(x => x.DefinedTypes)
@@ -110,36 +102,6 @@ namespace Cauldron.Interception.Fody
                     }
                 }
             }
-        }
-
-        private string CompileScript(string compiler, string path, IEnumerable<string> references)
-        {
-            this.Log(LogTypes.Info, "       Compiling custom interceptor: " + Path.GetFileName(path));
-
-            var tempDirectory = Path.Combine(Path.GetTempPath(), this.ProjectName, Path.GetFileNameWithoutExtension(path) + "-" + typeof(ModuleWeaver).Assembly.GetName().Version);
-            var output = Path.Combine(tempDirectory, Path.GetFileNameWithoutExtension(path) + ".dll");
-            var pdb = Path.Combine(tempDirectory, Path.GetFileNameWithoutExtension(path) + ".pdb");
-
-            Directory.CreateDirectory(tempDirectory);
-
-            var additionalReferences = this.GetReferences(path, tempDirectory);
-            if (additionalReferences.Item3 && File.Exists(output))
-                return output;
-
-            var arguments = new string[]
-            {
-                $"/t:library",
-                $"/out:\"{output}\"",
-                $"/optimize+",
-                $"\"{additionalReferences.Item2}\"",
-                $"/pdb:\"{pdb}\"",
-                $"/r:{string.Join(",", references.Concat(additionalReferences.Item1).Select(x => "\"" + x + "\""))}"
-            };
-
-            if (this.ExecuteExternalApplication(compiler, arguments, tempDirectory) != 0)
-                throw new Exception($"An error has occured while compiling '{additionalReferences.Item2}'");
-
-            return output;
         }
 
         private IEnumerable<string> GetCustomInterceptorList()
@@ -224,70 +186,15 @@ namespace Cauldron.Interception.Fody
             }
         }
 
-        private Tuple<IEnumerable<string>, string, bool> GetReferences(string path, string tempDirectory)
-        {
-            var assemblyDomain = AppDomain.CreateDomain(friendlyName: "spider-man");
-
-            try
-            {
-                var references = new List<string>();
-                var lines = File.ReadAllLines(path);
-
-                foreach (var @ref in lines.Where(x => x?.Trim().StartsWith("#r ") ?? false))
-                {
-                    try
-                    {
-                        var assembly = assemblyDomain.Load(@ref.EnclosedIn("\"", "\""));
-                        references.Add(assembly.Location);
-                    }
-                    catch
-                    {
-                    }
-                }
-
-                var data = string.Join("\r\n", lines.Where(x =>
-                {
-                    if (x == null)
-                        return false;
-
-                    if (x.Trim().StartsWith("#r "))
-                        return false;
-
-                    return true;
-                }).ToArray());
-
-                var hash = UTF8Encoding.UTF8.GetBytes(data).GetMd5Hash();
-                var output = Path.Combine(tempDirectory, hash + ".cs");
-
-                if (File.Exists(output))
-                    return new Tuple<IEnumerable<string>, string, bool>(references, output, true);
-
-                foreach (var item in Directory.GetFiles(tempDirectory))
-                {
-                    try
-                    {
-                        File.Delete(item);
-                    }
-                    catch
-                    {
-                    }
-                }
-
-                File.WriteAllText(output, data);
-                return new Tuple<IEnumerable<string>, string, bool>(references, output, false);
-            }
-            finally
-            {
-                AppDomain.Unload(assemblyDomain);
-            }
-        }
-
         private Assembly LoadScript(string path)
         {
             switch (Path.GetExtension(path))
             {
                 case ".csx":
-                case ".CSX": return AppDomain.CurrentDomain.Load(File.ReadAllBytes(this.CompileScript(this.cscPath, path, this.referencedDlls)));
+                case ".CSX":
+                    this.Log(LogTypes.Info, "Compiling: " + path);
+                    return CSScript.LoadCode(File.ReadAllText(path), this.referencedDlls.ToArray());
+
                 case ".dll":
                 case ".DLL": return AppDomain.CurrentDomain.Load(File.ReadAllBytes(path));
             }

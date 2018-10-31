@@ -160,24 +160,27 @@ namespace Cauldron.XAML.ViewModels
                 this.Buttons[(int)this.defaultCommandIndex].ButtonCommand.Execute(null);
         }
 
+        [Inject]
+        private readonly IImageManager imageManager = null;
+
         private async void LoadIconAsync(MessageBoxImage messageBoxImage)
         {
             switch (messageBoxImage)
             {
                 case MessageBoxImage.Error:
-                    this.Icon = await ImageManager.Current.GetImageAsync("error_red_32x32.png");
+                    this.Icon = await this.imageManager.GetImageAsync("error_red_32x32.png");
                     break;
 
                 case MessageBoxImage.Question:
-                    this.Icon = await ImageManager.Current.GetImageAsync("Information(Help)_7833.png");
+                    this.Icon = await this.imageManager.GetImageAsync("Information(Help)_7833.png");
                     break;
 
                 case MessageBoxImage.Exclamation:
-                    this.Icon = await ImageManager.Current.GetImageAsync("Warning_yellow_7231_31x32.png");
+                    this.Icon = await this.imageManager.GetImageAsync("Warning_yellow_7231_31x32.png");
                     break;
 
                 case MessageBoxImage.Information:
-                    this.Icon = await ImageManager.Current.GetImageAsync("Information_6227_32x.png");
+                    this.Icon = await this.imageManager.GetImageAsync("Information_6227_32x.png");
                     break;
             }
         }

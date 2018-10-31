@@ -25,7 +25,7 @@
       <dependency id="Capgemini.Cauldron" version="3.2.2" />
       <dependency id="Capgemini.Cauldron.Yaml" version="3.2.2" />
       <dependency id="Newtonsoft.Json" version="11.0.2" />
-      <dependency id="Fody" version="3.2.4" />
+      <dependency id="Fody" version="3.2.10" />
     </dependencies>
   </metadata>
   <files>

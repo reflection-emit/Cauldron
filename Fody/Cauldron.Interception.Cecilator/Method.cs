@@ -2,12 +2,10 @@
 using Mono.Cecil;
 using Mono.Cecil.Cil;
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Cauldron.Interception.Cecilator
 {
@@ -56,10 +54,10 @@ namespace Cauldron.Interception.Cecilator
         {
             get
             {
-                if (_asyncMethod == null)
-                    _asyncMethod = this.type.Builder.GetAsyncMethod(this);
+                if (this._asyncMethod == null)
+                    this._asyncMethod = this.type.Builder.GetAsyncMethod(this);
 
-                return _asyncMethod;
+                return this._asyncMethod;
             }
         }
 
@@ -78,16 +76,9 @@ namespace Cauldron.Interception.Cecilator
 
         public BuilderCustomAttributeCollection CustomAttributes => new BuilderCustomAttributeCollection(this.type.Builder, this.methodDefinition);
 
-        /// <summary>
-        /// Gets the type that contains the method.
-        /// </summary>
-        public BuilderType DeclaringType => new BuilderType(this.type.Builder, this.methodReference.DeclaringType);
-
         public string Fullname => this.methodReference.FullName;
 
         public override string Identification => $"{this.methodDefinition.DeclaringType.Name}-{this.methodDefinition.Name}-{this.methodDefinition.DeclaringType.MetadataToken.RID}-{this.methodDefinition.MetadataToken.RID}";
-
-        public bool IsAbstract => this.methodDefinition.IsAbstract && this.methodDefinition.IsHideBySig && this.methodDefinition.IsNewSlot && this.methodDefinition.IsVirtual;
 
         public bool IsAsync => this.AsyncMethodHelper.HasAsyncStateMachineAttribute || this.AsyncMethodHelper.ImplementsIAsyncStateMachineInterface;
 
@@ -122,28 +113,15 @@ namespace Cauldron.Interception.Cecilator
         public bool IsCtor => this.methodDefinition.Name == ".ctor";
 
         public bool IsGenerated => this.methodDefinition.Name.IndexOf('<') >= 0 ||
-                    this.methodDefinition.Name.IndexOf('>') >= 0 ||
-                    this.type.typeDefinition.FullName.IndexOf('<') >= 0 ||
-                    this.type.typeDefinition.FullName.IndexOf('>') >= 0;
+                            this.methodDefinition.Name.IndexOf('>') >= 0 ||
+                            this.type.typeDefinition.FullName.IndexOf('<') >= 0 ||
+                            this.type.typeDefinition.FullName.IndexOf('>') >= 0;
 
         public bool IsInternal => this.methodDefinition.Attributes.HasFlag(MethodAttributes.Assembly);
-
         public bool IsOverride => this.methodDefinition.IsVirtual && this.methodDefinition.IsHideBySig && !this.methodDefinition.IsStatic;
-
-        public bool IsPrivate => this.methodDefinition.IsPrivate;
-
         public bool IsPropertyGetterSetter => (this.methodDefinition.Name.StartsWith("get_") || this.methodDefinition.Name.StartsWith("set_")) && this.methodDefinition.IsSpecialName;
-
         public bool IsProtected => this.methodDefinition.Attributes.HasFlag(MethodAttributes.Family);
-
-        public bool IsPublic => this.methodDefinition.IsPublic;
-
         public bool IsPublicOrInternal => this.IsPublic || this.IsInternal;
-
-        public bool IsSpecialName => this.methodDefinition.IsSpecialName;
-
-        public bool IsStatic => this.methodDefinition.IsStatic;
-
         public bool IsVoid => this.methodDefinition.ReturnType.FullName == "System.Void";
 
         public Modifiers Modifiers
@@ -161,18 +139,7 @@ namespace Cauldron.Interception.Cecilator
         }
 
         public string Name { get => this.methodDefinition.Name; set => this.methodDefinition.Name = value; }
-
-        /// <summary>
-        /// Gets the type that inherited the method.
-        /// </summary>
-        public BuilderType OriginType => this.type;
-
-        public BuilderType[] Parameters =>
-            this.methodReference.Parameters.Select(x => new BuilderType(this.OriginType.Builder, x.ParameterType.ResolveType(this.type.typeReference, this.methodReference))).ToArray();
-
         public int ParametersCount => this.methodReference.Parameters.Count;
-
-        public BuilderType ReturnType => new BuilderType(this.type, this.methodReference.ReturnType);
 
         /// <summary>
         /// Gets a collection of local variables in the method.
@@ -191,6 +158,30 @@ namespace Cauldron.Interception.Cecilator
                 return result;
             }
         }
+
+        /// <summary>
+        /// Gets the type that contains the method.
+        /// </summary>
+        public BuilderType DeclaringType => new BuilderType(this.type.Builder, this.methodReference.DeclaringType);
+
+        public Mono.Collections.Generic.Collection<GenericParameter> GenericParameters => this.methodDefinition?.GenericParameters;
+        public bool HasGenericParameters => this.methodDefinition.HasGenericParameters;
+        public bool IsAbstract => this.methodDefinition.IsAbstract && this.methodDefinition.IsHideBySig && this.methodDefinition.IsNewSlot && this.methodDefinition.IsVirtual;
+        public bool IsPrivate => this.methodDefinition.IsPrivate;
+        public bool IsPublic => this.methodDefinition.IsPublic;
+        public bool IsSpecialName => this.methodDefinition.IsSpecialName;
+
+        public bool IsStatic => this.methodDefinition.IsStatic;
+
+        /// <summary>
+        /// Gets the type that inherited the method.
+        /// </summary>
+        public BuilderType OriginType => this.type;
+
+        public BuilderType[] Parameters =>
+            this.methodReference.Parameters.Select(x => new BuilderType(this.OriginType.Builder, x.ParameterType.ResolveType(this.type.typeReference, this.methodReference))).ToArray();
+
+        public BuilderType ReturnType => new BuilderType(this.type, this.methodReference.ReturnType);
 
         public Method Copy() => this.NewCoder().Copy(Modifiers.Private, $"<{this.Name}>m__original");
 

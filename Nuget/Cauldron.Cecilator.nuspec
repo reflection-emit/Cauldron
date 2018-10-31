@@ -16,6 +16,10 @@
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Cauldron Interception interceptor interception AOP Fody Cecil CIL ILWeaving</tags>
     <releaseNotes>
+      2018.10.28 - [B] Minor bugs in resolving types fixed.
+      2018.10.21 - [C] GetChildrenType is now using ValueTuples instead of classic Tuple.
+      2018.10.21 - [C] Minor code optimizations.
+      2018.10.21 - [A] Reference to System.ValueTuple added.
       2018.10.16 - [B] Switches were not copied correctly in methods
       2018.08.02 - [B] Multiple execution of OnEnter on async methods bug is fixed
       2018.08.01 - [B] GetParametersArray was still broken - not fixed
@@ -44,9 +48,10 @@
       2018.04.11 - [C] Fody version 3.0.0 update and minor bug fixes.
     </releaseNotes>
     <dependencies>
-      <dependency id="Fody" version="3.2.4" />
-      <dependency id="FodyHelpers" version="3.0.3" />
+      <dependency id="Fody" version="3.2.10" />
+      <dependency id="FodyHelpers" version="3.2.12" />
       <dependency id="Mono.Cecil" version="0.10.0" />
+      <dependency id="System.ValueTuple" version="4.5.0" />
     </dependencies>
   </metadata>
   <files>

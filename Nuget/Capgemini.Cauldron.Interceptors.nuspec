@@ -40,7 +40,7 @@
     </releaseNotes>
     <dependencies>
       <dependency id="Cauldron.Interception.Fody" version="3.2.2" />
-      <dependency id="Fody" version="3.2.4" />
+      <dependency id="Fody" version="3.2.10" />
       <dependency id="Cauldron.BasicInterceptors" version="3.2.2" />
       <dependency id="NLog" version="4.5.10" />
     </dependencies>

@@ -127,134 +127,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationBase.cs" />
-    <Compile Include="BehaviourInvocationArgs.cs" />
-    <Compile Include="BitmapImageEx.cs" />
     <Compile Include="CauldronTemplateSelector.cs" />
-    <Compile Include="ICauldronUICommand.cs" />
-    <Compile Include="CauldronUICommand.cs" />
-    <Compile Include="CauldronUICommandCollection.cs" />
-    <Compile Include="Common.cs" />
-    <Compile Include="Controls\NavigationFrame.cs" />
-    <Compile Include="DependencyPropertyInfo.cs" />
-    <Compile Include="Interactivity\Actions\StoryboardBeginAnimationAction.cs" />
-    <Compile Include="Interactivity\DataTrigger.cs" />
-    <Compile Include="Interactivity\VisibilityAnimation.cs" />
-    <Compile Include="JsonConverters\ColorHexToSolidColorBrush.cs" />
-    <Compile Include="Threading\DispatcherWPF.cs" />
-    <Compile Include="DynamicEventHandler.cs" />
-    <Compile Include="Extensions.cs" />
-    <Compile Include="IImageManager.cs" />
-    <Compile Include="ImageManager.cs" />
-    <Compile Include="IMessageDialog.cs" />
-    <Compile Include="Interactivity\Actions\ActionBase.cs" />
-    <Compile Include="Interactivity\Actions\ActionCollection.cs" />
-    <Compile Include="Interactivity\Actions\InvokeMethodAction.cs" />
-    <Compile Include="Interactivity\Attributes\BehaviourUsageAttribute.cs" />
-    <Compile Include="Interactivity\Behaviour.cs" />
-    <Compile Include="Interactivity\BehaviourCollection.cs" />
-    <Compile Include="Interactivity\BehaviourInvocation\BehaviourInvokeAwareBehaviourBase.cs" />
-    <Compile Include="Interactivity\BehaviourInvocation\InvocationTrigger.cs" />
-    <Compile Include="Interactivity\CustomCursor.cs" />
-    <Compile Include="Interactivity\EnterKeyToCommand.cs" />
-    <Compile Include="Interactivity\EventToCommand.cs" />
-    <Compile Include="Interactivity\EventTrigger.cs" />
-    <Compile Include="Interactivity\IBehaviour.cs" />
-    <Compile Include="Interactivity\Interaction.cs" />
-    <Compile Include="Interactivity\InteractionTemplate.cs" />
-    <Compile Include="Interactivity\Localized.cs" />
-    <Compile Include="Interactivity\PasswordBoxBinding.cs" />
-    <Compile Include="Interactivity\PropertyChangedTrigger.cs" />
-    <Compile Include="Interactivity\SetFocusOnLoad.cs" />
-    <Compile Include="Interactivity\StyleInteraction.cs" />
-    <Compile Include="KeyRawValueDictionary.cs" />
-    <Compile Include="MessageBoxImage.cs" />
-    <Compile Include="MessageDialogEx.cs" />
-    <Compile Include="MessageManager.cs" />
-    <Compile Include="MessageObject.cs" />
-    <Compile Include="MessagingArgs.cs" />
-    <Compile Include="Navigation\INavigator_Win32.cs" />
-    <Compile Include="INotifyBehaviourInvocation.cs" />
-    <Compile Include="IRelayCommand.cs" />
-    <Compile Include="LaunchActivatedEventArgs.cs" />
-    <Compile Include="Navigation\CauldronBackRequestedEventArgs.cs" />
-    <Compile Include="Navigation\INavigator.cs" />
-    <Compile Include="Navigation\NavigatingInfo.cs" />
-    <Compile Include="Navigation\NavigationInfo.cs" />
-    <Compile Include="Navigation\NavigationMode.cs" />
-    <Compile Include="Navigation\NavigationType.cs" />
-    <Compile Include="Navigation\Navigator.cs" />
-    <Compile Include="Navigation\NavigatorSinglePage.cs" />
-    <Compile Include="Navigation\PageStackEntry.cs" />
-    <Compile Include="NavigatorSelectorFactoryResolver.cs" />
-    <Compile Include="PersistentWindowInformation.cs" />
-    <Compile Include="PersistentWindowProperties.cs" />
+    <Compile Include="Extensions_Win32.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PropertyIsChangedEventArgs.cs" />
-    <Compile Include="RelayCommand.cs" />
-    <Compile Include="Resources\LocalizationSource.cs" />
     <Compile Include="Resources\MessageDialogView.xaml.cs">
       <DependentUpon>MessageDialogView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Resources\StylesAndTemplates.xaml.cs">
       <DependentUpon>StylesAndTemplates.xaml</DependentUpon>
     </Compile>
-    <Compile Include="TextBlockInline.cs" />
-    <Compile Include="Threading\AsyncHelper.cs" />
-    <Compile Include="Threading\CallOnce.cs" />
-    <Compile Include="Threading\DispatcherDummy.cs" />
-    <Compile Include="Threading\DispatcherFactoryResolver.cs" />
-    <Compile Include="Threading\DispatcherPriority.cs" />
-    <Compile Include="Threading\IDispatcher.cs" />
-    <Compile Include="UnsafeNative.cs" />
-    <Compile Include="Validation\EqualityAttribute.cs" />
-    <Compile Include="Validation\GreaterThanAttribute.cs" />
-    <Compile Include="Validation\GreaterThanOrEqualAttribute.cs" />
-    <Compile Include="Validation\IsMandatoryAttribute.cs" />
-    <Compile Include="Validation\LessThan.cs" />
-    <Compile Include="Validation\LessThanOrEqual.cs" />
-    <Compile Include="Validation\PasswordStrengthAttribute.cs" />
-    <Compile Include="Validation\StringLengthAttribute.cs" />
-    <Compile Include="Validation\UnEqualityAttribute.cs" />
-    <Compile Include="Validation\ValidationBehaviour.cs" />
-    <Compile Include="Validation\ValidationEventArgs.cs" />
-    <Compile Include="Validation\ValidationHandler.cs" />
-    <Compile Include="Validation\ValidationProperties.cs" />
-    <Compile Include="Validation\ValidatorAttributeBase.cs" />
-    <Compile Include="Validation\ValidatorCollection.cs" />
-    <Compile Include="Validation\ValidatorGroup.cs" />
-    <Compile Include="Validation\ViewModels\IValidatableViewModel.cs" />
-    <Compile Include="Validation\ViewModels\ValidatableViewModelBase.cs" />
-    <Compile Include="ValueConverterBase.cs" />
-    <Compile Include="ValueConverters\BooleanInvertConverter.cs" />
-    <Compile Include="ValueConverters\BooleanToVisibilityConverter.cs" />
-    <Compile Include="ValueConverters\KeyToLocalizedStringConverter.cs" />
-    <Compile Include="ValueConverters\NullOrEmptyToVisibilityConverter.cs" />
-    <Compile Include="ValueConverters\ObjectToBooleanConverter.cs" />
-    <Compile Include="ValueConverters\ObjectToVisibilityConverter.cs" />
-    <Compile Include="ValueConverters\VisibilityToBooleanConverter.cs" />
-    <Compile Include="ViewAttribute.cs" />
-    <Compile Include="ViewModels\RaisePropertyChangeAttribute.cs" />
-    <Compile Include="ViewModels\Extensions_Win32.cs" />
-    <Compile Include="ViewModels\IChangeAwareViewModel.cs" />
-    <Compile Include="ViewModels\ICloseAwareViewModel.cs" />
-    <Compile Include="ViewModels\IDialogViewModel.cs" />
-    <Compile Include="ViewModels\IFrameAware.cs" />
-    <Compile Include="ViewModels\INavigable.cs" />
-    <Compile Include="ViewModels\IPrelaunchAware.cs" />
-    <Compile Include="ViewModels\ISizeAware.cs" />
-    <Compile Include="ViewModels\IViewAware.cs" />
-    <Compile Include="ViewModels\IViewModel.cs" />
-    <Compile Include="ViewModels\MessageDialogCommandViewModel.cs" />
-    <Compile Include="ViewModels\MessageDialogViewModel.cs" />
-    <Compile Include="ViewModels\RegisterChildrenAttribute.cs" />
-    <Compile Include="ViewModels\ViewModelBase.cs" />
-    <Compile Include="WindowConfiguration.cs" />
-    <Compile Include="WindowType.cs" />
-    <Compile Include="XAMLHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="FodyWeavers.xml" />
-    <EmbeddedResource Include="Resources\Text\7B5BE4E7E11D87C4E23B68589848BB2A.yaml" />
     <None Include="packages.config" />
     <None Include="WPF.snk" />
   </ItemGroup>
@@ -296,13 +180,7 @@
       <Name>Cauldron</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\Images\error_red_32x32.png" />
-    <EmbeddedResource Include="Resources\Images\Information%28Help%29_7833.png" />
-    <EmbeddedResource Include="Resources\Images\Information_6227_32x.png" />
-    <Content Include="Resources\Images\Readme.txt" />
-    <EmbeddedResource Include="Resources\Images\Warning_yellow_7231_31x32.png" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Page Include="Resources\MessageDialogView.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -314,16 +192,17 @@
     </Page>
   </ItemGroup>
   <Import Project="..\..\Shared\Cauldron.Shared\Cauldron.Shared.projitems" Label="Shared" />
+  <Import Project="..\..\Shared\Cauldron.XAML\Cauldron.XAML.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>
     </PreBuildEvent>
   </PropertyGroup>
-  <Import Project="..\..\packages\Fody.3.2.4\build\Fody.targets" Condition="Exists('..\..\packages\Fody.3.2.4\build\Fody.targets')" />
+  <Import Project="..\..\packages\Fody.3.2.13\build\Fody.targets" Condition="Exists('..\..\packages\Fody.3.2.13\build\Fody.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\..\packages\Fody.3.2.4\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Fody.3.2.4\build\Fody.targets'))" />
+    <Error Condition="!Exists('..\..\packages\Fody.3.2.13\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Fody.3.2.13\build\Fody.targets'))" />
   </Target>
 </Project>

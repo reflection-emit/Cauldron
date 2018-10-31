@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <Import Project="..\..\Shared\TestInterceptors\TestInterceptors.projitems" Label="Shared" />
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\NetStandard\Cauldron.Activator\Cauldron.Activator.csproj" />
+    <ProjectReference Include="..\..\..\NetStandard\Cauldron.Interception\Cauldron.Interception.csproj" />
+    <ProjectReference Include="..\..\..\NetStandard\Cauldron\Cauldron.csproj" />
+  </ItemGroup>
+
+</Project>

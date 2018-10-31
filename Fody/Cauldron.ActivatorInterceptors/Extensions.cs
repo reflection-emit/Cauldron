@@ -1,17 +1,19 @@
 ﻿using Cauldron.Interception.Cecilator;
-using Cauldron.Interception.Cecilator.Coders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Collections;
 
 namespace Cauldron.ActivatorInterceptors
 {
     internal static class Extensions
     {
-        //public static Method GetMethod_Create(this Method method)
-        //{
-        //}
+        public static bool IsIDictionary(this BuilderType builderType) => builderType.Implements(typeof(IDictionary));
+
+        public static bool IsIEnumerable(this BuilderType builderType) =>
+                    BuilderTypes
+                        .IEnumerable
+                        .BuilderType
+                        .AreReferenceAssignable(builderType) || builderType.IsArray;
+
+        public static bool IsParameterless(this InjectAttributeValues injectAttribute) =>
+            (injectAttribute.Arguments == null || injectAttribute.Arguments.Length == 0);
     }
 }

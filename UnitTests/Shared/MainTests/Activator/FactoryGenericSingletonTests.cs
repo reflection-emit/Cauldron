@@ -14,33 +14,31 @@ namespace UnitTests.Activator
         [TestMethod]
         public void Create_Instance_Class()
         {
-            var ll = Factory.FactoryTypes;
-            var tt = Factory.RegisteredTypes;
-            var zz = Factory.Resolvers;
-
-            MyClass.Current.Value = "Toast";
+            Factory.Create<MyClass>().Value = "Toast";
 
             var instance = Factory.Create<MyClass>();
 
-            Assert.AreNotEqual(MyClass.Current.Value, instance.Value);
+            Assert.AreEqual(Factory.Create<MyClass>().Value, instance.Value);
         }
 
         [TestMethod]
         public void Create_Instance_Interface()
         {
-            MySecondClass.Current.Value = "Toast";
+            Factory.Create<IMyClass>().Value = "Toast";
 
             var instance = Factory.Create<IMyClass>();
 
-            Assert.AreNotEqual(MySecondClass.Current.Value, instance.Value);
+            Assert.AreEqual(Factory.Create<IMyClass>().Value, instance.Value);
         }
 
-        public class MyClass : Factory<MyClass>
+        [Component(typeof(MyClass), FactoryCreationPolicy.Singleton)]
+        public class MyClass
         {
             public string Value { get; set; }
         }
 
-        public class MySecondClass : Factory<IMyClass>, IMyClass
+        [Component(typeof(IMyClass), FactoryCreationPolicy.Singleton)]
+        public class MySecondClass : IMyClass
         {
             public string Value { get; set; }
         }
